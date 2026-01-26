@@ -1,0 +1,537 @@
+.. _api.machine_learning.vast.classification:
+
+===============
+Classification
+===============
+
+______
+
+
+Linear Models
+-------------
+
+Linear SVC
+~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+
+.. autosummary::
+   :toctree: api/
+
+   svm.LinearSVC
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+   LinearSVC.classification_report
+   LinearSVC.confusion_matrix
+   LinearSVC.contour
+   LinearSVC.cutoff_curve
+   LinearSVC.deploySQL
+   LinearSVC.drop
+   LinearSVC.export_models
+   LinearSVC.features_importance
+   LinearSVC.fit
+   LinearSVC.get_attributes
+   LinearSVC.get_match_index
+   LinearSVC.get_params
+   LinearSVC.get_plotting_lib
+   LinearSVC.get_VAST_attributes
+   LinearSVC.import_models
+   LinearSVC.lift_chart
+   LinearSVC.plot
+   LinearSVC.prc_curve
+   LinearSVC.predict
+   LinearSVC.predict_proba
+   LinearSVC.report
+   LinearSVC.roc_curve
+   LinearSVC.score
+   LinearSVC.set_params
+   LinearSVC.summarize
+   LinearSVC.to_binary
+   LinearSVC.to_memmodel
+   LinearSVC.to_python
+   LinearSVC.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   LinearSVC.object_type
+   LinearSVC.classes_
+
+Logistic Regression
+~~~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+
+.. autosummary::
+   :toctree: api/
+
+   linear_model.LogisticRegression
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+   LogisticRegression.classification_report
+   LogisticRegression.confusion_matrix
+   LogisticRegression.contour
+   LogisticRegression.cutoff_curve
+   LogisticRegression.deploySQL
+   LogisticRegression.drop
+   LogisticRegression.export_models
+   LogisticRegression.features_importance
+   LogisticRegression.fit
+   LogisticRegression.get_attributes
+   LogisticRegression.get_match_index
+   LogisticRegression.get_params
+   LogisticRegression.get_plotting_lib
+   LogisticRegression.get_VAST_attributes
+   LogisticRegression.import_models
+   LogisticRegression.lift_chart
+   LogisticRegression.plot
+   LogisticRegression.prc_curve
+   LogisticRegression.predict
+   LogisticRegression.predict_proba
+   LogisticRegression.report
+   LogisticRegression.roc_curve
+   LogisticRegression.score
+   LogisticRegression.set_params
+   LogisticRegression.summarize
+   LogisticRegression.to_binary
+   LogisticRegression.to_memmodel
+   LogisticRegression.to_python
+   LogisticRegression.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   LogisticRegression.object_type
+   LogisticRegression.classes_
+
+_____
+
+Tree-based algorithms
+---------------------
+
+Dummy Tree
+~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   tree.DummyTreeClassifier
+
+.. currentmodule:: vastorbit.machine_learning.vast.tree
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+   DummyTreeClassifier.classification_report
+   DummyTreeClassifier.confusion_matrix
+   DummyTreeClassifier.contour
+   DummyTreeClassifier.cutoff_curve
+   DummyTreeClassifier.deploySQL
+   DummyTreeClassifier.drop
+   DummyTreeClassifier.export_models
+   DummyTreeClassifier.features_importance
+   DummyTreeClassifier.fit
+   DummyTreeClassifier.get_attributes
+   DummyTreeClassifier.get_match_index
+   DummyTreeClassifier.get_params
+   DummyTreeClassifier.get_plotting_lib
+   DummyTreeClassifier.get_score
+   DummyTreeClassifier.get_tree
+   DummyTreeClassifier.get_VAST_attributes
+   DummyTreeClassifier.import_models
+   DummyTreeClassifier.lift_chart
+   DummyTreeClassifier.plot
+   DummyTreeClassifier.plot_tree
+   DummyTreeClassifier.prc_curve
+   DummyTreeClassifier.predict
+   DummyTreeClassifier.predict_proba=
+   DummyTreeClassifier.report
+   DummyTreeClassifier.roc_curve
+   DummyTreeClassifier.score
+   DummyTreeClassifier.set_params
+   DummyTreeClassifier.summarize
+   DummyTreeClassifier.to_binary
+   DummyTreeClassifier.to_graphviz
+   DummyTreeClassifier.to_memmodel
+   DummyTreeClassifier.to_python
+   DummyTreeClassifier.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   DummyTreeClassifier.object_type
+
+
+Decision Tree
+~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   tree.DecisionTreeClassifier
+
+.. currentmodule:: vastorbit.machine_learning.vast.tree
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+
+   DecisionTreeClassifier.classification_report
+   DecisionTreeClassifier.confusion_matrix
+   DecisionTreeClassifier.contour
+   DecisionTreeClassifier.cutoff_curve
+   DecisionTreeClassifier.deploySQL
+   DecisionTreeClassifier.drop
+   DecisionTreeClassifier.export_models
+   DecisionTreeClassifier.features_importance
+   DecisionTreeClassifier.fit
+   DecisionTreeClassifier.get_attributes
+   DecisionTreeClassifier.get_match_index
+   DecisionTreeClassifier.get_params
+   DecisionTreeClassifier.get_plotting_lib
+   DecisionTreeClassifier.get_score
+   DecisionTreeClassifier.get_tree
+   DecisionTreeClassifier.get_VAST_attributes
+   DecisionTreeClassifier.import_models
+   DecisionTreeClassifier.lift_chart
+   DecisionTreeClassifier.plot
+   DecisionTreeClassifier.plot_tree
+   DecisionTreeClassifier.prc_curve
+   DecisionTreeClassifier.predict
+   DecisionTreeClassifier.predict_proba
+   DecisionTreeClassifier.report
+   DecisionTreeClassifier.roc_curve
+   DecisionTreeClassifier.score
+   DecisionTreeClassifier.set_params
+   DecisionTreeClassifier.summarize
+   DecisionTreeClassifier.to_binary
+   DecisionTreeClassifier.to_graphviz
+   DecisionTreeClassifier.to_memmodel
+   DecisionTreeClassifier.to_python
+   DecisionTreeClassifier.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   DecisionTreeClassifier.object_type
+
+Random Forest Classifier
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   ensemble.RandomForestClassifier
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+
+   RandomForestClassifier.classification_report
+   RandomForestClassifier.confusion_matrix
+   RandomForestClassifier.contour
+   RandomForestClassifier.cutoff_curve
+   RandomForestClassifier.deploySQL
+   RandomForestClassifier.drop
+   RandomForestClassifier.export_models
+   RandomForestClassifier.features_importance
+   RandomForestClassifier.fit
+   RandomForestClassifier.get_attributes
+   RandomForestClassifier.get_match_index
+   RandomForestClassifier.get_params
+   RandomForestClassifier.get_plotting_lib
+   RandomForestClassifier.get_score
+   RandomForestClassifier.get_tree
+   RandomForestClassifier.get_VAST_attributes
+   RandomForestClassifier.import_models
+   RandomForestClassifier.lift_chart
+   RandomForestClassifier.plot
+   RandomForestClassifier.plot_tree
+   RandomForestClassifier.prc_curve
+   RandomForestClassifier.predict
+   RandomForestClassifier.predict_proba
+   RandomForestClassifier.report
+   RandomForestClassifier.roc_curve
+   RandomForestClassifier.score
+   RandomForestClassifier.set_params
+   RandomForestClassifier.summarize
+   RandomForestClassifier.to_binary
+   RandomForestClassifier.to_graphviz
+   RandomForestClassifier.to_memmodel
+   RandomForestClassifier.to_python
+   RandomForestClassifier.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   RandomForestClassifier.object_type
+
+XGBoost Classifier
+~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   ensemble.XGBClassifier
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+
+   XGBClassifier.classification_report
+   XGBClassifier.confusion_matrix
+   XGBClassifier.contour
+   XGBClassifier.cutoff_curve
+   XGBClassifier.deploySQL
+   XGBClassifier.drop
+   XGBClassifier.export_models
+   XGBClassifier.features_importance
+   XGBClassifier.fit
+   XGBClassifier.get_attributes
+   XGBClassifier.get_match_index
+   XGBClassifier.get_params
+   XGBClassifier.get_plotting_lib
+   XGBClassifier.get_score
+   XGBClassifier.get_tree
+   XGBClassifier.get_VAST_attributes
+   XGBClassifier.import_models
+   XGBClassifier.lift_chart
+   XGBClassifier.plot
+   XGBClassifier.plot_tree
+   XGBClassifier.prc_curve
+   XGBClassifier.predict
+   XGBClassifier.predict_proba
+   XGBClassifier.report
+   XGBClassifier.roc_curve
+   XGBClassifier.score
+   XGBClassifier.set_params
+   XGBClassifier.summarize
+   XGBClassifier.to_binary
+   XGBClassifier.to_graphviz
+   XGBClassifier.to_json
+   XGBClassifier.to_memmodel
+   XGBClassifier.to_python
+   XGBClassifier.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   XGBClassifier.object_type
+
+________
+
+Naive Bayes
+--------------
+
+Naive Bayes
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   naive_bayes.NaiveBayes
+
+.. currentmodule:: vastorbit.machine_learning.vast.naive_bayes
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+
+   NaiveBayes.classification_report
+   NaiveBayes.confusion_matrix
+   NaiveBayes.contour
+   NaiveBayes.cutoff_curve
+   NaiveBayes.deploySQL
+   NaiveBayes.drop
+   NaiveBayes.export_models
+   NaiveBayes.fit
+   NaiveBayes.get_attributes
+   NaiveBayes.get_match_index
+   NaiveBayes.get_params
+   NaiveBayes.get_plotting_lib
+   NaiveBayes.get_VAST_attributes
+   NaiveBayes.import_models
+   NaiveBayes.lift_chart
+   NaiveBayes.prc_curve
+   NaiveBayes.predict
+   NaiveBayes.predict_proba
+   NaiveBayes.report
+   NaiveBayes.roc_curve
+   NaiveBayes.score
+   NaiveBayes.set_params
+   NaiveBayes.summarize
+   NaiveBayes.to_binary
+   NaiveBayes.to_memmodel
+   NaiveBayes.to_python
+   NaiveBayes.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   NaiveBayes.object_type
+_______
+
+Neighbors
+-----------
+
+K-Nearest Neighbors Classifier (Beta)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   neighbors.KNeighborsClassifier
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+
+   KNeighborsClassifier.classification_report
+   KNeighborsClassifier.confusion_matrix
+   KNeighborsClassifier.contour
+   KNeighborsClassifier.cutoff_curve
+   KNeighborsClassifier.deploySQL
+   KNeighborsClassifier.drop
+   KNeighborsClassifier.export_models
+   KNeighborsClassifier.fit
+   KNeighborsClassifier.get_attributes
+   KNeighborsClassifier.get_match_index
+   KNeighborsClassifier.get_params
+   KNeighborsClassifier.get_plotting_lib
+   KNeighborsClassifier.get_VAST_attributes
+   KNeighborsClassifier.import_models
+   KNeighborsClassifier.lift_chart
+   KNeighborsClassifier.prc_curve
+   KNeighborsClassifier.predict
+   KNeighborsClassifier.predict_proba
+   KNeighborsClassifier.report
+   KNeighborsClassifier.roc_curve
+   KNeighborsClassifier.score
+   KNeighborsClassifier.set_params
+   KNeighborsClassifier.summarize
+   KNeighborsClassifier.to_binary
+   KNeighborsClassifier.to_python
+   KNeighborsClassifier.to_sql
+
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   KNeighborsClassifier.object_type
+
+
+Nearest Centroid (Beta)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   cluster.NearestCentroid
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+
+   NearestCentroid.classification_report
+   NearestCentroid.confusion_matrix
+   NearestCentroid.contour
+   NearestCentroid.cutoff_curve
+   NearestCentroid.deploySQL
+   NearestCentroid.drop
+   NearestCentroid.export_models
+   NearestCentroid.fit
+   NearestCentroid.get_attributes
+   NearestCentroid.get_match_index
+   NearestCentroid.get_params
+   NearestCentroid.get_plotting_lib
+   NearestCentroid.get_VAST_attributes
+   NearestCentroid.import_models
+   NearestCentroid.lift_chart
+   NearestCentroid.prc_curve
+   NearestCentroid.predict
+   NearestCentroid.predict_proba
+   NearestCentroid.report
+   NearestCentroid.roc_curve
+   NearestCentroid.score
+   NearestCentroid.set_params
+   NearestCentroid.summarize
+   NearestCentroid.to_binary
+   NearestCentroid.to_memmodel
+   NearestCentroid.to_python
+   NearestCentroid.to_sql
+
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   NearestCentroid.object_type
+
+
+_____
+

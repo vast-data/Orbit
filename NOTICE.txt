@@ -1,0 +1,14 @@
+VastOrbit
+Copyright 2026 VAST Data Inc.
+
+This product includes software developed at VAST Data Inc. (https://vastdata.com/).
+
+This project is a derivative work based on VerticaPy:
+  VerticaPy
+  Copyright 2018-2024 Micro Focus or one of its affiliates.
+  Licensed under the Apache License, Version 2.0
+  Original project: https://github.com/vertica/VerticaPy
+
+VastOrbit represents a substantial fork and redesign of VerticaPy, adapted for use 
+with VAST Database and incorporating significant new features, modifications, and 
+enhancements.

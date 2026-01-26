@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Graphviz Viewer</title>
+    <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js">
+</head>
+<body>
+    <div id="graph" style="text-align: center;"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@2.15.0/dist/graphviz.umd.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/d3-graphviz@5.1.0/build/d3-graphviz.js" onload="initializeGraphviz()"></script>
+    
+    <script>
+        function initializeGraphviz() {
+            var dotSrc = [];
+            // Now you can use d3-graphviz safely
+            d3.select("#graph").graphviz()
+                .zoom(true)
+                .renderDot(dotSrc);
+        }
+    </script>
+</body>
+</html>

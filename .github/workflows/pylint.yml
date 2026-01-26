@@ -1,0 +1,40 @@
+name: Pylint
+
+on: 
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+          pip install -e .
+          pip install -r requirements-dev.txt
+          pip install -r requirements-testing.txt
+      
+      - name: Analyze code with pylint
+        run: |
+          pylint --fail-under=9.0 \
+            --disable=typecheck,E0606,W,C,R \
+            --extension-pkg-allow-list=scipy.special \
+            vastorbit/
