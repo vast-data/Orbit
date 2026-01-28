@@ -81,7 +81,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
           
           +++
           
-          Load data from multiple sources into VAST DataBase. Query files directly (Parquet, CSV, JSON) without loading. Access external databases via Trino's federated queries.
+          Load data from multiple sources into VAST DataBase. Query files directly (Parquet, CSV, JSON) without loading. Access external databases via VASTDB's federated queries.
           
           **Key Topics:**
           
@@ -193,12 +193,11 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
           
           **Key Topics:**
           
-          - User-defined functions (UDFs)
           - Geospatial analytics with GeoPandas
           - Real-time streaming with Kafka
           - Production deployment patterns
           
-          :bdg-primary:`UDFs` :bdg-primary:`GeoPandas` :bdg-primary:`Production` :bdg-primary:`Advanced`
+          :bdg-primary:`GeoPandas` :bdg-primary:`Production` :bdg-primary:`Advanced`
           
           +++
           Start Learning →
@@ -270,14 +269,14 @@ Here's a taste of what you'll learn:
     
     # 2. Load data (from VAST table or S3 file)
     customers = vo.VastFrame('customers')
-    transactions = vo.VastFrame.from_parquet('s3://data-lake/transactions/')
+    transactions = vo.VastFrame('datalake.transactions')
     
     # 3. Analyze with pandas-like syntax (executes in VAST!)
     result = customers.join(transactions, on='customer_id')
-    summary = result.groupby('region').agg({
-        'revenue': 'sum',
-        'customer_count': 'count'
-    })
+    summary = result.groupby(
+        'region', 
+        ['sum(revenue)', 'count(customer_count)']
+    )
     
     # 4. Visualize
     summary.bar(columns=['region', 'revenue'])

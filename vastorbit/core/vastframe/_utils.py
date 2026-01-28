@@ -70,7 +70,7 @@ class vDFUtils(PlottingUtils):
         if unit.endswith("S") and unit not in ("MILLISECONDS",):
             unit = unit[:-1]
 
-        # Map to Trino interval units
+        # Map to interval units
         unit_mapping = {
             "SECOND": "SECOND",
             "MINUTE": "MINUTE",
@@ -89,7 +89,7 @@ class vDFUtils(PlottingUtils):
     @staticmethod
     def _get_time_slice_expression(length: int, unit: str, start: bool = True) -> str:
         """
-        Generate Trino SQL for time slicing.
+        Generate SQL for time slicing.
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class vDFUtils(PlottingUtils):
         """
         unit = unit.upper()
 
-        # Map units to Trino date arithmetic
+        # Map units to date arithmetic
         if unit in ("SECOND", "MINUTE", "HOUR"):
             # For sub-day units, compute epoch and truncate
             if unit == "SECOND":

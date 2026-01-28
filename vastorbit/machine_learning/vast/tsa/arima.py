@@ -21,20 +21,6 @@ class ARIMA(TimeSeriesModelBase):
     """
     Creates a inDB ARIMA model.
 
-    .. versionadded:: 23.4.0
-
-    .. note::
-
-        The AR model is much faster than ARIMA(p, 0, 0)
-        or ARMA(p, 0) because the underlying algorithm
-        of AR is quite different.
-
-    .. note::
-
-        The MA model may be faster and more accurate
-        than ARIMA(0, 0, q) or ARMA(0, q) because the
-        underlying algorithm of MA is quite different.
-
     Parameters
     ----------
     name: str, optional
@@ -682,14 +668,6 @@ class ARIMA(TimeSeriesModelBase):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["ARIMA"]:
-        return "ARIMA"
-
-    @property
-    def _predict_sql(self) -> Literal["PREDICT_ARIMA"]:
-        return "PREDICT_ARIMA"
-
-    @property
     def _model_subcategory(self) -> Literal["TIMESERIES"]:
         return "TIMESERIES"
 
@@ -697,708 +675,651 @@ class ARIMA(TimeSeriesModelBase):
     def _model_type(self) -> Literal["ARIMA"]:
         return "ARIMA"
 
-    # System & Special Methods.
-
-    @check_minimum_version
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        order: Union[tuple[int], list[int]] = (0, 0, 0),
-        tol: float = 1e-6,
-        max_iter: int = 100,
-        init: Literal["zero", "hr"] = "zero",
-        missing: Literal[
-            "drop", "error", "zero", "linear_interpolation"
-        ] = "linear_interpolation",
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        if not (isinstance(order, (tuple, list)) or len(order)) != 3:
-            raise ValueError(
-                "Parameter 'order' must be a tuple or a list of 3 elements."
-            )
-        for x in order:
-            if not (isinstance(x, int)):
-                raise ValueError(
-                    "Parameter 'order' must be a tuple or a list of integers."
-                )
-        self.parameters = {
-            "order": order,
-            "tol": tol,
-            "max_iter": max_iter,
-            "init": str(init).lower(),
-            "missing": str(missing).lower(),
-        }
-
 
 class ARMA(TimeSeriesModelBase):
     """
-        Creates a inDB ARMA model.
-
-        .. versionadded:: 12.0.3
-
-        .. note::
-
-            The AR model is much faster than ARIMA(p, 0, 0)
-            or ARMA(p, 0) because the underlying algorithm
-            of AR is quite different.
-
-        .. note::
-
-            The MA model may be faster and more accurate
-            than ARIMA(0, 0, q) or ARMA(0, q) because the
-            underlying algorithm of MA is quite different.
-
-        Parameters
-        ----------
-        name: str, optional
-            Name of the model. The  model is stored  in the
-            database.
-        overwrite_model: bool, optional
-            If set to ``True``, training a
-            model with the same name as an
-            existing model overwrites the
-            existing model.
-        order: tuple, optional
-            The (p,q) order of the model for the autoregressive,
-            and moving average components.
-        tol: float, optional
-            Determines  whether the algorithm has reached
-            the specified accuracy result.
-        max_iter: int, optional
-            Determines  the maximum number of  iterations
-            the  algorithm performs before  achieving the
-            specified accuracy result.
-        init: str, optional
-            Initialization method, one of the following:
-
-            - 'zero':
-                Coefficients are initialized to zero.
-            - 'hr':
-                Coefficients are initialized using the
-                Hannan-Rissanen algorithm.
-
-        missing: str, optional
-            Method for handling missing values, one of the
-            following strings:
-
-            - 'drop':
-                Missing values are ignored.
-            - 'error':
-                Missing values raise an error.
-            - 'zero':
-                Missing values are set to zero.
-            - 'linear_interpolation':
-                Missing values are replaced by a linearly
-                interpolated value based on the nearest
-                valid entries before and after the missing
-                value. In cases where the first or last
-                values in a dataset are missing, the function
-                errors.
-
-        Attributes
-        ----------
-        Many attributes are created
-        during the fitting phase.
-
-        phi_: numpy.array
-            The coefficient of the AutoRegressive process.
-            It represents the strength and direction of the
-            relationship between a variable and its past
-            values.
-        theta_: numpy.array
-            The theta coefficient of the Moving Average
-            process. It signifies the impact and contribution
-            of the lagged error terms in determining the
-            current value within the time series model.
-        mean_: float
-            The mean of the time series values.
-        feature_importances_: numpy.array
-            The importance of features is computed through
-            the AutoRegressive part coefficients, which
-            are normalized based on their range. Subsequently,
-            an activation function calculates the final score.
-            It is necessary to use the
-            :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.features_importance`
-            method to compute it initially, and the computed
-            values will be subsequently utilized for subsequent
-            calls.
-        mse_: float
-            The mean squared error (MSE) of the model, based
-            on one-step forward forecasting, may not always
-            be relevant. Utilizing a full forecasting approach
-            is recommended to compute a more meaningful and
-            comprehensive metric.
-        n_: int
-            The number of rows used to fit the model.
-
-        .. note::
-
-            All attributes can be accessed using the
-            :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_attributes`
-            method.
+    Creates a inDB ARMA model.
+
+    Parameters
+    ----------
+    name: str, optional
+        Name of the model. The  model is stored  in the
+        database.
+    overwrite_model: bool, optional
+        If set to ``True``, training a
+        model with the same name as an
+        existing model overwrites the
+        existing model.
+    order: tuple, optional
+        The (p,q) order of the model for the autoregressive,
+        and moving average components.
+    tol: float, optional
+        Determines  whether the algorithm has reached
+        the specified accuracy result.
+    max_iter: int, optional
+        Determines  the maximum number of  iterations
+        the  algorithm performs before  achieving the
+        specified accuracy result.
+    init: str, optional
+        Initialization method, one of the following:
+
+        - 'zero':
+            Coefficients are initialized to zero.
+        - 'hr':
+            Coefficients are initialized using the
+            Hannan-Rissanen algorithm.
+
+    missing: str, optional
+        Method for handling missing values, one of the
+        following strings:
+
+        - 'drop':
+            Missing values are ignored.
+        - 'error':
+            Missing values raise an error.
+        - 'zero':
+            Missing values are set to zero.
+        - 'linear_interpolation':
+            Missing values are replaced by a linearly
+            interpolated value based on the nearest
+            valid entries before and after the missing
+            value. In cases where the first or last
+            values in a dataset are missing, the function
+            errors.
+
+    Attributes
+    ----------
+    Many attributes are created
+    during the fitting phase.
+
+    phi_: numpy.array
+        The coefficient of the AutoRegressive process.
+        It represents the strength and direction of the
+        relationship between a variable and its past
+        values.
+    theta_: numpy.array
+        The theta coefficient of the Moving Average
+        process. It signifies the impact and contribution
+        of the lagged error terms in determining the
+        current value within the time series model.
+    mean_: float
+        The mean of the time series values.
+    feature_importances_: numpy.array
+        The importance of features is computed through
+        the AutoRegressive part coefficients, which
+        are normalized based on their range. Subsequently,
+        an activation function calculates the final score.
+        It is necessary to use the
+        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.features_importance`
+        method to compute it initially, and the computed
+        values will be subsequently utilized for subsequent
+        calls.
+    mse_: float
+        The mean squared error (MSE) of the model, based
+        on one-step forward forecasting, may not always
+        be relevant. Utilizing a full forecasting approach
+        is recommended to compute a more meaningful and
+        comprehensive metric.
+    n_: int
+        The number of rows used to fit the model.
+
+    .. note::
+
+        All attributes can be accessed using the
+        :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_attributes`
+        method.
+
+    .. note::
+
+        Several other attributes can be accessed by using the
+        :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_VAST_attributes`
+        method.
+
+    Examples
+    --------
+
+    The following examples provide a
+    basic understanding of usage.
+    For more detailed examples, please
+    refer to the :ref:`user_guide.machine_learning`
+    or the :ref:`examples`
+    section on the website.
 
-        .. note::
+    Initialization
+    ^^^^^^^^^^^^^^^
 
-            Several other attributes can be accessed by using the
-            :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_VAST_attributes`
-            method.
+    We import :py:mod:`vastorbit`:
 
-        Examples
-        --------
+    .. ipython:: python
 
-        The following examples provide a
-        basic understanding of usage.
-        For more detailed examples, please
-        refer to the :ref:`user_guide.machine_learning`
-        or the :ref:`examples`
-        section on the website.
+        import vastorbit as vo
 
-        Initialization
-        ^^^^^^^^^^^^^^^
+    .. hint::
 
-        We import :py:mod:`vastorbit`:
+        By assigning an alias to :py:mod:`vastorbit`,
+        we mitigate the risk of code collisions with
+        other libraries. This precaution is necessary
+        because vastorbit uses commonly known function
+        names like "average" and "median", which can
+        potentially lead to naming conflicts. The use
+        of an alias ensures that the functions from
+        :py:mod:`vastorbit` are used as intended without
+        interfering with functions from other libraries.
 
-        .. ipython:: python
+    For this example, we will use
+    the airline passengers dataset.
 
-            import vastorbit as vo
+    .. code-block:: python
 
-        .. hint::
+        import vastorbit.datasets as vod
 
-            By assigning an alias to :py:mod:`vastorbit`,
-            we mitigate the risk of code collisions with
-            other libraries. This precaution is necessary
-            because vastorbit uses commonly known function
-            names like "average" and "median", which can
-            potentially lead to naming conflicts. The use
-            of an alias ensures that the functions from
-            :py:mod:`vastorbit` are used as intended without
-            interfering with functions from other libraries.
+        data = vod.load_airline_passengers()
 
-        For this example, we will use
-        the airline passengers dataset.
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_airline_passengers.html
 
-        .. code-block:: python
+    .. note::
 
-            import vastorbit.datasets as vod
+        vastorbit offers a wide range of sample
+        datasets that are ideal for training
+        and testing purposes. You can explore
+        the full list of available datasets in
+        the :ref:`api.datasets`, which provides
+        detailed information on each dataset and
+        how to use them effectively. These datasets
+        are invaluable resources for honing your
+        data analysis and machine learning skills
+        within the vastorbit environment.
 
-            data = vod.load_airline_passengers()
+    .. ipython:: python
+        :suppress:
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_airline_passengers.html
+        import vastorbit.datasets as vod
+        data = vod.load_airline_passengers()
 
-        .. note::
+    We can plot the data to visually inspect it for the
+    presence of any trends:
 
-            vastorbit offers a wide range of sample
-            datasets that are ideal for training
-            and testing purposes. You can explore
-            the full list of available datasets in
-            the :ref:`api.datasets`, which provides
-            detailed information on each dataset and
-            how to use them effectively. These datasets
-            are invaluable resources for honing your
-            data analysis and machine learning skills
-            within the vastorbit environment.
+    .. code-block::
 
-        .. ipython:: python
-            :suppress:
+        data["passengers"].plot(ts = "date")
 
-            import vastorbit.datasets as vod
-            data = vod.load_airline_passengers()
+    .. ipython:: python
+        :suppress:
 
-        We can plot the data to visually inspect it for the
-        presence of any trends:
+        vo.set_option("plotting_lib", "plotly")
+        fig = data["passengers"].plot(ts = "date", width = 600)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_plot.html")
 
-        .. code-block::
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_plot.html
 
-            data["passengers"].plot(ts = "date")
+    Though the increasing trend is obvious in our example,
+    we can confirm it by the
+    :py:meth:`~vastorbit.machine_learning.model_selection.statistical_tests.mkt`
+    (Mann Kendall test) test:
 
-        .. ipython:: python
-            :suppress:
+    .. code-block:: python
 
-            vo.set_option("plotting_lib", "plotly")
-            fig = data["passengers"].plot(ts = "date", width = 600)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_plot.html")
+        from vastorbit.machine_learning.model_selection.statistical_tests import mkt
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_plot.html
+        mkt(data, column = "passengers", ts = "date")
 
-        Though the increasing trend is obvious in our example,
-        we can confirm it by the
-        :py:meth:`~vastorbit.machine_learning.model_selection.statistical_tests.mkt`
-        (Mann Kendall test) test:
+    .. ipython:: python
+        :suppress:
 
-        .. code-block:: python
+        from vastorbit.machine_learning.model_selection.statistical_tests import mkt
+        result = mkt(data, column = "passengers", ts = "date")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_mkt_result.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-            from vastorbit.machine_learning.model_selection.statistical_tests import mkt
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_mkt_result.html
 
-            mkt(data, column = "passengers", ts = "date")
+    The above tests gives us some more insights into the data
+    such as that the data is monotonic, and is increasing.
+    Furthermore, the low p-value confirms the presence of
+    a trend with respect to time. Now we are sure of the trend
+    so we can apply the appropriate time-series model to fit it.
 
-        .. ipython:: python
-            :suppress:
+    Model Initialization
+    ^^^^^^^^^^^^^^^^^^^^^
 
-            from vastorbit.machine_learning.model_selection.statistical_tests import mkt
-            result = mkt(data, column = "passengers", ts = "date")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_mkt_result.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    First we import the ``ARMA`` model:
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_data_mkt_result.html
+    .. ipython:: python
 
-        The above tests gives us some more insights into the data
-        such as that the data is monotonic, and is increasing.
-        Furthermore, the low p-value confirms the presence of
-        a trend with respect to time. Now we are sure of the trend
-        so we can apply the appropriate time-series model to fit it.
+        from vastorbit.machine_learning.vast.tsa import ARMA
 
-        Model Initialization
-        ^^^^^^^^^^^^^^^^^^^^^
+    Then we can create the model:
 
-        First we import the ``ARMA`` model:
+    .. ipython:: python
+        :okwarning:
 
-        .. ipython:: python
+        model = ARMA(order = (12, 1, 2))
 
-            from vastorbit.machine_learning.vast.tsa import ARMA
+    .. hint::
 
-        Then we can create the model:
+        In :py:mod:`vastorbit` 1.0.x and higher,
+        you do not need to specify the model name,
+        as the name is automatically assigned. If
+        you need to re-use the model, you can fetch
+        the model name from the model's attributes.
 
-        .. ipython:: python
-            :okwarning:
+    .. important::
 
-            model = ARMA(order = (12, 1, 2))
+        The model name is crucial for the model
+        management system and versioning. It's
+        highly recommended to provide a name if
+        you plan to reuse the model later.
 
-        .. hint::
+    Model Fitting
+    ^^^^^^^^^^^^^^^
 
-            In :py:mod:`vastorbit` 1.0.x and higher,
-            you do not need to specify the model name,
-            as the name is automatically assigned. If
-            you need to re-use the model, you can fetch
-            the model name from the model's attributes.
+    We can now fit the model:
 
-        .. important::
+    .. ipython:: python
+        :okwarning:
 
-            The model name is crucial for the model
-            management system and versioning. It's
-            highly recommended to provide a name if
-            you plan to reuse the model later.
+        model.fit(data, "date", "passengers")
 
-        Model Fitting
-        ^^^^^^^^^^^^^^^
+    .. important::
 
-        We can now fit the model:
+        To train a model, you can directly use the
+        :py:class:`~VastFrame` or the name of the
+        relation stored in the database. The test
+        set is optional and is only used to compute
+        the test metrics. In :py:mod:`vastorbit`, we
+        don't work using ``X`` matrices and ``y``
+        vectors. Instead, we work directly with lists
+        of predictors and the response name.
 
-        .. ipython:: python
-            :okwarning:
+    Features Importance
+    ^^^^^^^^^^^^^^^^^^^^
 
-            model.fit(data, "date", "passengers")
+    We can conveniently get the features importance:
 
-        .. important::
+    .. ipython:: python
+        :okwarning:
 
-            To train a model, you can directly use the
-            :py:class:`~VastFrame` or the name of the
-            relation stored in the database. The test
-            set is optional and is only used to compute
-            the test metrics. In :py:mod:`vastorbit`, we
-            don't work using ``X`` matrices and ``y``
-            vectors. Instead, we work directly with lists
-            of predictors and the response name.
+        model.features_importance()
 
-        Features Importance
-        ^^^^^^^^^^^^^^^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        We can conveniently get the features importance:
+        vo.set_option("plotting_lib", "plotly")
+        fig = model.features_importance()
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_features.html")
 
-        .. ipython:: python
-            :okwarning:
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_features.html
 
-            model.features_importance()
+    .. important::
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+        Feature importance is determined by using the coefficients of the
+        auto-regressive (AR) process and normalizing them. This method
+        tends to be precise when your time series primarily consists of an
+        auto-regressive component. However, its accuracy may be a topic of
+        discussion if the time series contains other components as well.
+_____
 
-            vo.set_option("plotting_lib", "plotly")
-            fig = model.features_importance()
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_features.html")
+    One important thing in time-series forecasting is that it has two
+    types of forecasting:
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_features.html
+    - One-step ahead forecasting
+    - Full forecasting
 
-        .. important::
+    .. important::
 
-            Feature importance is determined by using the coefficients of the
-            auto-regressive (AR) process and normalizing them. This method
-            tends to be precise when your time series primarily consists of an
-            auto-regressive component. However, its accuracy may be a topic of
-            discussion if the time series contains other components as well.
-    _____
+        The default method is one-step ahead forecasting.
+        To use full forecasting, use ``method = "forecast" ``.
 
-        One important thing in time-series forecasting is that it has two
-        types of forecasting:
+    One-step ahead
+    ---------------
 
-        - One-step ahead forecasting
-        - Full forecasting
+    In this type of forecasting, the algorithm utilizes the
+    true value of the previous timestamp (t-1) to predict the
+    immediate next timestamp (t). Subsequently, to forecast
+    additional steps into the future (t+1), it relies on the
+    actual value of the immediately preceding timestamp (t).
 
-        .. important::
+    A notable drawback of this forecasting method is its
+    tendency to exhibit exaggerated accuracy, particularly
+    when predicting more than one step into the future.
 
-            The default method is one-step ahead forecasting.
-            To use full forecasting, use ``method = "forecast" ``.
+    Metrics
+    ^^^^^^^^
 
-        One-step ahead
-        ---------------
+    We can get the entire report using:
 
-        In this type of forecasting, the algorithm utilizes the
-        true value of the previous timestamp (t-1) to predict the
-        immediate next timestamp (t). Subsequently, to forecast
-        additional steps into the future (t+1), it relies on the
-        actual value of the immediately preceding timestamp (t).
+    .. code-block:: python
 
-        A notable drawback of this forecasting method is its
-        tendency to exhibit exaggerated accuracy, particularly
-        when predicting more than one step into the future.
+        model.report()
 
-        Metrics
-        ^^^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        We can get the entire report using:
+        result = model.report()
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report.html
 
-            model.report()
+    You can also choose the number of predictions and where to start the forecast.
+    For example, the following code will allow you to generate a report with 30
+    predictions, starting the forecasting process at index 40.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    .. code-block:: python
 
-            result = model.report()
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+        model.report(start = 40, npredictions = 30)
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report.html
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        You can also choose the number of predictions and where to start the forecast.
-        For example, the following code will allow you to generate a report with 30
-        predictions, starting the forecasting process at index 40.
+        result = model.report(start = 40, npredictions = 30)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report_pred_2.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report_pred_2.html
 
-            model.report(start = 40, npredictions = 30)
+    .. important::
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+        Most metrics are computed using a single SQL query, but some of them might
+        require multiple SQL queries. Selecting only the necessary metrics in the
+        report can help optimize performance.
+        E.g. ``model.report(metrics = ["mse", "r2"])``.
 
-            result = model.report(start = 40, npredictions = 30)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report_pred_2.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    You can utilize the
+    :py:meth:`~vastorbit.machine_learning.vast.tsa.ARMA.score`
+    function to calculate various regression metrics, with the explained
+    variance being the default.
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_report_pred_2.html
+    .. ipython:: python
+        :okwarning:
 
-        .. important::
+        model.score()
 
-            Most metrics are computed using a single SQL query, but some of them might
-            require multiple SQL queries. Selecting only the necessary metrics in the
-            report can help optimize performance.
-            E.g. ``model.report(metrics = ["mse", "r2"])``.
+    The same applies to the score. You can choose where to start and
+    the number of predictions to use.
 
-        You can utilize the
-        :py:meth:`~vastorbit.machine_learning.vast.tsa.ARMA.score`
-        function to calculate various regression metrics, with the explained
-        variance being the default.
+    .. ipython:: python
+        :okwarning:
 
-        .. ipython:: python
-            :okwarning:
+        model.score(start = 40, npredictions = 30)
 
-            model.score()
+    .. important::
 
-        The same applies to the score. You can choose where to start and
-        the number of predictions to use.
+        If you do not specify a starting point and the number of
+        predictions, the forecast will begin at one-fourth of the
+        dataset, which can result in an inaccurate score, especially
+        for large datasets. It's important to choose these parameters
+        carefully.
 
-        .. ipython:: python
-            :okwarning:
+    Prediction
+    ^^^^^^^^^^^
 
-            model.score(start = 40, npredictions = 30)
+    Prediction is straight-forward:
 
-        .. important::
+    .. code-block:: python
 
-            If you do not specify a starting point and the number of
-            predictions, the forecast will begin at one-fourth of the
-            dataset, which can result in an inaccurate score, especially
-            for large datasets. It's important to choose these parameters
-            carefully.
+        model.predict()
 
-        Prediction
-        ^^^^^^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Prediction is straight-forward:
+        result = model.predict()
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction.html
 
-            model.predict()
+    .. hint::
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+        You can control the number of prediction steps by changing
+        the ``npredictions`` parameter:
+        ``model.predict(npredictions = 30)``.
 
-            result = model.predict()
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. note::
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction.html
+        Predictions can be made automatically
+        by using the training set, in which
+        case you don't need to specify the
+        predictors. Alternatively, you can
+        pass only the :py:class:`~VastFrame`
+        to the
+        :py:meth:`~vastorbit.machine_learning.vast.tsa.ARMA.predict`
+        function, but in this case, it's
+        essential that the column names of
+        the :py:class:`~VastFrame` match the
+        predictors and response name in the
+        model.
 
-        .. hint::
+    If you would like to have the 'time-stamps' (ts) in the output then
+    you can switch the ``output_estimated_ts`` the parameter. And if you
+    also would like to see the standard error then you can switch the
+    ``output_standard_errors``parameter:
 
-            You can control the number of prediction steps by changing
-            the ``npredictions`` parameter:
-            ``model.predict(npredictions = 30)``.
+    .. code-block:: python
 
-        .. note::
+        model.predict(output_estimated_ts = True, output_standard_errors = True)
 
-            Predictions can be made automatically
-            by using the training set, in which
-            case you don't need to specify the
-            predictors. Alternatively, you can
-            pass only the :py:class:`~VastFrame`
-            to the
-            :py:meth:`~vastorbit.machine_learning.vast.tsa.ARMA.predict`
-            function, but in this case, it's
-            essential that the column names of
-            the :py:class:`~VastFrame` match the
-            predictors and response name in the
-            model.
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        If you would like to have the 'time-stamps' (ts) in the output then
-        you can switch the ``output_estimated_ts`` the parameter. And if you
-        also would like to see the standard error then you can switch the
-        ``output_standard_errors``parameter:
+        result = model.predict(output_estimated_ts = True, output_standard_errors = True)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_2.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_2.html
 
-            model.predict(output_estimated_ts = True, output_standard_errors = True)
+    .. important::
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+        The ``output_estimated_ts`` parameter provides an estimation of
+        'ts' assuming that 'ts' is regularly spaced.
 
-            result = model.predict(output_estimated_ts = True, output_standard_errors = True)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_2.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    If you don't provide any input, the function will begin forecasting
+    after the last known value. If you want to forecast starting from a
+    specific value within the input dataset or another dataset, you can
+    use the following syntax.
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_2.html
+    .. code-block:: python
 
-        .. important::
+        model.predict(
+            data,
+            "date",
+            "passengers",
+            start = 40,
+            npredictions = 20,
+            output_estimated_ts = True,
+            output_standard_errors = True,
+        )
 
-            The ``output_estimated_ts`` parameter provides an estimation of
-            'ts' assuming that 'ts' is regularly spaced.
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        If you don't provide any input, the function will begin forecasting
-        after the last known value. If you want to forecast starting from a
-        specific value within the input dataset or another dataset, you can
-        use the following syntax.
+        result = model.predict(data, "date", "passengers", start = 40, npredictions = 20, output_estimated_ts = True, output_standard_errors = True)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_3.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_3.html
 
-            model.predict(
-                data,
-                "date",
-                "passengers",
-                start = 40,
-                npredictions = 20,
-                output_estimated_ts = True,
-                output_standard_errors = True,
-            )
+    Plots
+    ^^^^^^
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    We can conveniently plot the
+    predictions on a line plot to
+    observe the efficacy of our
+    model:
 
-            result = model.predict(data, "date", "passengers", start = 40, npredictions = 20, output_estimated_ts = True, output_standard_errors = True)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_3.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. code-block:: python
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_prediction_3.html
+        model.plot(data, "date", "passengers", npredictions = 20, start=135)
 
-        Plots
-        ^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        We can conveniently plot the
-        predictions on a line plot to
-        observe the efficacy of our
-        model:
+        vo.set_option("plotting_lib", "plotly")
+        fig = model.plot(data, "date", "passengers", npredictions = 20, start=135, width = 650)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_plot_1.html")
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_plot_1.html
 
-            model.plot(data, "date", "passengers", npredictions = 20, start=135)
+    .. note::
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+        You can control the number of prediction steps by changing
+        the ``npredictions`` parameter:
+        ``model.plot(npredictions = 30)``.
 
-            vo.set_option("plotting_lib", "plotly")
-            fig = model.plot(data, "date", "passengers", npredictions = 20, start=135, width = 650)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_plot_1.html")
+    Please refer to  :ref:`chart_gallery.tsa` for more examples.
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_plot_1.html
 
-        .. note::
+    Full forecasting
+    -----------------
 
-            You can control the number of prediction steps by changing
-            the ``npredictions`` parameter:
-            ``model.plot(npredictions = 30)``.
+    In this forecasting approach, the algorithm relies solely
+    on a chosen true value for initiation. Subsequently, all
+    predictions are established based on a series of previously
+    predicted values.
 
-        Please refer to  :ref:`chart_gallery.tsa` for more examples.
+    This methodology aligns the accuracy of predictions more
+    closely with reality. In practical forecasting scenarios,
+    the goal is to predict all future steps, and this technique
+    ensures a progressive sequence of predictions.
 
 
-        Full forecasting
-        -----------------
+    Metrics
+    ^^^^^^^^
 
-        In this forecasting approach, the algorithm relies solely
-        on a chosen true value for initiation. Subsequently, all
-        predictions are established based on a series of previously
-        predicted values.
+    We can get the report using:
 
-        This methodology aligns the accuracy of predictions more
-        closely with reality. In practical forecasting scenarios,
-        the goal is to predict all future steps, and this technique
-        ensures a progressive sequence of predictions.
+    .. code-block:: python
 
+        model.report(start = 40, method = "forecast")
 
-        Metrics
-        ^^^^^^^^
+    By selecting ``start = 40``, we will measure the accuracy from
+    40th time-stamp and continue the assessment until the last
+    available time-stamp.
 
-        We can get the report using:
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        .. code-block:: python
+        result = model.report(start = 40, method = "forecast")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_report.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-            model.report(start = 40, method = "forecast")
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_report.html
 
-        By selecting ``start = 40``, we will measure the accuracy from
-        40th time-stamp and continue the assessment until the last
-        available time-stamp.
+    Notice that the accuracy using ``method = forecast`` is poorer
+    than the one-step ahead forecasting.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
 
-            result = model.report(start = 40, method = "forecast")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_report.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    You can utilize the
+    :py:meth:`~vastorbit.machine_learning.vast.tsa.ARMA.score`
+    function to calculate various regression metrics, with the explained
+    variance being the default.
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_report.html
+    .. ipython:: python
+        :okwarning:
 
-        Notice that the accuracy using ``method = forecast`` is poorer
-        than the one-step ahead forecasting.
+        model.score(start = 40, npredictions = 30, method = "forecast")
 
 
-        You can utilize the
-        :py:meth:`~vastorbit.machine_learning.vast.tsa.ARMA.score`
-        function to calculate various regression metrics, with the explained
-        variance being the default.
+    Prediction
+    ^^^^^^^^^^^
 
-        .. ipython:: python
-            :okwarning:
+    Prediction is straight-forward:
 
-            model.score(start = 40, npredictions = 30, method = "forecast")
+    .. code-block:: python
 
+        model.predict(start = 100, npredictions = 40, method = "forecast")
 
-        Prediction
-        ^^^^^^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Prediction is straight-forward:
+        result = model.predict(start = 100, npredictions = 40, method = "forecast")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction.html
 
-            model.predict(start = 100, npredictions = 40, method = "forecast")
+    If you want to forecast starting from a specific value within
+    the input dataset or another dataset, you can use the following syntax.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    .. code-block:: python
 
-            result = model.predict(start = 100, npredictions = 40, method = "forecast")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+        model.predict(
+            data,
+            "date",
+            "passengers",
+            start = 40,
+            npredictions = 20,
+            output_estimated_ts = True,
+            output_standard_errors = True,
+            method = "forecast"
+        )
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction.html
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        If you want to forecast starting from a specific value within
-        the input dataset or another dataset, you can use the following syntax.
+        result = model.predict(data, "date", "passengers", start = 40, npredictions = 20, output_estimated_ts = True, output_standard_errors = True, method = "forecast")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction_3.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction_3.html
 
-            model.predict(
-                data,
-                "date",
-                "passengers",
-                start = 40,
-                npredictions = 20,
-                output_estimated_ts = True,
-                output_standard_errors = True,
-                method = "forecast"
-            )
+    Plots
+    ^^^^^^
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    We can conveniently plot the
+    predictions on a line plot to
+    observe the efficacy of our
+    model:
 
-            result = model.predict(data, "date", "passengers", start = 40, npredictions = 20, output_estimated_ts = True, output_standard_errors = True, method = "forecast")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction_3.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. code-block:: python
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_prediction_3.html
+        model.plot(data, "date", "passengers", npredictions = 40, start = 120, method = "forecast")
 
-        Plots
-        ^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        We can conveniently plot the
-        predictions on a line plot to
-        observe the efficacy of our
-        model:
+        vo.set_option("plotting_lib", "plotly")
+        fig = model.plot(data, "date", "passengers", npredictions = 40, start = 120, method = "forecast", width = 650)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_plot_1.html")
 
-        .. code-block:: python
-
-            model.plot(data, "date", "passengers", npredictions = 40, start = 120, method = "forecast")
-
-        .. ipython:: python
-            :suppress:
-            :okwarning:
-
-            vo.set_option("plotting_lib", "plotly")
-            fig = model.plot(data, "date", "passengers", npredictions = 40, start = 120, method = "forecast", width = 650)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_plot_1.html")
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_plot_1.html
-
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_arma_f_plot_1.html
     """
 
     # Properties.
-
-    @property
-    def _fit_sql(self) -> Literal["ARIMA"]:
-        return "ARIMA"
-
-    @property
-    def _predict_sql(self) -> Literal["PREDICT_ARIMA"]:
-        return "PREDICT_ARIMA"
 
     @property
     def _model_subcategory(self) -> Literal["TIMESERIES"]:
@@ -1407,40 +1328,6 @@ class ARMA(TimeSeriesModelBase):
     @property
     def _model_type(self) -> Literal["ARMA"]:
         return "ARMA"
-
-    # System & Special Methods.
-
-    @check_minimum_version
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        order: Union[tuple[int], list[int]] = (0, 0),
-        tol: float = 1e-6,
-        max_iter: int = 100,
-        init: Literal["zero", "hr"] = "zero",
-        missing: Literal[
-            "drop", "error", "zero", "linear_interpolation"
-        ] = "linear_interpolation",
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        if not (isinstance(order, (tuple, list)) or len(order)) != 3:
-            raise ValueError(
-                "Parameter 'order' must be a tuple or a list of 2 elements."
-            )
-        for x in order:
-            if not (isinstance(x, int)):
-                raise ValueError(
-                    "Parameter 'order' must be a tuple or a list of integers."
-                )
-        self.parameters = {
-            "order": order,
-            "tol": tol,
-            "max_iter": max_iter,
-            "init": str(init).lower(),
-            "missing": str(missing).lower(),
-        }
 
 
 class AR(TimeSeriesModelBase):
@@ -2102,14 +1989,6 @@ class AR(TimeSeriesModelBase):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["AUTOREGRESSOR"]:
-        return "AUTOREGRESSOR"
-
-    @property
-    def _predict_sql(self) -> Literal["PREDICT_AUTOREGRESSOR"]:
-        return "PREDICT_AUTOREGRESSOR"
-
-    @property
     def _model_subcategory(self) -> Literal["TIMESERIES"]:
         return "TIMESERIES"
 
@@ -2117,690 +1996,650 @@ class AR(TimeSeriesModelBase):
     def _model_type(self) -> Literal["AR"]:
         return "AR"
 
-    # System & Special Methods.
-
-    @check_minimum_version
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        p: int = 3,
-        method: Literal["ols", "yule-walker"] = "ols",
-        penalty: Literal[None, "none", "l2"] = "none",
-        C: PythonNumber = 1.0,
-        missing: Literal[
-            "drop", "error", "zero", "linear_interpolation"
-        ] = "linear_interpolation",
-        subtract_mean: bool = False,
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = {
-            "p": int(p),
-            "method": str(method).lower(),
-            "penalty": str(penalty).lower(),
-            "C": C,
-            "missing": str(missing).lower(),
-            "subtract_mean": subtract_mean,
-            "compute_mse": True,
-        }
-
 
 class MA(TimeSeriesModelBase):
     """
-        Creates a inDB Moving Average model.
-
-        .. versionadded:: 11.0.0
-
-        .. note::
-
-            The MA model may be faster and more accurate
-            than ARIMA(0, 0, q) or ARMA(0, q) because the
-            underlying algorithm of MA is quite different.
-
-        Parameters
-        ----------
-        name: str, optional
-            Name of the model. The  model is stored  in the
-            database.
-        overwrite_model: bool, optional
-            If set to ``True``, training a
-            model with the same name as an
-            existing model overwrites the
-            existing model.
-        q: int, optional
-            Integer in the range [1, 67), the number of lags
-            to consider in the computation.
-        penalty: str, optional
-            Method of regularization.
-
-            - none:
-                No regularization.
-            - l2:
-                L2 regularization.
-        C: PythonNumber, optional
-            The regularization parameter value. The value
-            must be zero or non-negative.
-
-        missing: str, optional
-            Method for handling missing values, one of the
-            following strings:
-
-            - 'drop':
-                Missing values are ignored.
-            - 'error':
-                Missing values raise an error.
-            - 'zero':
-                Missing values are set to zero.
-            - 'linear_interpolation':
-                Missing values are replaced by a linearly
-                interpolated value based on the nearest
-                valid entries before and after the missing
-                value. In cases where the first or last
-                values in a dataset are missing, the function
-                errors.
-
-        Attributes
-        ----------
-        Many attributes are created
-        during the fitting phase.
-
-        theta_: numpy.array
-            The theta coefficient of the Moving Average
-            process. It signifies the impact and contribution
-            of the lagged error terms in determining the
-            current value within the time series model.
-        mu_: float
-            Represents the mean or average of the series. It
-            is a constant term that reflects the expected
-            value of the time series in the absence of any
-            temporal dependencies or influences from past
-            error terms.
-        mean_: float
-            The mean of the time series values.
-        mse_: float
-            The mean squared error (MSE) of the model, based
-            on one-step forward forecasting, may not always
-            be relevant. Utilizing a full forecasting approach
-            is recommended to compute a more meaningful and
-            comprehensive metric.
-        n_: int
-            The number of rows used to fit the model.
-
-        .. note::
-
-            All attributes can be accessed using the
-            :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_attributes`
-            method.
-
-        .. note::
-
-            Several other attributes can be accessed by using the
-            :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_VAST_attributes`
-            method.
-
-        Examples
-        --------
-
-        The following examples provide a
-        basic understanding of usage.
-        For more detailed examples, please
-        refer to the :ref:`user_guide.machine_learning`
-        or the :ref:`examples`
-        section on the website.
-
-        Initialization
-        ^^^^^^^^^^^^^^^
+    Creates a inDB Moving Average model.
+
+    .. note::
+
+        ...
+
+    Parameters
+    ----------
+    name: str, optional
+        Name of the model. The  model is stored  in the
+        database.
+    overwrite_model: bool, optional
+        If set to ``True``, training a
+        model with the same name as an
+        existing model overwrites the
+        existing model.
+    q: int, optional
+        Integer in the range [1, 67), the number of lags
+        to consider in the computation.
+    penalty: str, optional
+        Method of regularization.
+
+        - none:
+            No regularization.
+        - l2:
+            L2 regularization.
+    C: PythonNumber, optional
+        The regularization parameter value. The value
+        must be zero or non-negative.
+
+    missing: str, optional
+        Method for handling missing values, one of the
+        following strings:
+
+        - 'drop':
+            Missing values are ignored.
+        - 'error':
+            Missing values raise an error.
+        - 'zero':
+            Missing values are set to zero.
+        - 'linear_interpolation':
+            Missing values are replaced by a linearly
+            interpolated value based on the nearest
+            valid entries before and after the missing
+            value. In cases where the first or last
+            values in a dataset are missing, the function
+            errors.
+
+    Attributes
+    ----------
+    Many attributes are created
+    during the fitting phase.
+
+    theta_: numpy.array
+        The theta coefficient of the Moving Average
+        process. It signifies the impact and contribution
+        of the lagged error terms in determining the
+        current value within the time series model.
+    mu_: float
+        Represents the mean or average of the series. It
+        is a constant term that reflects the expected
+        value of the time series in the absence of any
+        temporal dependencies or influences from past
+        error terms.
+    mean_: float
+        The mean of the time series values.
+    mse_: float
+        The mean squared error (MSE) of the model, based
+        on one-step forward forecasting, may not always
+        be relevant. Utilizing a full forecasting approach
+        is recommended to compute a more meaningful and
+        comprehensive metric.
+    n_: int
+        The number of rows used to fit the model.
+
+    .. note::
+
+        All attributes can be accessed using the
+        :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_attributes`
+        method.
+
+    .. note::
+
+        Several other attributes can be accessed by using the
+        :py:meth:`~vastorbit.machine_learning.vast.tsa.TimeSeriesModelBase.get_VAST_attributes`
+        method.
+
+    Examples
+    --------
+
+    The following examples provide a
+    basic understanding of usage.
+    For more detailed examples, please
+    refer to the :ref:`user_guide.machine_learning`
+    or the :ref:`examples`
+    section on the website.
+
+    Initialization
+    ^^^^^^^^^^^^^^^
+
+    We import :py:mod:`vastorbit`:
+
+    .. ipython:: python
+
+        import vastorbit as vo
+
+    .. hint::
+
+        By assigning an alias to :py:mod:`vastorbit`,
+        we mitigate the risk of code collisions with
+        other libraries. This precaution is necessary
+        because vastorbit uses commonly known function
+        names like "average" and "median", which can
+        potentially lead to naming conflicts. The use
+        of an alias ensures that the functions from
+        :py:mod:`vastorbit` are used as intended without
+        interfering with functions from other libraries.
+
+    For this example, we will generate a dummy time-series
+    dataset that has some noise variation centered around a
+    mean value.
+
+    .. code-block:: python
+
+        # Initialization
+        N = 30 # Number of rows
+        temp = [23] * N
+        noisy_temp = [x + random.uniform(-5, 5) for x in temp]
 
-        We import :py:mod:`vastorbit`:
+        # Building the VastFrame
+        data = vo.VastFrame(
+            {
+                "day": [i for i in range(1, N + 1)],
+                "temp": noisy_temp,
+            }
+        )
 
-        .. ipython:: python
+    .. ipython:: python
+        :suppress:
 
-            import vastorbit as vo
-
-        .. hint::
+        import random
+        N = 30
+        temp = [23] * N
+        noisy_temp = [x + random.uniform(-5, 5) for x in temp]
+        data = vo.VastFrame(
+            {
+                "day": [i for i in range(1, N+1)],
+                "temp": noisy_temp,
+            }
+        )
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data.html", "w")
+        html_file.write(data._repr_html_())
+        html_file.close()
 
-            By assigning an alias to :py:mod:`vastorbit`,
-            we mitigate the risk of code collisions with
-            other libraries. This precaution is necessary
-            because vastorbit uses commonly known function
-            names like "average" and "median", which can
-            potentially lead to naming conflicts. The use
-            of an alias ensures that the functions from
-            :py:mod:`vastorbit` are used as intended without
-            interfering with functions from other libraries.
-
-        For this example, we will generate a dummy time-series
-        dataset that has some noise variation centered around a
-        mean value.
-
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data.html
 
-            # Initialization
-            N = 30 # Number of rows
-            temp = [23] * N
-            noisy_temp = [x + random.uniform(-5, 5) for x in temp]
+    .. note::
 
-            # Building the VastFrame
-            data = vo.VastFrame(
-                {
-                    "day": [i for i in range(1, N + 1)],
-                    "temp": noisy_temp,
-                }
-            )
+        vastorbit offers a wide range of sample
+        datasets that are ideal for training
+        and testing purposes. You can explore
+        the full list of available datasets in
+        the :ref:`api.datasets`, which provides
+        detailed information on each dataset and
+        how to use them effectively. These datasets
+        are invaluable resources for honing your
+        data analysis and machine learning skills
+        within the vastorbit environment.
 
-        .. ipython:: python
-            :suppress:
+    We can plot the data to visually inspect it for the
+    presence of any trends:
 
-            import random
-            N = 30
-            temp = [23] * N
-            noisy_temp = [x + random.uniform(-5, 5) for x in temp]
-            data = vo.VastFrame(
-                {
-                    "day": [i for i in range(1, N+1)],
-                    "temp": noisy_temp,
-                }
-            )
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data.html", "w")
-            html_file.write(data._repr_html_())
-            html_file.close()
+    .. code-block::
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data.html
+        data["temp"].plot(ts = "day")
 
-        .. note::
+    .. ipython:: python
+        :suppress:
 
-            vastorbit offers a wide range of sample
-            datasets that are ideal for training
-            and testing purposes. You can explore
-            the full list of available datasets in
-            the :ref:`api.datasets`, which provides
-            detailed information on each dataset and
-            how to use them effectively. These datasets
-            are invaluable resources for honing your
-            data analysis and machine learning skills
-            within the vastorbit environment.
+        vo.set_option("plotting_lib", "plotly")
+        fig = data["temp"].plot(ts = "day", width = 650)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_plot.html")
 
-        We can plot the data to visually inspect it for the
-        presence of any trends:
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_plot.html
 
-        .. code-block::
+    It is obvious there is no trend in our example,
+    but we can confirm it by the
+    :py:meth:`~vastorbit.machine_learning.model_selection.statistical_tests.mkt`
+    (Mann Kendall test) test:
 
-            data["temp"].plot(ts = "day")
+    .. code-block:: python
 
-        .. ipython:: python
-            :suppress:
+        from vastorbit.machine_learning.model_selection.statistical_tests import mkt
 
-            vo.set_option("plotting_lib", "plotly")
-            fig = data["temp"].plot(ts = "day", width = 650)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_plot.html")
+        mkt(data, column = "temp", ts = "day")
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_plot.html
+    .. ipython:: python
+        :suppress:
 
-        It is obvious there is no trend in our example,
-        but we can confirm it by the
-        :py:meth:`~vastorbit.machine_learning.model_selection.statistical_tests.mkt`
-        (Mann Kendall test) test:
+        from vastorbit.machine_learning.model_selection.statistical_tests import mkt
+        result = mkt(data, column = "temp", ts = "day")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_mkt_result.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_mkt_result.html
 
-            from vastorbit.machine_learning.model_selection.statistical_tests import mkt
+    The above report confirms that there is no trend
+    in our data and hence it is stationary. Note the
+    high p-value which is also indicative of the
+    absemce of trend. Once we have
+    established that the data is statioanry, we can
+    then apply MovingAverage model on it.
 
-            mkt(data, column = "temp", ts = "day")
+    Model Initialization
+    ^^^^^^^^^^^^^^^^^^^^^
 
-        .. ipython:: python
-            :suppress:
+    First we import the ``MA`` model:
 
-            from vastorbit.machine_learning.model_selection.statistical_tests import mkt
-            result = mkt(data, column = "temp", ts = "day")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_mkt_result.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. ipython:: python
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_data_mkt_result.html
+        from vastorbit.machine_learning.vast.tsa import MA
 
-        The above report confirms that there is no trend
-        in our data and hence it is stationary. Note the
-        high p-value which is also indicative of the
-        absemce of trend. Once we have
-        established that the data is statioanry, we can
-        then apply MovingAverage model on it.
+    Then we can create the model:
 
-        Model Initialization
-        ^^^^^^^^^^^^^^^^^^^^^
+    .. ipython:: python
+        :okwarning:
 
-        First we import the ``MA`` model:
+        model = MA(q = 2)
 
-        .. ipython:: python
+    .. hint::
 
-            from vastorbit.machine_learning.vast.tsa import MA
+        In :py:mod:`vastorbit` 1.0.x and higher,
+        you do not need to specify the model name,
+        as the name is automatically assigned. If
+        you need to re-use the model, you can fetch
+        the model name from the model's attributes.
 
-        Then we can create the model:
+    .. important::
 
-        .. ipython:: python
-            :okwarning:
+        The model name is crucial for the model
+        management system and versioning. It's
+        highly recommended to provide a name if
+        you plan to reuse the model later.
 
-            model = MA(q = 2)
+    Model Fitting
+    ^^^^^^^^^^^^^^^
 
-        .. hint::
+    We can now fit the model:
 
-            In :py:mod:`vastorbit` 1.0.x and higher,
-            you do not need to specify the model name,
-            as the name is automatically assigned. If
-            you need to re-use the model, you can fetch
-            the model name from the model's attributes.
+    .. ipython:: python
+        :okwarning:
 
-        .. important::
+        model.fit(data, "day", "temp")
 
-            The model name is crucial for the model
-            management system and versioning. It's
-            highly recommended to provide a name if
-            you plan to reuse the model later.
+    .. important::
 
-        Model Fitting
-        ^^^^^^^^^^^^^^^
+        To train a model, you can directly use the
+        :py:class:`~VastFrame` or the name of the
+        relation stored in the database. The test
+        set is optional and is only used to compute
+        the test metrics. In :py:mod:`vastorbit`, we
+        don't work using ``X`` matrices and ``y``
+        vectors. Instead, we work directly with lists
+        of predictors and the response name.
+_____
 
-        We can now fit the model:
+    One important thing in time-series forecasting is that it has two
+    types of forecasting:
 
-        .. ipython:: python
-            :okwarning:
+    - One-step ahead forecasting
+    - Full forecasting
 
-            model.fit(data, "day", "temp")
+    .. important::
 
-        .. important::
+        The default method is one-step ahead forecasting.
+        To use full forecasting, use ``method = "forecast" ``.
 
-            To train a model, you can directly use the
-            :py:class:`~VastFrame` or the name of the
-            relation stored in the database. The test
-            set is optional and is only used to compute
-            the test metrics. In :py:mod:`vastorbit`, we
-            don't work using ``X`` matrices and ``y``
-            vectors. Instead, we work directly with lists
-            of predictors and the response name.
-    _____
+    One-step ahead
+    ---------------
 
-        One important thing in time-series forecasting is that it has two
-        types of forecasting:
+    In this type of forecasting, the algorithm utilizes the
+    true value of the previous timestamp (t-1) to predict the
+    immediate next timestamp (t). Subsequently, to forecast
+    additional steps into the future (t+1), it relies on the
+    actual value of the immediately preceding timestamp (t).
 
-        - One-step ahead forecasting
-        - Full forecasting
+    A notable drawback of this forecasting method is its
+    tendency to exhibit exaggerated accuracy, particularly
+    when predicting more than one step into the future.
 
-        .. important::
+    Metrics
+    ^^^^^^^^
 
-            The default method is one-step ahead forecasting.
-            To use full forecasting, use ``method = "forecast" ``.
+    We can get the entire report using:
 
-        One-step ahead
-        ---------------
+    .. code-block:: python
 
-        In this type of forecasting, the algorithm utilizes the
-        true value of the previous timestamp (t-1) to predict the
-        immediate next timestamp (t). Subsequently, to forecast
-        additional steps into the future (t+1), it relies on the
-        actual value of the immediately preceding timestamp (t).
+        model.report(start = 3)
 
-        A notable drawback of this forecasting method is its
-        tendency to exhibit exaggerated accuracy, particularly
-        when predicting more than one step into the future.
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Metrics
-        ^^^^^^^^
+        result = model.report(start = 3)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        We can get the entire report using:
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report.html
 
-        .. code-block:: python
+    .. important::
 
-            model.report(start = 3)
+        The value for ``start`` has to be greater than the
+        ``q`` value selected for the MA model.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    You can also choose the number of predictions and where to start the forecast.
+    For example, the following code will allow you to generate a report with 10
+    predictions, starting the forecasting process at index 25.
 
-            result = model.report(start = 3)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. code-block:: python
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report.html
+        model.report(start = 25, npredictions = 10)
 
-        .. important::
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-            The value for ``start`` has to be greater than the
-            ``q`` value selected for the MA model.
+        result = model.report(start = 25, npredictions = 10)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report_pred_2.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        You can also choose the number of predictions and where to start the forecast.
-        For example, the following code will allow you to generate a report with 10
-        predictions, starting the forecasting process at index 25.
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report_pred_2.html
 
-        .. code-block:: python
+    .. important::
 
-            model.report(start = 25, npredictions = 10)
+        Most metrics are computed using a single SQL query, but some of them might
+        require multiple SQL queries. Selecting only the necessary metrics in the
+        report can help optimize performance.
+        E.g. ``model.report(metrics = ["mse", "r2"])``.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    You can utilize the
+    :py:meth:`~vastorbit.machine_learning.vast.tsa.MA.score`
+    function to calculate various regression metrics, with the explained
+    variance being the default.
 
-            result = model.report(start = 25, npredictions = 10)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report_pred_2.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. ipython:: python
+        :okwarning:
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_report_pred_2.html
+        model.score(start = 25, npredictions = 10)
 
-        .. important::
+    .. important::
 
-            Most metrics are computed using a single SQL query, but some of them might
-            require multiple SQL queries. Selecting only the necessary metrics in the
-            report can help optimize performance.
-            E.g. ``model.report(metrics = ["mse", "r2"])``.
+        If you do not specify a starting point and the number of
+        predictions, the forecast will begin at one-fourth of the
+        dataset, which can result in an inaccurate score, especially
+        for large datasets. It's important to choose these parameters
+        carefully.
 
-        You can utilize the
-        :py:meth:`~vastorbit.machine_learning.vast.tsa.MA.score`
-        function to calculate various regression metrics, with the explained
-        variance being the default.
+    Prediction
+    ^^^^^^^^^^^
 
-        .. ipython:: python
-            :okwarning:
+    Prediction is straight-forward:
 
-            model.score(start = 25, npredictions = 10)
+    .. code-block:: python
 
-        .. important::
+        model.predict()
 
-            If you do not specify a starting point and the number of
-            predictions, the forecast will begin at one-fourth of the
-            dataset, which can result in an inaccurate score, especially
-            for large datasets. It's important to choose these parameters
-            carefully.
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Prediction
-        ^^^^^^^^^^^
+        result = model.predict()
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        Prediction is straight-forward:
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction.html
 
-        .. code-block:: python
+    .. hint::
 
-            model.predict()
+        You can control the number of prediction steps by changing
+        the ``npredictions`` parameter:
+        ``model.predict(npredictions = 30)``.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    .. note::
 
-            result = model.predict()
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+        Predictions can be made automatically
+        by using the training set, in which
+        case you don't need to specify the
+        predictors. Alternatively, you can
+        pass only the :py:class:`~VastFrame`
+        to the
+        :py:meth:`~vastorbit.machine_learning.vast.tsa.MA.predict`
+        function, but in this case, it's
+        essential that the column names of
+        the :py:class:`~VastFrame` match the
+        predictors and response name in the
+        model.
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction.html
+    If you would like to have the 'time-stamps' (ts) in the output then
+    you can switch the ``output_estimated_ts`` the parameter.
 
-        .. hint::
+    .. code-block:: python
 
-            You can control the number of prediction steps by changing
-            the ``npredictions`` parameter:
-            ``model.predict(npredictions = 30)``.
+        model.predict(output_estimated_ts = True)
 
-        .. note::
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-            Predictions can be made automatically
-            by using the training set, in which
-            case you don't need to specify the
-            predictors. Alternatively, you can
-            pass only the :py:class:`~VastFrame`
-            to the
-            :py:meth:`~vastorbit.machine_learning.vast.tsa.MA.predict`
-            function, but in this case, it's
-            essential that the column names of
-            the :py:class:`~VastFrame` match the
-            predictors and response name in the
-            model.
+        result = model.predict(output_estimated_ts = True)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_2.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        If you would like to have the 'time-stamps' (ts) in the output then
-        you can switch the ``output_estimated_ts`` the parameter.
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_2.html
 
-        .. code-block:: python
+    .. important::
 
-            model.predict(output_estimated_ts = True)
+        The ``output_estimated_ts`` parameter provides an estimation of
+        'ts' assuming that 'ts' is regularly spaced.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    If you don't provide any input, the function will begin forecasting
+    after the last known value. If you want to forecast starting from a
+    specific value within the input dataset or another dataset, you can
+    use the following syntax.
 
-            result = model.predict(output_estimated_ts = True)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_2.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. code-block:: python
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_2.html
+        model.predict(
+            data,
+            "day",
+            "temp",
+            start = 25,
+            npredictions = 10,
+            output_estimated_ts = True,
+        )
 
-        .. important::
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-            The ``output_estimated_ts`` parameter provides an estimation of
-            'ts' assuming that 'ts' is regularly spaced.
+        result = model.predict(data, "day", "temp", start = 25, npredictions = 10, output_estimated_ts = True)
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_3.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        If you don't provide any input, the function will begin forecasting
-        after the last known value. If you want to forecast starting from a
-        specific value within the input dataset or another dataset, you can
-        use the following syntax.
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_3.html
 
-        .. code-block:: python
+    Plots
+    ^^^^^^
 
-            model.predict(
-                data,
-                "day",
-                "temp",
-                start = 25,
-                npredictions = 10,
-                output_estimated_ts = True,
-            )
+    We can conveniently plot the
+    predictions on a line plot to
+    observe the efficacy of our
+    model:
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    .. code-block:: python
 
-            result = model.predict(data, "day", "temp", start = 25, npredictions = 10, output_estimated_ts = True)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_3.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+        model.plot(data, "day", "temp", npredictions = 15, start=25)
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_prediction_3.html
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Plots
-        ^^^^^^
+        vo.set_option("plotting_lib", "plotly")
+        fig = model.plot(data, "day", "temp", npredictions = 15, start = 25, width = 650)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_plot_1.html")
 
-        We can conveniently plot the
-        predictions on a line plot to
-        observe the efficacy of our
-        model:
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_plot_1.html
 
-        .. code-block:: python
+    .. note::
 
-            model.plot(data, "day", "temp", npredictions = 15, start=25)
+        You can control the number of prediction steps by changing
+        the ``npredictions`` parameter:
+        ``model.plot(npredictions = 30)``.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    Please refer to  :ref:`chart_gallery.tsa` for more examples.
 
-            vo.set_option("plotting_lib", "plotly")
-            fig = model.plot(data, "day", "temp", npredictions = 15, start = 25, width = 650)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_plot_1.html")
+    Model Register
+    ^^^^^^^^^^^^^^
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ma_plot_1.html
+    In order to register the model
+    for tracking and versioning:
 
-        .. note::
+    .. code-block:: python
 
-            You can control the number of prediction steps by changing
-            the ``npredictions`` parameter:
-            ``model.plot(npredictions = 30)``.
+        model.register("model_v1")
 
-        Please refer to  :ref:`chart_gallery.tsa` for more examples.
+    Please refer to
+    :ref:`/notebooks/ml/model_tracking_versioning/index.ipynb`
+    for more details on model
+    tracking and versioning.
 
-        Model Register
-        ^^^^^^^^^^^^^^
 
-        In order to register the model
-        for tracking and versioning:
+    Full forecasting
+    -----------------
 
-        .. code-block:: python
+    In this forecasting approach, the algorithm relies solely
+    on a chosen true value for initiation. Subsequently, all
+    predictions are established based on a series of previously
+    predicted values.
 
-            model.register("model_v1")
+    This methodology aligns the accuracy of predictions more
+    closely with reality. In practical forecasting scenarios,
+    the goal is to predict all future steps, and this technique
+    ensures a progressive sequence of predictions.
 
-        Please refer to
-        :ref:`/notebooks/ml/model_tracking_versioning/index.ipynb`
-        for more details on model
-        tracking and versioning.
 
+    Metrics
+    ^^^^^^^^
 
-        Full forecasting
-        -----------------
+    We can get the report using:
 
-        In this forecasting approach, the algorithm relies solely
-        on a chosen true value for initiation. Subsequently, all
-        predictions are established based on a series of previously
-        predicted values.
+    .. code-block:: python
 
-        This methodology aligns the accuracy of predictions more
-        closely with reality. In practical forecasting scenarios,
-        the goal is to predict all future steps, and this technique
-        ensures a progressive sequence of predictions.
+        model.report(start = 25, method = "forecast")
 
+    By selecting ``start = 25``, we will measure the accuracy from
+    40th time-stamp and continue the assessment until the last
+    available time-stamp.
 
-        Metrics
-        ^^^^^^^^
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        We can get the report using:
+        result = model.report(start = 25, method = "forecast")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_report.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        .. code-block:: python
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_report.html
 
-            model.report(start = 25, method = "forecast")
+    Notice that the accuracy using ``method = forecast`` is poorer
+    than the one-step ahead forecasting.
 
-        By selecting ``start = 25``, we will measure the accuracy from
-        40th time-stamp and continue the assessment until the last
-        available time-stamp.
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    You can utilize the
+    :py:meth:`~vastorbit.machine_learning.vast.tsa.MA.score`
+    function to calculate various regression metrics, with the explained
+    variance being the default.
 
-            result = model.report(start = 25, method = "forecast")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_report.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. ipython:: python
+        :okwarning:
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_report.html
+        model.score(start = 25, npredictions = 30, method = "forecast")
 
-        Notice that the accuracy using ``method = forecast`` is poorer
-        than the one-step ahead forecasting.
 
+    Prediction
+    ^^^^^^^^^^^
 
-        You can utilize the
-        :py:meth:`~vastorbit.machine_learning.vast.tsa.MA.score`
-        function to calculate various regression metrics, with the explained
-        variance being the default.
+    Prediction is straight-forward:
 
-        .. ipython:: python
-            :okwarning:
+    .. code-block:: python
 
-            model.score(start = 25, npredictions = 30, method = "forecast")
+        model.predict(start = 25, npredictions = 15, method = "forecast")
 
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Prediction
-        ^^^^^^^^^^^
+        result = model.predict(start = 25, npredictions = 15, method = "forecast")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        Prediction is straight-forward:
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction.html
 
-        .. code-block:: python
+    If you want to forecast starting from a specific value within
+    the input dataset or another dataset, you can use the following syntax.
 
-            model.predict(start = 25, npredictions = 15, method = "forecast")
+    .. code-block:: python
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+        model.predict(
+            data,
+            "day",
+            "temp",
+            start = 25,
+            npredictions = 20,
+            output_estimated_ts = True,
+            output_standard_errors = True,
+            method = "forecast",
+        )
 
-            result = model.predict(start = 25, npredictions = 15, method = "forecast")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction.html
+        result = model.predict(data, "day", "temp", start = 25, npredictions = 20, output_estimated_ts = True, output_standard_errors = True, method = "forecast")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction_3.html", "w")
+        html_file.write(result._repr_html_())
+        html_file.close()
 
-        If you want to forecast starting from a specific value within
-        the input dataset or another dataset, you can use the following syntax.
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction_3.html
 
-        .. code-block:: python
+    Plots
+    ^^^^^^
 
-            model.predict(
-                data,
-                "day",
-                "temp",
-                start = 25,
-                npredictions = 20,
-                output_estimated_ts = True,
-                output_standard_errors = True,
-                method = "forecast",
-            )
+    We can conveniently plot the
+    predictions on a line plot to
+    observe the efficacy of our
+    model:
 
-        .. ipython:: python
-            :suppress:
-            :okwarning:
+    .. code-block:: python
 
-            result = model.predict(data, "day", "temp", start = 25, npredictions = 20, output_estimated_ts = True, output_standard_errors = True, method = "forecast")
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction_3.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
+        model.plot(
+            data,
+            "day",
+            "temp",
+            npredictions = 15,
+            start = 25,
+            method = "forecast",
+        )
 
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_prediction_3.html
+    .. ipython:: python
+        :suppress:
+        :okwarning:
 
-        Plots
-        ^^^^^^
+        vo.set_option("plotting_lib", "plotly")
+        fig = model.plot(data, "day", "temp", npredictions = 15, start = 25, method = "forecast", width = 650)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_plot_1.html")
 
-        We can conveniently plot the
-        predictions on a line plot to
-        observe the efficacy of our
-        model:
-
-        .. code-block:: python
-
-            model.plot(
-                data,
-                "day",
-                "temp",
-                npredictions = 15,
-                start = 25,
-                method = "forecast",
-            )
-
-        .. ipython:: python
-            :suppress:
-            :okwarning:
-
-            vo.set_option("plotting_lib", "plotly")
-            fig = model.plot(data, "day", "temp", npredictions = 15, start = 25, method = "forecast", width = 650)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_plot_1.html")
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_plot_1.html
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_f_plot_1.html
     """
 
     # Properties.
-
-    @property
-    def _fit_sql(self) -> Literal["MOVING_AVERAGE"]:
-        return "MOVING_AVERAGE"
-
-    @property
-    def _predict_sql(self) -> Literal["PREDICT_MOVING_AVERAGE"]:
-        return "PREDICT_MOVING_AVERAGE"
 
     @property
     def _model_subcategory(self) -> Literal["TIMESERIES"]:
@@ -2810,30 +2649,6 @@ class MA(TimeSeriesModelBase):
     def _model_type(self) -> Literal["MA"]:
         return "MA"
 
-    # System & Special Methods.
-
-    @check_minimum_version
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        q: int = 1,
-        penalty: Literal[None, "none", "l2"] = "none",
-        C: PythonNumber = 1.0,
-        missing: Literal[
-            "drop", "error", "zero", "linear_interpolation"
-        ] = "linear_interpolation",
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = {
-            "q": int(q),
-            "penalty": str(penalty).lower(),
-            "C": C,
-            "missing": str(missing).lower(),
-            "compute_mse": True,
-        }
-
 
 # Multivariate models
 
@@ -2841,8 +2656,6 @@ class MA(TimeSeriesModelBase):
 class VAR(AR):
     """
     Creates a inDB VectorAutoregressor model.
-
-    .. versionadded:: 24.2.0
 
     Parameters
     ----------
@@ -3515,28 +3328,8 @@ class VAR(AR):
 
     """
 
-    # System & Special Methods.
+    # Properties.
 
-    @check_minimum_version
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        p: int = 3,
-        method: Literal["yule-walker"] = "yule-walker",
-        penalty: Literal[None, "none", "l2"] = "none",
-        C: PythonNumber = 1.0,
-        missing: Literal["drop", "error", "zero"] = "error",
-        subtract_mean: bool = False,
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = {
-            "p": int(p),
-            "method": str(method).lower(),
-            "penalty": str(penalty).lower(),
-            "C": C,
-            "missing": str(missing).lower(),
-            "subtract_mean": subtract_mean,
-            "compute_mse": True,
-        }
+    @property
+    def _model_type(self) -> Literal["VAR"]:
+        return "VAR"

@@ -451,79 +451,22 @@ Algorithms used for regression.
 
 class RandomForestRegressor(Regressor, RandomForest):
     """
-    Creates a ``RandomForestRegressor``
-    object using the VAST RF_REGRESSOR
-    function. It is an ensemble learning
-    method for regression that operates
-    by constructing a multitude of decision
-    trees at training-time and outputting
-    a class with the mode.
+    Creates an ``RandomForestRegressor`` 
+    object using SKLEARN for training 
+    and the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model.
-        The model is stored
-        in the DB.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_estimators: int, optional
-        The number of trees  in the
-        forest, an ``integer`` between
-        ``1`` and ``1000``, inclusive.
-    max_features: int | str, optional
-        The number of randomly chosen
-        features from which to pick the
-        best feature to split a given
-        tree node. It can be an ``integer``
-        or one of the two following methods.
-
-        - auto:
-            square root of the total
-            number of predictors.
-        - max :
-            number of predictors.
-    max_leaf_nodes: PythonNumber, optional
-        The maximum number of leaf
-        nodes for a tree in the forest,
-        an ``integerv between ``1`` and
-        ``1e9``, inclusive.
-    sample: float, optional
-        The portion of the input data
-        set that is randomly selected
-        for training each tree, a ``float``
-        between ``0.0`` and ``1.0``,
-        inclusive.
-    max_depth: int, optional
-        aximum depth of each tree,
-        an ``integer`` between ``1``
-        and ``100``, inclusive.
-    min_samples_leaf: int, optional
-        The minimum number of samples
-        each branch must have after
-        splitting a node, an ``integer``
-        between ``1`` and ``1e6``,
-        inclusive. A split that results
-        in remaining samples less than
-        this value is discarded.
-    min_info_gain: PythonNumber, optional
-        The minimum threshold for
-        including a split, a ``float``
-        between ``0.0`` and ``1.0``,
-        inclusive. A split with
-        information gain less than
-        this threshold is discarded.
-    nbins: int, optional
-        Number of bins used to find
-        splits in each column, where
-        more splits leads to a longer
-        runtime but more fine-grained,
-        possibly better splits. Must
-        be an ``integer`` between ``2``
-        and ``1000``, inclusive.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -1088,82 +1031,22 @@ class RandomForestRegressor(Regressor, RandomForest):
 
 class XGBRegressor(Regressor, XGBoost):
     """
-    Creates an ``XGBRegressor``
-    object using the VAST
-    XGB_REGRESSOR algorithm.
+    Creates an ``XGBRegressor`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model.
-        The model is stored
-        in the DB.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    max_ntree: int, optional
-        Maximum  number  of trees that  can be  created.
-    max_depth: int, optional
-        aximum depth of each tree,
-        an ``integer`` between ``1``
-        and ``20``, inclusive.
-    nbins: int, optional
-        Number of bins used to find
-        splits in each column, where
-        more splits leads to a longer
-        runtime but more fine-grained,
-        possibly better splits. Must
-        be an ``integer`` between ``2``
-        and ``1000``, inclusive.
-    split_proposal_method: str, optional
-        Approximate splitting strategy,
-        either ``global`` or ``local``
-        (not yet supported).
-    tol: float, optional
-        Approximation error of quantile
-        summary structures used in the
-        approximate split finding method.
-    learning_rate: float, optional
-        Weight applied to each tree's
-        prediction. This reduces each
-        tree's impact, allowing for
-        later trees  to contribute
-        and keeping earlier trees
-        from dominating.
-    min_split_loss: float, optional
-        Each  split  must improve the
-        model's objective function
-        value by at least this much
-        in order to avoid pruning.
-        A value of ``0`` is the same
-        as turning off this parameter
-        (trees are still pruned
-        based  on  positive / negative
-        objective function values).
-    weight_reg: float, optional
-        Regularization term that is
-        applied to the weights of
-        the leaves in the regression
-        tree. A higher value leads to
-        more sparse/smooth weights, which
-        often helps to prevent overfitting.
-    sample: float, optional
-        Fraction of rows used
-        per iteration in training.
-    col_sample_by_tree: float, optional
-        ``float`` in the  range ``(0,1]``
-        that specifies the fraction of
-        columns (features), chosen at
-        random, to use when building
-        each tree.
-    col_sample_by_node: float, optional
-        ``float`` in the range ``(0,1]``
-        that specifies the fraction of
-        columns (features), chosen at
-        random, to use when evaluating
-        each split.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -1787,87 +1670,22 @@ Algorithms used for classification.
 
 class RandomForestClassifier(MulticlassClassifier, RandomForest):
     """
-    Creates a RandomForestClassifier object
-    using the VAST RF_CLASSIFIER function.
-    It is an ensemble learning method for
-    classification that operates by constructing
-    a multitude of decision trees during
-    training and predicting the class by using
-    a majority voting strategy among the
-    individual trees.
-
-    The classifier aggregates the predictions
-    of multiple decision trees to determine
-    the final output class, thus improving
-    the overall prediction accuracy and
-    robustness compared to a single decision
-    tree.
+    Creates an ``ElasticNet`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model.
-        The model is stored
-        in the DB.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_estimators: int, optional
-        The number of trees  in the
-        forest, an ``integer`` between
-        ``1`` and ``1000``, inclusive.
-    max_features: int | str, optional
-        The number of randomly chosen
-        features from which to pick the
-        best feature to split a given
-        tree node. It can be an ``integer``
-        or one of the two following methods.
-
-        - auto:
-            square root of the total
-            number of predictors.
-        - max :
-            number of predictors.
-    max_leaf_nodes: PythonNumber, optional
-        The maximum number of leaf
-        nodes for a tree in the forest,
-        an ``integerv between ``1`` and
-        ``1e9``, inclusive.
-    sample: float, optional
-        The portion of the input data
-        set that is randomly selected
-        for training each tree, a ``float``
-        between ``0.0`` and ``1.0``,
-        inclusive.
-    max_depth: int, optional
-        aximum depth of each tree,
-        an ``integer`` between ``1``
-        and ``100``, inclusive.
-    min_samples_leaf: int, optional
-        The minimum number of samples
-        each branch must have after
-        splitting a node, an ``integer``
-        between ``1`` and ``1e6``,
-        inclusive. A split that results
-        in remaining samples less than
-        this value is discarded.
-    min_info_gain: PythonNumber, optional
-        The minimum threshold for
-        including a split, a ``float``
-        between ``0.0`` and ``1.0``,
-        inclusive. A split with
-        information gain less than
-        this threshold is discarded.
-    nbins: int, optional
-        Number of bins used to find
-        splits in each column, where
-        more splits leads to a longer
-        runtime but more fine-grained,
-        possibly better splits. Must
-        be an ``integer`` between ``2``
-        and ``1000``, inclusive.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -2685,82 +2503,22 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
 
 class XGBClassifier(MulticlassClassifier, XGBoost):
     """
-    Creates an ``XGBClassifier``
-    object using the VAST
-    XGB_CLASSIFIER algorithm.
+    Creates an ``XGBClassifier`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model.
-        The model is stored
-        in the DB.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    max_ntree: int, optional
-        Maximum  number  of trees that can be  created.
-    max_depth: int, optional
-        aximum depth of each tree,
-        an ``integer`` between ``1``
-        and ``20``, inclusive.
-    nbins: int, optional
-        Number of bins used to find
-        splits in each column, where
-        more splits leads to a longer
-        runtime but more fine-grained,
-        possibly better splits. Must
-        be an ``integer`` between ``2``
-        and ``1000``, inclusive.
-    split_proposal_method: str, optional
-        Approximate splitting strategy,
-        either ``global`` or ``local``
-        (not yet supported).
-    tol: float, optional
-        Approximation error of quantile
-        summary structures used in the
-        approximate split finding method.
-    learning_rate: float, optional
-        Weight applied to each tree's
-        prediction. This reduces each
-        tree's impact, allowing for
-        later trees  to contribute
-        and keeping earlier trees
-        from dominating.
-    min_split_loss: float, optional
-        Each  split  must improve the
-        model's objective function
-        value by at least this much
-        in order to avoid pruning.
-        A value of ``0`` is the same
-        as turning off this parameter
-        (trees are still pruned
-        based  on  positive / negative
-        objective function values).
-    weight_reg: float, optional
-        Regularization term that is
-        applied to the weights of
-        the leaves in the regression
-        tree. A higher value leads to
-        more sparse/smooth weights, which
-        often helps to prevent overfitting.
-    sample: float, optional
-        Fraction of rows used
-        per iteration in training.
-    col_sample_by_tree: float, optional
-        ``float`` in the  range ``(0,1]``
-        that specifies the fraction of
-        columns (features), chosen at
-        random, to use when building
-        each tree.
-    col_sample_by_node: float, optional
-        ``float`` in the range ``(0,1]``
-        that specifies the fraction of
-        columns (features), chosen at
-        random, to use when evaluating
-        each split.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -3672,49 +3430,22 @@ Algorithms used for anomaly detection.
 
 class IsolationForest(Clustering, Tree):
     """
-    Creates an ``IsolationForest``
-    object using the VAST
-    IFOREST algorithm.
+    Creates an ``IsolationForest`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model.
-        The model is stored
-        in the DB.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_estimators: int, optional
-        The number of trees  in the
-        forest, an ``integer`` between
-        ``1`` and ``1000``, inclusive.
-    max_depth: int, optional
-        Maximum depth of each tree,
-        an ``integer`` between ``1``
-        and ``100``, inclusive.
-    nbins: int, optional
-        Number of bins used to find
-        splits in each column, where
-        more splits leads to a longer
-        runtime but more fine-grained,
-        possibly better splits. Must
-        be an ``integer`` between ``2``
-        and ``1000``, inclusive.
-    sample: float, optional
-        The portion of the input data
-        set that is randomly selected
-        for training each tree, a ``float``
-        between ``0.0`` and ``1.0``,
-        inclusive.
-    col_sample_by_tree: float, optional
-        ``float`` in the  range ``(0,1]``
-        that specifies the fraction of
-        columns (features), chosen at
-        random, to use when building
-        each tree.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------

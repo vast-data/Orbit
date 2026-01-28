@@ -21,6 +21,10 @@ class DensityPlot(HighchartsBase):
     def _kind(self) -> Literal["density"]:
         return "density"
 
+    @property
+    def _compute_method(self) -> Literal["density"]:
+        return "density"
+
     # Styling Methods.
 
     def _init_style(self) -> None:
@@ -37,8 +41,8 @@ class DensityPlot(HighchartsBase):
                 "startOnTick": True,
                 "endOnTick": True,
                 "showLastLabel": True,
-                "min": np.nanmin(X),
-                "max": np.nanmax(X),
+                "min": float(np.nanmin(X)),
+                "max": float(np.nanmax(X)),
             },
             "yAxis": {"title": {"text": y_label}},
             "legend": {"enabled": False},
@@ -81,7 +85,7 @@ class DensityPlot(HighchartsBase):
         chart, style_kwargs = self._get_chart(chart, style_kwargs=style_kwargs)
         chart.set_dict_options(self.init_style)
         chart.set_dict_options(style_kwargs)
-        data = np.column_stack((self.data["x"], self.data["y"])).tolist()
+        data = np.column_stack((self.data["x"].astype(float), self.data["y"].astype(float))).tolist()
         chart.add_data_set(data, "area", x_label)
         return chart
 
@@ -115,7 +119,7 @@ class MultiDensityPlot(DensityPlot):
         m = self.data["X"].shape[1]
         for i in range(m):
             data = np.column_stack(
-                (self.data["X"][:, i], self.data["Y"][:, i])
+                (self.data["X"][:, i].astype(float), self.data["Y"][:, i].astype(float))
             ).tolist()
             chart.add_data_set(data, "area", str(self.layout["labels"][i]))
         return chart

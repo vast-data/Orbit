@@ -1,25 +1,24 @@
 .. _api.plotting:
 
-=============
+========
 Plotting
-=============
+========
 
-This page illustrates the Plotting Base class. It is still incomplete.
-In order to understand the graphics in more detail, please check out the :ref:`chart_gallery.guide`.
+Plotting base classes and configuration for VastOrbit visualizations.
 
-______
+For detailed plotting guides and examples, see :ref:`chart_gallery.guide`.
 
+____
 
 Base
-------
-
+----
 
 .. currentmodule:: vastorbit.plotting.base
 
 .. autosummary:: 
    :toctree: api/
-
-    PlottingBase
+   
+   PlottingBase
 
 **Methods:**
 
@@ -27,45 +26,41 @@ Base
 
 .. autosummary:: 
    :toctree: api/
+   
+   PlottingBase.get_cmap
+   PlottingBase.get_colors
 
-    PlottingBase.get_cmap
-    PlottingBase.get_colors
-    
-______
+____
 
 SQL
-----
+---
 
 .. currentmodule:: vastorbit.plotting.sql
 
 .. autosummary:: 
    :toctree: api/
+   
+   PlottingBaseSQL
 
-    PlottingBaseSQL
-
-
-_____
+____
 
 Switching Libraries
---------------------
+-------------------
 
-Plotly
-~~~~~~~
-
-.. code-block:: python
-
-    vastorbit.set_option("plotting_lib","plotly")
-
-Matplotlib
-~~~~~~~~~~~~
+**Plotly:**
 
 .. code-block:: python
 
-    vastorbit.set_option("plotting_lib","matplotlib")
+   vastorbit.set_option("plotting_lib", "plotly")
 
-Highcharts
-~~~~~~~~~~~
+**Matplotlib:**
 
 .. code-block:: python
 
-    vastorbit.set_option("plotting_lib","highcharts")
+   vastorbit.set_option("plotting_lib", "matplotlib")
+
+**Highcharts:**
+
+.. code-block:: python
+
+   vastorbit.set_option("plotting_lib", "highcharts")

@@ -1,29 +1,32 @@
 .. _api.utilities:
 
-==========
+=========
 Utilities
-==========
+=========
 
-Options & Displaying
---------------------------
+Configuration options and helper functions for VastOrbit.
+
+____
+
+Options & Display
+-----------------
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    get_option
    set_option
 
-______
+____
 
-Help 
--------
+Help
+----
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    help_start
-   .. version

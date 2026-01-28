@@ -24,58 +24,22 @@ Algorithms used for classification.
 
 class NaiveBayes(MulticlassClassifier):
     """
-    Creates a ``NaiveBayes`` object using the VAST
-    Naive  Bayes  algorithm.  It is a "probabilistic
-    classifier"  based  on  applying Bayes' theorem
-    with strong (naïve) independence assumptions
-    between the features.
+    Creates an ``NaiveBayes`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name of the model. The model is
-        stored in the database.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    alpha: float, optional
-        A ``float`` that specifies use
-        of Laplace smoothing if the event
-        model is categorical, multinomial,
-        or Bernoulli.
-    nbtype: str, optional
-        Naive Bayes type.
-
-        - auto:
-            VAST NaiveBayes objects
-            treat columns according to data type:
-
-            - FLOAT:
-                values are assumed to follow some
-                Gaussian distribution.
-            - INTEGER:
-                values are assumed to belong to
-                one multinomial distribution.
-            - CHAR/VARCHAR:
-                values  are  assumed  to
-                follow  some categorical distribution.
-                The  string  values  stored  in  these
-                columns  must be no greater than  128
-                characters.
-            - BOOLEAN:
-                values    are   treated   as
-                categorical with two values.
-
-        - bernoulli:
-            Casts the variables to boolean.
-        - categorical:
-            Casts the variables to categorical.
-        - multinomial:
-            Casts the variables to integer.
-        - gaussian:
-            Casts the variables to float.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------

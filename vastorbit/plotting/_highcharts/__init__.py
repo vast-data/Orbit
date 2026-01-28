@@ -2,6 +2,8 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
+from vastorbit.plotting._highcharts.base import HighchartsBase
+
 from vastorbit.plotting._highcharts.acf import ACFPACFPlot, ACFPlot
 from vastorbit.plotting._highcharts.bar import BarChart, BarChart2D, DrillDownBarChart
 from vastorbit.plotting._highcharts.hist import Histogram

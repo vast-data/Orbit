@@ -999,23 +999,7 @@ class VASTModel(PlottingUtils):
             specific to your class of interest,
             please refer to that particular class.
         """
-        if self._is_native:
-            try:
-                vast_version(condition=[9, 0, 0])
-                func = f"""
-                    GET_MODEL_SUMMARY(USING PARAMETERS 
-                    model_name = '{self.model_name}')"""
-            except VersionError:
-                func = f"SUMMARIZE_MODEL('{self.model_name}')"
-            return _executeSQL(
-                f"SELECT /*+LABEL('learn.VASTModel.__repr__')*/ {func}",
-                title="Summarizing the model.",
-                method="fetchfirstelem",
-            )
-        else:
-            raise AttributeError(
-                "Method 'summarize' is not available for non-native models."
-            )
+        return None
 
     # I/O Methods.
 
@@ -1906,8 +1890,15 @@ class Supervised(VASTModel):
 
         if not (isinstance(self._sklearn_model, NoneType)):
             vdf = VastFrame(self.input_relation)
-            X = vdf[self.X].to_numpy()
-            y = vdf[[self.y]].to_numpy()[:, 0]
+            
+            # CRITICAL FIX: Fetch X and y together in ONE query to preserve row order
+            all_cols = self.X + [self.y]
+            data = vdf[all_cols].to_numpy()
+            
+            # Split into X and y
+            X = data[:, :-1]  # All columns except last
+            y = data[:, -1]   # Last column
+            
             model = self._sklearn_model(**self.get_params())
             model.fit(X, y)
             self._model = model
@@ -1915,7 +1906,6 @@ class Supervised(VASTModel):
             self._y = y
 
         # Fitting
-
         self._compute_attributes()
         return None
 
@@ -6550,8 +6540,6 @@ class Regressor(Supervised):
         if self._model_type == "KNeighborsRegressor":
             test_relation = self.deploySQL()
             prediction = "predict_neighbors"
-        elif self._model_type == "KernelDensity":
-            test_relation = self.map
         else:
             test_relation = self.test_relation
         if metrics == "anova":
@@ -6820,8 +6808,6 @@ class Regressor(Supervised):
         # Scoring
         if self._model_type == "KNeighborsRegressor":
             test_relation, prediction = self.deploySQL(), "predict_neighbors"
-        elif self._model_type == "KernelDensity":
-            test_relation, prediction = self.map, self.deploySQL()
         else:
             test_relation, prediction = self.test_relation, self.deploySQL()
         arg = [self.y, prediction, test_relation]

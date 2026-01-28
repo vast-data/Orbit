@@ -279,7 +279,6 @@ class vDFMath(vDFFilter):
                     f"when using analytic method '{func}'"
                 )
 
-            # TRINO NATIVE FUNCTIONS
             if func == "kurtosis":
                 # Trino has native KURTOSIS
                 self.eval(name, f"KURTOSIS({columns[0]}) OVER ({by_clause})")
@@ -289,19 +288,16 @@ class vDFMath(vDFFilter):
                 self.eval(name, f"SKEWNESS({columns[0]}) OVER ({by_clause})")
 
             elif func == "median":
-                # Trino uses APPROX_PERCENTILE for median
                 self.eval(
                     name, f"APPROX_PERCENTILE({columns[0]}, 0.5) OVER ({by_clause})"
                 )
 
             elif func == "corr":
-                # Trino has native CORR
                 if len(columns) < 2:
                     raise MissingColumn("CORR requires 2 columns")
                 self.eval(name, f"CORR({columns[0]}, {columns[1]}) OVER ({by_clause})")
 
             elif func == "cov":
-                # Trino has native COVAR_SAMP
                 if len(columns) < 2:
                     raise MissingColumn("COV requires 2 columns")
                 self.eval(
@@ -371,7 +367,6 @@ class vDFMath(vDFFilter):
                 )
 
             elif func == "unique":
-                # Cardinality: use APPROX_DISTINCT in Trino
                 self.eval(name, f"APPROX_DISTINCT({columns[0]}) OVER ({by_clause})")
 
             elif "%" == func[-1]:
@@ -383,7 +378,6 @@ class vDFMath(vDFFilter):
                         f"The aggregate function '{func}' doesn't exist. "
                         "Use 'x%' with x > 0. Example: 50% for median."
                     )
-                # Trino uses APPROX_PERCENTILE
                 self.eval(
                     name, f"APPROX_PERCENTILE({columns[0]}, {x}) OVER ({by_clause})"
                 )
@@ -1328,7 +1322,6 @@ class vDCMath(vDCFilter):
         cat = self.category().lower()
         ctype = self.ctype().lower()
 
-        # Trino array functions
         if ctype.startswith("array"):
             if func == "len":
                 # For arrays, use cardinality
@@ -1336,7 +1329,6 @@ class vDCMath(vDCFilter):
             elif func == "cardinality":
                 expr = "CARDINALITY({})"
             elif func in ("max", "min"):
-                # Trino uses array_max, array_min
                 expr = f"ARRAY_{func.upper()}({{}})"
             elif func == "sum":
                 # Use reduce for sum
@@ -1355,7 +1347,7 @@ class vDCMath(vDCFilter):
                     x_escaped = str(x)
                 expr = f"CONTAINS({{}}, {x_escaped})"
             elif func == "element_at":
-                # Get element at position (1-indexed in Trino)
+                # Get element at position (1-indexed)
                 expr = f"ELEMENT_AT({{}}, {x})"
             else:
                 # Default array function
@@ -1376,7 +1368,6 @@ class vDCMath(vDCFilter):
                 if func not in ("log", "mod", "pow", "round"):
                     expr = f"{func.upper()}({{}})"
                 elif func == "log":
-                    # Trino log(base, value)
                     expr = f"LOG({x}, {{}})"
                 elif func in ("mod", "pow", "round"):
                     expr = f"{func.upper()}({{}}, {x})"
@@ -1394,7 +1385,6 @@ class vDCMath(vDCFilter):
             ):
                 expr = f"{func.upper()}({{}})"
             elif func == "log":
-                # Trino: LOG(base, value)
                 expr = f"LOG({x}, {{}})"
             elif func in ("mod", "pow", "round"):
                 expr = f"{func.upper()}({{}}, {x})"
@@ -1966,7 +1956,6 @@ class vDCMath(vDCFilter):
         """
         unit = unit.upper()
 
-        # Trino doesn't have TIME_SLICE, use DATE_TRUNC + arithmetic
         if length == 1:
             # Simple case: use DATE_TRUNC directly
             func = f"DATE_TRUNC('{unit}', {{}})"

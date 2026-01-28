@@ -292,6 +292,7 @@ Detailed documentation for every module, class, and function.
   connect
   datasets
   error
+  geospatial
   jupyter
   machine_learning
   parsers

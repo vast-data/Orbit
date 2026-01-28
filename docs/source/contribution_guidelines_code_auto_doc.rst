@@ -48,14 +48,14 @@ This section covers setting up Sphinx to automate documentation. **(Future: This
 
 .. code-block:: bash
 
-    git clone https://github.com/vastdata-dev/vastorbit.git
-    cd vastorbit
+   git clone https://github.com/vastdata-dev/vastorbit.git
+   cd vastorbit
 
 **2. Create docs Folder**
 
 .. code-block:: bash
 
-    mkdir -p docs
+   mkdir -p docs
 
 **3. Setup Sphinx Environment**
 
@@ -73,32 +73,32 @@ Example rst_prolog:
 
 .. code-block:: python
 
-    rst_prolog = """
-    .. |vo| replace:: VastOrbit
-    
-    .. ipython:: python
-       :suppress:
-       
-       import vastorbit as vo
-       import pandas as pd
-       vo.set_option("mode", "full")
-    """
+   rst_prolog = """
+   .. |vo| replace:: VastOrbit
+   
+   .. ipython:: python
+      :suppress:
+      
+      import vastorbit as vo
+      import pandas as pd
+      vo.set_option("mode", "full")
+   """
 
 **5. Install Requirements**
 
 .. code-block:: bash
 
-    pip install -r docs/requirements.txt
+   pip install -r docs/requirements.txt
 
 **6. Install VastOrbit**
 
 .. code-block:: bash
 
-    # Uninstall existing version if present
-    pip uninstall vastorbit
-    
-    # Install from source
-    pip install .
+   # Uninstall existing version if present
+   pip uninstall vastorbit
+   
+   # Install from source
+   pip install .
 
 **7. Update Directory Paths**
 
@@ -106,8 +106,8 @@ Navigate to docs folder and run:
 
 .. code-block:: bash
 
-    cd docs
-    python3 replace_sphinx_dir.py
+   cd docs
+   python3 replace_sphinx_dir.py
 
 This updates all directory paths inside VastOrbit code for Sphinx.
 
@@ -115,7 +115,7 @@ This updates all directory paths inside VastOrbit code for Sphinx.
 
 .. code-block:: bash
 
-    make html
+   make html
 
 .. note::
 
@@ -123,7 +123,7 @@ This updates all directory paths inside VastOrbit code for Sphinx.
    
    .. code-block:: bash
    
-       apt install make
+      apt install make
 
 **9. Clean Up Function Names**
 
@@ -131,7 +131,7 @@ Remove "vastorbit." prefix from function names:
 
 .. code-block:: bash
 
-    python3 remove_pattern.py
+   python3 remove_pattern.py
 
 This converts ``vastorbit.VastFrame.bar`` → ``VastFrame.bar``
 
@@ -146,7 +146,7 @@ For convenience, use the ``refresh.sh`` script after making code/docstring chang
 
 .. code-block:: bash
 
-    ./refresh.sh
+   ./refresh.sh
 
 .. note::
 
@@ -154,7 +154,7 @@ For convenience, use the ``refresh.sh`` script after making code/docstring chang
    
    .. code-block:: bash
    
-       chmod +x refresh.sh
+      chmod +x refresh.sh
 
 ____
 
@@ -170,8 +170,15 @@ Use ``--------`` underneath text to mark as header:
 
 .. code-block:: rst
 
-    Function Name
-    -------------
+   Function Name
+   -------------
+
+**This renders as:**
+
+Function Name
+-------------
+
+----
 
 **Sections and Subsections:**
 
@@ -179,29 +186,49 @@ Use ``=======`` for main sections and ``-------`` for subsections:
 
 .. code-block:: rst
 
-    Parameters
-    ==========
-    method: str, optional
-        Description here.
-    
-    Subsection
-    ----------
-    Some text here.
-    
-    Returns
-    =======
-    float
-        Return value description.
+   Parameters
+   ==========
+   method: str, optional
+       Description here.
+   
+   Subsection
+   ----------
+   Some text here.
+   
+   Returns
+   =======
+   float
+       Return value description.
+
+**This renders as:**
+
+Parameters
+==========
+method: str, optional
+    Description here.
+
+Subsection
+----------
+Some text here.
+
+Returns
+=======
+float
+    Return value description.
+
+----
 
 **Centered Headers:**
 
 .. code-block:: rst
 
-    .. centered:: Some Centered Information!
+   .. centered:: Some Centered Information!
 
-**Output:**
+**This renders as:**
 
 .. centered:: Some Centered Information!
+
+----
 
 Indentation and Line Spacing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -212,86 +239,110 @@ Line spacing and indentation must be carefully managed. Without line breaks, all
 
 .. code-block:: rst
 
-    Parameters
-    ----------
-    method: str, optional
-        Method used to compute the optimal h.
-            | auto : Combination of Freedman Diaconis and Sturges.
-            | freedman_diaconis : Freedman Diaconis 
-            | sturges : Sturges
+   Parameters
+   ----------
+   method: str, optional
+       Method used to compute the optimal h.
+           | auto : Combination of Freedman Diaconis and Sturges.
+           | freedman_diaconis : Freedman Diaconis 
+           | sturges : Sturges
 
-**Output:**
+**This renders as:**
 
-    method: str, optional
-        Method used to compute the optimal h.
-            | auto : Combination of Freedman Diaconis and Sturges.
-            | freedman_diaconis : Freedman Diaconis 
-            | sturges : Sturges
+Parameters
+----------
+method: str, optional
+    Method used to compute the optimal h.
+        | auto : Combination of Freedman Diaconis and Sturges.
+        | freedman_diaconis : Freedman Diaconis 
+        | sturges : Sturges
+
+*(Notice: Each line starts with | and there's no extra spacing between options)*
+
+----
 
 **Example 2: Using blank lines for spacing**
 
 .. code-block:: rst
 
-    Parameters
-    ----------
-    method: str, optional
-        Method used to compute the optimal h.
-            auto : Combination of Freedman Diaconis and Sturges.
+   Parameters
+   ----------
+   method: str, optional
+       Method used to compute the optimal h.
+           auto : Combination of Freedman Diaconis and Sturges.
 
-            freedman_diaconis : Freedman Diaconis 
+           freedman_diaconis : Freedman Diaconis 
 
-            sturges : Sturges
+           sturges : Sturges
 
-**Output:**
+**This renders as:**
 
-    method: str, optional
-        Method used to compute the optimal h.
-            auto : Combination of Freedman Diaconis and Sturges.
+Parameters
+----------
+method: str, optional
+    Method used to compute the optimal h.
+        auto : Combination of Freedman Diaconis and Sturges.
 
-            freedman_diaconis : Freedman Diaconis 
+        freedman_diaconis : Freedman Diaconis 
 
-            sturges : Sturges
+        sturges : Sturges
+
+*(Notice: Extra spacing between each option for better readability)*
+
+----
 
 **Example 3: Aligned formatting**
 
 .. code-block:: rst
 
-    Parameters
-    ----------
-    method: str, optional
-        Method used to compute the optimal h.
-            auto              : Combination of Freedman Diaconis
-                                and Sturges.
-            freedman_diaconis : Freedman Diaconis
-            sturges           : Sturges
+   Parameters
+   ----------
+   method: str, optional
+       Method used to compute the optimal h.
+           auto              : Combination of Freedman Diaconis
+                               and Sturges.
+           freedman_diaconis : Freedman Diaconis
+           sturges           : Sturges
 
-**Output:**
+**This renders as:**
 
-    method: str, optional
-        Method used to compute the optimal h.
-            auto              : Combination of Freedman Diaconis
-                                and Sturges.
-            freedman_diaconis : Freedman Diaconis
-            sturges           : Sturges
+Parameters
+----------
+method: str, optional
+    Method used to compute the optimal h.
+        auto              : Combination of Freedman Diaconis
+                            and Sturges.
+        freedman_diaconis : Freedman Diaconis
+        sturges           : Sturges
+
+*(Notice: Options are aligned for a clean, professional look)*
+
+----
 
 Code Blocks
 ~~~~~~~~~~~
 
 **Static Code (Not Executed):**
 
+Show code without executing it:
+
 .. code-block:: rst
 
-    .. code-block:: python
+   .. code-block:: python
 
-       import vastorbit as vo
-       vo.VastFrame({"a":[1,2,3]})
+      import vastorbit as vo
+      vo.VastFrame({"a":[1,2,3]})
 
-**Output:**
+**This renders as:**
 
 .. code-block:: python
 
    import vastorbit as vo
    vo.VastFrame({"a":[1,2,3]})
+
+*(Notice: Code is displayed but not executed - just syntax highlighting)*
+
+----
 
 Code Execution
 ~~~~~~~~~~~~~~
@@ -309,60 +360,87 @@ Execute and display code using the ipython directive.
 
 .. code-block:: rst
 
-    .. ipython:: python
+   .. ipython:: python
 
-        import vastorbit as vo
-        vo.VastFrame({"a":[1,2,3]})
+      import vastorbit as vo
+      vo.VastFrame({"a":[1,2,3]})
+
+**This renders as:**
+
+.. ipython:: python
+
+   import vastorbit as vo
+   vo.VastFrame({"a":[1,2,3]})
+
+*(Notice: Code is executed and output is shown, including the VastFrame table)*
+
+----
 
 Suppressing Code/Output
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Method 1: Suppress Entire Block**
 
-Use ``:suppress:`` directive option to hide entire code block:
+Use ``:suppress:`` directive option to hide entire code block while still executing it:
 
 .. code-block:: rst
 
-    .. ipython:: python
-        :suppress: 
-        
-        import vastorbit as vo
-        import pandas as pd
-        import sys
-        
-    .. ipython:: python
+   .. ipython:: python
+      :suppress: 
+      
+      import vastorbit as vo
+      import pandas as pd
+      import sys
+      
+   .. ipython:: python
 
-        print(vo.VastFrame({"a":[1,2,3]}))
+      print(vo.VastFrame({"a":[1,2,3]}))
 
-**Output:**
+**This renders as:**
 
 .. ipython:: python
-    :suppress: 
-    
-    import vastorbit as vo
-    import pandas as pd
-    import sys
-    
+   :suppress: 
+   
+   import vastorbit as vo
+   import pandas as pd
+   import sys
+   
 .. ipython:: python
 
-    print(vo.VastFrame({"a":[1,2,3]}))
+   print(vo.VastFrame({"a":[1,2,3]}))
+
+*(Notice: The import statements are completely hidden - neither code nor output is shown. Only the print statement and its output are visible.)*
+
+----
 
 **Method 2: Suppress Single Line**
 
-Use ``@suppress`` pseudo-directive:
+Use ``@suppress`` pseudo-directive to hide one line:
 
 .. code-block:: rst
 
-    .. ipython:: python
+   .. ipython:: python
 
-        @suppress      
-        import vastorbit as vo
-        print(vo.VastFrame({"a":[1,2,3]}))
+      @suppress      
+      import vastorbit as vo
+      print(vo.VastFrame({"a":[1,2,3]}))
+
+**This renders as:**
+
+.. ipython:: python
+
+   @suppress      
+   import vastorbit as vo
+   print(vo.VastFrame({"a":[1,2,3]}))
+
+*(Notice: The import line with @suppress is hidden, but the print output is still shown)*
 
 **When to Use:**
 
-- **Block suppress**: For multiple import statements
-- **@suppress**: For skipping single lines
+- **Block suppress** (``:suppress:``): For hiding multiple import statements or setup code
+- **Line suppress** (``@suppress``): For hiding single lines within visible code blocks
+
+----
 
 Links and References
 ~~~~~~~~~~~~~~~~~~~~
@@ -371,37 +449,73 @@ Links and References
 
 .. code-block:: rst
 
-    # Section reference
-    :ref:`api.vastframe`
-    
-    # Function reference
-    :py:func:`~vastorbit.VastFrame.bar`
-    
-    # Module reference
-    :py:mod:`~vastorbit.VastFrame`
+   # Section reference
+   :ref:`api.vastframe`
+   
+   # Function reference
+   :py:func:`~vastorbit.VastFrame.bar`
+   
+   # Module reference
+   :py:mod:`~vastorbit.VastFrame`
+
+**This renders as:**
+
+Section reference: :ref:`api.vastframe`
+
+Function reference: :py:func:`~vastorbit.VastFrame.bar`
+
+Module reference: :py:mod:`~vastorbit.VastFrame`
+
+*(Notice: These become clickable links in the HTML documentation)*
+
+----
 
 **External Links:**
 
 .. code-block:: rst
 
-    `Link Text <https://example.com>`_
+   `Link Text <https://example.com>`_
+
+**This renders as:**
+
+`Link Text <https://example.com>`_
+
+----
 
 Lists
 ~~~~~
 
+**Bullet List:**
+
 .. code-block:: rst
 
-    **Bullet List:**
-    
-    - Item 1
-    - Item 2
-      - Nested item
-    
-    **Numbered List:**
-    
-    1. First item
-    2. Second item
-    3. Third item
+   - Item 1
+   - Item 2
+     - Nested item
+   - Item 3
+
+**This renders as:**
+
+- Item 1
+- Item 2
+  - Nested item
+- Item 3
+
+----
+
+**Numbered List:**
+
+.. code-block:: rst
+
+   1. First item
+   2. Second item
+   3. Third item
+
+**This renders as:**
+
+1. First item
+2. Second item
+3. Third item
 
 ____
 
@@ -411,37 +525,68 @@ ____
 Matplotlib Plots
 ~~~~~~~~~~~~~~~~
 
-Use ``@savefig`` pseudo-directive to save matplotlib figures:
+The ``@savefig`` directive saves the matplotlib figure to a file and displays it in the documentation.
+
+**How it works:**
+
+1. Create your plot with matplotlib
+2. Add ``@savefig filename.png`` on its own line, right before ``plt.show()``
+3. The image is automatically saved to ``_images/`` directory and embedded in the documentation
+
+**Example Code:**
 
 .. code-block:: rst
 
-    .. ipython:: python
-        :suppress:
+   .. ipython:: python
+      :suppress:
 
-        import matplotlib.pyplot as plt
-        x = [1, 2, 3, 4, 5]
-        y = [2, 4, 6, 8, 10]
-        plt.plot(x, y, marker='o', linestyle='-')
-        plt.xlabel('X-axis')
-        plt.ylabel('Y-axis')
-        plt.title('Simple Linear Plot')
-        @savefig simple_plot.png
-        plt.show()
+      import matplotlib.pyplot as plt
+      
+      # Create data
+      x = [1, 2, 3, 4, 5]
+      y = [2, 4, 6, 8, 10]
+      
+      # Create plot
+      plt.plot(x, y, marker='o', linestyle='-')
+      plt.xlabel('X-axis')
+      plt.ylabel('Y-axis')
+      plt.title('Simple Linear Plot')
+      
+      # Save and display the figure
+      @savefig simple_plot.png
+      plt.show()
 
-**Output:**
+**This renders as:**
 
 .. ipython:: python
-    :suppress:
+   :suppress:
 
-    import matplotlib.pyplot as plt
-    x = [1, 2, 3, 4, 5]
-    y = [2, 4, 6, 8, 10]
-    plt.plot(x, y, marker='o', linestyle='-')
-    plt.xlabel('X-axis')
-    plt.ylabel('Y-axis')
-    plt.title('Simple Linear Plot')
-    @savefig simple_plot.png
-    plt.show()
+   import matplotlib.pyplot as plt
+   x = [1, 2, 3, 4, 5]
+   y = [2, 4, 6, 8, 10]
+   plt.plot(x, y, marker='o', linestyle='-')
+   plt.xlabel('X-axis')
+   plt.ylabel('Y-axis')
+   plt.title('Simple Linear Plot')
+   @savefig simple_plot.png
+   plt.show()
+
+*(Notice: The code is hidden by :suppress:, but the plot is displayed. The image is also saved as simple_plot.png)*
+
+----
+
+**Key Points about @savefig:**
+
+- ``@savefig`` must be on its own line, immediately before ``plt.show()``
+- The ``:suppress:`` option hides the code from output (shows only the plot)
+- Images are saved to ``_images/`` directory automatically
+- The saved image can be reused elsewhere with:
+
+  .. code-block:: rst
+  
+     .. image:: _images/simple_plot.png
+
+----
 
 Image File Naming Convention
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -460,6 +605,9 @@ Image File Naming Convention
    
    - ``core_VastFrame__plotting_vDFPlot_boxplot_1.png``
    - ``core_VastFrame__plotting_vDFPlot_boxplot_2.png``
+   - ``core_VastFrame__plotting_vDFPlot_boxplot_3.png``
+
+----
 
 VastOrbit Plots
 ~~~~~~~~~~~~~~~
@@ -468,82 +616,101 @@ VastOrbit Plots
 
 .. code-block:: rst
 
-    .. ipython:: python
-        :suppress:
+   .. ipython:: python
+      :suppress:
 
-        import vastorbit as vo
-        data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
-        @savefig vastorbit_plot.png
-        data.bar("counts")
+      import vastorbit as vo
+      data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
+      @savefig vastorbit_plot.png
+      data.bar("counts")
 
-**Output:**
+**This renders as:**
 
 .. ipython:: python
-    :suppress:
+   :suppress:
 
-    import vastorbit as vo
-    data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
-    @savefig vastorbit_plot.png
-    data.bar("counts")
+   import vastorbit as vo
+   data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
+   @savefig vastorbit_plot.png
+   data.bar("counts")
+
+*(Notice: VastOrbit plot saved as PNG and displayed inline)*
+
+----
 
 **Plotly Backend:**
 
+For Plotly charts, you need to save as HTML and include it:
+
 .. code-block:: rst
 
-    .. ipython:: python
-        :suppress:
+   .. ipython:: python
+      :suppress:
 
-        import vastorbit as vo
-        vo.set_option("plotting_lib","plotly")
-        data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
-        fig = data.bar("counts")
-        fig.write_html("figures/plotly_bar.html")
+      import vastorbit as vo
+      vo.set_option("plotting_lib","plotly")
+      data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
+      fig = data.bar("counts")
+      fig.write_html("figures/plotly_bar.html")
 
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/plotly_bar.html
+   .. raw:: html
+      :file: SPHINX_DIRECTORY/figures/plotly_bar.html
 
 .. note::
 
-   Matplotlib files can be saved as PNG images. Plotly and Highcharts must be saved as HTML files.
+   **Important Differences:**
+   
+   - **Matplotlib**: Save as PNG with ``@savefig filename.png``
+   - **Plotly/Highcharts**: Save as HTML with ``fig.write_html()`` and include with ``.. raw:: html``
+
+----
 
 Advanced HTML Output
 ~~~~~~~~~~~~~~~~~~~~
 
-For advanced graphics (VastFrame output, Plotly charts), use this methodology:
+For advanced graphics (VastFrame output, Plotly charts, interactive tables), use this methodology:
 
-1. Create HTML representation
-2. Save as HTML file
-3. Load and display HTML file
+1. Generate HTML representation with ``._repr_html_()`` or ``.write_html()``
+2. Save as HTML file in ``figures/`` directory
+3. Load and display HTML file with ``.. raw:: html`` directive
 
 **VastFrame Output:**
 
 .. code-block:: rst
 
-    .. ipython:: python
-        :suppress:
+   .. ipython:: python
+      :suppress:
 
-        import vastorbit as vo
-        html_file = open("figures/vastframe_output.html", "w")
-        html_file.write(vo.VastFrame({"a":[1,2,3]})._repr_html_())
-        html_file.close()
+      import vastorbit as vo
+      html_file = open("figures/vastframe_output.html", "w")
+      html_file.write(vo.VastFrame({"a":[1,2,3]})._repr_html_())
+      html_file.close()
 
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/vastframe_output.html
+   .. raw:: html
+      :file: SPHINX_DIRECTORY/figures/vastframe_output.html
 
-**Plotly Correlation Table:**
+*(This embeds the interactive VastFrame table directly in the documentation)*
+
+----
+
+**Plotly Correlation Matrix:**
 
 .. code-block:: rst
 
-    .. ipython:: python
-        :suppress:
+   .. ipython:: python
+      :suppress:
 
-        from vastorbit.datasets import load_titanic
-        titanic = load_titanic()
-        fig = titanic.corr(method = "spearman")
-        fig.write_html("figures/plotly_corr.html")
+      from vastorbit.datasets import load_titanic
+      titanic = load_titanic()
+      fig = titanic.corr(method = "spearman")
+      fig.write_html("figures/plotly_corr.html")
 
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/plotly_corr.html
+   .. raw:: html
+      :file: SPHINX_DIRECTORY/figures/plotly_corr.html
+
+*(This embeds an interactive Plotly correlation heatmap)*
+
+----
 
 HTML File Naming Convention
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -554,10 +721,23 @@ HTML File Naming Convention
    
    Same as images: ``path_with_underscores_classname_functionname.html``
    
-   **Important:**
+   **File Paths - Two Different Conventions:**
    
-   - Add ``figures/`` prefix when saving: ``"figures/filename.html"``
-   - Use ``SPHINX_DIRECTORY/figures/`` when loading in raw html directive
+   1. **When saving** (in Python code): Use relative path ``"figures/filename.html"``
+   2. **When loading** (in raw html directive): Use absolute path ``SPHINX_DIRECTORY/figures/filename.html``
+   
+   **Example:**
+   
+   .. code-block:: python
+   
+      # Saving (relative path)
+      fig.write_html("figures/core_VastFrame_corr.html")
+   
+   .. code-block:: rst
+   
+      # Loading (absolute path)
+      .. raw:: html
+         :file: SPHINX_DIRECTORY/figures/core_VastFrame_corr.html
 
 ____
 
@@ -571,23 +751,25 @@ Easiest method for creating tables:
 
 .. code-block:: rst
 
-    .. csv-table:: **Table Title**
-        :header: Column Header, Another Column
-        :widths: 30, 70
+   .. csv-table:: **Table Title**
+      :header: Column Header, Another Column
+      :widths: 30, 70
 
-        Row 1 Value, Value in Row 1
-        Row 2 Value, Value in Row 2
-        Row 3 Value, Value in Row 3
+      Row 1 Value, Value in Row 1
+      Row 2 Value, Value in Row 2
+      Row 3 Value, Value in Row 3
 
-**Output:**
+**This renders as:**
 
 .. csv-table:: **Table Title**
-    :header: Column Header, Another Column
-    :widths: 30, 70
+   :header: Column Header, Another Column
+   :widths: 30, 70
 
-    Row 1 Value, Value in Row 1
-    Row 2 Value, Value in Row 2
-    Row 3 Value, Value in Row 3
+   Row 1 Value, Value in Row 1
+   Row 2 Value, Value in Row 2
+   Row 3 Value, Value in Row 3
+
+----
 
 Manual Table Format
 ~~~~~~~~~~~~~~~~~~~
@@ -596,17 +778,17 @@ More control but more complex:
 
 .. code-block:: rst
 
-    +---------------+------------------+
-    | Column Header | Another Column   |
-    +===============+==================+
-    | Row 1 Value   | Value in Row 1   |
-    +---------------+------------------+
-    | Row 2 Value   | Value in Row 2   |
-    +---------------+------------------+
-    | Row 3 Value   | Value in Row 3   |
-    +---------------+------------------+
+   +---------------+------------------+
+   | Column Header | Another Column   |
+   +===============+==================+
+   | Row 1 Value   | Value in Row 1   |
+   +---------------+------------------+
+   | Row 2 Value   | Value in Row 2   |
+   +---------------+------------------+
+   | Row 3 Value   | Value in Row 3   |
+   +---------------+------------------+
 
-**Output:**
+**This renders as:**
 
 +---------------+------------------+
 | Column Header | Another Column   |
@@ -628,55 +810,77 @@ See Also
 
 .. code-block:: rst
 
-    .. seealso:: :py:mod:`~vastorbit.VastFrame.bar`
-        Documentation of the bar chart function.
+   .. seealso:: 
+   
+      :py:mod:`~vastorbit.VastFrame.bar`
+         Documentation of the bar chart function.
 
-**Output:**
+**This renders as:**
 
-.. seealso:: :py:mod:`~vastorbit.VastFrame.bar`
-    Documentation of the bar chart function.
+.. seealso:: 
+
+   :py:mod:`~vastorbit.VastFrame.bar`
+      Documentation of the bar chart function.
+
+----
 
 Deprecation Warning
 ~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: rst
 
-    .. deprecated:: 3.8
+   .. deprecated:: 3.8
+      This feature is deprecated and will be removed in version 4.0.
 
-**Output:**
+**This renders as:**
 
 .. deprecated:: 3.8
+   This feature is deprecated and will be removed in version 4.0.
+
+----
 
 Notes, Warnings, and More
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: rst
 
-    .. note:: This is a note.
+   .. note:: 
+      This is a note with important information.
 
-    .. tip:: This is a helpful tip.
+   .. tip:: 
+      This is a helpful tip for users.
 
-    .. hint:: This is a hint.
+   .. hint:: 
+      This is a hint to guide users.
 
-    .. important:: This is important information.
+   .. important:: 
+      This is important information that users must know.
 
-    .. warning:: This is a warning.
+   .. warning:: 
+      This is a warning about potential issues.
 
-    .. danger:: This is a danger warning.
+   .. danger:: 
+      This is a danger warning for critical situations.
 
-**Output:**
+**This renders as:**
 
-.. note:: This is a note.
+.. note:: 
+   This is a note with important information.
 
-.. tip:: This is a helpful tip.
+.. tip:: 
+   This is a helpful tip for users.
 
-.. hint:: This is a hint.
+.. hint:: 
+   This is a hint to guide users.
 
-.. important:: This is important information.
+.. important:: 
+   This is important information that users must know.
 
-.. warning:: This is a warning.
+.. warning:: 
+   This is a warning about potential issues.
 
-.. danger:: This is a danger warning.
+.. danger:: 
+   This is a danger warning for critical situations.
 
 ____
 
@@ -686,85 +890,153 @@ ____
 NumPy Style Template
 ~~~~~~~~~~~~~~~~~~~~
 
-VastOrbit follows NumPy docstring conventions:
+VastOrbit follows NumPy docstring conventions. Here's a complete template:
 
 .. code-block:: python
 
-    def function_name(param1: str, param2: int = 0) -> dict:
-        """
-        Brief one-line description of the function.
-        
-        Longer description providing more details about the function's
-        purpose, behavior, and any important notes.
-        
-        Parameters
-        ----------
-        param1 : str
-            Description of the first parameter. Explain what it does
-            and any constraints or requirements.
-        param2 : int, optional
-            Description of the second parameter. 
-            Default value is 0.
-        
-        Returns
-        -------
-        dict
-            Description of the return value. Explain the structure
-            and contents of what's returned.
-        
-        Examples
-        --------
-        Basic usage:
-        
-        .. code-block:: python
-        
-           result = function_name("test", 5)
-           print(result)
-        
-        Advanced usage:
-        
-        .. ipython:: python
-        
-           result = function_name("advanced", param2=10)
-           result
-        
-        See Also
-        --------
-        related_function : Brief description of related function
-        another_function : Another related function
-        
-        Notes
-        -----
-        Any additional notes, implementation details, or 
-        important considerations for users.
-        
-        References
-        ----------
-        .. [1] Author Name, "Paper Title", Journal, Year.
-        """
+   def function_name(param1: str, param2: int = 0) -> dict:
+       """
+       Brief one-line description of the function.
+       
+       Longer description providing more details about the function's
+       purpose, behavior, and any important notes. This can span
+       multiple lines and include detailed explanations.
+       
+       Parameters
+       ----------
+       param1 : str
+           Description of the first parameter. Explain what it does,
+           any constraints or requirements, and expected format.
+       param2 : int, optional
+           Description of the second parameter. Explain its purpose
+           and behavior. Default value is 0.
+       
+       Returns
+       -------
+       dict
+           Description of the return value. Explain the structure
+           and contents of what's returned, including key names
+           and value types if returning a dictionary.
+       
+       Raises
+       ------
+       ValueError
+           If param1 is empty or invalid.
+       TypeError
+           If param2 is not an integer.
+       
+       Examples
+       --------
+       Basic usage example:
+       
+       .. code-block:: python
+       
+          result = function_name("test", 5)
+          print(result)
+       
+       Advanced usage with actual execution:
+       
+       .. ipython:: python
+       
+          result = function_name("advanced", param2=10)
+          result
+       
+       See Also
+       --------
+       related_function : Brief description of how it relates
+       another_function : Another related function
+       :py:func:`~vastorbit.module.other_function` : Cross-reference
+       
+       Notes
+       -----
+       Any additional notes, implementation details, algorithm
+       explanations, or important considerations for users.
+       
+       This section can include:
+       
+       - Performance characteristics
+       - Edge cases to be aware of
+       - Best practices
+       
+       References
+       ----------
+       .. [1] Author Name, "Paper Title", Journal, Year.
+       .. [2] Book Author, "Book Title", Publisher, Year.
+       """
+
+----
 
 Best Practices
 ~~~~~~~~~~~~~~
 
 **Key Points:**
 
-- ✅ Use NumPy docstring style consistently
-- ✅ Include complete type hints in function signature
-- ✅ Provide at least one working example
-- ✅ Cross-reference related functions
-- ✅ Keep descriptions clear and concise
-- ✅ Use proper RST formatting in docstrings
-- ✅ Test examples actually work before committing
+- ✅ Use NumPy docstring style consistently across all functions
+- ✅ Include complete type hints in function signature (e.g., ``param: str``)
+- ✅ Provide at least one working example that users can copy-paste
+- ✅ Cross-reference related functions with ``:py:func:`` directive
+- ✅ Keep descriptions clear, concise, and user-focused
+- ✅ Use proper RST formatting in docstrings (code blocks, lists, etc.)
+- ✅ Test that all examples actually work before committing
 
-**Common Sections:**
+**Common Sections (in order):**
 
-- **Parameters** - All function arguments
-- **Returns** - What the function returns
-- **Raises** - Exceptions that may be raised
-- **Examples** - Working code examples
-- **See Also** - Related functions
-- **Notes** - Additional information
-- **References** - Citations if applicable
+1. **Short Summary** - One-line description
+2. **Extended Summary** - Detailed explanation (optional but recommended)
+3. **Parameters** - All function arguments with types and descriptions
+4. **Returns** - What the function returns with type and description
+5. **Raises** - Exceptions that may be raised (optional)
+6. **Examples** - Working code examples (at least one required)
+7. **See Also** - Related functions (optional)
+8. **Notes** - Additional information (optional)
+9. **References** - Citations if applicable (optional)
+
+**Parameter Description Format:**
+
+.. code-block:: rst
+
+   parameter_name : type
+       Description of the parameter. Can span multiple lines
+       with proper indentation. Include constraints, default
+       behavior, and any important notes.
+
+**Example of good vs bad:**
+
+❌ **Bad:**
+
+.. code-block:: python
+
+   def process_data(x, y):
+       """Process data."""
+       return x + y
+
+✅ **Good:**
+
+.. code-block:: python
+
+   def process_data(x: float, y: float) -> float:
+       """
+       Add two numbers together.
+       
+       Parameters
+       ----------
+       x : float
+           First number to add.
+       y : float
+           Second number to add.
+       
+       Returns
+       -------
+       float
+           Sum of x and y.
+       
+       Examples
+       --------
+       .. ipython:: python
+       
+          process_data(2.5, 3.5)
+       """
+       return x + y
 
 ____
 
@@ -787,7 +1059,8 @@ ____
 **Python Documentation:**
 
 - `Docutils Documentation <https://docutils.sourceforge.io/docs/index.html>`_ - RST parsing library
-- `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_ - Standard docstring format
+- `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_ - Standard docstring format we follow
+- `Sphinx Napoleon <https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`_ - Extension for parsing NumPy docstrings
 
 **VastOrbit Specific:**
 
@@ -801,9 +1074,10 @@ ____
    **Learning Strategy:**
    
    1. Start by copying well-documented functions as templates
-   2. Check :py:func:`~vastorbit.VastFrame.bar` for a good reference
-   3. Build documentation locally and preview changes
-   4. Iterate until it looks professional
+   2. Check :py:func:`~vastorbit.VastFrame.bar` for a reference example
+   3. Build documentation locally with ``make html`` and preview changes
+   4. Compare your rendered output with existing documentation
+   5. Iterate until it looks professional and matches the style guide
 
 .. seealso::
 

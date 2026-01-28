@@ -24,7 +24,7 @@ ____
 License Headers
 ---------------
 
-Every file in this project must use the following Apache 2.0 header (with the appropriate year or years in the "[yyyy]" box; if a copyright statement from another party is already present in the code, you may add the statement on top of the existing copyright statement):
+Every file in this project must use the following Apache 2.0 header:
 
 .. code-block:: python
 

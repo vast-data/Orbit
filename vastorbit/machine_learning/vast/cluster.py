@@ -315,47 +315,22 @@ KMeans Algorithms & Extensions.
 
 class KMeans(Clustering):
     """
-    Creates  a  KMeans object using the  VAST  k-means
-    algorithm.  k-means  clustering is a method of vector
-    quantization, originally from signal processing, that
-    aims to partition  n  observations into k clusters in
-    which each observation belongs to the cluster with the
-    nearest mean (cluster centers or cluster centroid),
-    serving as a prototype of  the cluster.  This results
-    in a partitioning of the data space into Voronoi cells.
+    Creates an ``KMeans`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of  the model. The model is stored in the
-        database.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_cluster: int, optional
-        Number of clusters
-    init: str | list, optional
-        The  method  used to find the initial  cluster
-        centers.
-
-        - kmeanspp:
-            Uses   the  KMeans++  method   to initialize
-            the centers.
-        - random:
-            The   centers   are   initialized randomly.
-
-        You can also provide a list with the initial
-        cluster centers.
-    max_iter: int, optional
-        The  maximum number of iterations  the algorithm
-        performs.
-    tol: float, optional
-        Determines whether the algorithm has  converged.
-        The  algorithm is considered converged after  no
-        center  has moved more than a distance of  'tol'
-        from the previous iteration.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------

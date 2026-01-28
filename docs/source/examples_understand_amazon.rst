@@ -219,19 +219,19 @@ We can clearly observe the seasonality within each state, which contributes to a
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_amazon_table_plot_2.html
 
-Although it would be preferable to use seasonal decomposition and predict the residuals, let's build an ARIMA model on the data.
+Although it would be preferable to use seasonal decomposition and predict the residuals, let's build an AR model on the data.
 
 Machine Learning
 -----------------
 
-Since the seasonality occurs monthly, we set ``p = 12``. There is no trend in the data, and we observe some moving average in the residuals, so ``q`` should be around 2. Let's proceed with building the model.
+Since the seasonality occurs monthly, we set ``p = 12``. Let's proceed with building the model.
 
 .. code-block:: python
 
-    from vastorbit.machine_learning.vast import ARIMA
+    from vastorbit.machine_learning.vast import AR
 
-    model = ARIMA(
-        order = (12, 0, 2),
+    model = AR(
+        p = 12,
         missing = "drop",
     )
     model.fit(
@@ -244,10 +244,10 @@ Since the seasonality occurs monthly, we set ``p = 12``. There is no trend in th
 .. ipython:: python
     :suppress:
 
-    from vastorbit.machine_learning.vast import ARIMA
+    from vastorbit.machine_learning.vast import AR
 
-    model = ARIMA(
-        order = (12, 0, 2),
+    model = AR(
+        p = 12,
         missing = "drop",
     )
     model.fit(

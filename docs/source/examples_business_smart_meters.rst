@@ -226,14 +226,14 @@ Based on the scatter plot, five seems like the optimal number of clusters. Let's
     # Switching back to Plotly.
     vo.set_option("plotting_lib", "plotly")
 
-    elbow(sm_meters, ["longitude", "latitude"], n_cluster = (3, 8))
+    elbow(sm_meters, ["longitude", "latitude"], n_clusters = (3, 8))
 
 .. ipython:: python
     :suppress:
 
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
-    fig = elbow(sm_meters, ["longitude", "latitude"], n_cluster = (3, 8))
+    fig = elbow(sm_meters, ["longitude", "latitude"], n_clusters = (3, 8))
     fig.write_html("SPHINX_DIRECTORY/figures/examples_sm_meters_elbow_1.html")
 
 .. raw:: html
@@ -246,7 +246,7 @@ The elbow curve seems to confirm that five is the optimal number of clusters, so
     from vastorbit.machine_learning.vast import KMeans
 
     model = KMeans(
-        n_cluster = 5,
+        n_clusters = 5,
         init = [
             (-6.26980, 53.38127),
             (-9.06178, 53.25998),

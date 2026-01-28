@@ -126,7 +126,6 @@ Bisecting K-Means
    BisectingKMeans.get_match_index
    BisectingKMeans.get_params
    BisectingKMeans.get_plotting_lib
-   BisectingKMeans.get_score
    BisectingKMeans.get_tree
    BisectingKMeans.get_VAST_attributes
    BisectingKMeans.import_models
@@ -225,7 +224,6 @@ Isolation Forest
    IsolationForest.get_match_index
    IsolationForest.get_params
    IsolationForest.get_plotting_lib
-   IsolationForest.get_score
    IsolationForest.get_tree
    IsolationForest.get_VAST_attributes
    IsolationForest.import_models

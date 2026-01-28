@@ -819,7 +819,7 @@ Grouping means clustering, so we use an :py:func:`~vastorbit.machine_learning.mo
     elbow_curve = elbow(
         '"spotify"."artists_features"',
         preds,
-        n_cluster = (1, 20),
+        n_clusters = (1, 20),
         show = True,
     )
 
@@ -847,7 +847,7 @@ Let's define and use the VAST :py:mod:`~vastorbit.machine_learning.vast.cluster.
     # define k-means
     model = KMeans(
         '"spotify"."KMeans_spotify"', 
-        n_cluster = 7,
+        n_clusters = 7,
     )
 
 We can train our new model on the ``artists_features`` relation we saved earlier.

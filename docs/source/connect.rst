@@ -1,26 +1,28 @@
 .. _api.connect:
 
-===========
+==========
 Connection
-===========
+==========
 
-______
+Functions for managing database connections in VastOrbit.
+
+____
 
 Functions
---------------------
+---------
 
 .. important::
-
-   For a comprehensive guide to create connections, please refer to :ref:`connection`.
+   
+   For a comprehensive guide to creating connections, see :ref:`connection`.
 
 Read
-~~~~~
+~~~~
 
 .. currentmodule:: vastorbit.connection
 
 .. autosummary:: 
    :toctree: api/
-
+   
    auto_connect
    available_connections
    connect
@@ -31,46 +33,41 @@ Read
    read_dsn
    vast_connection
    vastorbitlab_connection
-   .. read_auto_connect
-
 
 Write
-~~~~~~
+~~~~~
 
 .. currentmodule:: vastorbit.connection
 
 .. autosummary:: 
    :toctree: api/
-
+   
    change_auto_connection
    new_connection
    set_connection
    set_external_connection
 
-
 Close/Delete
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~
 
 .. currentmodule:: vastorbit.connection
 
 .. autosummary:: 
    :toctree: api/
-
+   
    close_connection
    delete_connection
 
-______
+____
 
 Global Connection
---------------------
-
+-----------------
 
 .. currentmodule:: vastorbit.connection
 
 .. autosummary:: 
    :toctree: api/
-
-
+   
    global_connection.GlobalConnection
 
 **Methods:**
@@ -79,7 +76,7 @@ Global Connection
 
 .. autosummary:: 
    :toctree: api/
-
+   
    GlobalConnection.get_connection
    GlobalConnection.get_dsn
    GlobalConnection.get_dsn_section

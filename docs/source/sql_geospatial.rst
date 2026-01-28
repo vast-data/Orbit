@@ -1,93 +1,84 @@
 .. _api.sql.geospatial:
 
-==============
+==========
 Geospatial
-==============
+==========
 
-______
+Geospatial functions for spatial analysis and geographic data manipulation.
+
+____
 
 Geospatial Functions
---------------------------
+--------------------
 
 .. currentmodule:: vastorbit.sql.geo
 
 .. autosummary:: 
    :toctree: api/
-
+   
    coordinate_converter
    intersect
    split_polygon_n
 
-
-_____
+____
 
 Index Functions
---------------------------
+---------------
 
 .. currentmodule:: vastorbit.sql.geo
 
 .. autosummary:: 
    :toctree: api/
-
+   
    create_index
    describe_index
    rename_index
 
-
-
-______
+____
 
 Import/Export
---------------
+-------------
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    read_shp
 
-.. tab:: VastFrame
+**VastFrame Methods:**
 
-   ``VastFrame.func(...)``
+.. currentmodule:: vastorbit.VastFrame
 
-   .. currentmodule:: vastorbit.VastFrame
+.. autosummary::
+   :toctree: api/
+   
+   to_geopandas
 
-   .. autosummary::
-      :toctree: api/
+____
 
-      to_geopandas
+Plotting & Graphics
+-------------------
 
-______
+**VastColumn Methods:**
 
-Plotting & Graohics
-------------------------
+.. currentmodule:: vastorbit.VastColumn
 
+.. autosummary::
+   :toctree: api/
+   
+   geo_plot
 
-.. tab:: VastColumn
-
-   ``VastFrame[].func(...)``
-
-   .. currentmodule:: vastorbit.VastColumn
-
-   .. autosummary::
-      :toctree: 
-
-      geo_plot
-
-______
+____
 
 Generic Functions
-------------------------
+-----------------
 
+**VastColumn Methods:**
 
-.. tab:: VastColumn
+.. currentmodule:: vastorbit.VastColumn
 
-   ``VastFrame[].func(...)``
-
-   .. currentmodule:: vastorbit.VastColumn
-
-   .. autosummary::
-      :toctree: 
-
-      apply
+.. autosummary::
+   :toctree: api/
+   
+   apply

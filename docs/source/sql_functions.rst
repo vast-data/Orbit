@@ -1,35 +1,37 @@
 .. _api.sql.functions:
 
-==============
+=========
 Functions
-==============
+=========
 
-______
+SQL functions for data manipulation, analytics, and transformations.
+
+____
 
 Constants
-------------
+---------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    E
    INF
    NAN
    PI
    TAU
 
-_____
+____
 
 Analytics
-------------
+---------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    avg
    bool_and
    bool_or
@@ -49,29 +51,30 @@ Analytics
    std
    sum
    var
-______
+
+____
 
 Conditional
---------------------------
+-----------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    case_when
    decode
 
-______
+____
 
 Date
-------
+----
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    date
    day
    dayofweek
@@ -92,16 +95,16 @@ Date
    week
    year
 
-_____
+____
 
 Math
-------
+----
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    apply
    abs
    acos
@@ -137,50 +140,44 @@ Math
    tanh
    trunc
 
-
-
-
-
-_____
+____
 
 Null Handling
----------------
+-------------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    coalesce
    nullifzero
    zeroifnull
 
-
-_____
+____
 
 Random
----------------
+------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    random
    randomint
    seeded_random
 
-
-_____
+____
 
 Regular Expression
--------------------
+------------------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    regexp_count
    regexp_ilike
    regexp_instr
@@ -188,17 +185,16 @@ Regular Expression
    regexp_replace
    regexp_substr
 
-
-_____
+____
 
 String
---------
+------
 
 .. currentmodule:: vastorbit.sql.functions
 
 .. autosummary:: 
    :toctree: api/
-
+   
    length
    lower
    substr

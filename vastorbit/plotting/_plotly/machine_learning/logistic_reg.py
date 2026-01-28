@@ -64,6 +64,14 @@ class LogisticRegressionPlot(PlotlyBase):
         """
         Draws a logistic regression plot using the Plotly API.
         """
+        marker_colors = self.get_colors()
+        if "colors" in style_kwargs:
+            marker_colors = (
+                style_kwargs["colors"] + marker_colors
+                if isinstance(style_kwargs["colors"], list)
+                else [style_kwargs["colors"]] + marker_colors
+            )
+            del style_kwargs["colors"]
         fig = self._get_fig(fig)
         logit = lambda x: 1 / (1 + np.exp(-x))
         x, z = self.data["X"][:, 0], self.data["X"][:, -1]
@@ -85,6 +93,7 @@ class LogisticRegressionPlot(PlotlyBase):
                     y=logit(y0 + slope * x0),
                     name="-1",
                     mode="markers",
+                    marker=dict(color=marker_colors[0]),
                 )
             )
             fig.add_trace(
@@ -93,6 +102,7 @@ class LogisticRegressionPlot(PlotlyBase):
                     y=logit(y0 + slope * x1),
                     name="+1",
                     mode="markers",
+                    marker=dict(color=marker_colors[1]),
                 )
             )
             fig.add_trace(
@@ -103,6 +113,7 @@ class LogisticRegressionPlot(PlotlyBase):
                     line_shape="linear",
                     name="Logit",
                     opacity=0.5,
+                    marker=dict(color=marker_colors[2]),
                 )
             )
             fig.update_traces(**self.init_style_hover_2d)
@@ -152,6 +163,7 @@ class LogisticRegressionPlot(PlotlyBase):
                         ),
                         name=str(i),
                         mode="markers",
+                        marker=dict(color=marker_colors[i]),
                     )
                 )
             fig = fig.add_trace(

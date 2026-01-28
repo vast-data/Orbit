@@ -8,133 +8,149 @@ About Us
 Why Choose VastOrbit?
 ---------------------
 
-Unlock Endless Possibilities for Data Analytics and AI on VAST Data Platform
+Unlock Endless Possibilities for Data Science on VAST Database
 
 .. tab-set::
 
    .. tab-item:: Endless Possibilities
 
-      Query Anywhere, Analyze Everything - Unlock VAST's Full Potential
+      Data Prep, Exploration, and AI - All in VAST Database
 
-      VastOrbit gives you **endless possibilities** by removing all barriers between different data sources. Built for the VAST Data Platform, it leverages both current (Trino) and future (VAST SQL Query Engine) technologies to deliver unmatched flexibility and performance.
+      VastOrbit gives you **endless possibilities** by bringing all data science workflows directly to VAST Database. Prepare, explore, analyze, and build ML models - all with in-database execution at any scale.
 
-      **Data Sources - No Limits:**
-      - VAST DataBase tables (transactional + analytical)
-      - Data lakes (S3, VAST DataStore)
-      - Files (Parquet, CSV, JSON, ORC, Avro)
-      - External databases (PostgreSQL, MySQL, MongoDB, 30+ more)
-      - Streaming data (Kafka, Pulsar)
-      - **All accessible through one Python API**
+      **Data Preparation - In VAST:**
+      - Clean and transform data directly in VAST
+      - Handle missing values, normalize, encode features
+      - Feature engineering at petabyte scale
+      - All preprocessing without data movement
 
-      **Performance Evolution:**
-      - **Today**: Work with Trino federated queries
-      - **Tomorrow**: 10-100x faster with VAST SQL Query Engine directly reading compressed columnar format
-      - **Always**: Zero data movement - execute where data lives
+      **Interactive Exploration:**
+      - Generate charts with intelligent sampling
+      - Analyze distributions, correlations, patterns
+      - Statistical profiling and data quality checks
+      - Visualize billions of rows instantly
+
+      **Multi-Source Analytics:**
+      - Query VAST tables, data lake files, external databases
+      - Join across Parquet files, PostgreSQL, MongoDB
+      - Access streaming data from Kafka
+      - All in one unified Python API
+
+      **In-Database ML:**
+      - Train with VastOrbit's embedded models
+      - Deploy for in-database inference
+      - Score billions of rows without movement
+      - 10 ML algorithms ready for production
 
       **What This Means:**
-      - Write one Python query to join VAST tables + S3 Parquet + PostgreSQL
-      - Access petabyte-scale data lakes without moving a single byte
-      - Future-proof architecture - seamless transition to VAST SQL Engine
-      - Compressed columnar format exploitation for maximum performance
-      - Real-time and historical data in unified queries
+      - Prepare petabyte datasets as easily as megabytes
+      - Explore data interactively without loading to Python
+      - Build ML pipelines entirely in VAST
+      - Zero data movement architecture
 
-      With VastOrbit and VAST Data Platform, you truly have endless possibilities for data science and AI development.
+      With VastOrbit and VAST Database, you have endless possibilities for data science and AI.
 
-      `Learn More About VAST DataBase <https://www.vastdata.com/platform/database>`_
+      `Learn More About VAST Database <https://www.vastdata.com/platform/database>`_
 
-   .. tab-item:: Federated Analytics
+   .. tab-item:: In-Database Data Science
 
-      Join Data Across Any Source - Today and Tomorrow
+      Prepare, Explore, and Analyze - All in VAST
 
-      Traditional data science requires consolidating data into one system. VastOrbit eliminates this bottleneck using Trino's federated capabilities today, with a seamless path to VAST's native SQL Query Engine for 10-100x performance gains.
+      Traditional data science forces you to extract, load, and transform data before analysis. VastOrbit eliminates this bottleneck with true in-database execution.
+
+      **Data Preparation in VAST:**
+      - Clean data: handle nulls, duplicates, outliers
+      - Transform: normalize, scale, encode categoricals
+      - Engineer features: create derived columns at scale
+      - Profile: statistical summaries and distributions
+      - **All operations execute in VAST, not Python**
+
+      **Interactive Exploration:**
+      - Generate histograms, scatter plots, heatmaps
+      - Analyze correlations and distributions
+      - Profile data quality and completeness
+      - Discover patterns and anomalies
+      - **Intelligent sampling for instant visualization**
 
       **Cross-Source Operations:**
-      - Join VAST tables with S3 Parquet files
-      - Combine PostgreSQL data with data lake files
-      - Merge streaming Kafka data with historical tables
-      - Aggregate across multiple databases simultaneously
+      - Join VAST tables with data lake files
+      - Combine PostgreSQL data with Parquet files
+      - Merge streaming Kafka with historical tables
+      - Query across databases and files
       - **All in a single Python query**
 
-      **The VAST Advantage:**
-      - **Current**: Trino federates across 30+ data sources
-      - **Future**: VAST SQL Engine directly reads compressed columnar format
-      - **Result**: Same code, dramatically faster execution
-      - Compressed format exploitation for analytics
-      - Native integration with VAST Catalog
-
       **Benefits:**
-      - Eliminate ETL pipelines for analytics
-      - Query data without copying or moving it
-      - Maintain single source of truth for each dataset
-      - Reduce storage costs and data duplication
+      - No data movement to Python
+      - Process petabytes as easily as gigabytes
+      - Maintain data security and governance
+      - Reduce storage costs
       - Accelerate time-to-insight
-      - Future-proof with automatic VAST SQL Engine optimization
 
       **Example Use Cases:**
-      - Customer 360 view combining CRM, transactions, and clickstream data
-      - Real-time fraud detection joining live transactions with historical patterns
-      - Supply chain analytics across ERP, warehouse, and logistics systems
+      - Customer 360 view combining CRM, transactions, clickstream
+      - Real-time fraud detection with historical patterns
+      - Supply chain analytics across ERP, warehouse, logistics
 
-      VastOrbit's federated analytics unlock VAST's endless possibilities for unified data access.
+      VastOrbit brings complete data science workflows to VAST Database.
 
-   .. tab-item:: Hybrid ML Workflow
+   .. tab-item:: In-Database ML
 
-      Train Anywhere, Infer at Scale on VAST
+      Train and Deploy - Seamlessly in VAST
 
-      VastOrbit pioneers a hybrid approach combining training flexibility with inference performance, optimized for VAST's compressed storage format:
+      VastOrbit enables hybrid ML workflows optimized for VAST Database:
 
       **Training:**
-      - Use sklearn locally on sampled data
-      - Scale training with Spark on full datasets
-      - Leverage any Python ML library you prefer
+      - Use VastOrbit's embedded models
+      - Import sklearn models trained locally
+      - Automatic sampling for large datasets
       - Develop and iterate quickly
 
       **Inference:**
       - Deploy models for in-database execution
-      - Score billions of rows without data movement
-      - Achieve production-scale performance
-      - Maintain data security and governance
+      - Score billions of rows in VAST
+      - Real-time predictions without data movement
+      - Maintain data security
 
       **Supported Models:**
       - Linear models (regression, logistic regression)
-      - Tree-based models (decision trees, random forests, XGBoost)
+      - Tree models (decision trees, random forests, XGBoost)
       - Ensemble methods
-      - Clustering algorithms (K-Means)
+      - Clustering (K-Means)
       - Custom sklearn-compatible models
 
-      This architecture gives you the best of both worlds: the flexibility of Python ML libraries and the performance of in-database execution.
+      This architecture combines training flexibility with production-scale inference in VAST.
 
    .. tab-item:: AI Development Platform
 
       Built for Modern AI Workflows on VAST
 
-      VastOrbit is designed from the ground up for AI development on the VAST Data Platform, with optimizations for both current (Trino) and future (VAST SQL Engine) execution:
+      VastOrbit transforms VAST Database into your complete AI development platform:
 
       **400+ Functions:**
-      - Comprehensive data manipulation
-      - Advanced analytics and statistics
+      - Data manipulation and cleaning
+      - Statistical analysis
       - Feature engineering at scale
       - Text and geospatial processing
 
-      **10 ML Inference Algorithms:**
-      - Production-ready model deployment
-      - Real-time scoring capabilities
-      - Batch prediction processing
-      - Model performance monitoring
+      **10 ML Algorithms:**
+      - Production-ready deployment
+      - Real-time scoring
+      - Batch prediction
+      - Model monitoring
 
-      **Integration with AI Stack:**
-      - Seamless sklearn compatibility
-      - Spark MLlib model import
-      - Jupyter notebook first-class support
-      - Visualization for model explainability
+      **Integration:**
+      - Embedded models ready to use
+      - sklearn model import
+      - Jupyter notebook support
+      - Interactive visualizations
 
-      **VAST-Specific Advantages:**
-      - Leverage VAST's sub-millisecond latency
-      - Scale linearly with data growth
-      - Access live and historical data simultaneously
-      - Build real-time AI applications
+      **VAST Advantages:**
+      - Sub-millisecond latency
+      - Linear scaling
+      - Live and historical data access
+      - Real-time AI applications
 
-      VastOrbit transforms VAST DataBase into your AI development platform.
+      VastOrbit makes VAST Database your AI platform.
 
 The Team
 --------
@@ -191,204 +207,129 @@ The Team
 
           Principal Systems Engineer
 
+    .. grid-item::
+
+        .. card:: Kuldeep Venati
+          :img-top: _static/website/about_us/team/member6.jpg
+          :link: https://www.linkedin.com/in/venati/
+          :text-align: center
+          :class-card: member-pics-card
+
+          Principal Data Platform SE
+
 The Story Behind VastOrbit
 ---------------------------
 
-From VerticaPy to VastOrbit: Evolution of In-Database Data Science
+Bringing Python Data Science to VAST Database
 
 .. tab-set::
 
    .. tab-item:: The Vision
 
-      **The Problem:**
+      **The Challenge:**
 
-      Modern data science faces a fundamental challenge: data keeps growing, but traditional tools force you to choose between:
+      Modern data science faces a fundamental problem: data keeps growing, but tools don't scale:
       
-      - **Small Data Analysis**: Load data into Python/pandas - fast and flexible, but limited to memory
-      - **Big Data Processing**: Use Spark/Hadoop - scalable but complex, slow iteration
-      - **Database Analytics**: Write SQL - powerful but limited flexibility
+      - **Python/pandas**: Fast and flexible, but limited to memory
+      - **Spark/Hadoop**: Scalable but complex, slow iteration
+      - **SQL**: Powerful but lacks data science flexibility
 
-      None of these approaches handle today's reality: data lives in multiple places (databases, data lakes, files) and modern AI requires accessing all of it.
+      Data lives in multiple places (databases, files, lakes) and accessing it all requires complex pipelines.
 
-      **The VAST Revolution:**
+      **The VAST Opportunity:**
 
-      VAST Data Platform changed the game:
-      - Unified transactional and analytical database
+      VAST Database changed the game:
+      - Unified transactional and analytical processing
       - All-flash performance at data lake economics
       - Linear scaling from gigabytes to exabytes
-      - DASE architecture eliminates bottlenecks
+      - Sub-millisecond latency
 
-      But data scientists still needed a way to leverage this power with familiar Python tools.
+      But data scientists still needed familiar Python tools.
 
       **VastOrbit's Solution:**
 
-      Give VAST users endless possibilities:
-      - Query any data source through one API
-      - Leverage Trino for federated analytics
-      - Train ML models with sklearn/Spark
-      - Deploy for in-database inference at scale
-      - Work with familiar pandas-like syntax
+      Bring Python data science to VAST Database:
+      - Data preparation directly in VAST
+      - Interactive exploration with charts
+      - Multi-source analytics
+      - In-database ML inference
+      - pandas-like syntax
 
-      The vision: Make the VAST Data Platform accessible to every data scientist.
+      The vision: Make VAST Database accessible to every data scientist.
 
-   .. tab-item:: The Journey
+   .. tab-item:: The Philosophy
 
-      **2017-2022: VerticaPy Era**
+      **In-Database Everything**
 
-      Badr Ouali created VerticaPy to solve a specific problem: bring Python data science to Vertica's columnar database. VerticaPy pioneered:
-      - pandas-like API for in-database analytics
-      - sklearn-compatible ML models
-      - Visualization directly from database
-      - Zero data movement philosophy
-
-      VerticaPy proved the concept: Python can be a powerful interface for in-database analytics.
-
-      **2019-2025: VAST Emergence**
-
-      VAST Data disrupted the market:
-      - Revolutionary DASE architecture
-      - All-flash Universal Storage
-      - VAST DataBase combining OLTP and OLAP
-      - Integration with Trino for SQL anywhere
-
-      The question arose: Could Python unlock VAST's full potential?
-
-      **2026-Present: VastOrbit**
-
-      VastOrbit represents the evolution of in-database data science:
-      - Built specifically for VAST Data Platform
-      - Leverages Trino's federated query capabilities
-      - Extends beyond database to files and data lakes
-      - Hybrid ML: train anywhere, infer in-database
-      - 400+ functions for comprehensive analytics
-
-      **Key Innovations:**
-      - Query federation across any Trino-supported source
-      - Direct file access (Parquet, CSV, JSON) without loading
-      - sklearn integration for model training
-      - In-database inference at scale
-      - Endless possibilities for data access
-
-   .. tab-item:: Philosophy
-
-      **Endless Possibilities**
-
-      VastOrbit is built on the principle that data scientists shouldn't be limited by where data lives or what tools they use.
+      VastOrbit is built on the principle that data processing should happen where data lives.
 
       **Core Principles:**
 
-      1. **Query Anywhere**: If Trino can reach it, VastOrbit can query it
-      2. **Zero Data Movement**: Process data where it lives
-      3. **Familiar Tools**: Use pandas and sklearn patterns you know
-      4. **Hybrid Flexibility**: Train with any tool, infer in-database
-      5. **Federation First**: Join data across sources seamlessly
+      1. **Process in VAST**: All operations execute in-database
+      2. **Zero Movement**: Data stays in VAST, only results to Python
+      3. **Familiar Tools**: Use pandas patterns you know
+      4. **Prepare & Explore**: Clean and visualize at any scale
+      5. **Production Ready**: Same code from notebook to production
 
       **What This Means:**
 
-      - A data scientist shouldn't care if data is in a database, data lake, or files
-      - Training a model locally and deploying it at scale should be seamless
-      - Querying petabytes should feel like querying megabytes
-      - Python code should translate to optimized SQL automatically
-      - Every data source is accessible through one API
+      - Data scientists work with familiar Python syntax
+      - All heavy lifting happens in VAST Database
+      - Petabyte datasets feel like megabytes
+      - Charts and visualizations use intelligent sampling
+      - ML models deploy for in-database inference
 
       **The Result:**
 
-      VastOrbit doesn't just bring tools to data - it erases the boundaries between different data sources, giving you a unified Python interface to your entire data ecosystem.
+      VastOrbit doesn't move data to tools - it brings tools to data in VAST Database.
 
-   .. tab-item:: Technical Evolution
+   .. tab-item:: Technical Foundation
 
-      **From Database-Only to Federated Analytics**
+      **In-Database Execution Architecture**
 
-      **VerticaPy Foundations (2017-2022):**
-      - In-database execution for Vertica
-      - SQL generation from Python operations
-      - ML model training in-database
-      - Visualization with intelligent sampling
+      VastOrbit translates Python operations to execution in VAST:
 
-      **VastOrbit Innovations (2026-Present):**
+      1. **Data Preparation:**
+         - fillna, dropna, drop_duplicates in VAST
+         - normalize, scale, encode in-database
+         - Feature engineering at scale
+         - Statistical profiling
 
-      1. **Federated Query Support:**
-         - Trino integration for cross-source queries
-         - Catalog abstraction for multiple data sources
-         - Intelligent query routing
+      2. **Exploration:**
+         - Intelligent sampling for charts
+         - Histogram, scatter, correlation plots
+         - Distribution analysis
+         - Pattern discovery
 
-      2. **File-First Capabilities:**
-         - Direct Parquet/CSV/JSON querying
-         - Hive metastore integration
-         - S3/DataStore file access
-         - No "load first" requirement
+      3. **Analytics:**
+         - 400+ functions executing in VAST
+         - Aggregations, joins, window functions
+         - Geospatial operations
+         - Time series analysis
 
-      3. **Hybrid ML Architecture:**
-         - Separate training (sklearn/Spark) from inference (in-DB)
-         - Model serialization and deployment
-         - In-database scoring at scale
-         - Support for 10 model types
+      4. **Multi-Source:**
+         - Query VAST tables and files
+         - Access external databases
+         - Join across sources
+         - Unified Python API
 
-      4. **Enhanced Analytics:**
-         - 400+ functions (focused on VAST/Trino capabilities)
-         - Geospatial via Trino functions
-         - Advanced time series operations
-         - JSON/complex type handling
-
-      5. **VAST Optimization:**
-         - Leverages VAST's columnar storage
-         - Optimized for DASE architecture
-         - Integration with VAST Catalog
-         - Support for VAST-specific features
+      5. **ML Deployment:**
+         - Embedded model algorithms
+         - sklearn model import
+         - In-database scoring
+         - Production inference
 
 VastOrbit Statistics
 --------------------
 
-* **400+ Functions**: Comprehensive data manipulation and analytics
-* **10 ML Inference Algorithms**: Production-ready model deployment
-* **Unlimited Data Sources**: Query anywhere via Trino federation
+* **400+ Functions**: Data manipulation and analytics in VAST
+* **10 ML Algorithms**: Embedded models for training and inference
+* **Multi-Source Access**: Query tables, files, and databases
 * **Python 3.12+**: Modern Python features
-* **Exabyte Scale**: No practical limits with VAST infrastructure
+* **Exabyte Scale**: VAST Database scale
 * **Sub-ms Latency**: VAST's flash-native performance
 
-`View Detailed Statistics <../documentation/statistics.html>`_
-
-Comparison: VastOrbit vs VerticaPy
------------------------------------
-
-Built on the same philosophy, evolved for different platforms:
-
-.. list-table::
-   :widths: 30 35 35
-   :header-rows: 1
-
-   * - Feature
-     - VerticaPy
-     - VastOrbit
-   * - Target Platform
-     - Vertica Database
-     - VAST Data Platform
-   * - Query Engine
-     - Vertica SQL
-     - Trino (federated)
-   * - Data Sources
-     - Vertica tables only
-     - Databases, files, data lakes, streams
-   * - Functions
-     - 600+
-     - 400+ (focused on VAST/Trino)
-   * - ML Training
-     - In-database
-     - sklearn/Spark (external)
-   * - ML Inference
-     - In-database
-     - In-database
-   * - File Querying
-     - Requires COPY
-     - Direct (Parquet, CSV, JSON)
-   * - Federated Queries
-     - Limited
-     - Core capability
-   * - Use Case
-     - Vertica-centric analytics
-     - Multi-source AI/ML
-
-Both libraries share the vision of bringing Python to databases, but VastOrbit expands to give users endless possibilities across the entire data ecosystem.
+`View Detailed Statistics <statistics.html>`_
 
 Technology Stack
 ----------------
@@ -396,34 +337,33 @@ Technology Stack
 VastOrbit leverages cutting-edge technologies:
 
 **Core Platform:**
-- **VAST DataBase**: Unified transactional and analytical database
-- **Trino**: Distributed SQL query engine for federation
+- **VAST Database**: Unified transactional and analytical database
 - **DASE Architecture**: Disaggregated compute and storage
+- **Columnar Storage**: Optimized for analytics
 
 **Python Ecosystem:**
-- **sklearn**: ML training compatibility
+- **Embedded Models**: Built-in ML algorithms
+- **sklearn**: Model import compatibility
 - **Pandas**: API patterns and data structures
-- **PyArrow**: Efficient data transfer
 - **Plotly/Matplotlib/Highcharts**: Visualization backends
 
 **Data Access:**
-- **Hive Metastore**: File and table metadata
-- **S3 Protocol**: Data lake access
-- **JDBC/ODBC**: Database connectivity
+- **Multi-Catalog**: Access multiple data sources
+- **File Protocols**: Direct Parquet, CSV, JSON access
+- **Database Connectors**: PostgreSQL, MySQL, MongoDB
 
 Community & Support
 -------------------
 
 **Get Involved:**
 
-- **GitHub**: `github.com/vast-data/vastorbit <https://github.com/vast-data/vastorbit>`_
-- **Documentation**: This site
+- **GitHub**: `github.com/vast-data/vastorbit <https://github.com/vastdata-dev/vastorbit>`_
 - **Support**: vastsupport.slack.com
 
 **Enterprise Support:**
 
-VAST Data provides enterprise-grade support for VastOrbit as part of the VAST Data Platform offering.
+VAST Data provides enterprise-grade support for VastOrbit as part of the VAST Database offering.
 
 .. note::
 
-   VastOrbit gives VAST DataBase users endless possibilities. Created by the maker of VerticaPy, refined for the VAST Data Platform, designed for modern AI workloads.
+   VastOrbit brings Python data science to VAST Database. Prepare, explore, analyze, and build AI - all with in-database execution at any scale.

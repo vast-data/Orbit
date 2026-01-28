@@ -1,14 +1,10 @@
 """
 SPDX-License-Identifier: Apache-2.0
 """
-
 import copy
-
 from typing import Literal, Optional
-
 import plotly.graph_objects as go
 from plotly.graph_objs._figure import Figure
-
 from vastorbit.plotting._plotly.base import PlotlyBase
 
 
@@ -28,16 +24,21 @@ class ImportanceBarChart(PlotlyBase):
     def _init_style(self) -> None:
         self.init_layout_style = {
             "yaxis_title": (
-                self.layout["y_label"] if "xylabel" in self.layout else "Features"
+                self.layout["y_label"] if "y_label" in self.layout else "Features"
             ),
             "xaxis": dict(
                 title=self.layout["x_label"] if "x_label" in self.layout else "Importance (%)",
-                side="top",  # Position axis on top (optional)
+                side="top",
                 title_standoff=25
             ),
-            "margin": dict(l=200, r=200, t=100, b=100),
+            "yaxis": {
+                "categoryorder": "total descending",
+                "tickfont": {"size": 12},  # Readable font size
+                "automargin": True,  # Automatically adjust margin for labels
+            },
+            "margin": dict(l=250, r=50, t=100, b=50),  # Increased left margin
             "barmode": "stack",
-            "yaxis": {"categoryorder": "total descending"},
+            "height": max(400, len(self.layout["columns"]) * 25),  # Dynamic height
         }
 
     # Draw.
@@ -57,6 +58,7 @@ class ImportanceBarChart(PlotlyBase):
         importances_neg = copy.deepcopy(self.data["importance"])
         importances_neg[self.data["signs"] == 1] = 0.0
         importances_neg = importances_neg.tolist()
+        
         fig.add_trace(
             go.Bar(
                 x=importances_pos,
@@ -66,8 +68,10 @@ class ImportanceBarChart(PlotlyBase):
                 marker=dict(
                     color=self.get_colors()[0],
                 ),
+                textposition="auto",  # Show values on bars
             )
         )
+        
         showlegend = False
         if len(self.data["signs"][self.data["signs"] == -1]) != 0:
             fig.add_trace(
@@ -79,11 +83,14 @@ class ImportanceBarChart(PlotlyBase):
                     marker=dict(
                         color=self.get_colors()[1],
                     ),
+                    textposition="auto",
                 )
             )
             showlegend = True
+        
         fig.update_layout(
             showlegend=showlegend,
             **self._update_dict(self.init_layout_style, style_kwargs),
         )
+        
         return fig

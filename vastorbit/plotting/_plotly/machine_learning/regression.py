@@ -33,6 +33,7 @@ class RegressionPlot(PlotlyBase):
 
     def _init_style(self) -> None:
         self.init_style = {
+            "marker_color": self.get_colors(idx=0),
             "mode": "markers",
             "marker_line_width": 2,
             "marker_size": 10,

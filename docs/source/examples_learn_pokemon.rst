@@ -250,6 +250,29 @@ In terms of missing values, our only concern is the Pokemon's second type (``Typ
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html
 
+Let's use a one hot encoder to get numerical dummies out of the different types.
+
+.. code-block:: python
+
+    fights["Type_1_1"].one_hot_encode()
+    fights["Type_1_2"].one_hot_encode()
+    fights["Type_2_1"].one_hot_encode()
+    fights["Type_2_2"].one_hot_encode()
+
+.. ipython:: python
+    :suppress:
+
+    fights["Type_1_1"].one_hot_encode()
+    fights["Type_1_2"].one_hot_encode()
+    fights["Type_2_1"].one_hot_encode()
+    res = fights["Type_2_2"].one_hot_encode()
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html", "w")
+    html_file.write(res._repr_html_())
+    html_file.close()
+
+.. raw:: html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html
+
 Let's use the current_relation method to see how our data preparation so far on the :py:mod:`~vastorbit.VastFrame` generates SQL code.
 
 .. ipython:: python
@@ -280,20 +303,15 @@ Many variables are correlated to the response column. We have enough information
 Machine Learning
 -----------------
 
-Some really important features are categorical. ``Random Forest`` can handle them. Besides, we need trees deep enough to compare all the different types.
+Let's create a ``LogisticRegression`` to see the importance of the features in the final result.
 
 .. code-block:: python
 
-    from vastorbit.machine_learning.vast import RandomForestClassifier
+    from vastorbit.machine_learning.vast import LogisticRegression
     from vastorbit.machine_learning.model_selection import cross_validate
 
-    predictors = fights.get_columns(exclude_columns = ["Winner"])
-    model = RandomForestClassifier(
-        n_estimators = 50, 
-        max_depth = 100, 
-        max_leaf_nodes = 400, 
-        nbins = 100,
-    )
+    predictors = fights.get_columns(exclude_columns = ["Winner", "Type_1_1", "Type_1_2", "Type_2_1", "Type_2_2"])
+    model = LogisticRegression(max_iter=1000)
     cross_validate(model, fights, predictors, "Winner")
 
 .. ipython:: python
@@ -303,13 +321,8 @@ Some really important features are categorical. ``Random Forest`` can handle the
     from vastorbit.machine_learning.vast import RandomForestClassifier
     from vastorbit.machine_learning.model_selection import cross_validate
 
-    predictors = fights.get_columns(exclude_columns = ["Winner"])
-    model = RandomForestClassifier(
-        n_estimators = 50, 
-        max_depth = 100, 
-        max_leaf_nodes = 400, 
-        nbins = 100,
-    )
+    predictors = fights.get_columns(exclude_columns = ["Winner", "Type_1_1", "Type_1_2", "Type_2_1", "Type_2_2"])
+    model = LogisticRegression(max_iter=1000)
     res = cross_validate(model, fights, predictors, "Winner")
     html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_cv.html", "w")
     html_file.write(res._repr_html_())

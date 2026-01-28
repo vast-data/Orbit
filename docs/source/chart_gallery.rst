@@ -369,6 +369,22 @@ Advanced visualizations for model evaluation, time-series analysis, and statisti
 
     .. grid-item::
 
+        .. card:: Validation Curves
+          :img-top: _static/gif_validation.gif
+          :link: chart_gallery.learning
+          :link-type: ref
+          :text-align: center
+          :class-card: custom-card-6
+          :class-img-top: custom-class-img-top-7
+          
+          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
+          
+          Using: :bdg-secondary:`Python` 
+
+          :bdg-primary:`Efficiency` :bdg-primary:`Scalability` :bdg-primary:`Performance`
+
+    .. grid-item::
+
         .. card:: Elbow Curve
           :img-top: _static/pic_elbow.png
           :link: chart_gallery.elbow
@@ -378,6 +394,22 @@ Advanced visualizations for model evaluation, time-series analysis, and statisti
           :class-img-top: custom-class-img-top-7
           
           Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
+          
+          Using: :bdg-secondary:`Python` 
+
+          :bdg-primary:`K-Means` :bdg-primary:`Clustering`
+
+    .. grid-item::
+
+        .. card:: Voronoi Plot
+          :img-top: _static/pic_voronoi.png
+          :link: chart_gallery.voronoi_plot
+          :link-type: ref
+          :text-align: center
+          :class-card: custom-card-6
+          :class-img-top: custom-class-img-top-7
+          
+          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib`
           
           Using: :bdg-secondary:`Python` 
 

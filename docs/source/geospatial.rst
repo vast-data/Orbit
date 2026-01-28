@@ -6,8 +6,8 @@ Geospatial
 
 ______
 
-Geospatial Function
---------------------------
+Geospatial Functions
+--------------------
 
 .. currentmodule:: vastorbit.sql.geo
 
@@ -24,7 +24,7 @@ Geospatial Function
 ______
 
 Mathematical Functions
-------------------------
+----------------------
 
 .. currentmodule:: vastorbit
 
@@ -46,9 +46,8 @@ Mathematical Functions
 
 ______
 
-Plotting & Graohics
-------------------------
-
+Plotting & Graphics
+-------------------
 
 .. tab:: VastColumn
 
@@ -57,15 +56,14 @@ Plotting & Graohics
    .. currentmodule:: vastorbit.VastColumn
 
    .. autosummary::
-      :toctree: 
+      :toctree: api/
 
       geo_plot
 
 ______
 
 Generic Functions
-------------------------
-
+-----------------
 
 .. tab:: VastColumn
 
@@ -74,6 +72,6 @@ Generic Functions
    .. currentmodule:: vastorbit.VastColumn
 
    .. autosummary::
-      :toctree: 
+      :toctree: api/
 
       apply

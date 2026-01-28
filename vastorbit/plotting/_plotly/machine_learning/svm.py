@@ -123,6 +123,7 @@ class SVMClassifierPlot(PlotlyBase):
                 y=self.layout["columns"][0],
                 color="category",
                 stripmode="overlay",
+                color_discrete_map={0: marker_colors[0], 1: marker_colors[1]},
                 hover_data={
                     self.layout["columns"][0]: True,
                     "category": False,

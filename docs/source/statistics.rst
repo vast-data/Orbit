@@ -6,11 +6,11 @@ VastOrbit Statistics
 
 .. include:: logo_include.rst
 
-This page provides detailed statistics about VastOrbit's capabilities, coverage, and performance metrics.
+This page provides detailed statistics about VastOrbit's capabilities for in-database data science on VAST.
 
 .. note::
 
-    VastOrbit is designed specifically for the VAST Data Platform with enhanced capabilities for federated queries, advanced analytics, AI development, and endless data access possibilities.
+    VastOrbit brings Python data science to VAST Database with complete in-database execution - data preparation, exploration, analytics, and ML at any scale.
 
 Library Metrics
 ---------------
@@ -26,171 +26,205 @@ Core Statistics
      - Value
    * - Total Functions
      - 400+
-   * - ML Inference Algorithms
-     - 10
+   * - ML Algorithms
+     - 10 (embedded + sklearn import)
    * - Supported Python Versions
      - 3.12+
    * - Supported Platforms
      - Linux, macOS
-   * - Query Engines
-     - Trino (federated)
+   * - Target Database
+     - VAST Database
    * - Data Sources
-     - Unlimited (via Trino connectors)
+     - VAST tables, files, external databases
 
 Functional Coverage
 -------------------
 
-Data Manipulation
-^^^^^^^^^^^^^^^^^
+Data Preparation
+^^^^^^^^^^^^^^^^
 
-- **DataFrame Operations**: 200+ functions for data transformation, filtering, and aggregation
-- **Column Operations**: 80+ functions for column-level manipulations
-- **Join Operations**: All SQL join types including cross-catalog federated joins
-- **Window Functions**: Complete suite of ranking, analytical, and aggregate window functions
-- **Pivot/Unpivot**: Multi-dimensional data reshaping capabilities
-- **Data Type Conversions**: Comprehensive casting and transformation functions
+- **Cleaning**: fillna, dropna, drop_duplicates - all in VAST
+- **Transformation**: normalize, scale, encode - in-database execution
+- **Feature Engineering**: 80+ functions for column operations
+- **Type Handling**: Comprehensive casting and conversions
+- **Missing Values**: Multiple strategies executed in VAST
+- **Outlier Detection**: Statistical methods at scale
+
+Data Exploration
+^^^^^^^^^^^^^^^^
+
+- **Charts**: Histograms, scatter plots, correlation matrices
+- **Distributions**: KDE, box plots, violin plots
+- **Statistical Profiling**: 60+ functions (mean, median, variance, quantiles)
+- **Correlation Analysis**: Pearson, Spearman, Kendall
+- **Pattern Discovery**: Automatic anomaly detection
+- **Intelligent Sampling**: Visualize billions of rows instantly
 
 Analytics Functions
 ^^^^^^^^^^^^^^^^^^^
 
-- **Statistical Functions**: 60+ functions (mean, median, variance, quantiles, correlations, etc.)
-- **Aggregation Functions**: All standard SQL aggregates plus custom aggregations
-- **Time Series**: Specialized functions for temporal data analysis
-- **Geospatial**: Location-based analytics and distance calculations (via Trino geospatial functions)
-- **Text Analytics**: String manipulation, pattern matching, and text processing
-- **JSON/Array**: Complex data type operations for nested structures
+- **DataFrame Operations**: 200+ functions for transformation and aggregation
+- **Aggregations**: All standard plus custom aggregations in VAST
+- **Window Functions**: Ranking, analytical, aggregate windows
+- **Join Operations**: All SQL join types across sources
+- **Pivot/Unpivot**: Multi-dimensional reshaping
+- **Time Series**: Specialized temporal analysis
+- **Geospatial**: Location-based analytics
+- **Text Analytics**: String manipulation and pattern matching
+- **JSON/Array**: Complex nested data operations
 
-Data Source Connectivity
--------------------------
+Data Source Access
+------------------
 
-Via Trino Federated Queries
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+VAST Database
+^^^^^^^^^^^^^
 
-VastOrbit can query any data source supported by Trino:
+- **VAST Tables**: Native in-database processing
+- **Columnar Storage**: Optimized analytics execution
+- **DASE Architecture**: Leverages disaggregated compute/storage
+- **Sub-ms Latency**: Flash-native performance
 
-**Databases:**
-- VAST DataBase (primary)
+File Access
+^^^^^^^^^^^
 
-**Data Lakes & Files:**
-- S3 (Parquet, ORC, Avro, CSV, JSON)
-- VAST DataStore
-- Azure Blob Storage
-- Google Cloud Storage
-- HDFS
+- **Parquet**: Direct querying without load
+- **CSV/TSV**: In-place analysis
+- **JSON**: Nested data exploration
+- **ORC, Avro**: Additional formats
+- **Compressed Files**: Gzip, Snappy, LZ4, Zstandard
 
-**Streaming:**
-- Apache Kafka
+Multi-Source
+^^^^^^^^^^^^
 
-**Other:**
-- Hive metastore tables
-- Delta Lake, Iceberg, Hudi
-- Google Sheets
-- REST APIs (via custom connectors)
+- **External Databases**: PostgreSQL, MySQL, MongoDB, 30+ more
+- **Data Lakes**: S3, Azure Blob, GCS
+- **Table Formats**: Iceberg, Delta Lake, Hudi
+- **Streaming**: Kafka integration
+- **Unified API**: Query all sources with pandas syntax
 
-Machine Learning Capabilities
-------------------------------
+Machine Learning
+----------------
 
-Inference Algorithms (10)
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Embedded Models (10)
+^^^^^^^^^^^^^^^^^^^^
 
-VastOrbit supports in-database inference for models trained with sklearn or Spark:
-
-**Supported for Inference:**
+Train and deploy directly with VastOrbit:
 
 1. **Linear Models**
-   - Linear Regression
-   - Logistic Regression
-   - Ridge/Lasso
+   - LinearRegression
+   - LogisticRegression
+   - Ridge, Lasso
 
-2. **Tree-Based Models**
-   - Decision Trees
-   - Random Forests
-   - Gradient Boosting
+2. **Tree Models**
+   - DecisionTree
+   - RandomForest
+   - XGBoost
 
 3. **Ensemble Methods**
-   - XGBoost models
-   - LightGBM models
+   - GradientBoosting
+   - AdaBoost
 
 4. **Clustering**
-   - K-Means inference
+   - KMeans
 
 5. **Other**
-   - SVM models
-   - Naive Bayes
+   - SVM
+   - NaiveBayes
 
-Training Integration
-^^^^^^^^^^^^^^^^^^^^
+Model Import
+^^^^^^^^^^^^
 
-- **sklearn**: Full compatibility - train locally, deploy for in-database inference
-- **Spark MLlib**: Import Spark-trained models for inference
-- **Custom Models**: Support for custom sklearn-compatible estimators
-- **Model Serialization**: Pickle, joblib support
+- **sklearn Models**: Import trained sklearn models
+- **Automatic Deployment**: Convert to in-database inference
+- **Custom Models**: sklearn-compatible estimators
+- **Serialization**: Pickle, joblib support
 
-ML Workflow Features
-^^^^^^^^^^^^^^^^^^^^
+ML Workflow
+^^^^^^^^^^^
 
-- **In-Database Scoring**: Predictions execute in VAST DataBase - no data movement
-- **Batch Predictions**: Score millions/billions of rows efficiently
-- **Feature Engineering**: Transform features in-database before inference
-- **Model Versioning**: Track and deploy different model versions
-- **A/B Testing**: Compare model performance on live data
+- **Sampling**: Automatic intelligent sampling for training
+- **Feature Prep**: Transform features in VAST before training
+- **In-Database Inference**: Score billions of rows in VAST
+- **Batch Predictions**: Production-scale scoring
+- **Model Versioning**: Track and deploy versions
 
-Visualization Capabilities
----------------------------
+Visualization
+-------------
 
 Chart Types
 ^^^^^^^^^^^
 
-- **Statistical**: Histograms, box plots, violin plots, density plots
-- **Correlation**: Scatter plots, correlation matrices, heatmaps
-- **Time Series**: Line plots, candlestick charts, trend analysis
-- **ML**: ROC curves, confusion matrices, feature importance, lift charts
-- **Geospatial**: Map visualizations (via geopandas)
-- **Distribution**: KDE plots, Q-Q plots, probability plots
+**Statistical Charts:**
+- Histograms with intelligent binning
+- Box plots and violin plots
+- Density and KDE plots
+- Q-Q and probability plots
 
-Backends
-^^^^^^^^
+**Exploration:**
+- Scatter plots and correlation matrices
+- Heatmaps for multi-dimensional data
+- Distribution comparisons
+- Pattern visualization
 
-- **Plotly**: Interactive, web-ready visualizations
-- **Matplotlib**: Publication-quality static charts
-- **Highcharts**: Enterprise-grade interactive charts
+**Time Series:**
+- Line plots and trend analysis
+- Candlestick charts
+- Seasonal decomposition
 
-Smart Sampling
-^^^^^^^^^^^^^^
+**ML Visualization:**
+- ROC curves and AUC
+- Confusion matrices
+- Feature importance
+- Lift charts
 
-- **Intelligent Sampling**: Automatically samples large datasets for visualization
-- **Statistical Preservation**: Maintains data distribution characteristics
-- **Configurable Limits**: User-defined sample sizes
-- **Performance Optimization**: Visualize exabyte-scale data interactively
+**Geospatial:**
+- Map visualizations
+- Location clustering
 
-Performance Metrics
--------------------
-
-Query Optimization
+Rendering Backends
 ^^^^^^^^^^^^^^^^^^
 
-- **Predicate Pushdown**: Filters executed in-database or at file level
+- **Plotly**: Interactive web-ready charts
+- **Matplotlib**: Publication-quality static plots
+- **Highcharts**: Enterprise interactive visualizations
+
+Intelligent Sampling
+^^^^^^^^^^^^^^^^^^^^
+
+- **Automatic**: Samples large datasets for instant visualization
+- **Distribution-Preserving**: Maintains statistical characteristics
+- **Configurable**: User-defined sample sizes
+- **Performance**: Visualize exabyte-scale data interactively
+- **Smart Algorithms**: Stratified, reservoir sampling
+
+Performance
+-----------
+
+In-Database Execution
+^^^^^^^^^^^^^^^^^^^^^
+
+- **Zero Data Movement**: All processing in VAST
+- **Predicate Pushdown**: Filters executed in-database
 - **Projection Pushdown**: Only required columns retrieved
-- **Lazy Evaluation**: Queries optimized before execution
-- **Trino CBO**: Cost-based query optimization
-- **Partition Pruning**: Intelligent partition elimination for file queries
+- **Lazy Evaluation**: Optimized before execution
+- **Partition Pruning**: Intelligent file filtering
 
 Scalability
 ^^^^^^^^^^^
 
-- **Data Volume**: Unlimited
-- **File Size**: Efficiently handles petabyte-scale file collections
-- **Concurrency**: Leverages Trino's multi-user concurrency
-- **Query Performance**: Sub-second to seconds for most analytical queries
+- **Data Volume**: Petabyte to exabyte scale
+- **Processing Speed**: Leverages VAST's flash performance
+- **Concurrency**: Multi-user analytics
 - **ML Inference**: Score billions of rows in minutes
+- **Chart Generation**: Sub-second visualization
 
-Federated Query Performance
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+VAST Optimizations
+^^^^^^^^^^^^^^^^^^
 
-- **Cross-Source Joins**: Optimized joins across different data sources
-- **Data Locality**: Trino minimizes data movement between sources
-- **Parallel Execution**: Distributed query processing
-- **Catalog Caching**: Metadata caching for faster query planning
+- **Columnar Format**: Optimized analytics queries
+- **DASE Architecture**: Efficient compute/storage separation
+- **Flash Storage**: Sub-millisecond latency
+- **Linear Scaling**: Performance scales with data
 
 Code Quality
 ------------
@@ -199,158 +233,142 @@ Development Standards
 ^^^^^^^^^^^^^^^^^^^^^
 
 - **Type Hints**: Full type annotation coverage
-- **Documentation**: Comprehensive docstrings for all public APIs
-- **PEP 8 Compliance**: Consistent code formatting
-- **Modern Python**: Leverages Python 3.12+ features
+- **Documentation**: Comprehensive docstrings
+- **PEP 8**: Consistent formatting
+- **Modern Python**: Python 3.12+ features
 
 Platform Compatibility
 ----------------------
 
-Query Engines
+VAST Database
 ^^^^^^^^^^^^^
 
-- **Trino**: Full support for federated queries (current)
-- **VAST SQL Query Engine**: Coming soon with 10-100x performance gains
-  
-  - Direct read of VAST's compressed columnar format
-  - Native VAST Catalog integration
-  - Optimized for VAST storage architecture
-  - Seamless migration - same VastOrbit code, dramatically faster execution
-
-VAST Cluster Versions
-^^^^^^^^^^^^^^^^^^^^^
-
-- **Minimum**: 5.0.0-sp10
+- **Minimum Version**: 5.0.0-sp10
 - **Recommended**: Latest stable release
 - **Tested**: 5.0.x, 5.1.x series
 
-Python Versions
-^^^^^^^^^^^^^^^
+Python
+^^^^^^
 
 - **Supported**: 3.12+
 - **Recommended**: 3.12 or 3.13
-- **Earlier**: Not supported
 
 Operating Systems
 ^^^^^^^^^^^^^^^^^
 
 - **Linux**: Ubuntu 20.04+, RHEL 8+, CentOS 8+, Debian 11+
 - **macOS**: 12 (Monterey) and later
-- **Windows**: Not currently supported (use WSL2)
+- **Windows**: Use WSL2
 
-File Formats Supported
-----------------------
+Key Capabilities
+----------------
 
-Via Trino Connectors
-^^^^^^^^^^^^^^^^^^^^
+Data Preparation in VAST
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Structured:**
-- Native VAST Format (recommended for analytics)
-- Parquet
-- ORC
-- Avro
+- Clean data at any scale
+- Transform and normalize in-database
+- Feature engineering without data movement
+- Handle missing values efficiently
+- Profile data quality
 
-**Semi-Structured:**
-- JSON (including JSON Lines)
-- CSV/TSV
-- XML (via custom connectors)
+Interactive Exploration
+^^^^^^^^^^^^^^^^^^^^^^^
 
-**Compressed:**
-- Gzip
-- Snappy
-- LZ4
-- Zstandard
+- Generate charts with intelligent sampling
+- Analyze distributions and correlations
+- Discover patterns and anomalies
+- Statistical profiling
+- Multi-dimensional visualization
 
-**Table Formats:**
-- Apache Iceberg
-- Delta Lake
-- Apache Hudi
-- Hive tables
-
-Unique VastOrbit Features
---------------------------
-
-Compared to VerticaPy
+In-Database Analytics
 ^^^^^^^^^^^^^^^^^^^^^
 
-VastOrbit builds on VerticaPy's foundation with significant enhancements:
+- 400+ functions executing in VAST
+- pandas-like syntax
+- Zero data movement
+- Petabyte-scale processing
+- Production-ready workflows
 
-**Enhanced Capabilities:**
+Multi-Source Queries
+^^^^^^^^^^^^^^^^^^^^
 
-1. **Federated Queries**: Query across multiple data sources (databases, lakes, files) in one query
-2. **File-First Support**: Direct querying of Parquet, CSV, JSON without loading to database
-3. **Broader Ecosystem**: Access any Trino-supported data source
-4. **AI Development**: Built specifically for modern AI workflows on VAST
-5. **Hybrid ML**: Flexible train anywhere, infer in-database architecture
-6. **Data Lake Integration**: Seamless S3/DataStore file querying
+- Query VAST tables and files
+- Access external databases
+- Join across sources
+- Unified Python API
 
-**VAST-Specific:**
+In-Database ML
+^^^^^^^^^^^^^^
 
-- Optimized for VAST's DASE architecture
-- Leverages VAST DataBase's columnar storage
-- Integration with VAST Catalog for metadata
-- Support for VAST's high-performance file system
+- Embedded model algorithms
+- sklearn model import
+- Production inference in VAST
+- Batch scoring at scale
 
-Roadmap Highlights
-------------------
+Roadmap
+-------
 
-Near Term
-^^^^^^^^^
+Near Term (v1.0)
+^^^^^^^^^^^^^^^^
 
-- Enhanced AutoML capabilities
-- Additional ML algorithm support for inference
-- Real-time streaming integration (Kafka/Event Broker)
-- Advanced time series forecasting
+- Production-ready release
+- Enhanced AutoML
+- Additional ML algorithms
+- Streaming integration
 
 Medium Term
 ^^^^^^^^^^^
 
-- VAST SQL Query Engine integration
-- Native VAST Catalog integration
-- Vector database operations for AI/ML
+- Advanced time series forecasting
+- Vector operations for AI
 - Enhanced geospatial analytics
+- Real-time inference
 
 Long Term
 ^^^^^^^^^
 
-- Distributed training capabilities
-- Graph analytics support
+- Distributed training
+- Graph analytics
 - Multi-modal data processing
-- Enhanced AI workflow automation
+- AI workflow automation
 
 Use Cases
 ---------
 
+**Data Preparation:**
+- Clean and transform data in VAST
+- Feature engineering at scale
+- Data quality validation
+- Preprocessing for ML
+
 **Data Exploration:**
-- Interactive analysis of data lakes
-- Ad-hoc querying across multiple sources
-- Data quality assessment
+- Interactive charts and profiling
+- Pattern discovery
+- Statistical analysis
+- Multi-source exploration
 
 **AI/ML Development:**
-- Feature engineering at scale
-- Model deployment for inference
-- Real-time predictions on live data
+- Train models with embedded algorithms
+- Deploy for in-database inference
+- Production-scale predictions
+- Real-time scoring
 
 **Analytics:**
-- Cross-database reporting
-- Unified view of disparate data sources
+- In-database aggregations
+- Cross-source reporting
 - Historical trend analysis
-
-**Data Engineering:**
-- ETL pipeline development
-- Data validation and quality checks
-- Schema evolution and migration
+- Business intelligence
 
 For More Information
 --------------------
 
-- `GitHub Repository <https://github.com/vast-data/vastorbit>`_
-- `VAST Data Platform <https://www.vastdata.com>`_
-- `Trino Documentation <https://trino.io/docs/current/>`_
+- `GitHub Repository <https://github.com/vastdata-dev/vastorbit>`_
+- `VAST Database <https://www.vastdata.com/platform/database>`_
 
 .. seealso::
 
    - :ref:`getting_started` - Installation and quick start
    - :ref:`api` - Complete API reference
-   - :ref:`examples` - Example workflows and tutorials
-   - :ref:`machine_learning` - ML inference guide
+   - :ref:`examples` - Example workflows
+   - :ref:`machine_learning` - ML guide

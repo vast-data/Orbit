@@ -14,7 +14,7 @@ Stepwise Plot
     import vastorbit.machine_learning.vast as vml
     import numpy as np
 
-    N = 500 # Number of Records
+    N = 100 # Number of Records
     k = 10 # step
 
     # Normal Distributions
@@ -43,7 +43,7 @@ Let's generate a dataset using the following data.
 
 .. code-block:: python
         
-    N = 500 # Number of Records
+    N = 100 # Number of Records
     k = 10 # step
 
     # Normal Distributions

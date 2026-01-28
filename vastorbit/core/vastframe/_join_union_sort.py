@@ -582,7 +582,7 @@ class vDFJoinUnionSort(vDFMath):
 
         # ON
         on_join = []
-        # Supported operators in Trino
+        # Supported operators
         all_operators = [
             "=",
             ">",
@@ -600,18 +600,16 @@ class vDFJoinUnionSort(vDFMath):
             if op not in all_operators:
                 raise ValueError(
                     f"Incorrect operator: '{op}'.\n"
-                    f"Supported operators in Trino: {', '.join(all_operators)}.\n"
+                    f"Supported operators: {', '.join(all_operators)}.\n"
                     f"Note: 'jaro', 'jarow', 'linterpolate', 'rinterpolate' are not supported in Trino."
                 )
             if op in ("=", ">", ">=", "<", "<="):
                 on_join += [f"x.{key1} {op} y.{key2}"]
             elif op == "llike":
-                # Trino uses CONCAT instead of ||
                 on_join += [f"x.{key1} LIKE CONCAT('%', y.{key2}, '%')"]
             elif op == "rlike":
                 on_join += [f"y.{key2} LIKE CONCAT('%', x.{key1}, '%')"]
             elif op == "lev":
-                # Trino has levenshtein_distance function
                 op2, threshold = x[3], x[4]
                 if op2 not in simple_operators:
                     raise ValueError(

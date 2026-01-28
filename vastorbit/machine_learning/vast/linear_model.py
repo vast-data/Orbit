@@ -609,7 +609,7 @@ class ElasticNet(LinearModel, Regressor):
     """
     Creates an ``ElasticNet`` object
     using SKLEARN for training and
-    the scalability of Trino for
+    the scalability of VASTDB for
     the inferences.
 
     Parameters
@@ -1061,7 +1061,7 @@ class Lasso(LinearModel, Regressor):
     """
     Creates a ``Lasso``  object
     using SKLEARN for training and
-    the scalability of Trino for
+    the scalability of VASTDB for
     the inferences.
 
     Parameters
@@ -1530,7 +1530,7 @@ class LinearRegression(LinearModel, Regressor):
     """
     Creates a ``LinearRegression``
     object using SKLEARN for training
-    and the scalability of Trino for
+    and the scalability of VASTDB for
     the inferences.
 
     Parameters
@@ -2021,7 +2021,7 @@ class PLSRegression(LinearModel, Regressor):
     """
     Creates an ``PLSRegression``
     object using SKLEARN for training
-    and the scalability of Trino for
+    and the scalability of VASTDB for
     the inferences.
 
     Parameters
@@ -2459,7 +2459,7 @@ class PoissonRegressor(LinearModel, Regressor):
     """
     Creates an ``PoissonRegressor``
     object using SKLEARN for training
-    and the scalability of Trino for
+    and the scalability of VASTDB for
     the inferences.
 
     Parameters
@@ -2909,7 +2909,7 @@ class Ridge(LinearModel, Regressor):
     """
     Creates a ``Ridge``  object
     using SKLEARN for training
-    and the scalability of Trino
+    and the scalability of VASTDB
     for the inferences.
 
     Parameters
@@ -3407,7 +3407,7 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
     """
     Creates a ``LogisticRegression``
     object using SKLEARN for training and
-    the scalability of Trino for the inferences.
+    the scalability of VASTDB for the inferences.
 
     Parameters
     ----------

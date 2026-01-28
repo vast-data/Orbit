@@ -926,7 +926,7 @@ To compute a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model, we
     elbow(
         "football_clustering",
         predictors,
-        n_cluster = (1, 11),
+        n_clusters = (1, 11),
     )
 
 .. ipython:: python
@@ -950,7 +950,7 @@ To compute a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model, we
     fig = elbow(
         "football_clustering",
         predictors,
-        n_cluster = (1, 11),
+        n_clusters = (1, 11),
     )
     fig.write_html("SPHINX_DIRECTORY/figures/examples_football_elbow_1.html")
 
@@ -973,7 +973,7 @@ To compute a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model, we
         (1,  0.5,       1,  0.80,   0.70, 0.65,   0.75, 0.55), # champions
     ]
     model_kmeans = KMeans(
-        n_cluster = 6,
+        n_clusters = 6,
         init = init,
     )
     model_kmeans.fit("football_clustering", predictors)

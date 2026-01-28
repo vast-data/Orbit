@@ -856,36 +856,22 @@ Algorithms used for decomposition.
 
 class PCA(Decomposition):
     """
-    Creates a PCA  (Principal Component Analysis) object
-    using the VAST PCA algorithm.
+    Creates an ``PCA`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model. The model is stored in the
-        database.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_components: int, optional
-        The  number of  components to keep in the model.
-        If  this value  is not provided,  all components
-        are kept.  The  maximum number of components  is
-        the number of  non-zero singular values returned
-        by the internal call to SVD. This number is less
-        than or equal to SVD  (number of columns, number
-        of rows).
-    scale: bool, optional
-        A  Boolean  value  that  specifies   whether  to
-        standardize  the columns during the  preparation
-        step.
-    method: str, optional
-        The method used to calculate PCA.
-
-        - lapack:
-            Lapack definition.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -2113,32 +2099,22 @@ class MCA(PCA):
 
 class SVD(Decomposition):
     """
-    Creates  an  SVD  (Singular  Value  Decomposition)
-    object using the VAST SVD algorithm.
+    Creates an ``SVD`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the model. The model is stored in the
-        database.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_components: int, optional
-        The number  of components to keep in the model.
-        If this value  is not provided,  all components
-        are kept.  The maximum number of  components is
-        the number of non-zero singular values returned
-        by  the  internal call to SVD. This  number  is
-        less  than or equal to SVD (number of  columns,
-        number of rows).
-    method: str, optional
-        The method used to calculate SVD.
-
-        - lapack:
-            Lapack definition.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------

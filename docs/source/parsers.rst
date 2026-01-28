@@ -1,69 +1,69 @@
 .. _api.parsers:
 
-=================
+=======
 Parsers
-=================
+=======
 
+Functions for reading and loading data from various formats.
+
+____
 
 General
---------
+-------
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    read_file
 
-_____
-
+____
 
 CSV
------
+---
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    pcsv
    read_csv
 
-_____
+____
 
 JSON
------
+----
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    pjson
    read_json
 
-_____
+____
 
 Pandas
-----------
+------
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
-   read_pandas
    
-_____
-
-In-memory Arrays
-------------------
-
-.. currentmodule:: vastorbit
-
-.. autosummary:: 
-   :toctree: api/
-
-   insert_into
+   read_pandas
 
 ____
+
+In-Memory Arrays
+----------------
+
+.. currentmodule:: vastorbit
+
+.. autosummary:: 
+   :toctree: api/
+   
+   insert_into

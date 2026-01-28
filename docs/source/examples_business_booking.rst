@@ -240,8 +240,7 @@ Let's create our :py:mod:`~vastorbit.machine_learning.vast.linear_model.Logistic
     from vastorbit.machine_learning.vast import LogisticRegression
 
     model_logit = LogisticRegression(
-        max_iter = 1000, 
-        solver = "BFGS",
+        max_iter = 1000,
     )
     model_logit.fit(
         expedia, 

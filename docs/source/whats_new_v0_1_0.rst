@@ -1,8 +1,8 @@
 .. _whats_new_v0_1_0:
 
-===================
+=====================
 Version 0.1.0 (Beta)
-===================
+=====================
 
 .. include:: logo_include.rst
 
@@ -10,81 +10,83 @@ Version 0.1.0 (Beta)
 
     <div style="text-align: center; margin: 30px 0;">
         <div style="font-size: 24px; font-weight: 600; color: #2F71BD; margin-bottom: 10px;">
-            🎉 First Release
+            🎉 First Beta Release
         </div>
         <div style="font-size: 16px; color: #666;">
-            January 2026 - Beta Release
+            February 2026 - Beta Release
         </div>
     </div>
 
-Welcome to the first release of **VastOrbit** - the Python API for data science at scale on VAST Data Platform!
+Welcome to the first release of **VastOrbit** - Python data science for VAST Database!
 
 .. important::
 
-   **Beta Status**: VastOrbit 0.1.0 is currently in beta. The API may change before the 1.0.0 production release. We welcome your feedback and bug reports at **vastsupport.slack.com**.
+   **Beta Status**: VastOrbit 0.1.0 is in beta. Production-ready version 1.0.0 coming soon. API may change based on feedback. Report issues at **vastsupport.slack.com**.
 
 ____
 
 Release Highlights
 ------------------
 
-🚀 **First Public Release**
+🚀 **Python Data Science for VAST**
 
-VastOrbit 0.1.0 introduces a comprehensive Python library for data science on VAST Data Platform, bringing pandas-like syntax to petabyte-scale analytics.
+VastOrbit 0.1.0 brings complete data science workflows to VAST Database - prepare, explore, analyze, and build ML models with in-database execution.
 
 **Core Features:**
 
-- **400+ Functions** - Complete data manipulation toolkit
-- **Federated Queries** - Query VAST, S3, PostgreSQL, MongoDB in one API  
-- **In-Database Execution** - All operations run in VAST DataBase
-- **Hybrid ML** - Train with sklearn/Spark, infer in-database
-- **Interactive Visualizations** - Plotly, Matplotlib, Highcharts support
-
-____
-
-Query Engine Support
---------------------
-
-**Current: Trino**
-
-VastOrbit 0.1.0 leverages **Trino** as the query engine for federated SQL queries:
-
-✅ Access 30+ data sources through Trino connectors  
-✅ Production-ready with full feature support  
-✅ Proven at scale with enterprise deployments  
-✅ Complete SQL functionality  
-
-**Coming Soon: VAST SQL Query Engine**
-
-Future releases will support the **VAST native SQL Query Engine** for enhanced performance:
-
-⚡ **10-100x performance improvement** over federated engines  
-⚡ Direct exploitation of VAST's compressed columnar format  
-⚡ Optimized for VAST's DASE architecture  
-⚡ **Seamless migration** - same VastOrbit code, dramatically faster execution  
-
-.. tip::
-
-   Your VastOrbit code will work with both Trino and VAST SQL Engine without modification. We're designing for seamless transition as the native engine becomes available.
+- **Data Preparation in VAST** - Clean, transform, engineer features at any scale
+- **Interactive Exploration** - Charts and visualizations with intelligent sampling
+- **400+ Functions** - Complete analytics toolkit executing in VAST
+- **10 ML Algorithms** - Embedded models for training and inference
+- **Multi-Source Access** - Query VAST tables, files, and external databases
+- **Zero Data Movement** - All processing in VAST Database
 
 ____
 
 What's Included
 ---------------
 
+**Data Preparation:**
+
+- ``fillna``, ``dropna``, ``drop_duplicates`` - cleaning in VAST
+- ``normalize``, ``scale``, ``encode`` - transformations in-database
+- Feature engineering at petabyte scale
+- Statistical profiling and quality checks
+
+**Interactive Exploration:**
+
+- Histograms, scatter plots, correlation matrices
+- Box plots, violin plots, KDE
+- Intelligent sampling for instant visualization
+- Statistical analysis (mean, median, variance, quantiles)
+
+**Analytics:**
+
+- 400+ functions executing in VAST
+- pandas-like DataFrame operations
+- Aggregations, joins, window functions
+- Time series and geospatial analysis
+
+**Machine Learning:**
+
+- 10 embedded models (RandomForest, XGBoost, LinearRegression, etc.)
+- sklearn model import support
+- In-database inference at scale
+- Production-ready deployment
+
 **Core Modules:**
 
-- ``vastorbit.VastFrame`` - pandas-like DataFrame for VAST DataBase
-- ``vastorbit.machine_learning`` - 10 ML algorithms for in-database inference
-- ``vastorbit.plot`` - Interactive visualization library
-- ``vastorbit.sql`` - Direct SQL execution utilities
-- ``vastorbit.stats`` - Statistical analysis functions
+- ``vastorbit.VastFrame`` - pandas-like DataFrame for VAST
+- ``vastorbit.machine_learning.vast`` - ML algorithms
+- ``vastorbit.plot`` - Visualization library
+- ``vastorbit.sql`` - SQL execution utilities
+- ``vastorbit.stats`` - Statistical functions
 
 **Supported Platforms:**
 
 - Python 3.12+
 - Linux and macOS
-- VAST Cluster 5.0.0-sp10 or later
+- VAST Database 5.0.0-sp10 or later
 
 **Example Usage:**
 
@@ -92,7 +94,7 @@ What's Included
 
     import vastorbit as vo
     
-    # Connect to VAST via Trino
+    # Connect to VAST Database
     vo.new_connection({
         'host': 'vast-cluster.com',
         'catalog': 'vast_catalog'
@@ -101,23 +103,69 @@ What's Included
     # Query data
     vdf = vo.VastFrame('sales_data')
     
-    # Analyze with pandas-like syntax
-    summary = vdf.groupby(['region'], ['sum(revenue) AS total_revenue'])
+    # Data preparation - all in VAST
+    vdf = vdf.fillna({'revenue': 0})
+    vdf = vdf.drop_duplicates()
     
-    # Visualize
-    summary.bar(['region', 'total_revenue'])
+    # Explore with charts
+    vdf['revenue'].hist(nbins=20)
+    vdf.scatter(['sales', 'revenue'])
+    
+    # Analyze
+    summary = vdf.groupby(['region'], ['sum(revenue) AS total'])
+    
+    # Train ML model
+    from vastorbit.machine_learning.vast import RandomForestClassifier
+    model = RandomForestClassifier()
+    model.fit(vdf, ['feature1', 'feature2'], 'target')
+    
+    # In-database inference
+    predictions = model.predict(vdf)
 
 ____
 
-Known Limitations
------------------
+Key Capabilities
+----------------
 
-As a beta release, please note:
+**In-Database Data Preparation:**
 
-- API may change before 1.0.0 release
-- VAST SQL Query Engine not yet available (Trino only)
-- Limited to Trino-supported operations
-- Documentation is actively being expanded
+✅ Clean and transform data directly in VAST  
+✅ Handle missing values, outliers, duplicates  
+✅ Feature engineering at any scale  
+✅ Statistical profiling and validation  
+
+**Interactive Exploration:**
+
+✅ Generate charts with intelligent sampling  
+✅ Analyze distributions and correlations  
+✅ Discover patterns and anomalies  
+✅ Visualize billions of rows instantly  
+
+**Multi-Source Analytics:**
+
+✅ Query VAST tables and files  
+✅ Access external databases (PostgreSQL, MySQL, MongoDB)  
+✅ Join across sources  
+✅ Unified Python API  
+
+**In-Database ML:**
+
+✅ 10 embedded algorithms ready to use  
+✅ Import sklearn models  
+✅ In-database inference in VAST  
+✅ Production-scale scoring  
+
+____
+
+Beta Limitations
+----------------
+
+As a beta release:
+
+- API may change before 1.0.0
+- Documentation actively expanding
+- Some advanced features in development
+- Feedback welcome for improvements
 
 ____
 
@@ -133,37 +181,40 @@ Getting Started
 **Documentation:**
 
 - :ref:`getting_started` - Installation and setup
-- :ref:`user_guide` - Comprehensive tutorials
+- :ref:`user_guide` - Data preparation and analytics
+- :ref:`chart_gallery` - Visualization examples
+- :ref:`machine_learning` - ML workflows
 - :ref:`api` - Complete API reference
-- :ref:`examples` - Hands-on code examples
+- :ref:`examples` - Hands-on tutorials
 
 **Support:**
 
 - Slack: vastsupport.slack.com
-- GitHub: https://github.com/vast-data/vastorbit
+- GitHub: https://github.com/vastdata-dev/vastorbit
 
 ____
 
-What's Next
------------
+Roadmap to 1.0.0
+----------------
 
-**Roadmap to 1.0.0:**
+**Production Release Plans:**
 
 - API stabilization based on beta feedback
-- VAST SQL Query Engine integration
-- Expanded documentation and examples
+- Expanded documentation and tutorials
 - Additional ML algorithms
+- Enhanced data preparation functions
+- Advanced visualization capabilities
 - Performance optimizations
 - Production hardening
 
-We're excited to hear your feedback as we work toward the 1.0.0 production release!
+We're excited to hear your feedback as we work toward 1.0.0!
 
 ____
 
 Thank You
 ---------
 
-Thank you for being an early adopter of VastOrbit. Your feedback shapes the future of data science on VAST Data Platform.
+Thank you for being an early adopter of VastOrbit. Your feedback shapes the future of data science on VAST Database.
 
 **Get Involved:**
 
@@ -172,4 +223,4 @@ Thank you for being an early adopter of VastOrbit. Your feedback shapes the futu
 - Share your use cases
 - Contribute ideas for new features
 
-Happy analyzing! 🚀
+Happy analyzing with VAST! 🚀

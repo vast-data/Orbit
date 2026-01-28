@@ -2,6 +2,9 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
+from vastorbit.plotting._matplotlib.base import MatplotlibBase
+from vastorbit.plotting._matplotlib.animated.base import AnimatedBase
+
 from vastorbit.plotting._matplotlib.animated.bar import AnimatedBarChart
 from vastorbit.plotting._matplotlib.animated.bubble import AnimatedBubblePlot
 from vastorbit.plotting._matplotlib.animated.line import AnimatedLinePlot

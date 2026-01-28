@@ -1856,296 +1856,12 @@ Algorithms used for anomaly detection.
 class LocalOutlierFactor(VASTModel):
     """
     [Beta Version]
-    Creates a ``LocalOutlierFactor``
-    object by using the Local Outlier
-    Factor algorithm as defined by
-    Markus M. Breunig, Hans-Peter
-    Kriegel, Raymond T. Ng and Jörg
-    Sander. This object is using pure
-    SQL to compute all the distances
-    and final score.
-
-    .. warning::
-
-        This   algorithm   uses  a   CROSS  JOIN
-        during   computation  and  is  therefore
-        computationally  expensive at  O(n * n),
-        where n is the total number of elements.
-        Since  LocalOutlierFactor   uses  the p-
-        distance,  it  is  highly  sensitive  to
-        unnormalized data.
-        A  table  is created at the  end of
-        the learning phase.
-
-    .. important::
-
-        This algorithm is not VAST
-        Native and relies solely on SQL
-        for attribute computation. While
-        this model does not take advantage
-        of the benefits provided by a model
-        management system, including versioning
-        and tracking, the SQL code it generates
-        can still be used to create a pipeline.
-
-    Parameters
-    ----------
-    name: str, optional
-        Name of the  model. This is
-        not a built-in model, so this
-        name is used to build the final
-        table.
-    overwrite_model: bool, optional
-        If set to ``True``, training a
-        model with the same name as an
-        existing model overwrites the
-        existing model.
-    n_neighbors: int, optional
-        Number of neighbors to consider when computing
-        the score.
-    p: int, optional
-        The ``p`` of the ``p``-distances
-        (distance metric used during the
-        model computation).
-
-    Attributes
-    ----------
-    Many attributes are created
-    during the fitting phase.
-
-    n_neighbors_: int
-        Number of neighbors.
-    p_: int
-        The ``p`` of the ``p``-distances.
-    n_errors_: int
-        Number of errors during the model fitting phase.
-    cnt_: int
-        Number of elements accepted during the model
-        fitting phase.
-
-    .. note::
-
-        All attributes can be accessed using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.VASTModel.get_attributes`
-        method.
-
-    Examples
-    --------
-
-    The following examples provide a
-    basic understanding of usage.
-    For more detailed examples, please
-    refer to the :ref:`user_guide.machine_learning`
-    or the :ref:`examples`
-    section on the website.
-
-    Load data for machine learning
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-    We import :py:mod:`vastorbit`:
-
-    .. ipython:: python
-
-        import vastorbit as vo
-
-    .. hint::
-
-        By assigning an alias to :py:mod:`vastorbit`,
-        we mitigate the risk of code collisions with
-        other libraries. This precaution is necessary
-        because vastorbit uses commonly known function
-        names like "average" and "median", which can
-        potentially lead to naming conflicts. The use
-        of an alias ensures that the functions from
-        :py:mod:`vastorbit` are used as intended
-        without interfering with functions from other
-        libraries.
-
-    For this example, we will
-    use the winequality dataset.
-
-    .. code-block:: python
-
-        import vastorbit.datasets as vod
-
-        data = vod.load_winequality()
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-    .. note::
-
-        vastorbit offers a wide range of sample
-        datasets that are ideal for training
-        and testing purposes. You can explore
-        the full list of available datasets in
-        the :ref:`api.datasets`, which provides
-        detailed information on each dataset and
-        how to use them effectively. These datasets
-        are invaluable resources for honing your
-        data analysis and machine learning skills
-        within the vastorbit environment.
-
-    .. ipython:: python
-        :suppress:
-
-        import vastorbit.datasets as vod
-        data = vod.load_winequality()
-
-    Model Initialization
-    ^^^^^^^^^^^^^^^^^^^^^
-
-    First we import the ``LocalOutlierFactor`` model:
-
-    .. ipython:: python
-
-        from vastorbit.machine_learning.vast import LocalOutlierFactor
-
-    Then we can create the model:
-
-    .. ipython:: python
-        :okwarning:
-
-        model = LocalOutlierFactor(
-            n_neighbors = 10,
-            p = 2,
-        )
-
-    .. important::
-
-        As this model is not native, it solely
-        relies on SQL statements to compute
-        various attributes, storing them within
-        the object. No data is saved in the database.
-
-    Model Training
-    ^^^^^^^^^^^^^^^
-
-    We can now fit the model:
-
-    .. ipython:: python
-        :okwarning:
-
-        model.fit(data, X = ["density", "sulphates"])
-
-    .. important::
-
-        To train a model, you can directly use the
-        :py:class:`~VastFrame` or the name of the
-        relation stored in the database. The test
-        set is optional and is only used to compute
-        the test metrics. In :py:mod:`vastorbit`, we
-        don't work using ``X`` matrices and ``y``
-        vectors. Instead, we work directly with lists
-        of predictors and the response name.
-
-    .. hint::
-
-        For clustering and anomaly detection, the
-        use of predictors is optional. In such cases,
-        all available predictors are considered, which
-        can include solely numerical variables or a
-        combination of numerical and categorical variables,
-        depending on the model's capabilities.
-
-    .. important::
-
-        As this model is not native, it solely
-        relies on SQL statements to compute
-        various attributes, storing them within
-        the object. No data is saved in the database.
-
-    Prediction
-    ^^^^^^^^^^^
-
-    To find out the LOF
-    score for each datapoint:
-
-    .. ipython:: python
-        :suppress:
-
-        result = model.predict()
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_prediction.html", "w")
-        html_file.write(result._repr_html_())
-        html_file.close()
-
-    .. code-block:: python
-
-        model.predict()
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_prediction.html
-
-    As shown above, a new column
-    has been created, containing
-    the lof score.
-
-
-    Plots - Outliers
-    ^^^^^^^^^^^^^^^^^
-
-    Plots highlighting the outliers
-    can be easily drawn using:
-
-    .. code-block:: python
-
-        model.plot()
-
-    .. ipython:: python
-        :suppress:
-
-        vo.set_option("plotting_lib", "plotly")
-        fig = model.plot(width = 600)
-        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_plot.html")
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_plot.html
-
-    .. important::
-
-        Please refer to :ref:`chart_gallery.lof`
-        for more examples.
-
-    Parameter Modification
-    ^^^^^^^^^^^^^^^^^^^^^^^
-
-    In order to see
-    the parameters:
-
-    .. ipython:: python
-
-        model.get_params()
-
-    And to manually change
-    some of the parameters:
-
-    .. ipython:: python
-
-        model.set_params({'p': 3})
-
-    Model Register
-    ^^^^^^^^^^^^^^
-
-    As this model is not native, it does not
-    support model management and versioning.
-    However, it is possible to use the SQL
-    code it generates for deployment.
+    Creates a ``LocalOutlierFactor`` object by using the Local Outlier
+    Factor algorithm. Works without creating persistent tables - 
+    generates SQL on-demand.
     """
 
     # Properties.
-
-    @property
-    def _is_native(self) -> Literal[False]:
-        return False
-
-    @property
-    def _fit_sql(self) -> Literal[""]:
-        return ""
-
-    @property
-    def _predict_sql(self) -> Literal[""]:
-        return ""
-
     @property
     def _model_category(self) -> Literal["UNSUPERVISED"]:
         return "UNSUPERVISED"
@@ -2163,7 +1879,6 @@ class LocalOutlierFactor(VASTModel):
         return ["n_neighbors_", "p_", "n_errors_", "cnt_"]
 
     # System & Special Methods.
-
     @save_vastorbit_logs
     def __init__(
         self,
@@ -2174,99 +1889,115 @@ class LocalOutlierFactor(VASTModel):
     ) -> None:
         super().__init__(name, overwrite_model)
         self.parameters = {"n_neighbors": n_neighbors, "p": p}
+        self._lof_sql = None  # Store the SQL query
 
     def drop(self) -> bool:
-        """
-        Drops the model from
-        the VAST database.
-
-        Examples
-        --------
-        We import :py:mod:`vastorbit`:
-
-        .. ipython:: python
-
-            import vastorbit as vo
-
-        For this example, we will
-        use the winequality dataset.
-
-        .. code-block:: python
-
-            import vastorbit.datasets as vod
-
-            data = vod.load_winequality()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-        .. ipython:: python
-            :suppress:
-
-            import vastorbit.datasets as vod
-            data = vod.load_winequality()
-
-        First we import the model:
-
-        .. ipython:: python
-
-            from vastorbit.machine_learning.vast import LocalOutlierFactor
-
-        Then we can create the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model = LocalOutlierFactor(
-                n_neighbors = 10,
-                p = 2,
-            )
-
-        We can now fit the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model.fit(data, X = ["density", "sulphates"])
-
-        To drop the model:
-
-        .. ipython:: python
-
-            model.drop()
-
-        .. note::
-
-            Refer to
-            :py:class:`~vastorbit.machine_learning.vast.neighbors.LocalOutlierFactor`
-            for more information about the
-            different methods and usages.
-        """
-        try:
-            _executeSQL(
-                query=f"SELECT lof_score FROM {self.model_name} LIMIT 0;",
-                title="Looking if the LOF table exists.",
-            )
-            return drop(self.model_name, method="table")
-        except QueryError:
-            return False
+        """Drops the model (clears stored SQL)."""
+        self._lof_sql = None
+        return True
 
     # Attributes Methods.
-
     def _compute_attributes(self) -> None:
-        """
-        Computes the model's attributes.
-        """
+        """Computes the model's attributes."""
         self.p_ = self.parameters["p"]
         self.n_neighbors_ = self.parameters["n_neighbors"]
-        self.cnt_ = _executeSQL(
-            query=f"SELECT /*+LABEL('learn.VASTModel.plot')*/ COUNT(*) FROM {self.model_name}",
-            method="fetchfirstelem",
-            print_time_sql=False,
-        )
+        
+        # Compute count from the SQL
+        if self._lof_sql:
+            self.cnt_ = _executeSQL(
+                query=f"SELECT COUNT(*) FROM ({self._lof_sql}) t",
+                method="fetchfirstelem",
+                print_time_sql=False,
+            )
+        else:
+            self.cnt_ = 0
+
+    def _generate_lof_sql(self) -> str:
+        """
+        Generates the complete LOF computation SQL.
+        Returns a query that can be used as a subquery.
+        """
+        n_neighbors = self.parameters["n_neighbors"]
+        p = self.parameters["p"]
+        X = self.X
+        key_columns = self.key_columns
+        
+        # Build distance formula
+        sql = [f"POWER(ABS(x.{X[i]} - y.{X[i]}), {p})" for i in range(len(X))]
+        distance = f"POWER({' + '.join(sql)}, 1 / {p})"
+        
+        # Complete LOF query
+        query = f"""
+            WITH 
+            main_data AS (
+                SELECT 
+                    ROW_NUMBER() OVER() AS id,
+                    {', '.join(X + key_columns)}
+                FROM {self.input_relation}
+                WHERE {' AND '.join([f"{x} IS NOT NULL" for x in X])}
+            ),
+            distance_table AS (
+                SELECT 
+                    x.id AS node_id,
+                    y.id AS nn_id,
+                    {distance} AS distance,
+                    ROW_NUMBER() OVER(PARTITION BY x.id ORDER BY {distance}) AS knn
+                FROM main_data AS x
+                CROSS JOIN main_data AS y
+            ),
+            knn_distances AS (
+                SELECT *
+                FROM distance_table
+                WHERE knn <= {n_neighbors + 1}
+            ),
+            kdistance_table AS (
+                SELECT 
+                    node_id,
+                    nn_id,
+                    distance
+                FROM knn_distances
+                WHERE knn = {n_neighbors + 1}
+            ),
+            lrd_table AS (
+                SELECT 
+                    knn.node_id,
+                    {n_neighbors} / SUM(
+                        CASE 
+                            WHEN knn.distance > kdist.distance 
+                            THEN knn.distance 
+                            ELSE kdist.distance 
+                        END
+                    ) AS lrd
+                FROM knn_distances AS knn
+                LEFT JOIN kdistance_table AS kdist
+                    ON knn.nn_id = kdist.node_id
+                GROUP BY knn.node_id
+            ),
+            lof_scores AS (
+                SELECT 
+                    knn.node_id,
+                    SUM(lrd_nn.lrd) / (MAX(lrd_node.lrd) * {n_neighbors}) AS lof
+                FROM knn_distances AS knn
+                LEFT JOIN lrd_table AS lrd_node
+                    ON knn.node_id = lrd_node.node_id
+                LEFT JOIN lrd_table AS lrd_nn
+                    ON knn.nn_id = lrd_nn.node_id
+                GROUP BY knn.node_id
+            )
+            SELECT 
+                {', '.join(X + key_columns)},
+                CASE 
+                    WHEN lof.lof > 1e100 OR lof.lof != lof.lof THEN 0 
+                    ELSE lof.lof 
+                END AS lof_score
+            FROM main_data AS m
+            LEFT JOIN lof_scores AS lof
+                ON m.id = lof.node_id
+        """
+        
+        return query
 
     # Model Fitting Method.
-
     def fit(
         self,
         input_relation: SQLRelation,
@@ -2276,87 +2007,12 @@ class LocalOutlierFactor(VASTModel):
         return_report: bool = False,
     ) -> None:
         """
-        Trains the model.
-
-        Parameters
-        ----------
-        input_relation: SQLRelation
-                Training relation.
-        X: SQLColumns, optional
-                List of the predictors.
-        key_columns: SQLColumns, optional
-                Columns  not  used   during  the   algorithm
-            computation  but   which  are  used  to
-            create the final relation.
-        index: str, optional
-                Index  used to seperately identify each row.
-            To avoid the creation of temporary tables,
-            it is recommended that you already have an
-            index in the main table.
-
-        Examples
-        --------
-        We import :py:mod:`vastorbit`:
-
-        .. ipython:: python
-
-            import vastorbit as vo
-
-        For this example, we will
-        use the winequality dataset.
-
-        .. code-block:: python
-
-            import vastorbit.datasets as vod
-
-            data = vod.load_winequality()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-        .. ipython:: python
-            :suppress:
-
-            import vastorbit.datasets as vod
-            data = vod.load_winequality()
-
-        First we import the model:
-
-        .. ipython:: python
-
-            from vastorbit.machine_learning.vast import LocalOutlierFactor
-
-        Then we can create the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model = LocalOutlierFactor(
-                n_neighbors = 10,
-                p = 2,
-            )
-
-        We can now fit the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model.fit(data, X = ["density", "sulphates"])
-
-        .. note::
-
-            Refer to
-            :py:class:`~vastorbit.machine_learning.vast.neighbors.LocalOutlierFactor`
-            for more information about the
-            different methods and usages.
+        Trains the model by generating and storing the LOF SQL query.
         """
         X, key_columns = format_type(X, key_columns, dtype=list)
         X = quote_ident(X)
-        if self.overwrite_model:
-            self.drop()
-        else:
-            self._is_already_stored(raise_error=True)
         self.key_columns = quote_ident(key_columns)
+        
         if isinstance(input_relation, VastFrame):
             self.input_relation = input_relation.current_relation()
             if not X:
@@ -2365,342 +2021,54 @@ class LocalOutlierFactor(VASTModel):
             self.input_relation = input_relation
             if not X:
                 X = VastFrame(input_relation).numcol()
+        
         self.X = X
-        n_neighbors = self.parameters["n_neighbors"]
-        p = self.parameters["p"]
-        schema = schema_relation(input_relation)[0]
-        tmp_main_table_name = gen_tmp_name(name="main")
-        tmp_distance_table_name = gen_tmp_name(name="distance")
-        tmp_lrd_table_name = gen_tmp_name(name="lrd")
-        tmp_lof_table_name = gen_tmp_name(name="lof")
-        try:
-            if not index:
-                index = "id"
-                main_table = tmp_main_table_name
-                schema = "v_temp_schema"
-                drop(f"v_temp_schema.{tmp_main_table_name}", method="table")
-                _executeSQL(
-                    query=f"""
-                        CREATE LOCAL TEMPORARY TABLE {main_table} 
-                        ON COMMIT PRESERVE ROWS AS 
-                            SELECT 
-                                /*+LABEL('learn.neighbors.LocalOutlierFactor.fit')*/ 
-                                ROW_NUMBER() OVER() AS id, 
-                                {', '.join(X + key_columns)} 
-                            FROM {self.input_relation} 
-                            WHERE {' AND '.join([f"{x} IS NOT NULL" for x in X])}""",
-                    print_time_sql=False,
-                )
-            else:
-                main_table = self.input_relation
-            sql = [f"POWER(ABS(x.{X[i]} - y.{X[i]}), {p})" for i in range(len(X))]
-            distance = f"POWER({' + '.join(sql)}, 1 / {p})"
-            drop(f"v_temp_schema.{tmp_distance_table_name}", method="table")
-            _executeSQL(
-                query=f"""
-                    CREATE LOCAL TEMPORARY TABLE {tmp_distance_table_name} 
-                    ON COMMIT PRESERVE ROWS AS 
-                        SELECT 
-                            /*+LABEL('learn.neighbors.LocalOutlierFactor.fit')*/ 
-                            node_id, 
-                            nn_id, 
-                            distance, 
-                            knn 
-                        FROM 
-                            (SELECT 
-                                x.{index} AS node_id, 
-                                y.{index} AS nn_id, 
-                                {distance} AS distance, 
-                                ROW_NUMBER() OVER(PARTITION BY x.{index} 
-                                                  ORDER BY {distance}) AS knn 
-                             FROM {schema}.{main_table} AS x 
-                             CROSS JOIN 
-                             {schema}.{main_table} AS y) distance_table 
-                        WHERE knn <= {n_neighbors + 1}""",
-                title="Computing the LOF [Step 0].",
-            )
-            drop(f"v_temp_schema.{tmp_lrd_table_name}", method="table")
-            _executeSQL(
-                query=f"""
-                    CREATE LOCAL TEMPORARY TABLE {tmp_lrd_table_name} 
-                    ON COMMIT PRESERVE ROWS AS 
-                        SELECT 
-                            /*+LABEL('learn.neighbors.LocalOutlierFactor.fit')*/ 
-                            distance_table.node_id, 
-                            {n_neighbors} / SUM(
-                                    CASE 
-                                        WHEN distance_table.distance 
-                                             > kdistance_table.distance 
-                                        THEN distance_table.distance 
-                                        ELSE kdistance_table.distance 
-                                     END) AS lrd 
-                        FROM 
-                            (v_temp_schema.{tmp_distance_table_name} AS distance_table 
-                             LEFT JOIN 
-                             (SELECT 
-                                 node_id, 
-                                 nn_id, 
-                                 distance AS distance 
-                              FROM v_temp_schema.{tmp_distance_table_name} 
-                              WHERE knn = {n_neighbors + 1}) AS kdistance_table
-                             ON distance_table.nn_id = kdistance_table.node_id) x 
-                        GROUP BY 1""",
-                title="Computing the LOF [Step 1].",
-            )
-            drop(f"v_temp_schema.{tmp_lof_table_name}", method="table")
-            _executeSQL(
-                query=f"""
-                    CREATE LOCAL TEMPORARY TABLE {tmp_lof_table_name} 
-                    ON COMMIT PRESERVE ROWS AS 
-                    SELECT 
-                        /*+LABEL('learn.neighbors.LocalOutlierFactor.fit')*/ 
-                        x.node_id, 
-                        SUM(y.lrd) / (MAX(x.node_lrd) * {n_neighbors}) AS LOF 
-                    FROM 
-                        (SELECT 
-                            n_table.node_id, 
-                            n_table.nn_id, 
-                            lrd_table.lrd AS node_lrd 
-                         FROM 
-                            v_temp_schema.{tmp_distance_table_name} AS n_table 
-                         LEFT JOIN 
-                            v_temp_schema.{tmp_lrd_table_name} AS lrd_table 
-                        ON n_table.node_id = lrd_table.node_id) x 
-                    LEFT JOIN 
-                        v_temp_schema.{tmp_lrd_table_name} AS y 
-                    ON x.nn_id = y.node_id GROUP BY 1""",
-                title="Computing the LOF [Step 2].",
-            )
-            _executeSQL(
-                query=f"""
-                    CREATE TABLE {self.model_name} AS 
-                        SELECT 
-                            /*+LABEL('learn.neighbors.LocalOutlierFactor.fit')*/ 
-                            {', '.join(X + self.key_columns)}, 
-                            (CASE WHEN lof > 1e100 OR lof != lof THEN 0 ELSE lof END) AS lof_score
-                        FROM 
-                            {main_table} AS x 
-                        LEFT JOIN 
-                            v_temp_schema.{tmp_lof_table_name} AS y 
-                        ON x.{index} = y.node_id""",
-                title="Computing the LOF [Step 3].",
-            )
-            self.n_errors_ = _executeSQL(
-                query=f"""
-                    SELECT 
-                        /*+LABEL('learn.neighbors.LocalOutlierFactor.fit')*/ 
-                        COUNT(*) 
-                    FROM {schema}.{tmp_lof_table_name} z 
-                    WHERE lof > 1e100 OR lof != lof""",
-                method="fetchfirstelem",
-                print_time_sql=False,
-            )
-            self._compute_attributes()
-        finally:
-            drop(f"v_temp_schema.{tmp_main_table_name}", method="table")
-            drop(f"v_temp_schema.{tmp_distance_table_name}", method="table")
-            drop(f"v_temp_schema.{tmp_lrd_table_name}", method="table")
-            drop(f"v_temp_schema.{tmp_lof_table_name}", method="table")
+        
+        # Generate and store the SQL
+        self._lof_sql = self._generate_lof_sql()
+        
+        # Compute error count
+        self.n_errors_ = _executeSQL(
+            query=f"""
+                SELECT COUNT(*) 
+                FROM ({self._lof_sql}) t
+                WHERE lof_score > 1e100 OR lof_score != lof_score
+            """,
+            method="fetchfirstelem",
+            print_time_sql=False,
+        )
+        
+        self._compute_attributes()
 
     # Prediction / Transformation Methods.
-
     def predict(self) -> VastFrame:
         """
-        Creates a :py:class:`~VastFrame`
-        of the model.
-
-        Returns
-        -------
-        VastFrame
-            the :py:class:`~VastFrame`
-            including the prediction.
-
-        Examples
-        --------
-        We import :py:mod:`vastorbit`:
-
-        .. ipython:: python
-
-            import vastorbit as vo
-
-        For this example, we will
-        use the winequality dataset.
-
-        .. code-block:: python
-
-            import vastorbit.datasets as vod
-
-            data = vod.load_winequality()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-        .. ipython:: python
-            :suppress:
-
-            import vastorbit.datasets as vod
-            data = vod.load_winequality()
-
-        First we import the model:
-
-        .. ipython:: python
-
-            from vastorbit.machine_learning.vast import LocalOutlierFactor
-
-        Then we can create the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model = LocalOutlierFactor(
-                n_neighbors = 10,
-                p = 2,
-            )
-
-        We can now fit the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model.fit(data, X = ["density", "sulphates"])
-
-        To compute the predictions:
-
-        .. ipython:: python
-            :suppress:
-
-            result = model.predict()
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_prediction.html", "w")
-            html_file.write(result._repr_html_())
-            html_file.close()
-
-        .. code-block:: python
-
-            model.predict()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_prediction.html
-
-        .. note::
-
-            Refer to
-            :py:class:`~vastorbit.machine_learning.vast.neighbors.LocalOutlierFactor`
-            for more information about the
-            different methods and usages.
+        Returns a VastFrame with the LOF scores.
         """
-        return VastFrame(self.model_name)
+        if self._lof_sql is None:
+            raise ValueError("Model not fitted yet. Call fit() first.")
+        
+        # Return VastFrame directly from the SQL
+        return VastFrame(self._lof_sql)
 
     # Plotting Methods.
-
     def plot(
         self,
         max_nb_points: int = 100,
         chart: Optional[PlottingObject] = None,
         **style_kwargs,
     ) -> PlottingObject:
-        """
-        Draws the model.
-
-        Parameters
-        ----------
-        max_nb_points: int
-            Maximum  number of
-            points to display.
-        chart: PlottingObject, optional
-            The chart object
-            to plot on.
-        **style_kwargs
-            Any optional parameter to
-            pass to the Plotting functions.
-
-        Returns
-        -------
-        obj
-            Plotting Object.
-
-        Examples
-        --------
-        We import :py:mod:`vastorbit`:
-
-        .. ipython:: python
-
-            import vastorbit as vo
-
-        For this example, we will
-        use the winequality dataset.
-
-        .. code-block:: python
-
-            import vastorbit.datasets as vod
-
-            data = vod.load_winequality()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-        .. ipython:: python
-            :suppress:
-
-            import vastorbit.datasets as vod
-            data = vod.load_winequality()
-
-        First we import the model:
-
-        .. ipython:: python
-
-            from vastorbit.machine_learning.vast import LocalOutlierFactor
-
-        Then we can create the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model = LocalOutlierFactor(
-                n_neighbors = 10,
-                p = 2,
-            )
-
-        We can now fit the model:
-
-        .. ipython:: python
-            :okwarning:
-
-            model.fit(data, X = ["density", "sulphates"])
-
-        To plot the model:
-
-        .. code-block:: python
-
-            model.plot()
-
-        .. ipython:: python
-            :suppress:
-
-            vo.set_option("plotting_lib", "plotly")
-            fig = model.plot(width = 600)
-            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_plot.html")
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_lof_plot.html
-
-        .. important::
-
-            Please refer to :ref:`chart_gallery.lof` for more examples.
-
-        .. note::
-
-            Refer to
-            :py:class:`~vastorbit.machine_learning.vast.neighbors.LocalOutlierFactor`
-            for more information about the
-            different methods and usages.
-        """
+        """Draws the model."""
+        if self._lof_sql is None:
+            raise ValueError("Model not fitted yet. Call fit() first.")
+        
         vo_plt, kwargs = self.get_plotting_lib(
             class_name="LOFPlot",
             chart=chart,
             style_kwargs=style_kwargs,
         )
         return vo_plt.LOFPlot(
-            vdf=VastFrame(self.model_name),
+            vdf=VastFrame(self._lof_sql),
             columns=self.X + ["lof_score"],
             max_nb_points=max_nb_points,
         ).draw(**kwargs)

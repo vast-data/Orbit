@@ -249,7 +249,6 @@ class vDFRolling(vDFCorr):
                         elif char != " ":
                             break
                     rule[idx] = "PRECEDING" if nb_min % 2 == 1 else "FOLLOWING"
-                    # Trino uses INTERVAL syntax
                     interval_str = window[idx][i:].strip()
                     window[idx] = f"INTERVAL '{interval_str}'"
                     method = "range"
@@ -257,7 +256,7 @@ class vDFRolling(vDFCorr):
                 rule[idx] = (
                     "PRECEDING" if window[idx] < datetime.timedelta(0) else "FOLLOWING"
                 )
-                # Convert timedelta to Trino interval
+                # Convert timedelta to interval
                 total_seconds = abs(int(window[idx].total_seconds()))
                 window[idx] = f"INTERVAL '{total_seconds}' SECOND"
                 method = "range"
@@ -289,7 +288,7 @@ class vDFRolling(vDFCorr):
 
         func_lower = func.lower()
 
-        # Map function names to Trino functions
+        # Map function names to SQL functions
         if func_lower in ("mean", "avg"):
             expr = f"AVG({columns[0]})#"
 
@@ -319,7 +318,6 @@ class vDFRolling(vDFCorr):
         elif func_lower == "aad":
             # Average absolute deviation from mean
             # Need to compute mean first, then avg of abs deviations
-            # Trino doesn't have a built-in for this, so we need a subquery approach
             # For window functions, we'll use the approximation
             import secrets
 
@@ -352,13 +350,10 @@ class vDFRolling(vDFCorr):
                     expr = "1"
             else:
                 if func_lower == "corr":
-                    # Trino has built-in CORR function
                     expr = f"CORR({columns[0]}, {columns[1]})#"
                 elif func_lower == "beta":
-                    # Beta = COV(X,Y) / VAR(Y)
                     expr = f"COVAR_SAMP({columns[0]}, {columns[1]})# / NULLIF(VAR_SAMP({columns[1]})#, 0)"
                 else:  # cov
-                    # Trino has built-in COVAR_SAMP
                     expr = f"COVAR_SAMP({columns[0]}, {columns[1]})#"
 
         elif func_lower == "range":
@@ -375,7 +370,7 @@ class vDFRolling(vDFCorr):
             expr = f"{func_lower.upper()}({columns[0]})#"
 
         else:
-            # Try using the function as-is (for any other Trino aggregate functions)
+            # Try using the function as-is (for any other SQL aggregate functions)
             expr = f"{func.upper()}({columns[0]})#"
 
         # Replace # with window frame

@@ -120,30 +120,31 @@ ____
 --------------
 
 **Ready to contribute? Follow these steps:**
-```bash
-# 1. Fork and clone
-git clone https://github.com/YOUR_USERNAME/vastorbit.git
-cd vastorbit
 
-# 2. Create branch
-git checkout -b feature/your-feature-name
+.. code-block:: bash
 
-# 3. Install dev dependencies
-pip install -e ".[dev]"
+  # 1. Fork and clone
+  git clone https://github.com/YOUR_USERNAME/vastorbit.git
+  cd vastorbit
 
-# 4. Make changes and test
-pytest tests/
+  # 2. Create branch
+  git checkout -b feature/your-feature-name
 
-# 5. Format and lint
-black .
-pylint vastorbit
+  # 3. Install dev dependencies
+  pip install -e ".[dev]"
 
-# 6. Commit and push
-git commit -m "Add: Your feature description"
-git push origin feature/your-feature-name
+  # 4. Make changes and test
+  pytest tests/
 
-# 7. Open Pull Request on GitHub
-```
+  # 5. Format and lint
+  black .
+  pylint vastorbit
+
+  # 6. Commit and push
+  git commit -m "Add: Your feature description"
+  git push origin feature/your-feature-name
+
+  # 7. Open Pull Request on GitHub
 
 ____
 

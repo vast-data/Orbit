@@ -1,71 +1,52 @@
 .. _api.sql:
 
-==============
+===
 SQL
-==============
+===
 
+SQL utilities and functions for data manipulation and spatial operations.
 
-.. grid:: 2
+____
 
-    .. grid-item::
-
-        .. card:: Functions
-          :link: api.sql.functions
-          :link-type: ref
-          :text-align: center
-          :class-card: custom-card
-
-          ^^^^^^
-          SQL Functions for Building and 
-          Transforming Features.
-
-
-    .. grid-item::
-
-        .. card:: Utilities
-          :link: api.sql.utils
-          :link-type: ref
-          :text-align: center
-          :class-card: custom-card
-
-          ^^^^^^
-          Functions for Dropping, Creating, 
-          and Inserting Data into Tables.
-
-
+.. grid:: 1 2 2 2
+    :gutter: 3
 
     .. grid-item::
     
-        .. card:: Flex Tables
-          :link: api.sql.flex
-          :link-type: ref
-          :text-align: center
-          :class-card: custom-card
-
-          ^^^^^^
-          Functions for Building and 
-          Understanding Flex Elements.
+        .. card:: 🔧 Functions
+            :link: api.sql.functions
+            :link-type: ref
+            :text-align: center
+            :class-card: custom-card
+            
+            SQL functions for building and transforming features.
 
     .. grid-item::
     
-      .. card:: Geo Spatial
-          :link: api.sql.geospatial
-          :link-type: ref
-          :text-align: center
-          :class-card: custom-card
+        .. card:: 🛠️ Utilities
+            :link: api.sql.utils
+            :link-type: ref
+            :text-align: center
+            :class-card: custom-card
+            
+            Functions for dropping, creating, and inserting data into tables.
 
-          ^^^^^
-          Function for Performing Spatial 
-          Joins and Building Geo Indexes.
+    .. grid-item::
+    
+        .. card:: 🗺️ Geospatial
+            :link: api.sql.geospatial
+            :link-type: ref
+            :text-align: center
+            :class-card: custom-card
+            
+            Functions for performing spatial joins and building geo indexes.
 
-_____________
-
+____
 
 .. toctree::
-  :maxdepth: 1
-  :hidden:
-
-  sql_functions
-  sql_utils
-  sql_flex
-  sql_geospatial
+    :maxdepth: 1
+    :hidden:
+    
+    sql_functions
+    sql_utils
+    sql_geospatial

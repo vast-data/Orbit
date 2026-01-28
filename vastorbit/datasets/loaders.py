@@ -255,7 +255,7 @@ def load_dataset(
     catalog: Optional[str] = None,
 ) -> VastFrame:
     """
-    Ingest a dataset into database via Trino.
+    Ingest a dataset into VASTDB via Trino.
 
     Trino Implementation Strategy:
     1. Check if table already exists → return VastFrame

@@ -23,6 +23,10 @@ class DensityPlot(MatplotlibBase):
     def _kind(self) -> Literal["density"]:
         return "density"
 
+    @property
+    def _compute_method(self) -> Literal["density"]:
+        return "density"
+
     # Styling Methods.
 
     def _init_style(self) -> None:
@@ -136,6 +140,10 @@ class DensityPlot2D(MatplotlibBase):
 
     @property
     def _kind(self) -> Literal["density"]:
+        return "density"
+
+    @property
+    def _compute_method(self) -> Literal["density"]:
         return "density"
 
     # Styling Methods.

@@ -25,51 +25,22 @@ Algorithms used for regression.
 
 class LinearSVR(LinearModel, Regressor):
     """
-    Creates  a  LinearSVR  object  using the VAST  SVM
-    (Support Vector Machine)  algorithm.  This  algorithm
-    finds the hyperplane used to approximate distribution
-    of the data.
+    Creates an ``LinearSVR`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name of the model. The model is stored in
-        the database.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    tol: float, optional
-        Tolerance for stopping criteria. This is
-        used to control accuracy.
-    C: float, optional
-        Weight  for  misclassification  cost. The
-        algorithm minimizes the regularization
-        cost and the misclassification cost.
-    intercept_scaling: float
-        A  float value, serves  as the value of a
-        dummy feature  whose  coefficient VAST
-        uses to calculate the model intercept.
-        Because  the dummy feature is not in  the
-        training data,  its values  are  set to a
-        constant, by default set to 1.
-    intercept_mode: str, optional
-        Specify how to treat the intercept.
-
-        - regularized:
-            Fits  the intercept  and applies a
-            regularization.
-        - unregularized:
-            Fits the  intercept  but does not  include
-            it in regularization.
-    acceptable_error_margin: float, optional
-        Defines the acceptable error margin. Any data
-        points  outside this region add a penalty  to
-        the cost function.
-    max_iter: int, optional
-        The  maximum  number of iterations  that  the
-        algorithm performs.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -538,61 +509,22 @@ Algorithms used for classification.
 
 class LinearSVC(LinearModelClassifier, BinaryClassifier):
     """
-    Creates  a LinearSVC object  using the  VAST
-    Support Vector Machine  (SVM)  algorithm on the
-    data. Given a set of training examples, where
-    each is marked as belonging to one of two
-    categories, an SVM training algorithm builds a
-    model that assigns new examples to one category
-    or  the other,  making it  a  non-probabilistic
-    binary linear classifier.
+    Creates an ``LinearSVC`` object
+    using SKLEARN for training and
+    the scalability of VASTDB for
+    the inferences.
 
     Parameters
     ----------
     name: str, optional
-        Name  of the  model. The model is stored
-        in the database.
+        Name of the model. The model
+        is stored in the database.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
         existing model overwrites the
         existing model.
-    tol: float, optional
-        Tolerance for stopping criteria. This is
-        used to control accuracy.
-    C: float, optional
-        Weight for misclassification cost.  The
-        algorithm minimizes the regularization cost
-        and the misclassification cost.
-    intercept_scaling: float
-        A  float  value,  serves as  the  value of a
-        dummy feature whose coefficient VAST uses
-        to calculate the model intercept.
-        Because  the  dummy  feature  is not in  the
-        training  data,  its  values  are  set to  a
-        constant, by default set to 1.
-    intercept_mode: str, optional
-        Specify how to treat the intercept.
-
-        - regularized:
-            Fits  the intercept  and applies a
-            regularization.
-        - unregularized:
-            Fits the  intercept  but does not  include
-            it in regularization.
-    class_weight: str | list, optional
-        Specifies how to determine weights for the two
-        classes.  It can be a  list of 2 elements  or
-        one of the following methods:
-
-        - auto:
-            Weights  each class  according  to
-            the number of samples.
-        - none:
-            No weights are used.
-    max_iter: int, optional
-        The  maximum  number of iterations  that  the
-        algorithm performs.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------

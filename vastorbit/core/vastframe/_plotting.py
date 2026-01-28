@@ -4247,7 +4247,7 @@ class vDCPlot(vDCScaler):
 
         Parameters
         ----------
-        *args / **kwargs
+        *args / **kwargs:
             Any optional parameter to pass to the geopandas
             plot function.
             For more information, see:

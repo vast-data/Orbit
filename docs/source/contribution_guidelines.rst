@@ -100,7 +100,6 @@ ____
 **Get Help:**
 
 - 💬 **Slack**: vastsupport.slack.com
-- 📖 **Documentation**: https://vastorbit.readthedocs.io
 - 🐛 **Issues**: https://github.com/vastdata-dev/vastorbit/issues
 
 **Stay Updated:**

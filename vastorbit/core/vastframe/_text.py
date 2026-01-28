@@ -201,9 +201,6 @@ class vDFText(vDFRolling):
         column = self.format_colnames(column)
         pattern_str = pattern.replace("'", "''")
 
-        # Trino regex functions - matching the documentation at
-        # https://trino.io/docs/current/functions/regexp.html
-
         if method == "count":
             # REGEXP_COUNT(string, pattern) → bigint
             expr = f"REGEXP_COUNT({column}, '{pattern_str}')"
@@ -240,7 +237,6 @@ class vDFText(vDFRolling):
             replacement_str = replacement.replace("'", "''")
 
             if position > 1:
-                # Trino supports position parameter
                 expr = f"REGEXP_REPLACE({column}, '{pattern_str}', '{replacement_str}', {position})"
             else:
                 expr = f"REGEXP_REPLACE({column}, '{pattern_str}', '{replacement_str}')"
@@ -587,7 +583,7 @@ class vDCText(vDCCorr):
         Parameters
         ----------
         start: int
-            Start of the slicing (1-indexed in Trino).
+            Start of the slicing (1-indexed).
         step: int
             Size of the slicing.
 
@@ -647,7 +643,6 @@ class vDCText(vDCCorr):
         """
         # SUBSTR(string, start) → varchar
         # SUBSTR(string, start, length) → varchar
-        # Trino SUBSTR is 1-indexed
         if start == 0:
             start = 1
         return self.apply(func=f"SUBSTR({{}}, {start}, {step - 1})")

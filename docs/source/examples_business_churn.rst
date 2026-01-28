@@ -219,7 +219,7 @@ Let's train and evaluate our model.
     from vastorbit.machine_learning.vast import LogisticRegression
 
     model = LogisticRegression(
-        l1_ratio = 0, tol = 1e-6, max_iter = 1000, solver = "lbfgs",
+        max_iter = 1000,
     )
     model.fit(
         train, 
@@ -236,7 +236,7 @@ Let's train and evaluate our model.
     from vastorbit.machine_learning.vast import LogisticRegression
 
     model = LogisticRegression(
-        l1_ratio = 0, tol = 1e-6, max_iter = 1000, solver = "lbfgs",
+        max_iter = 1000,
     )
     model.fit(
         train, 

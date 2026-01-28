@@ -251,7 +251,7 @@ def confusion_matrix(
     pos_label: Optional[PythonScalar] = None,
 ) -> np.ndarray:
     """
-    Computes the confusion matrix using Trino SQL.
+    Computes the confusion matrix using SQL.
 
     Parameters
     ----------

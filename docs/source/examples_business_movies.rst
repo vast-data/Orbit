@@ -732,11 +732,7 @@ Let's create a model to evaluate an unbiased score for each different movie.
         ],
     )
     vo.drop("filmtv_movies_lr") # If model name already exists
-    model = LinearRegression(
-        "filmtv_movies_lr",
-        max_iter = 1000,
-        solver = "BFGS",
-    )
+    model = LinearRegression()
     model.fit("filmtv_movies_mco", predictors, "avg_vote")
 
 .. code-block:: python
@@ -897,7 +893,7 @@ Let's compute the :py:func:`~vastorbit.machine_learning.model_selection.elbow` c
     elbow_chart = elbow(
         filmtv_movies_complete,
         predictors,
-        n_cluster = (1, 60),
+        n_clusters = (1, 60),
         show = True
     )
 
@@ -923,7 +919,7 @@ By looking at the elbow curve, we can choose 15 clusters. Let's create a :py:mod
 
     from vastorbit.machine_learning.vast.cluster import KMeans
 
-    model_kmeans = KMeans(n_cluster = 15)
+    model_kmeans = KMeans(n_clusters = 15)
     model_kmeans.fit(filmtv_movies_complete, predictors)
     model_kmeans.clusters_
 

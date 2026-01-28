@@ -1296,9 +1296,6 @@ class vDFCorr(vDFEncode):
         """
         Calculates the regression matrix for the given VastFrame.
 
-        Trino supports: intercept, slope
-        Other methods computed using standard SQL.
-
         Parameters
         ----------
         columns: SQLColumns, optional
@@ -1310,8 +1307,8 @@ class vDFCorr(vDFEncode):
              - avgx: Average of independent expression
              - avgy: Average of dependent expression
              - count: Count of all non-NULL rows
-             - alpha / intercept: Intercept (Trino native)
-             - beta / slope: Slope (Trino native)
+             - alpha / intercept: Intercept
+             - beta / slope: Slope
              - r2: R-squared coefficient
              - sxx: Sum of squares of independent
              - sxy: Sum of products
@@ -1510,11 +1507,9 @@ class vDFCorr(vDFEncode):
             SQL expression
         """
         if method == "intercept":
-            # Trino native
             return f"REGR_INTERCEPT({y}, {x})"
 
         elif method == "slope":
-            # Trino native
             return f"REGR_SLOPE({y}, {x})"
 
         elif method == "avgx":

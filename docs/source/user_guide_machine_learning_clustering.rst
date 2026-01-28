@@ -19,7 +19,7 @@ Next, we'll create a model object.
 
 .. ipython:: python
     
-    model = KMeans(n_cluster = 3)
+    model = KMeans(n_clusters = 3)
 
 Let's use the iris dataset to fit our model.
 

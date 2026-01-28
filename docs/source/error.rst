@@ -1,17 +1,21 @@
 .. _api.error:
 
-=================
+==============
 Error Handling
-=================
+==============
+
+Custom exception classes for VastOrbit error handling.
+
+____
 
 Errors
--------------
+------
 
 .. currentmodule:: vastorbit.errors
 
 .. autosummary:: 
    :toctree: api/
-
+   
    ConversionError
    EmptyParameter
    ExtensionError

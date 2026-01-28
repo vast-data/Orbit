@@ -467,7 +467,7 @@ class TfidfVectorizer(VASTModel):
         # Words by document
         q_wbd = self._wbd(vdf=vdf, index=index, text=text)
 
-        # Explode words array (Trino syntax)
+        # Explode words array
         q_e = """
             SELECT
                 row_id,
@@ -619,7 +619,7 @@ class TfidfVectorizer(VASTModel):
         # Words by document
         q_wbd = self._wbd(vdf=vdf, index=index, text=text)
         
-        # Explode words array (Trino syntax)
+        # Explode words array
         q_e = """
             SELECT
                 row_id,

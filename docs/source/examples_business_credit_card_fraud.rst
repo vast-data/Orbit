@@ -339,10 +339,7 @@ Supervising would make this pretty easy since it would just be a binary classifi
     predictors = creditcard.get_columns(exclude_columns = ["Class", "Time"])
     response = "Class"
     model = LogisticRegression(
-        penalty = 'L2',
-        tol = 1e-6, 
         max_iter = 1000,
-        solver = "BFGS",
     )
     model.fit(train, predictors, response, test)
     model.classification_report()
@@ -355,10 +352,7 @@ Supervising would make this pretty easy since it would just be a binary classifi
     predictors = creditcard.get_columns(exclude_columns = ["Class", "Time"])
     response = "Class"
     model = LogisticRegression(
-        penalty = 'L2',
-        tol = 1e-6, 
         max_iter = 1000,
-        solver = "BFGS",
     )
     model.fit(train, predictors, response, test)
     res = model.classification_report()
@@ -473,7 +467,7 @@ Once we deploy the unsupervised model and can reliably detect suspicious transac
     elbow(
         creditcard,
         ["V12", "V17", "V10", "V14", "V16"], 
-        n_cluster = [1, 2, 10, 20, 30],
+        n_clusters = [1, 2, 10, 20, 30],
     )
 
 .. ipython:: python
@@ -486,7 +480,7 @@ Once we deploy the unsupervised model and can reliably detect suspicious transac
     fig = elbow(
         creditcard,
         ["V12", "V17", "V10", "V14", "V16"], 
-        n_cluster = [1, 2, 10, 20, 30],
+        n_clusters = [1, 2, 10, 20, 30],
     )
     fig.write_html("SPHINX_DIRECTORY/figures/examples_creditcardfraud_ml_elbow.html")
 
@@ -499,7 +493,7 @@ Once we deploy the unsupervised model and can reliably detect suspicious transac
 
     from vastorbit.machine_learning.vast import KMeans
 
-    model = KMeans(n_cluster = 20)
+    model = KMeans(n_clusters = 20)
     model.fit(creditcard, ["V12", "V17", "V10"])
 
 Let's direct our attention to the smallest clusters.

@@ -1,19 +1,21 @@
 .. _api.datasets:
 
-==========
+========
 Datasets
-==========
+========
 
-______
+Sample datasets and data generators for testing and examples.
+
+____
 
 Datasets
---------------------
+--------
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
-
+   
    datasets.load_airline_passengers
    datasets.load_amazon
    datasets.load_cities
@@ -25,33 +27,30 @@ Datasets
    datasets.load_titanic
    datasets.load_winequality
    datasets.load_world
-   .. datasets.load_gapminders
-
-
-______
-
-Dataset Generator
---------------------
-
-.. currentmodule:: vastorbit
-
-.. autosummary:: 
-   :toctree: api/
-
-   datasets.gen_dataset
-   datasets.gen_meshgrid
 
 ____
 
-Test Data
+Dataset Generators
 ------------------
 
 .. currentmodule:: vastorbit
 
 .. autosummary:: 
    :toctree: api/
+   
+   datasets.gen_dataset
+   datasets.gen_meshgrid
 
+____
+
+Test Data
+---------
+
+.. currentmodule:: vastorbit
+
+.. autosummary:: 
+   :toctree: api/
+   
    datasets.load_dataset_cl
    datasets.load_dataset_num
    datasets.load_dataset_reg
-   

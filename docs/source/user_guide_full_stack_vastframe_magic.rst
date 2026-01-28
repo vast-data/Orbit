@@ -1,7 +1,7 @@
 .. _user_guide.full_stack.vastframe_magic:
 
 ======================================
-The ``Magic`` Methods of the VastFrame
+The Magic Methods of the VastFrame
 ======================================
 
 vastorbit 0.3.2 introduces the ``Magic`` methods, which offer some additional flexibility for mathematical operations in the :py:mod:`~vastorbit.VastFrame`. These methods let you handle many operations in a ``pandas-like`` or Pythonic style.

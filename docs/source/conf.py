@@ -293,6 +293,7 @@ html_favicon = "_static/vlogo.png"
 # Customization
 html_css_files = [
     "css/custom_styling.css",
+    "css/ai_assistant.css",
     "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css",
@@ -300,37 +301,144 @@ html_css_files = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
 ]
 
+html_js_files = [
+    "js/ai_assistant.js",
+]
+
 def setup(app):
-    """Patch IPython directive to catch and suppress all errors."""
+    """Patch IPython directive to skip remaining cells in failed RST files."""
     try:
         from IPython.sphinxext import ipython_directive
+        import time
+        import os
         
-        # Monkey-patch the process_input method to catch all exceptions
+        # Track failed files
+        failed_files = set()
+        current_file = [None]  # Use list for mutability in closure
+        
+        # Monkey-patch the process_input method
         original_process_input = ipython_directive.EmbeddedSphinxShell.process_input
         
-        def safe_process_input(self, data, input_prompt, lineno):
+        def safe_process_input_with_retry(self, data, input_prompt, lineno):
+            # Get current source file from Sphinx state
             try:
-                return original_process_input(self, data, input_prompt, lineno)
-            except Exception as e:
-                # Silently skip the error and continue
-                print(f"⚠️  IPython execution failed (continuing anyway): {e}")
-                # Return empty to skip this code block
-                return
+                source_file = self.state.document.current_source
+                
+                # Check if we moved to a new file
+                if source_file != current_file[0]:
+                    current_file[0] = source_file
+                    # Reset failure state for new file
+                    if source_file in failed_files:
+                        print(f"\n📄 Processing new file: {os.path.basename(source_file)}")
+                        print(f"   (Previous failures in this file will be ignored)\n")
+                
+                # Skip if this file already failed
+                if source_file in failed_files:
+                    print(f"⏭️  Skipping cell (file already failed): {os.path.basename(source_file)}")
+                    return
+                    
+            except AttributeError:
+                source_file = "unknown"
+            
+            max_retries = 30
+            retry_delay = 10
+            max_delay = 120
+            
+            for attempt in range(max_retries):
+                try:
+                    return original_process_input(self, data, input_prompt, lineno)
+                except Exception as e:
+                    error_msg = str(e)
+                    
+                    # Check if it's a Trino connection error
+                    if any(keyword in error_msg.lower() for keyword in [
+                        'failed connection to trino',
+                        'trino.client',
+                        'connection refused',
+                        'cannot connect',
+                        'failed after'
+                    ]):
+                        if attempt < max_retries - 1:
+                            wait_time = min(retry_delay * (2 ** attempt), max_delay)
+                            print(f"\n⏳ Trino connection failed. Waiting {wait_time}s before retry {attempt + 1}/{max_retries}...")
+                            print(f"   Error: {error_msg}")
+                            print(f"   💡 Please start Trino and the build will continue automatically.\n")
+                            time.sleep(wait_time)
+                        else:
+                            # Max retries reached - mark file as failed and skip
+                            print(f"\n❌ Trino connection failed after {max_retries} attempts in {os.path.basename(source_file)}")
+                            print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
+                            failed_files.add(source_file)
+                            return
+                    else:
+                        # Non-Trino error - mark file as failed and skip
+                        print(f"\n⚠️  IPython execution failed in {os.path.basename(source_file)}: {e}")
+                        print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
+                        failed_files.add(source_file)
+                        return
+            
+            return
         
-        ipython_directive.EmbeddedSphinxShell.process_input = safe_process_input
+        ipython_directive.EmbeddedSphinxShell.process_input = safe_process_input_with_retry
         
-        # Also patch process_block to be safe
+        # Patch process_block similarly
         original_process_block = ipython_directive.EmbeddedSphinxShell.process_block
         
-        def safe_process_block(self, block):
+        def safe_process_block_with_retry(self, block):
+            # Get current source file
             try:
-                return original_process_block(self, block)
-            except Exception as e:
-                print(f"⚠️  IPython block failed (continuing anyway): {e}")
-                # Return empty result
-                return [], None
+                source_file = self.state.document.current_source
+                
+                # Check if we moved to a new file
+                if source_file != current_file[0]:
+                    current_file[0] = source_file
+                    if source_file in failed_files:
+                        print(f"\n📄 Processing new file: {os.path.basename(source_file)}")
+                
+                # Skip if this file already failed
+                if source_file in failed_files:
+                    print(f"⏭️  Skipping block (file already failed): {os.path.basename(source_file)}")
+                    return [], None
+                    
+            except AttributeError:
+                source_file = "unknown"
+            
+            max_retries = 30
+            retry_delay = 10
+            max_delay = 120
+            
+            for attempt in range(max_retries):
+                try:
+                    return original_process_block(self, block)
+                except Exception as e:
+                    error_msg = str(e)
+                    
+                    if any(keyword in error_msg.lower() for keyword in [
+                        'failed connection to trino',
+                        'trino.client',
+                        'connection refused',
+                        'cannot connect',
+                        'failed after'
+                    ]):
+                        if attempt < max_retries - 1:
+                            wait_time = min(retry_delay * (2 ** attempt), max_delay)
+                            print(f"\n⏳ Trino connection failed. Waiting {wait_time}s before retry {attempt + 1}/{max_retries}...")
+                            print(f"   💡 Please start Trino and the build will continue automatically.\n")
+                            time.sleep(wait_time)
+                        else:
+                            print(f"\n❌ Trino connection failed after {max_retries} attempts in {os.path.basename(source_file)}")
+                            print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
+                            failed_files.add(source_file)
+                            return [], None
+                    else:
+                        print(f"\n⚠️  IPython block failed in {os.path.basename(source_file)}: {e}")
+                        print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
+                        failed_files.add(source_file)
+                        return [], None
+            
+            return [], None
         
-        ipython_directive.EmbeddedSphinxShell.process_block = safe_process_block
+        ipython_directive.EmbeddedSphinxShell.process_block = safe_process_block_with_retry
         
     except ImportError:
         pass

@@ -225,7 +225,7 @@ These clusters can be used as inputs by our model.
     elbow(
         africa,
         X = ["lon", "lat"],
-        n_cluster = (1, 30),
+        n_clusters = (1, 30),
         show = True,
     )
 
@@ -236,7 +236,7 @@ These clusters can be used as inputs by our model.
     fig = elbow(
         africa,
         X = ["lon", "lat"],
-        n_cluster = (1, 30),
+        n_clusters = (1, 30),
         show = True,
     )
     fig.write_html("SPHINX_DIRECTORY/figures/examples_africa_elbow.html")
@@ -250,14 +250,14 @@ Eight seems to be a suitable number of clusters. Let's compute a :py:mod:`~vasto
 
     from vastorbit.machine_learning.vast import KMeans
 
-    model = KMeans(n_cluster = 8)
+    model = KMeans(n_clusters = 8)
     model.fit(africa, X = ["lon", "lat"])
 
 .. ipython:: python
     :suppress:
 
     from vastorbit.machine_learning.vast import KMeans
-    model = KMeans(n_cluster = 8)
+    model = KMeans(n_clusters = 8)
     model.fit(africa, X = ["lon", "lat"])
 
 We can add the prediction to the :py:mod:`~vastorbit.VastFrame` and draw the scatter map.

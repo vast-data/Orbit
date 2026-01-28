@@ -282,6 +282,7 @@ Because of the upward monotonic trend, we can also look at the correlation betwe
 .. ipython:: python
 
     covid19["elapsed_days"] = covid19["date"] - fun.min(covid19["date"])._over(by = [covid19["state"]])
+    covid19["elapsed_days"] = "EXTRACT(DAY FROM {})"
 
 We can generate the SQL code of the :py:mod:`~vastorbit.VastFrame` 
 to see what happens behind the scenes when we modify our data from within the :py:mod:`~vastorbit.VastFrame`.
@@ -319,7 +320,7 @@ Let's compute the total number of deaths and cases to create our :py:mod:`~vasto
             fun.sum(covid19["deaths"])._as("deaths"),
             fun.sum(covid19["cases"])._as("cases"),
         ],
-    ).search("date > '04-01-2020'")
+    ).search("date > CAST('2020-01-04' AS DATE)")
 
 .. ipython:: python
     :suppress:
@@ -330,7 +331,7 @@ Let's compute the total number of deaths and cases to create our :py:mod:`~vasto
             fun.sum(covid19["deaths"])._as("deaths"),
             fun.sum(covid19["cases"])._as("cases"),
         ],
-    ).search("date > '04-01-2020'")
+    ).search("date > CAST('2020-01-04' AS DATE)")
 
 Machine Learning
 -----------------
@@ -380,9 +381,9 @@ Cases:
 
     model.plot(
         covid19,
-        start = 37,
-        npredictions = 10,
+        npredictions = 100,
         idx = 0,
+        method="forecast",
     )
 
 .. ipython:: python
@@ -391,9 +392,9 @@ Cases:
 
     fig = model.plot(
         covid19,
-        start = 37,
-        npredictions = 10,
+        npredictions = 100,
         idx = 0,
+        method="forecast",
     )
     fig.write_html("SPHINX_DIRECTORY/figures/examples_covid19_table_pred_plot_0.html")
 
@@ -407,9 +408,9 @@ Deaths:
 
     model.plot(
         covid19,
-        start = 37,
-        npredictions = 10,
+        npredictions = 100,
         idx = 1,
+        method="forecast",
     )
 
 .. ipython:: python
@@ -418,9 +419,9 @@ Deaths:
 
     fig = model.plot(
         covid19,
-        start = 37,
-        npredictions = 10,
+        npredictions = 100,
         idx = 1,
+        method="forecast",
     )
     fig.write_html("SPHINX_DIRECTORY/figures/examples_covid19_table_pred_plot_1.html")
 
