@@ -7,7 +7,7 @@ Chart Gallery User Guide
 Introduction
 ------------
 
-The Chart Gallery is an invaluable resource that allows you to delve into the art of creating diverse charts using a variety of supported libraries. These libraries include `Matplotlib`, `Highcharts`, and `Plotly`, each offering its unique advantages in terms of visualization and interactivity. However, it's not just about creating pretty pictures – it's about understanding what happens under the hood as these charts are generated.
+The Chart Gallery is an invaluable resource that allows you to delve into the art of creating diverse charts using a variety of supported libraries. These libraries include `Matplotlib` and `Plotly`, each offering its unique advantages in terms of visualization and interactivity. However, it's not just about creating pretty pictures – it's about understanding what happens under the hood as these charts are generated.
 
 Here, you'll gain insights into the inner workings of the chart generation process. You'll learn how VAST is harnessed to perform complex calculations and aggregations that drive these charts. This understanding empowers you to craft charts that not only look great but also accurately represent your data.
 
@@ -20,7 +20,7 @@ Please note that while we'll provide general principles and best practices in th
 Switching Between Libraries
 ---------------------------
 
-vastorbit provides flexibility by allowing you to choose among different charting libraries: Matplotlib, Highcharts, and Plotly. Depending on your needs and preferences, you can switch between these libraries when creating charts.
+vastorbit provides flexibility by allowing you to choose among different charting libraries: Matplotlib and Plotly. Depending on your needs and preferences, you can switch between these libraries when creating charts.
 
 Let's begin by importing ``vastorbit``.
 
@@ -37,14 +37,6 @@ Please click on the tabs to explore how you can seamlessly switch between differ
     .. code-block:: python
         
         vo.set_option("plotting_lib", "plotly")
-
-.. tab:: Highcharts
-
-    We can switch to using the ``highcharts`` module.
-
-    .. code-block:: python
-        
-        vo.set_option("plotting_lib", "highcharts")
 
 .. tab:: Matplotlib
 
@@ -304,9 +296,9 @@ Complete examples are available on the various chart pages.
 
 Each chart function returns a graphic that can be customized using the source library.
 
-.. Important:: Different customization parameters are available for Plotly, Highcharts, and Matplotlib. 
+.. Important:: Different customization parameters are available for Plotly and Matplotlib. 
     For a comprehensive list of customization features, please consult the documentation of the respective 
-    libraries: `plotly <https://plotly.com/python-api-reference/>`_, `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_ and `highcharts <https://api.highcharts.com/highcharts/>`_.
+    libraries: `plotly <https://plotly.com/python-api-reference/>`_, `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_.
 
 Conclusion
 -----------

@@ -4,14 +4,14 @@
 Best Practices
 ===============
 
-Optimize your VastOrbit workflow for maximum performance and efficiency.
+Optimize your VAST Orbit workflow for maximum performance and efficiency.
 
 ____
 
 Restrict to Essential Columns
 ------------------------------
 
-VastOrbit executes queries directly in the VAST database. Limiting operations to essential columns significantly improves performance, especially with large datasets.
+VAST Orbit executes queries directly in the VAST database. Limiting operations to essential columns significantly improves performance, especially with large datasets.
 
 **Load specific columns:**
 

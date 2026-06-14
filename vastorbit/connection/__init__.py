@@ -2,7 +2,6 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from vastorbit.connection.external import set_external_connection
 from vastorbit.connection.connect import (
     auto_connect,
     close_connection,
@@ -22,7 +21,6 @@ from vastorbit.connection.read import available_connections, read_dsn
 from vastorbit.connection.utils import get_connection_file, get_confparser
 
 __all__ = [
-    "set_external_connection",
     "auto_connect",
     "close_connection",
     "connect",

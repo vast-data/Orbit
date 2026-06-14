@@ -4,7 +4,7 @@ import os
 search_directory = "../"
 
 # Define the word to search for and the replacement
-search_word = "/Users/badr.ouali/Documents/VastOrbit-master/docs"
+search_word = "/Users/badr.ouali/Documents/VAST Orbit-master/docs"
 replacement_word = "SPHINX_DIRECTORY"
 
 

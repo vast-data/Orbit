@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-VastOrbit AI Assistant - Test Script
+VAST Orbit AI Assistant - Test Script
 Verifies that the backend is working correctly
 """
 
@@ -34,7 +34,7 @@ def test_ask():
     """Test the ask endpoint"""
     print("\nTesting ask endpoint...")
     try:
-        question = "What is VastOrbit?"
+        question = "What is VAST Orbit?"
         payload = {
             "question": question,
             "conversation_history": []
@@ -88,7 +88,7 @@ def check_environment():
 
 def main():
     print("=" * 60)
-    print("VastOrbit AI Assistant - Test Suite")
+    print("VAST Orbit AI Assistant - Test Suite")
     print("=" * 60)
     print()
     

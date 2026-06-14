@@ -383,7 +383,6 @@ Dummy Tree
    DummyTreeRegressor.get_match_index
    DummyTreeRegressor.get_params
    DummyTreeRegressor.get_plotting_lib
-   DummyTreeRegressor.get_score
    DummyTreeRegressor.get_tree
    DummyTreeRegressor.get_VAST_attributes
    DummyTreeRegressor.import_models
@@ -438,7 +437,6 @@ Decision Tree Regressor
    DecisionTreeRegressor.get_match_index
    DecisionTreeRegressor.get_params
    DecisionTreeRegressor.get_plotting_lib
-   DecisionTreeRegressor.get_score
    DecisionTreeRegressor.get_tree
    DecisionTreeRegressor.get_VAST_attributes
    DecisionTreeRegressor.import_models
@@ -492,7 +490,6 @@ Random Forest Regressor
    RandomForestRegressor.get_match_index
    RandomForestRegressor.get_params
    RandomForestRegressor.get_plotting_lib
-   RandomForestRegressor.get_score
    RandomForestRegressor.get_tree
    RandomForestRegressor.get_VAST_attributes
    RandomForestRegressor.import_models
@@ -546,7 +543,6 @@ XGB Regressor
    XGBRegressor.get_match_index
    XGBRegressor.get_params
    XGBRegressor.get_plotting_lib
-   XGBRegressor.get_score
    XGBRegressor.get_tree
    XGBRegressor.get_VAST_attributes
    XGBRegressor.import_models

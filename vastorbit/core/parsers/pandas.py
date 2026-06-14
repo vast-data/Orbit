@@ -300,8 +300,6 @@ def read_pandas(
 
         | :py:func:`~vastorbit.read_csv` :
             Ingests a CSV file into the VAST DB.
-        | :py:func:`~vastorbit.read_file` :
-            Ingests an input file into the VAST DB.
         | :py:func:`~vastorbit.read_json` :
             Ingests a JSON file into the VAST DB.
     """

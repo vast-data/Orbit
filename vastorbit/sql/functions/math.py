@@ -32,7 +32,7 @@ def apply(func: SQLExpression, *args, **kwargs) -> StringSQL:
     func: SQLExpression
         VAST Function. For geospatial
         functions, you can write  the function
-        name without the ST_ or STV_ prefix.
+        name without the ST_ prefix.
     args: SQLExpression, optional
         Expressions.
     kwargs: SQLExpression, optional
@@ -144,40 +144,9 @@ def apply(func: SQLExpression, *args, **kwargs) -> StringSQL:
         "YMin",
         "Y",
     ]
-    STV_f = [
-        "AsGeoJSON",
-        "Create_Index",
-        "Describe_Index",
-        "Drop_Index",
-        "DWithin",
-        "Export2Shapefile",
-        "Extent",
-        "ForceLHR",
-        "Geography",
-        "GeographyPoint",
-        "Geometry",
-        "GeometryPoint",
-        "GetExportShapefileDirectory",
-        "Intersect",
-        "IsValidReason",
-        "LineStringPoint",
-        "MemSize",
-        "NN",
-        "PolygonPoint",
-        "Reverse",
-        "Rename_Index",
-        "Refresh_Index",
-        "SetExportShapefileDirectory",
-        "ShpSource",
-        "ShpParser",
-        "ShpCreateTable",
-    ]
     ST_f_lower = [elem.lower() for elem in ST_f]
-    STV_f_lower = [elem.lower() for elem in STV_f]
     if func.lower() in ST_f_lower:
         func = "ST_" + func
-    elif func.lower() in STV_f_lower:
-        func = "STV_" + func
     if len(args) > 0:
         expr = ", ".join([str(format_magic(elem)) for elem in args])
     else:
@@ -189,7 +158,7 @@ def apply(func: SQLExpression, *args, **kwargs) -> StringSQL:
     else:
         param_expr = ""
     if param_expr:
-        param_expr = " USING PARAMETERS " + param_expr
+        param_expr = ", " + param_expr
     func = func.upper()
     return StringSQL(f"{func}({expr}{param_expr})")
 

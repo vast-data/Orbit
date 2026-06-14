@@ -1,8 +1,8 @@
-# 🤖 VastOrbit AI Assistant
+# 🤖 VAST Orbit AI Assistant
 
-An intelligent documentation assistant powered by Claude that integrates seamlessly with your VastOrbit Sphinx documentation.
+An intelligent documentation assistant powered by Claude that integrates seamlessly with your VAST Orbit Sphinx documentation.
 
-![VastOrbit AI Assistant](https://img.shields.io/badge/Powered%20by-Claude-blue)
+![VAST Orbit AI Assistant](https://img.shields.io/badge/Powered%20by-Claude-blue)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
@@ -10,7 +10,7 @@ An intelligent documentation assistant powered by Claude that integrates seamles
 
 - **💬 Interactive Chat Interface**: Floating button with slide-in chat sidebar
 - **🔍 Smart Documentation Search**: RAG-powered responses using your actual documentation
-- **🎨 Seamless Design Integration**: Matches your existing VastOrbit theme and branding
+- **🎨 Seamless Design Integration**: Matches your existing VAST Orbit theme and branding
 - **📱 Responsive**: Works on desktop and mobile
 - **🌙 Dark Mode Support**: Automatically adapts to your documentation's theme
 - **💾 Conversation History**: Maintains context across questions (stored in browser)
@@ -19,7 +19,7 @@ An intelligent documentation assistant powered by Claude that integrates seamles
 
 ## 📸 Preview
 
-The AI assistant appears as a floating "Ask AI" button on the right side of your documentation. When clicked, it opens a chat interface where users can ask questions about VastOrbit.
+The AI assistant appears as a floating "Ask AI" button on the right side of your documentation. When clicked, it opens a chat interface where users can ask questions about VAST Orbit.
 
 ## 🏗️ Architecture
 
@@ -61,7 +61,7 @@ The AI assistant appears as a floating "Ask AI" button on the right side of your
 
 - Python 3.8 or higher
 - Anthropic API key ([Get one here](https://console.anthropic.com/))
-- Built Sphinx documentation for VastOrbit
+- Built Sphinx documentation for VAST Orbit
 
 ### 1. Get Your Files
 
@@ -126,16 +126,16 @@ cd YOUR_DOCS && make html
 
 ### For End Users
 
-1. Open your VastOrbit documentation in a browser
+1. Open your VAST Orbit documentation in a browser
 2. Click the "Ask AI" button on the right side
 3. Type your question or click a quick prompt
 4. Get instant, context-aware answers
 
 ### Example Questions
 
-- "How do I get started with VastOrbit?"
+- "How do I get started with VAST Orbit?"
 - "What's the syntax for creating a vDataFrame?"
-- "Show me examples of machine learning with VastOrbit"
+- "Show me examples of machine learning with VAST Orbit"
 - "How do I connect to VAST Database?"
 
 ## ⚙️ Configuration
@@ -172,9 +172,9 @@ const quickPrompts = [
 
 ## 🎨 Customization
 
-The AI assistant is designed to match VastOrbit's branding:
+The AI assistant is designed to match VAST Orbit's branding:
 
-- **Primary Color**: `#29b8ff` (VastOrbit blue)
+- **Primary Color**: `#29b8ff` (VAST Orbit blue)
 - **Dark Theme**: Automatic detection and adaptation
 - **Font**: Inherits from your documentation
 - **Position**: Fixed right side (configurable in CSS)
@@ -247,7 +247,7 @@ curl http://localhost:5000/api/health
 # Test a question
 curl -X POST http://localhost:5000/api/ask \
   -H "Content-Type: application/json" \
-  -d '{"question": "What is VastOrbit?"}'
+  -d '{"question": "What is VAST Orbit?"}'
 ```
 
 ### Test the Frontend
@@ -328,7 +328,7 @@ Suggestions for improvements:
 
 ## 📄 License
 
-This project is part of VastOrbit documentation tools.
+This project is part of VAST Orbit documentation tools.
 
 ## 🙏 Acknowledgments
 
@@ -346,6 +346,6 @@ For issues or questions:
 
 ---
 
-**Ready to make your VastOrbit documentation more interactive?**
+**Ready to make your VAST Orbit documentation more interactive?**
 
 Start with `./quickstart.sh` and follow the integration guide! 🚀

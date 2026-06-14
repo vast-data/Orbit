@@ -22,24 +22,6 @@ class GlobalConnection:
     # Properties.
 
     @property
-    def special_symbols(self) -> list[str]:
-        """
-        List of special symbols that can be
-        assigned to any external database.
-        """
-        return [
-            "$",
-            "€",
-            "£",
-            "%",
-            "@",
-            "&",
-            "§",
-            "?",
-            "!",
-        ]
-
-    @property
     def vo_auto_connection(self) -> str:
         return VASTORBIT_AUTO_CONNECTION
 
@@ -59,7 +41,6 @@ class GlobalConnection:
             "section": None,
             "dsn": None,
         }
-        self._external_connections = {}
 
     # Main Methods.
 
@@ -87,31 +68,6 @@ class GlobalConnection:
             code.
         """
         return self._connection["conn"]
-
-    def get_external_connections(self) -> dict:
-        """
-        Returns the external connection.
-
-        Examples
-        --------
-        The following code demonstrates
-        the usage of the function.
-
-        .. ipython:: python
-
-            # Import the Global Connection.
-            from vastorbit.connection.global_connection import get_global_connection
-
-            # Example
-            get_global_connection().get_external_connections()
-
-        .. note::
-
-            These functions serve as utilities to
-            construct others, simplifying the overall
-            code.
-        """
-        return self._external_connections
 
     def get_dsn(self) -> Optional[str]:
         """
@@ -200,48 +156,6 @@ class GlobalConnection:
         self._connection["conn"] = conn
         self._connection["section"] = section
         self._connection["dsn"] = dsn
-
-    def set_external_connections(self, symbol: str, cid: str, rowset: int) -> None:
-        """
-        Sets an external connection.
-
-        Examples
-        --------
-        The following code demonstrates
-        the usage of the function.
-
-        .. code-block:: python
-
-            # Import the Global Connection.
-            from vastorbit.connection.global_connection import get_global_connection
-
-            # Example
-            get_global_connection().set_external_connections(
-                symbol = '$',
-                cid = 'pgrs_cid',
-                rowset = 500,
-            )
-
-        .. note::
-
-            These functions serve as utilities to
-            construct others, simplifying the overall
-            code.
-        """
-        if (
-            isinstance(cid, str)
-            and isinstance(rowset, int)
-            and symbol in self.special_symbols
-        ):
-            self._external_connections[symbol] = {
-                "cid": cid,
-                "rowset": rowset,
-            }
-
-        else:
-            raise ValueError(
-                "Could not set the external connection. Found a wrong type."
-            )
 
 
 _global_connection: GlobalConnection = GlobalConnection()

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# VastOrbit AI Assistant - Quick Start Script
+# VAST Orbit AI Assistant - Quick Start Script
 # This script helps you set up and run the AI assistant
 
 set -e
 
 echo "=========================================="
-echo "VastOrbit AI Assistant - Quick Start"
+echo "VAST Orbit AI Assistant - Quick Start"
 echo "=========================================="
 echo ""
 

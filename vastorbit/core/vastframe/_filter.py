@@ -1168,8 +1168,6 @@ class vDFFilter(vDFAgg):
                         FROM {self}""",
                     title="Computing the new number of elements.",
                     method="fetchfirstelem",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
                 count -= new_count
             except QueryError as e:
@@ -1258,8 +1256,6 @@ class vDFFilter(vDFAgg):
                 FROM {self}""",
             title="Getting the VastFrame first values.",
             method="fetchfirstelem",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
 
         self.filter(f"{ts} <= CAST('{first_date}' AS TIMESTAMP)")
@@ -1445,8 +1441,6 @@ class vDFFilter(vDFAgg):
                 FROM {self}""",
             title="Getting the VastFrame last values.",
             method="fetchfirstelem",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
 
         self.filter(f"{ts} >= CAST('{last_date}' AS TIMESTAMP)")
@@ -1939,8 +1933,6 @@ class vDCFilter(vDCAgg):
                     FROM {self._parent._genSQL(force_columns=force_columns)} 
                     LIMIT 10""",
                 print_time_sql=False,
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             )
             self._parent._vars["columns"].remove(self._alias)
             delattr(self._parent, self._alias)

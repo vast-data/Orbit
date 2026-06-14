@@ -1,4 +1,4 @@
-/* VastOrbit AI Assistant Styles */
+/* VAST Orbit AI Assistant Styles */
 
 /* Ask AI Button - Positioned below feedback button */
 .ask-ai-btn {
@@ -7,8 +7,9 @@
   top: 470px; /* Below the feedback button */
   transform: rotate(-90deg);
   cursor: pointer;
-  background-color: #29b8ff;
-  color: white;
+  background-color: var(--vast-cyan);
+  color: var(--vast-navy);
+  font-family: var(--vast-font-body);
   text-decoration: none;
   padding: 10px 15px;
   border-radius: 15px;
@@ -19,7 +20,9 @@
 }
 
 .ask-ai-btn:hover {
-  background-color: #00008b;
+  background-color: var(--vast-navy);
+  color: var(--vast-cyan);
+  box-shadow: var(--vast-glow);
 }
 
 /* AI Chat Sidebar */
@@ -56,20 +59,35 @@
 }
 
 .ai-chat-sidebar .closebtn:hover {
-  color: #29b8ff;
+  color: var(--vast-cyan);
 }
 
 /* Chat Header */
 .ai-chat-header {
   padding: 0 25px 20px 25px;
-  border-bottom: 2px solid #29b8ff;
+  border-bottom: 0;
+  position: relative;
+}
+
+/* VAST Light beam under the header */
+.ai-chat-header::after {
+  content: "";
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--vast-light);
 }
 
 .ai-chat-header h2 {
   margin: 0;
   color: var(--color-announcement-text);
+  font-family: var(--vast-font-display);
   font-size: 1.5em;
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .ai-chat-header p {
@@ -100,21 +118,23 @@
 }
 
 .user-message {
-  background-color: #29b8ff;
-  color: white;
+  background-color: var(--vast-cyan);
+  color: var(--vast-navy);
+  font-weight: 500;
   align-self: flex-end;
   margin-left: auto;
 }
 
 .ai-message {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: var(--vast-gray);
+  color: var(--vast-ink);
   align-self: flex-start;
 }
 
 body[data-theme="dark"] .ai-message {
-  background-color: #2d2d2d;
-  color: #e8e8e8;
+  background-color: var(--vast-navy-2);
+  color: var(--vast-text-dark-hi);
+  border: 1px solid var(--vast-line);
 }
 
 /* Message metadata */
@@ -141,7 +161,7 @@ body[data-theme="dark"] .ai-message {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #29b8ff;
+  background-color: var(--vast-cyan);
   animation: typing 1.4s infinite;
 }
 
@@ -172,7 +192,8 @@ body[data-theme="dark"] .ai-message {
 }
 
 body[data-theme="dark"] .ai-input-container {
-  border-top: 1px solid #4a4a4a;
+  border-top: 1px solid var(--vast-line-soft);
+  background-color: var(--vast-navy-1);
 }
 
 .ai-input-wrapper {
@@ -198,22 +219,24 @@ body[data-theme="dark"] .ai-input-container {
 
 #ai-question-input:focus {
   outline: none;
-  border-color: #29b8ff;
+  border-color: var(--vast-cyan);
 }
 
 body[data-theme="dark"] #ai-question-input {
-  border: 2px solid #4a4a4a;
-  background-color: #1a1a1a;
+  border: 2px solid var(--vast-line);
+  background-color: var(--vast-navy-2);
+  color: var(--vast-text-dark-hi);
 }
 
 body[data-theme="dark"] #ai-question-input:focus {
-  border-color: #29b8ff;
+  border-color: var(--vast-cyan);
 }
 
 #ai-send-btn {
   padding: 12px 20px;
-  background-color: #29b8ff;
-  color: white;
+  background-color: var(--vast-cyan);
+  color: var(--vast-navy);
+  font-family: var(--vast-font-body);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -223,7 +246,8 @@ body[data-theme="dark"] #ai-question-input:focus {
 }
 
 #ai-send-btn:hover:not(:disabled) {
-  background-color: #00008b;
+  background-color: var(--vast-navy);
+  color: var(--vast-cyan);
 }
 
 #ai-send-btn:disabled {
@@ -242,8 +266,8 @@ body[data-theme="dark"] #ai-question-input:focus {
 .quick-prompt-btn {
   padding: 6px 12px;
   background-color: transparent;
-  color: #29b8ff;
-  border: 1px solid #29b8ff;
+  color: var(--vast-cyan);
+  border: 1px solid var(--vast-cyan);
   border-radius: 20px;
   cursor: pointer;
   font-size: 0.85em;
@@ -251,8 +275,8 @@ body[data-theme="dark"] #ai-question-input:focus {
 }
 
 .quick-prompt-btn:hover {
-  background-color: #29b8ff;
-  color: white;
+  background-color: var(--vast-cyan);
+  color: var(--vast-navy);
 }
 
 /* Error message */
@@ -266,14 +290,16 @@ body[data-theme="dark"] #ai-question-input:focus {
 }
 
 body[data-theme="dark"] .error-message {
-  background-color: #3d1f1f;
-  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.12);
+  color: #FF8A8A;
+  border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
 /* Code blocks in AI responses */
 .ai-message pre {
-  background-color: #2d2d2d;
-  color: #e8e8e8;
+  background-color: var(--vast-navy);
+  color: var(--vast-gray);
+  font-family: var(--vast-font-mono);
   padding: 10px;
   border-radius: 6px;
   overflow-x: auto;
@@ -282,7 +308,10 @@ body[data-theme="dark"] .error-message {
 }
 
 .ai-message code {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--vast-cyan-tint);
+  color: var(--vast-navy);
+  border: 1px solid rgba(31, 217, 254, 0.35);
+  font-family: var(--vast-font-mono);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.9em;
@@ -298,12 +327,12 @@ body[data-theme="dark"] .error-message {
 }
 
 .ai-chat-container::-webkit-scrollbar-thumb {
-  background: #29b8ff;
+  background: var(--vast-cyan);
   border-radius: 4px;
 }
 
 .ai-chat-container::-webkit-scrollbar-thumb:hover {
-  background: #00008b;
+  background: var(--vast-navy);
 }
 
 /* Responsive design */
@@ -330,7 +359,7 @@ body[data-theme="dark"] .error-message {
   width: 60px;
   height: 60px;
   margin-bottom: 15px;
-  fill: #29b8ff;
+  fill: var(--vast-cyan);
 }
 
 .welcome-message h3 {
@@ -341,4 +370,32 @@ body[data-theme="dark"] .error-message {
 .welcome-message p {
   font-size: 0.95em;
   margin: 5px 0;
+}
+
+
+/* Dark mode: chat sidebar is a navy panel, like the VAST website */
+body[data-theme="dark"] .ai-chat-sidebar {
+  background-color: var(--vast-navy-1);
+  border-left: 1px solid var(--vast-line-soft);
+  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.45);
+}
+
+body[data-theme="dark"] .ai-chat-header h2,
+body[data-theme="dark"] .ai-chat-header p,
+body[data-theme="dark"] .welcome-message {
+  color: var(--vast-text-dark-hi);
+}
+
+body[data-theme="dark"] .ai-message code {
+  background-color: rgba(31, 217, 254, 0.12);
+  color: var(--vast-cyan);
+}
+
+/* Scrollbar matches each theme's surface */
+body[data-theme="dark"] .ai-chat-container::-webkit-scrollbar-thumb {
+  background: var(--vast-navy-3);
+}
+
+body[data-theme="dark"] .ai-chat-container::-webkit-scrollbar-thumb:hover {
+  background: var(--vast-cyan);
 }

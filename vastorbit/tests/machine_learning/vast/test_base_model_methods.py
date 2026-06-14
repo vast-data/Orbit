@@ -32,11 +32,6 @@ from vastorbit.tests.machine_learning.vast.model_utils import (
 from vastorbit.machine_learning.vast.base import VASTModel
 from vastorbit.connection.errors import QueryError
 
-try:
-    from vertica_highcharts import Highchart
-except:
-    Highchart = type(None)
-
 details_report_args = (
     "metric, expected",
     [
@@ -1227,64 +1222,6 @@ def get_pred_column_fixture(model_class):
     return pred_col_map.get(model_class, None)
 
 
-@pytest.fixture(name="get_to_sql")
-def get_to_sql_fixture(model_class, get_models):
-    """
-    getter fixture to get sql function for a model
-    """
-    if model_class in TIMESERIES_MODELS:
-        pytest.skip(f"to_sql function is not available for {model_class} model")
-
-    pred_func = get_predict_function(model_class)
-    model_name = get_models.vpy.model.model_name
-    to_sql_func = get_models.vpy.model.to_sql
-
-    to_sql_map = {
-        **dict.fromkeys(
-            REGRESSION_MODELS,
-            (
-                f"SELECT {pred_func}(3.0, 11.0, 93.0 USING PARAMETERS model_name = '{model_name}', match_by_pos=True)::float, {to_sql_func([3.0, 11.0, 93.0])}::float"
-                if model_class in REGRESSION_MODELS
-                else None
-            ),
-        ),
-        **dict.fromkeys(
-            CLASSIFICATION_MODELS,
-            (
-                f"""SELECT {pred_func}(* USING PARAMETERS model_name = '{model_name}', match_by_pos=True)::int, {to_sql_func()}::int FROM (SELECT 30.0 AS age, 45.0 AS fare, 'male' AS sex) x"""
-                if model_class in CLASSIFICATION_MODELS
-                else None
-            ),
-        ),
-        **dict.fromkeys(
-            ["KMeans"],
-            (
-                f"SELECT {pred_func}(3.0, 11.0, 93.0, 0.244 USING PARAMETERS model_name = '{model_name}', match_by_pos=True)::float, {to_sql_func([3.0, 11.0, 93.0, 0.244])}::float"
-                if model_class == "KMeans"
-                else None
-            ),
-        ),
-    }
-    yield to_sql_map.get(model_class, None)
-
-
-def _get_deploysql(model_class):
-    """
-    test function - deploySQL
-    """
-    deploysql_map = {
-        **dict.fromkeys(
-            REGRESSION_MODELS + CLASSIFICATION_MODELS + CLUSTER_MODELS,
-            """{pred_fun_name}({columns} USING PARAMETERS model_name = '{schema_name}.{model_name}', match_by_pos = 'true')""",
-        ),
-        **dict.fromkeys(
-            TIMESERIES_MODELS,
-            """{pred_fun_name}( USING PARAMETERS model_name = '{schema_name}.{model_name}', add_mean = True, npredictions = 10 ) OVER ()""",
-        ),
-    }
-    return deploysql_map.get(model_class, None)
-
-
 pytestmark = pytest.mark.parametrize(
     "model_class",
     [
@@ -1347,7 +1284,7 @@ class TestBaseModelMethods:
             X=X[:2],
         ).model.contour()
 
-        assert isinstance(vo_res, (plt.Axes, plotly.graph_objs.Figure, Highchart))
+        assert isinstance(vo_res, (plt.Axes, plotly.graph_objs.Figure))
 
     def test_deploysql(self, get_models, model_class):
         """
@@ -1461,7 +1398,6 @@ class TestBaseModelMethods:
         assert (
             "matplotlib" in plotting_lib
             or "plotly" in plotting_lib
-            or "highcharts" in plotting_lib
         )
 
     @pytest.mark.parametrize("attributes", ["attr_name", "attr_fields", "#_of_rows"])
@@ -1532,7 +1468,6 @@ class TestBaseModelMethods:
         "plotting_library",
         [
             # "plotly",
-            # "highcharts",
             "matplotlib",
         ],
     )
@@ -1556,9 +1491,7 @@ class TestBaseModelMethods:
             assert isinstance(vo_res, plt.Axes)
         elif plotting_library == "plotly":
             assert isinstance(vo_res, plotly.graph_objs.Figure)
-        else:
-            assert isinstance(vo_res, Highchart)
-        # assert isinstance(vo_res, (plt.Axes, plotly.graph_objs.Figure, Highchart))
+        # assert isinstance(vo_res, (plt.Axes, plotly.graph_objs.Figure))
 
     def test_predict(self, get_models, model_class, get_pred_column):
         """
@@ -1587,18 +1520,6 @@ class TestBaseModelMethods:
         assert {
             k: get_models.vpy.model.get_params()[k] for k in params
         } == pytest.approx(params)
-
-    def test_summarize(self, get_models):
-        """
-        test function - summarize
-        """
-        vo_model_summary = get_models.vpy.model.summarize()
-        vt_model_summary_sql = f"SELECT GET_MODEL_SUMMARY(USING PARAMETERS MODEL_NAME='{get_models.vpy.schema_name}.{get_models.vpy.model_name}')"
-        vt_model_summary = (
-            current_cursor().execute(vt_model_summary_sql).fetchall()[0][0]
-        )
-
-        assert vo_model_summary == vt_model_summary
 
     def test_to_binary(self, get_models):
         """

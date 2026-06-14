@@ -119,7 +119,6 @@ class TestPlotting:
         assert True, (
             "This test is covered under /vastorbit/vastorbit/tests/plotting/matplotlib/test_matplotlib_scatter.py, "
             "/vastorbit/vastorbit/tests/plotting/plotly/test_plotly_scatter.py, "
-            "/vastorbit/vastorbit/tests/plotting/highcharts/test_highcharts_scatter.py"
         )
 
     @pytest.mark.parametrize(
@@ -180,14 +179,6 @@ class TestPlotting:
         assert (
             True
         ), "This test is covered under /vastorbit/vastorbit/tests/plotting/base_test_files.py"
-
-    def test_candlestick(self):
-        """
-        test function - candlestick
-        """
-        assert (
-            True
-        ), "This test is covered under /vastorbit/vastorbit/tests/plotting/highcharts/test_highcharts_candlestick.py"
 
     def test_geo_plot_type(self, world_vd, load_matplotlib):
         """

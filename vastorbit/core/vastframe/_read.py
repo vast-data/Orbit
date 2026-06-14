@@ -79,8 +79,6 @@ class vDFRead(vDFUtils):
                     OFFSET {index} LIMIT 1""",
                 title="Getting the VastFrame element.",
                 method="fetchrow",
-                sql_push_ext=self._vars["sql_push_ext"],
-                symbol=self._vars["symbol"],
             )
 
         elif isinstance(index, (str, StringSQL)):
@@ -429,8 +427,6 @@ class vDFRead(vDFUtils):
         kwargs = {
             "title": title,
             "max_columns": self._vars["max_columns"],
-            "sql_push_ext": self._vars["sql_push_ext"],
-            "symbol": self._vars["symbol"],
             "_clean_query": self._vars["clean_query"],
             "_formats": self._get_all_formats(),
         }
@@ -568,8 +564,6 @@ class vDFRead(vDFUtils):
             """,
             title="Computing the total number of elements (COUNT(*))",
             method="fetchfirstelem",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
         return (self._vars["count"], m)
 
@@ -824,8 +818,6 @@ class vDCRead(vDCUtils):
                         LIMIT 1""",
                     title="Getting the VastColumn element.",
                     method="fetchfirstelem",
-                    sql_push_ext=self._parent._vars["sql_push_ext"],
-                    symbol=self._parent._vars["symbol"],
                 )
         elif isinstance(index, str):
             elem_to_select = f"{self}.{quote_ident(index)}"
@@ -1015,8 +1007,6 @@ class vDCRead(vDCUtils):
                 LIMIT {limit} 
                 """,
             title=title,
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
             _clean_query=self._parent._vars["clean_query"],
             _formats=self._parent._get_all_formats(),
         )
@@ -1109,8 +1099,6 @@ class vDCRead(vDCUtils):
         return TableSample.read_sql(
             query,
             title=title,
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
             _clean_query=self._parent._vars["clean_query"],
             _formats=self._parent._get_all_formats(),
         )
@@ -1197,8 +1185,6 @@ class vDCRead(vDCUtils):
             WHERE {self} IS NOT NULL 
             ORDER BY {self} ASC LIMIT {n}""",
             title=f"Reads {n} {self} smallest elements.",
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
             _clean_query=self._parent._vars["clean_query"],
             _formats=self._parent._get_all_formats(),
         )

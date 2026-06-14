@@ -6,26 +6,26 @@ CI/CD Pipeline
 
 .. include:: logo_include.rst
 
-Automated quality assurance and deployment for VastOrbit.
+Automated quality assurance and deployment for VAST Orbit.
 
 ____
 
 Overview
 --------
 
-VastOrbit uses a comprehensive CI/CD pipeline to ensure code quality, consistency, and reliability. Every code change goes through automated checks before merging.
+VAST Orbit uses a comprehensive CI/CD pipeline to ensure code quality, consistency, and reliability. Every code change goes through automated checks before merging.
 
-.. image:: /_static/cicd.png
-   :width: 90%
+.. image:: /_static/cicd_pipeline.svg
+   :width: 100%
    :align: center
-   :alt: VastOrbit CI/CD Pipeline
+   :alt: VAST Orbit CI/CD pipeline: formatting, quality analysis, unit testing, coverage, documentation
 
 ____
 
 Pipeline Stages
 ---------------
 
-🔍 **1. Code Formatting**
+**1. Code Formatting**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tool:** Black
@@ -54,7 +54,7 @@ Enforces consistent code style across the entire codebase.
 
 ____
 
-📊 **2. Code Quality Analysis**
+**2. Code Quality Analysis**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tool:** Pylint
@@ -84,7 +84,7 @@ Static code analysis to identify potential issues and enforce standards.
 
 ____
 
-✅ **3. Unit Testing**
+**3. Unit Testing**
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tool:** Pytest
@@ -114,7 +114,7 @@ Comprehensive test suite across multiple Python environments.
 
 ____
 
-📈 **4. Coverage Analysis**
+**4. Coverage Analysis**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tool:** Codecov
@@ -144,7 +144,7 @@ Tracks test coverage to ensure comprehensive testing.
 
 ____
 
-📚 **5. Documentation**
+**5. Documentation**
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tool:** Sphinx
@@ -177,19 +177,19 @@ ____
 Benefits
 --------
 
-✅ **Fast Feedback**
+|check| **Fast Feedback**
    Issues caught in minutes, not days
 
-✅ **Consistent Quality**
+|check| **Consistent Quality**
    Every PR meets the same standards
 
-✅ **Reduced Errors**
+|check| **Reduced Errors**
    Automated checks catch common mistakes
 
-✅ **Better Collaboration**
+|check| **Better Collaboration**
    Clear expectations for all contributors
 
-✅ **Confidence**
+|check| **Confidence**
    Every merge maintains stability
 
 ____

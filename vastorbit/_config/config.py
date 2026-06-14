@@ -329,7 +329,7 @@ def set_option(key: str, value: Any = None) -> None:
             Plotting library used to draw
             the different graphics.
             One of the following:
-            plotly | highcharts | matplotlib
+            plotly | matplotlib
         - print_info:
             [bool]
             If set to ``True``, information is printed each
@@ -718,7 +718,7 @@ register_option(
         "plotting_lib",
         "plotly",
         "",
-        in_validator(["highcharts", "matplotlib", "plotly"]),
+        in_validator(["matplotlib", "plotly"]),
     )
 )
 register_option(

@@ -97,24 +97,37 @@ COLORS_OPTIONS: dict[str, list] = {
     "tropical": ["#7B8937", "#6B7436", "#F4D9C1", "#D72F01", "#F09E8C"],
     "india": ["#F1445B", "#65734B", "#94A453", "#D9C3B1", "#F03625"],
     "old": ["#FE5016", "#263133", "#0073E7", "#FDE159", "#33C180", "#FF454F"],
+    # VAST brand palette (brand.vastdata.com): cyan-led series colors that
+    # read on both the white docs page and the navy dark surfaces.
+    "vast": [
+        "#1FD9FE",  # VAST Cyan (signature)
+        "#29B8FF",  # VAST Blue
+        "#0E86B8",  # deep cyan-blue
+        "#5BE49B",  # green (success)
+        "#F5A623",  # amber (warning)
+        "#9FB3C8",  # muted slate
+        "#7B8CFF",  # periwinkle
+        "#E5484D",  # red (alert)
+    ],
     "default": [
+        "#1FD9FE",
         "#29B8FF",
-        "#3A4668",
-        "#DDDDDD",
-        "#888888",
-        "#33C180",
-        "#4E2A84",
-        "#00008B",
+        "#0E86B8",
+        "#5BE49B",
+        "#F5A623",
+        "#9FB3C8",
+        "#7B8CFF",
+        "#E5484D",
     ],
     "sphinx": [
+        "#1FD9FE",
         "#29B8FF",
-        "#0A1628",
-        "#33C180",
-        "#FDE159",
-        "#4E2A84",
-        "#888888",
-        "#00008B",
-        "#03C03C",
+        "#0E86B8",
+        "#5BE49B",
+        "#F5A623",
+        "#9FB3C8",
+        "#7B8CFF",
+        "#E5484D",
     ],
 }
 

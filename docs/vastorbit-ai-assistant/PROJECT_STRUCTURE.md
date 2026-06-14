@@ -1,4 +1,4 @@
-# VastOrbit AI Assistant - Project Structure
+# VAST Orbit AI Assistant - Project Structure
 
 ```
 vastorbit-ai-assistant/
@@ -56,7 +56,7 @@ vastorbit-ai-assistant/
 
 **frontend/ai_assistant.css** (~ 400 lines)
 - Complete styling for the chat interface
-- VastOrbit brand colors (#29b8ff)
+- VAST Orbit brand colors (#29b8ff)
 - Dark mode support
 - Responsive design
 - Animations and transitions

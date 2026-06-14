@@ -10,14 +10,14 @@ What's New
 
     <div style="text-align: center; margin: 30px 0;">
         <div style="font-size: 24px; font-weight: 600; color: #2F71BD; margin-bottom: 10px;">
-            VastOrbit Release Notes
+            VAST Orbit Release Notes
         </div>
         <div style="font-size: 16px; color: #666;">
             Latest features, improvements, and updates
         </div>
     </div>
 
-Stay up to date with the latest VastOrbit releases, new features, and improvements.
+Stay up to date with the latest VAST Orbit releases, new features, and improvements.
 
 ____
 
@@ -34,9 +34,7 @@ Latest Release
           :link-type: ref
           :class-card: custom-card
           
-          +++
-          
-          Initial release of VastOrbit - Python API for data science at scale on VAST Data Platform.
+          Initial release of VAST Orbit - Python API for data science at scale on VAST Data Platform.
           
           +++
           View Release Notes →

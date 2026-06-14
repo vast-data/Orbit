@@ -37,10 +37,3 @@ class TestPlotlyMachineLearningLOFPlot2D(LOFPlot2D):
             x_val in self.result.data[1]["hovertemplate"]
             and y_val in self.result.data[1]["hovertemplate"]
         ), "Hover information does not contain x or y"
-
-
-@pytest.mark.skip(reason="Currently highchart only supports 2D plot")
-class TestHighchartsMachineLearningLOFPlot3D(LOFPlot3D):
-    """
-    Testing different attributes of 3D LOF plot
-    """

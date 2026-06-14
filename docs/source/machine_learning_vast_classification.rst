@@ -155,7 +155,6 @@ Dummy Tree
    DummyTreeClassifier.get_match_index
    DummyTreeClassifier.get_params
    DummyTreeClassifier.get_plotting_lib
-   DummyTreeClassifier.get_score
    DummyTreeClassifier.get_tree
    DummyTreeClassifier.get_VAST_attributes
    DummyTreeClassifier.import_models
@@ -215,7 +214,6 @@ Decision Tree
    DecisionTreeClassifier.get_match_index
    DecisionTreeClassifier.get_params
    DecisionTreeClassifier.get_plotting_lib
-   DecisionTreeClassifier.get_score
    DecisionTreeClassifier.get_tree
    DecisionTreeClassifier.get_VAST_attributes
    DecisionTreeClassifier.import_models
@@ -274,7 +272,6 @@ Random Forest Classifier
    RandomForestClassifier.get_match_index
    RandomForestClassifier.get_params
    RandomForestClassifier.get_plotting_lib
-   RandomForestClassifier.get_score
    RandomForestClassifier.get_tree
    RandomForestClassifier.get_VAST_attributes
    RandomForestClassifier.import_models
@@ -333,7 +330,6 @@ XGBoost Classifier
    XGBClassifier.get_match_index
    XGBClassifier.get_params
    XGBClassifier.get_plotting_lib
-   XGBClassifier.get_score
    XGBClassifier.get_tree
    XGBClassifier.get_VAST_attributes
    XGBClassifier.import_models

@@ -136,7 +136,7 @@ You can also use the :py:func:`~vastorbit.VastFrame.groupby` method to compute c
           "Contract",
       ],
       [
-          "AVG(DECODE(Churn, 'Yes', 1, 0)) AS Churn",
+          "AVG(CASE WHEN Churn = 'Yes' THEN 1 ELSE 0 END) AS Churn",
       ],
   )
 
@@ -149,7 +149,7 @@ You can also use the :py:func:`~vastorbit.VastFrame.groupby` method to compute c
           "Contract",
       ],
       [
-          "AVG(DECODE(Churn, 'Yes', 1, 0)) AS Churn",
+          "AVG(CASE WHEN Churn = 'Yes' THEN 1 ELSE 0 END) AS Churn",
       ],
   )
   html_file = open("SPHINX_DIRECTORY/figures/user_guides_data_exploration_descriptive_stats_group_by.html", "w")

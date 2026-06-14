@@ -1,8 +1,8 @@
-# Learning VastOrbit
+# Learning VAST Orbit
 
-Tutorials and examples to help you get started with VastOrbit's core features and functionalities.
+Tutorials and examples to help you get started with VAST Orbit's core features and functionalities.
 
-These notebooks cover essential topics including data preprocessing, visualization, exploratory data analysis, and basic machine learning tasks. Each example includes explanations and code to guide you through using VastOrbit with VAST Database.
+These notebooks cover essential topics including data preprocessing, visualization, exploratory data analysis, and basic machine learning tasks. Each example includes explanations and code to guide you through using VAST Orbit with VAST Database.
 
 ## Examples
 

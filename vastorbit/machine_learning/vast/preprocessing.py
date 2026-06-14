@@ -1019,19 +1019,6 @@ class Scaler(Preprocessing):
     The variable ``data_transformed``
     is the scaled dataset.
 
-    Model Register
-    ^^^^^^^^^^^^^^^
-
-    In order to register the model for tracking and versioning:
-
-    .. code-block:: python
-
-        model.register("model_v1")
-
-    Please refer to
-    :ref:`/notebooks/ml/model_tracking_versioning/index.ipynb`
-    for more details on model tracking and versioning.
-
     Model Exporting
     ^^^^^^^^^^^^^^^^
 
@@ -1492,19 +1479,6 @@ class OneHotEncoder(Preprocessing):
     The variable ``data_transformed``
     includes the ``OneHotEncoder``
     components.
-
-    Model Register
-    ^^^^^^^^^^^^^^^
-
-    In order to register the model for tracking and versioning:
-
-    .. code-block:: python
-
-        model.register("model_v1")
-
-    Please refer to
-    :ref:`/notebooks/ml/model_tracking_versioning/index.ipynb`
-    for more details on model tracking and versioning.
 
     Model Exporting
     ^^^^^^^^^^^^^^^^

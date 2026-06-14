@@ -1,8 +1,8 @@
-# 🚀 VastOrbit AI Assistant - Quick Reference Card
+# 🚀 VAST Orbit AI Assistant - Quick Reference Card
 
 ## What You Got
 
-A complete AI-powered documentation assistant for VastOrbit with:
+A complete AI-powered documentation assistant for VAST Orbit with:
 - ✅ Chat interface matching your design
 - ✅ Claude-powered intelligent responses
 - ✅ RAG system for accurate answers
@@ -41,7 +41,7 @@ cd YOUR_DOCS && make html
 ```bash
 # Open your docs in browser
 # Click the "Ask AI" button on the right side
-# Try: "How do I get started with VastOrbit?"
+# Try: "How do I get started with VAST Orbit?"
 ```
 
 ## Required Environment Variables

@@ -15,7 +15,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 🤖 VAST Models
+        .. card:: |i-ml| VAST Models
           :link: api.machine_learning.vast
           :link-type: ref
           :text-align: center
@@ -30,7 +30,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 📊 Metrics
+        .. card:: |i-stats| Metrics
           :link: api.machine_learning.metrics
           :link-type: ref
           :text-align: center
@@ -45,7 +45,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 🔍 Model Selection
+        .. card:: |i-select| Model Selection
           :link: api.machine_learning.model_selection
           :link-type: ref
           :text-align: center
@@ -60,7 +60,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 💾 Memory Models
+        .. card:: |i-memory| Memory Models
           :link: api.machine_learning.memmodels
           :link-type: ref
           :text-align: center
@@ -75,7 +75,7 @@ ____
 
     .. grid-item::
     
-        .. card:: ⚡ AutoML
+        .. card:: |i-automl| AutoML
           :link: api.machine_learning.auto_ml
           :link-type: ref
           :text-align: center

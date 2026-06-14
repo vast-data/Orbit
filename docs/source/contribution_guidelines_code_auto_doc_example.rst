@@ -6,14 +6,14 @@ Complete Example
 
 .. include:: logo_include.rst
 
-Comprehensive docstring templates and examples for VastOrbit documentation.
+Comprehensive docstring templates and examples for VAST Orbit documentation.
 
 ____
 
-📋 Docstring Structure
+Docstring Structure
 -----------------------
 
-Every VastOrbit function docstring should follow this structure:
+Every VAST Orbit function docstring should follow this structure:
 
 1. **Version Information** (optional)
 2. **Description** (required)
@@ -25,7 +25,7 @@ Every VastOrbit function docstring should follow this structure:
 
 ____
 
-🏷️ Version Information
+Version Information
 -----------------------
 
 **New Feature:**
@@ -72,7 +72,7 @@ ____
 
 .. note:: 
    
-   Version directives are not applicable to functions already in VastOrbit since inception. Only use them for new features, deprecations, or significant changes.
+   Version directives are not applicable to functions already in VAST Orbit since inception. Only use them for new features, deprecations, or significant changes.
 
 .. hint:: 
    
@@ -80,16 +80,16 @@ ____
 
 ____
 
-📝 Description
+Description
 --------------
 
 **Best Practices:**
 
-- ✅ Write one summary line at the top (concise, action-oriented)
-- ✅ Add detailed explanation below with multiple paragraphs if needed
-- ✅ Use inline code blocks with backticks for code elements: ``VastFrame``
-- ✅ Reference VastOrbit objects using Sphinx roles: ``:py:class:`~VastColumn```
-- ✅ Explain what the function does, not how it does it (implementation details go in Notes)
+- |check| Write one summary line at the top (concise, action-oriented)
+- |check| Add detailed explanation below with multiple paragraphs if needed
+- |check| Use inline code blocks with backticks for code elements: ``VastFrame``
+- |check| Reference VAST Orbit objects using Sphinx roles: ``:py:class:`~VastColumn```
+- |check| Explain what the function does, not how it does it (implementation details go in Notes)
 
 **Example:**
 
@@ -124,7 +124,7 @@ otherwise by the parameter ``drop_first``.
 
 ____
 
-📌 Parameters
+Parameters
 -------------
 
 Format: Add parameter type and description. Create heading with ``----------`` underline.
@@ -149,8 +149,8 @@ Format: Add parameter type and description. Create heading with ``----------`` u
 
 **This renders as:**
 
-Parameters
-----------
+.. rubric:: Parameters
+
 x: int
     x is the input value
 y: str, optional
@@ -165,7 +165,7 @@ z: list[str], optional
 
 ____
 
-↩️ Returns
+Returns
 ----------
 
 Format: Specify return type and description. Use the same heading format.
@@ -184,8 +184,8 @@ Format: Specify return type and description. Use the same heading format.
 
 **This renders as:**
 
-Returns
--------
+.. rubric:: Returns
+
 PlottingObject
     Plotting object containing the generated chart.
     Can be displayed, saved, or further customized.
@@ -194,7 +194,7 @@ PlottingObject
 
 ____
 
-💡 Examples
+Examples
 -----------
 
 Static Code Block
@@ -254,7 +254,7 @@ Display and execute code - the actual output will be shown:
 
 ____
 
-📊 Figures & Equations
+Figures & Equations
 ----------------------
 
 Equations
@@ -345,7 +345,7 @@ Use ``@savefig`` pseudo-directive to save and display matplotlib figures:
 
 ----
 
-**VastOrbit Bar Chart Example:**
+**VAST Orbit Bar Chart Example:**
 
 .. code-block:: rst
 
@@ -367,7 +367,7 @@ Use ``@savefig`` pseudo-directive to save and display matplotlib figures:
     @savefig core_VastFrame_plotting_bar_example.png
     data.bar("counts")
 
-*(Notice: VastOrbit's matplotlib bar chart is displayed and saved)*
+*(Notice: VAST Orbit's matplotlib bar chart is displayed and saved)*
 
 ----
 
@@ -380,11 +380,11 @@ Use ``@savefig`` pseudo-directive to save and display matplotlib figures:
 
 .. note:: 
 
-   VastOrbit is imported by default in the documentation environment - no need to show import statements unless demonstrating specific import patterns.
+   VAST Orbit is imported by default in the documentation environment - no need to show import statements unless demonstrating specific import patterns.
 
 ----
 
-Plotly/Highcharts Plots
+Plotly Plots
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Interactive plots must be saved as HTML files and then included:
@@ -401,7 +401,7 @@ Interactive plots must be saved as HTML files and then included:
         fig.write_html("figures/core_VastFrame_vDFPlot_bar_example.html")
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_example.html
+        :file: figures/core_VastFrame_vDFPlot_bar_example.html
 
 **This renders as:**
 
@@ -415,7 +415,7 @@ Interactive plots must be saved as HTML files and then included:
     fig.write_html("figures/core_VastFrame_vDFPlot_bar_example.html")
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_plotly.html
+    :file: figures/core_VastFrame_vDFPlot_bar_plotly.html
 
 *(Notice: An interactive Plotly chart is embedded - you can hover, zoom, pan)*
 
@@ -426,7 +426,7 @@ Interactive plots must be saved as HTML files and then included:
    **File paths for HTML:**
    
    - **When saving** (in Python): Use relative path ``"figures/filename.html"``
-   - **When loading** (in RST): Use absolute path ``SPHINX_DIRECTORY/figures/filename.html``
+   - **When loading** (in RST): Use a path relative to the ``docs/`` source dir: ``figures/filename.html`` (portable across machines and CI)
 
 ----
 
@@ -447,7 +447,7 @@ Display VastFrame tables as interactive HTML:
         html_file.close()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/core_VastFrame_table_example.html
+        :file: figures/core_VastFrame_table_example.html
 
 **This renders as:**
 
@@ -461,13 +461,13 @@ Display VastFrame tables as interactive HTML:
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/core_VastFrame_table_example.html
+    :file: figures/core_VastFrame_table_example.html
 
 *(Notice: An interactive VastFrame table with sortable columns)*
 
 ____
 
-📢 Notes & Admonitions
+Notes & Admonitions
 ----------------------
 
 Use admonitions to highlight important information:
@@ -527,7 +527,7 @@ Use admonitions to highlight important information:
 
 ____
 
-🔗 See Also
+See Also
 -----------
 
 **Reference Related Functions:**
@@ -570,14 +570,14 @@ ____
 
 **Best Practices:**
 
-- ✅ Use ``|`` (pipe) to create compact lists of related functions
-- ✅ Add brief descriptions explaining how functions relate
-- ✅ Link to both similar functions and complementary ones
-- ✅ Order from most to least related
+- |check| Use ``|`` (pipe) to create compact lists of related functions
+- |check| Add brief descriptions explaining how functions relate
+- |check| Link to both similar functions and complementary ones
+- |check| Order from most to least related
 
 ____
 
-📚 Complete Examples
+Complete Examples
 --------------------
 
 Example 1: Basic Aggregation Function (max)
@@ -667,19 +667,19 @@ Computes the maximum value for each specified column. This is useful
 for finding the largest values in your dataset. The operation is 
 performed directly in the database for optimal performance.
 
-Parameters
-----------
+.. rubric:: Parameters
+
 columns: SQLColumns, optional
     List of the VastColumns names. If empty, all numerical 
     VastColumns are used.
-**agg_kwargs
+\*\*agg_kwargs
     Any optional parameter to pass to the Aggregate function.
     
     - by: List of columns to group by
     - having: Filtering condition for groups
 
-Returns
--------
+.. rubric:: Returns
+
 TableSample
     Table containing the maximum value for each column.
 
@@ -842,7 +842,7 @@ Example 2: Plotting Function (bar)
             data.bar("counts")
 
         .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_plotly_example2.html
+            :file: figures/core_VastFrame_vDFPlot_bar_plotly_example2.html
 
         ----
 
@@ -877,7 +877,7 @@ Example 2: Plotting Function (bar)
             data.bar("category", method="sum", of="value")
 
         .. note:: 
-           You can use matplotlib, plotly, or highcharts as the backend.
+           You can use matplotlib or plotly as the backend.
            Set with ``vo.set_option("plotting_lib", "plotly")``
 
         .. tip::
@@ -905,8 +905,8 @@ Creates a bar chart visualizing the distribution or aggregation of
 data. Supports both single-column and multi-column bar charts with
 various aggregation methods and styles.
 
-Parameters
-----------
+.. rubric:: Parameters
+
 columns: SQLColumns
     List of the VastColumns names. The list must have one or two elements.
 method: str, optional
@@ -932,11 +932,11 @@ kind: str, optional
     The BarChart Type (auto, drilldown, or stacked).
 chart: PlottingObject, optional
     The chart object to plot on.
-**style_kwargs
+\*\*style_kwargs
     Optional plotting parameters (width, height, color, etc.).
 
-Returns
--------
+.. rubric:: Returns
+
 PlottingObject
     Plotting object containing the chart.
 
@@ -968,7 +968,7 @@ Aggregated bar chart:
     data.bar("category", method="sum", of="value")
 
 .. note:: 
-   You can use matplotlib, plotly, or highcharts as the backend.
+   You can use matplotlib or plotly as the backend.
    Set with ``vo.set_option("plotting_lib", "plotly")``
 
 .. tip::
@@ -1122,8 +1122,8 @@ Calculates pairwise correlations between columns using various
 correlation methods. Supports both linear and non-linear correlation
 measures for different data types.
 
-Parameters
-----------
+.. rubric:: Parameters
+
 columns: SQLColumns, optional
     List of the VastColumns names. If empty, all numerical VastColumns are used.
 method: str, optional
@@ -1143,11 +1143,11 @@ show: bool, optional
     Return plotting object (default: True)
 chart: PlottingObject, optional
     Chart object to plot on
-**style_kwargs
+\*\*style_kwargs
     Additional plotting parameters
 
-Returns
--------
+.. rubric:: Returns
+
 PlottingObject
     Correlation heatmap
 
@@ -1261,7 +1261,7 @@ Example 4: Data Transformation (pivot)
             sm.head(10)
 
         .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/core_VastFrame_aggregate_pivot_input.html
+            :file: figures/core_VastFrame_aggregate_pivot_input.html
 
         **Basic pivot table:**
 
@@ -1289,7 +1289,7 @@ Example 4: Data Transformation (pivot)
             pivoted.head(5)
 
         .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/core_VastFrame_aggregate_pivot_output.html
+            :file: figures/core_VastFrame_aggregate_pivot_output.html
 
         **Advanced aggregation:**
 
@@ -1329,8 +1329,8 @@ Reshapes data from long to wide format by pivoting column values
 into new columns. This is useful for creating summary tables and
 cross-tabulations.
 
-Parameters
-----------
+.. rubric:: Parameters
+
 index: str
     VastColumn for rows in the pivot table
 columns: str
@@ -1342,8 +1342,8 @@ aggr: str, optional
 prefix: str, optional
     Column name prefix
 
-Returns
--------
+.. rubric:: Returns
+
 VastFrame
     The pivoted table
 
@@ -1370,15 +1370,15 @@ Advanced aggregation with range calculation: *(code example)*
 
 ____
 
-📝 Key Takeaways
+Key Takeaways
 ----------------
 
 **Documentation Structure:**
 
-- ✅ Headers created with ``----------`` underneath title
-- ✅ Parameters automatically bolded in NumPy format
-- ✅ Inline code blocks use double backticks: ````code````
-- ✅ Cross-references use Sphinx roles: ``:py:func:`~function```
+- |check| Headers created with ``----------`` underneath title
+- |check| Parameters automatically bolded in NumPy format
+- |check| Inline code blocks use double backticks: ````code````
+- |check| Cross-references use Sphinx roles: ``:py:func:`~function```
 
 **Code Display Options:**
 
@@ -1388,18 +1388,18 @@ ____
 
 **Visualization Methods:**
 
-- ✅ **Matplotlib**: Use ``@savefig filename.png`` before ``plt.show()``
-- ✅ **Plotly/Highcharts**: Save as HTML with ``fig.write_html()`` then include with ``.. raw:: html``
-- ✅ **VastFrame tables**: Export HTML with ``._repr_html_()`` then include with ``.. raw:: html``
+- |check| **Matplotlib**: Use ``@savefig filename.png`` before ``plt.show()``
+- |check| **Plotly**: Save as HTML with ``fig.write_html()`` then include with ``.. raw:: html``
+- |check| **VastFrame tables**: Export HTML with ``._repr_html_()`` then include with ``.. raw:: html``
 
 **Admonitions:**
 
-- ✅ ``.. note::``: General information
-- ✅ ``.. tip::``: Best practices
-- ✅ ``.. hint::``: Gentle guidance
-- ✅ ``.. important::``: Critical information
-- ✅ ``.. warning::``: Potential issues
-- ✅ ``.. danger::``: Severe problems
+- |check| ``.. note::``: General information
+- |check| ``.. tip::``: Best practices
+- |check| ``.. hint::``: Gentle guidance
+- |check| ``.. important::``: Critical information
+- |check| ``.. warning::``: Potential issues
+- |check| ``.. danger::``: Severe problems
 
 **File Naming Conventions:**
 
@@ -1415,7 +1415,7 @@ ____
 .. tip::
 
    Copy these complete examples as templates for your docstrings. They demonstrate
-   all the major features and best practices for VastOrbit documentation.
+   all the major features and best practices for VAST Orbit documentation.
 
 .. important::
 

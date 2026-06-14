@@ -620,7 +620,7 @@ class vDFPlot(vDFMachineLearning):
 
             The below example is a very basic one. For
             other more detailed examples and customization
-            options, please see :ref:`chart_gallery.barh`
+            options, please see :ref:`chart_gallery.bar`
 
         Let's begin by importing `vastorbit`.
 
@@ -2741,8 +2741,6 @@ class vDCPlot(vDCScaler):
                     FROM {self._parent}) vastorbit_OPTIMAL_H_TABLE""",
                 title="Different aggregations to compute the optimal h.",
                 method="fetchrow",
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             )
             (
                 count,

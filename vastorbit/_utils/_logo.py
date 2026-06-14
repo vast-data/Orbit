@@ -87,7 +87,7 @@ def vastorbit_logo_html(size: str = "50%") -> str:
   <defs>
     <style>
       .cls-1 {
-        fill: #0f0f0f;
+        fill: var(--color-foreground-primary, #E8EFF7);
       }
 
       .cls-2 {

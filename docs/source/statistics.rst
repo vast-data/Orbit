@@ -1,16 +1,16 @@
 .. _statistics:
 
 ==================
-VastOrbit Statistics
+VAST Orbit Statistics
 ==================
 
 .. include:: logo_include.rst
 
-This page provides detailed statistics about VastOrbit's capabilities for in-database data science on VAST.
+This page provides detailed statistics about VAST Orbit's capabilities for in-database data science on VAST.
 
 .. note::
 
-    VastOrbit brings Python data science to VAST Database with complete in-database execution - data preparation, exploration, analytics, and ML at any scale.
+    VAST Orbit brings Python data science to VAST Database with complete in-database execution - data preparation, exploration, analytics, and ML at any scale.
 
 Library Metrics
 ---------------
@@ -108,7 +108,7 @@ Machine Learning
 Embedded Models (10)
 ^^^^^^^^^^^^^^^^^^^^
 
-Train and deploy directly with VastOrbit:
+Train and deploy directly with VAST Orbit:
 
 1. **Linear Models**
    - LinearRegression
@@ -186,7 +186,6 @@ Rendering Backends
 
 - **Plotly**: Interactive web-ready charts
 - **Matplotlib**: Publication-quality static plots
-- **Highcharts**: Enterprise interactive visualizations
 
 Intelligent Sampling
 ^^^^^^^^^^^^^^^^^^^^
@@ -371,4 +370,4 @@ For More Information
    - :ref:`getting_started` - Installation and quick start
    - :ref:`api` - Complete API reference
    - :ref:`examples` - Example workflows
-   - :ref:`machine_learning` - ML guide
+   - :ref:`api.machine_learning` - ML guide

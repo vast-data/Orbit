@@ -5,8 +5,8 @@ About Us
 
 .. include:: logo_include.rst
 
-Why Choose VastOrbit?
----------------------
+Why Choose VAST Orbit?
+----------------------
 
 Unlock Endless Possibilities for Data Science on VAST Database
 
@@ -14,9 +14,13 @@ Unlock Endless Possibilities for Data Science on VAST Database
 
    .. tab-item:: Endless Possibilities
 
+      .. image:: _static/website/about_us/cover/endless_possibilities.png
+         :class: about-cover
+         :alt: Endless Possibilities
+
       Data Prep, Exploration, and AI - All in VAST Database
 
-      VastOrbit gives you **endless possibilities** by bringing all data science workflows directly to VAST Database. Prepare, explore, analyze, and build ML models - all with in-database execution at any scale.
+      VAST Orbit gives you **endless possibilities** by bringing all data science workflows directly to VAST Database. Prepare, explore, analyze, and build ML models - all with in-database execution at any scale.
 
       **Data Preparation - In VAST:**
       - Clean and transform data directly in VAST
@@ -37,7 +41,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - All in one unified Python API
 
       **In-Database ML:**
-      - Train with VastOrbit's embedded models
+      - Train with VAST Orbit's embedded models
       - Deploy for in-database inference
       - Score billions of rows without movement
       - 10 ML algorithms ready for production
@@ -48,15 +52,19 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - Build ML pipelines entirely in VAST
       - Zero data movement architecture
 
-      With VastOrbit and VAST Database, you have endless possibilities for data science and AI.
+      With VAST Orbit and VAST Database, you have endless possibilities for data science and AI.
 
       `Learn More About VAST Database <https://www.vastdata.com/platform/database>`_
 
    .. tab-item:: In-Database Data Science
 
+      .. image:: _static/website/about_us/cover/in_database_data_science.png
+         :class: about-cover
+         :alt: In-Database Data Science
+
       Prepare, Explore, and Analyze - All in VAST
 
-      Traditional data science forces you to extract, load, and transform data before analysis. VastOrbit eliminates this bottleneck with true in-database execution.
+      Traditional data science forces you to extract, load, and transform data before analysis. VAST Orbit eliminates this bottleneck with true in-database execution.
 
       **Data Preparation in VAST:**
       - Clean data: handle nulls, duplicates, outliers
@@ -91,16 +99,20 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - Real-time fraud detection with historical patterns
       - Supply chain analytics across ERP, warehouse, logistics
 
-      VastOrbit brings complete data science workflows to VAST Database.
+      VAST Orbit brings complete data science workflows to VAST Database.
 
    .. tab-item:: In-Database ML
 
+      .. image:: _static/website/about_us/cover/in_database_ml.png
+         :class: about-cover
+         :alt: In-Database ML
+
       Train and Deploy - Seamlessly in VAST
 
-      VastOrbit enables hybrid ML workflows optimized for VAST Database:
+      VAST Orbit enables hybrid ML workflows optimized for VAST Database:
 
       **Training:**
-      - Use VastOrbit's embedded models
+      - Use VAST Orbit's embedded models
       - Import sklearn models trained locally
       - Automatic sampling for large datasets
       - Develop and iterate quickly
@@ -122,9 +134,13 @@ Unlock Endless Possibilities for Data Science on VAST Database
 
    .. tab-item:: AI Development Platform
 
+      .. image:: _static/website/about_us/cover/ai_development_platform.png
+         :class: about-cover
+         :alt: AI Development Platform
+
       Built for Modern AI Workflows on VAST
 
-      VastOrbit transforms VAST Database into your complete AI development platform:
+      VAST Orbit transforms VAST Database into your complete AI development platform:
 
       **400+ Functions:**
       - Data manipulation and cleaning
@@ -150,7 +166,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - Live and historical data access
       - Real-time AI applications
 
-      VastOrbit makes VAST Database your AI platform.
+      VAST Orbit makes VAST Database your AI platform.
 
 The Team
 --------
@@ -217,7 +233,7 @@ The Team
 
           Principal Data Platform SE
 
-The Story Behind VastOrbit
+The Story Behind VAST Orbit
 ---------------------------
 
 Bringing Python Data Science to VAST Database
@@ -225,6 +241,10 @@ Bringing Python Data Science to VAST Database
 .. tab-set::
 
    .. tab-item:: The Vision
+
+      .. image:: _static/website/about_us/cover/the_vision.png
+         :class: about-cover
+         :alt: The Vision
 
       **The Challenge:**
 
@@ -246,7 +266,7 @@ Bringing Python Data Science to VAST Database
 
       But data scientists still needed familiar Python tools.
 
-      **VastOrbit's Solution:**
+      **VAST Orbit's Solution:**
 
       Bring Python data science to VAST Database:
       - Data preparation directly in VAST
@@ -259,9 +279,13 @@ Bringing Python Data Science to VAST Database
 
    .. tab-item:: The Philosophy
 
+      .. image:: _static/website/about_us/cover/the_philosophy.png
+         :class: about-cover
+         :alt: The Philosophy
+
       **In-Database Everything**
 
-      VastOrbit is built on the principle that data processing should happen where data lives.
+      VAST Orbit is built on the principle that data processing should happen where data lives.
 
       **Core Principles:**
 
@@ -281,13 +305,17 @@ Bringing Python Data Science to VAST Database
 
       **The Result:**
 
-      VastOrbit doesn't move data to tools - it brings tools to data in VAST Database.
+      VAST Orbit doesn't move data to tools - it brings tools to data in VAST Database.
 
    .. tab-item:: Technical Foundation
 
+      .. image:: _static/website/about_us/cover/technical_foundation.png
+         :class: about-cover
+         :alt: Technical Foundation
+
       **In-Database Execution Architecture**
 
-      VastOrbit translates Python operations to execution in VAST:
+      VAST Orbit translates Python operations to execution in VAST:
 
       1. **Data Preparation:**
          - fillna, dropna, drop_duplicates in VAST
@@ -319,8 +347,8 @@ Bringing Python Data Science to VAST Database
          - In-database scoring
          - Production inference
 
-VastOrbit Statistics
---------------------
+VAST Orbit Statistics
+---------------------
 
 * **400+ Functions**: Data manipulation and analytics in VAST
 * **10 ML Algorithms**: Embedded models for training and inference
@@ -334,7 +362,7 @@ VastOrbit Statistics
 Technology Stack
 ----------------
 
-VastOrbit leverages cutting-edge technologies:
+VAST Orbit leverages cutting-edge technologies:
 
 **Core Platform:**
 - **VAST Database**: Unified transactional and analytical database
@@ -345,7 +373,7 @@ VastOrbit leverages cutting-edge technologies:
 - **Embedded Models**: Built-in ML algorithms
 - **sklearn**: Model import compatibility
 - **Pandas**: API patterns and data structures
-- **Plotly/Matplotlib/Highcharts**: Visualization backends
+- **Plotly/Matplotlib**: Visualization backends
 
 **Data Access:**
 - **Multi-Catalog**: Access multiple data sources
@@ -358,12 +386,12 @@ Community & Support
 **Get Involved:**
 
 - **GitHub**: `github.com/vast-data/vastorbit <https://github.com/vastdata-dev/vastorbit>`_
-- **Support**: vastsupport.slack.com
+- **Support**: `vastsupport.slack.com <https://vastsupport.slack.com>`_
 
 **Enterprise Support:**
 
-VAST Data provides enterprise-grade support for VastOrbit as part of the VAST Database offering.
+VAST Data provides enterprise-grade support for VAST Orbit as part of the VAST Database offering.
 
 .. note::
 
-   VastOrbit brings Python data science to VAST Database. Prepare, explore, analyze, and build AI - all with in-database execution at any scale.
+   VAST Orbit brings Python data science to VAST Database. Prepare, explore, analyze, and build AI - all with in-database execution at any scale.

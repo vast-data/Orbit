@@ -4,7 +4,7 @@
 Error Handling
 ==============
 
-Custom exception classes for VastOrbit error handling.
+Custom exception classes for VAST Orbit error handling.
 
 ____
 

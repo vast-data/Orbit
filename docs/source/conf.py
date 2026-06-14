@@ -122,8 +122,333 @@ rst_prolog = """
 """
 
 
+# --- VAST icon substitutions (CSS-mask icons, _static/icons/) ---------------
+# Usage in any .rst:  |check| **In-Database Execution**
+rst_prolog += """
+
+.. |check| raw:: html
+
+   <span class="vi vi-check vi-cyan" role="img" aria-label="yes"></span>
+
+.. |cross| raw:: html
+
+   <span class="vi vi-cross vi-red" role="img" aria-label="bad"></span>
+
+.. |zap| raw:: html
+
+   <span class="vi vi-zap vi-cyan" role="img" aria-label="fast"></span>
+
+.. |database| raw:: html
+
+   <span class="vi vi-database vi-cyan" role="img" aria-label="database"></span>
+
+.. |globe| raw:: html
+
+   <span class="vi vi-globe vi-cyan" role="img" aria-label="federated"></span>
+
+.. |export| raw:: html
+
+   <span class="vi vi-export vi-cyan" role="img" aria-label="export"></span>
+
+.. |chart| raw:: html
+
+   <span class="vi vi-chart vi-cyan" role="img" aria-label="chart"></span>
+
+.. |arrow| raw:: html
+
+   <span class="vi vi-arrow vi-cyan" role="img" aria-label="arrow"></span>
+
+.. |info| raw:: html
+
+   <span class="vi vi-info vi-cyan" role="img" aria-label="info"></span>
+
+.. |warn| raw:: html
+
+   <span class="vi vi-warning vi-amber" role="img" aria-label="warning"></span>
+
+.. |orbit| raw:: html
+
+   <span class="vi vi-orbit vi-cyan" role="img" aria-label="VastOrbit"></span>
+"""
+
+
+# --- Official VAST icon-font substitutions (used in index.rst & cards) ------
+rst_prolog += """
+
+.. |i-start| raw:: html
+
+   <i class="vast vast-vastronaut" role="img" aria-label="getting started"></i>
+
+.. |i-connect| raw:: html
+
+   <i class="vast vast-networking" role="img" aria-label="connection"></i>
+
+.. |i-guide| raw:: html
+
+   <i class="vast vast-configuration-guide" role="img" aria-label="user guide"></i>
+
+.. |i-ml| raw:: html
+
+   <i class="vast vast-machine-learning" role="img" aria-label="machine learning"></i>
+
+.. |i-inml| raw:: html
+
+   <i class="vast vast-brain" role="img" aria-label="in-database ML"></i>
+
+.. |i-charts| raw:: html
+
+   <i class="vast vast-data-analytics" role="img" aria-label="chart gallery"></i>
+
+.. |i-explore| raw:: html
+
+   <i class="vast vast-graph" role="img" aria-label="exploration"></i>
+
+.. |i-api| raw:: html
+
+   <i class="vast vast-laptop" role="img" aria-label="API reference"></i>
+
+.. |i-examples| raw:: html
+
+   <i class="vast vast-solution-brief" role="img" aria-label="examples"></i>
+
+.. |i-prep| raw:: html
+
+   <i class="vast vast-wrench" role="img" aria-label="data preparation"></i>
+
+.. |i-indb| raw:: html
+
+   <i class="vast vast-table-database" role="img" aria-label="in-database processing"></i>
+
+.. |i-multisource| raw:: html
+
+   <i class="vast vast-no-silos" role="img" aria-label="multi-source access"></i>
+
+.. |i-files| raw:: html
+
+   <i class="vast vast-folder" role="img" aria-label="file queries"></i>
+
+.. |i-docs| raw:: html
+
+   <i class="vast vast-ebook" role="img" aria-label="documentation"></i>
+
+.. |i-chat| raw:: html
+
+   <i class="vast vast-chat-bubble" role="img" aria-label="community"></i>
+
+.. |i-email| raw:: html
+
+   <i class="vast vast-email" role="img" aria-label="support"></i>
+
+.. |i-about| raw:: html
+
+   <i class="vast vast-3-users" role="img" aria-label="about us"></i>
+
+.. |i-setup| raw:: html
+
+   <i class="vast vast-gear" role="img" aria-label="setting up"></i>
+
+.. |i-tests| raw:: html
+
+   <i class="vast vast-easy" role="img" aria-label="unit tests"></i>
+
+.. |i-functions| raw:: html
+
+   <i class="vast vast-wrench-full" role="img" aria-label="useful functions"></i>
+
+.. |i-practices| raw:: html
+
+   <i class="vast vast-white-paper" role="img" aria-label="best practices"></i>
+
+.. |i-frame| raw:: html
+
+   <i class="vast vast-data-sheet" role="img" aria-label="vastframe"></i>
+
+.. |i-stats| raw:: html
+
+   <i class="vast vast-chart-up" role="img" aria-label="statistics"></i>
+
+.. |i-notebook| raw:: html
+
+   <i class="vast vast-monitor" role="img" aria-label="jupyter"></i>
+
+.. |i-datasets| raw:: html
+
+   <i class="vast vast-data-vault" role="img" aria-label="datasets"></i>
+
+.. |i-sample| raw:: html
+
+   <i class="vast vast-data-reduction" role="img" aria-label="sampling"></i>
+
+.. |i-select| raw:: html
+
+   <i class="vast vast-3-diverging-arrows" role="img" aria-label="model selection"></i>
+
+.. |i-memory| raw:: html
+
+   <i class="vast vast-storage-class-memory" role="img" aria-label="memory models"></i>
+
+.. |i-automl| raw:: html
+
+   <i class="vast vast-lightning-bolt" role="img" aria-label="automl"></i>
+
+.. |i-funcs| raw:: html
+
+   <i class="vast vast-wrench" role="img" aria-label="functions"></i>
+
+.. |i-geo| raw:: html
+
+   <i class="vast vast-globe" role="img" aria-label="geospatial"></i>
+
+.. |i-joins| raw:: html
+
+   <i class="vast vast-merging-arrows" role="img" aria-label="joins"></i>
+
+.. |i-dupes| raw:: html
+
+   <i class="vast vast-copy-to-clipboard" role="img" aria-label="duplicates"></i>
+
+.. |i-missing| raw:: html
+
+   <i class="vast vast-question-mark" role="img" aria-label="missing values"></i>
+
+.. |i-encode| raw:: html
+
+   <i class="vast vast-packaging" role="img" aria-label="encoding"></i>
+
+.. |i-scale| raw:: html
+
+   <i class="vast vast-scaling" role="img" aria-label="scaling"></i>
+
+.. |i-decomp| raw:: html
+
+   <i class="vast vast-objects" role="img" aria-label="decomposition"></i>
+
+.. |i-feateng| raw:: html
+
+   <i class="vast vast-gear" role="img" aria-label="feature engineering"></i>
+
+.. |i-magic| raw:: html
+
+   <i class="vast vast-constellation" role="img" aria-label="magic methods"></i>
+
+.. |i-classify| raw:: html
+
+   <i class="vast vast-shared-silos" role="img" aria-label="classification"></i>
+
+.. |i-cluster| raw:: html
+
+   <i class="vast vast-clouds" role="img" aria-label="clustering"></i>
+
+.. |i-time| raw:: html
+
+   <i class="vast vast-restore" role="img" aria-label="time"></i>
+
+.. |i-understand| raw:: html
+
+   <i class="vast vast-brain" role="img" aria-label="understand concepts"></i>
+
+.. |i-business| raw:: html
+
+   <i class="vast vast-dollar-sign" role="img" aria-label="business solutions"></i>
+
+.. |i-market| raw:: html
+
+   <i class="vast vast-chart-up" role="img" aria-label="market data"></i>
+
+.. |i-bio| raw:: html
+
+   <i class="vast vast-life-sciences" role="img" aria-label="life sciences"></i>
+
+.. |i-game| raw:: html
+
+   <i class="vast vast-play" role="img" aria-label="games"></i>
+
+.. |i-ship| raw:: html
+
+   <i class="vast vast-shipping" role="img" aria-label="titanic"></i>
+
+.. |i-quality| raw:: html
+
+   <i class="vast vast-easy" role="img" aria-label="quality"></i>
+
+.. |i-telecom| raw:: html
+
+   <i class="vast vast-phone" role="img" aria-label="telecom"></i>
+
+.. |i-health| raw:: html
+
+   <i class="vast vast-shield" role="img" aria-label="asset health"></i>
+
+.. |i-travel| raw:: html
+
+   <i class="vast vast-globe" role="img" aria-label="travel"></i>
+
+.. |i-churn| raw:: html
+
+   <i class="vast vast-chart-down" role="img" aria-label="customer churn"></i>
+
+.. |i-fraud| raw:: html
+
+   <i class="vast vast-lock" role="img" aria-label="fraud detection"></i>
+
+.. |i-sports| raw:: html
+
+   <i class="vast vast-speedometer" role="img" aria-label="sports performance"></i>
+
+.. |i-insurance| raw:: html
+
+   <i class="vast vast-data-protection" role="img" aria-label="insurance"></i>
+
+.. |i-media| raw:: html
+
+   <i class="vast vast-media-and-broadcast" role="img" aria-label="media"></i>
+
+.. |i-energy| raw:: html
+
+   <i class="vast vast-lightning-bolt" role="img" aria-label="energy"></i>
+
+.. |i-spam| raw:: html
+
+   <i class="vast vast-virus" role="img" aria-label="spam detection"></i>
+
+.. |i-music| raw:: html
+
+   <i class="vast vast-sound-on" role="img" aria-label="music"></i>
+
+.. |i-virus| raw:: html
+
+   <i class="vast vast-virus" role="img" aria-label="virus"></i>
+
+.. |i-text| raw:: html
+
+   <i class="vast vast-white-paper" role="img" aria-label="text analytics"></i>
+
+.. |i-pipeline| raw:: html
+
+   <i class="vast vast-merging-arrows" role="img" aria-label="pipeline"></i>
+
+.. |i-ensemble| raw:: html
+
+   <i class="vast vast-multiple-racks" role="img" aria-label="ensemble"></i>
+
+.. |i-tree| raw:: html
+
+   <i class="vast vast-3-diverging-arrows" role="img" aria-label="decision trees"></i>
+"""
+
 import os
 import sys
+
+# ─── FAST DOCS MODE ──────────────────────────────────────────────────────────
+# Skip ALL code execution (ipython directives + notebooks) for fast styling /
+# content iteration. Code blocks render as static highlighted Python instead
+# of executing against Trino. Charts and outputs will NOT appear.
+#
+#   FAST_DOCS=1 make html          # fast structural/style build
+#   make html                      # normal full build (executes everything)
+FAST_DOCS = os.environ.get("FAST_DOCS", "").lower() in ("1", "true", "yes")
+if FAST_DOCS:
+    print("\033[93m*** FAST_DOCS: code execution disabled (ipython + notebooks) ***\033[0m")
 
 sys.path.insert(0, os.path.abspath(".."))
 
@@ -151,6 +476,9 @@ extensions = [
 
 ipython_warning_is_error = False
 
+# Notebooks: execute on normal builds, never in FAST_DOCS mode
+nbsphinx_execute = "never" if FAST_DOCS else "auto"
+
 templates_path = ["_templates"]
 
 exclude_patterns = [
@@ -171,7 +499,12 @@ autosummary_generate = True
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 
-html_theme = "furo"  #'pydata_sphinx_theme'
+html_theme = "furo"
+
+# Syntax highlighting: light-canvas tokens in light mode,
+# bright dark-canvas tokens (Furo-specific option) in dark mode.
+pygments_style = "tango"
+pygments_dark_style = "native"  #'pydata_sphinx_theme'
 
 html_static_path = ["_static"]
 
@@ -181,6 +514,8 @@ html_logo = "_static/vast_logo.png"
 # Theme Options for Furo theme
 
 html_theme_options = {
+    # NOTE: footer_icons is no longer rendered — _templates/page.html
+    # overrides Furo's footer with the full VAST footer (same links included).
     "footer_icons": [
         {
             "name": "Privacy Policy",
@@ -231,7 +566,7 @@ html_theme_options = {
                                     <a class="top-button" href="./getting_started.html" id="sitenav-solutions">Getting Started</a>
                                     <a class="top-button" href="./about_us.html" id="sitenav-solutions">About Us</a>
                                     <a class="top-button" href="./api.html" id="sitenav-solutions">API Reference</a>
-                                    <a class="top-button" href="" id="sitenav-solutions">GitHub</a>
+                                    <a class="top-button" href="https://github.com/vastdata-dev/vastorbit" id="sitenav-solutions">GitHub</a>
                                 </div>
                             </div>
                             <div class="search-top-dropdown">
@@ -285,28 +620,90 @@ html_theme_options = {
                 </div>""",
     "light_css_variables": {
         "color-announcement-background": "white",
-        "color-announcement-text": "#2757dd",
+        "color-announcement-text": "#03142C",   # VAST Navy
+        "color-sidebar-background": "#F4F4F5",
+        "color-sidebar-background-border": "#E4E4E7",
+        "color-brand-primary": "#03142C",       # VAST Navy
+        "color-brand-content": "#0E86B8",       # readable cyan-blue for links on white
+    },
+    "dark_css_variables": {
+        # VAST navy ramp — layered navy, never pure black (matches vastdata.com)
+        "color-background-primary": "#04101F",
+        "color-background-secondary": "#03142C",   # VAST Navy
+        "color-background-hover": "#0A2240",
+        "color-background-border": "#1B3A5C",
+        "color-foreground-primary": "#E8EFF7",
+        "color-foreground-secondary": "#9FB3C8",
+        "color-code-background": "#0A2240",
+        "color-code-foreground": "#E8EFF7",
+        "color-inline-code-background": "rgba(31, 217, 254, 0.10)",
+        "color-sidebar-background": "#0F2042",
+        "color-sidebar-item-background--hover": "#0A2240",
+        "color-admonition-background": "#0A2240",
+        "color-announcement-background": "#03142C",
+        "color-announcement-text": "#E8EFF7",
+        "color-brand-primary": "#1FD9FE",          # VAST Cyan
+        "color-brand-content": "#1FD9FE",
     },
 }
 
 html_favicon = "_static/vlogo.png"
 # Customization
 html_css_files = [
+    "css/vast_brand.css",  # VAST brand tokens — must load before the other stylesheets
     "css/custom_styling.css",
     "css/ai_assistant.css",
-    "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    "css/vast_icons.css",  # official VAST icon font (122 glyphs, _static/fonts/)
+    "css/vi_icons.css",  # vi mask glyphs (|check|, |cross|, ... — _static/icons/)
+    # Inter is the web fallback when licensed Moderat woff2 files are absent
+    "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
 ]
 
 html_js_files = [
     "js/ai_assistant.js",
+    "js/theme_dark_default.js",
 ]
+
+def _register_noexec_ipython(app):
+    """FAST_DOCS: replace the executing ipython directive with a static
+    code-block renderer. Same content, zero execution, instant builds."""
+    from docutils import nodes
+    from docutils.parsers.rst import Directive, directives
+
+    class NoExecIPython(Directive):
+        has_content = True
+        required_arguments = 0
+        optional_arguments = 1
+        final_argument_whitespace = True
+        option_spec = {
+            "verbatim": directives.flag,
+            "suppress": directives.flag,
+            "okexcept": directives.flag,
+            "okwarning": directives.flag,
+            "doctest": directives.flag,
+            "python": directives.unchanged,
+        }
+
+        def run(self):
+            if "suppress" in self.options:
+                return []  # hidden in real builds, hidden here too
+            lines = [l for l in self.content if not l.lstrip().startswith("@savefig")]
+            code = "\n".join(lines)
+            node = nodes.literal_block(code, code)
+            node["language"] = "python"
+            return [node]
+
+    app.add_directive("ipython", NoExecIPython, override=True)
+
 
 def setup(app):
     """Patch IPython directive to skip remaining cells in failed RST files."""
+    if FAST_DOCS:
+        _register_noexec_ipython(app)
+        return  # skip the retry monkeypatch; nothing executes anyway
     try:
         from IPython.sphinxext import ipython_directive
         import time

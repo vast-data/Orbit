@@ -291,7 +291,7 @@ ____
 Available Classifiers
 ---------------------
 
-VastOrbit supports multiple classification algorithms:
+VAST Orbit supports multiple classification algorithms:
 
 - :py:class:`~vastorbit.machine_learning.vast.RandomForestClassifier` – Ensemble of decision trees
 - :py:class:`~vastorbit.machine_learning.vast.LogisticRegression` – Linear classification

@@ -6,11 +6,11 @@ Code Contribution
 
 .. include:: logo_include.rst
 
-Complete guide for contributing code to VastOrbit.
+Complete guide for contributing code to VAST Orbit.
 
 ____
 
-📚 Developer Guide
+Developer Guide
 ------------------
 
 Follow these guides in order for your first contribution:
@@ -20,13 +20,11 @@ Follow these guides in order for your first contribution:
 
     .. grid-item::
     
-      .. card:: 🔧 1. Setting Up
-        :link: contribution_guidelines_code_setting_up
+      .. card:: |i-setup| 1. Setting Up
+        :link: contribution_guidelines.code.setting_up
         :link-type: ref
         :text-align: center
         :class-card: custom-card
-        
-        +++
         
         Fork, clone, and configure your development environment.
         
@@ -36,13 +34,11 @@ Follow these guides in order for your first contribution:
 
     .. grid-item::
     
-      .. card:: ✅ 2. Unit Tests
-        :link: contribution_guidelines_code_unit_tests
+      .. card:: |i-tests| 2. Unit Tests
+        :link: contribution_guidelines.code.unit_tests
         :link-type: ref
         :text-align: center
         :class-card: custom-card
-        
-        +++
         
         Write and run tests with pytest. Required for all PRs.
         
@@ -52,13 +48,11 @@ Follow these guides in order for your first contribution:
 
     .. grid-item::
     
-      .. card:: 🛠️ 3. Useful Functions
-        :link: contribution_guidelines_code_useful_functions
+      .. card:: |i-functions| 3. Useful Functions
+        :link: contribution_guidelines.code.useful_functions
         :link-type: ref
         :text-align: center
         :class-card: custom-card
-        
-        +++
         
         Helper utilities and common patterns in the codebase.
         
@@ -68,13 +62,11 @@ Follow these guides in order for your first contribution:
 
     .. grid-item::
     
-      .. card:: 📝 4. Best Practices
-        :link: contribution_guidelines_code_misc
+      .. card:: |i-practices| 4. Best Practices
+        :link: contribution_guidelines.code.misc
         :link-type: ref
         :text-align: center
         :class-card: custom-card
-        
-        +++
         
         Coding standards, style guide, and conventions.
         
@@ -84,13 +76,11 @@ Follow these guides in order for your first contribution:
 
     .. grid-item::
     
-      .. card:: 📖 5. Documentation
-        :link: contribution_guidelines_code_auto_doc
+      .. card:: |i-docs| 5. Documentation
+        :link: contribution_guidelines.code.auto_doc
         :link-type: ref
         :text-align: center
         :class-card: custom-card
-        
-        +++
         
         Auto-generate API docs with Sphinx and docstrings.
         
@@ -100,13 +90,11 @@ Follow these guides in order for your first contribution:
 
     .. grid-item::
     
-      .. card:: 💡 6. Examples
-        :link: contribution_guidelines_code_example
+      .. card:: |i-examples| 6. Examples
+        :link: contribution_guidelines.code.example
         :link-type: ref
         :text-align: center
         :class-card: custom-card
-        
-        +++
         
         Real contribution examples and step-by-step walkthroughs.
         
@@ -116,7 +104,7 @@ Follow these guides in order for your first contribution:
 
 ____
 
-🚀 Quick Start
+Quick Start
 --------------
 
 **Ready to contribute? Follow these steps:**
@@ -148,7 +136,7 @@ ____
 
 ____
 
-✅ Checklist Before PR
+Checklist Before PR
 -----------------------
 
 Before submitting your pull request:
@@ -165,7 +153,7 @@ Before submitting your pull request:
 
 ____
 
-📋 Detailed Guides
+Detailed Guides
 ------------------
 
 .. toctree::
@@ -182,7 +170,7 @@ ____
 
 .. tip::
 
-   **First time contributor?** Start with issues labeled `good-first-issue` on GitHub. Join us on Slack (vastsupport.slack.com) if you need help!
+   **First time contributor?** Start with issues labeled `good-first-issue` on GitHub. Join us on Slack (`vastsupport.slack.com <https://vastsupport.slack.com>`_) if you need help!
 
 .. seealso::
 

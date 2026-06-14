@@ -814,8 +814,6 @@ class vDFSystem(vDFTyping):
                 FROM {self}""",
             title="Explaining the Current Relation",
             method="fetchall",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
 
         # Trino returns explain plan as rows
@@ -1319,8 +1317,6 @@ class vDCSystem(vDCTyping):
                 FROM {self._parent}""",
             title=f"Computing the Store Usage of the VastColumn {self}.",
             method="fetchfirstelem",
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
         )
         self._parent._update_catalog(
             {"index": ["store_usage"], self._alias: [store_usage]}

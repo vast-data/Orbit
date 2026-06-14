@@ -4,7 +4,7 @@
 Utilities
 =========
 
-Configuration options and helper functions for VastOrbit.
+Configuration options and helper functions for VAST Orbit.
 
 ____
 

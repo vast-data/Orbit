@@ -4,7 +4,7 @@
 Connection
 ==========
 
-Functions for managing database connections in VastOrbit.
+Functions for managing database connections in VAST Orbit.
 
 ____
 
@@ -45,7 +45,6 @@ Write
    change_auto_connection
    new_connection
    set_connection
-   set_external_connection
 
 Close/Delete
 ~~~~~~~~~~~~
@@ -80,6 +79,4 @@ Global Connection
    GlobalConnection.get_connection
    GlobalConnection.get_dsn
    GlobalConnection.get_dsn_section
-   GlobalConnection.get_external_connections
    GlobalConnection.set_connection
-   GlobalConnection.set_external_connections

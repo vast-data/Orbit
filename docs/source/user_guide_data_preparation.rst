@@ -12,7 +12,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔗 Joins
+        .. card:: |i-joins| Joins
             :link: user_guide.data_preparation.joins
             :link-type: ref
             :text-align: center
@@ -26,7 +26,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔄 Duplicates
+        .. card:: |i-dupes| Duplicates
             :link: user_guide.data_preparation.duplicates
             :link-type: ref
             :text-align: center
@@ -40,7 +40,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 📊 Outliers
+        .. card:: |warn| Outliers
             :link: user_guide.data_preparation.outliers
             :link-type: ref
             :text-align: center
@@ -54,7 +54,7 @@ ____
 
     .. grid-item::
 
-        .. card:: ❓ Missing Values
+        .. card:: |i-missing| Missing Values
             :link: user_guide.data_preparation.missing_values
             :link-type: ref
             :text-align: center
@@ -68,7 +68,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔢 Encoding
+        .. card:: |i-encode| Encoding
             :link: user_guide.data_preparation.encoding
             :link-type: ref
             :text-align: center
@@ -82,7 +82,7 @@ ____
 
     .. grid-item::
 
-        .. card:: ⚖️ Scaling
+        .. card:: |i-scale| Scaling
             :link: user_guide.data_preparation.scale
             :link-type: ref
             :text-align: center
@@ -96,7 +96,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🧩 Decomposition
+        .. card:: |i-decomp| Decomposition
             :link: user_guide.data_preparation.decomposition
             :link-type: ref
             :text-align: center
@@ -110,7 +110,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔧 Feature Engineering
+        .. card:: |i-feateng| Feature Engineering
             :link: user_guide.data_preparation.features_engineering
             :link-type: ref
             :text-align: center

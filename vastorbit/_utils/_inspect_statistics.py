@@ -128,7 +128,6 @@ def count_vastorbit_functions():
             None,
         ),
         ("Plotting Matplotlib", "vastorbit.plotting._matplotlib", None),
-        ("Plotting Highcharts", "vastorbit.plotting._highcharts", None),
         ("Plotting Plotly", "vastorbit.plotting._plotly", None),
         ("SQL Functions", "vastorbit.sql.functions", None),
         ("SQL Statements", "vastorbit.sql", None),
@@ -180,7 +179,6 @@ def summarise_vastorbit_functions():
     res += [("Loaders & Generators", "Loaders", f["Loaders"][0])]
     res += [("Loaders & Generators", "Generators", f["Generators"][0])]
     res += [("Data Visualization Functions", "Matplotlib", f["Plotting Matplotlib"][1])]
-    res += [("Data Visualization Functions", "Highcharts", f["Plotting Highcharts"][1])]
     res += [("Data Visualization Functions", "Plotly", f["Plotting Plotly"][1])]
     res += [("Data Preparation/Exploration Functions", "VastFrame", f["VastFrame"][2])]
     res += [
@@ -339,7 +337,7 @@ def summarise_vastorbit_chart(kind: str = "barh") -> PlottingObject:
         :suppress:
 
         from vastorbit._utils._inspect_statistics import summarise_vastorbit_chart
-        vo.set_option("plotting_lib", "highcharts")
+        vo.set_option("plotting_lib", "plotly")
         fig = summarise_vastorbit_chart()
         html_text = fig.htmlcontent.replace("container", "plotting_summarise_vastorbit_chart")
         with open("SPHINX_DIRECTORY/figures/plotting_summarise_vastorbit_chart.html", "w") as file:

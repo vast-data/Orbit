@@ -1,9 +1,9 @@
 /**
- * VastOrbit AI Assistant
+ * VAST Orbit AI Assistant
  * Interactive chat interface for documentation queries
  */
 
-class VastOrbitAI {
+class VAST OrbitAI {
   constructor(config = {}) {
     this.apiUrl = config.apiUrl || 'http://localhost:5000/api/ask';
     this.chatContainer = null;
@@ -41,8 +41,8 @@ class VastOrbitAI {
         <span class="closebtn" onclick="vastOrbitAI.closeChat()">&times;</span>
         
         <div class="ai-chat-header">
-          <h2>🤖 VastOrbit Assistant</h2>
-          <p>Ask me anything about VastOrbit documentation</p>
+          <h2>🤖 VAST Orbit Assistant</h2>
+          <p>Ask me anything about VAST Orbit documentation</p>
         </div>
 
         <div id="ai-chat-container" class="ai-chat-container">
@@ -51,7 +51,7 @@ class VastOrbitAI {
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
             </svg>
             <h3>Welcome!</h3>
-            <p>I'm here to help you with VastOrbit documentation.</p>
+            <p>I'm here to help you with VAST Orbit documentation.</p>
             <p>Ask me about features, APIs, examples, or anything else!</p>
           </div>
           
@@ -64,7 +64,7 @@ class VastOrbitAI {
 
         <div class="ai-input-container">
           <div class="quick-prompts" id="quick-prompts">
-            <button class="quick-prompt-btn" data-prompt="How do I get started with VastOrbit?">
+            <button class="quick-prompt-btn" data-prompt="How do I get started with VAST Orbit?">
               Getting Started
             </button>
             <button class="quick-prompt-btn" data-prompt="What are the main features?">
@@ -77,7 +77,7 @@ class VastOrbitAI {
           <div class="ai-input-wrapper">
             <textarea 
               id="ai-question-input" 
-              placeholder="Ask a question about VastOrbit..."
+              placeholder="Ask a question about VAST Orbit..."
               rows="1"
             ></textarea>
             <button id="ai-send-btn">Send</button>
@@ -328,7 +328,7 @@ class VastOrbitAI {
 // Initialize the AI assistant
 let vastOrbitAI;
 document.addEventListener('DOMContentLoaded', () => {
-  vastOrbitAI = new VastOrbitAI({
+  vastOrbitAI = new VAST OrbitAI({
     apiUrl: window.VASTORBIT_AI_API_URL || 'http://localhost:5000/api/ask'
   });
 });

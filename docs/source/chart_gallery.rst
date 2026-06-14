@@ -12,8 +12,12 @@ VastOrbit offers an extensive selection of interactive visualizations that play 
 
 - **Plotly**: Interactive web-based visualizations with hover effects and zoom capabilities
 - **Matplotlib**: Publication-quality static plots with extensive customization
-- **Highcharts**: Professional interactive charts optimized for business dashboards
 - **Graphviz**: Specialized tree and graph visualizations for ML models
+
+.. tip::
+
+   Every chart below is available in **Plotly and Matplotlib**, driven by
+   **Python or SQL**, unless a card notes otherwise.
 
 **Key Features:**
 
@@ -40,226 +44,170 @@ Fundamental visualizations for exploratory data analysis and presentation.
     .. grid-item::
 
         .. card:: Area Chart
-          :img-top: _static/gif_area.gif
+          :img-top: _static/thumbs/thumb_area.svg
           :link: chart_gallery.area
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Single` :bdg-primary:`Stacked` :bdg-primary:`Fully Stacked`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Stacked` :bdg-secondary-line:`Fully Stacked`
 
     .. grid-item::
 
         .. card:: Bar Chart
-          :img-top: _static/gif_bar.gif
+          :img-top: _static/thumbs/thumb_bar.svg
           :link: chart_gallery.bar
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`1D` :bdg-primary:`2D` :bdg-primary:`Stacked` :bdg-primary:`Fully Stacked` :bdg-primary:`Negative`
+          :bdg-secondary-line:`1D` :bdg-secondary-line:`2D` :bdg-secondary-line:`Stacked` :bdg-secondary-line:`Fully Stacked` :bdg-secondary-line:`Negative`
 
     .. grid-item::
 
         .. card:: Box Plot
-          :img-top: _static/gif_boxplot.gif
+          :img-top: _static/thumbs/thumb_boxplot.svg
           :link: chart_gallery.boxplot
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Single` :bdg-primary:`Multi`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Multi`
 
     .. grid-item::
 
         .. card:: Candlestick Chart
-          :img-top: _static/gif_candlestick.gif
+          :img-top: _static/thumbs/thumb_candlestick.svg
           :link: chart_gallery.candlestick
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Candlestick`
+          :bdg-secondary-line:`Candlestick`
 
     .. grid-item::
 
         .. card:: Contour Plot
-          :img-top: _static/gif_contour_plot.gif
+          :img-top: _static/thumbs/thumb_contour_plot.svg
           :link: chart_gallery.contour
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Contour`
+          :bdg-secondary-line:`Contour`
 
     .. grid-item::
 
         .. card:: Correlation Matrix
-          :img-top: _static/gif_corr.gif
+          :img-top: _static/thumbs/thumb_corr.svg
           :link: chart_gallery.corr
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Matrix` :bdg-primary:`Vector`
+          :bdg-secondary-line:`Matrix` :bdg-secondary-line:`Vector`
 
     .. grid-item::
 
         .. card:: Density Plot
-          :img-top: _static/gif_density.gif
+          :img-top: _static/thumbs/thumb_density.svg
           :link: chart_gallery.density
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Single` :bdg-primary:`Multi`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Multi`
 
     .. grid-item::
 
         .. card:: Histogram
-          :img-top: _static/gif_hist.gif
+          :img-top: _static/thumbs/thumb_hist.svg
           :link: chart_gallery.hist
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Single` :bdg-primary:`Multi`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Multi`
 
     .. grid-item::
 
         .. card:: Line Chart
-          :img-top: _static/gif_line.gif
+          :img-top: _static/thumbs/thumb_line.svg
           :link: chart_gallery.line
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Single` :bdg-primary:`Multi`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Multi`
 
     .. grid-item::
 
         .. card:: Pie Chart
-          :img-top: _static/gif_pie.gif
+          :img-top: _static/thumbs/thumb_pie.svg
           :link: chart_gallery.pie
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Regular` :bdg-primary:`Donut` :bdg-primary:`Rose` :bdg-primary:`3D` :bdg-primary:`Nested`
+          :bdg-secondary-line:`Regular` :bdg-secondary-line:`Donut` :bdg-secondary-line:`Rose` :bdg-secondary-line:`3D` :bdg-secondary-line:`Nested`
 
     .. grid-item::
 
         .. card:: Pivot Table
-          :img-top: _static/gif_pivot.gif
+          :img-top: _static/thumbs/thumb_pivot.svg
           :link: chart_gallery.pivot
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Pivot`
+          :bdg-secondary-line:`Pivot`
 
     .. grid-item::
 
         .. card:: Range Plot
-          :img-top: _static/gif_range.gif
+          :img-top: _static/thumbs/thumb_range.svg
           :link: chart_gallery.range
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python`
-
-          :bdg-primary:`Single` :bdg-primary:`Multi`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Multi`
 
     .. grid-item::
 
         .. card:: Scatter Plot
-          :img-top: _static/gif_scatter.gif
+          :img-top: _static/thumbs/thumb_scatter.svg
           :link: chart_gallery.scatter
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`1D` :bdg-primary:`2D` :bdg-primary:`3D` :bdg-primary:`Bubble`
+          :bdg-secondary-line:`1D` :bdg-secondary-line:`2D` :bdg-secondary-line:`3D` :bdg-secondary-line:`Bubble`
 
     .. grid-item::
 
         .. card:: Spider Chart
-          :img-top: _static/gif_spider.gif
+          :img-top: _static/thumbs/thumb_spider.svg
           :link: chart_gallery.spider
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Single` :bdg-primary:`Multi`
+          :bdg-secondary-line:`Single` :bdg-secondary-line:`Multi`
 
 ____
 
@@ -274,258 +222,198 @@ Advanced visualizations for model evaluation, time-series analysis, and statisti
     .. grid-item::
 
         .. card:: ACF / PACF
-          :img-top: _static/gif_acf.gif
+          :img-top: _static/thumbs/thumb_acf.svg
           :link: chart_gallery.acf
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
 
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python`
-          
-          :bdg-primary:`Bar` :bdg-primary:`Heatmap`
+          :bdg-secondary-line:`Bar` :bdg-secondary-line:`Heatmap`
 
     .. grid-item::
 
         .. card:: Champion Challenger
-          :img-top: _static/pic_champion_challenger.png
+          :img-top: _static/thumbs/thumb_champion_challenger.svg
           :link: chart_gallery.champion_challenger
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python`
-
-          :bdg-primary:`Model Comparison`
+          :bdg-secondary-line:`Model Comparison`
 
     .. grid-item::
 
         .. card:: Classification Curves
-          :img-top: _static/gif_classification_curve.gif
+          :img-top: _static/thumbs/thumb_classification_curve.svg
           :link: chart_gallery.classification_curve
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`ROC` :bdg-primary:`PRC` :bdg-primary:`Lift Chart`
+          :bdg-secondary-line:`ROC` :bdg-secondary-line:`PRC` :bdg-secondary-line:`Lift Chart`
 
     .. grid-item::
 
         .. card:: Classification Plot
-          :img-top: _static/gif_classification_plot.gif
+          :img-top: _static/thumbs/thumb_classification_plot.svg
           :link: chart_gallery.classification_plot
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python`
-
-          :bdg-primary:`1D` :bdg-primary:`2D` :bdg-primary:`3D` :bdg-primary:`Logit`
+          :bdg-secondary-line:`1D` :bdg-secondary-line:`2D` :bdg-secondary-line:`3D` :bdg-secondary-line:`Logit`
 
     .. grid-item::
 
         .. card:: Correlation Analysis
-          :img-top: _static/gif_corr.gif
+          :img-top: _static/thumbs/thumb_corr.svg
           :link: chart_gallery.corr
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` :bdg-warning:`SQL`
-
-          :bdg-primary:`Matrix` :bdg-primary:`Vector`
+          :bdg-secondary-line:`Matrix` :bdg-secondary-line:`Vector`
 
     .. grid-item::
 
         .. card:: Learning Curves
-          :img-top: _static/gif_learning.gif
+          :img-top: _static/thumbs/thumb_learning.svg
           :link: chart_gallery.learning
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Efficiency` :bdg-primary:`Scalability` :bdg-primary:`Performance`
+          :bdg-secondary-line:`Efficiency` :bdg-secondary-line:`Scalability` :bdg-secondary-line:`Performance`
 
     .. grid-item::
 
         .. card:: Validation Curves
-          :img-top: _static/gif_validation.gif
+          :img-top: _static/thumbs/thumb_validation.svg
           :link: chart_gallery.learning
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Efficiency` :bdg-primary:`Scalability` :bdg-primary:`Performance`
+          :bdg-secondary-line:`Efficiency` :bdg-secondary-line:`Scalability` :bdg-secondary-line:`Performance`
 
     .. grid-item::
 
         .. card:: Elbow Curve
-          :img-top: _static/pic_elbow.png
+          :img-top: _static/thumbs/thumb_elbow.svg
           :link: chart_gallery.elbow
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`K-Means` :bdg-primary:`Clustering`
+          :bdg-secondary-line:`K-Means` :bdg-secondary-line:`Clustering`
 
     .. grid-item::
 
         .. card:: Voronoi Plot
-          :img-top: _static/pic_voronoi.png
+          :img-top: _static/thumbs/thumb_voronoi.svg
           :link: chart_gallery.voronoi_plot
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib`
-          
-          Using: :bdg-secondary:`Python` 
+          :bdg-light:`Matplotlib only`
 
-          :bdg-primary:`K-Means` :bdg-primary:`Clustering`
+          :bdg-secondary-line:`K-Means` :bdg-secondary-line:`Clustering`
 
     .. grid-item::
 
         .. card:: LOF (Local Outlier Factor)
-          :img-top: _static/gif_lof.gif
+          :img-top: _static/thumbs/thumb_lof.svg
           :link: chart_gallery.lof
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`1D` :bdg-primary:`2D` :bdg-primary:`3D`
+          :bdg-secondary-line:`1D` :bdg-secondary-line:`2D` :bdg-secondary-line:`3D`
 
     .. grid-item::
 
         .. card:: Outlier Detection
-          :img-top: _static/gif_outliers.gif
+          :img-top: _static/thumbs/thumb_outliers.svg
           :link: chart_gallery.outliers
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`1D` :bdg-primary:`2D`
+          :bdg-secondary-line:`1D` :bdg-secondary-line:`2D`
 
     .. grid-item::
 
         .. card:: Regression Plot
-          :img-top: _static/gif_regression_plot.gif
+          :img-top: _static/thumbs/thumb_regression_plot.svg
           :link: chart_gallery.regression_plot
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Linear Regression` :bdg-primary:`Random Forest` :bdg-primary:`Residual Plot`
+          :bdg-secondary-line:`Linear Regression` :bdg-secondary-line:`Random Forest` :bdg-secondary-line:`Residual Plot`
 
     .. grid-item::
 
         .. card:: Seasonal Decomposition
-          :img-top: _static/pic_seasonal.png
+          :img-top: _static/thumbs/thumb_seasonal.svg
           :link: chart_gallery.seasonal
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Trend` :bdg-primary:`Seasonal` :bdg-primary:`Residual`
+          :bdg-secondary-line:`Trend` :bdg-secondary-line:`Seasonal` :bdg-secondary-line:`Residual`
 
     .. grid-item::
 
         .. card:: Stepwise Selection
-          :img-top: _static/gif_stepwise.gif
+          :img-top: _static/thumbs/thumb_stepwise.svg
           :link: chart_gallery.stepwise
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Forward` :bdg-primary:`Backward`
+          :bdg-secondary-line:`Forward` :bdg-secondary-line:`Backward`
 
     .. grid-item::
 
         .. card:: Decision Tree
-          :img-top: _static/pic_tree.png
+          :img-top: _static/thumbs/thumb_tree.svg
           :link: chart_gallery.tree
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Graphviz`
-          
-          Using: :bdg-secondary:`Python` 
+          :bdg-light:`Graphviz`
 
-          :bdg-primary:`Tree Visualization` :bdg-primary:`Rules`
+          :bdg-secondary-line:`Tree Visualization` :bdg-secondary-line:`Rules`
 
     .. grid-item::
 
         .. card:: Time-Series Forecasting
-          :img-top: _static/gif_time_series.gif
+          :img-top: _static/thumbs/thumb_time_series.svg
           :link: chart_gallery.tsa
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-success-line:`Plotly` :bdg-primary-line:`Matplotlib` :bdg-danger-line:`Highcharts`
-          
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Prediction Plot` :bdg-primary:`Confidence Intervals`
+          :bdg-secondary-line:`Prediction Plot` :bdg-secondary-line:`Confidence Intervals`
 
 ____
 
@@ -540,18 +428,16 @@ Map-based visualizations for location data and geographic analysis.
     .. grid-item::
 
         .. card:: Geographic Maps
-          :img-top: _static/gif_geo.gif
+          :img-top: _static/thumbs/thumb_geo.svg
           :link: chart_gallery.geo
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-primary-line:`Matplotlib`
+          :bdg-light:`Plotly · Matplotlib`
 
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Choropleth` :bdg-primary:`Scatter` :bdg-primary:`Bubble` :bdg-primary:`Heat Map`
+          :bdg-secondary-line:`Choropleth` :bdg-secondary-line:`Scatter` :bdg-secondary-line:`Bubble` :bdg-secondary-line:`Heat Map`
 
 ____
 
@@ -566,18 +452,16 @@ Dynamic, time-based visualizations for presentations and storytelling.
     .. grid-item::
 
         .. card:: Animated Charts
-          :img-top: _static/gif_animated.gif
+          :img-top: _static/thumbs/thumb_animated.svg
           :link: chart_gallery.animated
           :link-type: ref
           :text-align: center
-          :class-card: custom-card-6
+          :class-card: custom-card-6 gallery-card
           :class-img-top: custom-class-img-top-7
           
-          Available in: :bdg-primary-line:`Matplotlib`
+          :bdg-light:`Matplotlib only`
 
-          Using: :bdg-secondary:`Python` 
-
-          :bdg-primary:`Bar` :bdg-primary:`Pie` :bdg-primary:`Bubble` :bdg-primary:`Time-Series`
+          :bdg-secondary-line:`Bar` :bdg-secondary-line:`Pie` :bdg-secondary-line:`Bubble` :bdg-secondary-line:`Time-Series`
 
 ____
 

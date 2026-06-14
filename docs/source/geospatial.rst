@@ -15,23 +15,12 @@ Geospatial Functions
    :toctree: api/
 
    coordinate_converter
-   create_index
-   describe_index
-   intersect
-   rename_index
    split_polygon_n
 
 ______
 
 Mathematical Functions
 ----------------------
-
-.. currentmodule:: vastorbit
-
-.. autosummary:: 
-   :toctree: api/
-
-   read_shp
 
 .. tab:: VastFrame
 

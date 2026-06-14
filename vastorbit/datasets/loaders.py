@@ -446,11 +446,21 @@ def load_market(schema: Optional[str] = None, name: str = "market") -> VastFrame
 
         from vastorbit.datasets import load_market
 
-        # Load to memory (temporary)
         vdf = load_market()
 
-        # Load to specific catalog.schema
-        vdf = load_market(schema='vast.public')
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_market
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_market", "w")
+        html_file.write(
+            load_winequality()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_market.html
     """
     return load_dataset(
         schema=schema,
@@ -493,6 +503,20 @@ def load_iris(schema: Optional[str] = None, name: str = "iris") -> VastFrame:
         from vastorbit.datasets import load_iris
 
         vdf = load_iris()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_iris
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_iris", "w")
+        html_file.write(
+            load_winequality()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_iris.html
     """
     return load_dataset(
         schema=schema,
@@ -544,6 +568,20 @@ def load_titanic(schema: Optional[str] = None, name: str = "titanic") -> VastFra
         from vastorbit.datasets import load_titanic
 
         vdf = load_titanic()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_titanic
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic", "w")
+        html_file.write(
+            load_winequality()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
     """
     return load_dataset(
         schema=schema,
@@ -593,9 +631,24 @@ def load_africa_education(
     Examples
     --------
     .. code-block:: python
-    
+
         from vastorbit.datasets import load_africa_education
+
         vdf = load_africa_education()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_africa_education
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_africa_education", "w")
+        html_file.write(
+            load_winequality()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_africa_education.html
     """
     return load_dataset(
         schema=schema,
@@ -699,6 +752,20 @@ def load_winequality(
         from vastorbit.datasets import load_winequality
 
         vdf = load_winequality()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_winequality
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality", "w")
+        html_file.write(
+            load_winequality()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
     """
     return load_dataset(
         schema=schema,
@@ -758,6 +825,20 @@ def load_airline_passengers(
         from vastorbit.datasets import load_airline_passengers
 
         vdf = load_airline_passengers()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_airline_passengers
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_airline_passengers", "w")
+        html_file.write(
+            load_airline_passengers()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_airline_passengers.html
     """
     return load_dataset(
         schema=schema,
@@ -795,6 +876,20 @@ def load_amazon(schema: Optional[str] = None, name: str = "amazon") -> VastFrame
         from vastorbit.datasets import load_amazon
 
         vdf = load_amazon()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_amazon
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_amazon.html", "w")
+        html_file.write(
+            load_amazon()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_amazon.html
     """
     return load_dataset(
         schema=schema,
@@ -834,6 +929,20 @@ def load_commodities(
         from vastorbit.datasets import load_commodities
 
         vdf = load_commodities()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_commodities
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_commodities.html", "w")
+        html_file.write(
+            load_commodities()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_commodities.html
     """
     return load_dataset(
         schema=schema,
@@ -879,6 +988,20 @@ def load_gapminder(schema: Optional[str] = None, name: str = "gapminder") -> Vas
         from vastorbit.datasets import load_gapminder
 
         vdf = load_gapminder()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_gapminder
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_gapminder.html", "w")
+        html_file.write(
+            load_gapminder()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_gapminder.html
     """
     return load_dataset(
         schema=schema,
@@ -925,6 +1048,20 @@ def load_pop_growth(
         from vastorbit.datasets import load_pop_growth
 
         vdf = load_pop_growth()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_pop_growth
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_pop_growth.html", "w")
+        html_file.write(
+            load_pop_growth()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_pop_growth.html
     """
     return load_dataset(
         schema=schema,
@@ -972,6 +1109,20 @@ def load_smart_meters(
         from vastorbit.datasets import load_smart_meters
 
         vdf = load_smart_meters()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_smart_meters
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_smart_meters.html", "w")
+        html_file.write(
+            load_smart_meters()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_smart_meters.html
     """
     return load_dataset(
         schema=schema,
@@ -1016,6 +1167,20 @@ def load_cities(schema: Optional[str] = None, name: str = "cities") -> VastFrame
         from vastorbit.datasets import load_cities
 
         vdf = load_cities()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_cities
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_cities.html", "w")
+        html_file.write(
+            load_cities()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_cities.html
     """
     vdf = load_dataset(
         schema=schema,
@@ -1057,6 +1222,20 @@ def load_world(schema: Optional[str] = None, name: str = "world") -> VastFrame:
         from vastorbit.datasets import load_world
 
         vdf = load_world()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_world
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_world.html", "w")
+        html_file.write(
+            load_world()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_world.html
     """
     vdf = load_dataset(
         schema=schema,
@@ -1109,6 +1288,20 @@ def load_laliga(schema: Optional[str] = None, name: str = "laliga") -> VastFrame
         from vastorbit.datasets import load_laliga
 
         vdf = load_laliga()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_laliga
+        
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_laliga.html", "w")
+        html_file.write(
+            load_laliga()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_laliga.html
     """
     # Complex types simplified to VARCHAR for JSON storage
     # In production, you may want to use Trino's ROW/ARRAY types

@@ -810,7 +810,7 @@ class Decomposition(Preprocessing):
         .. ipython:: python
             :suppress:
 
-            vo.set_option("plotting_lib", "highcharts")
+            vo.set_option("plotting_lib", "plotly")
             fig = model.plot_scree()
             html_text = fig.htmlcontent.replace("container", "ml_VAST_MCA_scree")
             with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html", "w") as file:
@@ -1109,7 +1109,7 @@ class PCA(Decomposition):
     .. ipython:: python
         :suppress:
 
-        vo.set_option("plotting_lib", "highcharts")
+        vo.set_option("plotting_lib", "plotly")
         fig = model.plot_scree()
         html_text = fig.htmlcontent.replace("container", "ml_VAST_PCA_scree")
         with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_pca_plot_scree.html", "w") as file:
@@ -1524,7 +1524,7 @@ class MCA(PCA):
     .. ipython:: python
         :suppress:
 
-        vo.set_option("plotting_lib", "highcharts")
+        vo.set_option("plotting_lib", "plotly")
         fig = model.plot_scree()
         html_text = fig.htmlcontent.replace("container", "ml_VAST_MCA_scree")
         with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html", "w") as file:
@@ -1742,7 +1742,7 @@ class MCA(PCA):
         .. ipython:: python
             :suppress:
 
-            vo.set_option("plotting_lib", "highcharts")
+            vo.set_option("plotting_lib", "plotly")
             fig = model.plot_contrib(dimension = 1)
             html_text = fig.htmlcontent.replace("container", "ml_VAST_SVD_scree")
             with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_contrib.html", "w") as file:
@@ -1876,7 +1876,7 @@ class MCA(PCA):
         .. ipython:: python
             :suppress:
 
-            vo.set_option("plotting_lib", "highcharts")
+            vo.set_option("plotting_lib", "plotly")
             fig = model.plot_cos2(dimensions = (1, 2))
             html_text = fig.htmlcontent.replace("container", "machine_learning_VAST_mca_plot_cos2")
             with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_cos2.html", "w") as file:
@@ -2027,7 +2027,7 @@ class MCA(PCA):
         .. ipython:: python
             :suppress:
 
-            vo.set_option("plotting_lib", "highcharts")
+            vo.set_option("plotting_lib", "plotly")
             fig = model.plot_var(dimensions = (1, 2))
             html_text = fig.htmlcontent.replace("container", "machine_learning_VAST_mca_plot_var")
             with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_var.html", "w") as file:
@@ -2343,7 +2343,7 @@ class SVD(Decomposition):
     .. ipython:: python
         :suppress:
 
-        vo.set_option("plotting_lib", "highcharts")
+        vo.set_option("plotting_lib", "plotly")
         fig = model.plot_scree()
         html_text = fig.htmlcontent.replace("container", "machine_learning_VAST_svd_plot_scree")
         with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_svd_plot_scree.html", "w") as file:

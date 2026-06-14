@@ -4,6 +4,70 @@ SPDX-License-Identifier: Apache-2.0
 
 from typing import Literal, Optional
 
+# --- VAST brand Plotly templates (brand.vastdata.com) ------------------------
+_VAST_COLORWAY = [
+    "#1FD9FE", "#29B8FF", "#0E86B8", "#5BE49B",
+    "#F5A623", "#9FB3C8", "#7B8CFF", "#E5484D",
+]
+_VAST_FONT = "Moderat, Inter, Helvetica Neue, Arial, sans-serif"
+_vast_templates_registered = False
+
+
+def _register_vast_templates() -> None:
+    """Register the VAST brand Plotly templates once per session."""
+    global _vast_templates_registered
+    if _vast_templates_registered:
+        return
+    base = dict(
+        colorway=_VAST_COLORWAY,
+        colorscale=dict(
+            sequential=[[0, "#03142C"], [0.5, "#0E86B8"], [1, "#1FD9FE"]],
+            diverging=[[0, "#E5484D"], [0.5, "#F2F2F7"], [1, "#1FD9FE"]],
+        ),
+    )
+    pio.templates["vast_dark"] = go.layout.Template(
+        layout=dict(
+            **base,
+            paper_bgcolor="#03142C",
+            plot_bgcolor="#0A2240",
+            font=dict(family=_VAST_FONT, color="#E8EFF7"),
+            xaxis=dict(gridcolor="#1B3A5C", linecolor="#1B3A5C",
+                       zerolinecolor="#1B3A5C", tickcolor="#1B3A5C"),
+            yaxis=dict(gridcolor="#1B3A5C", linecolor="#1B3A5C",
+                       zerolinecolor="#1B3A5C", tickcolor="#1B3A5C"),
+            legend=dict(font=dict(color="#E8EFF7")),
+            hoverlabel=dict(bgcolor="#0A2240", bordercolor="#1FD9FE",
+                            font=dict(color="#E8EFF7")),
+        )
+    )
+    pio.templates["vast_light"] = go.layout.Template(
+        layout=dict(
+            **base,
+            paper_bgcolor="#FFFFFF",
+            plot_bgcolor="#FFFFFF",
+            font=dict(family=_VAST_FONT, color="#03142C"),
+            xaxis=dict(gridcolor="#E7EBF1", linecolor="#C7CBD4",
+                       zerolinecolor="#E7EBF1", tickcolor="#C7CBD4"),
+            yaxis=dict(gridcolor="#E7EBF1", linecolor="#C7CBD4",
+                       zerolinecolor="#E7EBF1", tickcolor="#C7CBD4"),
+            hoverlabel=dict(bgcolor="#FFFFFF", bordercolor="#1FD9FE",
+                            font=dict(color="#03142C")),
+        )
+    )
+    # transparent for embedding into the docs (page supplies the surface)
+    pio.templates["vast_sphinx"] = go.layout.Template(
+        layout=dict(
+            **base,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(family=_VAST_FONT, color="#888888"),
+            xaxis=dict(gridcolor="rgba(136,136,136,0.25)"),
+            yaxis=dict(gridcolor="rgba(136,136,136,0.25)"),
+        )
+    )
+    _vast_templates_registered = True
+
+
 from plotly.graph_objs._figure import Figure
 import plotly.graph_objects as go
 import plotly.io as pio
@@ -113,15 +177,16 @@ class PlotlyBase(PlottingBase):
         return res
 
     @staticmethod
-    def _get_theme() -> Literal["plotly_white", "plotly_dark", "none"]:
+    def _get_theme() -> str:
         theme = conf.get_option("theme")
+        _register_vast_templates()
         if theme == "dark":
-            return "plotly_dark"
+            return "vast_dark"
         elif theme == "light":
-            return "plotly_white"
+            return "vast_light"
         elif theme == "sphinx":
-            return "none"
-        return "none"
+            return "vast_sphinx"
+        return "vast_sphinx"
 
     @staticmethod
     def _get_max_decimal_point(arr: ArrayLike) -> int:
@@ -167,7 +232,7 @@ class PlotlyBase(PlottingBase):
                     x=0.5,           # Center horizontally
                     y=-0.2,         # Below the chart
                     showarrow=False,
-                    text="This chart was generated with VastOrbit by VAST Data", 
+                    text="This chart was generated with VAST Orbit by VAST Data", 
                     xanchor="center",  # Anchor text to center
                     yanchor="top",     # Anchor to top of text (so it sits below chart)
                     xref="paper",

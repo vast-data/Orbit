@@ -35,10 +35,10 @@ Core Classes
 
 ____
 
-📊 Visualization
+Visualization
 ----------------
 
-Create interactive charts with Plotly, Highcharts, or Matplotlib backends.
+Create interactive charts with Plotly or Matplotlib backends.
 
 General Plots
 ~~~~~~~~~~~~~
@@ -157,51 +157,6 @@ Plotting Backend Classes
             TSPlot
             VoronoiPlot
 
-      .. tab-item:: Highcharts
-
-         .. currentmodule:: vastorbit.plotting._highcharts
-
-         .. autosummary:: 
-            :toctree: api/
-
-            ACFPlot
-            ACFPACFPlot
-            BarChart
-            BarChart2D
-            BoxPlot
-            CandleStick
-            ChampionChallengerPlot
-            ContourPlot
-            CutoffCurve
-            DensityPlot
-            ElbowCurve
-            HeatMap
-            Histogram
-            HighchartsBase
-            HorizontalBarChart
-            HorizontalBarChart2D
-            ImportanceBarChart
-            LiftChart
-            LinePlot
-            LogisticRegressionPlot
-            LOFPlot
-            MultiDensityPlot
-            MultiLinePlot
-            NestedPieChart
-            OutliersPlot
-            PCACirclePlot
-            PieChart
-            PRCCurve
-            RangeCurve
-            RegressionPlot
-            RegressionTreePlot
-            ROCCurve
-            ScatterPlot
-            SpiderChart
-            StepwisePlot
-            SVMClassifierPlot
-            TSPlot
-
       .. tab-item:: Matplotlib
 
          .. currentmodule:: vastorbit.plotting._matplotlib
@@ -257,7 +212,7 @@ Plotting Backend Classes
 
 ____
 
-📈 Descriptive Statistics
+Descriptive Statistics
 --------------------------
 
 In-database aggregations and statistical summaries.
@@ -329,7 +284,7 @@ In-database aggregations and statistical summaries.
 
 ____
 
-🔗 Correlation & Dependencies
+Correlation & Dependencies
 ------------------------------
 
 General Correlation
@@ -378,7 +333,7 @@ Time Series Analysis
 
 ____
 
-🛠️ Data Preprocessing
+Data Preprocessing
 ----------------------
 
 Encoding
@@ -516,7 +471,6 @@ Formatting
          get_match_index
          is_colname_in
          merge_similar_names
-         explode_array
 
    .. tab-item:: VastColumn
 
@@ -572,7 +526,7 @@ Complete Disjunctive Table
 
 ____
 
-⚙️ Feature Engineering
+Feature Engineering
 -----------------------
 
 Analytic Functions
@@ -721,7 +675,7 @@ Feature Selection
 
 ____
 
-🔀 Join, Sort & Transform
+Join, Sort & Transform
 --------------------------
 
 .. tab-set::
@@ -753,7 +707,7 @@ ____
 
 ____
 
-🔍 Filter & Sample
+Filter & Sample
 -------------------
 
 Search
@@ -854,7 +808,7 @@ Filter Records
 
 ____
 
-💾 Serialization & Export
+Serialization & Export
 --------------------------
 
 General Formats
@@ -919,7 +873,7 @@ Binary Formats
 
 ____
 
-ℹ️ Utilities & Information
+Utilities & Information
 ----------------------------
 
 Information

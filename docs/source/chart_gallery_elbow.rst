@@ -48,7 +48,7 @@ Let's use the iris dataset from ``vastorbit.datasets`` for this example.
 In the context of data visualization, we have the flexibility to harness multiple 
 plotting libraries to craft a wide range of graphical representations. vastorbit, 
 as a versatile tool, provides support for several graphic libraries, such as 
-Matplotlib, Highcharts, and Plotly. Each of these libraries offers unique features 
+Matplotlib and Plotly. Each of these libraries offers unique features 
 and capabilities, allowing us to choose the most suitable one for our specific data 
 visualization needs.
 
@@ -58,7 +58,7 @@ visualization needs.
 
 .. note::
     
-    To select the desired plotting library, we simply need to use the `:py:func:`~vastorbit.set_option`` 
+    To select the desired plotting library, we simply need to use the `:py:func:`~vastorbit.set_option` 
     function. vastorbit offers the flexibility to smoothly transition between 
     different plotting libraries. In instances where a particular graphic is 
     not supported by the chosen library or is not supported within the vastorbit 
@@ -107,43 +107,6 @@ plotting libraries.
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/plotting_plotly_elbow_curve.html
-
-.. tab:: Highcharts
-
-    .. ipython:: python
-        :suppress:
-
-        vo.set_option("plotting_lib", "highcharts")
-
-    We can switch to using the ``highcharts`` module.
-
-    .. code-block:: python
-        
-        vo.set_option("plotting_lib", "highcharts")
-
-    Let's generate the Validation Curve.
-
-    .. code-block:: python
-        
-        elbow(
-            input_relation = data,
-            X = ["PetalLengthCm", "PetalWidthCm"]
-        )
-
-    .. ipython:: python
-        :suppress:
-        :okwarning:
-
-        fig = elbow(
-            input_relation = data,
-            X = ["PetalLengthCm", "PetalWidthCm"]
-        )
-        html_text = fig.htmlcontent.replace("container", "plotting_highcharts_elbow_curve")
-        with open("figures/plotting_highcharts_elbow_curve.html", "w") as file:
-          file.write(html_text)
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/plotting_highcharts_elbow_curve.html
         
 .. tab:: Matplotlib
 

@@ -4,24 +4,24 @@
 API Reference
 =============
 
-.. include:: logo_include_no_slogan.rst
+.. include:: logo_include.rst
 
 .. raw:: html
 
     <div style="text-align: center; margin: 10px 0;">
         <div style="font-size: 24px; font-weight: 600; color: #2F71BD; margin-bottom: 10px;">
-            VastOrbit API Documentation
+            VAST Orbit API Documentation
         </div>
         <div style="font-size: 16px; color: #666;">
             Version 0.1.x
         </div>
     </div>
 
-Welcome to the VastOrbit API Reference. This comprehensive guide covers all public objects, functions, and methods available in VastOrbit for data science at scale on the VAST Data Platform.
+Welcome to the VAST Orbit API Reference. This comprehensive guide covers all public objects, functions, and methods available in VAST Orbit for data science at scale on the VAST Data Platform.
 
 .. tip::
    
-   **New to VastOrbit?** Start with :ref:`getting_started` for installation and quick examples, then explore the :ref:`user_guide` for in-depth tutorials.
+   **New to VAST Orbit?** Start with :ref:`getting_started` for installation and quick examples, then explore the :ref:`user_guide` for in-depth tutorials.
 
 ____
 
@@ -35,7 +35,7 @@ Essential modules for connecting to VAST and working with data.
 
     .. grid-item::
     
-      .. card:: 🔌 Connection
+      .. card:: |i-connect| Connection
           :link: api.connect
           :link-type: ref
           :text-align: center
@@ -49,7 +49,7 @@ Essential modules for connecting to VAST and working with data.
 
     .. grid-item::
     
-      .. card:: 📊 VastFrame
+      .. card:: |i-frame| VastFrame
           :link: api.vastframe
           :link-type: ref
           :text-align: center
@@ -63,7 +63,7 @@ Essential modules for connecting to VAST and working with data.
 
     .. grid-item::
     
-      .. card:: 📥 Parsers
+      .. card:: |i-files| Parsers
           :link: api.parsers
           :link-type: ref
           :text-align: center
@@ -87,7 +87,7 @@ Tools for building, training, and deploying ML models at scale.
 
     .. grid-item::
     
-      .. card:: 🤖 Machine Learning
+      .. card:: |i-ml| Machine Learning
           :link: api.machine_learning
           :link-type: ref
           :text-align: center
@@ -100,7 +100,7 @@ Tools for building, training, and deploying ML models at scale.
 
     .. grid-item::
     
-      .. card:: 📈 Stats
+      .. card:: |i-stats| Stats
           :link: api.stats
           :link-type: ref
           :text-align: center
@@ -123,33 +123,33 @@ Create interactive charts and explore data visually.
 
     .. grid-item::
     
-      .. card:: 📊 Plotting
+      .. card:: |i-charts| Plotting
           :link: api.plotting
           :link-type: ref
           :text-align: center
           :class-card: custom-card
           
-          Comprehensive charting library supporting Plotly, Matplotlib, and Highcharts backends.
+          Comprehensive charting library supporting Plotly and Matplotlib backends.
           
           +++
           View Documentation →
 
     .. grid-item::
     
-      .. card:: 📓 Jupyter Extensions
+      .. card:: |i-notebook| Jupyter Extensions
           :link: api.jupyter
           :link-type: ref
           :text-align: center
           :class-card: custom-card
           
-          Interactive widgets, magic commands, and enhanced notebook functionality for VastOrbit.
+          Interactive widgets, magic commands, and enhanced notebook functionality for VAST Orbit.
           
           +++
           View Documentation →
 
     .. grid-item::
     
-      .. card:: 📦 Datasets
+      .. card:: |i-datasets| Datasets
           :link: api.datasets
           :link-type: ref
           :text-align: center
@@ -172,7 +172,7 @@ Utilities for managing data in VAST DataBase.
 
     .. grid-item::
     
-      .. card:: 🛠️ Utilities
+      .. card:: |i-functions| Utilities
           :link: api.utilities
           :link-type: ref
           :text-align: center
@@ -185,7 +185,7 @@ Utilities for managing data in VAST DataBase.
 
     .. grid-item::
     
-      .. card:: 💾 SQL
+      .. card:: |i-indb| SQL
           :link: api.sql
           :link-type: ref
           :text-align: center
@@ -198,7 +198,7 @@ Utilities for managing data in VAST DataBase.
 
     .. grid-item::
     
-      .. card:: 📋 TableSample
+      .. card:: |i-sample| TableSample
           :link: api.tablesample
           :link-type: ref
           :text-align: center
@@ -219,13 +219,13 @@ Advanced Topics
 
     .. grid-item::
     
-      .. card:: ⚠️ Error Handling
+      .. card:: |warn| Error Handling
           :link: api.error
           :link-type: ref
           :text-align: center
           :class-card: custom-card
           
-          Exception types and error handling patterns in VastOrbit.
+          Exception types and error handling patterns in VAST Orbit.
           
           +++
           View Documentation →
@@ -270,7 +270,7 @@ Quick Reference
 
 .. note::
 
-   **API Stability**: VastOrbit is currently in pre-release (0.1.x). APIs may change before the 1.0.0 release. After 1.0.0, VastOrbit will follow semantic versioning with stable public APIs. Breaking changes will be announced in advance and deprecated gradually.
+   **API Stability**: VAST Orbit is currently in pre-release (0.1.x). APIs may change before the 1.0.0 release. After 1.0.0, VAST Orbit will follow semantic versioning with stable public APIs. Breaking changes will be announced in advance and deprecated gradually.
 
 .. seealso::
 

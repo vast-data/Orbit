@@ -369,8 +369,6 @@ class vDCScaler(vDCText):
                                 FROM {self._parent} GROUP BY {by[0]}""",
                             title="Computing the different categories to scale.",
                             method="fetchall",
-                            sql_push_ext=self._parent._vars["sql_push_ext"],
-                            symbol=self._parent._vars["symbol"],
                         )
                         for i in range(len(result)):
                             if not isinstance(result[i][2], NoneType) and math.isnan(
@@ -435,8 +433,6 @@ class vDCScaler(vDCText):
                                 FROM {self._parent} 
                                 LIMIT 1""",
                             print_time_sql=False,
-                            sql_push_ext=self._parent._vars["sql_push_ext"],
-                            symbol=self._parent._vars["symbol"],
                         )
                     except QueryError:
                         avg, stddev = (
@@ -515,8 +511,6 @@ class vDCScaler(vDCText):
                                 GROUP BY {by[0]}""",
                             title=f"Computing the different categories {by[0]} to scale.",
                             method="fetchall",
-                            sql_push_ext=self._parent._vars["sql_push_ext"],
-                            symbol=self._parent._vars["symbol"],
                         )
                         cast = self._parent[by[0]].ctype().upper()
                         if cast == "FLOAT":
@@ -576,8 +570,6 @@ class vDCScaler(vDCText):
                                 FROM {self._parent} 
                                 LIMIT 1""",
                             print_time_sql=False,
-                            sql_push_ext=self._parent._vars["sql_push_ext"],
-                            symbol=self._parent._vars["symbol"],
                         )
                     except QueryError:
                         cmax, cmin = (

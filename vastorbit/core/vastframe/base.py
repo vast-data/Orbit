@@ -110,28 +110,6 @@ class VastFrame(vDFAnimatedPlot):
         period '.' characters. If
         specified, the ``input_relation``
         cannot include a ``schema``.
-    external: bool, optional
-        A  boolean  to indicate whether
-        it is an external table.
-        If set to ``True``, a Connection
-        Identifier Database must be
-        defined.
-    symbol: str, optional
-        Symbol used to identify the
-        external connection.
-        One of the following:
-        ``"$", "€", "£", "%", "@", "&", "§", "?", "!"``
-    sql_push_ext: bool, optional
-        If  set to ``True``, the  external
-        :py:class:`~VastFrame` attempts to
-        push the entire query to the external
-        table (only DQL statements
-        - SELECT;  for other statements,
-        use SQL Magic  directly).
-        This can increase performance but
-        might increase the error rate.
-        For instance, some DBs might not
-        support the same SQL as VAST.
 
     Attributes
     ----------
@@ -533,9 +511,6 @@ class VastFrame(vDFAnimatedPlot):
         input_relation: Union[str, list, dict, pd.DataFrame, np.ndarray, TableSample],
         usecols: Optional[SQLColumns] = None,
         schema: Optional[str] = None,
-        external: bool = False,
-        symbol: str = "$",
-        sql_push_ext: bool = True,
         _empty: bool = False,
         _is_sql_magic: int = 0,
         _clean_query: bool = True,
@@ -550,44 +525,12 @@ class VastFrame(vDFAnimatedPlot):
             "max_rows": -1,
             "order_by": {},
             "saving": [],
-            "sql_push_ext": external and sql_push_ext,
             "sql_magic_result": _is_sql_magic,
-            "symbol": symbol,
             "where": [],
             "has_dpnames": False,
         }
         schema = quote_ident(schema)
         usecols = format_type(usecols, dtype=list)
-
-        if external:
-            if isinstance(input_relation, str) and input_relation:
-                if schema:
-                    input_relation = (
-                        f"{quote_ident(schema)}.{quote_ident(input_relation)}"
-                    )
-                else:
-                    input_relation = quote_ident(input_relation)
-                cols = ", ".join(usecols) if usecols else "*"
-                query = f"SELECT {cols} FROM {input_relation}"
-
-            else:
-                raise ValueError(
-                    "Parameter 'input_relation' must be a nonempty str "
-                    "when using external tables."
-                )
-
-            gb_conn = get_global_connection()
-
-            if symbol in gb_conn.get_external_connections:
-                query = symbol * 3 + query + symbol * 3
-
-            else:
-                raise ConnectionError(
-                    "No corresponding Connection Identifier Database is "
-                    f"defined (Using the symbol '{symbol}'). Use the "
-                    "function connect.set_external_connection to set "
-                    "one with the correct symbol."
-                )
 
         if isinstance(input_relation, (TableSample, list, np.ndarray, dict)):
             self._from_object(input_relation, usecols)

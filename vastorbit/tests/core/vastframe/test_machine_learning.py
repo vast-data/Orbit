@@ -149,14 +149,13 @@ class TestMachineLearning:
         assert list(chain(*vo_cdt_h_res)) == py_res
 
     @pytest.mark.parametrize(
-        "response, columns, nbins, method, RFmodel_params",
+        "response, columns, nbins, method",
         [
-            ("survived", ["sex", "pclass"], 16, "same_width", None),
-            # ("survived", ["sex", "pclass"], 10, "smart", None),
+            ("survived", ["sex", "pclass"], 16, "same_width"),
         ],
     )
     def test_chaid(
-        self, titanic_vd_fun, response, columns, nbins, method, RFmodel_params
+        self, titanic_vd_fun, response, columns, nbins, method
     ):
         """
         test function - chaid
@@ -282,14 +281,13 @@ class TestMachineLearning:
         assert len(vo_res) == len(py_res)
 
     @pytest.mark.parametrize(
-        "response, columns, nbins, method, RFmodel_params",
+        "response, columns, nbins, method",
         [
-            ("survived", "pclass", 16, "same_width", None),
-            ("survived", "pclass", 10, "smart", None),
+            ("survived", "pclass", 16, "same_width"),
         ],
     )
     def test_pivot_table_chi2(
-        self, titanic_vd_fun, response, columns, nbins, method, RFmodel_params
+        self, titanic_vd_fun, response, columns, nbins, method,
     ):
         """
         test function - pivot_table_chi2

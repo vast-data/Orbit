@@ -169,8 +169,6 @@ class vDFCorr(vDFEncode):
                            AND {columns[1]} IS NOT NULL""",
                     title="Computing the columns cardinalities.",
                     method="fetchrow",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
                 chi2_sql = f"""
                     WITH all_categories AS (
@@ -219,8 +217,6 @@ class vDFCorr(vDFEncode):
                         f"and {columns[1]} (Chi2 Statistic)."
                     ),
                     method="fetchfirstelem",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
                 if isinstance(chi2, NoneType):
                     return np.nan
@@ -277,8 +273,6 @@ class vDFCorr(vDFEncode):
                     query=query,
                     title=title,
                     method="fetchfirstelem",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
             except QueryError:
                 result = np.nan
@@ -415,8 +409,6 @@ class vDFCorr(vDFEncode):
                             FROM {table}""",
                         title=title,
                         method="fetchrow",
-                        sql_push_ext=self._vars["sql_push_ext"],
-                        symbol=self._vars["symbol"],
                     )
             except (AssertionError, QueryError):
                 n = len(columns)
@@ -638,8 +630,6 @@ class vDFCorr(vDFEncode):
                             LIMIT 1""",
                         title=f"Computing the Correlation Vector ({method})",
                         method="fetchrow",
-                        sql_push_ext=self._vars["sql_push_ext"],
-                        symbol=self._vars["symbol"],
                     )
                 matrix = copy.deepcopy(result)
             except QueryError:
@@ -1001,8 +991,6 @@ class vDFCorr(vDFEncode):
             sql,
             title="Computing the number of elements.",
             method="fetchfirstelem",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
         if method in ("pearson", "biserial"):
             x = val * math.sqrt((n - 2) / (1 - val * val))
@@ -1047,8 +1035,6 @@ class vDFCorr(vDFEncode):
                     FROM {table};""",
                 title="Computing nc and nd.",
                 method="fetchrow",
-                sql_push_ext=self._vars["sql_push_ext"],
-                symbol=self._vars["symbol"],
             )
             if kendall_type in ("a", ""):
                 val = (nc - nd) / (n * (n - 1) / 2)
@@ -1069,8 +1055,6 @@ class vDFCorr(vDFEncode):
                              GROUP BY 1) VASTORBIT_SUBTABLE""",
                     title="Computing vti.",
                     method="fetchrow",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
                 vu, v1_1, v2_1 = _executeSQL(
                     query=f"""
@@ -1087,8 +1071,6 @@ class vDFCorr(vDFEncode):
                              GROUP BY 1) VASTORBIT_SUBTABLE""",
                     title="Computing vui.",
                     method="fetchrow",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
                 v0 = n * (n - 1) * (2 * n + 5)
                 v1 = v1_0 * v1_1 / (2 * n * (n - 1))
@@ -1105,8 +1087,6 @@ class vDFCorr(vDFEncode):
                               AND {column2} IS NOT NULL""",
                         title="Computing the columns categories in the pivot table.",
                         method="fetchrow",
-                        sql_push_ext=self._vars["sql_push_ext"],
-                        symbol=self._vars["symbol"],
                     )
                     m = min(k, r)
                     val = 2 * (nc - nd) / (n * n * (m - 1) / m)
@@ -1122,8 +1102,6 @@ class vDFCorr(vDFEncode):
                       AND {column2} IS NOT NULL""",
                 title="Computing the columns categories in the pivot table.",
                 method="fetchrow",
-                sql_push_ext=self._vars["sql_push_ext"],
-                symbol=self._vars["symbol"],
             )
             x = val * val * n * min(k, r)
             pvalue = scipy_st.chi2.sf(x, (k - 1) * (r - 1))
@@ -1404,8 +1382,6 @@ class vDFCorr(vDFEncode):
                         FROM {self}""",
                     title=f"Computing the REGR_{method.upper()} Matrix.",
                     method="fetchrow",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
 
             if n == 1:
@@ -1440,8 +1416,6 @@ class vDFCorr(vDFEncode):
                                 FROM {self}""",
                             title=f"Computing REGR_{method.upper()}, one at a time.",
                             method="fetchfirstelem",
-                            sql_push_ext=self._vars["sql_push_ext"],
-                            symbol=self._vars["symbol"],
                         )
                     )
 
@@ -2313,8 +2287,6 @@ class vDCCorr(vDCEncode):
         result = TableSample.read_sql(
             query,
             title=title,
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
         )
         result.values["index"] += ["total"]
         result.values["non_events"] += [sum(result["non_events"])]

@@ -4,7 +4,7 @@
 Connect to a VAST Database
 ==============================
 
-Quick guide to connecting VastOrbit to your VAST database.
+Quick guide to connecting VAST Orbit to your VAST database.
 
 ____
 
@@ -15,7 +15,7 @@ Before connecting, ensure you have:
 
 - **VAST Database** – Any version with Trino interface enabled
 - **Python 3.12+** – Latest Python installation
-- **VastOrbit** – Installed via ``pip install vastorbit``
+- **VAST Orbit** – Installed via ``pip install vastorbit``
 
 For installation instructions, see :ref:`getting_started`.
 
@@ -142,4 +142,4 @@ Connection Parameters
 .. seealso::
 
    - :ref:`user_guide.introduction.vdf` – Learn about VastFrame
-   - :ref:`api.connection` – Complete connection API reference
+   - :ref:`api.connect` – Complete connection API reference

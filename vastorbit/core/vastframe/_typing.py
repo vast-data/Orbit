@@ -327,8 +327,6 @@ class vDFTyping(vDFRead):
                         FROM {self}""",
                     title="Looking at columns with low cardinality.",
                     method="fetchfirstelem",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
             elif self[column].category() == "float":
                 is_cat = False
@@ -796,8 +794,6 @@ class vDCTyping(vDCRead):
             _executeSQL(
                 query,
                 title="Testing the Type casting.",
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             )
             self._transf += [
                 (

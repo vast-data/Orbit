@@ -1,6 +1,6 @@
-# VastOrbit AI Assistant - Integration Guide
+# VAST Orbit AI Assistant - Integration Guide
 
-This guide shows you how to integrate the AI assistant into your VastOrbit Sphinx documentation.
+This guide shows you how to integrate the AI assistant into your VAST Orbit Sphinx documentation.
 
 ## Overview
 
@@ -20,7 +20,7 @@ The AI assistant consists of:
 Copy the frontend files to your documentation's static directory:
 
 ```bash
-# From your VastOrbit project root
+# From your VAST Orbit project root
 cp ai_assistant.css docs/source/_static/css/
 cp ai_assistant.js docs/source/_static/js/
 ```
@@ -107,7 +107,7 @@ make html
 1. Open your documentation in a browser
 2. You should see an "Ask AI" button on the right side of the screen
 3. Click it to open the chat interface
-4. Try asking: "How do I get started with VastOrbit?"
+4. Try asking: "How do I get started with VAST Orbit?"
 
 ## Configuration Options
 
@@ -136,7 +136,7 @@ apiUrl: 'http://localhost:5000/api/ask'
 
 // Quick prompts (around line 35)
 const quickPrompts = [
-  { text: "Getting Started", prompt: "How do I get started with VastOrbit?" },
+  { text: "Getting Started", prompt: "How do I get started with VAST Orbit?" },
   { text: "Main Features", prompt: "What are the main features?" },
   // Add your own prompts here
 ];

@@ -48,7 +48,6 @@ setuptools.setup(
         "scipy>=1.10.0",
         "scikit-learn>=1.3.0",
         "tqdm>=4.65.0",
-        "vertica-highcharts>=0.1.4",
         "trino>=0.328.0",
         "pyyaml>=6.0.1",
         "requests>=2.32.2",

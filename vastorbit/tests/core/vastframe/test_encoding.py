@@ -182,17 +182,6 @@ class TestVDCEncoding:
         [
             ("age", "same_width", 10, None, None, None, None, None, None),
             ("age", "same_freq", None, 5, None, None, None, None, None),
-            # (
-            #    "age",
-            #    "smart",
-            #    None,
-            #    6,
-            #    None,
-            #    None,
-            #    {"n_estimators": 100, "nbins": 100},
-            #    "survived",
-            #    6,
-            # ),
             ("age", "auto", 0, -1, None, None, None, None, 13),
             ("name", "topk", 0, -1, 6, "rare", None, None, 7),
         ],

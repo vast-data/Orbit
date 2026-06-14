@@ -383,17 +383,17 @@ class TableSample:
             val = "NULL"
         elif isinstance(val, bytes):
             val = str(val)[2:-1]
-            val = f"'{val}'::binary({len(val)})"
+            val = f"CAST('{val}' AS binary({len(val)}))"
         elif isinstance(val, datetime.datetime):
-            val = f"'{val}'::datetime"
+            val = f"CAST('{val}' AS datetime)"
         elif isinstance(val, datetime.date):
-            val = f"'{val}'::date"
+            val = f"CAST('{val}' AS date)"
         elif isinstance(val, datetime.timedelta):
-            val = f"'{val}'::interval"
+            val = f"CAST('{val}' AS interval)"
         elif isinstance(val, datetime.time):
-            val = f"'{val}'::time"
+            val = f"CAST('{val}' AS time)"
         elif isinstance(val, datetime.timezone):
-            val = f"'{val}'::timestamptz"
+            val = f"CAST('{val}' AS timestamptz)"
         elif isinstance(val, (np.ndarray, list)):
             vast_version(condition=[10, 0, 0])
             val = f"""
@@ -1021,8 +1021,6 @@ class TableSample:
         query: Union[str, StringSQL],
         title: Optional[str] = None,
         max_columns: int = -1,
-        sql_push_ext: bool = False,
-        symbol: str = "$",
         _clean_query: bool = True,
         _formats: Optional[list[str]] = None,
     ) -> "TableSample":
@@ -1040,17 +1038,6 @@ class TableSample:
         max_columns: int, optional
             Maximum number of columns to
             display.
-        sql_push_ext: bool, optional
-            If set to True, the entire query
-            is pushed to the external table.
-            This can increase  performance
-            but might increase the error rate.
-            For instance, some DBs might not
-            support the same SQL as VAST.
-        symbol: str, optional
-            Symbol used to identify the external
-            connection. One of the following:
-            ``"$", "€", "£", "%", "@", "&", "§", "%", "?", "!"``
 
         Returns
         -------
@@ -1078,7 +1065,6 @@ class TableSample:
                 query = sql,
                 title = 'Building a TableSample for testing',
                 max_columns = 2, # Maximum number of columns to display.
-                sql_push_ext = False, # No external DB.
             )
 
         .. ipython:: python
@@ -1105,8 +1091,6 @@ class TableSample:
         cursor = _executeSQL(
             query,
             print_time_sql=False,
-            sql_push_ext=sql_push_ext,
-            symbol=symbol,
             _clean_query=_clean_query,
         )
         description, dtype = cursor.description, {}

@@ -1,8 +1,8 @@
 # Business Applications
 
-Industry-focused examples demonstrating how VastOrbit can be applied to real-world business use cases across various sectors including retail, finance, healthcare, and more.
+Industry-focused examples demonstrating how VAST Orbit can be applied to real-world business use cases across various sectors including retail, finance, healthcare, and more.
 
-These notebooks showcase data analysis, predictive modeling, and insight generation for informed business decision-making using VastOrbit with VAST Database.
+These notebooks showcase data analysis, predictive modeling, and insight generation for informed business decision-making using VAST Orbit with VAST Database.
 
 ## Examples
 

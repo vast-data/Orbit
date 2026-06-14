@@ -635,8 +635,6 @@ class vDFInOut(vDFSystem):
                     """,
                 title="Reading the data.",
                 method="fetchall",
-                sql_push_ext=self._vars["sql_push_ext"],
-                symbol=self._vars["symbol"],
             )
             for row in result:
                 tmp_row = []
@@ -1331,8 +1329,6 @@ class vDFInOut(vDFSystem):
                     """,
                 title="Reading the data.",
                 method="fetchall",
-                sql_push_ext=self._vars["sql_push_ext"],
-                symbol=self._vars["symbol"],
             )
 
             # Break if no results returned
@@ -1472,8 +1468,6 @@ class vDFInOut(vDFSystem):
                 {self._get_last_order_by()}""",
             title="Getting the VastFrame values.",
             method="fetchall",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
         final_result = []
         for row in res:
@@ -1689,8 +1683,6 @@ class vDFInOut(vDFSystem):
                 FROM {self}{self._get_last_order_by()}""",
             title="Getting the VastFrame values.",
             method="cursor",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
         column_names = [column.name for column in cursor.description]
         data = cursor.fetchall()

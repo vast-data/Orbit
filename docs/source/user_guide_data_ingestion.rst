@@ -11,7 +11,7 @@ ____
 Supported Formats
 -----------------
 
-VastOrbit currently supports ingestion of the following formats:
+VAST Orbit currently supports ingestion of the following formats:
 
 - **CSV** – Comma-separated values files
 - **JSON** – JSON documents and arrays
@@ -205,7 +205,7 @@ ____
 Automatic Type Inference
 -------------------------
 
-When ``dtype`` is not specified, VastOrbit automatically infers column types:
+When ``dtype`` is not specified, VAST Orbit automatically infers column types:
 
 .. code-block:: python
 

@@ -25,7 +25,6 @@ from vastorbit.connection.connect import (
     current_cursor,
     set_connection,
 )
-from vastorbit.connection.external import set_external_connection
 from vastorbit.connection.read import available_connections
 from vastorbit.connection.write import (
     change_auto_connection,
@@ -33,11 +32,9 @@ from vastorbit.connection.write import (
     new_connection,
 )
 
-from vastorbit.core.parsers.all import read_file
 from vastorbit.core.parsers.csv import read_csv, pcsv
 from vastorbit.core.parsers.json import read_json, pjson
 from vastorbit.core.parsers.pandas import read_pandas
-from vastorbit.core.parsers.shp import read_shp
 from vastorbit.core.string_sql.base import StringSQL
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame, VastColumn

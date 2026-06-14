@@ -24,12 +24,12 @@ First, let's import the modules needed for this notebook.
 
 Let's start with pies and histograms. Drawing the pie or histogram of a categorical column in vastorbit is quite easy.
 
-.. note:: You can conveniently switch between the three available plotting libraries using :py:func:`~vastorbit.set_option`.
+.. note:: You can conveniently switch between the two available plotting libraries using :py:func:`~vastorbit.set_option`.
 
 .. code-block::
 
   # Setting the plotting lib
-  vo.set_option("plotting_lib", "highcharts")
+  vo.set_option("plotting_lib", "plotly")
   
   titanic = load_titanic()
   titanic["pclass"].bar()
@@ -38,7 +38,7 @@ Let's start with pies and histograms. Drawing the pie or histogram of a categori
   :suppress:
 
   # Setting the plotting lib
-  vo.set_option("plotting_lib", "highcharts")
+  vo.set_option("plotting_lib", "plotly")
   titanic = load_titanic()
   fig = titanic["pclass"].bar()
   html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_bar")

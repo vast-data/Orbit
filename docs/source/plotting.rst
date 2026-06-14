@@ -4,7 +4,7 @@
 Plotting
 ========
 
-Plotting base classes and configuration for VastOrbit visualizations.
+Plotting base classes and configuration for VAST Orbit visualizations.
 
 For detailed plotting guides and examples, see :ref:`chart_gallery.guide`.
 
@@ -58,9 +58,3 @@ Switching Libraries
 .. code-block:: python
 
    vastorbit.set_option("plotting_lib", "matplotlib")
-
-**Highcharts:**
-
-.. code-block:: python
-
-   vastorbit.set_option("plotting_lib", "highcharts")

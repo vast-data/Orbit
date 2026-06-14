@@ -10,14 +10,14 @@ User Guide
 
     <div style="text-align: center; margin: 30px 0;">
         <div style="font-size: 24px; font-weight: 600; color: #2F71BD; margin-bottom: 10px;">
-            Complete Guide to VastOrbit
+            Complete Guide to VAST Orbit
         </div>
         <div style="font-size: 16px; color: #666;">
             From data ingestion to machine learning at scale
         </div>
     </div>
 
-Welcome to the VastOrbit User Guide! This comprehensive tutorial series takes you from basics to advanced topics, teaching you how to leverage VAST Data Platform for data science at scale.
+Welcome to the VAST Orbit User Guide! This comprehensive tutorial series takes you from basics to advanced topics, teaching you how to leverage VAST Data Platform for data science at scale.
 
 **What You'll Learn:**
 
@@ -29,21 +29,21 @@ Welcome to the VastOrbit User Guide! This comprehensive tutorial series takes yo
 
 .. tip::
    
-   **New Users**: Start with **Introduction** to understand VastOrbit fundamentals, then progress through each section sequentially. Each guide includes hands-on examples you can run immediately.
+   **New Users**: Start with **Introduction** to understand VAST Orbit fundamentals, then progress through each section sequentially. Each guide includes hands-on examples you can run immediately.
 
 ____
 
 Learning Path
 -------------
 
-Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
+Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
 
 .. grid:: 1 1 2 2
     :gutter: 3
 
     .. grid-item::
     
-      .. card:: 📚 1. Introduction
+      .. card:: |i-docs| 1. Introduction
           :link: user_guide.introduction
           :link-type: ref
           :text-align: center
@@ -54,7 +54,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
           
           +++
           
-          Master VastOrbit fundamentals including **VastFrame** (pandas-like API) and **VastColumn** operations. Learn how to connect to VAST DataBase and execute your first queries.
+          Master VAST Orbit fundamentals including **VastFrame** (pandas-like API) and **VastColumn** operations. Learn how to connect to VAST DataBase and execute your first queries.
           
           **Key Topics:**
           
@@ -70,7 +70,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
 
     .. grid-item::
     
-      .. card:: 📥 2. Data Ingestion
+      .. card:: |i-files| 2. Data Ingestion
           :link: user_guide.data_ingestion
           :link-type: ref
           :text-align: center
@@ -97,7 +97,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
 
     .. grid-item::
     
-      .. card:: 🔍 3. Data Exploration
+      .. card:: |i-explore| 3. Data Exploration
           :link: user_guide.data_exploration
           :link-type: ref
           :text-align: center
@@ -113,7 +113,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
           **Key Topics:**
           
           - Descriptive statistics and profiling
-          - Interactive plotting (Plotly, Highcharts)
+          - Interactive plotting (Plotly)
           - Correlation analysis
           - Distribution visualization
           
@@ -124,7 +124,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
 
     .. grid-item::
     
-      .. card:: 🛠️ 4. Data Preparation
+      .. card:: |i-prep| 4. Data Preparation
           :link: user_guide.data_preparation
           :link-type: ref
           :text-align: center
@@ -151,7 +151,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
 
     .. grid-item::
     
-      .. card:: 🤖 5. Machine Learning
+      .. card:: |i-ml| 5. Machine Learning
           :link: user_guide.machine_learning
           :link-type: ref
           :text-align: center
@@ -178,7 +178,7 @@ Follow this structured path to master VastOrbit. Total time: ~4.5 hours.
 
     .. grid-item::
     
-      .. card:: 🚀 6. Full Stack
+      .. card:: |i-start| 6. Full Stack
           :link: user_guide.full_stack
           :link-type: ref
           :text-align: center
@@ -244,14 +244,14 @@ Quick Navigation
 
 Each guide includes:
 
-✓ **Hands-on Examples** - Copy-paste code that runs immediately  
-✓ **Best Practices** - Production-ready patterns  
-✓ **Common Pitfalls** - What to avoid and why  
-✓ **Performance Tips** - Optimize queries for VAST  
+- |check| **Hands-on Examples** - Copy-paste code that runs immediately  
+- |check| **Best Practices** - Production-ready patterns  
+- |check| **Common Pitfalls** - What to avoid and why  
+- |check| **Performance Tips** - Optimize queries for VAST  
 
 ____
 
-Example: Your First VastOrbit Query
+Example: Your First VAST Orbit Query
 ------------------------------------
 
 Here's a taste of what you'll learn:
@@ -283,10 +283,10 @@ Here's a taste of what you'll learn:
 
 **What makes this special?**
 
-- 🚀 All operations execute **in-database** - no data movement
-- 🌐 **Federated query** - join VAST table + S3 file seamlessly  
-- 📊 **Smart sampling** - visualizations work on billions of rows
-- ⚡ **VAST SQL Engine** - coming soon for 10-100x performance boost
+- |database| All operations execute **in-database** - no data movement
+- |globe| **Federated query** - join VAST table + S3 file seamlessly  
+- |chart| **Smart sampling** - visualizations work on billions of rows
+- |zap| **VAST SQL Engine** - coming soon for 10-100x performance boost
 
 .. seealso::
 
@@ -297,7 +297,7 @@ Here's a taste of what you'll learn:
 
 .. note::
 
-   **Questions?** Join our community at **vastsupport.slack.com** or check the :ref:`api` for detailed documentation.
+   **Questions?** Join our community at **`vastsupport.slack.com <https://vastsupport.slack.com>`_** or check the :ref:`api` for detailed documentation.
 
 ____
 

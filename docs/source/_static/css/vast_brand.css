@@ -1,0 +1,170 @@
+/* ==========================================================================
+   VAST DATA — BRAND TOKENS
+   Source: brand.vastdata.com/document/4 (Brand Identity + Brand Elements)
+   Applied to: VastOrbit documentation (Furo / Sphinx)
+   --------------------------------------------------------------------------
+   Color Palette
+     VAST Navy   #03142C  — primary dark (site background / theme color)
+     VAST Cyan   #1FD9FE  — signature electric cyan ("VAST Light" accent)
+     VAST Ink    #10172D  — iconography / dark strokes
+     VAST Gray   #F2F2F7  — light neutral surface
+   Typography
+     Headings:   Moderat Black / Bold
+     Body:       Moderat Regular  (fallback: Inter)
+     Code:       Moderat Mono     (fallback: JetBrains Mono / monospace)
+   Brand Element
+     VAST Light: cyan light-beam gradient on deep navy
+   ========================================================================== */
+
+/* --- Moderat font faces ----------------------------------------------------
+   Moderat is a LICENSED typeface. Download the woff2 files from the VAST
+   brand portal (brand.vastdata.com → Typography) and place them in:
+   docs/_static/fonts/
+   If the files are absent, everything gracefully falls back to Inter.        */
+
+@font-face {
+  font-family: "Moderat";
+  src: url("../fonts/Moderat-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moderat";
+  src: url("../fonts/Moderat-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moderat";
+  src: url("../fonts/Moderat-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moderat";
+  src: url("../fonts/Moderat-Black.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moderat Mono";
+  src: url("../fonts/ModeratMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Design tokens -------------------------------------------------------- */
+
+:root {
+  /* Color palette */
+  --vast-navy: #03142C;
+  --vast-cyan: #1FD9FE;
+  --vast-cyan-dim: #15A8C7;        /* cyan, darkened for hover on light bg  */
+  --vast-cyan-tint: #E2F9FF;       /* cyan at ~10% for subtle fills         */
+  --vast-ink: #10172D;
+  --vast-gray: #F2F2F7;
+  --vast-gray-mid: #C7CBD4;
+  --vast-white: #FFFFFF;
+
+  /* VAST Light — the brand light-beam element, as a usable gradient */
+  --vast-light: linear-gradient(100deg, #1FD9FE 0%, #29B8FF 45%, #03142C 100%);
+  --vast-light-soft: linear-gradient(100deg, rgba(31,217,254,.18), rgba(3,20,44,0));
+  --vast-glow: 0 0 24px rgba(31, 217, 254, 0.35);
+
+  /* Typography stacks */
+  --vast-font-display: "Moderat", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --vast-font-body: "Moderat", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --vast-font-mono: "Moderat Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Map onto Furo's own variables so the theme inherits the brand */
+  --color-sidebar-background: #F4F4F5;     /* light-mode left sidebar */
+  --color-sidebar-background-border: #E4E4E7;
+  --color-brand-primary: var(--vast-navy);
+  --color-brand-content: #0E86B8;          /* readable cyan-blue for links on white */
+  --font-stack: var(--vast-font-body);
+  --font-stack--monospace: var(--vast-font-mono);
+}
+
+/* --- Dark mode: the VAST navy ramp -----------------------------------------
+   vastdata.com dark surfaces are never pure black — they are layers of navy:
+   a deep base, slightly lighter panels, hairline cyan-tinted borders.        */
+
+:root {
+  --vast-navy-0: #04101F;   /* page base (deepest)        */
+  --vast-navy-1: #03142C;   /* VAST Navy — sidebar/panels */
+  --vast-navy-2: #0A2240;   /* raised surfaces, code      */
+  --vast-navy-3: #11305A;   /* hover / active surfaces    */
+  --vast-line:   #1B3A5C;   /* visible borders on navy    */
+  --vast-line-soft: rgba(31, 217, 254, 0.14); /* cyan hairlines */
+  --vast-text-dark-hi: #E8EFF7;   /* primary text on navy   */
+  --vast-text-dark-lo: #9FB3C8;   /* muted text on navy     */
+}
+
+body[data-theme="dark"] {
+  --color-brand-primary: var(--vast-cyan);
+  --color-brand-content: var(--vast-cyan);
+  --vast-cyan-tint: rgba(31, 217, 254, 0.08);
+
+  /* Backgrounds: navy layers, never black */
+  --color-background-primary: var(--vast-navy-0);
+  --color-background-secondary: var(--vast-navy-1);
+  --color-background-hover: var(--vast-navy-2);
+  --color-background-hover--transparent: rgba(10, 34, 64, 0);
+  --color-background-border: var(--vast-line);
+  --color-background-item: var(--vast-navy-2);
+
+  /* Text */
+  --color-foreground-primary: var(--vast-text-dark-hi);
+  --color-foreground-secondary: var(--vast-text-dark-lo);
+  --color-foreground-muted: var(--vast-text-dark-lo);
+  --color-foreground-border: var(--vast-line);
+
+  /* Code */
+  --color-code-background: var(--vast-navy-2);
+  --color-code-foreground: var(--vast-text-dark-hi);
+  --color-inline-code-background: rgba(31, 217, 254, 0.10);
+
+  /* Sidebar / header */
+  --color-sidebar-background: #0F2042;     /* dark-mode left sidebar */
+  --color-sidebar-background-border: var(--vast-line-soft);
+  --color-sidebar-item-background--hover: var(--vast-navy-2);
+  --color-sidebar-search-background: var(--vast-navy-2);
+  --color-sidebar-search-border: var(--vast-line);
+  --color-header-background: var(--vast-navy-1);
+  --color-header-border: var(--vast-line-soft);
+
+  /* Admonitions / cards / API signatures */
+  --color-admonition-background: var(--vast-navy-2);
+  --color-card-background: var(--vast-navy-1);
+  --color-card-border: var(--vast-line);
+  --color-card-marginals-background: var(--vast-navy-2);
+  --color-api-background: var(--vast-navy-2);
+  --color-api-background-hover: var(--vast-navy-3);
+
+  /* Misc surfaces */
+  --color-announcement-background: var(--vast-navy-1);
+  --color-announcement-text: var(--vast-text-dark-hi);
+  --color-highlight-on-target: rgba(31, 217, 254, 0.15);
+  --color-table-border: var(--vast-line);
+  --sd-color-card-background: var(--vast-navy-1);
+  --sd-color-card-border: var(--vast-line);
+}
+
+/* --- Global type ----------------------------------------------------------- */
+
+body {
+  font-family: var(--vast-font-body);
+}
+
+code, pre, kbd, samp, .highlight {
+  font-family: var(--vast-font-mono);
+}

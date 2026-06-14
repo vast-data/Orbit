@@ -65,10 +65,6 @@ But before that let's import the vastorbit statistical tests and decompose the t
 
 To create a seasonal decomposition plot, we must visualize the primary time series along with all its individual components. This decomposition process extracts various time series components, and we can then proceed to visualize each of them separately.
 
-.. note::
-    
-    Subplots are not available in Highcharts. Therefore, we will demonstrate how to create a seasonal decomposition plot using Plotly and Matplotlib.
-
 .. ipython:: python
     :suppress:
 
@@ -244,4 +240,4 @@ Chart Customization
 vastorbit empowers users with a high degree of flexibility when it comes to tailoring the visual aspects of their plots. 
 This customization extends to essential elements such as **color schemes**, **text labels**, and **plot sizes**, as well as a wide range of other attributes that can be fine-tuned to align with specific design preferences and analytical requirements. Whether you want to make your visualizations more visually appealing or need to convey specific insights with precision, vastorbit's customization options enable you to craft graphics that suit your exact needs.
 
-.. note:: As seasonal decomposition plots consist of multiple line charts, we recommend referring to the page on customizing :ref:`line` charts for guidance on customization.
+.. note:: As seasonal decomposition plots consist of multiple line charts, we recommend referring to the page on customizing :ref:`chart_gallery.line` charts for guidance on customization.

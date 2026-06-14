@@ -44,5 +44,5 @@ tqdm>=4.66.0
 # Configuration
 pyyaml>=6.0.1
 
-# VastOrbit Core (if testing against installed package)
+# VAST Orbit Core (if testing against installed package)
 # vastorbit @ git+https://github.com/vastdata-dev/vastorbit.git

@@ -1,5 +1,5 @@
 """
-VastOrbit AI Assistant Backend - IMPROVED VERSION
+VAST Orbit AI Assistant Backend - IMPROVED VERSION
 Enhanced performance and better response phrasing
 """
 
@@ -25,7 +25,7 @@ CHUNK_SIZE = 2000  # REDUCED from 3000 for better performance
 MAX_CHUNKS = 3  # REDUCED from 5 for faster responses
 
 class DocumentationRAG:
-    """Retrieval Augmented Generation for VastOrbit documentation"""
+    """Retrieval Augmented Generation for VAST Orbit documentation"""
     
     def __init__(self, docs_dir: str):
         self.docs_dir = Path(docs_dir)
@@ -202,7 +202,7 @@ class DocumentationRAG:
         })
         
         # IMPROVED System prompt - VAST-focused, emphasizes data prep and exploration
-        system_prompt = f"""You are Astra, VastOrbit's AI documentation assistant. VastOrbit is a Python library that brings data science to VAST Database with in-database execution.
+        system_prompt = f"""You are Astra, VAST Orbit's AI documentation assistant. VAST Orbit is a Python library that brings data science to VAST Database with in-database execution.
 
 Your role is to help users prepare data, explore it interactively, and build ML workflows - all directly in VAST Database.
 
@@ -210,7 +210,7 @@ Key Messaging:
 - Emphasize "data preparation" - cleaning, transforming, feature engineering in VAST
 - Highlight "interactive exploration" - charts, visualizations, statistical analysis
 - Focus on "in-database processing" - all operations execute in VAST, not Python
-- VastOrbit has embedded ML models - no sklearn import needed
+- VAST Orbit has embedded ML models - no sklearn import needed
 - Models are in vastorbit.machine_learning.vast (same import path as VerticaPy)
 
 Important Syntax:
@@ -224,7 +224,7 @@ Response Guidelines:
 - Answer directly and naturally
 - Be conversational and helpful
 - Emphasize data prep and exploration
-- Use correct VastOrbit syntax
+- Use correct VAST Orbit syntax
 - Show embedded models, not sklearn imports
 - Keep responses concise
 
@@ -338,7 +338,7 @@ def clear_cache():
 def index():
     """Root endpoint"""
     return jsonify({
-        'message': 'Astra - VastOrbit AI Assistant API',
+        'message': 'Astra - VAST Orbit AI Assistant API',
         'version': '1.1.0',
         'endpoints': {
             '/api/ask': 'POST - Ask a question',
@@ -349,7 +349,7 @@ def index():
 
 if __name__ == '__main__':
     print("=" * 60)
-    print("Astra - VastOrbit AI Assistant API Server")
+    print("Astra - VAST Orbit AI Assistant API Server")
     print("=" * 60)
     print(f"Documentation directory: {DOCS_DIR}")
     print(f"API Key configured: {bool(ANTHROPIC_API_KEY)}")

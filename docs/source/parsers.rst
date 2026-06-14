@@ -8,18 +8,6 @@ Functions for reading and loading data from various formats.
 
 ____
 
-General
--------
-
-.. currentmodule:: vastorbit
-
-.. autosummary:: 
-   :toctree: api/
-   
-   read_file
-
-____
-
 CSV
 ---
 

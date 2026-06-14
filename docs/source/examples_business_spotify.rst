@@ -159,7 +159,7 @@ We can visualize the top ``60`` most-followed Polish artists with a bar chart.
 
 .. code-block:: python
 
-    # make a highchart of the top 50 most-followed Polish artists
+    # make a chart of the top 50 most-followed Polish artists
     polish_artists.bar(
         ["name"], 
         method = "mean",

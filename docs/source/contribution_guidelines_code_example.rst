@@ -6,11 +6,11 @@ Code Example
 
 .. include:: logo_include.rst
 
-Step-by-step guide to adding new functions to VastOrbit.
+Step-by-step guide to adding new functions to VAST Orbit.
 
 ____
 
-🏗️ VastOrbit Architecture
+VAST Orbit Architecture
 --------------------------
 
 **Core Objects:**
@@ -39,7 +39,7 @@ ____
 
 ____
 
-✍️ Function Template
+Function Template
 --------------------
 
 Type Hints
@@ -119,7 +119,7 @@ Write comprehensive docstrings following NumPy style:
 
 ____
 
-🛠️ Essential Functions
+Essential Functions
 -----------------------
 
 Format Column Names
@@ -169,7 +169,7 @@ Use ``_executeSQL()`` to execute SQL queries:
 
 ____
 
-📊 Complete Examples
+Complete Examples
 --------------------
 
 Example 1: VastFrame Method
@@ -235,14 +235,14 @@ Add a correlation method to VastFrame:
 
 **Key Steps:**
 
-1. ✅ Add ``@save_vastorbit_logs`` decorator
-2. ✅ Include type hints
-3. ✅ Write complete docstring
-4. ✅ Format column names with ``format_colnames()``
-5. ✅ Get relation with ``_genSQL()``
-6. ✅ Label SQL queries: ``/*+LABEL(ClassName.method)*/``
-7. ✅ Execute with ``_executeSQL()``
-8. ✅ Return result
+1. Add ``@save_vastorbit_logs`` decorator
+2. Include type hints
+3. Write complete docstring
+4. Format column names with ``format_colnames()``
+5. Get relation with ``_genSQL()``
+6. Label SQL queries: ``/*+LABEL(ClassName.method)*/``
+7. Execute with ``_executeSQL()``
+8. Return result
 
 ____
 
@@ -310,25 +310,25 @@ Add a correlation method to VastColumn:
 
 **VastColumn Specifics:**
 
-- ✅ Access parent VastFrame: ``self.parent``
-- ✅ Get column name: ``self.alias``
-- ✅ Format using parent: ``self.parent.format_colnames()``
+- |check| Access parent VastFrame: ``self.parent``
+- |check| Get column name: ``self.alias``
+- |check| Format using parent: ``self.parent.format_colnames()``
 
 ____
 
-🎯 Best Practices
+Best Practices
 -----------------
 
 **Code Quality:**
 
-- ✅ Always add type hints
-- ✅ Use ``@save_vastorbit_logs`` decorator
-- ✅ Label SQL queries for tracking
-- ✅ Format column names properly
-- ✅ Handle errors gracefully
-- ✅ Write comprehensive docstrings
-- ✅ Add usage examples
-- ✅ Include "See Also" references
+- |check| Always add type hints
+- |check| Use ``@save_vastorbit_logs`` decorator
+- |check| Label SQL queries for tracking
+- |check| Format column names properly
+- |check| Handle errors gracefully
+- |check| Write comprehensive docstrings
+- |check| Add usage examples
+- |check| Include "See Also" references
 
 **SQL Queries:**
 
@@ -355,7 +355,7 @@ ____
 
 ____
 
-📝 Decorator Reference
+Decorator Reference
 ----------------------
 
 ``@save_vastorbit_logs``
@@ -382,7 +382,7 @@ Saves method usage statistics to ``QUERY_PROFILES`` table in VAST DataBase.
 
 ____
 
-🧪 Testing Your Function
+Testing Your Function
 -------------------------
 
 **Quick Test:**
@@ -403,11 +403,11 @@ ____
 
 **Verify:**
 
-1. ✅ Function executes without errors
-2. ✅ Returns expected type
-3. ✅ Handles edge cases
-4. ✅ Documentation renders correctly
-5. ✅ Examples run successfully
+1. Function executes without errors
+2. Returns expected type
+3. Handles edge cases
+4. Documentation renders correctly
+5. Examples run successfully
 
 ____
 
@@ -428,4 +428,3 @@ ____
    - :ref:`contribution_guidelines.code.auto_doc` - Documentation guide
    - :ref:`contribution_guidelines.code.unit_tests` - Testing guide
    - :ref:`api.vastframe` - VastFrame API reference
-   - :ref:`api.vastcolumn` - VastColumn API reference (if exists)

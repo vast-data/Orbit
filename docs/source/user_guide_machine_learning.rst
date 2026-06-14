@@ -4,7 +4,7 @@
 Machine Learning
 =================
 
-Build and deploy predictive models with VastOrbit.
+Build and deploy predictive models with VAST Orbit.
 
 ____
 
@@ -12,7 +12,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🎓 Introduction
+        .. card:: |i-docs| Introduction
             :link: user_guide.machine_learning.introduction
             :link-type: ref
             :text-align: center
@@ -26,7 +26,7 @@ ____
 
     .. grid-item::
 
-        .. card:: ⏰ Time Series
+        .. card:: |i-time| Time Series
             :link: user_guide.machine_learning.time_series
             :link-type: ref
             :text-align: center
@@ -40,7 +40,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 📉 Regression
+        .. card:: |i-stats| Regression
             :link: user_guide.machine_learning.regression
             :link-type: ref
             :text-align: center
@@ -54,7 +54,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🏷️ Classification
+        .. card:: |i-classify| Classification
             :link: user_guide.machine_learning.classification
             :link-type: ref
             :text-align: center
@@ -68,7 +68,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔍 Clustering
+        .. card:: |i-cluster| Clustering
             :link: user_guide.machine_learning.clustering
             :link-type: ref
             :text-align: center

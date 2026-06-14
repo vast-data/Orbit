@@ -29,43 +29,8 @@ def print_table(
     relation.
     """
 
-    # Colors Definition & options
     theme = conf.get_option("theme")
-
-    if theme == "light":
-        bgcolor = "#FFFFFF"
-        bgcolor_null = "#EEEEEE"
-        fontcolor_null = "#999999"
-        bgcolor_other = "#FAFAFA"
-        border_color_1 = "#AAAAAA"
-        border_color_2 = "#DDDDDD"
-        fontcolor = "#000000"
-        fontcolor_abc = "#000000"
-        fontcolor_index_j = "#000000"
-        fontcolor_index_i = "#000000"
-    elif theme == "dark":
-        bgcolor = "#000000"
-        bgcolor_null = "#222222"
-        fontcolor_null = "#999999"
-        bgcolor_other = "#18181A"
-        border_color_1 = "#555555"
-        border_color_2 = "#333333"
-        fontcolor = "#FFFFCC"
-        fontcolor_abc = "#959DAD"
-        fontcolor_index_j = "#1A6AFF"
-        fontcolor_index_i = "#FFFFFF"
-    elif theme == "sphinx":
-        bgcolor = "var(--color-announcement-background)"
-        bgcolor_null = "var(--color-background-hover)"
-        fontcolor_null = "#999999"
-        bgcolor_other = "var(--color-admonition-background)"
-        border_color_1 = "#888888"
-        border_color_2 = "#555555"
-        fontcolor = "var(--color-content-foreground)"
-        fontcolor_abc = "#959DAD"
-        fontcolor_index_j = "#1A6AFF"
-        fontcolor_index_i = "var(--color-announcement-text)"
-    else:
+    if theme not in ("light", "dark", "sphinx"):
         raise ValueError("Unrecognized 'theme'.")
 
     maxwidth = conf.get_option("max_cellwidth")
@@ -140,185 +105,301 @@ def print_table(
                 formatted_text += "\n"
         return formatted_text
     else:
-        if not repeat_first_column:
-            data_columns = [
-                [""] + list(range(1 + offset, len(data_columns[0]) + offset))
-            ] + data_columns
-        m, n = len(data_columns), len(data_columns[0])
-        cell_width = []
-        for row in data_columns:
-            cell_width += [
-                min(5 * max([len(str(item)) for item in row]) + 80, maxwidth)
-            ]
-        html_table = '<div class="vastorbit_table"><table>'
-        for i in range(n):
-            if i == 0:
-                html_table += '<thead style="display: table; ">'
-            if i == 1 and n > 0:
-                html_table += (
-                    '<tbody style="display: block; max-height: '
-                    f'{maxheight}px; overflow-y: scroll;">'
+        return _render_html_table(
+            data_columns,
+            theme=theme,
+            offset=offset,
+            repeat_first_column=repeat_first_column,
+            maxheight=maxheight,
+            maxwidth=maxwidth,
+            dtype=dtype,
+            percent=percent,
+            col_formats=col_formats,
+        )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Modern HTML renderer
+#
+# Replaces the legacy per-cell inline-style table:
+#   * class-based CSS emitted once per table (HTML is ~5-10x smaller)
+#   * single scroll container + position:sticky header
+#     (the old display:block <tbody> hack desynchronized column widths)
+#   * text-overflow ellipsis + tooltip instead of readonly <input> cells
+#   * VAST brand tokens; the "sphinx" theme uses Furo CSS variables so the
+#     table adapts to the docs light/dark mode automatically
+# ─────────────────────────────────────────────────────────────────────────────
+
+_THEME_TOKENS = {
+    "light": {
+        "bg": "#FFFFFF",
+        "head-bg": "#03142C",        # VAST Navy header
+        "head-fg": "#FFFFFF",
+        "head-accent": "#1FD9FE",    # VAST Cyan edge
+        "row": "#FFFFFF",
+        "row-alt": "#F7FAFD",
+        "row-hover": "#E2F9FF",
+        "fg": "#10172D",
+        "fg-muted": "#6B7A90",
+        "null-fg": "#9AA7B8",
+        "null-bg": "#F2F2F7",
+        "line": "#E7EBF1",
+        "index-fg": "#0E86B8",
+        "type-num": "#0E86B8",
+        "type-txt": "#6B7A90",
+        "bar-track": "#E7EBF1",
+        "bar-fill": "#1FD9FE",
+        "shadow": "0 4px 16px rgba(3, 20, 44, 0.06)",
+    },
+    "dark": {
+        "bg": "#03142C",
+        "head-bg": "#03142C",
+        "head-fg": "#E8EFF7",
+        "head-accent": "#1FD9FE",
+        "row": "#03142C",
+        "row-alt": "#0A2240",
+        "row-hover": "#11305A",
+        "fg": "#E8EFF7",
+        "fg-muted": "#9FB3C8",
+        "null-fg": "#5F7186",
+        "null-bg": "#0A2240",
+        "line": "#1B3A5C",
+        "index-fg": "#1FD9FE",
+        "type-num": "#1FD9FE",
+        "type-txt": "#9FB3C8",
+        "bar-track": "#11305A",
+        "bar-fill": "#1FD9FE",
+        "shadow": "none",
+    },
+    "sphinx": {  # Furo variables: adapts to the docs theme automatically
+        "bg": "var(--color-background-primary, transparent)",
+        "head-bg": "var(--color-background-secondary, #03142C)",
+        "head-fg": "var(--color-foreground-primary, #E8EFF7)",
+        "head-accent": "#1FD9FE",
+        "row": "transparent",
+        "row-alt": "var(--color-background-hover, rgba(31,217,254,0.04))",
+        "row-hover": "var(--color-background-item, rgba(31,217,254,0.10))",
+        "fg": "var(--color-foreground-primary, #888888)",
+        "fg-muted": "var(--color-foreground-secondary, #888888)",
+        "null-fg": "var(--color-foreground-muted, #999999)",
+        "null-bg": "var(--color-background-hover, rgba(136,136,136,0.10))",
+        "line": "var(--color-background-border, #555555)",
+        "index-fg": "var(--color-brand-content, #1FD9FE)",
+        "type-num": "var(--color-brand-content, #1FD9FE)",
+        "type-txt": "var(--color-foreground-secondary, #959DAD)",
+        "bar-track": "var(--color-background-border, #555555)",
+        "bar-fill": "#1FD9FE",
+        "shadow": "none",
+    },
+}
+
+_TYPE_GLYPHS = {
+    "num": ("123", "type-num"),
+    "bool": ("0|1", "type-num"),
+    "text": ("Abc", "type-txt"),
+    "date": ("&#128197;", "type-txt"),
+    "spatial": ("&#x1f30e;", "type-txt"),
+    "complex": ("&#128736;", "type-txt"),
+}
+
+
+def _table_css(t: dict) -> str:
+    """Scoped stylesheet for one rendered table."""
+    return f"""<style>
+.vob-table {{
+  --vt-bg: {t['bg']}; --vt-line: {t['line']}; --vt-shadow: {t['shadow']};
+  border: 1px solid {t['line']}; border-radius: 10px; overflow: hidden;
+  box-shadow: {t['shadow']}; background: {t['bg']};
+  font-family: Moderat, Inter, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px; line-height: 1.4;
+  /* Shrink-wrap to content: the table is as wide as its data needs to be,
+     never stretched to fill the window. Scrolls when wider than it. */
+  display: inline-block; max-width: 100%; vertical-align: top;
+}}
+.vob-table .vob-scroll {{ overflow: auto; max-height: var(--vt-maxh); }}
+.vob-table table {{
+  border-collapse: separate !important; border-spacing: 0; margin: 0;
+  /* width/table-layout: content-driven, with !important to defeat notebook
+     host CSS (Jupyter ships table-layout:fixed + width:100%, which ignores
+     min-width and divides the window proportionally -> unreadably narrow). */
+  width: auto !important;
+  table-layout: auto !important;
+}}
+.vob-table thead th {{
+  position: sticky; top: 0; z-index: 2;
+  background: {t['head-bg']}; color: {t['head-fg']};
+  font-weight: 700; padding: 8px 14px; text-align: center;
+  border-bottom: 2px solid {t['head-accent']}; white-space: nowrap;
+  max-width: var(--vt-maxw); overflow: hidden; text-overflow: ellipsis;
+}}
+.vob-table tbody td {{
+  padding: 7px 14px; color: {t['fg']}; text-align: center;
+  border-bottom: 1px solid {t['line']}; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: var(--vt-maxw);
+}}
+.vob-table tbody tr:last-child td {{ border-bottom: 0; }}
+.vob-table tbody tr:nth-child(even) td {{ background: {t['row-alt']}; }}
+.vob-table tbody tr:nth-child(odd) td {{ background: {t['row']}; }}
+.vob-table tbody tr:hover td {{ background: {t['row-hover']}; }}
+.vob-table td.vob-idx, .vob-table th.vob-idx {{
+  color: {t['index-fg']}; font-weight: 600; min-width: 42px;
+  position: sticky; left: 0; z-index: 1;
+}}
+.vob-table thead th.vob-idx {{ z-index: 3; }}  /* corner: above header row AND index column */
+.vob-table tbody td.vob-idx {{ background: {t['head-bg']}; }}
+.vob-table td.vob-null {{ color: {t['null-fg']}; background: {t['null-bg']} !important;
+  font-style: italic; }}
+.vob-table .vob-glyph {{ font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  margin-bottom: 3px; }}
+.vob-table .vob-glyph.type-num {{ color: {t['type-num']}; }}
+.vob-table .vob-glyph.type-txt {{ color: {t['type-txt']}; }}
+.vob-table .vob-dtype {{ font-size: 11px; font-weight: 400; color: {t['fg-muted']};
+  margin-top: 3px; }}
+.vob-table .vob-bar {{ display: flex; align-items: center; gap: 6px; margin-top: 5px; }}
+.vob-table .vob-bar-track {{ flex: 1; height: 5px; border-radius: 3px;
+  background: {t['bar-track']}; overflow: hidden; }}
+.vob-table .vob-bar-fill {{ height: 100%; border-radius: 3px; background: {t['bar-fill']}; }}
+.vob-table .vob-bar-pct {{ font-size: 10px; font-weight: 600; color: {t['fg-muted']}; }}
+.vob-table .vob-bool-t {{ color: #5BE49B; font-weight: 700; }}
+.vob-table .vob-bool-f {{ color: {t['null-fg']}; font-weight: 700; }}
+.vob-table .vob-scroll::-webkit-scrollbar {{ width: 8px; height: 8px; }}
+.vob-table .vob-scroll::-webkit-scrollbar-thumb {{ background: {t['line']};
+  border-radius: 4px; }}
+.vob-table .vob-scroll::-webkit-scrollbar-thumb:hover {{ background: {t['head-accent']}; }}
+</style>"""
+
+
+def _format_value(val, j, col_formats, m):
+    """Comma / user format handling (same semantics as the legacy renderer)."""
+    is_f = (
+        isinstance(col_formats, list)
+        and len(col_formats) == m - 1
+        and j > 0
+        and isinstance(col_formats[j - 1], str)
+        and len(col_formats[j - 1]) == 1
+    )
+    if conf.get_option("insert_comma_numbers") and not is_f:
+        try:
+            float(val)
+            val = "{:,}".format(val)
+        except (TypeError, ValueError):
+            pass
+    if is_f and col_formats[j - 1] != "-":
+        try:
+            val = ("{:" + col_formats[j - 1] + "}").format(val)
+        except (TypeError, ValueError):
+            pass
+    return val
+
+
+def _header_cell(name, dtype, percent, full_mode):
+    """Column header: type glyph + name + dtype caption + completeness bar."""
+    glyph_html, dtype_html, bar_html = "", "", ""
+    if name in dtype and full_mode and dtype[name] != "undefined":
+        type_val = dtype[name].capitalize()
+        category = to_category(type_val)
+        lowered = name.lower().split(" ")
+        if category == "spatial" or (
+            category == "float"
+            and any(k in lowered for k in ("lat", "latitude", "lon", "longitude"))
+        ):
+            key = "spatial"
+        elif type_val.lower() == "boolean":
+            key = "bool"
+        elif category in ("int", "float", "binary", "uuid"):
+            key = "num"
+        elif category == "text":
+            key = "text"
+        elif category == "date":
+            key = "date"
+        elif category == "complex":
+            key = "complex"
+        else:
+            key = None
+        if key:
+            glyph, cls = _TYPE_GLYPHS[key]
+            glyph_html = f'<div class="vob-glyph {cls}">{glyph}</div>'
+        dtype_html = f'<div class="vob-dtype">{type_val}</div>'
+    if name in percent:
+        per = int(float(percent[name]))
+        bar_html = (
+            '<div class="vob-bar"><div class="vob-bar-track">'
+            f'<div class="vob-bar-fill" style="width:{per}%"></div></div>'
+            f'<span class="vob-bar-pct">{per}%</span></div>'
+        )
+    return f"<th>{glyph_html}<b>{name}</b>{dtype_html}{bar_html}</th>"
+
+
+def _render_html_table(
+    data_columns,
+    theme,
+    offset,
+    repeat_first_column,
+    maxheight,
+    maxwidth,
+    dtype,
+    percent,
+    col_formats,
+):
+    t = _THEME_TOKENS[theme]
+    full_mode = conf.get_option("mode") in ("full", None)
+
+    if not repeat_first_column:
+        data_columns = [
+            [""] + list(range(1 + offset, len(data_columns[0]) + offset))
+        ] + data_columns
+    m, n = len(data_columns), len(data_columns[0])
+
+    # Column sizing: content-driven. With width:auto + table-layout:auto +
+    # nowrap, the browser sizes every column exactly to its widest content
+    # (cells, name, and dtype caption are all real content). max_cellwidth
+    # caps runaway columns via max-width + ellipsis. No manual minimums.
+
+    parts = [
+        _table_css(t),
+        f'<div class="vastorbit_table vob-table" '
+        f'style="--vt-maxh:{maxheight}px; --vt-maxw:{maxwidth}px;">',
+        '<div class="vob-scroll"><table>',
+    ]
+
+    # ── header row ──
+    parts.append("<thead><tr>")
+    logo = vastorbit_logo_html(size="38px") if (dtype and full_mode) else ""
+    parts.append(f'<th class="vob-idx">{logo}</th>')
+    for j in range(1, m):
+        name = data_columns[j][0]
+        name = html.escape(name) if isinstance(name, str) else name
+        if full_mode:
+            parts.append(_header_cell(name, dtype, percent, full_mode))
+        else:
+            parts.append(f"<th><b>{name}</b></th>")
+    parts.append("</tr></thead><tbody>")
+
+    # ── body rows ──
+    for i in range(1, n):
+        parts.append("<tr>")
+        for j in range(m):
+            val = data_columns[j][i]
+            if isinstance(val, str):
+                val = html.escape(val)
+            cls, title = "", ""
+            if j == 0:
+                cls = ' class="vob-idx"'
+            elif isinstance(val, NoneType):
+                val, cls = "[null]", ' class="vob-null"'
+            elif isinstance(val, bool) and full_mode:
+                val = (
+                    '<span class="vob-bool-t">&#10003;</span>'
+                    if val
+                    else '<span class="vob-bool-f">&#10007;</span>'
                 )
-            html_table += "<tr>"
-            for j in range(m):
-                val = data_columns[j][i]
-                if isinstance(val, str):
-                    val = html.escape(val)
-                if isinstance(val, NoneType):
-                    val = "[null]"
-                    color = fontcolor_null
-                else:
-                    if isinstance(val, bool) and (
-                        conf.get_option("mode") in ("full", None)
-                    ):
-                        val = (
-                            "<center>&#9989;</center>"
-                            if (val)
-                            else "<center>&#10060;</center>"
-                        )
-                    if j == 0:
-                        color = fontcolor_index_j
-                    elif i == 0:
-                        color = fontcolor_index_i
-                    else:
-                        color = fontcolor
-                html_table += '<td style="background-color: '
-                if (
-                    (j == 0)
-                    or (i == 0)
-                    or (conf.get_option("mode") not in ("full", None))
-                ):
-                    html_table += f" {bgcolor}; "
-                elif val == "[null]":
-                    html_table += f" {bgcolor_null}; "
-                else:
-                    html_table += f" {bgcolor_other}; "
-                html_table += f"color: {color}; white-space:nowrap; "
-                if conf.get_option("mode") in ("full", None):
-                    if (j == 0) or (i == 0):
-                        html_table += f"border: 1px solid {border_color_1}; "
-                    else:
-                        html_table += f"border-top: 1px solid {border_color_2}; "
-                        if ((j == m - 1) and (i == n - 1)) or (j == m - 1):
-                            html_table += f"border-right: 1px solid {border_color_1}; "
-                        else:
-                            html_table += f"border-right: 1px solid {border_color_2}; "
-                        if ((j == m - 1) and (i == n - 1)) or (i == n - 1):
-                            html_table += f"border-bottom: 1px solid {border_color_1}; "
-                        else:
-                            html_table += f"border-bottom: 1px solid {border_color_2}; "
-                if i == 0:
-                    html_table += "height: 30px; "
-                if (j == 0) or (cell_width[j] < 120):
-                    html_table += "text-align: center; "
-                else:
-                    html_table += "text-align: center; "
-                html_table += (
-                    f"min-width: {cell_width[j]}px; " f'max-width: {cell_width[j]}px;"'
-                )
-                is_f = (
-                    isinstance(col_formats, list)
-                    and len(col_formats) == m - 1
-                    and j > 0
-                    and isinstance(col_formats[j - 1], str)
-                    and len(col_formats[j - 1]) == 1
-                )
-                if conf.get_option("insert_comma_numbers") and not (is_f):
-                    try:
-                        float(val)
-                        val = "{:,}".format(val)
-                    except:
-                        pass
-                if is_f and col_formats[j - 1] != "-":
-                    try:
-                        format_col = "{:" + col_formats[j - 1] + "}"
-                        val = format_col.format(val)
-                    except:
-                        pass
-                if (j == 0) or (i == 0):
-                    if j != 0:
-                        type_val, category, missing_values = "", "", ""
-                        if data_columns[j][0] in dtype and (
-                            conf.get_option("mode") in ("full", None)
-                        ):
-                            if dtype[data_columns[j][0]] != "undefined":
-                                type_val = dtype[data_columns[j][0]].capitalize()
-                                category = to_category(type_val)
-                                if (category == "spatial") or (
-                                    (
-                                        "lat" in val.lower().split(" ")
-                                        or "latitude" in val.lower().split(" ")
-                                        or "lon" in val.lower().split(" ")
-                                        or "longitude" in val.lower().split(" ")
-                                    )
-                                    and category == "float"
-                                ):
-                                    category = '<div style="margin-bottom: 6px;">&#x1f30e;</div>'
-                                elif type_val.lower() == "boolean":
-                                    category = '<div style="margin-bottom: 6px; color: #0073E7;">010</div>'
-                                elif category in ("int", "float", "binary", "uuid"):
-                                    category = '<div style="margin-bottom: 6px; color: #29B8FF;">123</div>'
-                                elif category == "text":
-                                    category = f'<div style="margin-bottom: 6px; color: {fontcolor_abc}">Abc</div>'
-                                elif category in ("complex"):
-                                    category = '<div style="margin-bottom: 6px;">&#128736;</div>'
-                                elif category == "date":
-                                    category = '<div style="margin-bottom: 6px;">&#128197;</div>'
-                            else:
-                                category = '<div style="margin-bottom: 6px;"></div>'
-                        if type_val != "":
-                            overflow = "hidden"
-                            if len(str(type_val)) > 30:
-                                overflow = "scroll"
-                            ctype = (
-                                f'<div style="overflow-y: {overflow};  color: #3A4668; '
-                                f'margin-top: 6px; font-size: 0.95em;">{type_val}</div>'
-                            )
-                        else:
-                            ctype = '<div style="color: #29B8FF; margin-top: 6px; font-size: 0.95em;"></div>'
-                        if data_columns[j][0] in percent:
-                            per = int(float(percent[data_columns[j][0]]))
-                            if per == 100:
-                                diff = 36
-                            elif per > 10:
-                                diff = 30
-                            else:
-                                diff = 24
-                            missing_values = (
-                                f'<div style="float: right; margin-top: 6px;">{per}%</div><div '
-                                f'style="width: calc(100% - {diff}px); height: 6px; margin-top: '
-                                f'10px; border: 1px solid black;"><div style="width: {per}%; '
-                                'height: 6px; background-color: #29B8FF;"></div></div>'
-                            )
-                    else:
-                        ctype, missing_values, category = "", "", ""
-                    if (i == 0) and (j == 0):
-                        if dtype and (conf.get_option("mode") in ("full", None)):
-                            val = vastorbit_logo_html(size="45px")
-                        else:
-                            val = ""
-                    elif cell_width[j] > 240:
-                        val = (
-                            f'<input style="background-color: {bgcolor}; font-weight: bold;'
-                            f"color: {fontcolor}; border: none; text-align: center; width: "
-                            f'{cell_width[j] - 10}px;" type="text" value="{val}" readonly>'
-                        )
-                    html_table += f">{category}<b>{val}</b>{ctype}{missing_values}</td>"
-                elif cell_width[j] > 240:
-                    background = bgcolor_null if val == "[null]" else bgcolor_other
-                    if conf.get_option("mode") not in ("full", None):
-                        background = f"{bgcolor}"
-                    html_table += (
-                        f'><input style="background-color: {background}; border: none; '
-                        f'color: {fontcolor}; text-align: center; width: {cell_width[j] - 10}px;" '
-                        f'type="text" value="{val}" readonly></td>'
-                    )
-                else:
-                    html_table += f">{val}</td>"
-            html_table += "</tr>"
-            if i == 0:
-                html_table += "</thead>"
-            if i == n - 1 and n > 0:
-                html_table += "</tbody>"
-        html_table += "</table></div>"
-        return html_table
+            else:
+                val = _format_value(val, j, col_formats, m)
+                sval = str(val)
+                if len(sval) > 40:
+                    title = f' title="{sval}"'
+            parts.append(f"<td{cls}{title}>{val}</td>")
+        parts.append("</tr>")
+
+    parts.append("</tbody></table></div></div>")
+    return "".join(parts)

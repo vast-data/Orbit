@@ -19,11 +19,6 @@ from vastorbit.machine_learning.model_selection import stepwise
 from vastorbit.machine_learning.vast.svm import LinearSVC
 from vastorbit.machine_learning.vast.cluster import KMeans
 
-try:
-    from vertica_highcharts import Highchart
-except:
-    Highchart = type(None)
-
 # Standard Python Modules
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
@@ -37,8 +32,6 @@ def get_xaxis_label(obj):
         return obj.get_xlabel()
     if isinstance(obj, go.Figure):
         return obj.layout["xaxis"]["title"]["text"]
-    if isinstance(obj, Highchart):
-        return obj.options["xAxis"].title.text
     return None
 
 
@@ -50,8 +43,6 @@ def get_yaxis_label(obj):
         return obj.get_ylabel()
     if isinstance(obj, go.Figure):
         return obj.layout["yaxis"]["title"]["text"]
-    if isinstance(obj, Highchart):
-        return obj.options["yAxis"].title.text
     return None
 
 
@@ -63,8 +54,6 @@ def get_zaxis_label(obj):
         return obj.get_zlabel()
     if isinstance(obj, go.Figure):
         return obj.layout["scene"]["zaxis"]["title"]["text"]
-    if isinstance(obj, Highchart):
-        return obj.options["zAxis"].title.text
     return None
 
 
@@ -77,9 +66,6 @@ def get_xaxis_data_type(obj):
         return None
     if isinstance(obj, go.Figure):
         return obj.data[0]["x"].dtype
-    if isinstance(obj, Highchart):
-        # Need to figure out how to get the data type for Highcharts
-        return None
     return None
 
 
@@ -92,9 +78,6 @@ def get_yaxis_data_type(obj):
         return None
     if isinstance(obj, go.Figure):
         return obj.data[0]["y"].dtype
-    if isinstance(obj, Highchart):
-        # Need to figure out how to get the data type for Highcharts
-        return None
     return None
 
 
@@ -107,9 +90,6 @@ def get_zaxis_data_type(obj):
         return None
     if isinstance(obj, go.Figure):
         return obj.data[0]["z"].dtype
-    if isinstance(obj, Highchart):
-        # Need to figure out how to get the data type for Highcharts
-        return None
     return None
 
 
@@ -121,8 +101,6 @@ def get_width(obj):
         return obj.get_figure().get_size_inches()[0]
     if isinstance(obj, go.Figure):
         return obj.layout["width"]
-    if isinstance(obj, Highchart):
-        return obj.options["chart"].width
     return None
 
 
@@ -134,8 +112,6 @@ def get_height(obj):
         return obj.get_figure().get_size_inches()[1]
     if isinstance(obj, go.Figure):
         return obj.layout["height"]
-    if isinstance(obj, Highchart):
-        return obj.options["chart"].height
     return None
 
 
@@ -147,8 +123,6 @@ def get_title(obj):
         return obj.get_title()
     if isinstance(obj, go.Figure):
         return obj.layout["title"]["text"]
-    if isinstance(obj, Highchart):
-        return obj.options["title"].text
     return None
 
 

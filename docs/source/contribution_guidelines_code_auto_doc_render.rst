@@ -10,17 +10,17 @@ Preview your documentation locally before submitting.
 
 ____
 
-🚀 Quick Start
+Quick Start
 --------------
 
 **Two Options:**
 
-1. ✅ **Simple Testing** - Test single file (recommended for quick checks)
-2. ✅ **Full Setup** - Complete Sphinx environment (see `Sphinx Quickstart <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_)
+1. **Simple Testing** - Test single file (recommended for quick checks)
+2. **Full Setup** - Complete Sphinx environment (see `Sphinx Quickstart <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_)
 
 ____
 
-📦 Simple Testing Setup
+Simple Testing Setup
 -----------------------
 
 **Step 1: Download Test Package**
@@ -87,7 +87,7 @@ Open ``build/html/index.html`` in your browser.
 
 ____
 
-🔄 Iterating on Changes
+Iterating on Changes
 ------------------------
 
 **Make Changes → Clean → Rebuild**
@@ -117,32 +117,32 @@ ____
 
 ____
 
-🎯 What to Check
+What to Check
 ----------------
 
 **Visual Checks:**
 
-- ✅ Function signature displays correctly
-- ✅ Parameters formatted properly
-- ✅ Code examples render with syntax highlighting
-- ✅ Plots/images appear correctly
-- ✅ Links work (internal and external)
-- ✅ Admonitions (notes, warnings) styled properly
-- ✅ Table formatting looks clean
+- |check| Function signature displays correctly
+- |check| Parameters formatted properly
+- |check| Code examples render with syntax highlighting
+- |check| Plots/images appear correctly
+- |check| Links work (internal and external)
+- |check| Admonitions (notes, warnings) styled properly
+- |check| Table formatting looks clean
 
 **Common Issues:**
 
-❌ **Missing imports** - Add to ``rst_prolog`` in ``conf.py``
+- |cross| **Missing imports** - Add to ``rst_prolog`` in ``conf.py``
 
-❌ **Plot not showing** - Check file path and ``@savefig`` directive
+- |cross| **Plot not showing** - Check file path and ``@savefig`` directive
 
-❌ **Broken links** - Verify reference targets exist
+- |cross| **Broken links** - Verify reference targets exist
 
-❌ **Code not executing** - Check ``ipython`` directive syntax
+- |cross| **Code not executing** - Check ``ipython`` directive syntax
 
 ____
 
-📋 Example test_file.py
+Example test_file.py
 ------------------------
 
 .. code-block:: python
@@ -187,7 +187,7 @@ ____
 
 ____
 
-🛠️ Troubleshooting
+Troubleshooting
 -------------------
 
 **Build Errors:**

@@ -8,7 +8,6 @@ from typing import Any, Literal, Optional
 import vastorbit._config.config as conf
 from vastorbit.connection.global_connection import get_global_connection
 from vastorbit._typing import NoneType
-from vastorbit._utils._sql._dblink import replace_external_queries
 from vastorbit._utils._sql._display import print_query, print_time
 from vastorbit._utils._sql._format import (
     clean_query,
@@ -28,8 +27,6 @@ def _executeSQL(
     ] = "cursor",
     path: Optional[str] = None,
     print_time_sql: bool = True,
-    sql_push_ext: bool = False,
-    symbol: str = "$",
     _clean_query: bool = True,
 ) -> Any:
     """
@@ -73,19 +70,6 @@ def _executeSQL(
         If set to ``True``, and the associated
         option is activated, it prints the
         SQL query and the time of execution.
-    sql_push_ext: bool, optional
-        If set to ``True``, DBLINK
-        is activated.
-    symbol: str, optional
-        A special character to identify the
-        connection. One of the following:
-        ``"$", "€", "£", "%", "@", "&", "§", "?", "!"``
-
-        For example, if the symbol is '$',
-        you can call external tables with
-        the input cid by writing $$$QUERY$$$,
-        where QUERY represents a custom
-        query.
 
     Returns
     -------
@@ -137,7 +121,6 @@ def _executeSQL(
         code.
     """
     data = format_type(data, dtype=list)
-    special_symbols = get_global_connection().special_symbols
     # Replacing the label
     separator = conf.get_option("label_separator")
     suffix = conf.get_option("label_suffix")
@@ -146,15 +129,8 @@ def _executeSQL(
     if isinstance(suffix, str) and isinstance(separator, NoneType):
         separator = "__"  # Default separator
     query = replace_label(query, separator=separator, suffix=suffix)
+
     # Cleaning the query
-    if sql_push_ext and (symbol in special_symbols):
-        query = erase_label(query)
-        query = symbol * 3 + query.replace(symbol * 3, "") + symbol * 3
-
-    elif sql_push_ext and (symbol not in special_symbols):
-        raise ValueError(f"Symbol '{symbol}' is not supported.")
-
-    query = replace_external_queries(query)
 
     if _clean_query:
         query = clean_query(query)

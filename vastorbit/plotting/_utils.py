@@ -8,12 +8,6 @@ from matplotlib.axes import Axes
 from matplotlib.pyplot import Figure as mFigure
 from plotly.graph_objs._figure import Figure
 
-try:
-    from vertica_highcharts import Highchart, Highstock
-except:
-    Highchart = type(None)
-    Highstock = type(None)
-
 import vastorbit._config.config as conf
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._format import format_type
@@ -21,30 +15,27 @@ from vastorbit._typing import PlottingObject
 
 import vastorbit.plotting._matplotlib as vo_matplotlib_plt
 import vastorbit.plotting._plotly as vo_plotly_plt
-import vastorbit.plotting._highcharts as vo_highcharts_plt
 
 
 class PlottingUtils:
     @staticmethod
     def _first_available_lib(
         class_name: str,
-    ) -> Literal["highcharts", "matplotlib", "plotly"]:
+    ) -> Literal["matplotlib", "plotly"]:
         lookup_table = {
-            vo_highcharts_plt: "highcharts",
             vo_matplotlib_plt: "matplotlib",
             vo_plotly_plt: "plotly",
         }
-        for lib in [vo_plotly_plt, vo_highcharts_plt, vo_matplotlib_plt]:
+        for lib in [vo_plotly_plt, vo_matplotlib_plt]:
             if hasattr(lib, class_name):
                 return lookup_table[lib]
         raise NotImplementedError("This graphic is not yet implemented.")
 
     @staticmethod
     def _is_available(
-        class_name: str, lib: Literal["highcharts", "plotly", "matplotlib"]
+        class_name: str, lib: Literal["plotly", "matplotlib"]
     ) -> bool:
         lookup_table = {
-            "highcharts": vo_highcharts_plt,
             "matplotlib": vo_matplotlib_plt,
             "plotly": vo_plotly_plt,
         }
@@ -56,25 +47,22 @@ class PlottingUtils:
         chart: Optional[PlottingObject] = None,
         matplotlib_kwargs: Optional[dict] = None,
         plotly_kwargs: Optional[dict] = None,
-        highchart_kwargs: Optional[dict] = None,
         style_kwargs: Optional[dict] = None,
-    ) -> tuple[Literal[vo_highcharts_plt, vo_matplotlib_plt, vo_plotly_plt], dict]:
+    ) -> tuple[Literal[vo_matplotlib_plt, vo_plotly_plt], dict]:
         """
-        Returns the first available library (Plotly, Matplotlib, or
-        Highcharts) to draw a specific graphic. If the graphic is not
+        Returns the first available library (Plotly, Matplotlib) 
+        to draw a specific graphic. If the graphic is not
         available for a library, function tries the next plotting
         library. The style applied to the graphic corresponds to the
         input style. The final graphic is drawn using the input
         'chart' object.
         """
-        highchart_kwargs, plotly_kwargs, matplotlib_kwargs, style_kwargs = format_type(
-            highchart_kwargs, plotly_kwargs, matplotlib_kwargs, style_kwargs, dtype=dict
+        plotly_kwargs, matplotlib_kwargs, style_kwargs = format_type(
+            plotly_kwargs, matplotlib_kwargs, style_kwargs, dtype=dict
         )
         chart_not_none = True
         if isinstance(chart, (Axes, mFigure)):
             lib = "matplotlib"
-        # elif isinstance(chart, (Highchart, Highstock)):
-        #    lib = "highcharts"
         elif isinstance(chart, Figure):
             lib = "plotly"
         else:
@@ -100,9 +88,6 @@ class PlottingUtils:
         if lib == "plotly":
             vo_plt = vo_plotly_plt
             kwargs = {"fig": chart, **plotly_kwargs, **style_kwargs}
-        elif lib == "highcharts":
-            vo_plt = vo_highcharts_plt
-            kwargs = {"chart": chart, **highchart_kwargs, **style_kwargs}
         elif lib == "matplotlib":
             vo_plt = vo_matplotlib_plt
             kwargs = {"ax": chart, **matplotlib_kwargs, **style_kwargs}

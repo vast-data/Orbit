@@ -17,20 +17,20 @@ Version 0.1.0 (Beta)
         </div>
     </div>
 
-Welcome to the first release of **VastOrbit** - Python data science for VAST Database!
+Welcome to the first release of **VAST Orbit** - Python data science for VAST Database!
 
 .. important::
 
-   **Beta Status**: VastOrbit 0.1.0 is in beta. Production-ready version 1.0.0 coming soon. API may change based on feedback. Report issues at **vastsupport.slack.com**.
+   **Beta Status**: VAST Orbit 0.1.0 is in beta. Production-ready version 1.0.0 coming soon. API may change based on feedback. Report issues at **`vastsupport.slack.com <https://vastsupport.slack.com>`_**.
 
 ____
 
 Release Highlights
 ------------------
 
-🚀 **Python Data Science for VAST**
+|i-start| **Python Data Science for VAST**
 
-VastOrbit 0.1.0 brings complete data science workflows to VAST Database - prepare, explore, analyze, and build ML models with in-database execution.
+VAST Orbit 0.1.0 brings complete data science workflows to VAST Database - prepare, explore, analyze, and build ML models with in-database execution.
 
 **Core Features:**
 
@@ -129,31 +129,31 @@ Key Capabilities
 
 **In-Database Data Preparation:**
 
-✅ Clean and transform data directly in VAST  
-✅ Handle missing values, outliers, duplicates  
-✅ Feature engineering at any scale  
-✅ Statistical profiling and validation  
+ - |check| Clean and transform data directly in VAST  
+ - |check| Handle missing values, outliers, duplicates  
+ - |check| Feature engineering at any scale  
+ - |check| Statistical profiling and validation  
 
 **Interactive Exploration:**
 
-✅ Generate charts with intelligent sampling  
-✅ Analyze distributions and correlations  
-✅ Discover patterns and anomalies  
-✅ Visualize billions of rows instantly  
+ - |check| Generate charts with intelligent sampling  
+ - |check| Analyze distributions and correlations  
+ - |check| Discover patterns and anomalies  
+ - |check| Visualize billions of rows instantly  
 
 **Multi-Source Analytics:**
 
-✅ Query VAST tables and files  
-✅ Access external databases (PostgreSQL, MySQL, MongoDB)  
-✅ Join across sources  
-✅ Unified Python API  
+ - |check| Query VAST tables and files  
+ - |check| Access external databases (PostgreSQL, MySQL, MongoDB)  
+ - |check| Join across sources  
+ - |check| Unified Python API  
 
 **In-Database ML:**
 
-✅ 10 embedded algorithms ready to use  
-✅ Import sklearn models  
-✅ In-database inference in VAST  
-✅ Production-scale scoring  
+ - |check| 10 embedded algorithms ready to use  
+ - |check| Import sklearn models  
+ - |check| In-database inference in VAST  
+ - |check| Production-scale scoring  
 
 ____
 
@@ -183,13 +183,13 @@ Getting Started
 - :ref:`getting_started` - Installation and setup
 - :ref:`user_guide` - Data preparation and analytics
 - :ref:`chart_gallery` - Visualization examples
-- :ref:`machine_learning` - ML workflows
+- :ref:`api.machine_learning` - ML workflows
 - :ref:`api` - Complete API reference
 - :ref:`examples` - Hands-on tutorials
 
 **Support:**
 
-- Slack: vastsupport.slack.com
+- Slack: `vastsupport.slack.com <https://vastsupport.slack.com>`_
 - GitHub: https://github.com/vastdata-dev/vastorbit
 
 ____
@@ -214,7 +214,7 @@ ____
 Thank You
 ---------
 
-Thank you for being an early adopter of VastOrbit. Your feedback shapes the future of data science on VAST Database.
+Thank you for being an early adopter of VAST Orbit. Your feedback shapes the future of data science on VAST Database.
 
 **Get Involved:**
 
@@ -223,4 +223,4 @@ Thank you for being an early adopter of VastOrbit. Your feedback shapes the futu
 - Share your use cases
 - Contribute ideas for new features
 
-Happy analyzing with VAST! 🚀
+Happy analyzing with VAST! |i-start|

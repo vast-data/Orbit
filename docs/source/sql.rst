@@ -13,7 +13,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 🔧 Functions
+        .. card:: |i-funcs| Functions
             :link: api.sql.functions
             :link-type: ref
             :text-align: center
@@ -23,7 +23,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 🛠️ Utilities
+        .. card:: |i-functions| Utilities
             :link: api.sql.utils
             :link-type: ref
             :text-align: center
@@ -33,7 +33,7 @@ ____
 
     .. grid-item::
     
-        .. card:: 🗺️ Geospatial
+        .. card:: |i-geo| Geospatial
             :link: api.sql.geospatial
             :link-type: ref
             :text-align: center

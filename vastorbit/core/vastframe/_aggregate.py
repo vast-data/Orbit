@@ -479,12 +479,12 @@ class vDFAgg(vDFEval):
 
                 elif fun.lower() in ("prod", "product"):
                     expr = f"""
-                        DECODE(ABS(MOD(SUM(
+                        CASE WHEN ABS(MOD(SUM(
                             CASE 
                                 WHEN {cast_b}{column}{cast_e} < 0 THEN 1 
                                 ELSE 0 
                             END), 
-                        2)), 0, 1, -1) * 
+                        2)) = 0 THEN 1 ELSE -1 END * 
                         POWER(10, SUM(LOG(ABS({cast_b}{column}{cast_e}))))"""
 
                 elif fun.lower() in ("percent", "count_percent"):
@@ -536,8 +536,6 @@ class vDFAgg(vDFEval):
                         LIMIT 1""",
                     title="Computing the different aggregations.",
                     method="fetchrow",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
             result = list(res)
             try:
@@ -582,8 +580,6 @@ class vDFAgg(vDFEval):
                         query,
                         title="Computing the different aggregations using UNION ALL.",
                         method="fetchall",
-                        sql_push_ext=self._vars["sql_push_ext"],
-                        symbol=self._vars["symbol"],
                     )
 
                 for idx, elem in enumerate(result):
@@ -612,8 +608,6 @@ class vDFAgg(vDFEval):
                                         "Computing the different aggregations one "
                                         "VastColumn at a time."
                                     ),
-                                    sql_push_ext=self._vars["sql_push_ext"],
-                                    symbol=self._vars["symbol"],
                                 )
                                 pre_comp_val = []
                                 break
@@ -641,8 +635,6 @@ class vDFAgg(vDFEval):
                                         "VastColumn & one agg at a time."
                                     ),
                                     method="fetchfirstelem",
-                                    sql_push_ext=self._vars["sql_push_ext"],
-                                    symbol=self._vars["symbol"],
                                 )
                             else:
                                 result = pre_comp
@@ -3282,8 +3274,6 @@ class vDFAgg(vDFEval):
                     FROM {main_table}""",
                 title="Computing the number of duplicates.",
                 method="fetchfirstelem",
-                sql_push_ext=self._vars["sql_push_ext"],
-                symbol=self._vars["symbol"],
             )
             return total
         result = TableSample.read_sql(
@@ -3294,8 +3284,6 @@ class vDFAgg(vDFEval):
                 FROM {main_table} 
                 GROUP BY {columns} 
                 ORDER BY occurrence DESC LIMIT {limit}""",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
         result.count = _executeSQL(
             query=f"""
@@ -3309,8 +3297,6 @@ class vDFAgg(vDFEval):
                      GROUP BY {columns}) t""",
             title="Computing the number of distinct duplicates.",
             method="fetchfirstelem",
-            sql_push_ext=self._vars["sql_push_ext"],
-            symbol=self._vars["symbol"],
         )
         return result
 
@@ -3692,8 +3678,6 @@ class vDCAgg(vDCEval):
                         FROM {self._parent}) 
                         {' UNION ALL '.join(query)}""",
                 title=f"Describes the statics of {numcol} partitioned by {self}.",
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             ).values
         elif (
             ((distinct_count < max_cardinality + 1) and (method != "numerical"))
@@ -3729,8 +3713,6 @@ class vDCAgg(vDCEval):
                          FROM {self._parent}) {query}""",
                 title=f"Computing the descriptive statistics of {self}.",
                 method="fetchall",
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             )
             result = [distinct_count, self.count()] + [item[1] for item in query_result]
             index = ["unique", "count"] + [item[0] for item in query_result]
@@ -4650,8 +4632,6 @@ class vDCAgg(vDCEval):
                 LIMIT 1""",
             title="Computing the mode.",
             method="fetchall",
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
         )
         top = None if not result else result[0][0]
         if not dropna:
@@ -4825,8 +4805,6 @@ class vDCAgg(vDCEval):
             {limit}""",
             title=f"Computing the top{topk_cat} categories of {self}.",
             method="fetchall",
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
         )
         values = {
             "index": [item[0] for item in result],
@@ -4903,8 +4881,6 @@ class vDCAgg(vDCEval):
             query=query,
             title=f"Computing the distinct categories of {self}.",
             method="fetchall",
-            sql_push_ext=self._parent._vars["sql_push_ext"],
-            symbol=self._parent._vars["symbol"],
         )
         return [item for sublist in query_result for item in sublist]
 

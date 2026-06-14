@@ -10,17 +10,17 @@ Complete guide to generating professional API documentation with Sphinx and reSt
 
 ____
 
-📚 Getting Started
+Getting Started
 ------------------
 
-VastOrbit uses **Sphinx** for documentation generation and **reStructuredText (RST)** as the markup language. RST provides clear, readable documentation writing, and Sphinx generates HTML and other formats from RST files.
+VAST Orbit uses **Sphinx** for documentation generation and **reStructuredText (RST)** as the markup language. RST provides clear, readable documentation writing, and Sphinx generates HTML and other formats from RST files.
 
 **Learning Path:**
 
-1. ✅ Read the reStructuredText (RST) syntax basics below
-2. ✅ Explore Sphinx documentation and configuration
-3. ✅ Practice with :ref:`contribution_guidelines.code.auto_doc.example`
-4. ✅ Use :ref:`contribution_guidelines.code.auto_doc.render` to preview changes
+1. Read the reStructuredText (RST) syntax basics below
+2. Explore Sphinx documentation and configuration
+3. Practice with :ref:`contribution_guidelines.code.auto_doc.example`
+4. Use :ref:`contribution_guidelines.code.auto_doc.render` to preview changes
 
 .. tip::
 
@@ -34,7 +34,7 @@ VastOrbit uses **Sphinx** for documentation generation and **reStructuredText (R
 
 ____
 
-🔧 Environment Setup
+Environment Setup
 --------------------
 
 Complete Sphinx Environment Configuration
@@ -66,7 +66,7 @@ Download and unzip the essential Sphinx files (make file and source folder) and 
 Edit ``docs/source/conf.py`` with special attention to:
 
 - **copyright year** - Update to current year
-- **release version** - Match VastOrbit version
+- **release version** - Match VAST Orbit version
 - **rst_prolog** - Content added to top of every RST file (imports, settings)
 
 Example rst_prolog:
@@ -74,7 +74,7 @@ Example rst_prolog:
 .. code-block:: python
 
    rst_prolog = """
-   .. |vo| replace:: VastOrbit
+   .. |vo| replace:: VAST Orbit
    
    .. ipython:: python
       :suppress:
@@ -90,7 +90,7 @@ Example rst_prolog:
 
    pip install -r docs/requirements.txt
 
-**6. Install VastOrbit**
+**6. Install VAST Orbit**
 
 .. code-block:: bash
 
@@ -109,7 +109,7 @@ Navigate to docs folder and run:
    cd docs
    python3 replace_sphinx_dir.py
 
-This updates all directory paths inside VastOrbit code for Sphinx.
+This updates all directory paths inside VAST Orbit code for Sphinx.
 
 **8. Build HTML Documentation**
 
@@ -158,7 +158,7 @@ For convenience, use the ``refresh.sh`` script after making code/docstring chang
 
 ____
 
-📖 RST Syntax Guide
+RST Syntax Guide
 -------------------
 
 Headers and Subheaders
@@ -175,8 +175,8 @@ Use ``--------`` underneath text to mark as header:
 
 **This renders as:**
 
-Function Name
--------------
+.. rubric:: Function Name
+
 
 ----
 
@@ -202,17 +202,17 @@ Use ``=======`` for main sections and ``-------`` for subsections:
 
 **This renders as:**
 
-Parameters
-==========
+.. rubric:: Parameters
+
 method: str, optional
     Description here.
 
-Subsection
-----------
+.. rubric:: Subsection
+
 Some text here.
 
-Returns
-=======
+.. rubric:: Returns
+
 float
     Return value description.
 
@@ -249,8 +249,8 @@ Line spacing and indentation must be carefully managed. Without line breaks, all
 
 **This renders as:**
 
-Parameters
-----------
+.. rubric:: Parameters
+
 method: str, optional
     Method used to compute the optimal h.
         | auto : Combination of Freedman Diaconis and Sturges.
@@ -277,8 +277,8 @@ method: str, optional
 
 **This renders as:**
 
-Parameters
-----------
+.. rubric:: Parameters
+
 method: str, optional
     Method used to compute the optimal h.
         auto : Combination of Freedman Diaconis and Sturges.
@@ -306,10 +306,13 @@ method: str, optional
 
 **This renders as:**
 
-Parameters
-----------
+.. rubric:: Parameters
+
 method: str, optional
     Method used to compute the optimal h.
+
+    ::
+
         auto              : Combination of Freedman Diaconis
                             and Sturges.
         freedman_diaconis : Freedman Diaconis
@@ -519,7 +522,7 @@ Lists
 
 ____
 
-📊 Plotting and Visualizations
+Plotting and Visualizations
 -------------------------------
 
 Matplotlib Plots
@@ -609,8 +612,8 @@ Image File Naming Convention
 
 ----
 
-VastOrbit Plots
-~~~~~~~~~~~~~~~
+VAST Orbit Plots
+~~~~~~~~~~~~~~~~
 
 **Matplotlib Backend:**
 
@@ -634,7 +637,7 @@ VastOrbit Plots
    @savefig vastorbit_plot.png
    data.bar("counts")
 
-*(Notice: VastOrbit plot saved as PNG and displayed inline)*
+*(Notice: VAST Orbit plot saved as PNG and displayed inline)*
 
 ----
 
@@ -661,7 +664,7 @@ For Plotly charts, you need to save as HTML and include it:
    **Important Differences:**
    
    - **Matplotlib**: Save as PNG with ``@savefig filename.png``
-   - **Plotly/Highcharts**: Save as HTML with ``fig.write_html()`` and include with ``.. raw:: html``
+   - **Plotly**: Save as HTML with ``fig.write_html()`` and include with ``.. raw:: html``
 
 ----
 
@@ -741,7 +744,7 @@ HTML File Naming Convention
 
 ____
 
-📋 Tables
+Tables
 ---------
 
 CSV Table Directive
@@ -802,7 +805,7 @@ More control but more complex:
 
 ____
 
-📝 Admonitions and Directives
+Admonitions and Directives
 ------------------------------
 
 See Also
@@ -884,13 +887,13 @@ Notes, Warnings, and More
 
 ____
 
-✍️ Docstring Standards
+Docstring Standards
 -----------------------
 
 NumPy Style Template
 ~~~~~~~~~~~~~~~~~~~~
 
-VastOrbit follows NumPy docstring conventions. Here's a complete template:
+VAST Orbit follows NumPy docstring conventions. Here's a complete template:
 
 .. code-block:: python
 
@@ -971,13 +974,13 @@ Best Practices
 
 **Key Points:**
 
-- ✅ Use NumPy docstring style consistently across all functions
-- ✅ Include complete type hints in function signature (e.g., ``param: str``)
-- ✅ Provide at least one working example that users can copy-paste
-- ✅ Cross-reference related functions with ``:py:func:`` directive
-- ✅ Keep descriptions clear, concise, and user-focused
-- ✅ Use proper RST formatting in docstrings (code blocks, lists, etc.)
-- ✅ Test that all examples actually work before committing
+- |check| Use NumPy docstring style consistently across all functions
+- |check| Include complete type hints in function signature (e.g., ``param: str``)
+- |check| Provide at least one working example that users can copy-paste
+- |check| Cross-reference related functions with ``:py:func:`` directive
+- |check| Keep descriptions clear, concise, and user-focused
+- |check| Use proper RST formatting in docstrings (code blocks, lists, etc.)
+- |check| Test that all examples actually work before committing
 
 **Common Sections (in order):**
 
@@ -1002,7 +1005,7 @@ Best Practices
 
 **Example of good vs bad:**
 
-❌ **Bad:**
+|cross| **Bad:**
 
 .. code-block:: python
 
@@ -1010,7 +1013,7 @@ Best Practices
        """Process data."""
        return x + y
 
-✅ **Good:**
+|check| **Good:**
 
 .. code-block:: python
 
@@ -1040,7 +1043,7 @@ Best Practices
 
 ____
 
-🔗 Useful Resources
+Useful Resources
 -------------------
 
 **reStructuredText (RST):**
@@ -1062,7 +1065,7 @@ ____
 - `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_ - Standard docstring format we follow
 - `Sphinx Napoleon <https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`_ - Extension for parsing NumPy docstrings
 
-**VastOrbit Specific:**
+**VAST Orbit Specific:**
 
 - :ref:`contribution_guidelines.code.auto_doc.example` - Complete documentation examples
 - :ref:`contribution_guidelines.code.auto_doc.render` - Preview documentation locally

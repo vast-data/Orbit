@@ -12,49 +12,6 @@ from vastorbit.tests.plotting.base_test_files import VDCPiePlot, NestedVDFPiePlo
 all_elements = {"1", "0", "A", "B", "C"}
 
 
-class TestPlotlyHighchartsVDCPiePlot(VDCPiePlot):
-    """
-    Testing different attributes of Pie plot on a VastColumn
-    """
-
-    def test_data_0_values(self, dummy_vd):
-        """
-        Test data for "0" category values
-        """
-        # Arrange
-        # Act
-        # Assert - check value corresponding to 0s
-        assert (
-            self.result.data[0]["values"][0]
-            == dummy_vd[dummy_vd[self.COL_NAME] == 0][self.COL_NAME].count()
-            / dummy_vd[self.COL_NAME].count()
-        )
-
-    def test_data_1_values(self, dummy_vd):
-        """
-        Test data for "1" category values
-        """
-        # Arrange
-        # Act
-        # Assert - check value corresponding to 0s
-        assert (
-            self.result.data[0]["values"][1]
-            == dummy_vd[dummy_vd[self.COL_NAME] == 1][self.COL_NAME].count()
-            / dummy_vd[self.COL_NAME].count()
-        )
-
-    def test_properties_labels(self, dummy_vd):
-        """
-        Test plot labels
-        """
-        # Arrange
-        # Act
-        # Assert - check value corresponding to 0s
-        assert set(self.result.data[0]["labels"]) == set(
-            dummy_vd.to_pandas()[self.COL_NAME].unique()
-        )
-
-
 class TestPlotlyNestedVDFPiePlot(NestedVDFPiePlot):
     """
     Testing different attributes of Pie plot on a VastFrame

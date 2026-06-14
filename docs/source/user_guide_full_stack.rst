@@ -12,7 +12,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🗺️ GeoPandas Integration
+        .. card:: |i-geo| GeoPandas Integration
             :link: user_guide.full_stack.geopandas
             :link-type: ref
             :text-align: center
@@ -26,7 +26,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 📈 Linear Regression
+        .. card:: |i-stats| Linear Regression
             :link: user_guide.full_stack.linear_regression
             :link-type: ref
             :text-align: center
@@ -40,7 +40,7 @@ ____
 
     .. grid-item::
 
-        .. card:: ✂️ Train/Test Split
+        .. card:: |i-sample| Train/Test Split
             :link: user_guide.full_stack.train_test_split
             :link-type: ref
             :text-align: center
@@ -54,7 +54,7 @@ ____
 
     .. grid-item::
 
-        .. card:: ✨ Magic Methods
+        .. card:: |i-magic| Magic Methods
             :link: user_guide.full_stack.vastframe_magic
             :link-type: ref
             :text-align: center

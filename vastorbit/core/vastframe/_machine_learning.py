@@ -344,8 +344,7 @@ class vDFMachineLearning(vDFScaler):
         response: str,
         columns: SQLColumns,
         nbins: int = 4,
-        method: Literal["smart", "same_width"] = "same_width",
-        RFmodel_params: Optional[dict] = None,
+        method: Literal["same_width"] = "same_width",
         **kwargs,
     ) -> NonBinaryTree:
         """
@@ -371,21 +370,6 @@ class vDFMachineLearning(vDFScaler):
 
             - same_width:
                 Computes  bins of regular  width.
-            - smart:
-                Uses a  random forest model on a
-                response column to find the best
-                interval for discretization.
-
-        RFmodel_params: dict, optional
-            Dictionary  of the  parameters of the random  forest
-            model used to compute  the best splits  when 'method'
-            is 'smart'. If the response column is numerical (but
-            not  of type int or bool), this function trains  and
-            uses  a random  forest  regressor.  Otherwise,  this
-            function trains a random forest classifier.
-            For example,  to train a random forest with 20 trees
-            and a maximum depth of 10, use:
-            ``{"n_estimators": 20, "max_depth": 10}``
 
         Returns
         -------
@@ -453,7 +437,6 @@ class vDFMachineLearning(vDFScaler):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.chaid_columns` :
                 Returns the columns picked by the CHAID algorithm
         """
-        RFmodel_params = format_type(RFmodel_params, dtype=dict)
         if "process" not in kwargs or kwargs["process"]:
             columns = format_type(columns, dtype=list)
             assert 2 <= nbins <= 16, ValueError(
@@ -463,7 +446,7 @@ class vDFMachineLearning(vDFScaler):
             if not columns:
                 raise ValueError("No column to process.")
         idx = 0 if ("node_id" not in kwargs) else kwargs["node_id"]
-        p = self.pivot_table_chi2(response, columns, nbins, method, RFmodel_params)
+        p = self.pivot_table_chi2(response, columns, nbins, method)
         categories, split_predictor, is_numerical, chi2 = (
             p["categories"][0],
             p["index"][0],
@@ -532,8 +515,6 @@ class vDFMachineLearning(vDFScaler):
                         ORDER BY 1;""",
                     title="Computing the CHAID tree probability.",
                     method="fetchall",
-                    sql_push_ext=self._vars["sql_push_ext"],
-                    symbol=self._vars["symbol"],
                 )
             else:
                 result = []
@@ -579,7 +560,6 @@ class vDFMachineLearning(vDFScaler):
                     columns_tmp,
                     nbins,
                     method,
-                    RFmodel_params,
                     process=False,
                     columns_init=columns,
                     classes=classes,
@@ -828,8 +808,7 @@ class vDFMachineLearning(vDFScaler):
         response: str,
         columns: Optional[SQLColumns] = None,
         nbins: int = 16,
-        method: Literal["smart", "same_width"] = "same_width",
-        RFmodel_params: Optional[dict] = None,
+        method: Literal["same_width"] = "same_width",
     ) -> TableSample:
         """
         Returns the chi-square term using the pivot
@@ -855,23 +834,6 @@ class vDFMachineLearning(vDFScaler):
 
             - same_width:
                 Computes  bins of regular  width.
-            - smart:
-                Uses a  random forest model on a
-                response column to find the best
-                interval for discretization.
-
-        RFmodel_params: dict, optional
-            Dictionary  of the  parameters of the
-            random  forest model used to compute
-            the best splits  when ``method = smart``.
-            If the response column is numerical (but
-            not  of type ``int`` or ``bool``), this
-            function trains  and uses a
-            ``RandomForestRegressor``. Otherwise, this
-            function trains a ``RandomForestClassifier``.
-            For example,  to train a random forest with
-            20 trees and a maximum depth of 10, use:
-            ``{"n_estimators": 20, "max_depth": 10}``
 
         Returns
         -------
@@ -932,7 +894,6 @@ class vDFMachineLearning(vDFScaler):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.chaid` :
                 Returns a CHAID (Chi-square Automatic Interaction Detector) tree.
         """
-        RFmodel_params = format_type(RFmodel_params, dtype=dict)
         columns = format_type(columns, dtype=list)
         columns, response = self.format_colnames(columns, response)
         assert 2 <= nbins <= 16, ValueError(
@@ -959,7 +920,6 @@ class vDFMachineLearning(vDFScaler):
                     method=method,
                     nbins=nbins,
                     response=response,
-                    RFmodel_params=RFmodel_params,
                 )
         response = vdf.format_colnames(response)
         if response in columns:

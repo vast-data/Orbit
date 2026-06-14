@@ -15,7 +15,7 @@ import plotly
 @pytest.fixture(scope="module")
 def plotting_library_object():
     """
-    Set default plotting object to highcharts
+    Set default plotting object to plotly
     """
     return plotly.graph_objs.Figure
 
@@ -23,7 +23,7 @@ def plotting_library_object():
 @pytest.fixture(scope="session", autouse=True)
 def load_plotlib():
     """
-    Set default plotting library to highcharts
+    Set default plotting library to plotly
     """
     conf.set_option("plotting_lib", "plotly")
     yield

@@ -6,9 +6,9 @@ Connection
 
 .. include:: logo_include.rst
 
-**Connecting to VAST Data Platform with VastOrbit**
+**Connecting to VAST Data Platform with VAST Orbit**
 
-VastOrbit connects to the VAST Data Platform through Trino, the powerful distributed SQL query engine. This connection unlocks access to VAST DataBase tables, data lake files, and any other Trino-supported data source - all through one unified Python API.
+VAST Orbit connects to the VAST Data Platform through Trino, the powerful distributed SQL query engine. This connection unlocks access to VAST DataBase tables, data lake files, and any other Trino-supported data source - all through one unified Python API.
 
 .. important::
 
@@ -17,7 +17,7 @@ VastOrbit connects to the VAST Data Platform through Trino, the powerful distrib
 Connection Overview
 -------------------
 
-VastOrbit leverages **Trino** as the query engine to access:
+VAST Orbit leverages **Trino** as the query engine to access:
 
 - **VAST DataBase**: Tables in VAST's unified transactional/analytical database
 - **Data Lake Files**: Parquet, CSV, JSON files in S3/VAST DataStore
@@ -34,7 +34,7 @@ This federated architecture means you can:
 
 .. note::
 
-   VastOrbit uses the `trino-python-client <https://github.com/trinodb/trino-python-client>`_ under the hood, providing full access to Trino's capabilities.
+   VAST Orbit uses the `trino-python-client <https://github.com/trinodb/trino-python-client>`_ under the hood, providing full access to Trino's capabilities.
 
 Quick Start Connection
 ----------------------
@@ -130,7 +130,7 @@ Connection Methods
 
          vo.new_connection(conn_info)
 
-      This connection is now active for all VastOrbit operations.
+      This connection is now active for all VAST Orbit operations.
 
    .. tab-item:: Method 2: Environment Variables
 
@@ -177,7 +177,7 @@ Connection Methods
              http_scheme='https'
          )
 
-         # Set as VastOrbit connection
+         # Set as VAST Orbit connection
          vo.set_connection(conn)
 
 Authentication
@@ -246,7 +246,7 @@ Enterprise SSO:
 Multi-Catalog Access
 --------------------
 
-VastOrbit's power comes from accessing multiple catalogs (data sources) through Trino.
+VAST Orbit's power comes from accessing multiple catalogs (data sources) through Trino.
 
 Setting Up Catalogs
 ^^^^^^^^^^^^^^^^^^^
@@ -472,7 +472,7 @@ Create external tables on-the-fly:
    # Define file location and format
    file_location = 's3://data-lake/sales/2024/'
    
-   # Query directly (VastOrbit creates temp external table)
+   # Query directly (VAST Orbit creates temp external table)
    vdf = vo.read_parquet(file_location, catalog='hive', schema='temp')
 
 Troubleshooting
@@ -616,14 +616,14 @@ Complete production-ready connection setup:
 Conclusion
 ==========
 
-VastOrbit's connection to the VAST Data Platform via Trino unlocks endless possibilities:
+VAST Orbit's connection to the VAST Data Platform via Trino unlocks endless possibilities:
 
 ✓ Query VAST DataBase tables  
 ✓ Access data lake files directly  
 ✓ Join across multiple data sources  
 ✓ Use familiar Python syntax for everything  
 
-With your connection established, you're ready to explore the full power of VastOrbit for federated analytics and AI development.
+With your connection established, you're ready to explore the full power of VAST Orbit for federated analytics and AI development.
 
 .. seealso::
 

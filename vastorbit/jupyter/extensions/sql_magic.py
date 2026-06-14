@@ -23,7 +23,6 @@ from vastorbit._utils._parsers import parse_explain_graphviz
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._check import is_procedure
-from vastorbit._utils._sql._dblink import replace_external_queries
 from vastorbit._utils._sql._format import (
     clean_query,
     replace_vars_in_query,
@@ -750,15 +749,6 @@ def sql_magic(
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/jupyter_extensions_sql_magic_sql_magic_14.html
-
-    Connect to an external database
-    ================================
-
-    Since v0.12.0, it is possible to
-    connect to external Databases using
-    the connection symbol. Detailled
-    examples are available in
-    :ref:`user_guide.full_stack.db_link`
     """
 
     # We don't want to display the query/time twice if
@@ -849,24 +839,6 @@ def sql_magic(
         # Cleaning the Query
         queries = clean_query(queries)
         queries = replace_vars_in_query(queries, locals()["local_ns"])
-        queries = replace_external_queries(queries)
-
-        # Looking at very specific external queries symbols
-        gb_conn = get_global_connection()
-        for s in gb_conn.special_symbols:
-            external_queries = re.findall(
-                f"\\{s}\\{s}\\{s}(.*?)\\{s}\\{s}\\{s}", queries
-            )
-            warning_message = (
-                "External Query detected but no corresponding Connection "
-                f"Identifier Database is defined (Using the symbol '{s}'). "
-                "Use the function connect.set_external_connection to set "
-                "one with the correct symbol."
-            )
-
-            if external_queries:
-                print_message(warning_message, "warning")
-
         n, i, all_split = len(queries), 0, []
 
         while i < n and queries[n - i - 1] in (";", " ", "\n"):
@@ -971,14 +943,7 @@ def sql_magic(
                 except Exception as e:
                     error = str(e)
 
-                if (
-                    "Severity: ERROR, Message: User defined transform must return at least one column"
-                    in error
-                    and "DBLINK" in error
-                ):
-                    print_message(query_type)
-
-                elif error:
+                if error:
                     raise QueryError(error)
 
                 else:
@@ -1038,16 +1003,7 @@ def sql_magic(
                     except Exception as e:
                         error = str(e)
 
-                # If it fails because no elements were returned in the DBLINK UDx
-                # - we do not display the error message
-                if (
-                    "Severity: ERROR, Message: User defined transform must return at least one column"
-                    in error
-                    and "DBLINK" in error
-                ):
-                    print_message(query_type)
-
-                elif error:
+                if error:
                     raise QueryError(error)
 
         # Exporting the result

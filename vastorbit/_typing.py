@@ -13,12 +13,6 @@ if TYPE_CHECKING:
     from matplotlib.pyplot import Figure as mFigure
     from plotly.graph_objs._figure import Figure
 
-    try:
-        from vertica_highcharts import Highchart, Highstock
-    except:
-        Highchart = type(None)
-        Highstock = type(None)
-
     from vastorbit.core.vastframe.base import VastFrame
     from vastorbit.core.string_sql.base import StringSQL
     from vastorbit.core.tablesample.base import TableSample
@@ -47,9 +41,8 @@ SQLExpression = Annotated[Union[str, list[str], "StringSQL", list["StringSQL"]],
 SQLRelation = Annotated[Union[str, "VastFrame"], ""]
 
 # Plotting data types.
-HChart = Union["Highchart", "Highstock"]
 PlottingObject = Union[
-    "PlottingBase", "TableSample", "Axes", "mFigure", "Highchart", "Highstock", "Figure"
+    "PlottingBase", "TableSample", "Axes", "mFigure", "Figure"
 ]
 PlottingMethod = Union[
     Literal[None, "density", "count", "avg", "min", "max", "sum"], str

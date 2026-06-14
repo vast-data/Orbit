@@ -737,13 +737,11 @@ class vDCEncode(vDCFill):
     @save_vastorbit_logs
     def discretize(
         self,
-        method: Literal["auto", "smart", "same_width", "same_freq", "topk"] = "auto",
+        method: Literal["auto", "same_width", "same_freq", "topk"] = "auto",
         h: PythonNumber = 0,
         nbins: int = -1,
         k: int = 6,
         new_category: str = "Others",
-        RFmodel_params: Optional[dict] = None,
-        response: Optional[str] = None,
         return_enum_trans: bool = False,
     ) -> "VastFrame":
         """
@@ -761,10 +759,6 @@ class vDCEncode(vDCFill):
                 Computes bins  with the same number of elements.
             - same_width:
                 Computes regular width bins.
-            - smart:
-                Uses  the Random  Forest on a  response
-                column  to   find   the  most  relevant
-                interval to use for the discretization.
             - topk:
                 Keeps the topk most frequent categories
                 and  merge the  other  into one  unique
@@ -780,15 +774,6 @@ class vDCEncode(vDCFill):
         new_category: str, optional
             The  name of the  merging  category when using the  'topk'
             method.
-        RFmodel_params: dict, optional
-            Dictionary  of the  Random Forest  model  parameters used  to
-            compute the best splits when 'method' is set to 'smart'.
-            A RF Regressor is  trained if  the response is numerical
-            (except ints and bools), a RF Classifier otherwise.
-            Example: Write {"n_estimators": 20, "max_depth": 10} to train
-            a Random Forest with 20 trees and a maximum depth of 10.
-        response: str, optional
-            Response VastColumn when method is set to 'smart'.
         return_enum_trans: bool, optional
             Returns  the transformation instead of the VastFrame parent,
             and does not apply the transformation. This parameter is
@@ -955,58 +940,6 @@ class vDCEncode(vDCFill):
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/core_VastFrame_encoding_discretize6.html
 
-        Let's discretize "age" using a response column distribution.
-
-        .. note::
-
-            While discretizing using a response column distribution,
-            a Random Forest Model will be created.
-
-        .. code-block:: python
-
-            data = vod.load_titanic()
-            data["age"].discretize(
-                method = "smart",
-                response = "survived",
-                nbins = 6,
-                RFmodel_params = {"n_estimators": 20},
-            )
-            data["age"].topk()
-
-        .. ipython:: python
-            :suppress:
-            :okwarning:
-
-            data = vod.load_titanic()
-            data["age"].discretize(
-                method = "smart",
-                response = "survived",
-                nbins = 6,
-                RFmodel_params = {"n_estimators": 20},
-            )
-            res = data["age"].topk()
-            html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_encoding_discretize7.html", "w")
-            html_file.write(res._repr_html_())
-            html_file.close()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/core_VastFrame_encoding_discretize7.html
-
-        Let's look at the distribution of age again.
-
-        .. code-block:: python
-
-            data["age"].bar()
-
-        .. ipython:: python
-            :suppress:
-
-            res = data["age"].bar()
-            res.write_html("SPHINX_DIRECTORY/figures/core_VastFrame_encoding_discretize8.html")
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/core_VastFrame_encoding_discretize8.html
-
         .. seealso::
 
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.decode` : User Defined Encoding.
@@ -1014,70 +947,8 @@ class vDCEncode(vDCFill):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.mean_encode` : Mean Encoding.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.one_hot_encode` : One Hot Encoding.
         """
-        RFmodel_params = format_type(RFmodel_params, dtype=dict)
         vml = get_VAST_mllib()
-        if self.isnum() and method == "smart":
-            raise NotImplementedError
-            schema = conf.get_option("temp_schema")
-            tmp_view_name = gen_tmp_name(schema=schema, name="view")
-            assert nbins >= 2, ValueError(
-                "Parameter 'nbins' must be greater or equals to 2 in case "
-                "of discretization using the method 'smart'."
-            )
-            assert response, ValueError(
-                "Parameter 'response' can not be empty in case of "
-                "discretization using the method 'smart'."
-            )
-            response = self._parent.format_colnames(response)
-            drop(tmp_view_name, method="view")
-            self._parent.to_db(tmp_view_name)
-            if self._parent[response].category() == "float":
-                model = vml.RandomForestRegressor()
-            else:
-                model = vml.RandomForestClassifier()
-            model.set_params({"n_estimators": 20, "max_depth": 8, "nbins": 100})
-            model.set_params(RFmodel_params)
-            parameters = model.get_params()
-            try:
-                model.fit(
-                    tmp_view_name,
-                    [self._alias],
-                    response,
-                    return_report=True,
-                )
-                query = [
-                    f"""
-                    (SELECT 
-                        READ_TREE(USING PARAMETERS 
-                            model_name = '{model.model_name}', 
-                            tree_id = {i}, 
-                            format = 'tabular'))"""
-                    for i in range(parameters["n_estimators"])
-                ]
-                query = f"""
-                    SELECT 
-                        /*+LABEL('VastColumn.discretize')*/ split_value 
-                    FROM 
-                        (SELECT 
-                            split_value, 
-                            MAX(weighted_information_gain) 
-                        FROM ({' UNION ALL '.join(query)}) VASTORBIT_SUBTABLE 
-                        WHERE split_value IS NOT NULL 
-                        GROUP BY 1 ORDER BY 2 DESC LIMIT {nbins - 1}) VASTORBIT_SUBTABLE 
-                    ORDER BY split_value::float"""
-                result = _executeSQL(
-                    query=query,
-                    title="Computing the optimized histogram nbins using Random Forest.",
-                    method="fetchall",
-                    sql_push_ext=self._parent._vars["sql_push_ext"],
-                    symbol=self._parent._vars["symbol"],
-                )
-                result = [x[0] for x in result]
-            finally:
-                drop(tmp_view_name, method="view")
-                model.drop()
-            result = [self.min()] + result + [self.max()]
-        elif method == "topk":
+        if method == "topk":
             assert k >= 2, ValueError(
                 "Parameter 'k' must be greater or equals to 2 in "
                 "case of discretization using the method 'topk'"
@@ -1123,8 +994,6 @@ class vDCEncode(vDCFill):
                 query=query,
                 title="Computing the equal frequency histogram bins.",
                 method="fetchall",
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             )
             result = [elem[0] for elem in result]
         elif self.isnum() and not (self.isbool()) and method in ("same_width", "auto"):
@@ -1152,9 +1021,7 @@ class vDCEncode(vDCFill):
                 trans = ("CAST(FLOOR({}) AS VARCHAR)", "varchar", "text")
         else:
             trans = ("CAST({} AS VARCHAR)", "varchar", "text")
-        if (self.isnum() and method == "same_freq") or (
-            self.isnum() and method == "smart"
-        ):
+        if (self.isnum() and method == "same_freq"):
             n = len(result)
             trans = "(CASE "
             for i in range(1, n):

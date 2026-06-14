@@ -380,21 +380,6 @@ class KNeighborsRegressor(Regressor):
     .. ipython:: python
 
         model.set_params({'n_neighbors': 3})
-
-    Model Register
-    ^^^^^^^^^^^^^^
-
-    In order to register the model
-    for tracking and versioning:
-
-    .. code-block:: python
-
-        model.register("model_v1")
-
-    Please refer to
-    :ref:`/notebooks/ml/model_tracking_versioning/index.ipynb`
-    for more details on model
-    tracking and versioning.
     """
 
     # Properties.
@@ -1812,10 +1797,7 @@ class KNeighborsClassifier(MulticlassClassifier):
                 f"""
                 SELECT
                     {', '.join(self.X)},
-                    COALESCE(AVG(DECODE(predict_neighbors, 
-                                          '{pos_label}', 
-                                          proba_predict, 
-                                          NULL)), 0) AS {{0}}
+                    COALESCE(AVG(CASE WHEN predict_neighbors = '{pos_label}' THEN proba_predict ELSE NULL), 0) AS {{0}}
                 FROM """
                 + self.deploySQL(X=self.X, test_relation="{1}")
                 + f" GROUP BY {', '.join(self.X)}"

@@ -17,34 +17,12 @@ Geospatial Functions
    :toctree: api/
    
    coordinate_converter
-   intersect
    split_polygon_n
-
-____
-
-Index Functions
----------------
-
-.. currentmodule:: vastorbit.sql.geo
-
-.. autosummary:: 
-   :toctree: api/
-   
-   create_index
-   describe_index
-   rename_index
 
 ____
 
 Import/Export
 -------------
-
-.. currentmodule:: vastorbit
-
-.. autosummary:: 
-   :toctree: api/
-   
-   read_shp
 
 **VastFrame Methods:**
 

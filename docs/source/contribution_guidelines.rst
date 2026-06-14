@@ -6,11 +6,11 @@ Contribution Guidelines
 
 .. include:: logo_include.rst
 
-Help us improve VastOrbit - bug reports, feature requests, and code contributions welcome!
+Help us improve VAST Orbit - bug reports, feature requests, and code contributions welcome!
 
 ____
 
-🛠️ Code Contributions
+Code Contributions
 ----------------------
 
 Ready to contribute code? Follow our development workflow and quality standards.
@@ -23,7 +23,7 @@ Ready to contribute code? Follow our development workflow and quality standards.
 
 ____
 
-🐛 Bug Reports
+Bug Reports
 --------------
 
 **Found a bug?** Submit an issue with complete reproduction steps.
@@ -36,17 +36,17 @@ ____
 
 **Requirements for bug reports:**
 
-✅ Clear description of the issue  
-✅ Steps to reproduce  
-✅ Expected vs actual behavior  
-✅ VastOrbit version and Python version  
-✅ Sample code or data (if applicable)  
+- |check| Clear description of the issue
+- |check| Steps to reproduce
+- |check| Expected vs actual behavior
+- |check| VAST Orbit version and Python version
+- |check| Sample code or data (if applicable)
 
 .. important::
 
    **Security issues** should NOT be reported publicly. Contact us directly:
    
-   - **Slack**: vastsupport.slack.com
+   - **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`_
    - **Support**: File a case with VAST support
 
 .. tip::
@@ -55,10 +55,10 @@ ____
 
 ____
 
-💡 Feature Requests
+Feature Requests
 -------------------
 
-**Have an idea?** We're always open to suggestions for improving VastOrbit.
+**Have an idea?** We're always open to suggestions for improving VAST Orbit.
 
 .. button-link:: https://github.com/vastdata-dev/vastorbit/issues
    :color: primary
@@ -68,10 +68,10 @@ ____
 
 **Good feature requests include:**
 
-✅ Clear use case description  
-✅ Expected behavior  
-✅ Why it would benefit users  
-✅ Example code (if possible)  
+- |check| Clear use case description
+- |check| Expected behavior
+- |check| Why it would benefit users
+- |check| Example code (if possible)
 
 .. note::
 
@@ -79,7 +79,7 @@ ____
 
 ____
 
-📋 Contribution Process
+Contribution Process
 -----------------------
 
 **Quick overview:**
@@ -90,23 +90,23 @@ ____
 4. **Code & test** - Follow our standards (see :ref:`cicd`)
 5. **Submit PR** - Reference the original issue
 6. **Review** - Address feedback from maintainers
-7. **Merge** - Celebrate your contribution! 🎉
+7. **Merge** - Celebrate your contribution!
 
 ____
 
-🤝 Community
+Community
 ------------
 
 **Get Help:**
 
-- 💬 **Slack**: vastsupport.slack.com
-- 🐛 **Issues**: https://github.com/vastdata-dev/vastorbit/issues
+- |i-chat| **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`_
+- **Issues**: https://github.com/vastdata-dev/vastorbit/issues
 
 **Stay Updated:**
 
-- ⭐ Star the repo on GitHub
-- 👀 Watch for releases
-- 📢 Follow VAST Data announcements
+- Star the repo on GitHub
+- Watch for releases
+- Follow VAST Data announcements
 
 ____
 

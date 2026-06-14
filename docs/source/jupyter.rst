@@ -4,7 +4,7 @@
 Jupyter Extensions
 ===================
 
-IPython magic commands for VastOrbit in Jupyter notebooks.
+IPython magic commands for VAST Orbit in Jupyter notebooks.
 
 ____
 

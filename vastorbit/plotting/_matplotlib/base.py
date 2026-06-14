@@ -69,12 +69,18 @@ class MatplotlibBase(PlottingBase):
                 plt.xticks(color="#888888")
                 plt.yticks(color="#888888")
             elif theme == "dark":
-                ax.set_facecolor("#11111A")
-                plt.title("", color="#AAAAAA")
-                plt.xlabel("", color="#AAAAAA")
-                plt.ylabel("", color="#AAAAAA")
-                plt.xticks(color="#AAAAAA")
-                plt.yticks(color="#AAAAAA")
+                # VAST navy ramp — figure on navy-1, axes panel on navy-2
+                fig.patch.set_facecolor("#03142C")
+                ax.set_facecolor("#0A2240")
+                ax.grid(color="#1B3A5C", linewidth=0.8)
+                for spine in ax.spines.values():
+                    spine.set_color("#1B3A5C")
+                ax.tick_params(colors="#9FB3C8")
+                plt.title("", color="#E8EFF7")
+                plt.xlabel("", color="#9FB3C8")
+                plt.ylabel("", color="#9FB3C8")
+                plt.xticks(color="#9FB3C8")
+                plt.yticks(color="#9FB3C8")
             elif theme == "light":
                 ...
         else:
@@ -110,7 +116,7 @@ class MatplotlibBase(PlottingBase):
             # Text centered below the graphic
             fig.text(
                 0.5, 0.04,  # Higher position for text
-                'This chart was generated with VastOrbit by VAST Data',
+                'This chart was generated with VAST Orbit by VAST Data',
                 ha='center',
                 va='bottom',
                 fontsize=7,  # Bit bigger

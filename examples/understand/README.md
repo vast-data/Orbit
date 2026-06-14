@@ -2,7 +2,7 @@
 
 Advanced examples exploring practical data science scenarios and complex real-world use cases.
 
-These notebooks demonstrate sophisticated data manipulation, feature engineering, and advanced machine learning techniques using VastOrbit with VAST Database. Learn how to tackle real-world data science challenges at scale.
+These notebooks demonstrate sophisticated data manipulation, feature engineering, and advanced machine learning techniques using VAST Orbit with VAST Database. Learn how to tackle real-world data science challenges at scale.
 
 ## Examples
 

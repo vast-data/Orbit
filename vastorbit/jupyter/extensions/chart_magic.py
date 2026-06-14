@@ -7,12 +7,6 @@ from typing import Optional, Literal, Union
 
 from IPython.core.magic import needs_local_scope
 
-try:
-    from vertica_highcharts import Highstock, Highchart
-except:
-    Highstock = type(None)
-    Highchart = type(None)
-
 from vastorbit._typing import PlottingObject
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._collect import save_vastorbit_logs
@@ -180,19 +174,18 @@ def chartSQL(
 @needs_local_scope
 def chart_magic(
     line: str, cell: Optional[str] = None, local_ns: Optional[dict] = None
-) -> Union[Highstock, Highchart]:
+):
     """
     Draws responsive charts using the Matplotlib,
-    Plotly, or Highcharts library.
+    Plotly library.
 
     Different cutomization parameters are available for
-    Plotly, Highcharts, and Matplotlib.
+    Plotly and Matplotlib.
     For a comprehensive list of customization features,
     please consult the documentation for the respective
     plotting libraries:
     `plotly <https://plotly.com/python-api-reference/>`_,
-    `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_
-    and `highcharts <https://api.highcharts.com/highcharts/>`_.
+    `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_.
 
     Parameters
     ----------

@@ -4,14 +4,14 @@
 The VastFrame
 ==============
 
-Master the core object for in-database analytics with VastOrbit.
+Master the core object for in-database analytics with VAST Orbit.
 
 ____
 
 Overview
 --------
 
-The :py:mod:`~vastorbit.VastFrame` is the core object of VastOrbit. It enables Python-based data manipulation without moving data from the VAST database to local memory.
+The :py:mod:`~vastorbit.VastFrame` is the core object of VAST Orbit. It enables Python-based data manipulation without moving data from the VAST database to local memory.
 
 **Key benefits:**
 
@@ -146,7 +146,7 @@ Loading into pandas takes orders of magnitude longer and consumes significant me
     expedia.corr(show=False)
     print(f"Elapsed time: {time.time() - start_time:.2f}s")
 
-VastOrbit caches computed aggregations for instant retrieval:
+VAST Orbit caches computed aggregations for instant retrieval:
 
 .. note:: 
     
@@ -207,7 +207,7 @@ VastFrames are composed of :py:mod:`VastColumn` objects.
 
 .. note::
 
-    VastOrbit caches aggregations to avoid recomputation.
+    VAST Orbit caches aggregations to avoid recomputation.
 
 .. code-block:: python
 
@@ -330,7 +330,7 @@ ____
 Data Types
 ----------
 
-VastOrbit recognizes four main data types:
+VAST Orbit recognizes four main data types:
 
 - ``int`` – Treated as categorical when low cardinality, otherwise numeric
 - ``float`` – Numeric data types

@@ -712,8 +712,6 @@ class vDCFill(vDCMath):
                 query=query,
                 title=f"Computing the quantiles of {self}.",
                 method="fetchrow",
-                sql_push_ext=self._parent._vars["sql_push_ext"],
-                symbol=self._parent._vars["symbol"],
             )
         if method == "winsorize":
             self.clip(lower=p_alpha, upper=p_1_alpha)
@@ -742,8 +740,6 @@ class vDCFill(vDCMath):
                     query=query,
                     title=f"Computing the average of the {self}'s lower and upper outliers.",
                     method="fetchall",
-                    sql_push_ext=self._parent._vars["sql_push_ext"],
-                    symbol=self._parent._vars["symbol"],
                 )
             ]
             if isinstance(mean_alpha, NoneType):
@@ -963,8 +959,6 @@ class vDCFill(vDCMath):
                         query=query,
                         title="Computing the different aggregations.",
                         method="fetchall",
-                        sql_push_ext=self._parent._vars["sql_push_ext"],
-                        symbol=self._parent._vars["symbol"],
                     )
                     for idx, x in enumerate(result):
                         if isinstance(x[0], NoneType):
@@ -985,8 +979,6 @@ class vDCFill(vDCMath):
                             FROM {self._parent} 
                             LIMIT 1""",
                         print_time_sql=False,
-                        sql_push_ext=self._parent._vars["sql_push_ext"],
-                        symbol=self._parent._vars["symbol"],
                     )
                 except QueryError:
                     new_column = f"""

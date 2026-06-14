@@ -6,7 +6,7 @@ Introduction
 
 .. include:: logo_include.rst
 
-Get started with VastOrbit and learn the fundamentals of in-database analytics.
+Get started with VAST Orbit and learn the fundamentals of in-database analytics.
 
 ____
 
@@ -14,7 +14,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔌 Connect to VAST Database
+        .. card:: |i-connect| Connect to VAST Database
             :link: user_guide.introduction.installation
             :link-type: ref
             :text-align: center
@@ -26,7 +26,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 📊 The VastFrame
+        .. card:: |i-frame| The VastFrame
             :link: user_guide.introduction.vdf
             :link-type: ref
             :text-align: center
@@ -38,7 +38,7 @@ ____
 
     .. grid-item::
 
-        .. card:: ✨ Best Practices
+        .. card:: |i-practices| Best Practices
             :link: user_guide.introduction.best_practices
             :link-type: ref
             :text-align: center

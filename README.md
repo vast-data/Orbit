@@ -2,9 +2,9 @@
 <img src='/assets/img/vo_logo.svg' width="180px">
 </p>
 
-> **Note:** VastOrbit 0.1.x represents the first beta release series. The API and features are subject to change as we work toward a more robust 1.0.0 release.
+> **Note:** VAST Orbit 0.1.x represents the first beta release series. The API and features are subject to change as we work toward a more robust 1.0.0 release.
 
-# VastOrbit
+# VAST Orbit
 
 [![PyPI version](https://badge.fury.io/py/vastorbit.svg)](https://badge.fury.io/py/vastorbit)
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/vastorbit?color=yellowgreen)](https://anaconda.org/conda-forge/vastorbit)
@@ -19,7 +19,7 @@
 <img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/benefits.png' width="92%">
 </p>
 
-VastOrbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST Database. Train models using familiar scikit-learn syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VastOrbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
+VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST Database. Train models using familiar scikit-learn syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -38,11 +38,11 @@ VastOrbit is a Python library with scikit-learn-like functionality for conductin
 
 ## Introduction
 
-VAST Database combines enterprise-grade storage with powerful analytics capabilities. Today, VastOrbit leverages Trino as the SQL engine to deliver exceptional performance for data science workloads at scale. Soon, we will support the VAST SQL Engine (currently in development), which will provide even greater speed through VAST's columnar-optimized format. However, SQL alone isn't flexible enough to meet the evolving needs of modern data scientists.
+VAST Database combines enterprise-grade storage with powerful analytics capabilities. Today, VAST Orbit leverages Trino as the SQL engine to deliver exceptional performance for data science workloads at scale. Soon, we will support the VAST SQL Engine (currently in development), which will provide even greater speed through VAST's columnar-optimized format. However, SQL alone isn't flexible enough to meet the evolving needs of modern data scientists.
 
 Python has become the lingua franca of data science, offering unparalleled flexibility through its high-level abstraction and an extensive ecosystem of libraries. The accessibility of Python has led to the development of powerful APIs like pandas and scikit-learn, supported by a vibrant community of data scientists worldwide. Unfortunately, traditional Python tools operate in-memory as single-node processes, creating fundamental limitations when working with large-scale data. While distributed computing frameworks attempt to address these constraints, they still require moving data for processing—an approach that is prohibitively expensive and increasingly impractical in the modern data landscape. On top of these challenges, data scientists face additional complexity in deploying and operationalizing their models. The entire workflow is time-consuming and inefficient.
 
-**VastOrbit solves these problems**. The concept is elegant: instead of moving data to compute, VastOrbit brings the compute logic to where the data lives—in VAST Database. Train your models using familiar scikit-learn syntax in Python, then deploy them directly in the database for high-performance predictions at scale.
+**VAST Orbit solves these problems**. The concept is elegant: instead of moving data to compute, VAST Orbit brings the compute logic to where the data lives—in VAST Database. Train your models using familiar scikit-learn syntax in Python, then deploy them directly in the database for high-performance predictions at scale.
 
 ### Main Advantages
 
@@ -60,7 +60,7 @@ Python has become the lingua franca of data science, offering unparalleled flexi
 
 ## Installation
 
-To install VastOrbit with pip:
+To install VAST Orbit with pip:
 
 ```shell
 # Latest release version
@@ -70,7 +70,7 @@ pip3 install vastorbit[all]
 pip3 install git+https://github.com/vastdata-dev/vastorbit.git@master
 ```
 
-To install VastOrbit from source, run the following command from the root directory:
+To install VAST Orbit from source, run the following command from the root directory:
 
 ```shell
 python3 setup.py install
@@ -78,7 +78,7 @@ python3 setup.py install
 
 ## Connecting to the Database
 
-VastOrbit currently connects to VAST Database through Trino. Ensure you have Trino set up and configured to access your VAST Database instance.
+VAST Orbit currently connects to VAST Database through Trino. Ensure you have Trino set up and configured to access your VAST Database instance.
 
 Connection example:
 
@@ -119,7 +119,7 @@ Official documentation will be available soon at a dedicated documentation site.
 
 ### Themes - Dark | Light
 
-VastOrbit offers users the flexibility to customize their coding experience with two visually appealing themes: **Dark** and **Light**.
+VAST Orbit offers users the flexibility to customize their coding experience with two visually appealing themes: **Dark** and **Light**.
 
 Dark mode, ideal for extended coding sessions, features a sleek and stylish dark color scheme, providing a comfortable and eye-friendly environment.
 
@@ -143,11 +143,11 @@ import vastorbit as vo
 vo.set_option("theme", "dark")  # can be switched to 'light'
 ```
 
-VastOrbit's theme-switching option ensures that users can tailor their experience to their preferences, making data exploration and analysis a more personalized and enjoyable journey.
+VAST Orbit's theme-switching option ensures that users can tailor their experience to their preferences, making data exploration and analysis a more personalized and enjoyable journey.
 
 ### SQL Magic
 
-You can use VastOrbit to execute SQL queries directly from a Jupyter notebook.
+You can use VAST Orbit to execute SQL queries directly from a Jupyter notebook.
 
 #### Example
 
@@ -184,7 +184,7 @@ To create plots, simply provide the type of plot along with the SQL command.
 
 ### Python and SQL Combo
 
-VastOrbit has a unique place in the market because it allows users to use Python and SQL in the same environment.
+VAST Orbit has a unique place in the market because it allows users to use Python and SQL in the same environment.
 
 #### Example
 
@@ -199,9 +199,9 @@ selected_titanic.groupby(columns=["pclass"], expr=["AVG(AVG)"])
 
 ### Charts
 
-VastOrbit comes integrated with three popular plotting libraries: matplotlib, highcharts, and plotly.
+VAST Orbit comes integrated with three popular plotting libraries: matplotlib, highcharts, and plotly.
 
-A gallery of VastOrbit-generated charts will be available in the documentation.
+A gallery of VAST Orbit-generated charts will be available in the documentation.
 
 <p align="center">
 <!-- TODO: Add charts gallery screenshot -->
@@ -212,7 +212,7 @@ A gallery of VastOrbit-generated charts will be available in the documentation.
 
 #### Data Ingestion
 
-VastOrbit allows users to ingest data from a diverse range of file formats including CSV, JSON, and more formats coming in the future. VastOrbit automatically infers data types during ingestion, though the inferred types may not always be optimal for your specific use case.
+VAST Orbit allows users to ingest data from a diverse range of file formats including CSV, JSON, and more formats coming in the future. VAST Orbit automatically infers data types during ingestion, though the inferred types may not always be optimal for your specific use case.
 
 CSV Example:
 
@@ -236,11 +236,11 @@ vo.read_json(
 )
 ```
 
-> **Note:** VastOrbit performs automatic type inference during data ingestion. However, the automatically inferred data types may not always be optimal for your specific use case. You can explicitly specify data types if needed.
+> **Note:** VAST Orbit performs automatic type inference during data ingestion. However, the automatically inferred data types may not always be optimal for your specific use case. You can explicitly specify data types if needed.
 
 #### Data Exploration
 
-VastOrbit provides extensive options for descriptive and visual exploration.
+VAST Orbit provides extensive options for descriptive and visual exploration.
 
 Scatter Plot Example:
 
@@ -282,7 +282,7 @@ from vastorbit import set_option
 set_option("sql_on", True)
 ```
 
-VastOrbit allows users to calculate a focused correlation using the "focus" parameter:
+VAST Orbit allows users to calculate a focused correlation using the "focus" parameter:
 
 ```python
 titanic.corr(method="spearman", focus="survived")
@@ -295,7 +295,7 @@ titanic.corr(method="spearman", focus="survived")
 
 #### Data Preparation
 
-VastOrbit provides comprehensive data preparation capabilities including joining tables, encoding categorical variables, and filling missing values. Refer to the documentation for detailed examples.
+VAST Orbit provides comprehensive data preparation capabilities including joining tables, encoding categorical variables, and filling missing values. Refer to the documentation for detailed examples.
 
 Outlier Detection Example:
 
@@ -314,7 +314,7 @@ data.outliers_plot(columns="Heights")
 
 #### Machine Learning
 
-VastOrbit's machine learning capabilities allow you to train models using the familiar scikit-learn API and deploy them directly in the database for high-performance predictions. VastOrbit supports a wide array of algorithms including time series forecasting, clustering, and classification.
+VAST Orbit's machine learning capabilities allow you to train models using the familiar scikit-learn API and deploy them directly in the database for high-performance predictions. VAST Orbit supports a wide array of algorithms including time series forecasting, clustering, and classification.
 
 **Key Feature: Train with scikit-learn syntax, deploy in-database for production**
 
@@ -343,7 +343,7 @@ cross_validate(
 
 ### Loading Predefined Datasets
 
-VastOrbit provides some predefined datasets that can be easily loaded for testing and learning. These datasets include the iris dataset, titanic dataset, and more.
+VAST Orbit provides some predefined datasets that can be easily loaded for testing and learning. These datasets include the iris dataset, titanic dataset, and more.
 
 There are two ways to access the provided datasets:
 
@@ -435,7 +435,7 @@ vdf.describe()
 # FROM titanic
 ```
 
-With VastOrbit, you can solve ML problems with few lines of code:
+With VAST Orbit, you can solve ML problems with few lines of code:
 
 ```python
 from vastorbit.machine_learning.linear_model import LogisticRegression

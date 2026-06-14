@@ -3718,7 +3718,7 @@ class IsolationForest(Clustering, Tree):
         from their own contour plot. This visual representation aids in
         exploring predictions and gaining a deeper understanding of how
         these models perform in different scenarios. Please refer to
-        :ref:`chart_gallery.contour_plot` for more examples.
+        :ref:`chart_gallery.contour` for more examples.
 
     Parameter Modification
     ^^^^^^^^^^^^^^^^^^^^^^^

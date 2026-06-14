@@ -1,9 +1,9 @@
 /**
- * Astra - VastOrbit AI Assistant
+ * Astra - VAST Orbit AI Assistant
  * Interactive chat interface for documentation queries
  */
 
-class VastOrbitAI {
+class VAST OrbitAI {
   constructor(config = {}) {
     this.apiUrl = config.apiUrl || 'http://localhost:8010/api/ask';  // Changed to 5001
     this.chatContainer = null;
@@ -42,15 +42,15 @@ class VastOrbitAI {
         
         <div class="ai-chat-header">
           <h2>👩‍🚀 Astra</h2>
-          <p>Your VastOrbit documentation assistant</p>
+          <p>Your VAST Orbit documentation assistant</p>
         </div>
 
         <div id="ai-chat-container" class="ai-chat-container">
           <div class="welcome-message">
             <div style="font-size: 60px; margin-bottom: 10px;">👩‍🚀</div>
             <h3>Welcome to Astra!</h3>
-            <p style="margin: 10px 0;">I'm your AI guide to the VastOrbit universe.</p>
-            <p style="margin: 5px 0; font-size: 0.9em; opacity: 0.8;">Ask me anything about VastOrbit features, APIs, or examples!</p>
+            <p style="margin: 10px 0;">I'm your AI guide to the VAST Orbit universe.</p>
+            <p style="margin: 5px 0; font-size: 0.9em; opacity: 0.8;">Ask me anything about VAST Orbit features, APIs, or examples!</p>
             
             <div style="margin-top: 20px; padding: 15px; background: rgba(41, 184, 255, 0.1); border-radius: 10px; font-size: 0.85em;">
               <strong style="color: #29b8ff;">💡 Try asking:</strong><br>
@@ -69,10 +69,10 @@ class VastOrbitAI {
 
         <div class="ai-input-container">
           <div class="quick-prompts" id="quick-prompts">
-            <button class="quick-prompt-btn" data-prompt="How do I get started with VastOrbit?">
+            <button class="quick-prompt-btn" data-prompt="How do I get started with VAST Orbit?">
               🚀 Getting Started
             </button>
-            <button class="quick-prompt-btn" data-prompt="What are the main features of VastOrbit?">
+            <button class="quick-prompt-btn" data-prompt="What are the main features of VAST Orbit?">
               ⭐ Features
             </button>
             <button class="quick-prompt-btn" data-prompt="Show me vDataFrame examples">
@@ -363,7 +363,7 @@ class VastOrbitAI {
 // Initialize the AI assistant
 let vastOrbitAI;
 document.addEventListener('DOMContentLoaded', () => {
-  vastOrbitAI = new VastOrbitAI({
+  vastOrbitAI = new VAST OrbitAI({
     apiUrl: window.VASTORBIT_AI_API_URL || 'http://localhost:8010/api/ask'
   });
 });

@@ -2,14 +2,14 @@
 
 /* Text Formatting */
 h1{
-  font-family: Moderat-Black, sans-serif;
+  font-family: var(--vast-font-display);
   letter-spacing: -.022em;
   font-weight: 800 ;
   font-size: 2.8em ;
 }
 
 h2{
-  font-family: Moderat-Black, sans-serif;
+  font-family: var(--vast-font-display);
   font-size: 2.0em ;
   letter-spacing: -.021em;
   font-weight: 700;
@@ -80,27 +80,27 @@ div[class*=" highlight-"], div[class^=highlight-]{
   font-size: 1rem; 
   font-weight: 400;
   letter-spacing: -.017em;
-  font-family: "Inter";
+  font-family: var(--vast-font-body);
 }
 
 /* Left sidebar menu - black text, blue on hover */
 .sidebar-tree .icon, 
 .sidebar-tree .reference {
-  color: #0f2042;
+  color: var(--vast-navy);
   font-size: Medium;
 }
 
 .sidebar-tree .reference:hover {
-  color: #29b8ff;
+  color: var(--vast-cyan);
 }
 
 body[data-theme="dark"] .sidebar-tree .icon,
 body[data-theme="dark"] .sidebar-tree .reference {
-  color: #e8e8e8;
+  color: var(--vast-text-dark-hi);
 }
 
 body .sidebar-tree .reference:hover, .sidebar-tree .toctree-l1>.reference:hover, .sidebar-tree .toctree-l2>.reference:hover {
-  color: #29b8ff;
+  color: var(--vast-cyan);
 }
 
 .sidebar-brand-text {
@@ -113,29 +113,33 @@ body .sidebar-tree .reference:hover, .sidebar-tree .toctree-l1>.reference:hover,
 
 /* Main Tabs */
 .sidebar-tree .toctree-l1>.reference, .sidebar-tree .toctree-l1>label .icon {
-  font-size: 1.05rem;
-  font-family: "Inter" ;
+  font-size: 0.85rem;
+  font-family: var(--vast-font-body);
   line-height: 1.1;
 }
 
 .sidebar-tree .toctree-l2>.reference {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 }
 
 .sidebar-tree .toctree-l3>.reference {
-  font-size: 0.88rem;
+  font-size: 0.73rem;
 }
 
 .sidebar-tree .toctree-l4>.reference {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
+}
+
+.sidebar-tree .toctree-l5>.reference {
+  font-size: 0.65rem;
 }
 
 body[data-theme="light"] .sidebar-tree .toctree-l1>.reference, body[data-theme="light"] .sidebar-tree .toctree-l1>label .icon {
-  color: black;
+  color: var(--vast-navy);
 }
 
 body[data-theme="light"] .sidebar-tree .toctree-l2>.reference {
-  color: #333333;
+  color: var(--vast-ink);
 }
 
 .sidebar-tree li.has-children>.reference {
@@ -148,7 +152,7 @@ body[data-theme="light"] .sidebar-tree .toctree-l2>.reference {
 
 /* Right Side - On This Page */
 .toc-tree .reference {
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
 
 .toc-title {
@@ -163,22 +167,21 @@ body[data-theme="light"] .sidebar-tree .toctree-l2>.reference {
 }
 
 .sidebar-search-container_top input {
-  border-radius: 20px;
+  border-radius: 5px;
   padding: 0.5rem 1rem;
-  margin-top: -5px;
-  background-color: white !important;
-  border: 1px solid #e0e0e0;
+  margin-top: -8px;
+  background-color: var(--vast-navy-2) !important;
+  border: 1px solid var(--vast-line);
+  color: var(--vast-text-dark-hi);
 }
 
-body[data-theme="dark"] .sidebar-search-container_top input {
-  background-color: #2d2d2d !important;
-  border: 1px solid #4a4a4a;
-  color: #e8e8e8;
+.sidebar-search-container_top input::placeholder {
+  color: var(--vast-text-dark-lo);
 }
 
 /* Top Banner Buttons - Black text, blue on hover */
 .top-button-container {
-  font-size: 1.4em;
+  font-size: 1.2em;
   display: flex;
 }
 
@@ -187,13 +190,13 @@ body[data-theme="dark"] .sidebar-search-container_top input {
   text-decoration: none;
   position: relative;
   transition: color 0.5s ease-in-out;
-  font-family: "Inter var","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: var(--vast-font-body);
   font-weight: 400;
-  color: #0f2042;
+  color: var(--vast-text-dark-hi);
 }
 
 .top-button:hover {
-  color: #29b8ff;
+  color: var(--vast-cyan);
 }
 
 .top-button:hover::before {
@@ -201,18 +204,12 @@ body[data-theme="dark"] .sidebar-search-container_top input {
   transform: scaleX(1);
 }
 
-body[data-theme="light"] .top-button,
-body[data-theme="light"] .form-control,
-body[data-theme="light"] .top-button {
-  color: #000000 !important;
-}
-
-body[data-theme="dark"] .top-button {
-  color: #e8e8e8 !important;
+.top-button {
+  color: var(--vast-text-dark-hi) !important;
 }
 
 body .top-button:hover {
-  color: #29b8ff !important;
+  color: var(--vast-cyan) !important;
 }
 
 /* Top Buttons Dropdown Menu*/
@@ -245,13 +242,10 @@ body .top-button:hover {
 }
 
 .sidebar-search{
-  color: var(--color-announcement-text);
-  border-radius: 20px;
-  background-color: white;
-}
-
-body[data-theme="dark"] .sidebar-search {
-  background-color: #1a1a1a;
+  color: var(--vast-text-dark-hi);
+  border-radius: 5px;
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
 }
 
 .element.style {
@@ -267,11 +261,15 @@ body[data-theme="dark"] .sidebar-search {
 .announcement {
   top: 0;
   left: 0;
-  right:0;
+  right: 0;
   z-index: 1000;
-  height: calc(var(--header-height) * 1.6);
+  /* min-height instead of height: a fixed height smaller than the content
+     made children overflow invisibly over the page below, blocking clicks
+     on the view-this-page / edit icons. Let the header size itself. */
+  min-height: calc(var(--header-height) * 1.6);
+  height: auto;
   align-items: center;
-  box-shadow: 0px 8px 12px whitesmoke;
+  box-shadow: 0 8px 24px rgba(3, 20, 44, 0.08);
 }
 
 .announcement-content {
@@ -281,7 +279,7 @@ body[data-theme="dark"] .sidebar-search {
   white-space: nowrap;
   display: flex;
   align-items: center;
-  color: #0f2042;
+  color: var(--vast-navy);
   letter-spacing: -.011em;
   font-weight: 300;
   justify-content: center;
@@ -315,6 +313,22 @@ body[data-theme="dark"] .sidebar-search {
   visibility: hidden;
 }
 
+/* Theme toggle in the (permanently navy) header: light icon, both modes */
+.announcement .theme-toggle-container,
+.very-top-container .theme-toggle-container {
+  visibility: visible;
+}
+
+.announcement .theme-toggle svg,
+.very-top-container .theme-toggle svg {
+  color: var(--vast-text-dark-hi);
+}
+
+.announcement .theme-toggle:hover svg,
+.very-top-container .theme-toggle:hover svg {
+  color: var(--vast-cyan);
+}
+
 /* Container with search and version */
 .right-top-container{
   display: flex
@@ -333,9 +347,18 @@ body[data-theme="dark"] .sidebar-search {
   }
 }
 
+/* Z-INDEX LADDER
+   1100  chat + feedback panels (user opened them: top of everything)
+   1060  Furo drawers: "On this page" TOC + mobile navigation
+   1000  header, fixed edge tabs, header dropdowns
+      1  in-flow decorations                                            */
 .toc-drawer {
-  z-index: 1;
+  z-index: 1060;
   margin-top: 20px;
+}
+
+.sidebar-drawer {
+  z-index: 1060;
 }
 
 /* For the top navigation bar. For the logo */
@@ -354,7 +377,7 @@ body[data-theme="dark"] .sidebar-search {
 }
 
 .home_button_container:hover svg path {
-  fill: #29b8ff;
+  fill: var(--vast-cyan);
   transition: fill 0.5s;
 }
 
@@ -380,7 +403,7 @@ body[data-theme="dark"] .sidebar-search {
 }
 
 .sd-card-footer {
-  background-color: #29b8ff;
+  background-color: var(--vast-cyan);
   color: white;
   border-radius: 10px;
 }
@@ -391,17 +414,13 @@ body[data-theme="dark"] .sidebar-search {
   border-radius: 10px;
 }
 
-/* Logo dark mode support */
+/* Logo: permanent white wordmark on the fixed navy header */
 .logo-text {
-  fill: #000000;
-}
-
-body[data-theme="dark"] .logo-text {
   fill: #ffffff;
 }
 
 .logo-accent {
-  fill: #29b8ff;
+  fill: var(--vast-cyan);
 }
 
 /* Version selector */
@@ -417,34 +436,39 @@ body[data-theme="dark"] .logo-text {
   display: block;
   height: calc(1em + 1.375rem + 2px);
   padding: 0rem 0.9375rem;
-  font-size: large;
+  font-size: 1em;
   font-weight: 300;
   line-height: 1;
-  color: var(--color-announcement-text);
-  background-color: #fff;
+  color: var(--vast-text-dark-hi);
+  background-color: var(--vast-navy-2);
   background-clip: padding-box;
-  border: 0px solid var(--color-announcement-text);
-  border-radius: 3rem;
+  border: 1px solid var(--vast-line);
+  border-radius: 5px;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   appearance: none;
-  background: url('data:image/svg+xml;utf8,<svg fill="black" height="10px" width="10px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>') no-repeat right 5px center;
   background-size: 15px;
   padding-right: 25px;
 }
 
 .form-control:focus {
-  color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
+  color: var(--vast-text-dark-hi);
+  background-color: var(--vast-navy-2);
+  border-color: var(--vast-cyan);
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 0.2rem rgba(31, 217, 254, 0.25);
+}
+
+/* Native dropdown options readable on every OS */
+#filter-select option {
+  background-color: var(--vast-navy-2);
+  color: var(--vast-text-dark-hi);
 }
 
 #filter-select option {
   font-weight: normal ;
   min-height: 1.2em ;
   padding: 0px 2px 1px ;
-  font-family: "Inter" ;
+  font-family: var(--vast-font-body);
 }
 
 /* Bottom Privacy/Cookies */
@@ -514,11 +538,11 @@ body {
 .custom-card-11:hover,
 .custom-card-12:hover,
 .custom-card-13:hover {
-  box-shadow: 0px 12px 30px whitesmoke;
+  box-shadow: 0 12px 30px rgba(3, 20, 44, 0.10);
 }
 
 .custom-card {
-  height: 240px;
+  height: 280px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -536,23 +560,23 @@ body {
 }
 
 .custom-card-examples{
-  height: 330px;
+  height: 450px;
 }
 
 .custom-card-examples-business{
-  height: 330px;
+  height: 450px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
 .custom-card-examples-learn{
-  height: 250px;
+  height: 450px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
 .custom-card-examples-understand{
-  height: 330px;
+  height: 450px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -574,7 +598,7 @@ body {
 }
 
 .custom-card-6 {
-  height: 420px;
+  height: 340px;
 }
 
 .custom-card-7 {
@@ -667,8 +691,8 @@ body {
 
 .dropdown-btn {
   padding: 0px 20px;
-  background-color: var(--color-announcement-background);
-  color: var(--color-announcement-text);
+  background-color: transparent;
+  color: var(--vast-text-dark-hi);
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -680,9 +704,10 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.35);
   z-index: 1;
 }
 
@@ -690,12 +715,12 @@ body {
   padding: 15px 20px;
   text-decoration: none;
   display: block;
-  color: var(--color-announcement-text);
+  color: var(--vast-text-dark-hi);
   font-size: x-large;
 }
 
 .dropdown-item:hover {
-  background-color: #ddd;
+  background-color: var(--vast-navy-3);
 }
 
 .top-dropdown:hover .dropdown-content {
@@ -723,8 +748,8 @@ article, article .align-default {
 
 .search-dropdown-btn {
   padding: 10px 20px;
-  background-color: var(--color-announcement-background);
-  color: black;
+  background-color: transparent;
+  color: var(--vast-text-dark-hi);
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -737,7 +762,8 @@ article, article .align-default {
   padding: 5px 5px;
   display: none;
   position: fixed;
-  background-color: #f9f9f9;
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1000;
@@ -760,7 +786,7 @@ article, article .align-default {
   top: 400px;
   transform: rotate(-90deg);
   cursor: pointer;
-  background-color: #29b8ff;
+  background-color: var(--vast-cyan);
   color: white;
   text-decoration: none;
   padding: 10px 15px;
@@ -773,14 +799,14 @@ article, article .align-default {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1000;
+  z-index: 1100;
   top: 0;
   left: 0;
   background-color: var(--color-announcement-background);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
-  box-shadow: 0px 8px 12px whitesmoke;
+  box-shadow: 0 8px 24px rgba(3, 20, 44, 0.08);
 }
 
 .feedback_sidebar a {
@@ -805,7 +831,7 @@ article, article .align-default {
 }
 
 .openbtn:hover {
-  background-color: #00008b;
+  background-color: var(--vast-navy);
 }
 
 /* Feedback form */
@@ -878,7 +904,7 @@ article, article .align-default {
 }
 
 #feedback-form .gform_button {
-  background: #29b8ff;
+  background: var(--vast-cyan);
   border: none;
   border-radius: 16px;
   color: white;
@@ -1096,4 +1122,755 @@ article, article .align-default {
     border-top: 1px solid #e0e0e0;
     padding-top: 0.5rem;
     margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   VAST BRAND REFINEMENTS (brand.vastdata.com/document/4)
+   ========================================================================== */
+
+/* Headings — Moderat Black, navy on light / white on dark */
+h1, h2, h3 {
+  color: var(--vast-navy);
+}
+
+body[data-theme="dark"] h1,
+body[data-theme="dark"] h2,
+body[data-theme="dark"] h3 {
+  color: var(--vast-white);
+}
+
+/* VAST Light — signature brand element: cyan light-beam under the H1 */
+h1 {
+  position: relative;
+  padding-bottom: 0.35em;
+  margin-top: 2.75rem;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 120px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--vast-light);
+}
+
+/* Links inherit the readable brand-content color from tokens */
+a:hover {
+  color: var(--vast-cyan-dim);
+}
+
+body[data-theme="dark"] a:hover {
+  color: var(--vast-cyan);
+}
+
+/* Cards — navy-tinted depth, cyan rim light on hover (VAST Light effect) */
+.sd-card {
+  border: 1px solid var(--vast-gray-mid);
+  transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.sd-card:hover {
+  --sd-color-shadow: rgba(31, 217, 254, 0.25);
+  border-color: var(--vast-cyan);
+  box-shadow: 0 12px 30px rgba(3, 20, 44, 0.10), var(--vast-glow);
+  transform: translateY(-2px);
+}
+
+/* Card footers — cyan surface takes NAVY text per brand contrast rules
+   (white on cyan fails contrast; VAST sets dark ink on cyan) */
+.sd-card-footer {
+  background-color: var(--vast-cyan);
+  color: var(--vast-navy);
+  font-weight: 600;
+}
+
+/* Buttons & version selector — pill shape, brand colors */
+/* Code blocks — LIGHT surface in light mode. Pygments paints syntax tokens
+   in dark light-theme colors, so the canvas must stay light or tokens vanish.
+   Cool gray surface + navy text + cyan accent edge = VAST look, full contrast. */
+body[data-theme="light"] div[class*=" highlight-"] pre,
+body[data-theme="light"] div[class^="highlight-"] pre,
+body[data-theme="light"] .highlight pre {
+  background-color: #F4F7FB;            /* cool Athens-gray surface */
+  color: var(--vast-navy);
+  border: 1px solid #E1E8F0;
+  border-left: 3px solid var(--vast-cyan);
+  border-radius: 8px;
+}
+
+/* Inline code chips */
+body[data-theme="light"] code.literal,
+body[data-theme="light"] code.docutils {
+  background-color: var(--vast-cyan-tint);
+  color: var(--vast-navy);
+  border: 1px solid rgba(31, 217, 254, 0.35);
+  border-radius: 4px;
+}
+
+/* Dark mode code blocks — raised navy panel, cyan edge, never black */
+body[data-theme="dark"] div[class*=" highlight-"] pre,
+body[data-theme="dark"] div[class^="highlight-"] pre,
+body[data-theme="dark"] .highlight pre {
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
+  border-left: 3px solid var(--vast-cyan);
+  border-radius: 8px;
+}
+
+body[data-theme="dark"] code.literal,
+body[data-theme="dark"] code.docutils {
+  background-color: rgba(31, 217, 254, 0.10);
+  color: var(--vast-cyan);
+  border: 1px solid rgba(31, 217, 254, 0.25);
+  border-radius: 4px;
+}
+
+/* Admonitions / version directives in brand hues */
+.versionadded {
+  border-left: 0.2rem solid var(--vast-cyan);
+}
+
+/* Top header bar — permanent navy, identical in light and dark mode.
+   Colors are set here directly (NOT via --color-announcement-* variables,
+   which the AI chat sidebar also consumes and must stay theme-aware). */
+.announcement {
+  background-color: var(--vast-navy-1);
+  color: var(--vast-text-dark-hi);
+  border-bottom: 1px solid var(--vast-line-soft);
+  box-shadow: 0 8px 24px rgba(3, 20, 44, 0.20);
+}
+
+/* Dark mode: cards & version selector sit on navy, not black/white */
+body[data-theme="dark"] .sd-card {
+  background-color: var(--vast-navy-1);
+  border: 1px solid var(--vast-line);
+}
+
+body[data-theme="dark"] .sd-card:hover {
+  border-color: var(--vast-cyan);
+  background-color: var(--vast-navy-2);
+}
+
+body[data-theme="dark"] .sd-card-header,
+body[data-theme="dark"] .sd-card-footer {
+  border-color: var(--vast-line);
+}
+
+/* Dark mode headings get a faint cyan glow like the website hero */
+body[data-theme="dark"] h1 {
+  text-shadow: 0 0 40px rgba(31, 217, 254, 0.18);
+}
+
+/* Selection color — VAST Light moment when selecting text */
+::selection {
+  background: var(--vast-cyan);
+  color: var(--vast-navy);
+}
+
+/* ==========================================================================
+   VAST ORBIT HERO LOGO (logo_include.rst) — theme-aware coloring
+   The SVG asset is the monochrome "light" variant; fills are controlled here.
+   ========================================================================== */
+
+.vorbit-hero {
+  text-align: center;
+  margin: 10px 0 24px 0;
+}
+
+.vorbit-logo {
+  max-width: 420px;
+  filter: drop-shadow(0 0 0 transparent);
+  transition: filter .3s ease;
+}
+
+/* Light mode — navy artwork, the VAST wordmark slightly softer ink */
+body[data-theme="light"] .vorbit-art {
+  fill: var(--vast-navy);
+}
+
+body[data-theme="light"] .vorbit-mark {
+  fill: var(--vast-ink);
+}
+
+/* Dark mode — original white "light" variant, with the website's cyan glow */
+body[data-theme="dark"] .vorbit-art {
+  fill: var(--vast-white);
+}
+
+body[data-theme="dark"] .vorbit-mark {
+  fill: #FAF7F7;
+}
+
+body[data-theme="dark"] .vorbit-logo {
+  filter: drop-shadow(0 0 28px rgba(31, 217, 254, 0.22));
+}
+
+/* Hover — entire mark + wordmark turn VAST Cyan in every theme.
+   The link wrapper carries no underline; the glow lifts on hover. */
+.vorbit-logo-link { display: inline-block; text-decoration: none; }
+
+.vorbit-logo-link:hover .vorbit-art,
+.vorbit-logo-link:hover .vorbit-mark,
+.vorbit-logo-link:focus-visible .vorbit-art,
+.vorbit-logo-link:focus-visible .vorbit-mark {
+  fill: var(--vast-cyan, #1FD9FE);
+}
+
+.vorbit-logo-link:hover .vorbit-logo,
+.vorbit-logo-link:focus-visible .vorbit-logo {
+  filter: drop-shadow(0 0 22px rgba(31, 217, 254, 0.45));
+}
+
+.vorbit-art, .vorbit-mark { transition: fill .25s ease; }
+
+/* "auto" theme: follow the OS preference */
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] .vorbit-art { fill: var(--vast-white); }
+  body[data-theme="auto"] .vorbit-mark { fill: #FAF7F7; }
+  body[data-theme="auto"] .vorbit-logo {
+    filter: drop-shadow(0 0 28px rgba(31, 217, 254, 0.22));
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body[data-theme="auto"] .vorbit-art { fill: var(--vast-navy); }
+  body[data-theme="auto"] .vorbit-mark { fill: var(--vast-ink); }
+}
+
+/* Title + tagline under the logo — Moderat, brand colors */
+.vorbit-hero-title {
+  font-family: var(--vast-font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  margin-top: -4px;
+  color: var(--vast-navy);
+}
+
+.vorbit-hero-tagline {
+  font-family: var(--vast-font-body);
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 2px;
+  color: var(--vast-cyan-dim);
+}
+
+body[data-theme="dark"] .vorbit-hero-title { color: var(--vast-white); }
+body[data-theme="dark"] .vorbit-hero-tagline { color: var(--vast-cyan); }
+
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] .vorbit-hero-title { color: var(--vast-white); }
+  body[data-theme="auto"] .vorbit-hero-tagline { color: var(--vast-cyan); }
+}
+
+/* ==========================================================================
+   KB PARITY — components matching kb.vastdata.com (Document360) docs
+   Tables, admonitions, prev/next navigation, copy button
+   ========================================================================== */
+
+/* --- Tables (the KB's predicate/feature matrices) ------------------------- */
+
+article .table-wrapper {
+  border: 1px solid var(--vast-gray-mid);
+  border-radius: 10px;
+  overflow: auto;
+  margin: 1.2em 0;
+  box-shadow: 0 4px 16px rgba(3, 20, 44, 0.05);
+}
+
+article table.docutils {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-size: 0.92em;
+}
+
+article table.docutils th {
+  background-color: var(--vast-navy);
+  color: var(--vast-white);
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: left;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 2px solid var(--vast-cyan);   /* VAST Light edge under header */
+}
+
+article table.docutils td {
+  padding: 10px 16px;
+  border: 0;
+  border-bottom: 1px solid #E7EBF1;
+  vertical-align: top;
+}
+
+article table.docutils tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Zebra + hover, like the KB matrices */
+article table.docutils tbody tr:nth-child(even) {
+  background-color: #F7FAFD;
+}
+
+article table.docutils tbody tr:hover {
+  background-color: var(--vast-cyan-tint);
+}
+
+/* Dark mode tables — navy ramp */
+body[data-theme="dark"] article .table-wrapper {
+  border-color: var(--vast-line);
+  box-shadow: none;
+}
+
+body[data-theme="dark"] article table.docutils th {
+  background-color: var(--vast-navy-1);
+  color: var(--vast-text-dark-hi);
+}
+
+body[data-theme="dark"] article table.docutils td {
+  border-bottom: 1px solid var(--vast-line);
+}
+
+body[data-theme="dark"] article table.docutils tbody tr:nth-child(even) {
+  background-color: rgba(10, 34, 64, 0.5);
+}
+
+body[data-theme="dark"] article table.docutils tbody tr:hover {
+  background-color: var(--vast-navy-3);
+}
+
+/* --- Admonitions (KB-style notes/warnings) -------------------------------- */
+
+.admonition {
+  border-radius: 10px;
+  border: 1px solid var(--vast-gray-mid);
+  border-left: 4px solid var(--vast-cyan);
+  box-shadow: 0 4px 16px rgba(3, 20, 44, 0.05);
+}
+
+.admonition > .admonition-title {
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+}
+
+/* Note / tip / hint / important — cyan family (brand) */
+.admonition.note,
+.admonition.tip,
+.admonition.hint,
+.admonition.important {
+  border-left-color: var(--vast-cyan);
+  --color-admonition-title: #0E86B8;
+  --color-admonition-title-background: rgba(31, 217, 254, 0.12);
+}
+
+/* Warning / caution / attention — amber */
+.admonition.warning,
+.admonition.caution,
+.admonition.attention {
+  border-left-color: #F5A623;
+  --color-admonition-title: #9A6200;
+  --color-admonition-title-background: rgba(245, 166, 35, 0.12);
+}
+
+/* Danger / error — red */
+.admonition.danger,
+.admonition.error {
+  border-left-color: #E5484D;
+  --color-admonition-title: #B3261E;
+  --color-admonition-title-background: rgba(229, 72, 77, 0.12);
+}
+
+body[data-theme="dark"] .admonition {
+  border-color: var(--vast-line);
+  box-shadow: none;
+}
+
+body[data-theme="dark"] .admonition.note,
+body[data-theme="dark"] .admonition.tip,
+body[data-theme="dark"] .admonition.hint,
+body[data-theme="dark"] .admonition.important {
+  --color-admonition-title: var(--vast-cyan);
+}
+
+body[data-theme="dark"] .admonition.warning,
+body[data-theme="dark"] .admonition.caution,
+body[data-theme="dark"] .admonition.attention {
+  --color-admonition-title: #FFC465;
+}
+
+body[data-theme="dark"] .admonition.danger,
+body[data-theme="dark"] .admonition.error {
+  --color-admonition-title: #FF8A8A;
+}
+
+/* --- Prev / Next navigation (KB article footer) ---------------------------- */
+
+.prev-next-area {
+  margin-top: 2.5em;
+  padding-top: 1.5em;
+  border-top: 1px solid #E7EBF1;
+}
+
+body[data-theme="dark"] .prev-next-area {
+  border-top: 1px solid var(--vast-line);
+}
+
+.prev-next-area a {
+  border: 1px solid var(--vast-gray-mid);
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.prev-next-area a:hover {
+  border-color: var(--vast-cyan);
+  box-shadow: 0 8px 20px rgba(3, 20, 44, 0.08), var(--vast-glow);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+body[data-theme="dark"] .prev-next-area a {
+  border-color: var(--vast-line);
+  background-color: var(--vast-navy-1);
+}
+
+body[data-theme="dark"] .prev-next-area a:hover {
+  border-color: var(--vast-cyan);
+  background-color: var(--vast-navy-2);
+}
+
+.prev-next-area .title {
+  color: var(--vast-navy);
+  font-weight: 600;
+}
+
+body[data-theme="dark"] .prev-next-area .title {
+  color: var(--vast-text-dark-hi);
+}
+
+/* --- Copy button (sphinx-copybutton, if enabled) --------------------------- */
+
+button.copybtn {
+  background-color: transparent;
+  border: 1px solid var(--vast-line-soft);
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity .2s ease, border-color .2s ease;
+}
+
+.highlight:hover button.copybtn {
+  opacity: 1;
+}
+
+button.copybtn:hover {
+  border-color: var(--vast-cyan);
+}
+
+button.copybtn svg {
+  stroke: var(--vast-cyan);
+}
+
+/* --- Field lists in API docs (Parameters / Returns blocks) ----------------- */
+
+dl.field-list > dt {
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+  color: var(--vast-navy);
+}
+
+body[data-theme="dark"] dl.field-list > dt {
+  color: var(--vast-cyan);
+}
+
+/* ==========================================================================
+   CHART GALLERY — pro treatment (static posters, quiet chips, uniform cards)
+   ========================================================================== */
+
+/* Uniform thumbnails: fixed ratio, no jumping card heights */
+.gallery-card .sd-card-img-top {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid #E7EBF1;
+  background-color: #FBFCFE;
+}
+
+body[data-theme="dark"] .gallery-card .sd-card-img-top {
+  border-bottom: 1px solid var(--vast-line);
+  background-color: var(--vast-navy-2);
+}
+
+/* Posters rest slightly quiet; hover brings full life + the cyan rim
+   (works together with gallery_hover.js swapping poster -> gif) */
+.gallery-card .sd-card-img-top {
+  filter: saturate(0.85);
+  transition: filter .25s ease;
+}
+
+.gallery-card:hover .sd-card-img-top {
+  filter: saturate(1);
+}
+
+/* Card titles in Moderat */
+.gallery-card .sd-card-title {
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--vast-navy);
+}
+
+body[data-theme="dark"] .gallery-card .sd-card-title {
+  color: var(--vast-text-dark-hi);
+}
+
+/* ONE chip style for variants — quiet navy outline, cyan on hover */
+.gallery-card .sd-badge {
+  background-color: transparent !important;
+  color: var(--vast-navy) !important;
+  border: 1px solid var(--vast-gray-mid) !important;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.72em;
+  padding: 3px 10px;
+  margin: 2px;
+}
+
+.gallery-card:hover .sd-badge {
+  border-color: var(--vast-cyan) !important;
+}
+
+body[data-theme="dark"] .gallery-card .sd-badge {
+  color: var(--vast-text-dark-lo) !important;
+  border-color: var(--vast-line) !important;
+}
+
+body[data-theme="dark"] .gallery-card:hover .sd-badge {
+  color: var(--vast-cyan) !important;
+  border-color: var(--vast-cyan) !important;
+}
+
+/* The rare backend-deviation chip (bdg-light) gets a filled muted look */
+.gallery-card .sd-badge.sd-bg-light {
+  background-color: var(--vast-gray) !important;
+  border-color: transparent !important;
+  color: var(--vast-ink) !important;
+}
+
+body[data-theme="dark"] .gallery-card .sd-badge.sd-bg-light {
+  background-color: var(--vast-navy-3) !important;
+  color: var(--vast-text-dark-hi) !important;
+}
+
+/* Respect users who disable animation: never auto-play motion for them */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-card,
+  .gallery-card .sd-card-img-top {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   VAST FOOTER — KB-style navy footer band (_templates/page.html)
+   Like kb.vastdata.com and vastdata.com, the footer is navy in BOTH themes.
+   ========================================================================== */
+
+.vast-footer {
+  /* Transparent: inherits the page background in both themes.
+     All colors below use Furo's adaptive variables. */
+  background-color: transparent;
+  color: var(--color-foreground-secondary);
+  margin: 3.5em 0 0 0;
+  position: relative;
+  font-size: 0.9em;
+}
+
+/* Link-color safety on the navy band (beats Furo's light-mode link/visited) */
+.vast-footer a,
+.vast-footer a:visited {
+  color: var(--color-foreground-secondary);
+}
+
+.vast-footer a:hover {
+  color: var(--color-brand-content);
+}
+
+/* VAST Light beam across the top edge */
+.vast-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--vast-light);
+}
+
+.vast-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 44px 40px 32px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Brand block */
+.vast-footer-brand {
+  flex: 1 1 260px;
+  min-width: 240px;
+}
+
+.vast-footer-wordmark {
+  font-family: var(--vast-font-display);
+  font-size: 1.5em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground-primary);
+  text-decoration: none;
+}
+
+.vast-footer-wordmark span {
+  color: var(--vast-cyan);
+}
+
+.vast-footer-wordmark:hover {
+  color: var(--color-foreground-primary);
+  text-decoration: none;
+}
+
+.vast-footer-tagline {
+  margin: 10px 0 16px 0;
+  line-height: 1.6;
+  max-width: 34ch;
+}
+
+.vast-footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.vast-footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-background-border);
+  border-radius: 8px;
+  color: var(--color-foreground-secondary);
+  transition: all .2s ease;
+}
+
+.vast-footer-social a:hover {
+  color: var(--color-brand-content);
+  border-color: var(--color-brand-content);
+  box-shadow: var(--vast-glow);
+}
+
+.vast-footer-social svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Link columns */
+.vast-footer-cols {
+  flex: 2 1 480px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+}
+
+.vast-footer-col h4 {
+  font-family: var(--vast-font-display);
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-foreground-primary);
+}
+
+.vast-footer-col a {
+  display: block;
+  color: var(--color-foreground-secondary);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color .15s ease;
+}
+
+.vast-footer-col a:hover {
+  color: var(--color-brand-content);
+  text-decoration: none;
+}
+
+/* Legal bar */
+.vast-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 40px 22px 40px;
+  border-top: 1px solid var(--color-background-border);
+  font-size: 0.92em;
+}
+
+.vast-footer-copy {
+  color: var(--color-foreground-secondary);
+}
+
+.vast-footer-made,
+.vast-footer-made a {
+  color: var(--color-foreground-secondary);
+  opacity: 0.8;
+}
+
+.vast-footer-made a:hover {
+  color: var(--color-brand-content);
+}
+
+.vast-footer-legal-links {
+  display: flex;
+  gap: 18px;
+}
+
+.vast-footer-legal-links a {
+  color: var(--color-foreground-secondary);
+  text-decoration: none;
+}
+
+.vast-footer-legal-links a:hover {
+  color: var(--color-brand-content);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .vast-footer-inner,
+  .vast-footer-legal {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+/* ==========================================================================
+   ABOUT US — tab cover images
+   Any image with :class: about-cover renders as a uniform branded cover:
+   full tab width, consistent height, center-cropped, rounded, hairline.
+   ========================================================================== */
+
+img.about-cover {
+  display: block;
+  width: 100%;
+  min-height: 330px;
+  max-height: 380px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  border: 1px solid var(--color-background-border, #E4E4E7);
+  margin: 0 0 1.25rem 0;
 }

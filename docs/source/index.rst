@@ -1,78 +1,78 @@
 .. _index:
 
 ***********************************
-Welcome to VastOrbit Documentation
+Welcome to VAST Orbit Documentation
 ***********************************
 
 .. include:: logo_include.rst
 
 **Python API for In-Database Analytics and AI with VAST**
 
-VastOrbit unlocks the **endless possibilities** of VAST Database for data science and AI. Perform all your data preparation, exploration, and machine learning directly in VAST Database - no data movement required. Query across databases, data lakes, and files with familiar pandas-like syntax. Train ML models and deploy for blazing-fast in-database inference at any scale.
+VAST Orbit unlocks the **endless possibilities** of VAST Database for data science and AI. Perform all your data preparation, exploration, and machine learning directly in VAST Database - no data movement required. Query across databases, data lakes, and files with familiar pandas-like syntax. Train ML models and deploy for blazing-fast in-database inference at any scale.
 
 .. grid:: 2 2 2 2
     :gutter: 3
 
-    .. grid-item-card:: 🚀 Getting Started
+    .. grid-item-card:: |i-start| Getting Started
         :link: getting_started
         :link-type: ref
         :text-align: center
 
         Installation, quick start, and your first query in 5 minutes.
 
-    .. grid-item-card:: 🔌 Connection Guide
+    .. grid-item-card:: |i-connect| Connection Guide
         :link: connection
         :link-type: ref
         :text-align: center
 
         Connect to VAST Database and configure your environment.
 
-    .. grid-item-card:: 📚 User Guide
+    .. grid-item-card:: |i-guide| User Guide
         :link: user_guide
         :link-type: ref
         :text-align: center
 
         Master VastFrame operations and in-database analytics.
 
-    .. grid-item-card:: 🤖 Machine Learning
-        :link: machine_learning
+    .. grid-item-card:: |i-ml| Machine Learning
+        :link: api.machine_learning
         :link-type: ref
         :text-align: center
 
         Train models and deploy for in-database inference at scale.
 
-    .. grid-item-card:: 📊 Chart Gallery
+    .. grid-item-card:: |i-charts| Chart Gallery
         :link: chart_gallery
         :link-type: ref
         :text-align: center
 
         Interactive visualizations with intelligent sampling.
 
-    .. grid-item-card:: 💻 API Reference
+    .. grid-item-card:: |i-api| API Reference
         :link: api
         :link-type: ref
         :text-align: center
 
         Complete API documentation with 400+ functions.
 
-    .. grid-item-card:: 🎯 Examples
+    .. grid-item-card:: |i-examples| Examples
         :link: examples
         :link-type: ref
         :text-align: center
 
         Hands-on tutorials for analytics and ML workflows.
 
-    .. grid-item-card:: ℹ️ About Us
+    .. grid-item-card:: |i-about| About Us
         :link: about_us
         :link-type: ref
         :text-align: center
 
-        Meet the creator and learn VastOrbit's vision.
+        Meet the creator and learn VAST Orbit's vision.
 
-What is VastOrbit?
+What is VAST Orbit?
 ==================
 
-VastOrbit is a Python library that brings the full power of VAST Database to data scientists and AI developers:
+VAST Orbit is a Python library that brings the full power of VAST Database to data scientists and AI developers:
 
 **In-Database Data Preparation:**
 - Clean, transform, and prepare data directly in VAST
@@ -92,7 +92,7 @@ VastOrbit is a Python library that brings the full power of VAST Database to dat
 - All in one query, executing in VAST
 
 **In-Database ML:**
-- Train models with VastOrbit's embedded algorithms
+- Train models with VAST Orbit's embedded algorithms
 - Deploy for in-database inference in VAST
 - Score billions of rows without data movement
 - 10 ML algorithms available (RandomForest, XGBoost, LinearRegression, etc.)
@@ -108,35 +108,35 @@ Key Features
 
 .. grid:: 1 1 2 2
 
-    .. grid-item-card:: 🧹 Data Preparation
+    .. grid-item-card:: |i-prep| Data Preparation
         :text-align: center
 
         Clean, transform, and engineer features directly in VAST - handle missing values, outliers, and encoding at any scale.
 
-    .. grid-item-card:: 📊 Interactive Exploration
+    .. grid-item-card:: |i-explore| Interactive Exploration
         :text-align: center
 
         Generate charts, analyze distributions, and discover patterns with intelligent sampling - all without moving data.
 
-    .. grid-item-card:: 🗄️ In-Database Processing
+    .. grid-item-card:: |i-indb| In-Database Processing
         :text-align: center
 
         All operations execute in VAST Database - aggregations, joins, and analytics with zero data movement.
 
-    .. grid-item-card:: 🌐 Multi-Source Access
+    .. grid-item-card:: |i-multisource| Multi-Source Access
         :text-align: center
 
         Query VAST tables alongside S3 files, PostgreSQL, MongoDB, and 30+ data sources - all in one query.
 
-    .. grid-item-card:: 📁 Direct File Queries
+    .. grid-item-card:: |i-files| Direct File Queries
         :text-align: center
 
         Query Parquet, CSV, JSON files directly without loading. No "COPY" required - just point and query.
 
-    .. grid-item-card:: 🤖 In-Database ML
+    .. grid-item-card:: |i-inml| In-Database ML
         :text-align: center
 
-        Train with VastOrbit's embedded models or import sklearn, deploy for in-database inference at production scale in VAST.
+        Train with VAST Orbit's embedded models or import sklearn, deploy for in-database inference at production scale in VAST.
 
 Quick Example
 =============
@@ -179,7 +179,7 @@ Data preparation, exploration, and ML in just a few lines:
     # Analyze with pandas-like syntax - executes in VAST
     summary = result.groupby(['region'], ['sum(revenue)', 'avg(customer_lifetime_value)'])
 
-    # Train ML model with VastOrbit - samples and trains automatically
+    # Train ML model with VAST Orbit - samples and trains automatically
     from vastorbit.machine_learning.vast import RandomForestClassifier
     model = RandomForestClassifier()
     model.fit(result, ['age', 'tenure'], 'churn')
@@ -190,13 +190,13 @@ Data preparation, exploration, and ML in just a few lines:
 Architecture
 ============
 
-VastOrbit brings Python to VAST Database for in-database analytics and AI:
+VAST Orbit brings Python to VAST Database for in-database analytics and AI:
 
 .. code-block:: text
 
     Python Code (pandas/sklearn syntax)
             ↓
-    VastOrbit API (intelligent query translation)
+    VAST Orbit API (intelligent query translation)
             ↓
     ┌────────────────────────────────────────┐
     │      VAST Database                     │
@@ -232,7 +232,7 @@ Learn more at `VAST Data Platform <https://www.vastdata.com/platform/database>`_
 Installation
 ============
 
-Install VastOrbit Beta using pip:
+Install VAST Orbit Beta using pip:
 
 .. code-block:: bash
 
@@ -248,10 +248,10 @@ Requirements:
 
 See :ref:`getting_started` for detailed installation instructions.
 
-What Makes VastOrbit Special?
+What Makes VAST Orbit Special?
 ==============================
 
-VastOrbit brings Python data science to VAST Database with true in-database execution:
+VAST Orbit brings Python data science to VAST Database with true in-database execution:
 
 **Core Capabilities:**
 
@@ -259,17 +259,17 @@ VastOrbit brings Python data science to VAST Database with true in-database exec
 2. **Interactive Exploration**: Generate charts, analyze distributions, discover patterns - all with intelligent sampling from VAST
 3. **Multi-Source Queries**: Join VAST tables with files, PostgreSQL, MongoDB - all in one query
 4. **Direct File Access**: Query Parquet/CSV/JSON without loading to database tables
-5. **In-Database ML**: Train with VastOrbit's embedded models or import your own, deploy for inference at scale in VAST
+5. **In-Database ML**: Train with VAST Orbit's embedded models or import your own, deploy for inference at scale in VAST
 6. **400+ Functions**: Comprehensive analytics toolkit with pandas-like API
 
-**The VastOrbit Advantage:**
+**The VAST Orbit Advantage:**
 
 - **Zero Data Movement**: Compute where data lives, at VAST scale
 - **Familiar Syntax**: pandas and sklearn APIs you already know
 - **Production Ready**: Deploy from notebook to production without code changes
 - **Limitless Scale**: Query gigabytes to petabytes with the same code
 
-VastOrbit gives you endless possibilities for analytics and AI on VAST Database.
+VAST Orbit gives you endless possibilities for analytics and AI on VAST Database.
 
 Documentation Sections
 ======================
@@ -296,7 +296,7 @@ Documentation Sections
 
         **Advanced Topics**
 
-        - :ref:`machine_learning` - In-database ML workflows
+        - :ref:`api.machine_learning` - In-database ML workflows
         - :ref:`chart_gallery` - Visualization examples
         - :ref:`statistics` - Library metrics
 
@@ -324,7 +324,7 @@ Use Cases
 
 **AI/ML Development:**
 - Prepare features in VAST with embedded transformations
-- Train with VastOrbit's models or import your own
+- Train with VAST Orbit's models or import your own
 - Deploy for in-database inference at scale
 - Real-time predictions on live data
 
@@ -338,9 +338,9 @@ Community & Support
 
 **Get Help:**
 
-- 📖 Documentation: This site
-- 💬 GitHub: https://github.com/vastdata-dev/vastorbit
-- 📧 Support: vastsupport.slack.com
+- |i-docs| Documentation: This site
+- |i-chat| GitHub: https://github.com/vastdata-dev/vastorbit
+- |i-email| Support: `vastsupport.slack.com <https://vastsupport.slack.com>`_
 
 **Resources:**
 
@@ -376,12 +376,12 @@ Ready to unlock endless possibilities with VAST? Here's your path:
 2. **Connect**: Set up VAST connection in :ref:`connection`
 3. **Query**: Learn in-database operations in :ref:`user_guide`
 4. **Try Examples**: Work through tutorials in :ref:`examples`
-5. **Build ML**: Create in-database workflows in :ref:`machine_learning`
+5. **Build ML**: Create in-database workflows in :ref:`api.machine_learning`
 6. **Visualize**: Generate charts in :ref:`chart_gallery`
 
 .. note::
 
-    VastOrbit brings Python data science to VAST Database. Query anywhere, analyze everything, build AI at any scale - all with in-database execution and zero data movement.
+    VAST Orbit brings Python data science to VAST Database. Query anywhere, analyze everything, build AI at any scale - all with in-database execution and zero data movement.
 
 .. toctree::
     :hidden:

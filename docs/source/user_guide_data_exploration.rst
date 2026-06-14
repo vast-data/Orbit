@@ -12,7 +12,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 📊 Descriptive Statistics
+        .. card:: |i-stats| Descriptive Statistics
             :link: user_guide.data_exploration.descriptive_statistics
             :link-type: ref
             :text-align: center
@@ -26,7 +26,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 📈 Charts
+        .. card:: |i-charts| Charts
             :link: user_guide.data_exploration.charts
             :link-type: ref
             :text-align: center
@@ -40,7 +40,7 @@ ____
 
     .. grid-item::
 
-        .. card:: 🔗 Correlation & Dependencies
+        .. card:: |i-explore| Correlation & Dependencies
             :link: user_guide.data_exploration.correlation
             :link-type: ref
             :text-align: center
