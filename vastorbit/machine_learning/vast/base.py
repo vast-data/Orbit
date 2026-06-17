@@ -3,6 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 import copy
+import inspect
 from abc import abstractmethod
 from typing import Any, Callable, Literal, Optional, Union, get_type_hints
 import numpy as np
@@ -30,7 +31,6 @@ from vastorbit._utils._sql._format import (
 )
 from vastorbit._utils._sql._sys import _executeSQL
 from vastorbit._utils._sql._vast_version import (
-    check_minimum_version,
     vast_version,
 )
 from vastorbit.errors import (
@@ -84,6 +84,34 @@ class VASTModel(PlottingUtils):
     @property
     def _sklearn_model(self) -> Literal[None]:
         return None
+
+    def _get_sklearn_params(self) -> dict:
+        """
+        Returns the model parameters restricted (and translated) to those
+        accepted by the backing scikit-learn estimator.
+
+        VastOrbit wrappers expose a native parameter API (e.g. ``method`` on
+        ``Scaler``, ``init='k-means++'`` on ``KMeans``, ``drop_first`` on
+        ``OneHotEncoder``). Some of those parameters are consumed by the
+        wrapper's own SQL / transform logic and have no scikit-learn
+        equivalent, and a few use different value names. This forwards only
+        the parameters scikit-learn actually accepts, translating known value
+        mismatches, so building ``self._sklearn_model(**...)`` never fails on
+        an unexpected keyword.
+        """
+        params = self.get_params()
+        sklearn_model = self._sklearn_model
+        if isinstance(sklearn_model, NoneType):
+            return params
+        accepted = set(inspect.signature(sklearn_model).parameters)
+        out = {}
+        for key, value in params.items():
+            if key not in accepted:
+                continue  # native-only parameter; not a scikit-learn argument
+            if key == "init" and value == "k-means++":
+                value = "k-means++"  # VastOrbit -> scikit-learn naming
+            out[key] = value
+        return out
 
     @property
     @abstractmethod
@@ -269,8 +297,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -280,8 +306,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -384,8 +408,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -395,8 +417,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -440,199 +460,17 @@ class VASTModel(PlottingUtils):
             specific to your class of interest,
             please refer to that particular class.
         """
-        if hasattr(self, "_model_subcategory") and self._model_subcategory in (
-            "TENSORFLOW",
-            "PMML",
-        ):
-            if not attr_name:
-                return self.get_VAST_attributes()["attr_name"]
-            else:
-                res = self.get_VAST_attributes(attr_name)
-                if res.shape() == (1, 1):
-                    return res.to_list()[0][0]
-                elif res.shape()[0] == 1:
-                    return np.array([l[0] for l in res.to_list()])
-                else:
-                    return res
         if not attr_name:
             return self._attributes
         elif attr_name in self._attributes:
             if hasattr(self, attr_name):
                 return copy.deepcopy(getattr(self, attr_name))
             else:
-                return AttributeError("The attribute is not yet computed.")
+                raise AttributeError("The attribute is not yet computed.")
         elif attr_name + "_" in self._attributes:
             return self.get_attributes(attr_name + "_")
         else:
-            raise AttributeError(
-                "Method 'get_VAST_attributes' is not available for "
-                "non-native models.\nUse 'get_attributes' method instead."
-            )
-
-    def get_VAST_attributes(self, attr_name: Optional[str] = None) -> TableSample:
-        """
-        Returns the model VAST
-        attributes. These are stored
-        in VAST.
-
-        Parameters
-        ----------
-        attr_name: str, optional
-            Attribute name.
-
-        Returns
-        -------
-        TableSample
-            model attributes.
-
-        Examples
-        --------
-        We import :py:mod:`vastorbit`:
-
-        .. code-block:: python
-
-            import vastorbit as vo
-
-        For this example, we will
-        use the winequality dataset.
-
-        .. code-block:: python
-
-            import vastorbit.datasets as vod
-
-            data = vod.load_winequality()
-
-        .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-        Divide your dataset into training
-        and testing subsets.
-
-        .. code-block:: python
-
-            data = vod.load_winequality()
-            train, test = data.train_test_split(test_size = 0.2)
-
-        .. ipython:: python
-            :suppress:
-
-            import vastorbit as vo
-            import vastorbit.datasets as vod
-            data = vod.load_winequality()
-            train, test = data.train_test_split(test_size = 0.2)
-
-        Let's import the model:
-
-        .. code-block::
-
-            from vastorbit.machine_learning.vast import LinearRegression
-
-        Then we can create the model:
-
-        .. code-block::
-
-            model = LinearRegression(
-                tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
-                fit_intercept = True,
-            )
-
-        .. ipython:: python
-            :suppress:
-
-            from vastorbit.machine_learning.vast import LinearRegression
-            model = LinearRegression(
-                tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
-                fit_intercept = True,
-            )
-
-        We can now fit the model:
-
-        .. ipython:: python
-
-            model.fit(
-                train,
-                [
-                    "fixed_acidity",
-                    "volatile_acidity",
-                    "citric_acid",
-                    "residual_sugar",
-                    "chlorides",
-                    "density",
-                ],
-                "quality",
-                test,
-            )
-
-        We can easily get the
-        model VAST attributes:
-
-        .. ipython:: python
-
-            model.get_VAST_attributes()
-
-        To access a specific
-        VAST attribute:
-
-        .. ipython:: python
-
-            model.get_VAST_attributes('details')
-
-        .. important::
-
-            For this example, a specific model is
-            utilized, and it may not correspond
-            exactly to the model you are working
-            with. To see a comprehensive example
-            specific to your class of interest,
-            please refer to that particular class.
-        """
-        if self._is_native or self._is_using_native:
-            vast_version(condition=[8, 1, 1])
-            if attr_name:
-                attr_name_str = f", attr_name = '{attr_name}'"
-            else:
-                attr_name_str = ""
-            return TableSample.read_sql(
-                query=f"""
-                    SELECT 
-                        GET_MODEL_ATTRIBUTE(
-                            USING PARAMETERS 
-                            model_name = '{self.model_name}'{attr_name_str})""",
-                title="Getting Model Attributes.",
-            )
-        else:
-            raise AttributeError(
-                "Method 'get_VAST_attributes' is not available for "
-                "non-native models.\nUse 'get_attributes' method instead."
-            )
-
-    def _get_VAST_model_id(self) -> int:
-        """
-        Returns the model_id of a
-        native model archived in
-        database. It returns ``0``
-        if the model is not archived
-        in the database.
-        """
-        if not self._is_native:
-            raise AttributeError(
-                "Method '_get_VAST_model_id' is not available for " "non-native models."
-            )
-
-        schema_name, model_name = schema_relation(self.model_name, do_quote=False)
-        query = (
-            f"SELECT model_id FROM models WHERE schema_name='{schema_name}' "
-            f"AND model_name='{model_name}';"
-        )
-        model_id = _executeSQL(query, title="Finding model_id", method="fetchrow")
-
-        if not model_id:
-            return 0
-        return model_id[0]
+            raise AttributeError("The attribute is not yet computed.")
 
     def _is_binary_classifier(self) -> Literal[False]:
         """
@@ -642,105 +480,6 @@ class VASTModel(PlottingUtils):
         return False
 
     # Parameters Methods.
-
-    @staticmethod
-    def _map_to_VAST_param_dict() -> dict[str, str]:
-        """
-        Returns a dictionary used
-        to map vastorbit parameter
-        names to VAST parameter
-        names.
-        """
-        return {
-            "class_weights": "class_weight",
-            "solver": "optimizer",
-            "tol": "epsilon",
-            "max_iter": "max_iterations",
-            "penalty": "regularization",
-            "c": "lambda",
-            "l1_ratio": "alpha",
-            "n_estimators": "ntree",
-            "max_features": "mtry",
-            "sample": "sampling_size",
-            "max_leaf_nodes": "max_breadth",
-            "min_samples_leaf": "min_leaf_size",
-            "n_components": "num_components",
-            "init": "init_method",
-        }
-
-    def _map_to_VAST_param_name(self, param: str) -> str:
-        """
-        Maps the input vastorbit
-        parameter name to the
-        VAST parameter name.
-        """
-        options = self._map_to_VAST_param_dict()
-        param = param.lower()
-        if param in options:
-            return options[param]
-        return param
-
-    def _get_VAST_param_dict(self) -> dict[str, str]:
-        """
-        Returns the VAST parameters
-        ``dict`` to use when fitting
-        the model. As some model's
-        parameters names are not the
-        same in VAST. It is important
-        to map them.
-
-        Returns
-        -------
-        dict
-            VAST parameters.
-        """
-        parameters = {}
-
-        for param in self.parameters:
-            if param == "class_weight":
-                if isinstance(self.parameters[param], (list, np.ndarray)):
-                    parameters["class_weights"] = (
-                        f"'{', '.join([str(p) for p in self.parameters[param]])}'"
-                    )
-                else:
-                    parameters["class_weights"] = f"'{self.parameters[param]}'"
-
-            elif isinstance(self.parameters[param], (str, dict)):
-                parameters[self._map_to_VAST_param_name(param)] = (
-                    f"'{self.parameters[param]}'"
-                )
-
-            else:
-                parameters[self._map_to_VAST_param_name(param)] = self.parameters[param]
-
-        return parameters
-
-    def _map_to_vastorbit_param_name(self, param: str) -> str:
-        """
-        Maps the VAST parameter
-        name to the vastorbit one.
-        """
-        options = self._map_to_VAST_param_dict()
-        for key in options:
-            if options[key] == param:
-                return key
-        return param
-
-    def _get_vastorbit_param_dict(
-        self, options: Optional[dict] = None, **kwargs
-    ) -> dict:
-        """
-        Takes as input a ``dictionary``
-        of VAST options and returns
-        the  associated  ``dictionary``
-        of  vastorbit options.
-        """
-        options = format_type(options, dtype=dict)
-        parameters = {}
-        map_dict = {**options, **kwargs}
-        for param in map_dict:
-            parameters[self._map_to_vastorbit_param_name(param)] = map_dict[param]
-        return parameters
 
     def get_params(self) -> dict:
         """
@@ -766,8 +505,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -777,8 +514,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -795,7 +530,7 @@ class VASTModel(PlottingUtils):
         .. ipython:: python
 
             model.set_params(
-                solver = 'bfgs',
+                solver = 'lbfgs',
                 max_iter = 200,
             )
 
@@ -845,8 +580,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -856,8 +589,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -874,7 +605,7 @@ class VASTModel(PlottingUtils):
         .. ipython:: python
 
             model.set_params(
-                solver = 'bfgs',
+                solver = 'lbfgs',
                 max_iter = 200,
             )
 
@@ -950,8 +681,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -961,8 +690,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1071,8 +798,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1082,8 +807,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1364,10 +1087,7 @@ class VASTModel(PlottingUtils):
             If set to ``True`` and the
             model is cluster-based, the
             function returns the model
-            clusters distances. If the
-            model is KPrototypes, the
-            function returns the
-            dissimilarity function.
+            clusters distances.
 
         Returns
         -------
@@ -1422,8 +1142,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1433,8 +1151,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1518,9 +1234,6 @@ class VASTModel(PlottingUtils):
             model is cluster-based, the
             function returns the model
             clusters distances.
-            If the model is ``KPrototypes``,
-            the function returns the
-            dissimilarity function.
 
         Returns
         -------
@@ -1575,8 +1288,6 @@ class VASTModel(PlottingUtils):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1586,8 +1297,6 @@ class VASTModel(PlottingUtils):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1828,8 +1537,6 @@ class Supervised(VASTModel):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1839,8 +1546,6 @@ class Supervised(VASTModel):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1890,16 +1595,16 @@ class Supervised(VASTModel):
 
         if not (isinstance(self._sklearn_model, NoneType)):
             vdf = VastFrame(self.input_relation)
-            
+
             # CRITICAL FIX: Fetch X and y together in ONE query to preserve row order
             all_cols = self.X + [self.y]
             data = vdf[all_cols].to_numpy()
-            
+
             # Split into X and y
             X = data[:, :-1]  # All columns except last
-            y = data[:, -1]   # Last column
-            
-            model = self._sklearn_model(**self.get_params())
+            y = data[:, -1]  # Last column
+
+            model = self._sklearn_model(**self._get_sklearn_params())
             model.fit(X, y)
             self._model = model
             self._X = X
@@ -1997,10 +1702,7 @@ class Tree:
         """
         if isinstance(tree_id, NoneType):
             return copy.deepcopy(self.feature_importances_)
-        elif (
-            isinstance(tree_id, int)
-            and (0 <= tree_id < self.n_estimators_)
-        ):
+        elif isinstance(tree_id, int) and (0 <= tree_id < self.n_estimators_):
             return copy.deepcopy(self.feature_importances_trees_[tree_id])
         else:
             raise ValueError
@@ -2101,9 +1803,8 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "auto",
+                max_features = "sqrt",
                 max_leaf_nodes = 32,
-                sample = 0.5,
                 max_depth = 3,
                 min_samples_leaf = 5,
                 min_info_gain = 0.0,
@@ -2255,9 +1956,8 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "auto",
+                max_features = "sqrt",
                 max_leaf_nodes = 32,
-                sample = 0.5,
                 max_depth = 3,
                 min_samples_leaf = 5,
                 min_info_gain = 0.0,
@@ -2320,78 +2020,77 @@ class Tree:
 
     # Trees Representation Methods.
 
-    @check_minimum_version
     def get_tree(self, tree_id: int = 0) -> TableSample:
         """
         Returns a table with all
         the input tree information.
-
+ 
         Parameters
         ----------
         tree_id: int, optional
             Unique tree  identifier,
             an ``integer`` in the range
             ``[0, n_estimators - 1]``.
-
+ 
         Returns
         -------
         TableSample
             tree.
-
+ 
         Examples
         --------
         We import :py:mod:`vastorbit`:
-
+ 
         .. code-block:: python
-
+ 
             import vastorbit as vo
-
+ 
         For this example, we will
         use the winequality dataset.
-
+ 
         .. code-block:: python
-
+ 
             import vastorbit.datasets as vod
-
+ 
             data = vod.load_winequality()
-
+ 
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
+ 
         Let's divide the dataset into
         training and testing subsets.
-
+ 
         .. code-block:: python
-
+ 
             data = vod.load_winequality()
             train, test = data.train_test_split(test_size = 0.2)
-
+ 
         .. ipython:: python
             :suppress:
-
+ 
             import vastorbit as vo
             import vastorbit.datasets as vod
             data = vod.load_winequality()
             train, test = data.train_test_split(test_size = 0.2)
-
+ 
         We import the model:
-
+ 
         .. code-block::
-
+ 
             from vastorbit.machine_learning.vast import RandomForestClassifier
-
+ 
         .. ipython:: python
             :suppress:
-
+ 
             from vastorbit.machine_learning.vast import RandomForestClassifier
-
+ 
         Then we can create the model:
-
+ 
         .. ipython:: python
             :okwarning:
-
+ 
             model = RandomForestClassifier(
-                max_features = "auto",
+                max_features = "sqrt",
                 max_leaf_nodes = 32,
                 sample = 0.5,
                 max_depth = 3,
@@ -2399,12 +2098,12 @@ class Tree:
                 min_info_gain = 0.0,
                 nbins = 32,
             )
-
+ 
         We can now fit the model:
-
+ 
         .. ipython:: python
             :okwarning:
-
+ 
             model.fit(
                 train,
                 [
@@ -2418,26 +2117,26 @@ class Tree:
                 "good",
                 test,
             )
-
+ 
         To get the input tree:
-
+ 
         .. ipython:: python
             :suppress:
-
+ 
             result = model.get_tree(tree_id = 0)
             html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_rf_classifier_tree_score_1.html", "w")
             html_file.write(result._repr_html_())
             html_file.close()
-
+ 
         .. code-block:: python
-
+ 
             model.get_tree(tree_id = 0)
-
+ 
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_rf_classifier_tree_score_1.html
-
+ 
         .. important::
-
+ 
             For this example, a specific model is
             utilized, and it may not correspond
             exactly to the model you are working
@@ -2445,13 +2144,113 @@ class Tree:
             specific to your class of interest,
             please refer to that particular class.
         """
-        query = f"""
-            SELECT * FROM (SELECT READ_TREE (
-                             USING PARAMETERS 
-                             model_name = '{self.model_name}', 
-                             tree_id = {tree_id}, 
-                             format = 'tabular')) x ORDER BY node_id;"""
-        return TableSample.read_sql(query=query, title="Reading Tree.")
+        n_est = getattr(self, "n_estimators_", 1)
+        if not (isinstance(tree_id, int) and 0 <= tree_id < n_est):
+            raise ValueError(
+                "Parameter 'tree_id' must be an integer in the range "
+                f"[0, {n_est - 1}]."
+            )
+ 
+        if hasattr(self._model, "estimators_"):
+            # RandomForest -> 1-D estimators_; GradientBoosting (XGB*) -> 2-D,
+            # so ravel handles both. IsolationForest also exposes estimators_.
+            skl_tree = np.ravel(self._model.estimators_)[tree_id].tree_
+        else:
+            # Single decision tree model.
+            skl_tree = self._model.tree_
+ 
+        children_left = skl_tree.children_left
+        children_right = skl_tree.children_right
+        feature = skl_tree.feature
+        threshold = skl_tree.threshold
+        value = skl_tree.value
+        n_node_samples = skl_tree.n_node_samples
+        impurity = skl_tree.impurity
+        n_nodes = skl_tree.node_count
+ 
+        # Node depth via iterative traversal (sklearn TREE_LEAF == -1).
+        node_depth = [0] * n_nodes
+        stack = [(0, 0)]
+        while stack:
+            nid, depth = stack.pop()
+            node_depth[nid] = depth
+            if children_left[nid] != -1:
+                stack.append((int(children_left[nid]), depth + 1))
+                stack.append((int(children_right[nid]), depth + 1))
+ 
+        is_classifier = "Classifier" in self._model_type
+        is_isolation = self._model_type == "IsolationForest"
+ 
+        cols = {
+            "tree_id": [],
+            "node_id": [],
+            "node_depth": [],
+            "is_leaf": [],
+            "left_child_id": [],
+            "right_child_id": [],
+            "split_predictor": [],
+            "split_value": [],
+            "is_categorical_split": [],
+            "prediction": [],
+            "probability/variance": [],
+            "training_row_count": [],
+        }
+        if is_isolation:
+            cols["leaf_path_length"] = []
+        if self._model_type == "XGBClassifier":
+            cols["log_odds"] = []
+ 
+        for i in range(n_nodes):
+            is_leaf = children_left[i] == -1
+            cols["tree_id"].append(tree_id)
+            cols["node_id"].append(i)
+            cols["node_depth"].append(node_depth[i])
+            cols["is_leaf"].append(bool(is_leaf))
+            # scikit-learn splits are always numeric (no native categorical split).
+            cols["is_categorical_split"].append(False)
+            cols["training_row_count"].append(int(n_node_samples[i]))
+ 
+            if not is_leaf:
+                cols["left_child_id"].append(int(children_left[i]))
+                cols["right_child_id"].append(int(children_right[i]))
+                cols["split_predictor"].append(self.X[int(feature[i])])
+                cols["split_value"].append(float(threshold[i]))
+                cols["prediction"].append(None)
+                cols["probability/variance"].append(None)
+                if is_isolation:
+                    cols["leaf_path_length"].append(None)
+                if self._model_type == "XGBClassifier":
+                    cols["log_odds"].append(None)
+                continue
+ 
+            # Leaf node.
+            cols["left_child_id"].append(None)
+            cols["right_child_id"].append(None)
+            cols["split_predictor"].append(None)
+            cols["split_value"].append(None)
+            if is_isolation:
+                # IsolationForest scores from path length / sub-sample size.
+                cols["prediction"].append(None)
+                cols["probability/variance"].append(None)
+                cols["leaf_path_length"].append(node_depth[i])
+            elif is_classifier:
+                counts = np.asarray(value[i][0], dtype=float)
+                total = counts.sum() or 1.0
+                k = int(np.argmax(counts))
+                cols["prediction"].append(self.classes_[k])
+                cols["probability/variance"].append(float(counts[k] / total))
+                if self._model_type == "XGBClassifier":
+                    cols["log_odds"].append(
+                        ",".join(
+                            f"{self.classes_[j]}:{float(value[i][0][j])}"
+                            for j in range(len(counts))
+                        )
+                    )
+            else:  # regressor
+                cols["prediction"].append(float(value[i][0][0]))
+                cols["probability/variance"].append(float(impurity[i]))
+ 
+        return TableSample(values=cols)
 
     def to_graphviz(
         self,
@@ -2566,9 +2365,8 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "auto",
+                max_features = "sqrt",
                 max_leaf_nodes = 32,
-                sample = 0.5,
                 max_depth = 3,
                 min_samples_leaf = 5,
                 min_info_gain = 0.0,
@@ -2704,9 +2502,8 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "auto",
+                max_features = "sqrt",
                 max_leaf_nodes = 32,
-                sample = 0.5,
                 max_depth = 3,
                 min_samples_leaf = 5,
                 min_info_gain = 0.0,
@@ -2836,7 +2633,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -3134,7 +2931,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -3238,7 +3035,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -3519,7 +3316,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -3662,7 +3459,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -3829,7 +3626,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -3986,7 +3783,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -4101,7 +3898,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -4215,7 +4012,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -4329,7 +4126,7 @@ class BinaryClassifier(Supervised):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'Newton',
+                solver = 'lbfgs',
                 fit_intercept = True,
             )
 
@@ -6459,8 +6256,6 @@ class Regressor(Supervised):
 
              model = LinearRegression(
                  tol = 1e-6,
-                 max_iter = 100,
-                 solver = 'newton',
                  fit_intercept = True,
              )
 
@@ -6470,8 +6265,6 @@ class Regressor(Supervised):
              from vastorbit.machine_learning.vast import LinearRegression
              model = LinearRegression(
                  tol = 1e-6,
-                 max_iter = 100,
-                 solver = 'newton',
                  fit_intercept = True,
              )
 
@@ -6745,8 +6538,6 @@ class Regressor(Supervised):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -6756,8 +6547,6 @@ class Regressor(Supervised):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -6906,8 +6695,6 @@ class Regressor(Supervised):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -6917,8 +6704,6 @@ class Regressor(Supervised):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -7004,7 +6789,7 @@ class Regressor(Supervised):
 
 
 class Unsupervised(VASTModel):
-    
+
     # System & Special Methods.
 
     @property
@@ -7067,8 +6852,8 @@ class Unsupervised(VASTModel):
             :okwarning:
 
             model = KMeans(
-                n_cluster = 8,
-                init = "kmeanspp",
+                n_clusters = 8,
+                init = "k-means++",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -7101,7 +6886,7 @@ class Unsupervised(VASTModel):
         if not (isinstance(self._sklearn_model, NoneType)):
             vdf = VastFrame(self.input_relation)
             X = vdf[self.X].to_numpy()
-            model = self._sklearn_model(**self.get_params())
+            model = self._sklearn_model(**self._get_sklearn_params())
             model.fit(X)
             self._model = model
             self._X = X

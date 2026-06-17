@@ -70,7 +70,7 @@ def username() -> str:
         | :py:meth:`~vastorbit.has_privileges` : checks user privileges.
     """
     return _executeSQL(
-        query="SELECT /*+LABEL(username)*/ USERNAME();",
+        query="SELECT /*+LABEL(username)*/ current_user;",
         method="fetchfirstelem",
         print_time_sql=False,
     )

@@ -36,15 +36,15 @@ class OutliersPlot(PlotlyBase):
 
     def _init_style(self) -> None:
         self.init_style = {
-            "width": 500, 
-            "height": 500, 
+            "width": 500,
+            "height": 500,
             "legend": dict(
                 orientation="v",
                 x=1.02,  # Position to the right of the plot
                 xanchor="left",
                 y=1,
-                yanchor="top"
-            )
+                yanchor="top",
+            ),
         }
 
     # Draw.

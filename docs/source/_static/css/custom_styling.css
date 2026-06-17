@@ -1874,3 +1874,30 @@ img.about-cover {
   border: 1px solid var(--color-background-border, #E4E4E7);
   margin: 0 0 1.25rem 0;
 }
+
+/* HEADER UPDATES */
+
+/* 1) Whole header, including the logo/corner cell, stays the dark blue */
+html body[data-theme="dark"] .vob-table thead th,
+html body[data-theme="dark"] .vob-table thead th.vob-idx {
+  background: var(--color-background-secondary) !important;
+}
+
+/* 2) Light-blue separation line between the header and the data */
+html body[data-theme="dark"] .vob-table thead th {
+  border-bottom: 2px solid #29b8ff !important;
+}
+
+/* 3) Light-blue scroller */
+html body[data-theme="dark"] .vob-table .vob-scroll::-webkit-scrollbar-thumb {
+  background: #29b8ff !important;
+}
+html body .vob-table .vob-scroll {
+  scrollbar-color: #29b8ff transparent;   /* Firefox */
+}
+
+/* Keep the index column opaque so data cells can't show through on scroll
+   (out-specifies the tr:nth-child(even) td zebra rule). */
+html body .vob-table tbody tr td.vob-idx {
+  background: var(--color-background-secondary) !important;
+}

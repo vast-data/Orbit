@@ -52,7 +52,10 @@ Let's create a VastFrame of the dataset.
 .. ipython:: python
     :suppress:
 
-    creditcard = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/credit_card_fraud/creditcard.csv")
+    try:
+        creditcard = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/credit_card_fraud/creditcard.csv")
+    except:
+        creditcard = vo.VastFrame("creditcard")
     res = creditcard.head(5)
     html_file = open("SPHINX_DIRECTORY/figures/examples_creditcardfraud_table_head.html", "w")
     html_file.write(res._repr_html_())

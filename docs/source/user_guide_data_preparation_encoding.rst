@@ -96,28 +96,6 @@ We can also discretize the data using frequency bins.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/ug_dp_plot_encoding_4.html
 
-Computing categories using a response column can also be a good solution.
-
-.. code-block:: python
-
-    titanic = load_titanic()
-    titanic["age"].discretize(method = "smart", response = "survived", nbins = 6)
-    titanic["age"].bar(method = "avg", of = "survived")
-
-.. ipython:: python
-    :suppress:
-    :okwarning:
-
-    titanic = load_titanic()
-    titanic["age"].discretize(method = "smart", response = "survived", nbins = 6)
-    import vastorbit
-    vastorbit.set_option("plotting_lib", "plotly")
-    fig = titanic["age"].bar(method = "avg", of = "survived")
-    fig.write_html("SPHINX_DIRECTORY/figures/ug_dp_plot_encoding_5.html")
-
-.. raw:: html
-    :file: SPHINX_DIRECTORY/figures/ug_dp_plot_encoding_5.html
-
 We can view the available techniques in the :py:func:`~vastorbit.VastColumn.discretize` method with the :py:func:`help` method.
 
 .. ipython:: python

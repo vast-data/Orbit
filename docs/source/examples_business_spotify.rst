@@ -94,7 +94,7 @@ Load the datasets into the :py:mod:`~vastorbit.VastFrame` with :py:func:`~vastor
 
     # load datasets as VastFrame objects
     artists = vo.read_csv("artists.csv", schema = "spotify", parse_nrows = 100)
-    tracks  = vo.read_csv("tracks.csv" , schema = "spotify", parse_nrows = 100)
+    tracks  = vo.read_csv("tracks.csv", schema = "spotify", parse_nrows = 100)
 
     # Display
     artists.head(100)

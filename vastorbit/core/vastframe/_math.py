@@ -1505,7 +1505,7 @@ class vDCMath(vDCFilter):
 
             .. code-block:: python
 
-                vdf["val"] = "DATE_PART('DAY', val)"
+                vdf["val"] = "EXTRACT(DAY FROM val)"
 
         .. seealso::
 

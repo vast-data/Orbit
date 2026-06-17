@@ -75,29 +75,34 @@ What is VAST Orbit?
 VAST Orbit is a Python library that brings the full power of VAST Database to data scientists and AI developers:
 
 **In-Database Data Preparation:**
+
 - Clean, transform, and prepare data directly in VAST
 - Handle missing values, normalize, encode features
 - All preprocessing executes in VAST - no data movement
 - Scale from megabytes to petabytes with the same code
 
 **Interactive Exploration:**
+
 - Generate charts and visualizations with intelligent sampling
 - Analyze distributions, correlations, and patterns
 - Explore data interactively without moving it to Python
 - pandas-like syntax for familiar workflows
 
 **Multi-Source Analytics:**
+
 - Query VAST tables, data lake files, and external databases
 - Join across tables, Parquet files, PostgreSQL, MongoDB
 - All in one query, executing in VAST
 
 **In-Database ML:**
+
 - Train models with VAST Orbit's embedded algorithms
 - Deploy for in-database inference in VAST
 - Score billions of rows without data movement
 - 10 ML algorithms available (RandomForest, XGBoost, LinearRegression, etc.)
 
 **400+ Functions:**
+
 - pandas-like DataFrame operations
 - Advanced analytics and statistics
 - Geospatial and time series analysis
@@ -219,6 +224,7 @@ VAST revolutionizes data infrastructure for AI:
 **Unified Database**: Transactional + Analytical in one system (no separate OLTP/OLAP)
 
 **DASE Architecture**:
+
 - Single-millisecond latency at exabyte scale
 - Linear performance scaling
 - All-flash economics
@@ -311,24 +317,28 @@ Use Cases
 =========
 
 **Data Preparation:**
+
 - Clean and transform data directly in VAST
 - Handle missing values, duplicates, outliers
 - Feature engineering at scale
 - All preprocessing in-database - no data movement
 
 **Data Exploration:**
+
 - Interactive charts and visualizations
 - Statistical analysis and profiling
 - Pattern discovery and correlation analysis
 - Explore petabytes as easily as gigabytes
 
 **AI/ML Development:**
+
 - Prepare features in VAST with embedded transformations
 - Train with VAST Orbit's models or import your own
 - Deploy for in-database inference at scale
 - Real-time predictions on live data
 
 **Multi-Source Analytics:**
+
 - Query across VAST tables, files, and databases
 - Ad-hoc analysis without ETL
 - Data quality validation in VAST

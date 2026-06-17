@@ -88,9 +88,7 @@ class TestMachineLearning:
         vo_raw = titanic_vd_fun_fillna.cdt(
             columns=columns, drop_transf_cols=drop_transf_cols, tcdt=tcdt
         )
-        vo_res = vo_raw.aggregate(
-            columns=_get_columns(vo_raw), func=["sum"]
-        ).to_list()
+        vo_res = vo_raw.aggregate(columns=_get_columns(vo_raw), func=["sum"]).to_list()
 
         vo_cdt_raw = (
             titanic_vd_fun_fillna[columns]
@@ -154,9 +152,7 @@ class TestMachineLearning:
             ("survived", ["sex", "pclass"], 16, "same_width"),
         ],
     )
-    def test_chaid(
-        self, titanic_vd_fun, response, columns, nbins, method
-    ):
+    def test_chaid(self, titanic_vd_fun, response, columns, nbins, method):
         """
         test function - chaid
         """
@@ -287,7 +283,12 @@ class TestMachineLearning:
         ],
     )
     def test_pivot_table_chi2(
-        self, titanic_vd_fun, response, columns, nbins, method,
+        self,
+        titanic_vd_fun,
+        response,
+        columns,
+        nbins,
+        method,
     ):
         """
         test function - pivot_table_chi2

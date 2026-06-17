@@ -776,7 +776,7 @@ Let's create our model.
         "avg_temperature",
         "avg_humidity",
     ]
-    model = LinearRegression(solver = "BFGS")
+    model = LinearRegression()
     model.fit(
         sm_consumption_final, 
         predictors,

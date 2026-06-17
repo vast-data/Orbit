@@ -17,7 +17,7 @@ from vastorbit._utils._sql._format import format_type, quote_ident, schema_relat
 
 from vastorbit.core.tablesample.base import TableSample
 
-from vastorbit.machine_learning.vast.cluster import KMeans, KPrototypes
+from vastorbit.machine_learning.vast.cluster import KMeans
 
 from vastorbit.plotting._utils import PlottingUtils
 
@@ -26,18 +26,15 @@ from vastorbit.plotting._utils import PlottingUtils
 def best_k(
     input_relation: SQLRelation,
     X: Optional[SQLColumns] = None,
-    n_cluster: Union[tuple, list] = (1, 100),
-    init: Literal["kmeanspp", "random", None] = None,
+    n_clusters: Union[tuple, list] = (1, 100),
+    init: Literal["k-means++", "random", None] = None,
     max_iter: int = 50,
     tol: float = 1e-4,
-    use_kprototype: bool = False,
-    gamma: float = 1.0,
     elbow_score_stop: float = 0.8,
     **kwargs,
 ) -> int:
     """
     Finds the :py:class:`~vastorbit.machine_learning.vast.KMeans`
-    / :py:class:`~vastorbit.machine_learning.vast.KPrototypes`
     ``k`` based on a score.
 
     Parameters
@@ -49,7 +46,7 @@ def best_k(
         ``list`` of the predictor
         columns. If empty, all
         numerical columns are used.
-    n_cluster: tuple | list, optional
+    n_clusters: tuple | list, optional
         Tuple representing the number
         of clusters to start and end
         with. This can also be a
@@ -59,18 +56,14 @@ def best_k(
         The method used to  find the
         initial cluster centers.
 
-        - kmeanspp:
-            Only available when
-            ``use_kprototype = False``
+        - k-means++:
             Use the ``k-means++`` method
             to initialize the centers.
         - random:
             Randomly subsamples the data
             to find initial centers.
 
-        Default  value  is  ``kmeanspp`` if
-        ``use_kprototype = False``; otherwise,
-        ``random``.
+        Default  value  is  ``k-means++``.
     max_iter: int, optional
         The maximum number of iterations
         for the algorithm.
@@ -81,20 +74,6 @@ def best_k(
         center has moved more than a
         distance of ``tol`` from the
         previous iteration.
-    use_kprototype: bool, optional
-        If set to ``True``, the function
-        uses the
-        :py:class:`~vastorbit.machine_learning.vast.KPrototypes`
-        algorithm instead of
-        :py:class:`~vastorbit.machine_learning.vast.KMeans`.
-        :py:class:`~vastorbit.machine_learning.vast.KPrototypes`
-        can handle categorical features.
-    gamma: float, optional
-        Only if ``use_kprototype = True``.
-        Weighting factor for categorical
-        columns. It determines the relative
-        importance of numerical and
-        categorical attributes.
     elbow_score_stop: float, optional
         Stops searching for parameters when
         the specified elbow score is reached.
@@ -209,8 +188,8 @@ def best_k(
         best_k(
             input_relation = data,
             X = data.get_columns(exclude_columns= "Species"), # All columns except Species
-            n_cluster = (1, 100),
-            init = "kmeanspp",
+            n_clusters = (1, 100),
+            init = "k-means++",
             elbow_score_stop = 0.9,
         )
 
@@ -232,14 +211,12 @@ def best_k(
     X = format_type(X, dtype=list)
     if X == []:
         X = None
-    if not init and (use_kprototype):
-        init = "random"
-    elif not init:
-        init = "kmeanspp"
-    if isinstance(n_cluster, tuple):
-        L = range(n_cluster[0], n_cluster[1])
+    if not init:
+        init = "k-means++"
+    if isinstance(n_clusters, tuple):
+        L = range(n_clusters[0], n_clusters[1])
     else:
-        L = n_cluster
+        L = n_clusters
         L.sort()
     schema = schema_relation(input_relation)[0]
     if not schema:
@@ -253,23 +230,12 @@ def best_k(
         loop = L
     i = None
     for i in loop:
-        if use_kprototype:
-            if init == "kmeanspp":
-                init = "random"
-            model = KPrototypes(
-                n_cluster=i,
-                init=init,
-                max_iter=max_iter,
-                tol=tol,
-                gama=gamma,
-            )
-        else:
-            model = KMeans(
-                n_cluster=i,
-                init=init,
-                max_iter=max_iter,
-                tol=tol,
-            )
+        model = KMeans(
+            n_clusters=i,
+            init=init,
+            max_iter=max_iter,
+            tol=tol,
+        )
         model.fit(
             input_relation,
             X,
@@ -294,8 +260,6 @@ def elbow(
     init: Literal["k-means++", "random", None] = None,
     max_iter: int = 50,
     tol: float = 1e-4,
-    use_kprototype: bool = False,
-    gamma: float = 1.0,
     show: bool = True,
     chart: Optional[PlottingObject] = None,
     **style_kwargs,
@@ -322,18 +286,14 @@ def elbow(
         The method used to  find the
         initial cluster centers.
 
-        - kmeanspp:
-            Only available when
-            ``use_kprototype = False``
+        - k-means++:
             Use the ``k-means++`` method
             to initialize the centers.
         - random:
             Randomly subsamples the data
             to find initial centers.
 
-        Default  value  is  ``kmeanspp`` if
-        ``use_kprototype = False``; otherwise,
-        ``random``.
+        Default  value  is  ``k-means++``.
     max_iter: int, optional
         The maximum number of iterations
         for the algorithm.
@@ -344,20 +304,6 @@ def elbow(
         center has moved more than a
         distance of ``tol`` from the
         previous iteration.
-    use_kprototype: bool, optional
-        If set to ``True``, the function
-        uses the
-        :py:class:`~vastorbit.machine_learning.vast.KPrototypes`
-        algorithm instead of
-        :py:class:`~vastorbit.machine_learning.vast.KMeans`.
-        :py:class:`~vastorbit.machine_learning.vast.KPrototypes`
-        can handle categorical features.
-    gamma: float, optional
-        Only if ``use_kprototype = True``.
-        Weighting factor for categorical
-        columns. It determines the relative
-        importance of numerical and
-        categorical attributes.
     show: bool, optional
         If set to ``True``, the  Plotting
         object is returned.
@@ -370,7 +316,7 @@ def elbow(
     Returns
     -------
     TableSample
-        ``nb_clusters,total_within_cluster_ss,between_cluster_ss,total_ss, elbow_score``
+        ``nb_clusters,total_within_clusters_ss,between_clusters_ss,total_ss, elbow_score``
 
     Examples
     --------
@@ -479,7 +425,7 @@ def elbow(
             input_relation = data,
             X = data.get_columns(exclude_columns= "Species"), # All columns except Species
             n_clusters = (1, 100),
-            init = "kmeanspp",
+            init = "k-means++",
         )
 
     .. ipython:: python
@@ -492,7 +438,7 @@ def elbow(
             input_relation = data,
             X = data.get_columns(exclude_columns= "Species"), # All columns except Species
             n_clusters = (1, 100),
-            init = "kmeanspp",
+            init = "k-means++",
         )
         fig.write_html("SPHINX_DIRECTORY/figures/core_machine_learning_elbow.html")
 
@@ -519,16 +465,13 @@ def elbow(
     .. seealso::
 
         | :py:func:`~vastorbit.machine_learning.model_selection.kmeans.best_k` :
-            Finds the :py:class:`~vastorbit.machine_learning.vast.KMeans` /
-            :py:class:`~vastorbit.machine_learning.vast.KPrototypes` ``k``
+            Finds the :py:class:`~vastorbit.machine_learning.vast.KMeans` ``k``
             based on a score.
     """
     X = format_type(X, dtype=list)
     if X == []:
         X = None
-    if not init and (use_kprototype):
-        init = "random"
-    elif not init:
+    if not init:
         init = "k-means++"
     if isinstance(n_clusters, tuple):
         L = range(n_clusters[0], n_clusters[1])
@@ -537,9 +480,9 @@ def elbow(
         L.sort()
     schema = schema_relation(input_relation)[0]
     elbow_score = []
-    between_cluster_ss = []
+    between_clusters_ss = []
     total_ss = []
-    total_within_cluster_ss = []
+    total_within_clusters_ss = []
     if isinstance(n_clusters, tuple):
         L = [i for i in range(n_clusters[0], n_clusters[1])]
     else:
@@ -550,32 +493,21 @@ def elbow(
     else:
         loop = L
     for i in loop:
-        if use_kprototype:
-            if init == "kmeanspp":
-                init = "random"
-            model = KPrototypes(
-                n_clusters=i,
-                init=init,
-                max_iter=max_iter,
-                tol=tol,
-                gamma=gamma,
-            )
-        else:
-            model = KMeans(
-                n_clusters=i,
-                init=init,
-                max_iter=max_iter,
-                tol=tol,
-            )
+        model = KMeans(
+            n_clusters=i,
+            init=init,
+            max_iter=max_iter,
+            tol=tol,
+        )
         model.fit(
             input_relation,
             X,
             return_report=True,
         )
         elbow_score += [float(model.elbow_score_)]
-        between_cluster_ss += [float(model.between_cluster_ss_)]
+        between_clusters_ss += [float(model.between_clusters_ss_)]
         total_ss += [float(model.total_ss_)]
-        total_within_cluster_ss += [float(model.total_within_cluster_ss_)]
+        total_within_clusters_ss += [float(model.total_within_clusters_ss_)]
         model.drop()
     if show:
         vo_plt, kwargs = PlottingUtils().get_plotting_lib(
@@ -586,8 +518,8 @@ def elbow(
         data = {
             "x": np.array(L),
             "y": np.array(elbow_score),
-            "z0": np.array(total_within_cluster_ss),
-            "z1": np.array(between_cluster_ss),
+            "z0": np.array(total_within_clusters_ss),
+            "z1": np.array(between_clusters_ss),
             "z2": np.array(total_ss),
         }
         layout = {
@@ -601,8 +533,8 @@ def elbow(
         return vo_plt.ElbowCurve(data=data, layout=layout).draw(**kwargs)
     values = {
         "index": L,
-        "total_within_cluster_ss": total_within_cluster_ss,
-        "between_cluster_ss": between_cluster_ss,
+        "total_within_clusters_ss": total_within_clusters_ss,
+        "between_clusters_ss": between_clusters_ss,
         "total_ss": total_ss,
         "elbow_score": elbow_score,
     }

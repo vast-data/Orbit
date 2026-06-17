@@ -162,7 +162,7 @@ def model_params(model_class):
             "tol, c, max_iter, solver, fit_intercept",
             [
                 # (1e-6, 1, 100, 'bfgs', True), # bfgs not supported
-                # (1e-4, 0.99, 200, 'newton', False), # newton not supported
+                # (1e-4, 0.99, 200, 'newton-cg', False), # newton not supported
                 (1e-4, 1, 200, "cgd", False)
             ],
         ),
@@ -170,7 +170,7 @@ def model_params(model_class):
             "tol, c, max_iter, solver, l1_ratio, fit_intercept",
             [
                 # (1e-6, 1, 100, 'bfgs', 0.5, True), # bfgs not supported
-                # (1e-4, 0.99, 200, 'newton', 0.9, False), # newton not supported
+                # (1e-4, 0.99, 200, 'newton-cg', 0.9, False), # newton not supported
                 (
                     1e-4,
                     1,
@@ -798,15 +798,13 @@ def get_model_params(model_class):
     params_map = {
         **dict.fromkeys(
             ["LinearRegression"],
-            {"tol": 1e-06, "max_iter": 100, "solver": "newton", "fit_intercept": True},
+            {"tol": 1e-06, "fit_intercept": True},
         ),
         **dict.fromkeys(
             ["Ridge"],
             {
                 "tol": 1e-06,
                 "C": 1.0,
-                "max_iter": 100,
-                "solver": "newton",
                 "fit_intercept": True,
             },
         ),
@@ -815,8 +813,6 @@ def get_model_params(model_class):
             {
                 "tol": 1e-06,
                 "C": 1.0,
-                "max_iter": 100,
-                "solver": "cgd",
                 "fit_intercept": True,
             },
         ),
@@ -824,9 +820,6 @@ def get_model_params(model_class):
             ["ElasticNet"],
             {
                 "tol": 1e-06,
-                "C": 1.0,
-                "max_iter": 100,
-                "solver": "cgd",
                 "l1_ratio": 0.5,
                 "fit_intercept": True,
             },
@@ -931,7 +924,7 @@ def get_model_params(model_class):
         ),
         **dict.fromkeys(
             ["KMeans"],
-            {"n_cluster": 8, "init": "kmeanspp", "max_iter": 300, "tol": 0.0001},
+            {"n_clusters": 8, "init": "k-means++", "max_iter": 300, "tol": 0.0001},
         ),
     }
     return params_map.get(
@@ -1189,13 +1182,13 @@ def get_set_params(model_class):
         ),
         **dict.fromkeys(
             ["ElasticNet"],
-            {"l1_ratio": 0.01, "C": 0.12, "solver": "newton", "max_iter": 500},
+            {"l1_ratio": 0.01, "solver": "lbfgs", "max_iter": 500},
         ),
         **dict.fromkeys(
-            ["AR"], {"p": 10, "C": 0.12, "penalty": "l2", "missing": "drop"}
+            ["AR"], {"p": 10}
         ),
         **dict.fromkeys(
-            ["MA"], {"q": 10, "C": 0.12, "penalty": "l2", "missing": "drop"}
+            ["MA"], {"q": 10}
         ),
         **dict.fromkeys(
             ["ARMA"], {"order": (2, 4, 2), "tol": 1, "init": "hr", "missing": "drop"}
@@ -1203,9 +1196,9 @@ def get_set_params(model_class):
         **dict.fromkeys(
             ["ARIMA"], {"order": (2, 2), "tol": 1, "init": "hr", "missing": "drop"}
         ),
-        **dict.fromkeys(["KMeans"], {"n_cluster": 5, "init": "random", "tol": 1}),
+        **dict.fromkeys(["KMeans"], {"n_clusters": 5, "init": "random", "tol": 1}),
     }
-    return set_params_map.get(model_class, {"solver": "cgd", "max_iter": 500})
+    return set_params_map.get(model_class, {"solver": "lbfgs", "max_iter": 500})
 
 
 @pytest.fixture(name="get_pred_column")
@@ -1395,22 +1388,7 @@ class TestBaseModelMethods:
         plotting_lib = get_models.vpy.model.get_plotting_lib(
             class_name="RegressionPlot"
         )[0].RegressionPlot.__module__
-        assert (
-            "matplotlib" in plotting_lib
-            or "plotly" in plotting_lib
-        )
-
-    @pytest.mark.parametrize("attributes", ["attr_name", "attr_fields", "#_of_rows"])
-    def test_get_VAST_attributes(self, get_models, model_class, attributes):
-        """
-        test function - get_VAST_attributes
-        """
-        model_attributes = get_models.vpy.model.get_VAST_attributes()
-
-        attr_map = get_VAST_model_attributes(model_class)
-        expected = attr_map[attributes]
-
-        assert model_attributes[attributes] == expected
+        assert "matplotlib" in plotting_lib or "plotly" in plotting_lib
 
     @pytest.mark.parametrize("kind", ["pmml", "VAST", "VAST_models", None])
     def test_import_models(self, schema_loader, model_class, get_models, kind):

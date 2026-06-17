@@ -378,20 +378,6 @@ class TestJoinUnionSort:
                 how="inner",
             )
 
-    def test_join_unsupported_jaro_raises_error(self, employees_data, departments_data):
-        """
-        Test that unsupported Jaro operator raises helpful error message
-        """
-        emp_vdf, _ = employees_data
-        dept_vdf, _ = departments_data
-
-        with pytest.raises(ValueError, match="not supported in Trino"):
-            emp_vdf.join(
-                input_relation=dept_vdf,
-                on=[("employee_name", "department_name", "jaro", ">=", 0.8)],
-                how="inner",
-            )
-
     # ========== SORT TESTS ==========
 
     @pytest.mark.parametrize(

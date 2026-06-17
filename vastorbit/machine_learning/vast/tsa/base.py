@@ -44,7 +44,7 @@ General Classes.
 class TimeSeriesModelBase(VASTModel):
     """
     Base Class for VAST Time Series Models.
-    
+
     This implementation uses pure SQL for AR and VAR model training.
     MA, ARMA, and ARIMA models with MA components are not supported.
     """
@@ -105,18 +105,18 @@ class TimeSeriesModelBase(VASTModel):
         input_relation: SQLRelation
             Training relation.
         ts: str
-            TS (Time Series) VastColumn used to order the data. 
-            The VastColumn type must be date (date, datetime, 
+            TS (Time Series) VastColumn used to order the data.
+            The VastColumn type must be date (date, datetime,
             timestamp...) or numerical.
         y: SQLColumns
             Response column.
-            
-            In the case of multivariate analysis, it represents 
+
+            In the case of multivariate analysis, it represents
             a list of all the predictors.
         test_relation: SQLRelation, optional
             Relation used to test the model.
         return_report: bool, optional
-            When set to True, the model summary will be returned. 
+            When set to True, the model summary will be returned.
             Otherwise, it will be printed.
 
         Returns
@@ -190,24 +190,24 @@ class TimeSeriesModelBase(VASTModel):
         # Initialization
         self.ts = quote_ident(ts)
         y = format_type(y, dtype=list)
-        
+
         if len(y) > 1:
             self.y = quote_ident(y)
         else:
             self.y = quote_ident(y[0])
-        
+
         if isinstance(input_relation, VastFrame):
             self.input_relation = input_relation.current_relation()
         else:
             self.input_relation = input_relation
-        
+
         if isinstance(test_relation, VastFrame):
             self.test_relation = test_relation.current_relation()
         elif test_relation:
             self.test_relation = test_relation
         else:
             self.test_relation = self.input_relation
-        
+
         # Fit using SQL
         if self._model_type in ("AR", "VAR"):
             self._fit_ar_sql()
@@ -216,26 +216,26 @@ class TimeSeriesModelBase(VASTModel):
                 f"SQL training not implemented for {self._model_type} models. "
                 f"Only AR and VAR models are supported."
             )
-        
+
         # Compute attributes
         self._compute_attributes()
-        
-        report = self.summarize() if hasattr(self, 'summarize') else None
+
+        report = self.summarize() if hasattr(self, "summarize") else None
         if return_report and report:
             return report
         elif report:
             print_message(report)
-        
+
         return None
 
     def _fit_ar_sql(self) -> None:
         """
         Fits AR/VAR model using pure SQL OLS (no tables created).
-        
+
         Supports:
         - AR: Univariate autoregression
         - VAR: Vector autoregression (multivariate)
-        
+
         Uses Ordinary Least Squares for coefficient estimation:
         - AR(1), AR(2): Closed-form solutions
         - AR(p>2): Yule-Walker equations via autocorrelations
@@ -243,27 +243,29 @@ class TimeSeriesModelBase(VASTModel):
         """
         p = self.parameters.get("p", 1)
         is_multivar = self._ismultivar()
-        
+
         if is_multivar:
             self._compute_var_coefficients(p)
         else:
             self._compute_ar_coefficients(p)
-        
+
         print_message(f"{self._model_type}({p}) model fitted using pure SQL.")
 
     def _compute_ar_coefficients(self, p: int) -> None:
         """
         Compute AR coefficients using SQL OLS.
-        
+
         Parameters
         ----------
         p: int
             Number of lags
         """
         # Build lag columns
-        lags = [f"LAG({self.y}, {i}) OVER (ORDER BY {self.ts}) AS lag{i}" 
-                for i in range(1, p + 1)]
-        
+        lags = [
+            f"LAG({self.y}, {i}) OVER (ORDER BY {self.ts}) AS lag{i}"
+            for i in range(1, p + 1)
+        ]
+
         if p == 1:
             # AR(1): Simple linear regression
             # beta = Cov(X,Y) / Var(X)
@@ -288,7 +290,7 @@ class TimeSeriesModelBase(VASTModel):
                 SELECT phi_1, y_mean - phi_1 * x_mean AS intercept, n
                 FROM coef
             """
-            
+
         elif p == 2:
             # AR(2): Normal equations (X'X)^-1 X'Y with 2x2 matrix inversion
             query = f"""
@@ -326,23 +328,21 @@ class TimeSeriesModelBase(VASTModel):
                     AS intercept, n
                 FROM moments
             """
-            
+
         else:
             # AR(p) for p > 2: Use Yule-Walker equations via autocorrelations
             print_message(
                 f"AR({p}): Using Yule-Walker estimation via autocorrelations. "
                 f"Note: For p > 5, consider using specialized libraries for better performance."
             )
-            
+
             # Compute autocorrelations up to lag p
             # rho_k = Corr(y_t, y_{t-k})
             autocorr_lags = []
             for k in range(1, p + 1):
-                autocorr_lags.append(
-                    f"""SUM((y - y_mean) * (lag{k} - y_mean)) / 
-                        NULLIF(SUM(POWER(y - y_mean, 2)), 0) AS rho_{k}"""
-                )
-            
+                autocorr_lags.append(f"""SUM((y - y_mean) * (lag{k} - y_mean)) / 
+                        NULLIF(SUM(POWER(y - y_mean, 2)), 0) AS rho_{k}""")
+
             query = f"""
                 WITH lagged_data AS (
                     SELECT {self.y} AS y, {', '.join(lags)}
@@ -365,9 +365,11 @@ class TimeSeriesModelBase(VASTModel):
                 )
                 SELECT * FROM autocorrs
             """
-        
-        result = _executeSQL(query, title=f"Computing AR({p}) coefficients", method="fetchrow")
-        
+
+        result = _executeSQL(
+            query, title=f"Computing AR({p}) coefficients", method="fetchrow"
+        )
+
         if result:
             if p <= 2:
                 self._phi_values = [result[i] for i in range(p)]
@@ -378,10 +380,10 @@ class TimeSeriesModelBase(VASTModel):
                 y_mean = result[0]
                 autocorrs = [result[i] for i in range(1, p + 1)]  # rho_1, ..., rho_p
                 n_obs = int(result[p + 1])
-                
+
                 # Solve Yule-Walker: Toeplitz(R) * phi = r
                 phi_coeffs = self._solve_yule_walker(autocorrs, p)
-                
+
                 self._phi_values = phi_coeffs
                 self._intercept_value = y_mean * (1 - sum(phi_coeffs))
                 self._n_obs = n_obs
@@ -391,22 +393,24 @@ class TimeSeriesModelBase(VASTModel):
     def _compute_var_coefficients(self, p: int) -> None:
         """
         Compute VAR coefficients using SQL OLS with proper matrix inversion.
-        
+
         For VAR(p), each equation has n_vars*p predictors.
         We compute the covariance matrices in SQL, then solve in Python.
         """
         n_vars = len(self.y)
         total_predictors = n_vars * p
-        
+
         # Build lag columns for all variables
         lags = []
         lag_names = []
         for i in range(1, p + 1):
             for col in self.y:
                 col_name = col[1:-1]
-                lags.append(f"LAG({col}, {i}) OVER (ORDER BY {self.ts}) AS {col_name}_lag{i}")
+                lags.append(
+                    f"LAG({col}, {i}) OVER (ORDER BY {self.ts}) AS {col_name}_lag{i}"
+                )
                 lag_names.append(f"{col_name}_lag{i}")
-        
+
         if p <= 3 and n_vars <= 3 and (n_vars * p) <= 6:
             # Use SQL-based computation for small systems
             self._compute_var_small(p, n_vars, lags, lag_names)
@@ -414,22 +418,24 @@ class TimeSeriesModelBase(VASTModel):
             # Use Python-based computation for larger systems
             self._compute_var_python(p, n_vars, lags, lag_names)
 
-    def _compute_var_small(self, p: int, n_vars: int, lags: list, lag_names: list) -> None:
+    def _compute_var_small(
+        self, p: int, n_vars: int, lags: list, lag_names: list
+    ) -> None:
         """Compute VAR using SQL for small systems."""
         phi_matrices = []
         intercepts = []
-        
+
         for idx, y_col in enumerate(self.y):
             y_col_name = y_col[1:-1]
-            
+
             if n_vars == 1:
                 # Univariate case - just AR
                 self._compute_ar_coefficients(p)
                 return
             elif n_vars == 2 and p == 1:
                 # Bivariate VAR(1) - use 2x2 matrix inversion
-                other_col = self.y[1-idx][1:-1]
-                
+                other_col = self.y[1 - idx][1:-1]
+
                 query = f"""
                     WITH lagged_data AS (
                         SELECT {y_col} AS y, {', '.join(lags)}
@@ -465,45 +471,60 @@ class TimeSeriesModelBase(VASTModel):
                         AS intercept, n
                     FROM moments
                 """
-                
-                result = _executeSQL(query, title=f"Computing VAR coef for {y_col_name}", method="fetchrow")
-                
+
+                result = _executeSQL(
+                    query,
+                    title=f"Computing VAR coef for {y_col_name}",
+                    method="fetchrow",
+                )
+
                 if result:
-                    phi_matrices.append([result[0] if result[0] else 0.0, result[1] if result[1] else 0.0])
+                    phi_matrices.append(
+                        [
+                            result[0] if result[0] else 0.0,
+                            result[1] if result[1] else 0.0,
+                        ]
+                    )
                     intercepts.append(result[2] if result[2] else 0.0)
                     if idx == 0:
                         self._n_obs = int(result[3])
             else:
                 # Fall back to Python method
-                print_message(f"VAR({p}) with {n_vars} variables: using Python-based OLS.")
+                print_message(
+                    f"VAR({p}) with {n_vars} variables: using Python-based OLS."
+                )
                 return self._compute_var_python(p, n_vars, lags, lag_names)
-        
+
         self._phi_values = np.array(phi_matrices)
         self._intercept_value = np.array(intercepts)
-        if not hasattr(self, '_n_obs'):
+        if not hasattr(self, "_n_obs"):
             self._n_obs = 0
 
-    def _compute_var_python(self, p: int, n_vars: int, lags: list, lag_names: list) -> None:
+    def _compute_var_python(
+        self, p: int, n_vars: int, lags: list, lag_names: list
+    ) -> None:
         """
         Compute VAR coefficients using Python matrix operations.
-        
+
         This fetches the data from SQL, then computes OLS in Python using NumPy.
         More efficient for larger systems.
         """
         from numpy.linalg import lstsq
-        
+
         print_message(
             f"Computing VAR({p}) with {n_vars} variables using Python OLS. "
             f"System size: {n_vars} equations × {n_vars*p} predictors."
         )
-        
+
         # Fetch data from SQL
-        y_cols = ', '.join(self.y)
-        lag_select = ', '.join(lags)
-        
+        y_cols = ", ".join(self.y)
+        lag_select = ", ".join(lags)
+
         # Build WHERE clause to ensure NO NULLs in any lag
-        where_conditions = ' AND '.join([f"{lag_name} IS NOT NULL" for lag_name in lag_names])
-        
+        where_conditions = " AND ".join(
+            [f"{lag_name} IS NOT NULL" for lag_name in lag_names]
+        )
+
         query = f"""
             WITH lagged_data AS (
                 SELECT
@@ -517,42 +538,50 @@ class TimeSeriesModelBase(VASTModel):
             WHERE {where_conditions}
             ORDER BY idx
         """
-        
-        result = _executeSQL(query, title="Fetching data for VAR estimation", method="fetchall")
-        
+
+        result = _executeSQL(
+            query, title="Fetching data for VAR estimation", method="fetchall"
+        )
+
         if not result or len(result) < n_vars * p + 10:
             raise ValueError(
                 f"Insufficient data for VAR({p}). Got {len(result) if result else 0} observations, "
                 f"need at least {n_vars*p + 10}."
             )
-        
+
         # Convert to numpy arrays
         try:
             data = np.array(result, dtype=float)
         except (ValueError, TypeError) as e:
             raise ValueError(f"Data contains non-numeric values: {e}")
-        
+
         # Final check for NaN or Inf (shouldn't happen with proper WHERE clause)
         if np.any(np.isnan(data)):
             # Try to identify which columns have NaN
             nan_mask = np.isnan(data)
             nan_cols = np.where(nan_mask.any(axis=0))[0]
-            print_message(f"Warning: NaN detected in columns: {nan_cols}. Removing affected rows.")
+            print_message(
+                f"Warning: NaN detected in columns: {nan_cols}. Removing affected rows."
+            )
             # Remove rows with any NaN
             data = data[~nan_mask.any(axis=1)]
-        
+
         if np.any(np.isinf(data)):
-            raise ValueError("Data contains Inf values. Check for division by zero or extreme values.")
-        
+            raise ValueError(
+                "Data contains Inf values. Check for division by zero or extreme values."
+            )
+
         if len(data) < n_vars * p + 10:
-            raise ValueError(f"After cleaning, only {len(data)} observations remain. Need at least {n_vars*p + 10}.")
-        
+            raise ValueError(
+                f"After cleaning, only {len(data)} observations remain. Need at least {n_vars*p + 10}."
+            )
+
         Y = data[:, :n_vars]  # Response variables
         X = data[:, n_vars:]  # Lagged predictors
-        
+
         # Add intercept column
         X = np.column_stack([np.ones(X.shape[0]), X])
-        
+
         # Check for perfect multicollinearity
         rank = np.linalg.matrix_rank(X)
         if rank < X.shape[1]:
@@ -562,68 +591,67 @@ class TimeSeriesModelBase(VASTModel):
             )
             # Use Ridge regression instead
             return self._compute_var_ridge(Y, X, n_vars)
-        
+
         # Solve for each equation: Y_i = X @ beta_i
         phi_matrices = []
         intercepts = []
-        
+
         for i in range(n_vars):
             y_i = Y[:, i]
-            
+
             try:
                 # Solve using least squares: beta = (X'X)^-1 X'y
                 beta, residuals, rank, s = lstsq(X, y_i, rcond=None)
-                
+
                 intercepts.append(beta[0])
                 phi_matrices.append(beta[1:])  # All coefficients except intercept
-                
+
             except np.linalg.LinAlgError as e:
                 print_message(
                     f"Warning: SVD failed for variable {i}. Using Ridge regression fallback."
                 )
                 # Fallback to Ridge regression
                 return self._compute_var_ridge(Y, X, n_vars)
-        
+
         self._phi_values = np.array(phi_matrices)
         self._intercept_value = np.array(intercepts)
         self._n_obs = len(data)
 
-
     def _compute_var_ridge(self, Y: np.ndarray, X: np.ndarray, n_vars: int) -> None:
         """
         Fallback VAR estimation using Ridge regression.
-        
+
         Used when OLS fails due to collinearity or numerical issues.
         """
         print_message("Using Ridge regression with lambda=0.01 to handle collinearity.")
-        
+
         # Ridge regression: beta = (X'X + lambda*I)^-1 X'y
         lambda_ridge = 0.01
         XtX = X.T @ X
         I = np.eye(X.shape[1])
         I[0, 0] = 0  # Don't penalize intercept
-        
+
         phi_matrices = []
         intercepts = []
-        
+
         for i in range(n_vars):
             y_i = Y[:, i]
             Xty = X.T @ y_i
-            
+
             try:
                 # Solve (X'X + lambda*I) beta = X'y
                 beta = np.linalg.solve(XtX + lambda_ridge * I, Xty)
-                
+
                 intercepts.append(beta[0])
                 phi_matrices.append(beta[1:])
-                
+
             except np.linalg.LinAlgError:
                 # Last resort: use pseudo-inverse
                 print_message(f"Warning: Using pseudo-inverse for variable {i}.")
                 beta = np.linalg.pinv(X) @ y_i
                 intercepts.append(beta[0])
                 phi_matrices.append(beta[1:])
-        
+
         self._phi_values = np.array(phi_matrices)
         self._intercept_value = np.array(intercepts)
         self._n_obs = Y.shape[0]
@@ -631,34 +659,34 @@ class TimeSeriesModelBase(VASTModel):
     def _solve_yule_walker(self, autocorrs: list, p: int) -> list:
         """
         Solve Yule-Walker equations for AR(p) coefficients.
-        
+
         The Yule-Walker equations are:
         Γ φ = γ
-        
+
         Where:
         - Γ is the Toeplitz autocorrelation matrix [p×p]
         - γ is the autocorrelation vector [p×1]
         - φ is the coefficient vector we solve for
-        
+
         For AR(3) example:
         [[1,      rho_1,  rho_2],     [phi_1]     [rho_1]
          [rho_1,  1,      rho_1],  *  [phi_2]  =  [rho_2]
          [rho_2,  rho_1,  1    ]]     [phi_3]     [rho_3]
-        
+
         Parameters
         ----------
         autocorrs: list
             Autocorrelations [rho_1, rho_2, ..., rho_p]
         p: int
             AR order
-        
+
         Returns
         -------
         list
             AR coefficients [phi_1, phi_2, ..., phi_p]
         """
         from numpy.linalg import solve
-        
+
         # Construct Toeplitz matrix Γ
         # Γ[i,j] = rho_{|i-j|}
         gamma_matrix = np.zeros((p, p))
@@ -670,10 +698,10 @@ class TimeSeriesModelBase(VASTModel):
                     lag_idx = abs(i - j) - 1
                     if lag_idx < len(autocorrs):
                         gamma_matrix[i, j] = autocorrs[lag_idx]
-        
+
         # γ vector is [rho_1, rho_2, ..., rho_p]
         gamma_vector = np.array(autocorrs)
-        
+
         # Solve Γ φ = γ
         try:
             phi = solve(gamma_matrix, gamma_vector)
@@ -692,33 +720,35 @@ class TimeSeriesModelBase(VASTModel):
     def _compute_attributes(self) -> None:
         """
         Computes the model's attributes from fitted coefficients.
-        
+
         For AR/VAR models, this stores the computed phi_, intercept_,
         n_, and mse_ attributes.
         """
         if self._model_type in ("AR", "VAR"):
             # Store coefficients as numpy arrays
-            if hasattr(self, '_phi_values'):
-                self.phi_ = (np.array(self._phi_values) 
-                            if not isinstance(self._phi_values, np.ndarray) 
-                            else self._phi_values)
+            if hasattr(self, "_phi_values"):
+                self.phi_ = (
+                    np.array(self._phi_values)
+                    if not isinstance(self._phi_values, np.ndarray)
+                    else self._phi_values
+                )
             else:
                 p = self.parameters.get("p", 1)
                 self.phi_ = np.zeros(p)
-            
-            if hasattr(self, '_intercept_value'):
+
+            if hasattr(self, "_intercept_value"):
                 self.intercept_ = self._intercept_value
             else:
                 self.intercept_ = 0.0
-            
-            if hasattr(self, '_n_obs'):
+
+            if hasattr(self, "_n_obs"):
                 self.n_ = self._n_obs
             else:
                 self.n_ = 0
-            
+
             # MSE would require residuals calculation - set to None for now
             self.mse_ = None
-            
+
         else:
             raise NotImplementedError(
                 f"Attribute computation not implemented for {self._model_type}"
@@ -727,15 +757,12 @@ class TimeSeriesModelBase(VASTModel):
     # Features Importance
 
     def features_importance(
-        self, 
-        show: bool = True, 
-        chart: Optional[PlottingObject] = None, 
-        **style_kwargs
+        self, show: bool = True, chart: Optional[PlottingObject] = None, **style_kwargs
     ) -> Union[PlottingObject, TableSample]:
         """
         Computes the model's features importance.
-        
-        For AR/VAR models, feature importance is based on the 
+
+        For AR/VAR models, feature importance is based on the
         magnitude of the autoregressive coefficients (phi).
 
         Parameters
@@ -817,20 +844,20 @@ class TimeSeriesModelBase(VASTModel):
 
         .. important::
 
-            For this example, a specific model is utilized, and it may 
-            not correspond exactly to the model you are working with. 
-            To see a comprehensive example specific to your class of 
+            For this example, a specific model is utilized, and it may
+            not correspond exactly to the model you are working with.
+            To see a comprehensive example specific to your class of
             interest, please refer to that particular class.
         """
         fi = self._get_features_importance()
-        
+
         if show:
             if self._ismultivar():
                 # For VAR models: each variable has its own feature importance
                 # Create separate chart for each variable
                 n_vars = len(self.y)
                 p = self.parameters.get("p", 1)
-                
+
                 # Prepare data for first variable (or could show all)
                 # For simplicity, showing importance for first variable
                 data = {
@@ -842,7 +869,7 @@ class TimeSeriesModelBase(VASTModel):
                     for var_idx, var in enumerate(self.y):
                         var_name = var[1:-1]  # Remove quotes
                         feature_names.append(f"{var_name}_lag{lag}")
-                
+
                 layout = {"columns": feature_names}
             else:
                 # For AR models: importance of each lag
@@ -851,31 +878,31 @@ class TimeSeriesModelBase(VASTModel):
                     "importance": fi,
                 }
                 layout = {"columns": [f"lag{i+1}" for i in range(p)]}
-            
+
             vo_plt, kwargs = self.get_plotting_lib(
                 class_name="ImportanceBarChart",
                 chart=chart,
                 style_kwargs=style_kwargs,
             )
             return vo_plt.ImportanceBarChart(data=data, layout=layout).draw(**kwargs)
-        
+
         # Return as TableSample
         if self._ismultivar():
             # For VAR: return importance for each variable
             n_vars = len(self.y)
             p = self.parameters.get("p", 1)
-            
+
             importances = {"index": []}
             for var_idx, var in enumerate(self.y):
                 var_name = var[1:-1]
                 importances[var_name] = []
-            
+
             # Build feature names
             for lag in range(1, p + 1):
                 for var_idx, var in enumerate(self.y):
                     var_name = var[1:-1]
                     importances["index"].append(f"{var_name}_lag{lag}")
-                    
+
                     # Add importance values for each variable's equation
                     for eq_idx, eq_var in enumerate(self.y):
                         eq_var_name = eq_var[1:-1]
@@ -883,12 +910,14 @@ class TimeSeriesModelBase(VASTModel):
                             # Calculate index in flattened coefficient array
                             coef_idx = (lag - 1) * n_vars + var_idx
                             if coef_idx < len(fi[eq_idx]):
-                                importances[eq_var_name].append(abs(fi[eq_idx][coef_idx]))
+                                importances[eq_var_name].append(
+                                    abs(fi[eq_idx][coef_idx])
+                                )
                             else:
                                 importances[eq_var_name].append(0.0)
                         else:
                             importances[eq_var_name].append(0.0)
-            
+
             return TableSample(values=importances)
         else:
             # For AR: simple lag importance
@@ -914,7 +943,7 @@ class TimeSeriesModelBase(VASTModel):
     ) -> str:
         """
         Returns the SQL code needed to deploy the model.
-        
+
         For AR/VAR models trained with pure SQL, this generates
         SQL to compute predictions using the learned coefficients.
 
@@ -939,7 +968,7 @@ class TimeSeriesModelBase(VASTModel):
         -------
         str
             SQL code for prediction.
-        
+
         Raises
         ------
         NotImplementedError
@@ -950,10 +979,12 @@ class TimeSeriesModelBase(VASTModel):
                 f"deploySQL not implemented for {self._model_type} models. "
                 f"Only AR and VAR models support SQL-based deployment."
             )
-        
+
         if output_standard_errors:
-            print_message("Warning: Standard errors not supported for SQL-trained models.")
-        
+            print_message(
+                "Warning: Standard errors not supported for SQL-trained models."
+            )
+
         # For SQL-trained AR/VAR models, generate manual prediction SQL
         return self._generate_ar_prediction_sql(
             ts=ts,
@@ -963,7 +994,6 @@ class TimeSeriesModelBase(VASTModel):
             output_index=output_index,
             use_index_as_suffix=use_index_as_suffix,
         )
-
 
     def _generate_ar_prediction_sql(
         self,
@@ -976,44 +1006,45 @@ class TimeSeriesModelBase(VASTModel):
     ) -> str:
         """
         Generate SQL for AR/VAR prediction using learned coefficients.
-        
+
         This creates SQL that computes predictions using the AR/VAR formula
         with the fitted coefficients.
         """
         p = self.parameters.get("p", 1)
         is_multivar = self._ismultivar()
-        
+
         if ts is None:
             ts = self.ts
         else:
             ts = quote_ident(ts)
-        
+
         if y is None:
             y = self.y
         else:
             y = format_type(y, dtype=list)
             y = quote_ident(y) if isinstance(y, list) else quote_ident(y)
-        
+
         if is_multivar:
             # VAR prediction SQL
             return self._generate_var_prediction_sql(ts, y, npredictions, output_index)
-        
+
         # AR prediction SQL
         # Build lag references
-        lag_cols = [f"LAG({y}, {i}) OVER (ORDER BY {ts}) AS lag{i}" 
-                    for i in range(1, p + 1)]
-        
+        lag_cols = [
+            f"LAG({y}, {i}) OVER (ORDER BY {ts}) AS lag{i}" for i in range(1, p + 1)
+        ]
+
         # Build prediction formula using fitted coefficients
         terms = []
         for i in range(p):
             coef = float(self.phi_[i])
             coef_str = f"({coef})" if coef < 0 else str(coef)
             terms.append(f"{coef_str} * lag{i+1}")
-        
+
         intercept = float(self.intercept_)
         intercept_str = f"({intercept})" if intercept < 0 else str(intercept)
         prediction_formula = f"{intercept_str} + {' + '.join(terms)}"
-        
+
         sql = f"""
             WITH lagged_data AS (
                 SELECT
@@ -1031,9 +1062,8 @@ class TimeSeriesModelBase(VASTModel):
             WHERE {' AND '.join([f"lag{i} IS NOT NULL" for i in range(1, p + 1)])}
             ORDER BY {ts}
         """
-        
-        return clean_query(sql)
 
+        return clean_query(sql)
 
     def _generate_var_prediction_sql(
         self,
@@ -1044,29 +1074,35 @@ class TimeSeriesModelBase(VASTModel):
     ) -> str:
         """
         Generate SQL for VAR prediction using fitted coefficients.
-        
+
         For VAR models, each variable's prediction uses ALL variables' lags.
         """
         p = self.parameters.get("p", 1)
         n_vars = len(y)
-        
+
         # Build lag columns for all variables
         lag_cols = []
         for i in range(1, p + 1):
             for col in y:
                 col_name = col[1:-1]
-                lag_cols.append(f"LAG({col}, {i}) OVER (ORDER BY {ts}) AS {col_name}_lag{i}")
-        
+                lag_cols.append(
+                    f"LAG({col}, {i}) OVER (ORDER BY {ts}) AS {col_name}_lag{i}"
+                )
+
         # Build prediction formulas for each variable
         prediction_formulas = []
         for var_idx in range(n_vars):
             y_col_name = y[var_idx][1:-1]
-            
+
             # Get coefficients for this equation
             phi_coefs = self._phi_values[var_idx]
-            intercept = float(self._intercept_value[var_idx]) if isinstance(self._intercept_value, np.ndarray) else float(self._intercept_value)
+            intercept = (
+                float(self._intercept_value[var_idx])
+                if isinstance(self._intercept_value, np.ndarray)
+                else float(self._intercept_value)
+            )
             intercept_str = f"({intercept})" if intercept < 0 else str(intercept)
-            
+
             # Build terms: use ALL variables' lags
             terms = []
             coef_idx = 0
@@ -1078,10 +1114,12 @@ class TimeSeriesModelBase(VASTModel):
                         coef_str = f"({coef})" if coef < 0 else str(coef)
                         terms.append(f"{coef_str} * {col_name}_lag{lag}")
                         coef_idx += 1
-            
+
             prediction_formula = f"{intercept_str} + {' + '.join(terms)}"
-            prediction_formulas.append(f"{prediction_formula} AS prediction_{y_col_name}")
-        
+            prediction_formulas.append(
+                f"{prediction_formula} AS prediction_{y_col_name}"
+            )
+
         # Generate SQL
         sql = f"""
             WITH lagged_data AS (
@@ -1100,7 +1138,7 @@ class TimeSeriesModelBase(VASTModel):
             WHERE {' AND '.join([f"{y[0][1:-1]}_lag{i} IS NOT NULL" for i in range(1, p + 1)])}
             ORDER BY {ts}
         """
-        
+
         return clean_query(sql)
 
     # Prediction / Transformation Methods.
@@ -1122,7 +1160,7 @@ class TimeSeriesModelBase(VASTModel):
     ) -> VastFrame:
         """
         Predicts using the input relation.
-        
+
         For SQL-trained AR/VAR models, this generates predictions using
         the learned coefficients directly in SQL.
 
@@ -1157,7 +1195,7 @@ class TimeSeriesModelBase(VASTModel):
         -------
         VastFrame
             Predictions.
-        
+
         Raises
         ------
         NotImplementedError
@@ -1168,7 +1206,7 @@ class TimeSeriesModelBase(VASTModel):
                 f"Predict not implemented for {self._model_type} models. "
                 f"Only AR and VAR models support SQL-based prediction."
             )
-        
+
         # Use manual AR prediction for SQL-trained models
         return self._predict_ar_manual(
             vdf=vdf,
@@ -1192,38 +1230,43 @@ class TimeSeriesModelBase(VASTModel):
     ) -> VastFrame:
         """
         Generate AR/VAR predictions using SQL queries.
-        
+
         method="auto": One-step ahead (uses actual values as lags)
         method="forecast": Multi-step ahead (uses predicted values as lags)
         """
         p = self.parameters.get("p", 1)
         is_multivar = self._ismultivar()
-        
+
         if ts is None:
             ts = self.ts
         else:
             ts = quote_ident(ts)
-        
+
         if y is None:
             y = self.y
-        
+
         if vdf is None:
             vdf = self.input_relation
         elif isinstance(vdf, VastFrame):
             vdf = vdf.current_relation()
-        
+
         if is_multivar:
-            return self._predict_var_manual(vdf, ts, y, start, npredictions, output_index, method)
-        
+            return self._predict_var_manual(
+                vdf, ts, y, start, npredictions, output_index, method
+            )
+
         # AR model prediction
-        
+
         if method == "forecast":
             # Multi-step ahead: use recursive forecasting (predicted values as inputs)
-            return self._forecast_ar_recursive(vdf, ts, y, start, npredictions, output_index)
+            return self._forecast_ar_recursive(
+                vdf, ts, y, start, npredictions, output_index
+            )
         else:
             # One-step ahead: use actual values as lags
-            return self._forecast_ar_onestep(vdf, ts, y, start, npredictions, output_index)
-
+            return self._forecast_ar_onestep(
+                vdf, ts, y, start, npredictions, output_index
+            )
 
     def _forecast_ar_onestep(
         self,
@@ -1238,23 +1281,24 @@ class TimeSeriesModelBase(VASTModel):
         One-step ahead AR forecasting (uses actual values as lags).
         """
         p = self.parameters.get("p", 1)
-        
-        lag_cols = [f"LAG({y}, {i}) OVER (ORDER BY {ts}) AS lag{i}" 
-                    for i in range(1, p + 1)]
-        
+
+        lag_cols = [
+            f"LAG({y}, {i}) OVER (ORDER BY {ts}) AS lag{i}" for i in range(1, p + 1)
+        ]
+
         # Build prediction formula
         terms = []
         for i in range(p):
             coef = float(self.phi_[i])
             coef_str = f"({coef})" if coef < 0 else str(coef)
             terms.append(f"{coef_str} * lag{i+1}")
-        
+
         intercept = float(self.intercept_)
         intercept_str = f"({intercept})" if intercept < 0 else str(intercept)
         prediction_formula = f"{intercept_str} + {' + '.join(terms)}"
-        
+
         where_start = f"AND idx >= {start}" if start else ""
-        
+
         sql = f"""
             WITH lagged_data AS (
                 SELECT
@@ -1281,9 +1325,8 @@ class TimeSeriesModelBase(VASTModel):
             ORDER BY idx
             LIMIT {npredictions}
         """
-        
-        return VastFrame(clean_query(sql))
 
+        return VastFrame(clean_query(sql))
 
     def _forecast_ar_recursive(
         self,
@@ -1296,18 +1339,18 @@ class TimeSeriesModelBase(VASTModel):
     ) -> VastFrame:
         """
         Multi-step ahead AR forecasting using Python (recursive).
-        
+
         This fetches initial values from SQL, then computes predictions
         recursively in Python where each prediction uses previous predictions.
         """
         p = self.parameters.get("p", 1)
-        
+
         # Determine starting point
         if start is None:
             start_idx = self.n_ - p
         else:
             start_idx = start
-        
+
         # Fetch last p actual values to use as initial lags
         query = f"""
             WITH numbered_data AS (
@@ -1322,36 +1365,43 @@ class TimeSeriesModelBase(VASTModel):
             ORDER BY idx DESC
             LIMIT {p}
         """
-        
-        result = _executeSQL(query, title="Fetching initial values for recursive forecast", method="fetchall")
-        
+
+        result = _executeSQL(
+            query,
+            title="Fetching initial values for recursive forecast",
+            method="fetchall",
+        )
+
         if not result or len(result) < p:
-            raise ValueError(f"Insufficient data for forecasting. Need at least {p} values before start position.")
-        
+            raise ValueError(
+                f"Insufficient data for forecasting. Need at least {p} values before start position."
+            )
+
         # Initialize with last p actual values (in reverse order: most recent first)
         lags = [float(row[0]) for row in result]
-        
+
         # Generate predictions recursively
         predictions = []
         phi = self.phi_
         intercept = float(self.intercept_)
-        
+
         for step in range(npredictions):
             # Compute prediction: y_t = intercept + phi_1*y_{t-1} + phi_2*y_{t-2} + ...
             pred = intercept
             for i in range(p):
                 pred += phi[i] * lags[i]
-            
+
             predictions.append(pred)
-            
+
             # Update lags: shift and add new prediction
             lags = [pred] + lags[:-1]
-        
+
         # Create VastFrame with predictions
         # Build SQL with literal values
-        predictions_values = ", ".join([f"({start_idx + i}, {pred})" 
-                                        for i, pred in enumerate(predictions)])
-        
+        predictions_values = ", ".join(
+            [f"({start_idx + i}, {pred})" for i, pred in enumerate(predictions)]
+        )
+
         sql = f"""
             SELECT 
                 {"idx," if output_index else ""}
@@ -1359,7 +1409,7 @@ class TimeSeriesModelBase(VASTModel):
             FROM (VALUES {predictions_values}) AS t(idx, prediction)
             ORDER BY idx
         """
-        
+
         return VastFrame(clean_query(sql))
 
     def _predict_var_manual(
@@ -1374,29 +1424,35 @@ class TimeSeriesModelBase(VASTModel):
     ) -> VastFrame:
         """
         Generate VAR predictions using SQL.
-        
+
         For VAR models, each equation uses ALL variables' lags.
         """
         p = self.parameters.get("p", 1)
         n_vars = len(y)
-        
+
         # Build lag columns for all variables
         lag_cols = []
         for i in range(1, p + 1):
             for col in y:
                 col_name = col[1:-1]
-                lag_cols.append(f"LAG({col}, {i}) OVER (ORDER BY {ts}) AS {col_name}_lag{i}")
-        
+                lag_cols.append(
+                    f"LAG({col}, {i}) OVER (ORDER BY {ts}) AS {col_name}_lag{i}"
+                )
+
         # Build prediction formulas for each variable
         prediction_formulas = []
         for var_idx in range(n_vars):
             y_col_name = y[var_idx][1:-1]
-            
+
             # Get coefficients for this equation
             phi_coefs = self._phi_values[var_idx]
-            intercept = float(self._intercept_value[var_idx]) if isinstance(self._intercept_value, np.ndarray) else float(self._intercept_value)
+            intercept = (
+                float(self._intercept_value[var_idx])
+                if isinstance(self._intercept_value, np.ndarray)
+                else float(self._intercept_value)
+            )
             intercept_str = f"({intercept})" if intercept < 0 else str(intercept)
-            
+
             # Build terms: use ALL variables' lags
             terms = []
             coef_idx = 0
@@ -1408,10 +1464,10 @@ class TimeSeriesModelBase(VASTModel):
                         coef_str = f"({coef})" if coef < 0 else str(coef)
                         terms.append(f"{coef_str} * {col_name}_lag{lag}")
                         coef_idx += 1
-            
+
             prediction_formula = f"{intercept_str} + {' + '.join(terms)}"
             prediction_formulas.append(f"{prediction_formula} AS prediction{var_idx}")
-        
+
         # Generate SQL
         sql = f"""
             WITH lagged_data AS (
@@ -1437,7 +1493,7 @@ class TimeSeriesModelBase(VASTModel):
             ORDER BY idx DESC
             LIMIT {npredictions}
         """
-        
+
         return VastFrame(clean_query(sql))
 
     # Features Importance Methods.
@@ -1445,12 +1501,13 @@ class TimeSeriesModelBase(VASTModel):
     def _compute_features_importance(self) -> None:
         """
         Computes the features importance for AR/VAR models.
-        
+
         For AR models, feature importance is based on the magnitude
         of the phi coefficients.
         """
         if self._model_type == "MA" or (
-            self._model_type in ("ARMA", "ARIMA") and self.get_params().get("order", [0])[0] == 0
+            self._model_type in ("ARMA", "ARIMA")
+            and self.get_params().get("order", [0])[0] == 0
         ):
             raise AttributeError(
                 "Features Importance cannot be computed for Moving Averages."
@@ -1460,7 +1517,7 @@ class TimeSeriesModelBase(VASTModel):
             res = []
             n = len(self.y)
             p = self.parameters["p"]
-            
+
             if self.phi_.ndim == 2:
                 # phi_ shape is (n_vars, p)
                 for i in range(n):
@@ -1473,7 +1530,9 @@ class TimeSeriesModelBase(VASTModel):
                 self.feature_importances_ = [100.0 / p] * n
         else:
             # AR model
-            self.feature_importances_ = 100.0 * np.abs(self.phi_) / np.sum(np.abs(self.phi_))
+            self.feature_importances_ = (
+                100.0 * np.abs(self.phi_) / np.sum(np.abs(self.phi_))
+            )
 
     def _get_features_importance(self) -> np.ndarray:
         """
@@ -1496,7 +1555,7 @@ class TimeSeriesModelBase(VASTModel):
     ) -> str:
         """
         Returns the relation needed to evaluate the model.
-        
+
         For SQL-trained AR/VAR models, this uses the manual prediction method.
         """
         if hasattr(self, "test_relation"):
@@ -1511,12 +1570,12 @@ class TimeSeriesModelBase(VASTModel):
         # Ensure npredictions is positive
         if isinstance(npredictions, NoneType) or npredictions <= 0:
             npredictions = 10  # Default to 10 predictions if calculation gives negative
-        
+
         if isinstance(start, NoneType):
             start = self.n_ // 4
         if isinstance(npredictions, NoneType):
             npredictions = self.n_ - start
-        
+
         prediction = self._predict_ar_manual(
             vdf=test_relation,
             ts=self.ts,
@@ -1526,19 +1585,23 @@ class TimeSeriesModelBase(VASTModel):
             output_index=True,
             method=method,
         )
-        
+
         if self._ismultivar():
             y_str = ", ".join([f"{col} AS y_true{i}" for i, col in enumerate(self.y)])
             prediction_str = ", ".join(
-                [f"prediction_relation.prediction{i} AS y_pred{i}" 
-                 for i in range(len(self.y))]
+                [
+                    f"prediction_relation.prediction{i} AS y_pred{i}"
+                    for i in range(len(self.y))
+                ]
             )
-            y_true_str = ", ".join([f"true_values.y_true{i}" for i in range(len(self.y))])
+            y_true_str = ", ".join(
+                [f"true_values.y_true{i}" for i in range(len(self.y))]
+            )
         else:
             y_str = f"{self.y} AS y_true"
             prediction_str = "prediction_relation.prediction AS y_pred"
             y_true_str = "true_values.y_true"
-        
+
         sql = f"""
             (SELECT
                 {y_true_str},
@@ -1554,7 +1617,7 @@ class TimeSeriesModelBase(VASTModel):
                 ON true_values.idx = prediction_relation.idx
             ) VASTORBIT_SUBTABLE
         """
-        
+
         return clean_query(sql)
 
     # Model Evaluation

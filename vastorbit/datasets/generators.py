@@ -5,13 +5,11 @@ SPDX-License-Identifier: Apache-2.0
 import datetime
 
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 
 from vastorbit.core.vastframe.base import VastFrame
 
 
-@check_minimum_version
 @save_vastorbit_logs
 def gen_dataset(features_ranges: dict, nrows: int = 1000) -> VastFrame:
     """
@@ -111,51 +109,50 @@ def gen_dataset(features_ranges: dict, nrows: int = 1000) -> VastFrame:
                 sql += [f"'{val}' AS \"{param}\""]
             else:
                 n = len(val)
-                val = ", ".join(["'" + str(v) + "'" for v in val])
-                sql += [f'(ARRAY[{val}])[RANDOMINT({n})] AS "{param}"']
+                arr = ", ".join(["'" + str(v) + "'" for v in val])
+                sql += [
+                    f"ELEMENT_AT(ARRAY[{arr}], "
+                    f'CAST(FLOOR(RANDOM() * {n}) AS INTEGER) + 1) AS "{param}"'
+                ]
 
         elif features_ranges[param]["type"] == float:
-            val = features_ranges[param]["range"]
-            lower, upper = val[0], val[1]
-            sql += [f"""({lower} + RANDOM() 
-                  * ({upper} - {lower}))::FLOAT AS "{param}" """]
+            lower, upper = features_ranges[param]["range"]
+            sql += [
+                f'CAST({lower} + RANDOM() * ({upper} - {lower}) AS DOUBLE) AS "{param}"'
+            ]
 
         elif features_ranges[param]["type"] == int:
-            val = features_ranges[param]["range"]
-            lower, upper = val[0], val[1]
-            sql += [f"""({lower} + RANDOM() 
-                      * ({upper} - {lower}))::INT AS "{param}" """]
+            lower, upper = features_ranges[param]["range"]
+            sql += [
+                f'CAST({lower} + RANDOM() * ({upper} - {lower}) AS INTEGER) AS "{param}"'
+            ]
 
         elif features_ranges[param]["type"] == datetime.date:
-            val = features_ranges[param]["range"]
-            start_date, number_of_days = val[0], val[1]
-            sql += [f"""('{start_date}'::DATE 
-                   + RANDOMINT({number_of_days})) AS "{param}" """]
+            start_date, number_of_days = features_ranges[param]["range"]
+            sql += [
+                f"DATE_ADD('day', CAST(FLOOR(RANDOM() * {number_of_days}) AS INTEGER), "
+                f"DATE '{start_date}') AS \"{param}\""
+            ]
 
         elif features_ranges[param]["type"] == datetime.datetime:
-            val = features_ranges[param]["range"]
-            start_date, number_of_days = val[0], val[1]
-            sql += [f"""('{start_date}'::TIMESTAMP 
-                   + {number_of_days} * RANDOM()) AS "{param}" """]
+            start_date, number_of_days = features_ranges[param]["range"]
+            sql += [
+                f"DATE_ADD('second', "
+                f"CAST(FLOOR(RANDOM() * {number_of_days} * 86400) AS BIGINT), "
+                f"CAST(DATE '{start_date}' AS TIMESTAMP)) AS \"{param}\""
+            ]
 
         elif features_ranges[param]["type"] == bool:
-            sql += [f'RANDOMINT(2)::BOOL AS "{param}"']
+            sql += [f'(RANDOM() < 0.5) AS "{param}"']
 
         else:
             ptype = features_ranges[param]["type"]
             raise ValueError(f"Parameter {param}: Type {ptype} is not supported.")
 
     query = f"""
-        SELECT 
-            {', '.join(sql)} 
-        FROM 
-            (SELECT 
-                tm 
-            FROM 
-                (SELECT '03-11-1993'::TIMESTAMP + INTERVAL '1 second' AS t 
-                 UNION ALL 
-                 SELECT '03-11-1993'::TIMESTAMP + INTERVAL '{nrows} seconds' AS t) x 
-                TIMESERIES tm AS '1 second' OVER(ORDER BY t)) VASTORBIT_SUBTABLE"""
+        SELECT
+            {', '.join(sql)}
+        FROM UNNEST(SEQUENCE(1, {nrows})) AS _gen(_row)"""
 
     return VastFrame(query)
 
@@ -256,64 +253,54 @@ def gen_meshgrid(features_ranges: dict) -> VastFrame:
         if "nbins" in features_ranges[param]:
             nbins = features_ranges[param]["nbins"]
         ts_table = f"""
-            (SELECT 
-                DAY(tm - '03-11-1993'::TIMESTAMP) AS tm 
-             FROM 
-                (SELECT '03-11-1993'::TIMESTAMP AS t 
-                 UNION ALL 
-                 SELECT '03-11-1993'::TIMESTAMP 
-                        + INTERVAL '{nbins} days' AS t) x 
-            TIMESERIES tm AS '1 day' OVER(ORDER BY t)) y"""
+            (SELECT _i AS tm
+             FROM UNNEST(SEQUENCE(0, {nbins})) AS _u(_i)) y"""
 
         if features_ranges[param]["type"] == str:
             val = features_ranges[param]["values"]
             if isinstance(val, str):
                 val = [val]
-            val = " UNION ALL ".join([f"""(SELECT '{v}' AS "{param}")""" for v in val])
+            val = " UNION ALL ".join([f"(SELECT '{v}' AS \"{param}\")" for v in val])
             sql += [f"({val}) x{idx}"]
 
         elif features_ranges[param]["type"] == float:
-            val = features_ranges[param]["range"]
-            lower, upper = val[0], val[1]
+            lower, upper = features_ranges[param]["range"]
             h = (upper - lower) / nbins
-            sql += [f"""
-                (SELECT 
-                    ({lower} + {h} * tm)::FLOAT AS "{param}" 
-                 FROM {ts_table}) x{idx}"""]
+            sql += [
+                f'(SELECT CAST({lower} + {h} * tm AS DOUBLE) AS "{param}" '
+                f"FROM {ts_table}) x{idx}"
+            ]
 
         elif features_ranges[param]["type"] == int:
-            val = features_ranges[param]["range"]
-            lower, upper = val[0], val[1]
+            lower, upper = features_ranges[param]["range"]
             h = (upper - lower) / nbins
-            sql += [f"""
-                (SELECT 
-                    ({lower} + {h} * tm)::INT AS "{param}" 
-                 FROM {ts_table}) x{idx}"""]
+            sql += [
+                f'(SELECT CAST({lower} + {h} * tm AS INTEGER) AS "{param}" '
+                f"FROM {ts_table}) x{idx}"
+            ]
 
         elif features_ranges[param]["type"] == datetime.date:
-            val = features_ranges[param]["range"]
-            start_date, number_of_days = val[0], val[1]
+            start_date, number_of_days = features_ranges[param]["range"]
             h = number_of_days / nbins
-            sql += [f"""
-                (SELECT 
-                    ('{start_date}'::DATE + {h} * tm)::DATE AS "{param}" 
-                 FROM {ts_table}) x{idx}"""]
+            sql += [
+                f"(SELECT DATE_ADD('day', CAST({h} * tm AS INTEGER), "
+                f"DATE '{start_date}') AS \"{param}\" FROM {ts_table}) x{idx}"
+            ]
 
         elif features_ranges[param]["type"] == datetime.datetime:
-            val = features_ranges[param]["range"]
-            start_date, number_of_days = val[0], val[1]
+            start_date, number_of_days = features_ranges[param]["range"]
             h = number_of_days / nbins
-            sql += [f"""
-                    (SELECT 
-                        ('{start_date}'::DATE + {h} * tm)::TIMESTAMP 
-                            AS "{param}" 
-                     FROM {ts_table}) x{idx}"""]
+            sql += [
+                f"(SELECT DATE_ADD('second', CAST({h} * tm * 86400 AS BIGINT), "
+                f"CAST(DATE '{start_date}' AS TIMESTAMP)) AS \"{param}\" "
+                f"FROM {ts_table}) x{idx}"
+            ]
 
         elif features_ranges[param]["type"] == bool:
-            sql += [f"""
-                ((SELECT False AS "{param}") 
-                 UNION ALL
-                (SELECT True AS "{param}")) x{idx}"""]
+            sql += [
+                f'((SELECT false AS "{param}") UNION ALL '
+                f'(SELECT true AS "{param}")) x{idx}'
+            ]
 
         else:
             ptype = features_ranges[param]["type"]

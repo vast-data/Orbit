@@ -41,9 +41,7 @@ SQLExpression = Annotated[Union[str, list[str], "StringSQL", list["StringSQL"]],
 SQLRelation = Annotated[Union[str, "VastFrame"], ""]
 
 # Plotting data types.
-PlottingObject = Union[
-    "PlottingBase", "TableSample", "Axes", "mFigure", "Figure"
-]
+PlottingObject = Union["PlottingBase", "TableSample", "Axes", "mFigure", "Figure"]
 PlottingMethod = Union[
     Literal[None, "density", "count", "avg", "min", "max", "sum"], str
 ]

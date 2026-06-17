@@ -23,30 +23,35 @@ Unlock Endless Possibilities for Data Science on VAST Database
       VAST Orbit gives you **endless possibilities** by bringing all data science workflows directly to VAST Database. Prepare, explore, analyze, and build ML models - all with in-database execution at any scale.
 
       **Data Preparation - In VAST:**
+
       - Clean and transform data directly in VAST
       - Handle missing values, normalize, encode features
       - Feature engineering at petabyte scale
       - All preprocessing without data movement
 
       **Interactive Exploration:**
+
       - Generate charts with intelligent sampling
       - Analyze distributions, correlations, patterns
       - Statistical profiling and data quality checks
       - Visualize billions of rows instantly
 
       **Multi-Source Analytics:**
+
       - Query VAST tables, data lake files, external databases
       - Join across Parquet files, PostgreSQL, MongoDB
       - Access streaming data from Kafka
       - All in one unified Python API
 
       **In-Database ML:**
+
       - Train with VAST Orbit's embedded models
       - Deploy for in-database inference
       - Score billions of rows without movement
       - 10 ML algorithms ready for production
 
       **What This Means:**
+
       - Prepare petabyte datasets as easily as megabytes
       - Explore data interactively without loading to Python
       - Build ML pipelines entirely in VAST
@@ -67,6 +72,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       Traditional data science forces you to extract, load, and transform data before analysis. VAST Orbit eliminates this bottleneck with true in-database execution.
 
       **Data Preparation in VAST:**
+
       - Clean data: handle nulls, duplicates, outliers
       - Transform: normalize, scale, encode categoricals
       - Engineer features: create derived columns at scale
@@ -74,6 +80,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - **All operations execute in VAST, not Python**
 
       **Interactive Exploration:**
+
       - Generate histograms, scatter plots, heatmaps
       - Analyze correlations and distributions
       - Profile data quality and completeness
@@ -81,6 +88,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - **Intelligent sampling for instant visualization**
 
       **Cross-Source Operations:**
+
       - Join VAST tables with data lake files
       - Combine PostgreSQL data with Parquet files
       - Merge streaming Kafka with historical tables
@@ -88,6 +96,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - **All in a single Python query**
 
       **Benefits:**
+
       - No data movement to Python
       - Process petabytes as easily as gigabytes
       - Maintain data security and governance
@@ -95,6 +104,7 @@ Unlock Endless Possibilities for Data Science on VAST Database
       - Accelerate time-to-insight
 
       **Example Use Cases:**
+
       - Customer 360 view combining CRM, transactions, clickstream
       - Real-time fraud detection with historical patterns
       - Supply chain analytics across ERP, warehouse, logistics
@@ -112,18 +122,21 @@ Unlock Endless Possibilities for Data Science on VAST Database
       VAST Orbit enables hybrid ML workflows optimized for VAST Database:
 
       **Training:**
+
       - Use VAST Orbit's embedded models
       - Import sklearn models trained locally
       - Automatic sampling for large datasets
       - Develop and iterate quickly
 
       **Inference:**
+
       - Deploy models for in-database execution
       - Score billions of rows in VAST
       - Real-time predictions without data movement
       - Maintain data security
 
       **Supported Models:**
+
       - Linear models (regression, logistic regression)
       - Tree models (decision trees, random forests, XGBoost)
       - Ensemble methods
@@ -143,24 +156,28 @@ Unlock Endless Possibilities for Data Science on VAST Database
       VAST Orbit transforms VAST Database into your complete AI development platform:
 
       **400+ Functions:**
+
       - Data manipulation and cleaning
       - Statistical analysis
       - Feature engineering at scale
       - Text and geospatial processing
 
       **10 ML Algorithms:**
+
       - Production-ready deployment
       - Real-time scoring
       - Batch prediction
       - Model monitoring
 
       **Integration:**
+
       - Embedded models ready to use
       - sklearn model import
       - Jupyter notebook support
       - Interactive visualizations
 
       **VAST Advantages:**
+
       - Sub-millisecond latency
       - Linear scaling
       - Live and historical data access
@@ -365,17 +382,20 @@ Technology Stack
 VAST Orbit leverages cutting-edge technologies:
 
 **Core Platform:**
+
 - **VAST Database**: Unified transactional and analytical database
 - **DASE Architecture**: Disaggregated compute and storage
 - **Columnar Storage**: Optimized for analytics
 
 **Python Ecosystem:**
+
 - **Embedded Models**: Built-in ML algorithms
 - **sklearn**: Model import compatibility
 - **Pandas**: API patterns and data structures
 - **Plotly/Matplotlib**: Visualization backends
 
 **Data Access:**
+
 - **Multi-Catalog**: Access multiple data sources
 - **File Protocols**: Direct Parquet, CSV, JSON access
 - **Database Connectors**: PostgreSQL, MySQL, MongoDB

@@ -65,7 +65,6 @@ def create_table(
     dtype: dict,
     schema: Optional[str] = None,
     temporary_table: bool = False,
-    temporary_local_table: bool = True,
     genSQL: bool = False,
     raise_error: bool = False,
 ) -> bool:
@@ -87,11 +86,6 @@ def create_table(
     temporary_table: bool, optional
         If set to True, a temporary table is
         created.
-    temporary_local_table: bool, optional
-        If  set to True,  a temporary local table
-        is be created.  The  parameter 'schema'
-        must be empty,  otherwise  this parameter
-        is ignored.
     genSQL: bool, optional
         If set to True, the SQL code for creating
         the final table is generated but not
@@ -162,20 +156,14 @@ def create_table(
     .. seealso::
         | :py:func:`~vastorbit.create_schema` : Creates a schema.
     """
-    if schema.lower() == "v_temp_schema":
-        schema = ""
-        temporary_local_table = True
     if schema:
         input_relation = format_schema_table(schema, table_name)
     else:
         input_relation = quote_ident(table_name)
     temp = "TEMPORARY " if temporary_table else ""
-    if not schema:
-        temp = "LOCAL TEMPORARY " if temporary_local_table else ""
     dtype_str = [f"{quote_ident(column)} {dtype[column]}" for column in dtype]
     dtype_str = ", ".join(dtype_str)
-    on_commit = " ON COMMIT PRESERVE ROWS" if temp else ""
-    query = f"CREATE {temp}TABLE {input_relation}({dtype_str}){on_commit};"
+    query = f"CREATE {temp}TABLE {input_relation}({dtype_str});"
     if genSQL:
         return query
     try:

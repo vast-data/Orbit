@@ -15,7 +15,6 @@ from vastorbit._typing import (
 )
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import clean_query, format_type, quote_ident
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
@@ -279,48 +278,73 @@ class Decomposition(Preprocessing):
         X = format_type(X, dtype=list)
         if not input_relation:
             input_relation = self.input_relation
-        metric = str(metric).upper()
-        if metric == "MEDIAN":
-            metric = "APPROXIMATE_MEDIAN"
+        metric = str(metric).lower()
         if self._model_type in ("PCA", "SVD"):
             n_components = self.parameters["n_components"]
             if not n_components:
                 n_components = len(X)
         else:
             n_components = len(X)
-        col_init_1 = [f"{X[idx]} AS col_init{idx}" for idx in range(len(X))]
-        col_init_2 = [f"col_init{idx}" for idx in range(len(X))]
-        cols = [f"col{idx + 1}" for idx in range(n_components)]
-        query = f"""SELECT 
-                        {self._VAST_transform_sql}
-                        ({', '.join(self.X)} 
-                            USING PARAMETERS 
-                            model_name = '{self.model_name}', 
-                            key_columns = '{', '.join(self.X)}', 
-                            num_components = {n_components}) OVER () 
-                    FROM {input_relation}"""
+
+        memmodel = self.to_memmodel()
+
+        components = memmodel.transform_sql(self.X)
+        flat_components = []
+        for expr in components:
+            if isinstance(expr, (list, tuple)):
+                flat_components.extend(expr)
+            else:
+                flat_components.append(expr)
+        components = flat_components[:n_components]
+        comp_cols = [f"col{i + 1}" for i in range(len(components))]
+
+        # Keep the original columns alongside the components so we can compare
+        # them against the reconstruction.
+        col_init_select = [f"{X[idx]} AS col_init{idx}" for idx in range(len(X))]
+        comp_select = [f"{expr} AS {name}" for expr, name in zip(components, comp_cols)]
+        inner = f"""
+            SELECT {', '.join(col_init_select + comp_select)}
+            FROM {input_relation}"""
+
+        # Inverse transform: reconstruct the original space from the components.
+        if not hasattr(memmodel, "inverse_transform_sql"):
+            raise NotImplementedError(
+                f"score() needs an inverse transform, unavailable for {self._model_type}."
+            )
+        recon = memmodel.inverse_transform_sql(comp_cols)
+        flat_recon = []
+        for expr in recon:
+            if isinstance(expr, (list, tuple)):
+                flat_recon.extend(expr)
+            else:
+                flat_recon.append(expr)
+        recon_select = [f"{expr} AS {X[idx]}" for idx, expr in enumerate(flat_recon)]
+        keep_init = [f"col_init{idx}" for idx in range(len(X))]
+        mid = f"""
+            SELECT {', '.join(keep_init + recon_select)}
+            FROM ({inner}) VASTORBIT_SUBTABLE"""
+
+        # Reconstruction error per column: the (avg | median) p-distance between
+        # the original value and its reconstruction. This is the power-mean of
+        # the absolute differences -> MAE when p = 1, RMSE when p = 2.
+        #
+        # NB: the previous formula compared POWER(x, p) - POWER(x', p), i.e.
+        # |x^p - x'^p|^(1/p), which is not a distance and produced wrong scores.
+        def _agg(expr: str) -> str:
+            if metric == "median":
+                return f"approx_percentile({expr}, 0.5)"
+            return f"avg({expr})"
+
+        p_distances = [
+            f"POWER({_agg(f'POWER(ABS({X[idx]} - col_init{idx}), {p})')}, {1 / p}) "
+            f"AS {X[idx]}"
+            for idx in range(len(X))
+        ]
         query = f"""
-            SELECT 
-                {', '.join(col_init_1 + cols)} 
-            FROM ({query}) VASTORBIT_SUBTABLE"""
-        query = f"""
-            SELECT 
-                {self._VAST_inverse_transform_sql}
-                ({', '.join(col_init_2 + cols)} 
-                    USING PARAMETERS 
-                    model_name = '{self.model_name}', 
-                    key_columns = '{', '.join(col_init_2)}', 
-                    exclude_columns = '{', '.join(col_init_2)}', 
-                    num_components = {n_components}) OVER () 
-            FROM ({query}) y"""
-        p_distances = [f"""{metric}(POWER(ABS(POWER({X[idx]}, {p}) 
-                         - POWER(col_init{idx}, {p})), {1 / p})) 
-                         AS {X[idx]}""" for idx in range(len(X))]
-        query = f"""
-            SELECT 
-                'Score' AS 'index', 
-                {', '.join(p_distances)} 
-            FROM ({query}) z"""
+            SELECT
+                'Score' AS "index",
+                {', '.join(p_distances)}
+            FROM ({mid}) z"""
         return TableSample.read_sql(query, title="Getting Model Score.").transpose()
 
     # Prediction / Transformation Methods.
@@ -456,7 +480,7 @@ class Decomposition(Preprocessing):
             cutoff,
         )
         columns = ", ".join([f"{col} AS col{i}" for i, col in enumerate(columns)])
-        if not(vdf):
+        if not (vdf):
             vdf = self.input_relation
         main_relation = f"(SELECT *, {columns} FROM {vdf}) VASTORBIT_SUBTABLE"
         return VastFrame(main_relation)
@@ -576,7 +600,9 @@ class Decomposition(Preprocessing):
             if not self.explained_variance_ratio_[d - 1]:
                 dim_perc += [""]
             else:
-                dim_perc += [f" ({round(self.explained_variance_ratio_[d - 1] * 100, 1)}%)"]
+                dim_perc += [
+                    f" ({round(self.explained_variance_ratio_[d - 1] * 100, 1)}%)"
+                ]
         vo_plt, kwargs = self.get_plotting_lib(
             class_name="ScatterPlot",
             chart=chart,
@@ -812,9 +838,7 @@ class Decomposition(Preprocessing):
 
             vo.set_option("plotting_lib", "plotly")
             fig = model.plot_scree()
-            html_text = fig.htmlcontent.replace("container", "ml_VAST_MCA_scree")
-            with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html", "w") as file:
-                file.write(html_text)
+            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html")
 
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html
@@ -899,12 +923,6 @@ class PCA(Decomposition):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.decomposition.Decomposition.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.decomposition.Decomposition.get_VAST_attributes`
         method.
 
     Examples
@@ -1111,9 +1129,7 @@ class PCA(Decomposition):
 
         vo.set_option("plotting_lib", "plotly")
         fig = model.plot_scree()
-        html_text = fig.htmlcontent.replace("container", "ml_VAST_PCA_scree")
-        with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_pca_plot_scree.html", "w") as file:
-            file.write(html_text)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_pca_plot_scree.html")
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_pca_plot_scree.html
@@ -1131,7 +1147,9 @@ class PCA(Decomposition):
 
     .. ipython:: python
 
-        model.set_params({'n_components': 3})Model Exporting
+        model.set_params({'n_components': 3})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -1195,7 +1213,13 @@ class PCA(Decomposition):
 
     @property
     def _attributes(self) -> list[str]:
-        return ["principal_components_", "mean_", "cos2_", "explained_variance_", "explained_variance_ratio_"]
+        return [
+            "principal_components_",
+            "mean_",
+            "cos2_",
+            "explained_variance_",
+            "explained_variance_ratio_",
+        ]
 
     @property
     def _sklearn_model(self) -> Literal[sklearn.decomposition.PCA]:
@@ -1208,7 +1232,9 @@ class PCA(Decomposition):
         Computes the model's attributes.
         """
         # 1. Principal components (loadings/eigenvectors)
-        self.principal_components_ = self._model.components_  # Shape: (n_components, n_features)
+        self.principal_components_ = (
+            self._model.components_
+        )  # Shape: (n_components, n_features)
 
         # 2. Mean (feature means)
         self.mean_ = self._model.mean_
@@ -1219,7 +1245,7 @@ class PCA(Decomposition):
 
         # 4. Cos2 (squared cosines - contribution of each variable to each PC)
         # cos2[i,j] = (component[i,j])^2 / sum of squared components for variable j
-        cos2 = self._model.components_ ** 2  # Square all loadings
+        cos2 = self._model.components_**2  # Square all loadings
 
         # Normalize by column sum (each variable's total contribution across all PCs)
         col_sums = np.sum(cos2, axis=0)  # Sum across PCs for each variable
@@ -1322,12 +1348,6 @@ class MCA(PCA):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.decomposition.Decomposition.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.decomposition.Decomposition.get_VAST_attributes`
         method.
 
     Examples
@@ -1526,9 +1546,7 @@ class MCA(PCA):
 
         vo.set_option("plotting_lib", "plotly")
         fig = model.plot_scree()
-        html_text = fig.htmlcontent.replace("container", "ml_VAST_MCA_scree")
-        with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html", "w") as file:
-            file.write(html_text)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html")
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_scree.html
@@ -1644,7 +1662,6 @@ class MCA(PCA):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(self, name: str = None, overwrite_model: bool = False) -> None:
         super().__init__(name, overwrite_model)
@@ -1744,9 +1761,7 @@ class MCA(PCA):
 
             vo.set_option("plotting_lib", "plotly")
             fig = model.plot_contrib(dimension = 1)
-            html_text = fig.htmlcontent.replace("container", "ml_VAST_SVD_scree")
-            with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_contrib.html", "w") as file:
-                file.write(html_text)
+            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_contrib.html")
 
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_contrib.html
@@ -1878,9 +1893,7 @@ class MCA(PCA):
 
             vo.set_option("plotting_lib", "plotly")
             fig = model.plot_cos2(dimensions = (1, 2))
-            html_text = fig.htmlcontent.replace("container", "machine_learning_VAST_mca_plot_cos2")
-            with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_cos2.html", "w") as file:
-                file.write(html_text)
+            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_cos2.html")
 
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_cos2.html
@@ -2029,9 +2042,7 @@ class MCA(PCA):
 
             vo.set_option("plotting_lib", "plotly")
             fig = model.plot_var(dimensions = (1, 2))
-            html_text = fig.htmlcontent.replace("container", "machine_learning_VAST_mca_plot_var")
-            with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_var.html", "w") as file:
-                file.write(html_text)
+            fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_var.html")
 
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_mca_plot_var.html
@@ -2133,12 +2144,6 @@ class SVD(Decomposition):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.decomposition.Decomposition.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.decomposition.Decomposition.get_VAST_attributes`
         method.
 
     Examples
@@ -2345,9 +2350,7 @@ class SVD(Decomposition):
 
         vo.set_option("plotting_lib", "plotly")
         fig = model.plot_scree()
-        html_text = fig.htmlcontent.replace("container", "machine_learning_VAST_svd_plot_scree")
-        with open("SPHINX_DIRECTORY/figures/machine_learning_VAST_svd_plot_scree.html", "w") as file:
-            file.write(html_text)
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_svd_plot_scree.html")
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_svd_plot_scree.html
@@ -2365,7 +2368,9 @@ class SVD(Decomposition):
 
     .. ipython:: python
 
-        model.set_params({'n_components': 3})Model Exporting
+        model.set_params({'n_components': 3})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -2427,7 +2432,12 @@ class SVD(Decomposition):
 
     @property
     def _attributes(self) -> list[str]:
-        return ["vectors_", "values_", "explained_variance_", "explained_variance_ratio_"]
+        return [
+            "vectors_",
+            "values_",
+            "explained_variance_",
+            "explained_variance_ratio_",
+        ]
 
     @property
     def _sklearn_model(self) -> Literal[sklearn.decomposition.TruncatedSVD]:

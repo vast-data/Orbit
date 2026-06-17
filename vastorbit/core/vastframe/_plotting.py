@@ -1208,7 +1208,7 @@ class vDFPlot(vDFMachineLearning):
             | ``VastColumn.``:py:meth:`~vastorbit.VastColumn.density` : Density Plot.
 
         """
-        
+
         # Compute histogram-based density for each column
         if len(columns) == 1:
 
@@ -1217,8 +1217,10 @@ class vDFPlot(vDFMachineLearning):
                 chart=chart,
                 style_kwargs=style_kwargs,
             )
-            return vo_plt.DensityPlot(vdf=self, columns=columns, nbins=nbins).draw(**kwargs)
-        
+            return vo_plt.DensityPlot(vdf=self, columns=columns, nbins=nbins).draw(
+                **kwargs
+            )
+
         else:
 
             vo_plt, kwargs = self.get_plotting_lib(
@@ -1226,7 +1228,9 @@ class vDFPlot(vDFMachineLearning):
                 chart=chart,
                 style_kwargs=style_kwargs,
             )
-            return vo_plt.MultiDensityPlot(vdf=self, columns=columns, nbins=nbins).draw(**kwargs)
+            return vo_plt.MultiDensityPlot(vdf=self, columns=columns, nbins=nbins).draw(
+                **kwargs
+            )
 
     # Time Series.
 
@@ -2382,9 +2386,13 @@ class vDFPlot(vDFMachineLearning):
             try:
                 model.fit(self, columns, return_report=True)
                 vdf = model.transform(self)
-                ev_1 = round(model.explained_variance_ratio_[dimensions[0] - 1] * 100, 5)
+                ev_1 = round(
+                    model.explained_variance_ratio_[dimensions[0] - 1] * 100, 5
+                )
                 x_label = f"Dim{dimensions[0]} ({ev_1}%)"
-                ev_2 = round(model.explained_variance_ratio_[dimensions[1] - 1] * 100, 5)
+                ev_2 = round(
+                    model.explained_variance_ratio_[dimensions[1] - 1] * 100, 5
+                )
                 y_label = f"Dim{dimensions[1]} ({ev_2}%)"
                 vdf[f"col{dimensions[0]}"].rename(x_label)
                 vdf[f"col{dimensions[1]}"].rename(y_label)
@@ -3828,8 +3836,10 @@ class vDCPlot(vDCScaler):
                 chart=chart,
                 style_kwargs=style_kwargs,
             )
-            return vo_plt.DensityPlot(vdf=self._parent, columns=self._alias, by=by, nbins=nbins).draw(**kwargs)
-        
+            return vo_plt.DensityPlot(
+                vdf=self._parent, columns=self._alias, by=by, nbins=nbins
+            ).draw(**kwargs)
+
         else:
 
             vo_plt, kwargs = self._parent.get_plotting_lib(
@@ -3837,7 +3847,9 @@ class vDCPlot(vDCScaler):
                 chart=chart,
                 style_kwargs=style_kwargs,
             )
-            return vo_plt.MultiDensityPlot(vdf=self._parent, columns=self._alias, by=by, nbins=nbins).draw(**kwargs)
+            return vo_plt.MultiDensityPlot(
+                vdf=self._parent, columns=self._alias, by=by, nbins=nbins
+            ).draw(**kwargs)
 
     # Time Series.
 

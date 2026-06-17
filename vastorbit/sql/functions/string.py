@@ -6,7 +6,6 @@ from typing import Optional
 
 from vastorbit._typing import SQLExpression
 from vastorbit._utils._sql._format import format_magic
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 from vastorbit.core.string_sql.base import StringSQL
 
@@ -314,7 +313,6 @@ def upper(expr: SQLExpression) -> StringSQL:
 # Edit Distance & Soundex
 
 
-@check_minimum_version
 def edit_distance(
     expr1: SQLExpression,
     expr2: SQLExpression,
@@ -391,13 +389,12 @@ def edit_distance(
     """
     expr1 = format_magic(expr1)
     expr2 = format_magic(expr2)
-    return StringSQL(f"EDIT_DISTANCE({expr1}, {expr2})", "int")
+    return StringSQL(f"LEVENSHTEIN_DISTANCE({expr1}, {expr2})", "int")
 
 
 levenshtein = edit_distance
 
 
-@check_minimum_version
 def soundex(expr: SQLExpression) -> StringSQL:
     """
     Returns Soundex encoding of a varchar
@@ -471,7 +468,6 @@ def soundex(expr: SQLExpression) -> StringSQL:
     return StringSQL(f"SOUNDEX({expr})", "varchar")
 
 
-@check_minimum_version
 def soundex_matches(
     expr1: SQLExpression,
     expr2: SQLExpression,
@@ -550,99 +546,18 @@ def soundex_matches(
     """
     expr1 = format_magic(expr1)
     expr2 = format_magic(expr2)
-    return StringSQL(f"SOUNDEX_MATCHES({expr1}, {expr2})", "int")
+    return StringSQL(f"SOUNDEX({expr1}) = SOUNDEX({expr2}))", "int")
 
 
-# Jaro & Jaro Winkler
+# Hamming
 
 
-@check_minimum_version
-def jaro_distance(
+def hamming_distance(
     expr1: SQLExpression,
     expr2: SQLExpression,
 ) -> StringSQL:
     """
-    Calculates and returns the Jaro distance
-    between two strings.
-
-    Parameters
-    ----------
-    expr1: SQLExpression
-        Expression.
-    expr2: SQLExpression
-        Expression.
-
-    Returns
-    -------
-    StringSQL
-        SQL string.
-
-    Examples
-    --------
-    First, let's import the VastFrame in order to
-    create a dummy dataset.
-
-    .. code-block:: python
-
-        from vastorbit import VastFrame
-
-    Now, let's import the vastorbit SQL functions.
-
-    .. code-block:: python
-
-        import vastorbit.sql.functions as vof
-
-    We can now build a dummy dataset.
-
-    .. code-block:: python
-
-        df = VastFrame({"x": ["hello", "apple", "heroes", "allo"]})
-
-    Now, let's go ahead and apply the function.
-
-    .. code-block:: python
-
-        df["jaro_distance_x"] = vof.jaro_distance(df["x"], 'heyllow')
-        display(df)
-
-    .. ipython:: python
-        :suppress:
-
-        from vastorbit import VastFrame
-        import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ["hello", "apple", "heroes", "allo"]})
-        df["jaro_distance_x"] = vof.jaro_distance(df["x"], 'heyllow')
-        html_file = open("SPHINX_DIRECTORY/figures/sql_functions_string_jaro_distance.html", "w")
-        html_file.write(df._repr_html_())
-        html_file.close()
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/sql_functions_string_jaro_distance.html
-
-    .. note::
-
-        It's crucial to utilize vastorbit SQL functions in coding, as
-        they can be updated over time with new syntax. While SQL
-        functions typically remain stable, they may vary across platforms
-        or versions. vastorbit effectively manages these changes, a task
-        not achievable with pure SQL.
-
-    .. seealso::
-
-        | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
-    """
-    expr1 = format_magic(expr1)
-    expr2 = format_magic(expr2)
-    return StringSQL(f"JARO_DISTANCE({expr1}, {expr2})", "float")
-
-
-@check_minimum_version
-def jaro_winkler_distance(
-    expr1: SQLExpression,
-    expr2: SQLExpression,
-) -> StringSQL:
-    """
-    Calculates and returns the Jaro-Winkler
+    Calculates and returns the Hamming
     distance between two strings.
 
     Parameters
@@ -682,7 +597,7 @@ def jaro_winkler_distance(
 
     .. code-block:: python
 
-        df["jaro_winkler_distance_x"] = vof.jaro_winkler_distance(df["x"], 'heyllow')
+        df["hamming_distance_x"] = vof.hamming_distance(df["x"], 'heyllow')
         display(df)
 
     .. ipython:: python
@@ -691,13 +606,13 @@ def jaro_winkler_distance(
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": ["hello", "apple", "heroes", "allo"]})
-        df["jaro_winkler_distance_x"] = vof.jaro_winkler_distance(df["x"], 'heyllow')
-        html_file = open("SPHINX_DIRECTORY/figures/sql_functions_string_jaro_winkler_distance.html", "w")
+        df["hamming_distance_x"] = vof.hamming_distance(df["x"], 'heyllow')
+        html_file = open("SPHINX_DIRECTORY/figures/sql_functions_string_hamming_distance.html", "w")
         html_file.write(df._repr_html_())
         html_file.close()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/sql_functions_string_jaro_winkler_distance.html
+        :file: SPHINX_DIRECTORY/figures/sql_functions_string_hamming_distance.html
 
     .. note::
 
@@ -713,4 +628,4 @@ def jaro_winkler_distance(
     """
     expr1 = format_magic(expr1)
     expr2 = format_magic(expr2)
-    return StringSQL(f"JARO_WINKLER_DISTANCE({expr1}, {expr2})", "float")
+    return StringSQL(f"HAMMING_DISTANCE({expr1}, {expr2})", "float")

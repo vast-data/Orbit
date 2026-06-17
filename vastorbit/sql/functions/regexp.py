@@ -499,7 +499,7 @@ def regexp_replace(
     )
 
 
-def regexp_substr(
+def regexp_extract(
     expr: SQLExpression, pattern: SQLExpression, position: int = 1, occurrence: int = 1
 ) -> StringSQL:
     """
@@ -559,7 +559,7 @@ def regexp_substr(
 
     .. code-block:: python
 
-        titanic["title"] = vof.regexp_substr(
+        titanic["title"] = vof.regexp_extract(
             titanic["name"],
             '([A-Za-z])+\\.',
         )
@@ -572,13 +572,13 @@ def regexp_substr(
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["title"] = vof.regexp_substr(titanic["name"], '([A-Za-z])+\\.')
-        html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_substr.html", "w")
+        titanic["title"] = vof.regexp_extract(titanic["name"], '([A-Za-z])+\\.')
+        html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_extract.html", "w")
         html_file.write(titanic[["name", "title"]]._repr_html_())
         html_file.close()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_substr.html
+        :file: SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_extract.html
 
     .. note::
 
@@ -594,4 +594,4 @@ def regexp_substr(
     """
     expr = format_magic(expr)
     pattern = format_magic(pattern)
-    return StringSQL(f"REGEXP_SUBSTR({expr}, {pattern}, {position}, {occurrence})")
+    return StringSQL(f"regexp_extract({expr}, {pattern}, {position}, {occurrence})")

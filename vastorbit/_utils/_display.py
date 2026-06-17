@@ -133,9 +133,10 @@ def print_table(
 _THEME_TOKENS = {
     "light": {
         "bg": "#FFFFFF",
-        "head-bg": "#03142C",        # VAST Navy header
-        "head-fg": "#FFFFFF",
-        "head-accent": "#1FD9FE",    # VAST Cyan edge
+        "head-bg": "#F8F9FB",  # VAST Navy header
+        "index-bg": "#F8F9FB",
+        "head-fg": "#10172D",
+        "head-accent": "#1FD9FE",  # VAST Cyan edge
         "row": "#FFFFFF",
         "row-alt": "#F7FAFD",
         "row-hover": "#E2F9FF",
@@ -145,6 +146,8 @@ _THEME_TOKENS = {
         "null-bg": "#F2F2F7",
         "line": "#E7EBF1",
         "index-fg": "#0E86B8",
+        "index-bg": "#E2F9FF",  # nice light blue index column
+        "row-line": "#E7EBF1",  # data-cell separator
         "type-num": "#0E86B8",
         "type-txt": "#6B7A90",
         "bar-track": "#E7EBF1",
@@ -163,8 +166,10 @@ _THEME_TOKENS = {
         "fg-muted": "#9FB3C8",
         "null-fg": "#5F7186",
         "null-bg": "#0A2240",
-        "line": "#1B3A5C",
+        "line": "#03142C",  # no visible separation in dark (blends with bg)
         "index-fg": "#1FD9FE",
+        "index-bg": "#11305A",  # uniform, a bit lighter than bg (dark)
+        "row-line": "transparent",  # no border in data cells (dark)
         "type-num": "#1FD9FE",
         "type-txt": "#9FB3C8",
         "bar-track": "#11305A",
@@ -185,6 +190,8 @@ _THEME_TOKENS = {
         "null-bg": "var(--color-background-hover, rgba(136,136,136,0.10))",
         "line": "var(--color-background-border, #555555)",
         "index-fg": "var(--color-brand-content, #1FD9FE)",
+        "index-bg": "var(--color-background-secondary, #E2F9FF)",  # website look
+        "row-line": "var(--color-background-border, #1B3A5C)",  # data-cell separator
         "type-num": "var(--color-brand-content, #1FD9FE)",
         "type-txt": "var(--color-foreground-secondary, #959DAD)",
         "bar-track": "var(--color-background-border, #555555)",
@@ -203,9 +210,32 @@ _TYPE_GLYPHS = {
 }
 
 
-def _table_css(t: dict) -> str:
+def _table_css(t: dict, theme_name: str = "") -> str:
     """Scoped stylesheet for one rendered table."""
+    # For the docs ("sphinx") palette only: in Furo DARK mode the index column
+    # should match the main background (no distinct block) and the row
+    # separators should disappear. Furo light keeps its light-blue index and
+    # subtle separators. (These selectors only match inside Furo, so they have
+    # no effect on the hard-coded notebook "light"/"dark" palettes.)
+    dark_override = ""
+    if theme_name == "sphinx":
+        dark_override = (
+            '\n[data-theme="dark"] .vob-table tbody td.vob-idx, '
+            '[data-theme="dark"] .vob-table thead th.vob-idx '
+            "{ background: #11305A !important; }"
+            '\n[data-theme="dark"] .vob-table tbody td, '
+            '[data-theme="dark"] .vob-table thead th '
+            "{ border-color: transparent !important; }"
+            "\n@media (prefers-color-scheme: dark) {"
+            ' body:not([data-theme="light"]) .vob-table tbody td.vob-idx, '
+            'body:not([data-theme="light"]) .vob-table thead th.vob-idx '
+            "{ background: #11305A !important; }"
+            ' body:not([data-theme="light"]) .vob-table tbody td, '
+            'body:not([data-theme="light"]) .vob-table thead th '
+            "{ border-color: transparent !important; } }"
+        )
     return f"""<style>
+{dark_override}
 .vob-table {{
   --vt-bg: {t['bg']}; --vt-line: {t['line']}; --vt-shadow: {t['shadow']};
   border: 1px solid {t['line']}; border-radius: 10px; overflow: hidden;
@@ -227,26 +257,26 @@ def _table_css(t: dict) -> str:
 }}
 .vob-table thead th {{
   position: sticky; top: 0; z-index: 2;
-  background: {t['head-bg']}; color: {t['head-fg']};
+  background: {t['head-bg']} !important; color: {t['head-fg']} !important;
   font-weight: 700; padding: 8px 14px; text-align: center;
   border-bottom: 2px solid {t['head-accent']}; white-space: nowrap;
   max-width: var(--vt-maxw); overflow: hidden; text-overflow: ellipsis;
 }}
 .vob-table tbody td {{
-  padding: 7px 14px; color: {t['fg']}; text-align: center;
-  border-bottom: 1px solid {t['line']}; white-space: nowrap;
+  padding: 7px 14px; color: {t['fg']} !important; text-align: center;
+  border-bottom: 1px solid {t['row-line']}; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis; max-width: var(--vt-maxw);
 }}
 .vob-table tbody tr:last-child td {{ border-bottom: 0; }}
-.vob-table tbody tr:nth-child(even) td {{ background: {t['row-alt']}; }}
-.vob-table tbody tr:nth-child(odd) td {{ background: {t['row']}; }}
-.vob-table tbody tr:hover td {{ background: {t['row-hover']}; }}
+.vob-table tbody tr:nth-child(even) td {{ background: {t['row-alt']} !important; }}
+.vob-table tbody tr:nth-child(odd) td {{ background: {t['row']} !important; }}
+.vob-table tbody tr:hover td {{ background: {t['row-hover']} !important; }}
 .vob-table td.vob-idx, .vob-table th.vob-idx {{
-  color: {t['index-fg']}; font-weight: 600; min-width: 42px;
-  position: sticky; left: 0; z-index: 1;
+  color: {t['index-fg']} !important; font-weight: 600; min-width: 42px;
+  position: sticky; left: 0; z-index: 2;
 }}
-.vob-table thead th.vob-idx {{ z-index: 3; }}  /* corner: above header row AND index column */
-.vob-table tbody td.vob-idx {{ background: {t['head-bg']}; }}
+.vob-table thead th.vob-idx {{ background: {t['head-bg']} !important; z-index: 4; }}  /* corner matches the header */
+.vob-table tbody td.vob-idx {{ background: {t['index-bg']} !important; }}  /* index column; opaque so it stays solid on scroll, borders follow the data cells */
 .vob-table td.vob-null {{ color: {t['null-fg']}; background: {t['null-bg']} !important;
   font-style: italic; }}
 .vob-table .vob-glyph {{ font-size: 11px; font-weight: 700; letter-spacing: .04em;
@@ -356,7 +386,7 @@ def _render_html_table(
     # caps runaway columns via max-width + ellipsis. No manual minimums.
 
     parts = [
-        _table_css(t),
+        _table_css(t, theme_name=theme),
         f'<div class="vastorbit_table vob-table" '
         f'style="--vt-maxh:{maxheight}px; --vt-maxw:{maxwidth}px;">',
         '<div class="vob-scroll"><table>',

@@ -2,31 +2,48 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from typing import Optional
-
-import vastorbit._config.config as conf
-from vastorbit._utils._sql._format import quote_ident
-
 from vastorbit.core.vastframe.base import VastFrame
-
-from vastorbit.sql.create import create_table
-from vastorbit.sql.drop import drop
-from vastorbit.sql.insert import insert_into
 
 """
 Sample Datasets to do testing.
 """
 
 
-def load_dataset_cl(
-    schema: Optional[str] = None,
-    table_name: str = "dataset_cl",
-) -> VastFrame:
+def load_dataset_cl() -> VastFrame:
     """
-    Sample Dataset to do classification.
+    Returns the classification dataset.
+
+    This dataset is ideal for classification.
+    If a table with the same name and schema already exists,
+    this function creates a VastFrame from the input relation.
+
+    Returns
+    -------
+    VastFrame
+        The classification VastFrame.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        from vastorbit.datasets import load_dataset_cl
+
+        vdf = load_dataset_cl()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_dataset_cl
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_dataset_cl.html", "w")
+        html_file.write(
+            load_dataset_cl()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_dataset_cl.html
     """
-    if not (schema):
-        schema = conf.get_option("temp_schema")
 
     # Classification Dataset
 
@@ -42,35 +59,40 @@ def load_dataset_cl(
         [9, "Car", "Male", 2, "Expensive", "Med"],
         [10, "Car", "Female", 2, "Expensive", "Hig"],
     ]
-    input_relation = f"{quote_ident(schema)}.{quote_ident(table_name)}"
-
-    drop(name=input_relation, method="table")
-    create_table(
-        table_name=table_name,
-        schema=schema,
-        dtype={
-            "Id": "INT",
-            "transportation": "VARCHAR",
-            "gender": "VARCHAR",
-            "owned cars": "INT",
-            "cost": "VARCHAR",
-            "income": "CHAR(4)",
-        },
-    )
-    insert_into(table_name=table_name, schema=schema, data=data, copy=False)
-
-    return VastFrame(input_relation=input_relation)
+    return VastFrame(data)
 
 
-def load_dataset_reg(
-    schema: Optional[str] = None,
-    table_name: str = "dataset_reg",
-) -> VastFrame:
+def load_dataset_reg() -> VastFrame:
     """
-    Sample Dataset to do regression.
+    Returns the regression dataset.
+
+    Returns
+    -------
+    VastFrame
+        The regression VastFrame.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        from vastorbit.datasets import load_dataset_reg
+
+        vdf = load_dataset_reg()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_dataset_reg
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_dataset_reg.html", "w")
+        html_file.write(
+            load_dataset_cl()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_dataset_reg.html
     """
-    if not (schema):
-        schema = conf.get_option("temp_schema")
 
     # Regression Dataset
 
@@ -86,35 +108,40 @@ def load_dataset_reg(
         [9, 2, "Male", 2, "Expensive", "Med"],
         [10, 2, "Female", 2, "Expensive", "Hig"],
     ]
-    input_relation = f"{quote_ident(schema)}.{quote_ident(table_name)}"
-
-    drop(name=input_relation, method="table")
-    create_table(
-        table_name=table_name,
-        schema=schema,
-        dtype={
-            "Id": "INT",
-            "transportation": "INT",
-            "gender": "VARCHAR",
-            "owned cars": "INT",
-            "cost": "VARCHAR",
-            "income": "CHAR(4)",
-        },
-    )
-    insert_into(table_name=table_name, schema=schema, data=data, copy=False)
-
-    return VastFrame(input_relation=input_relation)
+    return VastFrame(data)
 
 
-def load_dataset_num(
-    schema: Optional[str] = None,
-    table_name: str = "dataset_num",
-) -> VastFrame:
+def load_dataset_num() -> VastFrame:
     """
-    Sample Dataset with numerical values.
+    Returns the numerical dataset.
+
+    Returns
+    -------
+    VastFrame
+        The numerical VastFrame.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        from vastorbit.datasets import load_dataset_num
+
+        vdf = load_dataset_num()
+
+    .. ipython:: python
+        :suppress:
+
+        from vastorbit.datasets import load_dataset_num
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_dataset_num.html", "w")
+        html_file.write(
+            load_dataset_num()._repr_html_()
+        )
+        html_file.close()
+
+    .. raw:: html
+        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_dataset_num.html
     """
-    if not (schema):
-        schema = conf.get_option("temp_schema")
 
     # Numerical Dataset
 
@@ -130,20 +157,5 @@ def load_dataset_num(
         [9, 6.8, 2.8, 4.8, 1.4],
         [10, 7.0, 3.2, 4.7, 1.4],
     ]
-    input_relation = f"{quote_ident(schema)}.{quote_ident(table_name)}"
 
-    drop(name=input_relation, method="table")
-    create_table(
-        table_name=table_name,
-        schema=schema,
-        dtype={
-            "Id": "INT",
-            "col1": "FLOAT",
-            "col2": "FLOAT",
-            "col3": "FLOAT",
-            "col4": "FLOAT",
-        },
-    )
-    insert_into(table_name=table_name, schema=schema, data=data, copy=False)
-
-    return VastFrame(input_relation=input_relation)
+    return VastFrame(data)

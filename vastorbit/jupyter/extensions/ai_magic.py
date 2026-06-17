@@ -263,7 +263,7 @@ SYSTEM_PROMPT = textwrap.dedent("""\
         PLSRegression, PoissonRegressor,
         KNeighborsRegressor, LinearSVR,
         # Clustering
-        KMeans, KPrototypes, BisectingKMeans, DBSCAN,
+        KMeans, BisectingKMeans, DBSCAN,
         # Decomposition
         PCA, SVD, MCA,
         # Preprocessing
@@ -294,7 +294,7 @@ SYSTEM_PROMPT = textwrap.dedent("""\
     model.to_graphviz(tree_id=0)
 
     # Unsupervised:
-    model = KMeans(n_cluster=8, ...)
+    model = KMeans(n_clusters=8, ...)
     model.fit(input_relation, X=["f1","f2"])
     model.predict(vdf, name="cluster")
     model.plot() / .contour()

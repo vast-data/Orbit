@@ -53,10 +53,6 @@ We can then fit the model with our data.
 
 While there aren't any real metrics for evaluating unsupervised models, metrics used during computation can help us to understand the quality of the model. For example, a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model with fewer clusters and when the :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` score, ``Between-Cluster SS / Total SS`` is close to 1.
 
-.. ipython:: python
-
-    print(model.get_VAST_attributes("metrics")["metrics"][0])
-
 You can add the prediction to your :py:mod:`~vastorbit.VastFrame`.    
 
 .. code-block::

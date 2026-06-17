@@ -6,7 +6,6 @@ from typing import Literal, Union
 
 from vastorbit._typing import PythonNumber
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 from vastorbit.machine_learning.vast.ensemble import (
     RandomForestClassifier,
@@ -20,8 +19,8 @@ Algorithms used for regression.
 
 class DecisionTreeRegressor(RandomForestRegressor):
     """
-    Creates an ``DecisionTreeRegressor`` 
-    object using SKLEARN for training 
+    Creates an ``DecisionTreeRegressor``
+    object using SKLEARN for training
     and the scalability of VASTDB for
     the inferences.
 
@@ -64,12 +63,6 @@ class DecisionTreeRegressor(RandomForestRegressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -184,7 +177,7 @@ class DecisionTreeRegressor(RandomForestRegressor):
         :okwarning:
 
         model = DecisionTreeRegressor(
-            max_features = "auto",
+            max_features = "sqrt",
             max_leaf_nodes = 32,
             max_depth = 3,
             min_samples_leaf = 5,
@@ -512,12 +505,6 @@ class DummyTreeRegressor(RandomForestRegressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -908,7 +895,6 @@ class DummyTreeRegressor(RandomForestRegressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(self, name: str = None, overwrite_model: bool = False) -> None:
         super().__init__(name, overwrite_model)
@@ -931,8 +917,8 @@ Algorithms used for classification.
 
 class DecisionTreeClassifier(RandomForestClassifier):
     """
-    Creates an ``DecisionTreeClassifier`` 
-    object using SKLEARN for training 
+    Creates an ``DecisionTreeClassifier``
+    object using SKLEARN for training
     and the scalability of VASTDB for
     the inferences.
 
@@ -977,12 +963,6 @@ class DecisionTreeClassifier(RandomForestClassifier):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -1174,7 +1154,7 @@ class DecisionTreeClassifier(RandomForestClassifier):
         :okwarning:
 
         model = DecisionTreeClassifier(
-            max_features = "auto",
+            max_features = "sqrt",
             max_leaf_nodes = 32,
             max_depth = 3,
             min_samples_leaf = 5,
@@ -1567,7 +1547,9 @@ class DecisionTreeClassifier(RandomForestClassifier):
 
     .. ipython:: python
 
-        model.set_params({'max_depth': 5})Model Exporting
+        model.set_params({'max_depth': 5})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -1620,13 +1602,12 @@ class DecisionTreeClassifier(RandomForestClassifier):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
         name: str = None,
         overwrite_model: bool = False,
-        max_features: Union[Literal["auto", "max"], int] = "auto",
+        max_features: Union[Literal["sqrt", "max"], int] = "sqrt",
         max_leaf_nodes: PythonNumber = 1e9,
         max_depth: int = 100,
         min_samples_leaf: int = 1,
@@ -1692,12 +1673,6 @@ class DummyTreeClassifier(RandomForestClassifier):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -2314,7 +2289,6 @@ class DummyTreeClassifier(RandomForestClassifier):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(self, name: str = None, overwrite_model: bool = False) -> None:
         super().__init__(name, overwrite_model)

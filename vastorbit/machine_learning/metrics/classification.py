@@ -13,7 +13,6 @@ from vastorbit._typing import (
 )
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import check_minimum_version
 from vastorbit._utils._map import param_docstring
 
 from vastorbit.core.tablesample.base import TableSample
@@ -3606,6 +3605,7 @@ def _compute_prc_curve(
 
     return result
 
+
 def _compute_lift_curve(
     y_true: str,
     y_score: str,
@@ -3795,27 +3795,70 @@ def _compute_micro_multiclass_metric(
                     {input_relation},
                     (SELECT DISTINCT {y_true} AS value FROM {input_relation}) AS distinct_values"""
 
-    query = f"""
+    if fun_sql_name == "roc":
+        final_select = """
             SELECT
-                {', '.join(X)}
-            FROM
-                (SELECT
-                    {fun_sql_name.upper()}(
-                            obs, prob 
-                            USING PARAMETERS 
-                            num_bins = {nbins}) OVER() 
-                FROM (
+                threshold AS decision_boundary,
+                CASE WHEN total_negatives > 0
+                     THEN CAST(fp AS DOUBLE) / total_negatives ELSE 0.0 END AS false_positive_rate,
+                CASE WHEN total_positives > 0
+                     THEN CAST(tp AS DOUBLE) / total_positives ELSE 0.0 END AS true_positive_rate
+            FROM metrics_per_threshold
+            ORDER BY bucket DESC"""
+    else:
+        final_select = """
+            SELECT
+                threshold AS decision_boundary,
+                CASE WHEN total_positives > 0
+                     THEN CAST(tp AS DOUBLE) / total_positives ELSE 0.0 END AS recall,
+                CASE WHEN (tp + fp) > 0
+                     THEN CAST(tp AS DOUBLE) / (tp + fp) ELSE 1.0 END AS precision
+            FROM metrics_per_threshold
+            ORDER BY bucket DESC"""
+
+    query = f"""
+        WITH prepared_data AS (
+            SELECT
+                obs AS actual,
+                CAST(prob AS DOUBLE) AS score
+            FROM (
                 SELECT
-                t.decoded_value as obs,
-                t.prob_value::float as prob
+                    t.decoded_value AS obs,
+                    t.prob_value AS prob
                 FROM (
                 {decode_query}) AS t) AS subquery
-            ) x
-            """
-    # The following query does exactly what is required except that I have to tell it that the distinct values are 0,1,2
+            WHERE prob IS NOT NULL
+        ),
+        threshold_positions AS (
+            SELECT bucket, CAST(bucket AS DOUBLE) / {nbins} AS percentile
+            FROM UNNEST(sequence(0, {nbins})) AS tt(bucket)
+        ),
+        thresholds AS (
+            SELECT tp.bucket, tp.percentile,
+                   APPROX_PERCENTILE(pd.score, tp.percentile) AS threshold
+            FROM threshold_positions tp
+            CROSS JOIN prepared_data pd
+            GROUP BY tp.bucket, tp.percentile
+        ),
+        metrics_per_threshold AS (
+            SELECT
+                t.threshold,
+                t.bucket,
+                SUM(CASE WHEN d.actual = 1 AND d.score >= t.threshold THEN 1 ELSE 0 END) AS tp,
+                SUM(CASE WHEN d.actual = 0 AND d.score >= t.threshold THEN 1 ELSE 0 END) AS fp,
+                SUM(CASE WHEN d.actual = 0 AND d.score < t.threshold THEN 1 ELSE 0 END) AS tn,
+                SUM(CASE WHEN d.actual = 1 AND d.score < t.threshold THEN 1 ELSE 0 END) AS fn,
+                SUM(d.actual) AS total_positives,
+                SUM(CASE WHEN d.actual = 0 THEN 1 ELSE 0 END) AS total_negatives
+            FROM thresholds t
+            CROSS JOIN prepared_data d
+            GROUP BY t.threshold, t.bucket
+        )
+        {final_select}
+        """
     query_result = _executeSQL(
         query=query,
-        title=f"Computing the",
+        title="Computing the micro-average curve.",
         method="fetchall",
     )
     result = [

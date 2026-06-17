@@ -1,6 +1,7 @@
 """
 SPDX-License-Identifier: Apache-2.0
 """
+
 import copy
 from typing import Literal, Optional
 import plotly.graph_objects as go
@@ -27,9 +28,13 @@ class ImportanceBarChart(PlotlyBase):
                 self.layout["y_label"] if "y_label" in self.layout else "Features"
             ),
             "xaxis": dict(
-                title=self.layout["x_label"] if "x_label" in self.layout else "Importance (%)",
+                title=(
+                    self.layout["x_label"]
+                    if "x_label" in self.layout
+                    else "Importance (%)"
+                ),
                 side="top",
-                title_standoff=25
+                title_standoff=25,
             ),
             "yaxis": {
                 "categoryorder": "total descending",
@@ -58,7 +63,7 @@ class ImportanceBarChart(PlotlyBase):
         importances_neg = copy.deepcopy(self.data["importance"])
         importances_neg[self.data["signs"] == 1] = 0.0
         importances_neg = importances_neg.tolist()
-        
+
         fig.add_trace(
             go.Bar(
                 x=importances_pos,
@@ -71,7 +76,7 @@ class ImportanceBarChart(PlotlyBase):
                 textposition="auto",  # Show values on bars
             )
         )
-        
+
         showlegend = False
         if len(self.data["signs"][self.data["signs"] == -1]) != 0:
             fig.add_trace(
@@ -87,10 +92,10 @@ class ImportanceBarChart(PlotlyBase):
                 )
             )
             showlegend = True
-        
+
         fig.update_layout(
             showlegend=showlegend,
             **self._update_dict(self.init_layout_style, style_kwargs),
         )
-        
+
         return fig

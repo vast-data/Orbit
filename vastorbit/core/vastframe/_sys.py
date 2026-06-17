@@ -240,7 +240,13 @@ class vDFSystem(vDFTyping):
         if not columns:
             return ""
         segment_cols = quote_ident(columns)
-        return f" SEGMENTED BY HASH({', '.join(segment_cols)}) ALL NODES"
+        segment_cols = ", ".join(
+            [
+                f"FROM_BIG_ENDIAN_64(XXHASH64(TO_UTF8(CAST(({col} AS VARCHAR))))"
+                for col in segment_cols
+            ]
+        )
+        return f" SEGMENTED BY {segment_cols} ALL NODES"
 
     def _get_sort_syntax(self, columns: Union[dict, SQLColumns]) -> str:
         """

@@ -41,7 +41,7 @@ The :py:func:`~vastorbit.VastFrame.apply` function of the vastorbit stats module
 
     import vastorbit.sql.functions as fun
 
-    world["geography"] = fun.apply("stv_geography", world["geometry"])
+    world["geography"] = fun.apply("ST_GeometryFromText", world["geometry"])
     world["geography"].astype("geography")
     world["area"] = fun.apply("st_area", world["geography"])
     world.head(100)
@@ -51,7 +51,7 @@ The :py:func:`~vastorbit.VastFrame.apply` function of the vastorbit stats module
 
     import vastorbit.sql.functions as fun
 
-    world["geography"] = fun.apply("stv_geography", world["geometry"])
+    world["geography"] = fun.apply("ST_GeometryFromText", world["geometry"])
     world["geography"].astype("geography")
     world["area"] = fun.apply("st_area", world["geography"])
     res = world.head(100)

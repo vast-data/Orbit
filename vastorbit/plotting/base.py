@@ -192,7 +192,7 @@ class PlottingBase(PlottingBaseSQL):
                 "aggregate": self._compute_aggregate_sql,
                 "candle": self._compute_candle_aggregate_sql,
                 # "contour": self._compute_contour_grid_sql, NOT POSSIBLE
-                #"density": self._compute_density,
+                # "density": self._compute_density,
                 "describe": self._compute_statistics_sql,
                 "hist": self._compute_hists_params_sql,
                 "line": self._filter_line_sql,
@@ -978,7 +978,7 @@ class PlottingBase(PlottingBaseSQL):
     ) -> None:
         """
         Compute density plot data using histogram approximation.
-        
+
         Parameters
         ----------
         vdf: VastFrame
@@ -995,22 +995,22 @@ class PlottingBase(PlottingBaseSQL):
         columns = format_type(columns, dtype=list)
         columns = vdf.format_colnames(columns)
         by = vdf.format_colnames(by)
-        
+
         # Get numerical columns if not specified
         if not columns:
             columns = vdf.numcol()
         if not columns:
             raise ValueError("No numerical columns found.")
-        
+
         # Single column, no grouping
         if len(columns) == 1 and not by:
             column = columns[0]
-            
+
             # Get data range
             min_val = vdf[column].min()
             max_val = vdf[column].max()
             bin_width = (max_val - min_val) / nbins
-            
+
             # Build SQL query
             query = f"""
             WITH bin_sequence AS (
@@ -1038,19 +1038,19 @@ class PlottingBase(PlottingBaseSQL):
             LEFT JOIN bins b ON bs.bin_id = b.bin_id
             ORDER BY bs.bin_id
             """
-            
+
             result = _executeSQL(
                 query=query,
                 title=f"Computing density for {column}",
                 method="fetchall",
             )
-            
+
             X = np.array([row[0] for row in result])
             Y = np.array([row[1] for row in result])
-            
+
             # Apply smoothing
             Y = self._smooth_density(Y)
-            
+
             self.data = {"x": X, "y": Y}
             self.layout = {
                 "title": f"Density Plot - {self._clean_quotes(column)}",
@@ -1058,28 +1058,28 @@ class PlottingBase(PlottingBaseSQL):
                 "y_label": "Density",
                 "column": self._clean_quotes(column),
             }
-        
+
         # Single column with categorical grouping
         elif len(columns) == 1 and by:
             column = columns[0]
-            
+
             # Get categories
             categories = vdf[by].distinct()
-            
+
             # Get overall min/max for consistent x-axis
             min_val = vdf[column].min()
             max_val = vdf[column].max()
             bin_width = (max_val - min_val) / nbins
-            
+
             X_list, Y_list = [], []
-            
+
             for cat in categories:
                 # Build filter condition
                 if isinstance(cat, str):
                     filter_cond = f"{by} = '{cat}'"
                 else:
                     filter_cond = f"{by} = {cat}"
-                
+
                 # Build SQL query for this category
                 query = f"""
                 WITH bin_sequence AS (
@@ -1114,26 +1114,26 @@ class PlottingBase(PlottingBaseSQL):
                 LEFT JOIN bins b ON bs.bin_id = b.bin_id
                 ORDER BY bs.bin_id
                 """
-                
+
                 result = _executeSQL(
                     query=query,
                     title=f"Computing density for {column} where {by}={cat}",
                     method="fetchall",
                 )
-                
+
                 x_vals = np.array([row[0] for row in result])
                 y_vals = np.array([row[1] for row in result])
-                
+
                 # Apply smoothing
                 y_vals = self._smooth_density(y_vals)
-                
+
                 X_list.append(x_vals)
                 Y_list.append(y_vals)
-            
+
             # Stack arrays
             X = np.column_stack(X_list)
             Y = np.column_stack(Y_list)
-            
+
             self.data = {"X": X, "Y": Y}
             self.layout = {
                 "title": f"Density Plot - {self._clean_quotes(column)}",
@@ -1143,17 +1143,17 @@ class PlottingBase(PlottingBaseSQL):
                 "labels": np.array(categories),
                 "labels_title": self._clean_quotes(by),
             }
-        
+
         # Multiple columns, no grouping
         else:
             X_list, Y_list = [], []
-            
+
             for column in columns:
                 # Get data range
                 min_val = vdf[column].min()
                 max_val = vdf[column].max()
                 bin_width = (max_val - min_val) / nbins
-                
+
                 # Build SQL query
                 query = f"""
                 WITH bin_sequence AS (
@@ -1181,26 +1181,26 @@ class PlottingBase(PlottingBaseSQL):
                 LEFT JOIN bins b ON bs.bin_id = b.bin_id
                 ORDER BY bs.bin_id
                 """
-                
+
                 result = _executeSQL(
                     query=query,
                     title=f"Computing density for {column}",
                     method="fetchall",
                 )
-                
+
                 x_vals = np.array([row[0] for row in result])
                 y_vals = np.array([row[1] for row in result])
-                
+
                 # Apply smoothing
                 y_vals = self._smooth_density(y_vals)
-                
+
                 X_list.append(x_vals)
                 Y_list.append(y_vals)
-            
+
             # Stack arrays
             X = np.column_stack(X_list)
             Y = np.column_stack(Y_list)
-            
+
             self.data = {"X": X, "Y": Y}
             self.layout = {
                 "title": "Density Plot",
@@ -1213,21 +1213,21 @@ class PlottingBase(PlottingBaseSQL):
     def _smooth_density(self, y_vals: np.ndarray, window: int = 3) -> np.ndarray:
         """
         Apply simple moving average smoothing to density values.
-        
+
         Parameters
         ----------
         y_vals: np.ndarray
             Density values to smooth.
         window: int, optional
             Window size for moving average.
-        
+
         Returns
         -------
         np.ndarray
             Smoothed density values.
         """
         if len(y_vals) > window:
-            return np.convolve(y_vals, np.ones(window)/window, mode='same')
+            return np.convolve(y_vals, np.ones(window) / window, mode="same")
         else:
             return y_vals
 

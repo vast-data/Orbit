@@ -373,7 +373,7 @@ For this example, let's use a ``Random Forest`` model.
     # define the random forest model
     rf_model = RandomForestRegressor(
         n_estimators = 20,
-        max_features = "auto",
+        max_features = "sqrt",
         max_leaf_nodes = 32, 
         sample = 0.7,
         max_depth = 3,

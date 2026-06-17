@@ -778,7 +778,7 @@ class vDCTyping(vDCRead):
                         transformation_2 = f"""
                             SPLIT({{}}, '{sep}')"""
             elif dtype == "json":
-                transformation_2 = "TO_JSON({})"
+                transformation_2 = "JSON_FORMAT(CAST({} AS JSON))"
                 dtype = "varchar"
             else:
                 transformation_2 = f"CAST({{}} AS {dtype})"

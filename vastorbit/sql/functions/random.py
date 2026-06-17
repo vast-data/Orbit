@@ -139,7 +139,7 @@ def randomint(n: int) -> StringSQL:
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL(f"RANDOMINT({n})", "int")
+    return StringSQL(f"RANDOM({n})", "int")
 
 
 def seeded_random(random_state: int) -> StringSQL:
@@ -211,4 +211,14 @@ def seeded_random(random_state: int) -> StringSQL:
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL(f"SEEDED_RANDOM({random_state})", "float")
+    return StringSQL(
+        f"""
+        (ABS(FROM_BIG_ENDIAN_64(XXHASH64(
+            TO_UTF8(CONCAT(
+                CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR),
+                '|{random_state}'
+            ))
+        ))) % 100) / 100.0
+    """,
+        "float",
+    )

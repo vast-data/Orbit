@@ -267,7 +267,7 @@ We can use a cross-validation to test our model.
     from vastorbit.machine_learning.model_selection import cross_validate
 
     cross_validate(
-        LinearRegression(solver = "BFGS"), 
+        LinearRegression(), 
         input_relation = africa,
         X = africa.get_columns(exclude_columns = ["student_score"]),
         y = "student_score",
@@ -280,7 +280,7 @@ We can use a cross-validation to test our model.
     from vastorbit.machine_learning.vast import LinearRegression
     from vastorbit.machine_learning.model_selection import cross_validate
     res = cross_validate(
-        LinearRegression(solver = "BFGS"), 
+        LinearRegression(), 
         input_relation = africa,
         X = africa.get_columns(exclude_columns = ["student_score"]),
         y = "student_score",
@@ -298,7 +298,7 @@ Let's compare the importance of our features.
 
 .. ipython:: python
 
-    model = LinearRegression(solver = "BFGS")
+    model = LinearRegression()
     model.fit(
         input_relation = africa,
         X = africa.get_columns(exclude_columns = ["student_score"]),
@@ -594,7 +594,7 @@ Let's use a cross-validation to test our linear regression model.
 .. code-block:: ipython
     
     cross_validate(
-        LinearRegression(solver = "BFGS"), 
+        LinearRegression(), 
         input_relation = africa_pca,
         X = africa_pca.get_columns(exclude_columns = ["student_score"]),
         y = "student_score",
@@ -605,7 +605,7 @@ Let's use a cross-validation to test our linear regression model.
     :okwarning:
 
     res = cross_validate(
-        LinearRegression(solver = "BFGS"), 
+        LinearRegression(), 
         input_relation = africa_pca,
         X = africa_pca.get_columns(exclude_columns = ["student_score"]),
         y = "student_score",

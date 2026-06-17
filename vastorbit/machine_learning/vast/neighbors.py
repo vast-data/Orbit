@@ -1839,7 +1839,7 @@ class LocalOutlierFactor(VASTModel):
     """
     [Beta Version]
     Creates a ``LocalOutlierFactor`` object by using the Local Outlier
-    Factor algorithm. Works without creating persistent tables - 
+    Factor algorithm. Works without creating persistent tables -
     generates SQL on-demand.
     """
 
@@ -1883,7 +1883,7 @@ class LocalOutlierFactor(VASTModel):
         """Computes the model's attributes."""
         self.p_ = self.parameters["p"]
         self.n_neighbors_ = self.parameters["n_neighbors"]
-        
+
         # Compute count from the SQL
         if self._lof_sql:
             self.cnt_ = _executeSQL(
@@ -1903,11 +1903,11 @@ class LocalOutlierFactor(VASTModel):
         p = self.parameters["p"]
         X = self.X
         key_columns = self.key_columns
-        
+
         # Build distance formula
         sql = [f"POWER(ABS(x.{X[i]} - y.{X[i]}), {p})" for i in range(len(X))]
         distance = f"POWER({' + '.join(sql)}, 1 / {p})"
-        
+
         # Complete LOF query
         query = f"""
             WITH 
@@ -1976,7 +1976,7 @@ class LocalOutlierFactor(VASTModel):
             LEFT JOIN lof_scores AS lof
                 ON m.id = lof.node_id
         """
-        
+
         return query
 
     # Model Fitting Method.
@@ -1994,7 +1994,7 @@ class LocalOutlierFactor(VASTModel):
         X, key_columns = format_type(X, key_columns, dtype=list)
         X = quote_ident(X)
         self.key_columns = quote_ident(key_columns)
-        
+
         if isinstance(input_relation, VastFrame):
             self.input_relation = input_relation.current_relation()
             if not X:
@@ -2003,12 +2003,12 @@ class LocalOutlierFactor(VASTModel):
             self.input_relation = input_relation
             if not X:
                 X = VastFrame(input_relation).numcol()
-        
+
         self.X = X
-        
+
         # Generate and store the SQL
         self._lof_sql = self._generate_lof_sql()
-        
+
         # Compute error count
         self.n_errors_ = _executeSQL(
             query=f"""
@@ -2019,7 +2019,7 @@ class LocalOutlierFactor(VASTModel):
             method="fetchfirstelem",
             print_time_sql=False,
         )
-        
+
         self._compute_attributes()
 
     # Prediction / Transformation Methods.
@@ -2029,7 +2029,7 @@ class LocalOutlierFactor(VASTModel):
         """
         if self._lof_sql is None:
             raise ValueError("Model not fitted yet. Call fit() first.")
-        
+
         # Return VastFrame directly from the SQL
         return VastFrame(self._lof_sql)
 
@@ -2043,7 +2043,7 @@ class LocalOutlierFactor(VASTModel):
         """Draws the model."""
         if self._lof_sql is None:
             raise ValueError("Model not fitted yet. Call fit() first.")
-        
+
         vo_plt, kwargs = self.get_plotting_lib(
             class_name="LOFPlot",
             chart=chart,

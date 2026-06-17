@@ -36,8 +36,6 @@ Analytics
    bool_and
    bool_or
    bool_xor
-   conditional_change_event
-   conditional_true_event
    count
    lag
    lead
@@ -183,7 +181,7 @@ Regular Expression
    regexp_instr
    regexp_like
    regexp_replace
-   regexp_substr
+   regexp_extract
 
 ____
 
@@ -202,5 +200,4 @@ String
    edit_distance
    soundex
    soundex_matches
-   jaro_distance
-   jaro_winkler_distance
+   hamming_distance

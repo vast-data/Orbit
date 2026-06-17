@@ -485,7 +485,7 @@ class vDFAgg(vDFEval):
                                 ELSE 0 
                             END), 
                         2)) = 0 THEN 1 ELSE -1 END * 
-                        POWER(10, SUM(LOG(ABS({cast_b}{column}{cast_e}))))"""
+                        POWER(10, SUM(LOG10(ABS({cast_b}{column}{cast_e}))))"""
 
                 elif fun.lower() in ("percent", "count_percent"):
                     if self.shape()[0] == 0:

@@ -326,7 +326,7 @@ class AutoDataPrep(VASTModel):
                         vdf[x].label_encode()
                 elif not ts:
                     vdf[x.replace('"', "") + "_year"] = f"YEAR({x})"
-                    vdf[x.replace('"', "") + "_dayofweek"] = f"DAYOFWEEK({x})"
+                    vdf[x.replace('"', "") + "_dayofweek"] = f"DAY_OF_WEEK({x})"
                     vdf[x.replace('"', "") + "_month"] = f"MONTH({x})"
                     vdf[x.replace('"', "") + "_hour"] = f"HOUR({x})"
                     vdf[x.replace('"', "") + "_quarter"] = f"QUARTER({x})"

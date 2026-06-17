@@ -287,24 +287,6 @@ class AutoML(VASTModel):
             "preprocess_dict": preprocess_dict,
         }
 
-    # Attributes Methods.
-
-    def get_VAST_attributes(self, attr_name: Optional[str] = None) -> TableSample:
-        """
-        Returns the model attribute.
-
-        Parameters
-        ----------
-        attr_name: str, optional
-            Attribute Name.
-
-        Returns
-        -------
-        TableSample
-            model attributes.
-        """
-        return self.best_model_.get_VAST_attributes(attr_name)
-
     # I/O Methods.
 
     def deploySQL(self, X: Optional[SQLColumns] = None) -> str:

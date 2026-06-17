@@ -8,7 +8,6 @@ import sklearn
 
 from vastorbit._typing import PlottingObject
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 from vastorbit.core.vastframe.base import VastFrame
 
@@ -71,12 +70,6 @@ class LinearSVR(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -187,7 +180,6 @@ class LinearSVR(LinearModel, Regressor):
             tol = 1e-4,
             C = 1.0,
             intercept_scaling = 1.0,
-            intercept_mode = "regularized",
             acceptable_error_margin = 0.1,
             max_iter = 100,
         )
@@ -215,7 +207,6 @@ class LinearSVR(LinearModel, Regressor):
             tol = 1e-4,
             C = 1.0,
             intercept_scaling = 1.0,
-            intercept_mode = "regularized",
             acceptable_error_margin = 0.1,
             max_iter = 100,
         )
@@ -436,7 +427,9 @@ class LinearSVR(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -559,12 +552,6 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
         method.
 
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
-        method.
-
     Examples
     --------
 
@@ -679,7 +666,6 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
             tol = 1e-4,
             C = 1.0,
             intercept_scaling = 1.0,
-            intercept_mode = "regularized",
             class_weight = [1, 1],
             max_iter = 100,
         )
@@ -1045,7 +1031,9 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**

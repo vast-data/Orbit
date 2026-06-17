@@ -45,7 +45,10 @@ Let's create a VastFrame of the dataset. The dataset is available `here <https:/
 .. ipython:: python
     :suppress:
 
-    covid19 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/covid19/deaths.csv")
+    try:
+        covid19 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/covid19/deaths.csv")
+    except:
+        covid19 = vo.VastFrame("deaths")
     res = covid19.head(10)
     html_file = open("SPHINX_DIRECTORY/figures/examples_commodities_table_head.html", "w")
     html_file.write(res._repr_html_())
@@ -325,7 +328,11 @@ Let's compute the total number of deaths and cases to create our :py:mod:`~vasto
 .. ipython:: python
     :suppress:
 
-    covid19 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/covid19/deaths.csv").groupby(
+    try:
+        covid19 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/covid19/deaths.csv")
+    except:
+        covid19 = vo.VastFrame("deaths")
+    covid19 = covid19.groupby(
         ["date"],
         [
             fun.sum(covid19["deaths"])._as("deaths"),

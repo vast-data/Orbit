@@ -15,7 +15,6 @@ Geospatial Functions
    :toctree: api/
 
    coordinate_converter
-   split_polygon_n
 
 ______
 

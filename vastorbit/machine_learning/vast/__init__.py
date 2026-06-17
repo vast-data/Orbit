@@ -6,7 +6,6 @@ from vastorbit.machine_learning.vast.cluster import (
     BisectingKMeans,
     DBSCAN,
     KMeans,
-    KPrototypes,
     NearestCentroid,
 )
 from vastorbit.machine_learning.vast.decomposition import MCA, PCA, SVD

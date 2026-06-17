@@ -89,9 +89,7 @@ class TestAgg:
                     columns=columns, expr=expr, rollup=rollup, having=having
                 ).shape()
             elif rollup and having is None:
-                vo_res = data.groupby(
-                    columns=columns, expr=expr, rollup=rollup
-                ).shape()
+                vo_res = data.groupby(columns=columns, expr=expr, rollup=rollup).shape()
             elif having and rollup is None:
                 vo_res = data.groupby(
                     columns=columns,
@@ -354,9 +352,7 @@ class TestAgg:
 
         # vastorbit
         vo_func_name = (
-            vo_func
-            if vo_func.count(".") == 0
-            else vo_func.split(".")[1].split("(")[0]
+            vo_func if vo_func.count(".") == 0 else vo_func.split(".")[1].split("(")[0]
         )
 
         if function_type == "VastFrame":

@@ -451,7 +451,9 @@ class TfidfVectorizer(VASTModel):
         if self.parameters["smooth_idf"]:
             idf_expr = "LN((1.0 + CAST(count_docs AS DOUBLE)) / (1.0 + CAST(word_doc_count AS DOUBLE))) + 1.0"
         else:
-            idf_expr = "LN(CAST(count_docs AS DOUBLE) / CAST(word_doc_count AS DOUBLE)) + 1.0"
+            idf_expr = (
+                "LN(CAST(count_docs AS DOUBLE) / CAST(word_doc_count AS DOUBLE)) + 1.0"
+            )
 
         self.idf_sql_ = self.model_name
 
@@ -506,7 +508,7 @@ class TfidfVectorizer(VASTModel):
             self.idf_sql_ = f"({q_idf}) AS VASTORBIT_SUBTABLE"
         else:
             _executeSQL(q_idf, print_time_sql=False)
-        
+
         self.idf_ = VastFrame(self.idf_sql_)
 
         # Term frequency
@@ -524,16 +526,14 @@ class TfidfVectorizer(VASTModel):
         self.tf_ = VastFrame(q_tf)
 
         # Computing the final vocabulary
-        self.fixed_vocabulary_ = not isinstance(
-            self.parameters["vocabulary"], NoneType
-        )
+        self.fixed_vocabulary_ = not isinstance(self.parameters["vocabulary"], NoneType)
 
         if self.parameters["compute_vocabulary"] and isinstance(
             self.parameters["vocabulary"], NoneType
         ):
             self.n_document_ = self.tf_["row_id"].nunique()
             where = self._get_filter_df()
-            
+
             q_df = f"""
                 SELECT DISTINCT word 
                 FROM (
@@ -551,11 +551,9 @@ class TfidfVectorizer(VASTModel):
                     GROUP BY word
                 ) AS sub3
                 {where}"""
-            
+
             result = _executeSQL(
-                q_df, 
-                title="Computing the final vocabulary", 
-                method="fetchall"
+                q_df, title="Computing the final vocabulary", method="fetchall"
             )
             self.vocabulary_ = np.array([row[0] for row in result])
         else:
@@ -577,7 +575,7 @@ class TfidfVectorizer(VASTModel):
     ) -> VastFrame:
         """
         Transforms input data to tf-idf representation.
-        
+
         Parameters
         ----------
         vdf: SQLRelation
@@ -599,7 +597,7 @@ class TfidfVectorizer(VASTModel):
             cases, it might be more efficient to set ``pivot``
             to False, filter the output as needed, and then
             manually perform the pivot operation.
-        
+
         Returns
         -------
         VastFrame
@@ -610,15 +608,15 @@ class TfidfVectorizer(VASTModel):
             vdf = vdf.copy()
         else:
             vdf = VastFrame(vdf)
-        
+
         if not self.parameters["lowercase"]:
             text = str(x)
         else:
             text = f"LOWER({x})"
-        
+
         # Words by document
         q_wbd = self._wbd(vdf=vdf, index=index, text=text)
-        
+
         # Explode words array
         q_e = """
             SELECT
@@ -626,7 +624,7 @@ class TfidfVectorizer(VASTModel):
                 word_element AS value
             FROM words_by_doc
             CROSS JOIN UNNEST(words) AS t(word_element)"""
-        
+
         # Term frequency
         q_tf = f"""
             SELECT
@@ -635,7 +633,7 @@ class TfidfVectorizer(VASTModel):
                 COUNT(*) AS term_freq
             FROM exploded
             GROUP BY row_id, value"""
-        
+
         # Filter by vocabulary if provided
         if isinstance(self.vocabulary_, NoneType):
             where = ""
@@ -644,10 +642,10 @@ class TfidfVectorizer(VASTModel):
                 [f"""'{w.replace("'", "''")}'""" for w in self.vocabulary_]
             )
             where = f"WHERE idf_table.word IN ({words})"
-        
+
         # Get normalization with correct alias
         t_norm = self._t_norm(alias="term_frequencies")
-        
+
         # TF-IDF calculation with TF and IDF kept
         q_tfidf = f"""
             WITH
@@ -665,16 +663,11 @@ class TfidfVectorizer(VASTModel):
                 ON term_frequencies.word = idf_table.word
             {where}
             ORDER BY term_frequencies.row_id"""
-        
+
         result = VastFrame(q_tfidf)
-        
+
         if not pivot:
             return result
-        
+
         # For pivot, only pivot the tfidf column
-        return result.pivot(
-            index="row_id", 
-            columns="word", 
-            values="tfidf", 
-            prefix=""
-        )
+        return result.pivot(index="row_id", columns="word", values="tfidf", prefix="")

@@ -21,7 +21,6 @@ from vastorbit._utils._gen import gen_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import clean_query, format_type, quote_ident
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 from vastorbit.core.vastframe.base import VastFrame
 
@@ -451,8 +450,8 @@ Algorithms used for regression.
 
 class RandomForestRegressor(Regressor, RandomForest):
     """
-    Creates an ``RandomForestRegressor`` 
-    object using SKLEARN for training 
+    Creates an ``RandomForestRegressor``
+    object using SKLEARN for training
     and the scalability of VASTDB for
     the inferences.
 
@@ -508,12 +507,6 @@ class RandomForestRegressor(Regressor, RandomForest):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -628,7 +621,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         :okwarning:
 
         model = RandomForestRegressor(
-            max_features = "auto",
+            max_features = "sqrt",
             max_leaf_nodes = 32,
             sample = 0.5,
             max_depth = 3,
@@ -947,37 +940,39 @@ class RandomForestRegressor(Regressor, RandomForest):
         # Basic attributes
         self.n_estimators_ = self._model.n_estimators
         self.n_features_ = self._model.n_features_in_
-        
+
         # Feature importances
         self.feature_importances_trees_ = []
         for tree in self._model.estimators_:
             self.feature_importances_trees_.append(tree.feature_importances_)
         self.feature_importances_ = self._model.feature_importances_
-        
+
         # Extract individual trees
         trees = []
         for estimator in self._model.estimators_:
             # Each estimator is a DecisionTreeRegressor
             tree = estimator.tree_
-            
+
             tree_d = {
                 "children_left": tree.children_left.copy(),
                 "children_right": tree.children_right.copy(),
                 "feature": tree.feature.copy(),
                 "threshold": tree.threshold.copy(),
-                "value": tree.value[:, 0, 0].copy(),  # Shape: (n_nodes, 1, 1) -> (n_nodes,)
+                "value": tree.value[
+                    :, 0, 0
+                ].copy(),  # Shape: (n_nodes, 1, 1) -> (n_nodes,)
             }
-            
+
             # Convert to float where needed
             tree_d["threshold"] = tree_d["threshold"].astype(float)
             tree_d["value"] = tree_d["value"].astype(float)
-            
+
             # Create BinaryTreeRegressor model
             model = mm.BinaryTreeRegressor(**tree_d)
             trees.append(model)
-        
+
         self.trees_ = trees
-        
+
         # Additional useful attributes
         self.max_depth_ = self._model.max_depth
         self.min_samples_split_ = self._model.min_samples_split
@@ -1046,7 +1041,50 @@ class XGBRegressor(Regressor, XGBoost):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    max_ntree: int, optional
+        Maximum number of trees that can be created
+        (the number of boosting iterations).
+    max_depth: int, optional
+        Maximum depth of each tree. Larger values
+        increase model complexity and the risk of
+        overfitting.
+    nbins: int, optional
+        Number of bins used to compute the candidate
+        split points of each column. A higher value
+        yields more accurate splits at the cost of
+        speed.
+    split_proposal_method: str, optional
+        Method used to propose split candidates.
+
+        - global:
+            candidates are computed once for the
+            whole tree.
+        - local:
+            candidates are recomputed at each split.
+    tol: float, optional
+        Tolerance used to stop training when no
+        further improvement is made.
+    learning_rate: float, optional
+        Learning rate (also known as ``eta``); it
+        shrinks the contribution of each tree to
+        reduce overfitting.
+    min_split_loss: float, optional
+        Minimum loss reduction (``gamma``) required
+        to make a further split on a leaf node.
+        ``0`` means no minimum.
+    weight_reg: float, optional
+        L2 regularization term (``lambda``) on the
+        tree weights. Higher values produce more
+        conservative models.
+    sample: float, optional
+        Fraction of rows used to train each tree
+        (subsampling), in the range ``(0, 1]``.
+    col_sample_by_tree: float, optional
+        Fraction of columns sampled when building
+        each tree, in the range ``(0, 1]``.
+    col_sample_by_node: float, optional
+        Fraction of columns sampled at each node,
+        in the range ``(0, 1]``.
 
     Attributes
     ----------
@@ -1100,12 +1138,6 @@ class XGBRegressor(Regressor, XGBoost):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -1554,7 +1586,6 @@ class XGBRegressor(Regressor, XGBoost):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
@@ -1592,35 +1623,46 @@ class XGBRegressor(Regressor, XGBoost):
 
     def _compute_attributes(self) -> None:
         """
-        Computes the model's attributes.
+        Computes the model's attributes from the
+        fitted scikit-learn gradient boosting model.
         """
-        self.eta_ = self.parameters["learning_rate"]
-        self.n_estimators_ = self.get_VAST_attributes("tree_count")["tree_count"][0]
+        self.eta_ = self._model.learning_rate
+        self.n_estimators_ = self._model.n_estimators_
+        self.n_features_ = self._model.n_features_in_
+
+        # Initial prediction the boosting starts from (the response mean).
+        init = self._model.init_
         try:
+            self.mean_ = float(np.ravel(init.constant_)[0])
+        except AttributeError:
             self.mean_ = float(
-                self.get_VAST_attributes("initial_prediction")["initial_prediction"][0]
+                np.ravel(init.predict(np.zeros((1, self.n_features_))))[0]
             )
-        except:
-            self.mean_ = self._compute_prior()
+
+        # One regression tree per boosting iteration. GradientBoosting stores
+        # estimators_ as a 2-D array (n_estimators, 1) for regression, so it is
+        # flattened before iterating (RandomForest's estimators_ is already 1-D).
+        estimators = np.ravel(self._model.estimators_)
+        self.feature_importances_trees_ = [
+            est.feature_importances_ for est in estimators
+        ]
+        self.feature_importances_ = self._model.feature_importances_
+
         trees = []
-        for i in range(self.n_estimators_):
-            tree = self._compute_trees_arrays(self.get_tree(i), self.X)
+        for est in estimators:
+            tree = est.tree_
             tree_d = {
-                "children_left": tree[0],
-                "children_right": tree[1],
-                "feature": tree[2],
-                "threshold": tree[3],
-                "value": tree[4],
+                "children_left": tree.children_left.copy(),
+                "children_right": tree.children_right.copy(),
+                "feature": tree.feature.copy(),
+                "threshold": tree.threshold.astype(float),
+                # Raw leaf output; the learning rate (eta_) is applied by the
+                # memmodel at prediction time, as the JSON export already does.
+                "value": tree.value[:, 0, 0].astype(float),
             }
-            for j in range(len(tree[5])):
-                if not tree[5][j] and isinstance(tree_d["threshold"][j], str):
-                    tree_d["threshold"][j] = float(tree_d["threshold"][j])
-            tree_d["value"] = [
-                float(val) if isinstance(val, str) else val for val in tree_d["value"]
-            ]
-            model = mm.BinaryTreeRegressor(**tree_d)
-            trees += [model]
+            trees.append(mm.BinaryTreeRegressor(**tree_d))
         self.trees_ = trees
+        self.max_depth_ = self._model.max_depth
 
     # I/O Methods.
 
@@ -1729,12 +1771,6 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -1926,7 +1962,7 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         :okwarning:
 
         model = RandomForestClassifier(
-            max_features = "auto",
+            max_features = "sqrt",
             max_leaf_nodes = 32,
             sample = 0.5,
             max_depth = 3,
@@ -2320,7 +2356,9 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
 
     .. ipython:: python
 
-        model.set_params({'max_depth': 5})Model Exporting
+        model.set_params({'max_depth': 5})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -2413,13 +2451,13 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         for tree in self._model.estimators_:
             self.feature_importances_trees_.append(tree.feature_importances_)
         self.feature_importances_ = self._model.feature_importances_
-        
+
         trees = []
         n_classes = len(self.classes_)
-        
+
         for estimator in self._model.estimators_:
             tree = estimator.tree_
-            
+
             tree_d = {
                 "children_left": tree.children_left.astype(int),
                 "children_right": tree.children_right.astype(int),
@@ -2428,32 +2466,32 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
                 "value": [],
                 "classes": self.classes_,
             }
-            
+
             # Process each node
             for node_idx in range(tree.node_count):
                 # Get class counts at this node
                 # Shape: tree.value[node_idx, 0, :] = (n_classes,)
                 class_counts = tree.value[node_idx, 0, :]
-                
+
                 # Convert to probabilities
                 total_samples = np.sum(class_counts)
-                
+
                 if total_samples > 0:
                     # Normalize to probability distribution
                     probabilities = class_counts / total_samples
                 else:
                     # Uniform distribution if no samples (shouldn't happen)
                     probabilities = np.ones(n_classes) / n_classes
-                
+
                 tree_d["value"].append(probabilities.tolist())
-            
+
             # Create tree model
             model = mm.BinaryTreeClassifier(**tree_d)
             trees.append(model)
-        
+
         self.trees_ = trees
         self.max_depth_ = self._model.max_depth
-        self.oob_score_ = getattr(self._model, 'oob_score_', None)
+        self.oob_score_ = getattr(self._model, "oob_score_", None)
 
     # I/O Methods.
 
@@ -2518,7 +2556,50 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    max_ntree: int, optional
+        Maximum number of trees that can be created
+        (the number of boosting iterations).
+    max_depth: int, optional
+        Maximum depth of each tree. Larger values
+        increase model complexity and the risk of
+        overfitting.
+    nbins: int, optional
+        Number of bins used to compute the candidate
+        split points of each column. A higher value
+        yields more accurate splits at the cost of
+        speed.
+    split_proposal_method: str, optional
+        Method used to propose split candidates.
+
+        - global:
+            candidates are computed once for the
+            whole tree.
+        - local:
+            candidates are recomputed at each split.
+    tol: float, optional
+        Tolerance used to stop training when no
+        further improvement is made.
+    learning_rate: float, optional
+        Learning rate (also known as ``eta``); it
+        shrinks the contribution of each tree to
+        reduce overfitting.
+    min_split_loss: float, optional
+        Minimum loss reduction (``gamma``) required
+        to make a further split on a leaf node.
+        ``0`` means no minimum.
+    weight_reg: float, optional
+        L2 regularization term (``lambda``) on the
+        tree weights. Higher values produce more
+        conservative models.
+    sample: float, optional
+        Fraction of rows used to train each tree
+        (subsampling), in the range ``(0, 1]``.
+    col_sample_by_tree: float, optional
+        Fraction of columns sampled when building
+        each tree, in the range ``(0, 1]``.
+    col_sample_by_node: float, optional
+        Fraction of columns sampled at each node,
+        in the range ``(0, 1]``.
 
     Attributes
     ----------
@@ -2576,12 +2657,6 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
         method.
 
     Examples
@@ -3171,7 +3246,9 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
     .. ipython:: python
 
-        model.set_params({'max_depth': 5})Model Exporting
+        model.set_params({'max_depth': 5})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -3269,7 +3346,6 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
@@ -3307,80 +3383,70 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
     def _compute_attributes(self) -> None:
         """
-        Computes the model's attributes.
+        Computes the model's attributes from the
+        fitted scikit-learn gradient boosting model.
         """
-        self.eta_ = self.parameters["learning_rate"]
-        self.n_estimators_ = self.get_VAST_attributes("tree_count")["tree_count"][0]
+        self.eta_ = self._model.learning_rate
+        self.n_estimators_ = self._model.n_estimators_
+        self.n_features_ = self._model.n_features_in_
+        self.n_classes_ = self._model.n_classes_
+        self.classes_ = self._model.classes_.copy()
+
+        # Initial raw prediction (log-odds) the boosting starts from.
         try:
-            self.classes_ = self._array_to_int(
-                np.array(
-                    self.get_VAST_attributes("initial_prediction")["response_label"]
-                )
-            )
-            # Handling NULL Values.
-            null_ = False
-            if len(self.classes_) > 0 and self.classes_[0] == "":
-                self.classes_ = self.classes_[1:]
-                null_ = True
-            if self._is_binary_classifier():
-                try:
-                    prior = self._compute_prior()
-                except (MissingRelation, QueryError):
-                    # If training data is not available, use default prior from initial_prediction
-                    try:
-                        prior_values = self.get_VAST_attributes("initial_prediction")[
-                            "value"
-                        ]
-                        if null_:
-                            prior_values = prior_values[1:]
-                        prior = (
-                            np.array(prior_values)[1] if len(prior_values) > 1 else 0.5
-                        )
-                    except:
-                        prior = 0.5  # Default fallback
-            else:
-                prior = np.array(
-                    self.get_VAST_attributes("initial_prediction")["value"]
-                )
-                if null_:
-                    prior = prior[1:]
-        except QueryError:
-            try:
-                self.classes_ = self._array_to_int(self._get_classes())
-            except MissingRelation:
-                self.classes_ = np.array([])
-            prior = self._compute_prior()
-        if isinstance(prior, (int, float)):
-            self.mean_ = prior
+            priors = np.asarray(self._model.init_.class_prior_, dtype=float)
+        except AttributeError:
+            priors = np.full(self.n_classes_, 1.0 / self.n_classes_)
+        if self._is_binary_classifier():
+            prior = float(priors[1]) if len(priors) > 1 else 0.5
             self.logodds_ = [
                 np.log((1 - prior) / prior),
                 np.log(prior / (1 - prior)),
             ]
         else:
-            self.logodds_ = prior
+            with np.errstate(divide="ignore"):
+                self.logodds_ = np.log(priors)
+
+        # Feature importances.
+        estimators = np.ravel(self._model.estimators_)
+        self.feature_importances_trees_ = [
+            est.feature_importances_ for est in estimators
+        ]
+        self.feature_importances_ = self._model.feature_importances_
+
+        # GradientBoosting stores estimators_ as a 2-D array (n_estimators, K)
+        # with K == 1 for binary and K == n_classes for multiclass, so it is
+        # flattened before iterating (RandomForest's estimators_ is 1-D).
+        n_classes = len(self.classes_)
         trees = []
-        for i in range(self.n_estimators_):
-            tree = self._compute_trees_arrays(self.get_tree(i), self.X)
+        for est in estimators:
+            tree = est.tree_
             tree_d = {
-                "children_left": tree[0],
-                "children_right": tree[1],
-                "feature": tree[2],
-                "threshold": tree[3],
-                "value": tree[6],
+                "children_left": tree.children_left.astype(int),
+                "children_right": tree.children_right.astype(int),
+                "feature": tree.feature.astype(int),
+                "threshold": tree.threshold.astype(float),
+                "value": [],
                 "classes": self.classes_,
             }
-            for j in range(len(tree[5])):
-                if not tree[5][j] and isinstance(tree_d["threshold"][j], str):
-                    tree_d["threshold"][j] = float(tree_d["threshold"][j])
-            for j in range(len(tree[6])):
-                if not isinstance(tree[6][j], NoneType):
-                    all_classes_logodss = []
-                    for c in self.classes_:
-                        all_classes_logodss += [tree[6][j][str(c)]]
-                    tree_d["value"][j] = all_classes_logodss
-            model = mm.BinaryTreeClassifier(**tree_d)
-            trees += [model]
+            for node_idx in range(tree.node_count):
+                node_value = tree.value[node_idx, 0, :]
+                if node_value.shape[0] == n_classes:
+                    # Class-count trees (RandomForest-style): normalize to a
+                    # probability distribution over the classes.
+                    total = float(np.sum(node_value))
+                    if total > 0:
+                        node_out = (node_value / total).tolist()
+                    else:
+                        node_out = (np.ones(n_classes) / n_classes).tolist()
+                else:
+                    # Single-output regression trees (gradient boosting): the
+                    # leaf carries a raw log-odds increment for one class.
+                    node_out = float(node_value[0])
+                tree_d["value"].append(node_out)
+            trees.append(mm.BinaryTreeClassifier(**tree_d))
         self.trees_ = trees
+        self.max_depth_ = self._model.max_depth
 
     # I/O Methods.
 
@@ -3470,12 +3536,6 @@ class IsolationForest(Clustering, Tree):
         :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_attributes`
         method.
 
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.Tree.get_VAST_attributes`
-        method.
-
     Examples
     --------
 
@@ -3560,7 +3620,6 @@ class IsolationForest(Clustering, Tree):
 
         model = IsolationForest(
             n_estimators = 10,
-            max_depth = 3,
             nbins = 6,
         )
 
@@ -3733,7 +3792,9 @@ class IsolationForest(Clustering, Tree):
 
     .. ipython:: python
 
-        model.set_params({'max_depth': 5})Model Exporting
+        model.set_params({'max_depth': 5})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -3801,12 +3862,16 @@ class IsolationForest(Clustering, Tree):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["IFOREST"]:
-        return "IFOREST"
+    def _fit_sql(self) -> Literal[""]:
+        return ""
 
     @property
-    def _predict_sql(self) -> Literal["APPLY_IFOREST"]:
-        return "APPLY_IFOREST"
+    def _predict_sql(self) -> Literal[""]:
+        return ""
+
+    @property
+    def _sklearn_model(self) -> Literal[sklearn.ensemble.IsolationForest]:
+        return sklearn.ensemble.IsolationForest
 
     @property
     def _model_subcategory(self) -> Literal["ANOMALY_DETECTION"]:
@@ -3822,7 +3887,6 @@ class IsolationForest(Clustering, Tree):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
@@ -3847,35 +3911,23 @@ class IsolationForest(Clustering, Tree):
 
     def _compute_attributes(self) -> None:
         """
-        Computes the model's attributes.
+        Computes the model's attributes from sklearn IsolationForest.
         """
-        self.n_estimators_ = self.parameters["n_estimators"]
-        self.psy_ = int(
-            self.parameters["sample"]
-            * int(
-                self.get_VAST_attributes("accepted_row_count")["accepted_row_count"][0]
-            )
-        )
+        self.n_estimators_ = self._model.n_estimators
+        self.n_features_ = self._model.n_features_in_
+        self.psy_ = int(self._model.max_samples_)
         trees = []
-        for i in range(self.n_estimators_):
-            tree = self._compute_trees_arrays(
-                self.get_tree(i),
-                self.X,
-            )
-            if tree:
-                tree_d = {
-                    "children_left": tree[0],
-                    "children_right": tree[1],
-                    "feature": tree[2],
-                    "threshold": tree[3],
-                    "value": tree[4],
-                    "psy": self.psy_,
-                }
-                for idx in range(len(tree[5])):
-                    if not tree[5][idx] and isinstance(tree_d["threshold"][idx], str):
-                        tree_d["threshold"][idx] = float(tree_d["threshold"][idx])
-                model = mm.BinaryTreeAnomaly(**tree_d)
-                trees += [model]
+        for estimator in self._model.estimators_:
+            tree = estimator.tree_
+            tree_d = {
+                "children_left": tree.children_left.copy(),
+                "children_right": tree.children_right.copy(),
+                "feature": tree.feature.copy(),
+                "threshold": tree.threshold.astype(float).copy(),
+                "value": tree.n_node_samples.astype(float).copy(),
+                "psy": self.psy_,
+            }
+            trees += [mm.BinaryTreeAnomaly(**tree_d)]
         self.trees_ = trees
 
     # I/O Methods.
@@ -3968,7 +4020,6 @@ class IsolationForest(Clustering, Tree):
 
             model = IsolationForest(
                 n_estimators = 10,
-                max_depth = 3,
                 nbins = 6,
             )
 
@@ -4005,21 +4056,17 @@ class IsolationForest(Clustering, Tree):
                 "Incorrect parameter 'cutoff'.\nThe parameter "
                 "'cutoff' must be between 0.0 and 1.0, exclusive."
             )
+        score_sql = self.to_memmodel().transform_sql(X)
+        if isinstance(score_sql, (list, tuple)):
+            score_sql = score_sql[0]
         if return_score:
-            other_parameters = ""
-        elif contamination:
-            other_parameters = f", contamination = {contamination}"
-        else:
-            other_parameters = f", threshold = {cutoff}"
-        sql = f"""{self._predict_sql}({', '.join(X)} 
-                   USING PARAMETERS 
-                   model_name = '{self.model_name}', 
-                   match_by_pos = 'true'{other_parameters})"""
-        if return_score:
-            sql = f"({sql}).anomaly_score"
-        else:
-            sql = f"(({sql}).is_anomaly)::int"
-        return clean_query(sql)
+            return clean_query(score_sql)
+        if not isinstance(contamination, NoneType):
+            raise NotImplementedError(
+                "Contamination-based thresholding is not available in deploySQL; "
+                "use 'cutoff' or 'return_score=True'."
+            )
+        return clean_query(f"(CASE WHEN {score_sql} >= {cutoff} THEN 1 ELSE 0 END)")
 
     def to_memmodel(self) -> Union[mm.IsolationForest, mm.BinaryTreeAnomaly]:
         """
@@ -4147,7 +4194,6 @@ class IsolationForest(Clustering, Tree):
 
             model = IsolationForest(
                 n_estimators = 10,
-                max_depth = 3,
                 nbins = 6,
             )
 
@@ -4284,7 +4330,6 @@ class IsolationForest(Clustering, Tree):
 
             model = IsolationForest(
                 n_estimators = 10,
-                max_depth = 3,
                 nbins = 6,
             )
 

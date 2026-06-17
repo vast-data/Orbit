@@ -448,7 +448,9 @@ import sys
 #   make html                      # normal full build (executes everything)
 FAST_DOCS = os.environ.get("FAST_DOCS", "").lower() in ("1", "true", "yes")
 if FAST_DOCS:
-    print("\033[93m*** FAST_DOCS: code execution disabled (ipython + notebooks) ***\033[0m")
+    print(
+        "\033[93m*** FAST_DOCS: code execution disabled (ipython + notebooks) ***\033[0m"
+    )
 
 sys.path.insert(0, os.path.abspath(".."))
 
@@ -482,9 +484,9 @@ nbsphinx_execute = "never" if FAST_DOCS else "auto"
 templates_path = ["_templates"]
 
 exclude_patterns = [
-    '_build', 
-    'Thumbs.db', 
-    '.DS_Store',
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
 ]
 
 import vastorbit  # isort:skip
@@ -591,7 +593,7 @@ html_theme_options = {
                                     <a class="top-button" href="./index.html" id="sitenav-solutions">Home</a>
                                     <a class="top-button" href="./about_us.html" id="sitenav-solutions">About Us</a>
                                     <a class="top-button" href="./api.html" id="sitenav-solutions">API Reference</a>
-                                    <a class="top-button" href="" id="sitenav-solutions">GitHub</a>
+                                    <a class="top-button" href="https://github.com/vastdata-dev/vastorbit" id="sitenav-solutions">GitHub</a>
                                 </div>
                                 <div class='top_search'>
                                     <form class='sidebar-search-container sidebar-search-container_top' method='get' action='search.html' role='search'>
@@ -620,16 +622,16 @@ html_theme_options = {
                 </div>""",
     "light_css_variables": {
         "color-announcement-background": "white",
-        "color-announcement-text": "#03142C",   # VAST Navy
+        "color-announcement-text": "#03142C",  # VAST Navy
         "color-sidebar-background": "#F4F4F5",
         "color-sidebar-background-border": "#E4E4E7",
-        "color-brand-primary": "#03142C",       # VAST Navy
-        "color-brand-content": "#0E86B8",       # readable cyan-blue for links on white
+        "color-brand-primary": "#03142C",  # VAST Navy
+        "color-brand-content": "#0E86B8",  # readable cyan-blue for links on white
     },
     "dark_css_variables": {
         # VAST navy ramp — layered navy, never pure black (matches vastdata.com)
         "color-background-primary": "#04101F",
-        "color-background-secondary": "#03142C",   # VAST Navy
+        "color-background-secondary": "#03142C",  # VAST Navy
         "color-background-hover": "#0A2240",
         "color-background-border": "#1B3A5C",
         "color-foreground-primary": "#E8EFF7",
@@ -642,7 +644,7 @@ html_theme_options = {
         "color-admonition-background": "#0A2240",
         "color-announcement-background": "#03142C",
         "color-announcement-text": "#E8EFF7",
-        "color-brand-primary": "#1FD9FE",          # VAST Cyan
+        "color-brand-primary": "#1FD9FE",  # VAST Cyan
         "color-brand-content": "#1FD9FE",
     },
 }
@@ -666,6 +668,7 @@ html_js_files = [
     "js/ai_assistant.js",
     "js/theme_dark_default.js",
 ]
+
 
 def _register_noexec_ipython(app):
     """FAST_DOCS: replace the executing ipython directive with a static
@@ -700,142 +703,136 @@ def _register_noexec_ipython(app):
 
 
 def setup(app):
-    """Patch IPython directive to skip remaining cells in failed RST files."""
+    """Patch the IPython directive so a single failing example cell is skipped
+    on its OWN — without taking down every other cell in the same file.
+
+    The previous version added the whole source file to a `failed_files` set on
+    the first exception and then `return`ed early for every subsequent cell. That
+    is why output disappeared wholesale: one example that needed a live DB
+    connection (or a dataset whose data files weren't installed) would silently
+    suppress every `fig.write_html(...)` and every table-producing cell that came
+    after it in the same docstring / RST file — so the `.. raw:: html :file:`
+    includes downstream had nothing to embed.
+
+    This version:
+      * retries only genuine Trino connection errors (briefly), then gives up on
+        that ONE cell;
+      * lets all other cells in the file keep executing and writing their output;
+      * prints the source file + the offending code so you can see exactly which
+        example failed instead of losing the whole page in silence.
+    """
     if FAST_DOCS:
         _register_noexec_ipython(app)
-        return  # skip the retry monkeypatch; nothing executes anyway
+        return  # nothing executes anyway
+
     try:
         from IPython.sphinxext import ipython_directive
         import time
         import os
-        
-        # Track failed files
-        failed_files = set()
-        current_file = [None]  # Use list for mutability in closure
-        
-        # Monkey-patch the process_input method
-        original_process_input = ipython_directive.EmbeddedSphinxShell.process_input
-        
-        def safe_process_input_with_retry(self, data, input_prompt, lineno):
-            # Get current source file from Sphinx state
-            try:
-                source_file = self.state.document.current_source
-                
-                # Check if we moved to a new file
-                if source_file != current_file[0]:
-                    current_file[0] = source_file
-                    # Reset failure state for new file
-                    if source_file in failed_files:
-                        print(f"\n📄 Processing new file: {os.path.basename(source_file)}")
-                        print(f"   (Previous failures in this file will be ignored)\n")
-                
-                # Skip if this file already failed
-                if source_file in failed_files:
-                    print(f"⏭️  Skipping cell (file already failed): {os.path.basename(source_file)}")
-                    return
-                    
-            except AttributeError:
-                source_file = "unknown"
-            
-            max_retries = 30
-            retry_delay = 10
-            max_delay = 120
-            
-            for attempt in range(max_retries):
-                try:
-                    return original_process_input(self, data, input_prompt, lineno)
-                except Exception as e:
-                    error_msg = str(e)
-                    
-                    # Check if it's a Trino connection error
-                    if any(keyword in error_msg.lower() for keyword in [
-                        'failed connection to trino',
-                        'trino.client',
-                        'connection refused',
-                        'cannot connect',
-                        'failed after'
-                    ]):
-                        if attempt < max_retries - 1:
-                            wait_time = min(retry_delay * (2 ** attempt), max_delay)
-                            print(f"\n⏳ Trino connection failed. Waiting {wait_time}s before retry {attempt + 1}/{max_retries}...")
-                            print(f"   Error: {error_msg}")
-                            print(f"   💡 Please start Trino and the build will continue automatically.\n")
-                            time.sleep(wait_time)
-                        else:
-                            # Max retries reached - mark file as failed and skip
-                            print(f"\n❌ Trino connection failed after {max_retries} attempts in {os.path.basename(source_file)}")
-                            print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
-                            failed_files.add(source_file)
-                            return
-                    else:
-                        # Non-Trino error - mark file as failed and skip
-                        print(f"\n⚠️  IPython execution failed in {os.path.basename(source_file)}: {e}")
-                        print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
-                        failed_files.add(source_file)
-                        return
-            
-            return
-        
-        ipython_directive.EmbeddedSphinxShell.process_input = safe_process_input_with_retry
-        
-        # Patch process_block similarly
-        original_process_block = ipython_directive.EmbeddedSphinxShell.process_block
-        
-        def safe_process_block_with_retry(self, block):
-            # Get current source file
-            try:
-                source_file = self.state.document.current_source
-                
-                # Check if we moved to a new file
-                if source_file != current_file[0]:
-                    current_file[0] = source_file
-                    if source_file in failed_files:
-                        print(f"\n📄 Processing new file: {os.path.basename(source_file)}")
-                
-                # Skip if this file already failed
-                if source_file in failed_files:
-                    print(f"⏭️  Skipping block (file already failed): {os.path.basename(source_file)}")
-                    return [], None
-                    
-            except AttributeError:
-                source_file = "unknown"
-            
-            max_retries = 30
-            retry_delay = 10
-            max_delay = 120
-            
-            for attempt in range(max_retries):
-                try:
-                    return original_process_block(self, block)
-                except Exception as e:
-                    error_msg = str(e)
-                    
-                    if any(keyword in error_msg.lower() for keyword in [
-                        'failed connection to trino',
-                        'trino.client',
-                        'connection refused',
-                        'cannot connect',
-                        'failed after'
-                    ]):
-                        if attempt < max_retries - 1:
-                            wait_time = min(retry_delay * (2 ** attempt), max_delay)
-                            print(f"\n⏳ Trino connection failed. Waiting {wait_time}s before retry {attempt + 1}/{max_retries}...")
-                            print(f"   💡 Please start Trino and the build will continue automatically.\n")
-                            time.sleep(wait_time)
-                        else:
-                            print(f"\n❌ Trino connection failed after {max_retries} attempts in {os.path.basename(source_file)}")
-                            print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
-                            failed_files.add(source_file)
-                            return [], None
-                    else:
-                        print(f"\n⚠️  IPython block failed in {os.path.basename(source_file)}: {e}")
-                        print(f"   ⏭️  Skipping remaining cells in this file and moving to next RST...\n")
-                        failed_files.add(source_file)
-                        return [], None
-            
-            return [], None
-        
-        ipython_directive.EmbeddedSphinxShell.process_block = safe_process_block_with_retry
-        
     except ImportError:
-        pass
+        return
+
+    # Where to record cells that failed to execute. refresh.sh sets
+    # FIGURE_ERROR_LOG and deletes the file before each build, so this only ever
+    # appends within a run. Default: docs/figure_errors.log.
+    FIG_LOG = os.environ.get("FIGURE_ERROR_LOG") or os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "figure_errors.log"
+    )
+
+    def _log_failure(line):
+        try:
+            with open(FIG_LOG, "a", encoding="utf-8") as fh:
+                fh.write(line + "\n")
+        except OSError:
+            pass  # logging must never break the build
+
+    TRINO_KEYS = (
+        "failed connection to trino",
+        "trino.client",
+        "connection refused",
+        "cannot connect",
+        "failed after",
+    )
+    # Configurable via environment so you can change behavior without editing
+    # this file:
+    #   TRINO_MAX_RETRIES   how many times to retry a Trino-connection failure
+    #   TRINO_BASE_DELAY    first backoff (seconds); doubles each retry
+    #   TRINO_MAX_DELAY     cap on a single backoff (seconds)
+    #   TRINO_RESTART_CMD   optional shell command run ONCE when Trino is first
+    #                       seen down, e.g. "docker compose up -d trino" or
+    #                       "docker restart trino". Leave unset to just wait so
+    #                       you can restart it manually.
+    MAX_TRINO_RETRIES = int(os.environ.get("TRINO_MAX_RETRIES", "50"))
+    BASE_DELAY = int(os.environ.get("TRINO_BASE_DELAY", "30"))
+    MAX_DELAY = int(os.environ.get("TRINO_MAX_DELAY", "120"))
+    RESTART_CMD = os.environ.get("TRINO_RESTART_CMD", "")
+    _restart_done = {"v": False}
+
+    def _src(self):
+        try:
+            return os.path.basename(self.state.document.current_source)
+        except AttributeError:
+            return "unknown"
+
+    def _run_with_retry(self, call, label, payload):
+        """Run `call`; retry only on Trino-connection errors; on final failure
+        skip THIS cell and return the given empty `payload`. Never poisons the
+        rest of the file."""
+        src = _src(self)
+        for attempt in range(MAX_TRINO_RETRIES):
+            try:
+                return call()
+            except Exception as e:
+                msg = str(e).lower()
+                is_trino = any(k in msg for k in TRINO_KEYS)
+                if is_trino and attempt < MAX_TRINO_RETRIES - 1:
+                    # Optionally try to bring Trino back automatically, once.
+                    if RESTART_CMD and not _restart_done["v"]:
+                        _restart_done["v"] = True
+                        print(f"\n🔄 [{src}] Trino down — running TRINO_RESTART_CMD: {RESTART_CMD}")
+                        try:
+                            import subprocess
+                            subprocess.run(RESTART_CMD, shell=True, check=False)
+                        except Exception as restart_err:
+                            print(f"     restart command failed: {restart_err}")
+                    wait = min(BASE_DELAY * (2**attempt), MAX_DELAY)
+                    print(
+                        f"\n⏳ [{src}] Trino unavailable — retry "
+                        f"{attempt + 1}/{MAX_TRINO_RETRIES} in {wait}s. Start Trino "
+                        f"and the build continues automatically."
+                    )
+                    time.sleep(wait)
+                    continue
+                # Final failure: skip just this cell, keep going.
+                kind = "Trino connection" if is_trino else "execution"
+                print(
+                    f"\n⚠️  [{src}] {label} {kind} failure — skipping THIS cell only:"
+                )
+                print(f"     {e}")
+                _log_failure(f"[{src}] {label} {kind} failure: {e}")
+                return payload
+        return payload
+
+    original_process_input = ipython_directive.EmbeddedSphinxShell.process_input
+
+    def safe_process_input(self, data, input_prompt, lineno):
+        return _run_with_retry(
+            self,
+            lambda: original_process_input(self, data, input_prompt, lineno),
+            "process_input",
+            None,
+        )
+
+    ipython_directive.EmbeddedSphinxShell.process_input = safe_process_input
+
+    original_process_block = ipython_directive.EmbeddedSphinxShell.process_block
+
+    def safe_process_block(self, block):
+        return _run_with_retry(
+            self,
+            lambda: original_process_block(self, block),
+            "process_block",
+            ([], None),
+        )
+
+    ipython_directive.EmbeddedSphinxShell.process_block = safe_process_block

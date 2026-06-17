@@ -326,123 +326,130 @@ def adfuller(
         vdf = input_relation.copy()
     else:
         vdf = VastFrame(input_relation)
-    
+
     by_cols = format_type(by, dtype=list)
     ts, column, by_cols = vdf.format_colnames(ts, column, by_cols)
-    
+
     # Sort by time
     vdf = vdf.sort({ts: "asc"})
-    
+
     # Create lag features using eval with window functions
     partition_by = f"PARTITION BY {', '.join(by_cols)} " if by_cols else ""
     order_by = f"ORDER BY {ts}"
-    
+
     # lag1: Y(t-1)
     vdf.eval("lag1", expr=f"LAG({column}, 1) OVER ({partition_by}{order_by})")
-    
+
     # delta: Y(t) - Y(t-1)
     vdf.eval("delta", expr=f"{column} - lag1")
-    
+
     # delta1 to deltap: differences of lagged values
     for i in range(1, p + 1):
         vdf.eval(
             f"delta{i}",
-            expr=f"LAG({column}, {i}) OVER ({partition_by}{order_by}) - LAG({column}, {i + 1}) OVER ({partition_by}{order_by})"
+            expr=f"LAG({column}, {i}) OVER ({partition_by}{order_by}) - LAG({column}, {i + 1}) OVER ({partition_by}{order_by})",
         )
-    
+
     # Add time trend if needed
     if with_trend:
         if vdf[ts].isdate():
             min_ts = vdf[ts].min()
-            vdf.eval("ts_numeric", expr=f"DATE_DIFF('second', CAST('{min_ts}' AS TIMESTAMP), {ts})")
+            vdf.eval(
+                "ts_numeric",
+                expr=f"DATE_DIFF('second', CAST('{min_ts}' AS TIMESTAMP), {ts})",
+            )
         else:
             vdf.eval("ts_numeric", expr=ts)
-    
+
     # Filter out NULL values created by LAG operations
     filter_conditions = ["lag1 IS NOT NULL", "delta IS NOT NULL"]
     for i in range(1, p + 1):
         filter_conditions.append(f"delta{i} IS NOT NULL")
     vdf = vdf.search(" AND ".join(filter_conditions))
-    
+
     # Build predictor list
     predictors = ["lag1"] + [f"delta{i}" for i in range(1, p + 1)]
     if with_trend:
         predictors.append("ts_numeric")
-    
+
     # Fit linear regression
     from vastorbit.machine_learning.vast import LinearRegression
     from scipy import stats
-    
+
     model = LinearRegression(tol=1e-6)
     model.fit(vdf, X=predictors, y="delta")
-    
+
     # Get data from model
     X = model._X
     y = model._y
     sklearn_model = model._model
-    
+
     # Calculate statistics
     n = len(y)
     k = X.shape[1]
     dof = n - k - 1
-    
+
     # Residuals and MSE
     y_pred = sklearn_model.predict(X)
     residuals = y - y_pred
     mse = np.sum(residuals**2) / dof
-    
+
     # Standard errors
     X_T_X_inv = np.linalg.inv(X.T @ X)
     std_errors = np.sqrt(mse * X_T_X_inv.diagonal())
-    
+
     # T-statistics and p-values
     t_stats = sklearn_model.coef_ / std_errors
     p_values = 2 * (1 - stats.t.cdf(np.abs(t_stats), dof))
-    
+
     # Return full results if requested
     if regresults:
-        return TableSample({
-            "predictor": predictors,
-            "coefficient": sklearn_model.coef_,
-            "std_err": std_errors,
-            "t_stat": t_stats,
-            "p_value": p_values,
-        })
-    
+        return TableSample(
+            {
+                "predictor": predictors,
+                "coefficient": sklearn_model.coef_,
+                "std_err": std_errors,
+                "t_stat": t_stats,
+                "p_value": p_values,
+            }
+        )
+
     # Get lag1 statistics
     lag1_idx = predictors.index("lag1")
     DF = t_stats[lag1_idx]
     p_value = p_values[lag1_idx]
-    
+
     # Determine stationarity
     critical_1pct = _df_critical_value(0.01, n, with_trend)
     res = DF < critical_1pct and p_value < 0.01
-    
+
     # Return ADF test results
-    return TableSample({
-        "index": [
-            "ADF Test Statistic",
-            "p_value",
-            "# Lags used",
-            "# Observations Used",
-            "Critical Value (1%)",
-            "Critical Value (2.5%)",
-            "Critical Value (5%)",
-            "Critical Value (10%)",
-            "Stationarity (alpha = 1%)",
-        ],
-        "value": [
-            DF,
-            p_value,
-            p,
-            n,
-            _df_critical_value(0.01, n, with_trend),
-            _df_critical_value(0.025, n, with_trend),
-            _df_critical_value(0.05, n, with_trend),
-            _df_critical_value(0.10, n, with_trend),
-            res,
-        ],
-    })
+    return TableSample(
+        {
+            "index": [
+                "ADF Test Statistic",
+                "p_value",
+                "# Lags used",
+                "# Observations Used",
+                "Critical Value (1%)",
+                "Critical Value (2.5%)",
+                "Critical Value (5%)",
+                "Critical Value (10%)",
+                "Stationarity (alpha = 1%)",
+            ],
+            "value": [
+                DF,
+                p_value,
+                p,
+                n,
+                _df_critical_value(0.01, n, with_trend),
+                _df_critical_value(0.025, n, with_trend),
+                _df_critical_value(0.05, n, with_trend),
+                _df_critical_value(0.10, n, with_trend),
+                res,
+            ],
+        }
+    )
 
 
 @save_vastorbit_logs
@@ -1465,7 +1472,7 @@ def het_arch(
         )
         R2 = model.score(metric="r2")
     except QueryError:
-        model.set_params({"solver": "bfgs"})
+        model.set_params({"solver": "lbfgs"})
         model.fit(
             vdf_lags,
             X_names[1:],

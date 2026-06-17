@@ -34,7 +34,6 @@ TFIDF
    TfidfVectorizer.get_match_index
    TfidfVectorizer.get_params
    TfidfVectorizer.get_plotting_lib
-   TfidfVectorizer.get_VAST_attributes
    TfidfVectorizer.import_models
    TfidfVectorizer.set_params
    TfidfVectorizer.summarize

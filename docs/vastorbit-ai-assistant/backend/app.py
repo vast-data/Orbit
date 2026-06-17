@@ -18,133 +18,183 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration
-ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
-DOCS_DIR = os.environ.get('VASTORBIT_DOCS_DIR', './docs_content')
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+DOCS_DIR = os.environ.get("VASTORBIT_DOCS_DIR", "./docs_content")
 MAX_CONTEXT_LENGTH = 100000
 CHUNK_SIZE = 2000  # REDUCED from 3000 for better performance
 MAX_CHUNKS = 3  # REDUCED from 5 for faster responses
 
+
 class DocumentationRAG:
     """Retrieval Augmented Generation for VAST Orbit documentation"""
-    
+
     def __init__(self, docs_dir: str):
         self.docs_dir = Path(docs_dir)
         self.documents = []
         self.client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
         self.load_documents()
         self.response_cache = {}  # Simple cache for common questions
-    
+
     def load_documents(self):
         """Load and chunk documentation files"""
         print(f"Loading documents from {self.docs_dir}...")
-        
+
         if not self.docs_dir.exists():
             print(f"Warning: Documentation directory {self.docs_dir} does not exist!")
             return
-        
+
         # Find all HTML files (skip RST and MD for faster loading)
-        html_files = list(self.docs_dir.rglob('*.html'))
-        
+        html_files = list(self.docs_dir.rglob("*.html"))
+
         # Filter out non-content files
         content_files = [
-            f for f in html_files 
-            if not any(skip in str(f) for skip in ['search.html', 'genindex.html', '_static', '_sources'])
+            f
+            for f in html_files
+            if not any(
+                skip in str(f)
+                for skip in ["search.html", "genindex.html", "_static", "_sources"]
+            )
         ]
-        
+
         for file_path in content_files:
             try:
-                content = file_path.read_text(encoding='utf-8')
-                
+                content = file_path.read_text(encoding="utf-8")
+
                 # Clean the content
                 content = self.clean_html(content)
-                
+
                 # Skip if too short (likely not real content)
                 if len(content) < 200:
                     continue
-                
+
                 # Create chunks
                 chunks = self.chunk_text(content, file_path)
                 self.documents.extend(chunks)
-                
+
             except Exception as e:
                 print(f"Error loading {file_path}: {e}")
-        
-        print(f"Loaded {len(self.documents)} document chunks from {len(content_files)} files")
-    
+
+        print(
+            f"Loaded {len(self.documents)} document chunks from {len(content_files)} files"
+        )
+
     def clean_html(self, html_content: str) -> str:
         """Remove HTML tags and extract text - OPTIMIZED"""
         # Remove script and style elements
-        html_content = re.sub(r'<script[^>]*>.*?</script>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
-        html_content = re.sub(r'<style[^>]*>.*?</style>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
-        
+        html_content = re.sub(
+            r"<script[^>]*>.*?</script>",
+            "",
+            html_content,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        html_content = re.sub(
+            r"<style[^>]*>.*?</style>",
+            "",
+            html_content,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+
         # Remove navigation and header elements
-        html_content = re.sub(r'<nav[^>]*>.*?</nav>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
-        html_content = re.sub(r'<header[^>]*>.*?</header>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
-        
+        html_content = re.sub(
+            r"<nav[^>]*>.*?</nav>", "", html_content, flags=re.DOTALL | re.IGNORECASE
+        )
+        html_content = re.sub(
+            r"<header[^>]*>.*?</header>",
+            "",
+            html_content,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+
         # Remove HTML tags but keep content
-        text = re.sub(r'<[^>]+>', ' ', html_content)
-        
+        text = re.sub(r"<[^>]+>", " ", html_content)
+
         # Clean up whitespace
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r"\s+", " ", text)
         text = text.strip()
-        
+
         return text
-    
+
     def chunk_text(self, text: str, file_path: Path) -> List[Dict]:
         """Split text into chunks with metadata - OPTIMIZED"""
         chunks = []
-        
+
         # Split by paragraphs/sections
-        sections = text.split('\n\n')
+        sections = text.split("\n\n")
         current_chunk = ""
-        
+
         for section in sections:
             if len(current_chunk) + len(section) < CHUNK_SIZE:
                 current_chunk += section + "\n\n"
             else:
                 if current_chunk:
-                    chunks.append({
-                        'content': current_chunk.strip(),
-                        'source': str(file_path.relative_to(self.docs_dir)),
-                        'file_path': str(file_path),
-                        'chunk_id': hashlib.md5(current_chunk.encode()).hexdigest()[:8]
-                    })
+                    chunks.append(
+                        {
+                            "content": current_chunk.strip(),
+                            "source": str(file_path.relative_to(self.docs_dir)),
+                            "file_path": str(file_path),
+                            "chunk_id": hashlib.md5(current_chunk.encode()).hexdigest()[
+                                :8
+                            ],
+                        }
+                    )
                 current_chunk = section + "\n\n"
-        
+
         # Add the last chunk
         if current_chunk:
-            chunks.append({
-                'content': current_chunk.strip(),
-                'source': str(file_path.relative_to(self.docs_dir)),
-                'file_path': str(file_path),
-                'chunk_id': hashlib.md5(current_chunk.encode()).hexdigest()[:8]
-            })
-        
+            chunks.append(
+                {
+                    "content": current_chunk.strip(),
+                    "source": str(file_path.relative_to(self.docs_dir)),
+                    "file_path": str(file_path),
+                    "chunk_id": hashlib.md5(current_chunk.encode()).hexdigest()[:8],
+                }
+            )
+
         return chunks
-    
+
     @lru_cache(maxsize=100)
     def _cached_search(self, query: str, top_k: int) -> tuple:
         """Cached search for common queries"""
         results = self.search_relevant_chunks(query, top_k)
-        return tuple((r['content'], r['source']) for r in results)
-    
+        return tuple((r["content"], r["source"]) for r in results)
+
     def search_relevant_chunks(self, query: str, top_k: int = MAX_CHUNKS) -> List[Dict]:
         """OPTIMIZED keyword-based search for relevant document chunks"""
         # Tokenize query
-        query_terms = set(re.findall(r'\w+', query.lower()))
-        
+        query_terms = set(re.findall(r"\w+", query.lower()))
+
         # Remove common words for better matching
-        stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'is', 'are', 'how', 'what', 'i', 'do'}
+        stop_words = {
+            "the",
+            "a",
+            "an",
+            "and",
+            "or",
+            "but",
+            "in",
+            "on",
+            "at",
+            "to",
+            "for",
+            "of",
+            "with",
+            "is",
+            "are",
+            "how",
+            "what",
+            "i",
+            "do",
+        }
         query_terms = query_terms - stop_words
-        
+
         if not query_terms:
             return []
-        
+
         # Score each document
         scored_docs = []
         for doc in self.documents:
-            content_lower = doc['content'].lower()
-            
+            content_lower = doc["content"].lower()
+
             # Count matching terms with position weighting
             matches = 0
             for term in query_terms:
@@ -154,53 +204,52 @@ class DocumentationRAG:
                         matches += 2
                     else:
                         matches += 1
-            
+
             if matches > 0:
                 # Calculate score
                 score = (matches / len(query_terms)) * 100
                 scored_docs.append((score, doc))
-        
+
         # Sort by score and return top_k
         scored_docs.sort(key=lambda x: x[0], reverse=True)
         return [doc for _, doc in scored_docs[:top_k]]
-    
-    def generate_answer(self, question: str, conversation_history: List[Dict] = None) -> Tuple[str, List[Dict]]:
+
+    def generate_answer(
+        self, question: str, conversation_history: List[Dict] = None
+    ) -> Tuple[str, List[Dict]]:
         """Generate answer using Claude with relevant documentation context"""
-        
+
         # Check cache first
         cache_key = hashlib.md5(question.lower().encode()).hexdigest()
         if cache_key in self.response_cache:
             print("Cache hit!")
             return self.response_cache[cache_key]
-        
+
         # Find relevant documentation
         relevant_chunks = self.search_relevant_chunks(question, top_k=MAX_CHUNKS)
-        
+
         # Build context
-        context = "\n\n---\n\n".join([
-            f"Source: {chunk['source']}\n\n{chunk['content']}"
-            for chunk in relevant_chunks
-        ])
-        
+        context = "\n\n---\n\n".join(
+            [
+                f"Source: {chunk['source']}\n\n{chunk['content']}"
+                for chunk in relevant_chunks
+            ]
+        )
+
         # Build conversation history (keep it short for performance)
         messages = []
         if conversation_history:
             for exchange in conversation_history[-2:]:  # Only last 2 exchanges
-                messages.append({
-                    "role": "user",
-                    "content": exchange.get('question', '')
-                })
-                messages.append({
-                    "role": "assistant",
-                    "content": exchange.get('answer', '')
-                })
-        
+                messages.append(
+                    {"role": "user", "content": exchange.get("question", "")}
+                )
+                messages.append(
+                    {"role": "assistant", "content": exchange.get("answer", "")}
+                )
+
         # Add current question
-        messages.append({
-            "role": "user",
-            "content": question
-        })
-        
+        messages.append({"role": "user", "content": question})
+
         # IMPROVED System prompt - VAST-focused, emphasizes data prep and exploration
         system_prompt = f"""You are Astra, VAST Orbit's AI documentation assistant. VAST Orbit is a Python library that brings data science to VAST Database with in-database execution.
 
@@ -242,37 +291,40 @@ Answer naturally, focusing on data preparation, exploration, and analytics in VA
                 model="claude-sonnet-4-20250514",
                 max_tokens=1500,  # Reduced from 2000 for faster responses
                 system=system_prompt,
-                messages=messages
+                messages=messages,
             )
-            
+
             answer = response.content[0].text
-            
+
             # Prepare sources - format for Sphinx URLs
             sources = []
             for chunk in relevant_chunks[:2]:  # Only show top 2 sources
-                source_path = chunk['source']
+                source_path = chunk["source"]
                 # Remove .html extension and convert to page name
-                page_name = source_path.replace('.html', '').replace('\\', '/')
+                page_name = source_path.replace(".html", "").replace("\\", "/")
                 # Create user-friendly title
-                title = page_name.split('/')[-1].replace('_', ' ').title()
-                sources.append({
-                    'title': title,
-                    'url': f"{page_name}.html"  # Relative path works in Sphinx
-                })
+                title = page_name.split("/")[-1].replace("_", " ").title()
+                sources.append(
+                    {
+                        "title": title,
+                        "url": f"{page_name}.html",  # Relative path works in Sphinx
+                    }
+                )
 
-            
             # Cache the result
             result = (answer, sources)
             self.response_cache[cache_key] = result
-            
+
             return result
-            
+
         except Exception as e:
             print(f"Error calling Claude API: {e}")
             return f"I encountered an error processing your question: {str(e)}", []
 
+
 # Initialize RAG system
 rag_system = None
+
 
 @app.before_request
 def initialize_rag():
@@ -280,74 +332,91 @@ def initialize_rag():
     global rag_system
     if rag_system is None:
         if not ANTHROPIC_API_KEY:
-            print("WARNING: ANTHROPIC_API_KEY not set! Please set it as an environment variable.")
+            print(
+                "WARNING: ANTHROPIC_API_KEY not set! Please set it as an environment variable."
+            )
         rag_system = DocumentationRAG(DOCS_DIR)
 
-@app.route('/api/ask', methods=['POST'])
+
+@app.route("/api/ask", methods=["POST"])
 def ask():
     """Handle AI assistant questions"""
     try:
         data = request.json
-        question = data.get('question', '')
-        conversation_history = data.get('conversation_history', [])
-        
+        question = data.get("question", "")
+        conversation_history = data.get("conversation_history", [])
+
         if not question:
-            return jsonify({'error': 'Question is required'}), 400
-        
+            return jsonify({"error": "Question is required"}), 400
+
         if not ANTHROPIC_API_KEY:
-            return jsonify({
-                'error': 'API key not configured',
-                'answer': 'Sorry, Astra is not properly configured. Please set the ANTHROPIC_API_KEY environment variable.'
-            }), 500
-        
+            return (
+                jsonify(
+                    {
+                        "error": "API key not configured",
+                        "answer": "Sorry, Astra is not properly configured. Please set the ANTHROPIC_API_KEY environment variable.",
+                    }
+                ),
+                500,
+            )
+
         # Generate answer
         answer, sources = rag_system.generate_answer(question, conversation_history)
-        
-        return jsonify({
-            'answer': answer,
-            'sources': sources,
-            'question': question
-        })
-        
+
+        return jsonify({"answer": answer, "sources": sources, "question": question})
+
     except Exception as e:
         print(f"Error in /api/ask: {e}")
-        return jsonify({
-            'error': str(e),
-            'answer': 'I encountered an error processing your question. Please try again.'
-        }), 500
+        return (
+            jsonify(
+                {
+                    "error": str(e),
+                    "answer": "I encountered an error processing your question. Please try again.",
+                }
+            ),
+            500,
+        )
 
-@app.route('/api/health', methods=['GET'])
+
+@app.route("/api/health", methods=["GET"])
 def health():
     """Health check endpoint"""
-    return jsonify({
-        'status': 'healthy',
-        'documents_loaded': len(rag_system.documents) if rag_system else 0,
-        'api_key_configured': bool(ANTHROPIC_API_KEY),
-        'cache_size': len(rag_system.response_cache) if rag_system else 0
-    })
+    return jsonify(
+        {
+            "status": "healthy",
+            "documents_loaded": len(rag_system.documents) if rag_system else 0,
+            "api_key_configured": bool(ANTHROPIC_API_KEY),
+            "cache_size": len(rag_system.response_cache) if rag_system else 0,
+        }
+    )
 
-@app.route('/api/clear-cache', methods=['POST'])
+
+@app.route("/api/clear-cache", methods=["POST"])
 def clear_cache():
     """Clear the response cache"""
     if rag_system:
         rag_system.response_cache.clear()
-        return jsonify({'message': 'Cache cleared'})
-    return jsonify({'error': 'RAG system not initialized'}), 500
+        return jsonify({"message": "Cache cleared"})
+    return jsonify({"error": "RAG system not initialized"}), 500
 
-@app.route('/', methods=['GET'])
+
+@app.route("/", methods=["GET"])
 def index():
     """Root endpoint"""
-    return jsonify({
-        'message': 'Astra - VAST Orbit AI Assistant API',
-        'version': '1.1.0',
-        'endpoints': {
-            '/api/ask': 'POST - Ask a question',
-            '/api/health': 'GET - Health check',
-            '/api/clear-cache': 'POST - Clear response cache'
+    return jsonify(
+        {
+            "message": "Astra - VAST Orbit AI Assistant API",
+            "version": "1.1.0",
+            "endpoints": {
+                "/api/ask": "POST - Ask a question",
+                "/api/health": "GET - Health check",
+                "/api/clear-cache": "POST - Clear response cache",
+            },
         }
-    })
+    )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     print("=" * 60)
     print("Astra - VAST Orbit AI Assistant API Server")
     print("=" * 60)
@@ -358,6 +427,6 @@ if __name__ == '__main__':
     print()
     print("Starting server on http://localhost:8010")
     print("=" * 60)
-    
+
     # Use port 5001 to avoid macOS AirPlay conflict
-    app.run(debug=True, host='0.0.0.0', port=8010)
+    app.run(debug=True, host="0.0.0.0", port=8010)

@@ -172,9 +172,7 @@ def chartSQL(
 
 @save_vastorbit_logs
 @needs_local_scope
-def chart_magic(
-    line: str, cell: Optional[str] = None, local_ns: Optional[dict] = None
-):
+def chart_magic(line: str, cell: Optional[str] = None, local_ns: Optional[dict] = None):
     """
     Draws responsive charts using the Matplotlib,
     Plotly library.

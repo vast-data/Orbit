@@ -1021,7 +1021,7 @@ class vDCEncode(vDCFill):
                 trans = ("CAST(FLOOR({}) AS VARCHAR)", "varchar", "text")
         else:
             trans = ("CAST({} AS VARCHAR)", "varchar", "text")
-        if (self.isnum() and method == "same_freq"):
+        if self.isnum() and method == "same_freq":
             n = len(result)
             trans = "(CASE "
             for i in range(1, n):
@@ -1230,7 +1230,7 @@ class vDCEncode(vDCFill):
                     .replace(",", "_")
                     .replace("'", "_")
                 )
-                expr = f"CASE {{}} WHEN '{distinct_elements_k}' THEN 1 ELSE 0 END"
+                expr = f"CASE CAST({{}} AS VARCHAR) WHEN '{distinct_elements_k}' THEN 1 ELSE 0 END"
                 transformations = self._transf + [(expr, "bool", "int")]
                 new_VastColumn = create_new_vdc(
                     name,

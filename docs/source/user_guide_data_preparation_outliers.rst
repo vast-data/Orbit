@@ -169,7 +169,7 @@ Other techniques like :py:mod:`~vastorbit.machine_learning.vast.cluster.DBSCAN` 
 .. code-block:: python
 
     heart_dbscan = model.predict()
-    heart_dbscan["outliers_dbscan"] = "(dbscan_cluster = -1)::int"
+    heart_dbscan["outliers_dbscan"] = "(dbscan_clusters = -1)::int"
     heart_dbscan.scatter(
         ["thalach", "chol"],
         by = "outliers_dbscan",
@@ -180,7 +180,7 @@ Other techniques like :py:mod:`~vastorbit.machine_learning.vast.cluster.DBSCAN` 
     :okwarning:
 
     heart_dbscan = model.predict()
-    heart_dbscan["outliers_dbscan"] = "(dbscan_cluster = -1)::int"
+    heart_dbscan["outliers_dbscan"] = "(dbscan_clusters = -1)::int"
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
     fig = heart_dbscan.scatter(

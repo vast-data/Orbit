@@ -40,7 +40,6 @@ Linear Regression
    LinearRegression.get_match_index
    LinearRegression.get_params
    LinearRegression.get_plotting_lib
-   LinearRegression.get_VAST_attributes
    LinearRegression.import_models
    LinearRegression.plot
    LinearRegression.predict
@@ -87,7 +86,6 @@ Ridge
    Ridge.get_match_index
    Ridge.get_params
    Ridge.get_plotting_lib
-   Ridge.get_VAST_attributes
    Ridge.import_models
    Ridge.plot
    Ridge.predict
@@ -135,7 +133,6 @@ Lasso
    Lasso.get_match_index
    Lasso.get_params
    Lasso.get_plotting_lib
-   Lasso.get_VAST_attributes
    Lasso.import_models
    Lasso.plot
    Lasso.predict
@@ -183,7 +180,6 @@ Elastic Net
    ElasticNet.get_match_index
    ElasticNet.get_params
    ElasticNet.get_plotting_lib
-   ElasticNet.get_VAST_attributes
    ElasticNet.import_models
    ElasticNet.plot
    ElasticNet.predict
@@ -232,7 +228,6 @@ Linear SVR
    LinearSVR.get_match_index
    LinearSVR.get_params
    LinearSVR.get_plotting_lib
-   LinearSVR.get_VAST_attributes
    LinearSVR.import_models
    LinearSVR.plot
    LinearSVR.predict
@@ -282,7 +277,6 @@ Partial Least Squares (PLS)
    PLSRegression.get_match_index
    PLSRegression.get_params
    PLSRegression.get_plotting_lib
-   PLSRegression.get_VAST_attributes
    PLSRegression.import_models
    PLSRegression.plot
    PLSRegression.predict
@@ -334,7 +328,6 @@ Poisson Regression
    PoissonRegressor.get_match_index
    PoissonRegressor.get_params
    PoissonRegressor.get_plotting_lib
-   PoissonRegressor.get_VAST_attributes
    PoissonRegressor.import_models
    PoissonRegressor.plot
    PoissonRegressor.predict
@@ -384,7 +377,6 @@ Dummy Tree
    DummyTreeRegressor.get_params
    DummyTreeRegressor.get_plotting_lib
    DummyTreeRegressor.get_tree
-   DummyTreeRegressor.get_VAST_attributes
    DummyTreeRegressor.import_models
    DummyTreeRegressor.plot
    DummyTreeRegressor.plot_tree
@@ -438,7 +430,6 @@ Decision Tree Regressor
    DecisionTreeRegressor.get_params
    DecisionTreeRegressor.get_plotting_lib
    DecisionTreeRegressor.get_tree
-   DecisionTreeRegressor.get_VAST_attributes
    DecisionTreeRegressor.import_models
    DecisionTreeRegressor.plot
    DecisionTreeRegressor.plot_tree
@@ -491,7 +482,6 @@ Random Forest Regressor
    RandomForestRegressor.get_params
    RandomForestRegressor.get_plotting_lib
    RandomForestRegressor.get_tree
-   RandomForestRegressor.get_VAST_attributes
    RandomForestRegressor.import_models
    RandomForestRegressor.plot
    RandomForestRegressor.plot_tree
@@ -544,7 +534,6 @@ XGB Regressor
    XGBRegressor.get_params
    XGBRegressor.get_plotting_lib
    XGBRegressor.get_tree
-   XGBRegressor.get_VAST_attributes
    XGBRegressor.import_models
    XGBRegressor.plot
    XGBRegressor.plot_tree
@@ -600,7 +589,6 @@ K-Nearest Neighbors Regressor (Beta)
    KNeighborsRegressor.get_match_index
    KNeighborsRegressor.get_params
    KNeighborsRegressor.get_plotting_lib
-   KNeighborsRegressor.get_VAST_attributes
    KNeighborsRegressor.import_models
    KNeighborsRegressor.predict
    KNeighborsRegressor.regression_report

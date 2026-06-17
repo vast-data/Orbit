@@ -919,7 +919,6 @@ class vDFMachineLearning(vDFScaler):
                 vdf[col].discretize(
                     method=method,
                     nbins=nbins,
-                    response=response,
                 )
         response = vdf.format_colnames(response)
         if response in columns:
@@ -1676,8 +1675,6 @@ class vDFMachineLearning(vDFScaler):
 
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -1687,8 +1684,6 @@ class vDFMachineLearning(vDFScaler):
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
                 tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 

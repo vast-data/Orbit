@@ -32,9 +32,7 @@ class PlottingUtils:
         raise NotImplementedError("This graphic is not yet implemented.")
 
     @staticmethod
-    def _is_available(
-        class_name: str, lib: Literal["plotly", "matplotlib"]
-    ) -> bool:
+    def _is_available(class_name: str, lib: Literal["plotly", "matplotlib"]) -> bool:
         lookup_table = {
             "matplotlib": vo_matplotlib_plt,
             "plotly": vo_plotly_plt,
@@ -50,7 +48,7 @@ class PlottingUtils:
         style_kwargs: Optional[dict] = None,
     ) -> tuple[Literal[vo_matplotlib_plt, vo_plotly_plt], dict]:
         """
-        Returns the first available library (Plotly, Matplotlib) 
+        Returns the first available library (Plotly, Matplotlib)
         to draw a specific graphic. If the graphic is not
         available for a library, function tries the next plotting
         library. The style applied to the graphic corresponds to the

@@ -90,8 +90,8 @@ class MatplotlibBase(PlottingBase):
 
         # Get logo from base64 string
         logo_base64 = vast_logo_png()
-        if logo_base64.startswith('data:'):
-            logo_base64 = logo_base64.split(',')[1]
+        if logo_base64.startswith("data:"):
+            logo_base64 = logo_base64.split(",")[1]
 
         logo_bytes = base64.b64decode(logo_base64)
         logo = Image.open(BytesIO(logo_bytes))
@@ -107,21 +107,22 @@ class MatplotlibBase(PlottingBase):
         ab = AnnotationBbox(
             imagebox,
             xy=(0.5, 0.03),  # Below the text
-            xycoords='figure fraction',
+            xycoords="figure fraction",
             frameon=False,
-            box_alignment=(0.5, 0.5)
+            box_alignment=(0.5, 0.5),
         )
         try:
             fig.add_artist(ab)
             # Text centered below the graphic
             fig.text(
-                0.5, 0.04,  # Higher position for text
-                'This chart was generated with VAST Orbit by VAST Data',
-                ha='center',
-                va='bottom',
+                0.5,
+                0.04,  # Higher position for text
+                "This chart was generated with VAST Orbit by VAST Data",
+                ha="center",
+                va="bottom",
                 fontsize=7,  # Bit bigger
-                color='gray',
-                alpha=0.7
+                color="gray",
+                alpha=0.7,
             )
         except:
             pass

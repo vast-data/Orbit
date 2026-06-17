@@ -8,7 +8,6 @@ import numpy as np
 
 from vastorbit._typing import PlottingObject, PythonScalar, SQLRelation
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 from vastorbit.core.tablesample.base import TableSample
 
@@ -20,7 +19,6 @@ from vastorbit.machine_learning.metrics.classification import (
 from vastorbit.plotting._utils import PlottingUtils
 
 
-@check_minimum_version
 @save_vastorbit_logs
 def lift_chart(
     y_true: str,
@@ -106,7 +104,6 @@ def lift_chart(
     return vo_plt.LiftChart(data=data, layout=layout).draw(**kwargs)
 
 
-@check_minimum_version
 @save_vastorbit_logs
 def prc_curve(
     y_true: str,
@@ -186,7 +183,6 @@ def prc_curve(
     return vo_plt.PRCCurve(data=data, layout=layout).draw(**kwargs)
 
 
-@check_minimum_version
 @save_vastorbit_logs
 def roc_curve(
     y_true: str,

@@ -8,7 +8,6 @@ import numpy as np
 from vastorbit._typing import PythonNumber
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import quote_ident
-from vastorbit._utils._sql._vast_version import check_minimum_version
 from vastorbit.errors import MissingRelation
 
 from vastorbit.core.vastframe.base import VastFrame
@@ -60,13 +59,6 @@ class NaiveBayes(MulticlassClassifier):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.base.MulticlassClassifier.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can
-        be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.base.MulticlassClassifier.get_VAST_attributes`
         method.
 
     Examples
@@ -586,7 +578,9 @@ class NaiveBayes(MulticlassClassifier):
 
     .. ipython:: python
 
-        model.set_params({'alpha': 0.9})Model Exporting
+        model.set_params({'alpha': 0.9})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -640,12 +634,12 @@ class NaiveBayes(MulticlassClassifier):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["NAIVE_BAYES"]:
-        return "NAIVE_BAYES"
+    def _fit_sql(self) -> Literal[""]:
+        return ""
 
     @property
-    def _predict_sql(self) -> Literal["PREDICT_NAIVE_BAYES"]:
-        return "PREDICT_NAIVE_BAYES"
+    def _predict_sql(self) -> Literal[""]:
+        return ""
 
     @property
     def _model_subcategory(self) -> Literal["CLASSIFIER"]:
@@ -661,7 +655,6 @@ class NaiveBayes(MulticlassClassifier):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
@@ -679,79 +672,84 @@ class NaiveBayes(MulticlassClassifier):
 
     def _compute_attributes(self) -> None:
         """
-        Computes the model's attributes.
+        Computes the model's attributes from the
+        fitted scikit-learn naive bayes model.
         """
-        self.classes_ = self._array_to_int(
-            np.array(self.get_VAST_attributes("prior")["class"])
-        )
-        self.prior_ = np.array(self.get_VAST_attributes("prior")["probability"])
+        self.classes_ = self._array_to_int(np.asarray(self._model.classes_))
+        # Bernoulli/Multinomial/Categorical/Complement expose log priors;
+        # GaussianNB exposes the priors directly.
+        if hasattr(self._model, "class_log_prior_"):
+            self.prior_ = np.exp(self._model.class_log_prior_)
+        else:
+            self.prior_ = np.asarray(self._model.class_prior_, dtype=float)
         self.attributes_ = self._get_nb_attributes()
 
     def _get_nb_attributes(self) -> list[dict]:
         """
-        Returns a list of dictionary for each of the NB
-        variables. It is used to translate NB to Python.
+        Builds, for each input feature, a dictionary describing its
+        per-class naive bayes parameters in the format expected by the
+        memmodel. Parameters are read directly from the fitted
+        scikit-learn estimator (``self._model``).
+
+        Unlike the database engine, scikit-learn uses a single
+        distribution for every feature, determined by the estimator
+        class, so the distribution type is taken from the model rather
+        than detected column by column.
         """
-        try:
-            vdf = VastFrame(self.input_relation)
-        except MissingRelation:
-            return []
-        var_info = {}
-        gaussian_incr, bernoulli_incr, multinomial_incr = 0, 0, 0
-        for idx, elem in enumerate(self.X):
-            var_info[elem] = {"rank": idx}
-            if vdf[elem].isbool():
-                var_info[elem]["type"] = "bernoulli"
-                for c in self.classes_:
-                    var_info[elem][c] = self.get_VAST_attributes(f"bernoulli.{c}")[
-                        "probability"
-                    ][bernoulli_incr]
-                bernoulli_incr += 1
-            elif vdf[elem].category() == "int":
-                var_info[elem]["type"] = "multinomial"
-                for c in self.classes_:
-                    multinomial = self.get_VAST_attributes(f"multinomial.{c}")
-                    var_info[elem][c] = multinomial["probability"][multinomial_incr]
-                multinomial_incr += 1
-            elif vdf[elem].isnum():
-                var_info[elem]["type"] = "gaussian"
-                for c in self.classes_:
-                    gaussian = self.get_VAST_attributes(f"gaussian.{c}")
-                    var_info[elem][c] = {
-                        "mu": gaussian["mu"][gaussian_incr],
-                        "sigma_sq": gaussian["sigma_sq"][gaussian_incr],
+        model = self._model
+        model_name = type(model).__name__
+        n_features = len(self.X)
+        attributes = []
+
+        if model_name == "GaussianNB":
+            # var_ replaced sigma_ in scikit-learn 1.0.
+            variances = getattr(model, "var_", None)
+            if variances is None:
+                variances = model.sigma_
+            for j in range(n_features):
+                var_info = {"type": "gaussian"}
+                for ci, c in enumerate(self.classes_):
+                    var_info[c] = {
+                        "mu": float(model.theta_[ci, j]),
+                        "sigma_sq": float(variances[ci, j]),
                     }
-                gaussian_incr += 1
-            else:
-                var_info[elem]["type"] = "categorical"
-                my_cat = "categorical." + quote_ident(elem)[1:-1]
-                attr = self.get_VAST_attributes()["attr_name"]
-                for item in attr:
-                    if item.lower() == my_cat.lower():
-                        my_cat = item
-                        break
-                val = self.get_VAST_attributes(my_cat).values
-                for item in val:
-                    if item != "category":
-                        if item not in var_info[elem]:
-                            var_info[elem][item] = {}
-                        for i, p in enumerate(val[item]):
-                            var_info[elem][item][val["category"][i]] = p
-        var_info_simplified = []
-        for i in range(len(var_info)):
-            for elem in var_info:
-                if var_info[elem]["rank"] == i:
-                    var_info_simplified += [var_info[elem]]
-                    break
-        for elem in var_info_simplified:
-            del elem["rank"]
-        return var_info_simplified
+                attributes.append(var_info)
 
-    # Parameters Methods.
+        elif model_name in ("BernoulliNB", "MultinomialNB", "ComplementNB"):
+            nb_type = "bernoulli" if model_name == "BernoulliNB" else "multinomial"
+            # feature_log_prob_ shape: (n_classes, n_features).
+            proba = np.exp(model.feature_log_prob_)
+            for j in range(n_features):
+                var_info = {"type": nb_type}
+                for ci, c in enumerate(self.classes_):
+                    var_info[c] = float(proba[ci, j])
+                attributes.append(var_info)
 
-    @staticmethod
-    def _map_to_VAST_param_dict() -> dict:
-        return {}
+        elif model_name == "CategoricalNB":
+            # feature_log_prob_ is a list (one entry per feature), each of
+            # shape (n_classes, n_categories_feature). categories_ holds the
+            # category labels when available, otherwise integer indices.
+            categories = getattr(model, "categories_", None)
+            for j in range(n_features):
+                var_info = {"type": "categorical"}
+                log_prob_j = model.feature_log_prob_[j]
+                n_categories = log_prob_j.shape[1]
+                cats_j = (
+                    list(categories[j])
+                    if categories is not None
+                    else list(range(n_categories))
+                )
+                for ci, c in enumerate(self.classes_):
+                    var_info[c] = {
+                        cats_j[k]: float(np.exp(log_prob_j[ci, k]))
+                        for k in range(n_categories)
+                    }
+                attributes.append(var_info)
+
+        else:
+            raise TypeError(f"Unsupported naive bayes model type: '{model_name}'.")
+
+        return attributes
 
     # I/O Methods.
 

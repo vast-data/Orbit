@@ -24,7 +24,6 @@ from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type, quote_ident, schema_relation
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import check_minimum_version
 from vastorbit.connection import current_cursor
 
 from vastorbit.core.tablesample.base import TableSample
@@ -116,8 +115,8 @@ class Clustering(Unsupervised):
             :okwarning:
 
             model = KMeans(
-                n_cluster = 8,
-                init = "kmeanspp",
+                n_clusters = 8,
+                init = "k-means++",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -243,8 +242,8 @@ class Clustering(Unsupervised):
             :okwarning:
 
             model = KMeans(
-                n_cluster = 8,
-                init = "kmeanspp",
+                n_clusters = 8,
+                init = "k-means++",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -341,7 +340,7 @@ class KMeans(Clustering):
         Cluster centers.
     p_: int
         The ``p`` of the ``p``-distances.
-    between_cluster_ss_: float
+    between_clusters_ss_: float
         The between-cluster sum of squares (BSS) measures
         the dispersion between different clusters and is
         an important metric in evaluating the effectiveness
@@ -351,7 +350,7 @@ class KMeans(Clustering):
         the total dispersion of data points from the overall
         mean, providing a basis for evaluating the clustering
         algorithm's performance.
-    total_within_cluster_ss_: float
+    total_within_clusters_ss_: float
         The within-cluster sum of squares (WSS) gauges the
         dispersion of data points within individual clusters
         in a clustering analysis. It reflects the compactness
@@ -370,12 +369,6 @@ class KMeans(Clustering):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.cluster.Clustering.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.cluster.Clustering.get_VAST_attributes`
         method.
 
     Examples
@@ -463,8 +456,8 @@ class KMeans(Clustering):
         :okwarning:
 
         model = KMeans(
-            n_cluster = 8,
-            init = "kmeanspp",
+            n_clusters = 8,
+            init = "k-means++",
             max_iter = 300,
             tol = 1e-4,
         )
@@ -531,8 +524,8 @@ class KMeans(Clustering):
     .. ipython:: python
         :okwarning:
 
-        model.between_cluster_ss_
-        model.total_within_cluster_ss_
+        model.between_clusters_ss_
+        model.total_within_clusters_ss_
         model.total_ss_
 
     Some other useful attributes can be used to evaluate the model,
@@ -657,7 +650,9 @@ class KMeans(Clustering):
 
     .. ipython:: python
 
-        model.set_params({'n_cluster': 5})Model Exporting
+        model.set_params({'n_clusters': 5})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -740,9 +735,9 @@ class KMeans(Clustering):
         return [
             "clusters_",
             "p_",
-            "between_cluster_ss_",
+            "between_clusters_ss_",
             "total_ss_",
-            "total_within_cluster_ss_",
+            "total_within_clusters_ss_",
             "elbow_score_",
             "converged_",
         ]
@@ -765,17 +760,17 @@ class KMeans(Clustering):
         """
         Computes the KMeans metrics.
         """
-        self.total_within_cluster_ss_ = self._model.inertia_
+        self.total_within_clusters_ss_ = self._model.inertia_
 
         # 2. Total Sum of Squares (variance of entire dataset)
         X_centered = self._X - self._X.mean(axis=0)
-        self.total_ss_ = np.sum(X_centered ** 2)
+        self.total_ss_ = np.sum(X_centered**2)
 
         # 3. Between-Cluster Sum of Squares
-        self.between_cluster_ss_ = self.total_ss_ - self.total_within_cluster_ss_
+        self.between_clusters_ss_ = self.total_ss_ - self.total_within_clusters_ss_
 
         # 4. Elbow Score (ratio)
-        self.elbow_score_ = self.between_cluster_ss_ / self.total_ss_
+        self.elbow_score_ = self.between_clusters_ss_ / self.total_ss_
 
         # 5. Converged (sklearn always converges or hits max_iter)
         self.converged_ = self._model.n_iter_ < self._model.max_iter
@@ -883,8 +878,8 @@ class KMeans(Clustering):
             :okwarning:
 
             model = KMeans(
-                n_cluster = 8,
-                init = "kmeanspp",
+                n_clusters = 8,
+                init = "k-means++",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -943,532 +938,6 @@ class KMeans(Clustering):
             raise Exception("Voronoi Plots are only available in 2D")
 
 
-class KPrototypes(KMeans):
-    """
-    Creates a KPrototypes object by using the VAST
-    k-prototypes algorithm. The algorithm combines
-    the k-means and k-modes  algorithms  in order to
-    handle both numerical and  categorical data.
-
-    Parameters
-    ----------
-    name: str, optional
-        Name  of the model. The model is stored in  the
-        database.
-    overwrite_model: bool, optional
-        If set to ``True``, training a
-        model with the same name as an
-        existing model overwrites the
-        existing model.
-    n_cluster: int, optional
-        Number of clusters.
-    init: str | list, optional
-        The  method  used  to  find the  initial  cluster
-        centers.
-
-        - random:
-            The centers are initialized randomly.
-
-        You  can  also provide a list of initial  cluster
-        centers.
-    max_iter: int, optional
-        The  maximum number of iterations the  algorithm
-        performs.
-    tol: float, optional
-        Determines whether  the algorithm has converged.
-        The  algorithm is  considered converged when  no
-        center  moves more than a distance of 'tol' from
-        the previous iteration.
-    gamma: float, optional
-        Weighting  factor  for  categorical columns.  It
-        determines the relative importance of  numerical
-        and categorical attributes.
-
-    Attributes
-    ----------
-    Many attributes are created
-    during the fitting phase.
-
-    clusters_: numpy.array
-        Cluster centers.
-    p_: int
-        The ``p`` of the ``p``-distances.
-    between_cluster_ss_: float
-        The between-cluster sum of squares (BSS) measures
-        the dispersion between different clusters and is
-        an important metric in evaluating the effectiveness
-        of a clustering algorithm.
-    total_ss_: float
-        The total sum of squares (TSS) is used to assess
-        the total dispersion of data points from the overall
-        mean, providing a basis for evaluating the clustering
-        algorithm's performance.
-    total_within_cluster_ss_: float
-        The within-cluster sum of squares (WSS) gauges the
-        dispersion of data points within individual clusters
-        in a clustering analysis. It reflects the compactness
-        of clusters and is instrumental in evaluating the
-        homogeneity of the clusters produced by the algorithm.
-    elbow_score_: float
-        The elbow score. It helps identify the optimal number
-        of clusters by observing the point where the rate of
-        WSS reduction slows down, resembling the bend or
-        'elbow' in the plot, indicative of an optimal clustering
-        solution. The bigger the better.
-    converged_: boolean
-        True if the model converged.
-
-    .. note::
-
-        All attributes can be accessed using the
-        :py:meth:`~vastorbit.machine_learning.vast.cluster.Clustering.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.cluster.Clustering.get_VAST_attributes`
-        method.
-
-    Examples
-    --------
-
-    The following examples provide a
-    basic understanding of usage.
-    For more detailed examples, please
-    refer to the :ref:`user_guide.machine_learning`
-    or the :ref:`examples`
-    section on the website.
-
-    Load data for machine learning
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-    We import :py:mod:`vastorbit`:
-
-    .. ipython:: python
-
-        import vastorbit as vo
-
-    .. hint::
-
-        By assigning an alias to :py:mod:`vastorbit`,
-        we mitigate the risk of code collisions with
-        other libraries. This precaution is necessary
-        because vastorbit uses commonly known function
-        names like "average" and "median", which can
-        potentially lead to naming conflicts. The use
-        of an alias ensures that the functions from
-        :py:mod:`vastorbit` are used as intended
-        without interfering with functions from other
-        libraries.
-
-    For this example, we will
-    use the winequality dataset.
-
-    .. code-block:: python
-
-        import vastorbit.datasets as vod
-
-        data = vod.load_winequality()
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
-
-    .. note::
-
-        vastorbit offers a wide range of sample
-        datasets that are ideal for training
-        and testing purposes. You can explore
-        the full list of available datasets in
-        the :ref:`api.datasets`, which provides
-        detailed information on each dataset and
-        how to use them effectively. These datasets
-        are invaluable resources for honing your
-        data analysis and machine learning skills
-        within the vastorbit environment.
-
-    .. ipython:: python
-        :suppress:
-
-        import vastorbit.datasets as vod
-        data = vod.load_winequality()
-
-    Model Initialization
-    ^^^^^^^^^^^^^^^^^^^^^
-
-    First we import the ``KPrototypes`` model:
-
-    .. code-block::
-
-        from vastorbit.machine_learning.vast import KPrototypes
-
-    .. ipython:: python
-        :suppress:
-
-        from vastorbit.machine_learning.vast import KPrototypes
-
-    Then we can create the model:
-
-    .. ipython:: python
-        :okwarning:
-
-        model = KPrototypes(
-            n_cluster = 8,
-            init = "random",
-            max_iter = 300,
-            tol = 1e-4,
-            gamma = 0.2,
-        )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
-    .. important::
-
-        The model name is crucial for the model
-        management system and versioning. It's
-        highly recommended to provide a name if
-        you plan to reuse the model later.
-
-    Model Training
-    ^^^^^^^^^^^^^^^
-
-    We can now fit the model:
-
-    .. ipython:: python
-        :okwarning:
-
-        model.fit(data, X = ["color", "sulphates"])
-
-    .. important::
-
-        To train a model, you can directly
-        use the :py:class:`~VastFrame` or
-        the name of the relation stored in
-        the database.
-
-    .. note::
-
-        In the above example we have use one categorical ("color")
-        and one numeric ("sulphates") feature. ``KProtoTypes``
-        can handle both types of features.
-
-    .. hint::
-
-        For clustering and anomaly detection, the
-        use of predictors is optional. In such cases,
-        all available predictors are considered, which
-        can include solely numerical variables or a
-        combination of numerical and categorical variables,
-        depending on the model's capabilities.
-
-    Metrics
-    ^^^^^^^^
-
-    You can also find the cluster positions by:
-
-    .. ipython:: python
-
-        model.clusters_
-
-    To evaluate the model, various attributes are computed, such as
-    the between sum of squares, the total within clusters sum of
-    squares, and the total sum of squares.
-
-    .. ipython:: python
-
-        model.between_cluster_ss_
-        model.total_within_cluster_ss_
-        model.total_ss_
-
-    Some other useful attributes can be used to evaluate the model,
-    like the Elbow Score (the bigger it is, the better it is).
-
-    .. ipython:: python
-
-        model.elbow_score_
-
-    Prediction
-    ^^^^^^^^^^^
-
-    Predicting or ranking the dataset is straight-forward:
-
-    .. ipython:: python
-        :suppress:
-        :okexcept:
-
-        result = model.predict(data, ["color", "sulphates"], name = "Cluster IDs")
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_kprototypes_prediction.html", "w")
-        html_file.write(result._repr_html_())
-        html_file.close()
-
-    .. code-block:: python
-
-        model.predict(data, ["color", "sulphates"], name = "Cluster IDs")
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_kprototypes_prediction.html
-
-    As shown above, a new column has been created, containing
-    the clusters.
-
-    .. hint::
-        The name of the new column is optional. If not provided,
-        it is randomly assigned.
-
-    Plots - Cluster Plot
-    ^^^^^^^^^^^^^^^^^^^^^
-
-    Plots highlighting the different clusters can be easily drawn using:
-
-    .. code-block:: python
-
-        model.plot()
-
-    .. note::
-
-        As we are using a categorical feature in this example,
-        this plot cannot be drawn. It is only for numeric features.
-        Please have a look at :py:meth:`~vastorbit.machine_learning.vast.KMeans`
-        for plotting examples.
-
-    Plots - Voronoi
-    ^^^^^^^^^^^^^^^^
-
-    ``KPrototypes`` models can be visualized by drawing their voronoi plots.
-    For more examples, check out :ref:`chart_gallery.voronoi_plot`.
-
-    .. code-block:: python
-
-        model.plot_voronoi()
-
-    .. note::
-
-        As we are using a categorical feature in this example,
-        this plot cannot be drawn. It is only for numeric features.
-        Please have a look at :py:meth:`~vastorbit.machine_learning.vast.KMeans`
-        for plotting examples.
-
-
-    Plots - Contour
-    ^^^^^^^^^^^^^^^^
-
-    In order to understand the parameter space, we can also look
-    at the contour plots:
-
-    .. code-block:: python
-
-        model.contour()
-
-    .. note::
-
-        As we are using a categorical feature in this example,
-        this plot cannot be drawn. It is only for numeric features.
-        Please have a look at :py:meth:`~vastorbit.machine_learning.vast.KMeans`
-        for plotting examples.
-
-    .. note::
-
-        Machine learning models with two predictors can usually benefit
-        from their own contour plot. This visual representation aids in
-        exploring predictions and gaining a deeper understanding of how
-        these models perform in different scenarios. Please refer to
-        :ref:`chart_gallery.contour` for more examples.
-
-    Parameter Modification
-    ^^^^^^^^^^^^^^^^^^^^^^^
-
-    In order to see the parameters:
-
-    .. ipython:: python
-
-        model.get_params()
-
-    And to manually change some of the parameters:
-
-    .. ipython:: python
-
-        model.set_params({'n_cluster': 5})Model Exporting
-    ^^^^^^^^^^^^^^^^
-
-    **To Memmodel**
-
-    .. code-block:: python
-
-        model.to_memmodel()
-
-    .. note::
-
-        ``MemModel`` objects serve as in-memory
-        representations of machine learning models.
-        They can be used for both in-database and
-        in-memory prediction tasks. These objects
-        can be pickled in the same way that you
-        would pickle a ``scikit-learn`` model.
-
-    The preceding methods for exporting the
-    model use ``MemModel``, and it is recommended
-    to use ``MemModel`` directly.
-
-    **To SQL**
-
-    You can get the SQL query equivalent of the ``KPrototypes`` model by:
-
-    .. ipython:: python
-
-        model.to_sql()
-
-    .. note::
-
-        This SQL query can be
-        directly used in any
-        database.
-
-    **Deploy SQL**
-
-    To get the SQL query which uses
-    VAST functions use below:
-
-    .. ipython:: python
-
-        model.deploySQL()
-
-    **To Python**
-
-    To obtain the prediction function in
-    Python syntax, use the following code:
-
-    .. ipython:: python
-
-        X = [[0.9, 0.5]]
-        model.to_python()(X)
-
-    .. hint::
-
-        The
-        :py:meth:`~vastorbit.machine_learning.vast.tree.KPrototypes.to_python`
-        method is used to retrieve the anomaly score.
-        For specific details on how to
-        use this method for different
-        model types, refer to the relevant
-        documentation for each model.
-    """
-
-    # Properties.
-
-    @property
-    def _fit_sql(self) -> Literal["KPROTOTYPES"]:
-        return "KPROTOTYPES"
-
-    @property
-    def _predict_sql(self) -> Literal["APPLY_KPROTOTYPES"]:
-        return "APPLY_KPROTOTYPES"
-
-    @property
-    def _model_type(self) -> Literal["KPrototypes"]:
-        return "KPrototypes"
-
-    @property
-    def _attributes(self) -> list[str]:
-        return [
-            "clusters_",
-            "p_",
-            "gamma_",
-            "is_categorical_",
-            "between_cluster_ss_",
-            "total_ss_",
-            "total_within_cluster_ss_",
-            "elbow_score_",
-            "converged_",
-        ]
-
-    # System & Special Methods.
-
-    @check_minimum_version
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        n_cluster: int = 8,
-        init: Union[Literal["random"], list] = "random",
-        max_iter: int = 300,
-        tol: float = 1e-4,
-        gamma: float = 1.0,
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = {
-            "n_cluster": n_cluster,
-            "init": init,
-            "max_iter": max_iter,
-            "tol": tol,
-            "gamma": gamma,
-        }
-
-    # Attributes Methods.
-
-    def _compute_attributes(self) -> None:
-        """
-        Computes the model's attributes.
-        """
-        centers = self.get_VAST_attributes("centers")
-        self.clusters_ = centers.to_numpy()
-        self.p_ = 2
-        self.gamma_ = self.parameters["gamma"]
-        dtypes = centers.dtype
-        self.is_categorical_ = np.array(
-            [("char" in dtypes[key].lower()) for key in dtypes]
-        )
-        self._compute_metrics()
-
-    # I/O Methods.
-
-    def to_memmodel(self) -> mm.KPrototypes:
-        """
-        Converts the model to an InMemory object
-        that can be used for different types of
-        predictions.
-
-        Returns
-        -------
-        InMemoryModel
-            Representation of the model.
-
-        Examples
-        --------
-        If we consider that you've built a model named
-        ``model``, then it is easy to export it using
-        the following syntax.
-
-        .. code-block:: python
-
-            model.to_memmodel()
-
-        .. note::
-
-            ``MemModel`` objects serve as in-memory
-            representations of machine learning models.
-            They can be used for both in-database and
-            in-memory prediction tasks. These objects
-            can be pickled in the same way that you
-            would pickle a ``scikit-learn`` model.
-
-        .. note::
-
-            Look at
-            :py:class:`~vastorbit.machine_learning.memmodel.cluster.KPrototypes`
-            for more information.
-        """
-        return mm.KPrototypes(
-            self.clusters_, self.p_, self.gamma_, self.is_categorical_
-        )
-
-
 class BisectingKMeans(KMeans, Tree):
     """
     Creates   a  BisectingKMeans  object  using   the
@@ -1493,130 +962,19 @@ class BisectingKMeans(KMeans, Tree):
         model with the same name as an
         existing model overwrites the
         existing model.
-    n_cluster: int, optional
-        Number of clusters
-    bisection_iterations: int, optional
-        The number of iterations the bisecting KMeans
-        algorithm  performs for each bisection  step.
-        This   corresponds  to  how   many  times  a
-        standalone  KMeans  algorithm runs  in  each
-        bisection step. Setting to a value greater
-        than 1 allows the algorithm to run and choose
-        the best KMeans run within each bisection
-        step.  If you are using  kmeanspp,   the
-        bisection_iterations value is always 1
-        because kmeanspp is more costly  to run  but
-        also  better  than  the alternatives,  so it
-        does  not   require multiple runs.
-    split_method: str, optional
-        The method used to choose a cluster to
-        bisect/split.
-
-        - size:
-            Choose the largest cluster to bisect.
-        - sum_squares:
-            Choose the cluster with the largest
-            withInSS to bisect.
-
-    min_divisible_cluster_size: int, optional
-        The minimum number of points of a divisible
-        cluster. Must be greater than or equal to 2.
-    distance_method: str, optional
-        The  distance measure between two  data
-        points. Only Euclidean distance is supported
-        at this time.
-    init: str | list, optional
-        The method used to find the initial KMeans
-        cluster centers.
-
-        - kmeanspp:
-            Uses  the KMeans++ method  to initialize
-            the centers.
-        - pseudo:
-            Uses "pseudo center" approach used by
-            Spark,  bisects given center without iterating
-            over points.
-
-        You can also provide a list with the initial
-        cluster centers.
-    max_iter: int, optional
-        The maximum number of iterations the KMeans
-        algorithm performs.
-    tol: float, optional
-        Determines whether the KMeans algorithm has
-        converged.  The   algorithm  is  considered
-        converged  after  no center has moved  more
-        than a distance of  'tol' from the previous
-        iteration.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-            "children_left_",
-            "children_right_",
-
-
-    tree_:
-
-
-    clusters_: numpy.array
-        Cluster centers.
-    p_: int
-        The ``p`` of the ``p``-distances.
-    children_left_: numpy.array
-        A list of node IDs, where
-        ``children_left[i]`` is
-        the node ID of the left
-        child of node i.
-    children_right_: numpy.array
-        A list of node IDs, where
-        ``children_right[i]`` is
-        the node ID of the right
-        child of node i.
-    cluster_score_: numpy.array
-        The array containing the sizes for each cluster
-        in a clustering analysis.
-    cluster_score_: numpy.array
-        The array containing the cluster scores for each
-        cluster in a clustering analysis.
-    between_cluster_ss_: float
-        The between-cluster sum of squares (BSS) measures
-        the dispersion between different clusters and is
-        an important metric in evaluating the effectiveness
-        of a clustering algorithm.
-    total_ss_: float
-        The total sum of squares (TSS) is used to assess
-        the total dispersion of data points from the overall
-        mean, providing a basis for evaluating the clustering
-        algorithm's performance.
-    total_within_cluster_ss_: float
-        The within-cluster sum of squares (WSS) gauges the
-        dispersion of data points within individual clusters
-        in a clustering analysis. It reflects the compactness
-        of clusters and is instrumental in evaluating the
-        homogeneity of the clusters produced by the algorithm.
-    elbow_score_: float
-        The elbow score. It helps identify the optimal number
-        of clusters by observing the point where the rate of
-        WSS reduction slows down, resembling the bend or
-        'elbow' in the plot, indicative of an optimal clustering
-        solution. The bigger the better.
-    cluster_i_ss_: numpy.array
-        The array containing the sum of squares (SS) for each
-        cluster in a clustering analysis.
+    cluster_centers_, labels_, inertia_, n_features_in_, feature_names_in_
 
     .. note::
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.cluster.Clustering.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.cluster.Clustering.get_VAST_attributes`
         method.
 
     Examples
@@ -1703,12 +1061,9 @@ class BisectingKMeans(KMeans, Tree):
         :okwarning:
 
         model = BisectingKMeans(
-            n_cluster = 8,
-            bisection_iterations = 1,
-            split_method = 'sum_squares',
-            min_divisible_cluster_size = 2,
-            distance_method = "euclidean",
-            init = "kmeanspp",
+            n_clusters = 8,
+            algorithm = 'lloyd',
+            bisecting_strategy = "biggest_inertia",
             max_iter = 300,
             tol = 1e-4,
         )
@@ -1782,8 +1137,8 @@ class BisectingKMeans(KMeans, Tree):
     .. ipython:: python
         :okwarning:
 
-        model.between_cluster_ss_
-        model.total_within_cluster_ss_
+        model.between_clusters_ss_
+        model.total_within_clusters_ss_
         model.total_ss_
 
     You also have access to the sum of squares of each cluster.
@@ -1928,7 +1283,9 @@ class BisectingKMeans(KMeans, Tree):
     .. ipython:: python
         :okwarning:
 
-        model.set_params({'n_cluster': 5})Model Exporting
+        model.set_params({'n_clusters': 5})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -2019,9 +1376,9 @@ class BisectingKMeans(KMeans, Tree):
             "cluster_size_",
             "cluster_score_",
             "p_",
-            "between_cluster_ss_",
+            "between_clusters_ss_",
             "total_ss_",
-            "total_within_cluster_ss_",
+            "total_within_clusters_ss_",
             "elbow_score_",
             "cluster_i_ss_",
         ]
@@ -2047,27 +1404,34 @@ class BisectingKMeans(KMeans, Tree):
         self.cluster_size_ = counts
 
         # 4. Total Within-Cluster Sum of Squares
-        self.total_within_cluster_ss_ = self._model.inertia_
+        self.total_within_clusters_ss_ = self._model.inertia_
 
         # 5. Total Sum of Squares
         X_centered = self._X - self._X.mean(axis=0)
-        self.total_ss_ = np.sum(X_centered ** 2)
+        self.total_ss_ = np.sum(X_centered**2)
 
         # 6. Between-Cluster Sum of Squares
-        self.between_cluster_ss_ = self.total_ss_ - self.total_within_cluster_ss_
+        self.between_clusters_ss_ = self.total_ss_ - self.total_within_clusters_ss_
 
         # 7. Elbow Score
-        self.elbow_score_ = self.between_cluster_ss_ / self.total_ss_
+        self.elbow_score_ = self.between_clusters_ss_ / self.total_ss_
 
         # 8. Per-cluster Within-SS
-        self.cluster_i_ss_ = np.array([
-            np.sum((self._X[labels == i] - self._model.cluster_centers_[i]) ** 2)
-            if np.sum(labels == i) > 0 else 0.0
-            for i in range(n_clusters)
-        ])
+        self.cluster_i_ss_ = np.array(
+            [
+                (
+                    np.sum(
+                        (self._X[labels == i] - self._model.cluster_centers_[i]) ** 2
+                    )
+                    if np.sum(labels == i) > 0
+                    else 0.0
+                )
+                for i in range(n_clusters)
+            ]
+        )
 
         # 9. Cluster scores (ratio)
-        self.cluster_score_ = self.cluster_i_ss_ / self.total_within_cluster_ss_
+        self.cluster_score_ = self.cluster_i_ss_ / self.total_within_clusters_ss_
 
         # 10. Distance metric
         self.p_ = 2
@@ -2152,12 +1516,9 @@ class BisectingKMeans(KMeans, Tree):
             :okwarning:
 
             model = BisectingKMeans(
-                n_cluster = 8,
-                bisection_iterations = 1,
-                split_method = 'sum_squares',
-                min_divisible_cluster_size = 2,
-                distance_method = "euclidean",
-                init = "kmeanspp",
+                n_clusters = 8,
+                algorithm = 'lloyd',
+                bisecting_strategy = "biggest_inertia",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -2272,12 +1633,9 @@ class BisectingKMeans(KMeans, Tree):
             :okwarning:
 
             model = BisectingKMeans(
-                n_cluster = 8,
-                bisection_iterations = 1,
-                split_method = 'sum_squares',
-                min_divisible_cluster_size = 2,
-                distance_method = "euclidean",
-                init = "kmeanspp",
+                n_clusters = 8,
+                algorithm = 'lloyd',
+                bisecting_strategy = "biggest_inertia",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -2367,12 +1725,9 @@ class BisectingKMeans(KMeans, Tree):
             :okwarning:
 
             model = BisectingKMeans(
-                n_cluster = 8,
-                bisection_iterations = 1,
-                split_method = 'sum_squares',
-                min_divisible_cluster_size = 2,
-                distance_method = "euclidean",
-                init = "kmeanspp",
+                n_clusters = 8,
+                algorithm = 'lloyd',
+                bisecting_strategy = "biggest_inertia",
                 max_iter = 300,
                 tol = 1e-4,
             )
@@ -2479,7 +1834,7 @@ class DBSCAN(VASTModel):
     Many attributes are created
     during the fitting phase.
 
-    n_cluster_: int
+    n_clusters_: int
         Number of clusters.
     p_: int
         The ``p`` of the ``p``-distances.
@@ -2688,7 +2043,7 @@ class DBSCAN(VASTModel):
 
     @property
     def _attributes(self) -> list[str]:
-        return ["n_cluster_", "n_noise_", "p_"]
+        return ["n_clusters_", "n_noise_", "p_"]
 
     # System & Special Methods.
 
@@ -2751,7 +2106,7 @@ class DBSCAN(VASTModel):
         """
         try:
             _executeSQL(
-                query=f"SELECT dbscan_cluster FROM {self.model_name} LIMIT 0;",
+                query=f"SELECT dbscan_clusters FROM {self.model_name} LIMIT 0;",
                 title="Looking if the DBSCAN table exists.",
             )
             return drop(self.model_name, method="table")
@@ -2982,13 +2337,13 @@ class DBSCAN(VASTModel):
                 _executeSQL("COMMIT;", print_time_sql=False)
             finally:
                 os.remove(f"{name_dbscan_clusters}.csv")
-            self.n_cluster_ = i
+            self.n_clusters_ = i
             _executeSQL(
                 query=f"""
                     CREATE TABLE {self.model_name} AS 
                        SELECT /*+LABEL('learn.cluster.DBSCAN.fit')*/
                             {', '.join(self.X + self.key_columns)}, 
-                            COALESCE(cluster, -1) AS dbscan_cluster 
+                            COALESCE(cluster, -1) AS dbscan_clusters 
                        FROM v_temp_schema.{name_main} AS x 
                        LEFT JOIN v_temp_schema.{name_dbscan_clusters} AS y 
                        ON x.{index} = y.node_id""",
@@ -3000,7 +2355,7 @@ class DBSCAN(VASTModel):
                         /*+LABEL('learn.cluster.DBSCAN.fit')*/ 
                         COUNT(*) 
                     FROM {self.model_name} 
-                    WHERE dbscan_cluster = -1""",
+                    WHERE dbscan_clusters = -1""",
                 method="fetchfirstelem",
                 print_time_sql=False,
             )
@@ -3195,7 +2550,7 @@ class DBSCAN(VASTModel):
         """
         return VastFrame(self.model_name).scatter(
             columns=self.X,
-            by="dbscan_cluster",
+            by="dbscan_clusters",
             max_cardinality=100,
             max_nb_points=max_nb_points,
             chart=chart,

@@ -32,7 +32,6 @@ Multi-Timeseries Model (Beta)
    TimeSeriesByCategory.get_match_index
    TimeSeriesByCategory.get_params
    TimeSeriesByCategory.get_plotting_lib
-   TimeSeriesByCategory.get_VAST_attributes
    TimeSeriesByCategory.import_models
    TimeSeriesByCategory.plot
    TimeSeriesByCategory.predict
@@ -83,7 +82,6 @@ ARIMA
    ARIMA.get_match_index
    ARIMA.get_params
    ARIMA.get_plotting_lib
-   ARIMA.get_VAST_attributes
    ARIMA.import_models
    ARIMA.plot
    ARIMA.predict
@@ -133,7 +131,6 @@ ARMA
    ARMA.get_match_index
    ARMA.get_params
    ARMA.get_plotting_lib
-   ARMA.get_VAST_attributes
    ARMA.import_models
    ARMA.plot
    ARMA.predict
@@ -185,7 +182,6 @@ VAR
    VAR.get_match_index
    VAR.get_params
    VAR.get_plotting_lib
-   VAR.get_VAST_attributes
    VAR.import_models
    VAR.plot
    VAR.predict
@@ -236,7 +232,6 @@ AR
    AR.get_match_index
    AR.get_params
    AR.get_plotting_lib
-   AR.get_VAST_attributes
    AR.import_models
    AR.plot
    AR.predict
@@ -286,7 +281,6 @@ MA
    MA.get_match_index
    MA.get_params
    MA.get_plotting_lib
-   MA.get_VAST_attributes
    MA.import_models
    MA.plot
    MA.predict

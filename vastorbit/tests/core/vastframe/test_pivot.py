@@ -59,9 +59,7 @@ class TestPivot:
             aggfunc=aggr,
         )
 
-        vo_res = vo_pv.narrow(index, col_name=columns, val_name=values)[
-            columns
-        ].count()
+        vo_res = vo_pv.narrow(index, col_name=columns, val_name=values)[columns].count()
 
         py_res = pd.melt(
             py_pv, ignore_index=False, var_name=columns, value_name=values

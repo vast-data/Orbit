@@ -295,7 +295,7 @@ def het_breuschpagan(
         )
         R2 = model.score(metric="r2")
     except QueryError:
-        model.set_params({"solver": "bfgs"})
+        model.set_params({"solver": "lbfgs"})
         model.fit(
             vdf_copy,
             X,
@@ -556,7 +556,7 @@ def het_goldfeldquandt(
     try:
         mse0, mse1 = model_fit([vdf_0_half, vdf_1_half], X, y, model)
     except QueryError:
-        model.set_params({"solver": "bfgs"})
+        model.set_params({"solver": "lbfgs"})
         mse0, mse1 = model_fit([vdf_0_half, vdf_1_half], X, y, model)
     finally:
         model.drop()
@@ -853,7 +853,7 @@ def het_white(
         )
         R2 = model.score(metric="r2")
     except QueryError:
-        model.set_params({"solver": "bfgs"})
+        model.set_params({"solver": "lbfgs"})
         model.fit(
             vdf_white,
             variables_names,
@@ -1052,7 +1052,7 @@ def variance_inflation_factor(
             )
             R2 = model.score(metric="r2")
         except QueryError:
-            model.set_params({"solver": "bfgs"})
+            model.set_params({"solver": "lbfgs"})
             model.fit(
                 vdf,
                 X_r,

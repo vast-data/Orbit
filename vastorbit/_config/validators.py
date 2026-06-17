@@ -113,7 +113,9 @@ def in_validator(values: list) -> Callable[[Any], Literal[True]]:
         if isinstance(val, str) and val in values:
             return True
         else:
-            raise ValueError(f"The option must be in [{'|'.join([str(val) for val in values])}].")
+            raise ValueError(
+                f"The option must be in [{'|'.join([str(val) for val in values])}]."
+            )
 
     return in_list
 

@@ -40,7 +40,6 @@ Linear SVC
    LinearSVC.get_match_index
    LinearSVC.get_params
    LinearSVC.get_plotting_lib
-   LinearSVC.get_VAST_attributes
    LinearSVC.import_models
    LinearSVC.lift_chart
    LinearSVC.plot
@@ -95,7 +94,6 @@ Logistic Regression
    LogisticRegression.get_match_index
    LogisticRegression.get_params
    LogisticRegression.get_plotting_lib
-   LogisticRegression.get_VAST_attributes
    LogisticRegression.import_models
    LogisticRegression.lift_chart
    LogisticRegression.plot
@@ -156,7 +154,6 @@ Dummy Tree
    DummyTreeClassifier.get_params
    DummyTreeClassifier.get_plotting_lib
    DummyTreeClassifier.get_tree
-   DummyTreeClassifier.get_VAST_attributes
    DummyTreeClassifier.import_models
    DummyTreeClassifier.lift_chart
    DummyTreeClassifier.plot
@@ -215,7 +212,6 @@ Decision Tree
    DecisionTreeClassifier.get_params
    DecisionTreeClassifier.get_plotting_lib
    DecisionTreeClassifier.get_tree
-   DecisionTreeClassifier.get_VAST_attributes
    DecisionTreeClassifier.import_models
    DecisionTreeClassifier.lift_chart
    DecisionTreeClassifier.plot
@@ -273,7 +269,6 @@ Random Forest Classifier
    RandomForestClassifier.get_params
    RandomForestClassifier.get_plotting_lib
    RandomForestClassifier.get_tree
-   RandomForestClassifier.get_VAST_attributes
    RandomForestClassifier.import_models
    RandomForestClassifier.lift_chart
    RandomForestClassifier.plot
@@ -331,7 +326,6 @@ XGBoost Classifier
    XGBClassifier.get_params
    XGBClassifier.get_plotting_lib
    XGBClassifier.get_tree
-   XGBClassifier.get_VAST_attributes
    XGBClassifier.import_models
    XGBClassifier.lift_chart
    XGBClassifier.plot
@@ -393,7 +387,6 @@ Naive Bayes
    NaiveBayes.get_match_index
    NaiveBayes.get_params
    NaiveBayes.get_plotting_lib
-   NaiveBayes.get_VAST_attributes
    NaiveBayes.import_models
    NaiveBayes.lift_chart
    NaiveBayes.prc_curve
@@ -450,7 +443,6 @@ K-Nearest Neighbors Classifier (Beta)
    KNeighborsClassifier.get_match_index
    KNeighborsClassifier.get_params
    KNeighborsClassifier.get_plotting_lib
-   KNeighborsClassifier.get_VAST_attributes
    KNeighborsClassifier.import_models
    KNeighborsClassifier.lift_chart
    KNeighborsClassifier.prc_curve
@@ -504,7 +496,6 @@ Nearest Centroid (Beta)
    NearestCentroid.get_match_index
    NearestCentroid.get_params
    NearestCentroid.get_plotting_lib
-   NearestCentroid.get_VAST_attributes
    NearestCentroid.import_models
    NearestCentroid.lift_chart
    NearestCentroid.prc_curve

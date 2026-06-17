@@ -41,42 +41,6 @@ if conf.get_import_success("graphviz"):
 if TYPE_CHECKING:
     from vastorbit.core.vastframe.base import VastFrame
 
-SPECIAL_WORDS = (
-    # ML Algos
-    "ARIMA",
-    "AUTOREGRESSOR",
-    "BALANCE",
-    "BISECTING_KMEANS",
-    "CROSS_VALIDATE",
-    "DETECT_OUTLIERS",
-    "IFOREST",
-    "IMPUTE",
-    "KMEANS",
-    "KPROTOTYPES",
-    "LINEAR_REG",
-    "LOGISTIC_REG",
-    "MOVING_AVERAGE",
-    "NAIVE_BAYES",
-    "NORMALIZE",
-    "NORMALIZE_FIT",
-    "ONE_HOT_ENCODER_FIT",
-    "PCA",
-    "POISSON_REG",
-    "RF_CLASSIFIER",
-    "RF_REGRESSOR",
-    "SVD",
-    "SVM_CLASSIFIER",
-    "SVM_REGRESSOR",
-    "XGB_CLASSIFIER",
-    "XGB_REGRESSOR",
-    # ML Management
-    "CHANGE_MODEL_STATUS",
-    "EXPORT_MODELS",
-    "IMPORT_MODELS",
-    "REGISTER_MODEL",
-    "UPGRADE_MODEL",
-)
-
 
 @save_vastorbit_logs
 @needs_local_scope
@@ -973,20 +937,20 @@ def sql_magic(
                     _executeSQL(query, method="cursor", print_time_sql=False)
                     query = query[8:]
                 is_vdf = False
-                if not (query_subtype.upper().startswith(SPECIAL_WORDS)):
-                    try:
-                        result = create_new_vdf(
-                            query,
-                            _is_sql_magic=1,
-                        )
-                        # Display parameters
-                        if "-nrows" in options:
-                            result._vars["max_rows"] = options["-nrows"]
-                        if "-ncols" in options:
-                            result._vars["max_columns"] = options["-ncols"]
-                        is_vdf = True
-                    except:
-                        pass  # we could not create a VastFrame out of the query.
+
+                try:
+                    result = create_new_vdf(
+                        query,
+                        _is_sql_magic=1,
+                    )
+                    # Display parameters
+                    if "-nrows" in options:
+                        result._vars["max_rows"] = options["-nrows"]
+                    if "-ncols" in options:
+                        result._vars["max_columns"] = options["-ncols"]
+                    is_vdf = True
+                except:
+                    pass  # we could not create a VastFrame out of the query.
 
                 if not (is_vdf):
                     try:
@@ -995,8 +959,6 @@ def sql_magic(
                         )
                         if final_result:
                             print_message(final_result)
-                        elif query_subtype.upper().startswith(SPECIAL_WORDS):
-                            print_message(query_subtype.upper())
                         else:
                             print_message(query_type)
 

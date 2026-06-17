@@ -925,7 +925,7 @@ def grid_search_cv(
             {
                 "tol": [1e-2, 1e-4, 1e-6],
                 "max_iter": [3, 10, 100],
-                "solver": ["Newton", "BFGS"]
+                "solver": ["newton-cg", "lbfgs"]
             },
             input_relation = data,
             X = [
@@ -952,7 +952,7 @@ def grid_search_cv(
             {
                 "tol": [1e-2, 1e-4, 1e-6],
                 "max_iter": [3, 10, 100],
-                "solver": ["Newton", "BFGS"]
+                "solver": ["newton-cg", "lbfgs"]
             },
             input_relation = data,
             X = [
@@ -2256,9 +2256,7 @@ def enet_search_cv(
     X = format_type(X, dtype=list)
     param_grid = parameter_grid(
         {
-            "solver": ["cgd"],
-            "penalty": ["enet"],
-            "C": (
+            "alpha": (
                 [1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1.0, 5.0, 10.0, 50.0, 100.0]
                 if "small" not in kwargs
                 else [1e-1, 1.0, 10.0]

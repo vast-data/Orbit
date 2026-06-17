@@ -37,7 +37,6 @@ PCA
    PCA.get_match_index
    PCA.get_params
    PCA.get_plotting_lib
-   PCA.get_VAST_attributes
    PCA.import_models
    PCA.inverse_transform
    PCA.plot
@@ -86,7 +85,6 @@ SVD
    SVD.get_match_index
    SVD.get_params
    SVD.get_plotting_lib
-   SVD.get_VAST_attributes
    SVD.import_models
    SVD.inverse_transform
    SVD.plot
@@ -135,7 +133,6 @@ MCA (Beta)
    MCA.get_match_index
    MCA.get_params
    MCA.get_plotting_lib
-   MCA.get_VAST_attributes
    MCA.import_models
    MCA.inverse_transform
    MCA.plot
@@ -191,7 +188,6 @@ One-Hot Encoder
    OneHotEncoder.get_match_index
    OneHotEncoder.get_params
    OneHotEncoder.get_plotting_lib
-   OneHotEncoder.get_VAST_attributes
    OneHotEncoder.import_models
    OneHotEncoder.inverse_transform
    OneHotEncoder.set_params
@@ -239,7 +235,6 @@ Scaler
    Scaler.get_match_index
    Scaler.get_params
    Scaler.get_plotting_lib
-   Scaler.get_VAST_attributes
    Scaler.import_models
    Scaler.inverse_transform
    Scaler.set_params
@@ -284,7 +279,6 @@ Standard Scaler
    StandardScaler.get_match_index
    StandardScaler.get_params
    StandardScaler.get_plotting_lib
-   StandardScaler.get_VAST_attributes
    StandardScaler.import_models
    StandardScaler.inverse_transform
    StandardScaler.set_params
@@ -330,7 +324,6 @@ Min Max Scaler
    MinMaxScaler.get_match_index
    MinMaxScaler.get_params
    MinMaxScaler.get_plotting_lib
-   MinMaxScaler.get_VAST_attributes
    MinMaxScaler.import_models
    MinMaxScaler.inverse_transform
    MinMaxScaler.set_params
@@ -375,7 +368,6 @@ Robust Scaler
    RobustScaler.get_match_index
    RobustScaler.get_params
    RobustScaler.get_plotting_lib
-   RobustScaler.get_VAST_attributes
    RobustScaler.import_models
    RobustScaler.inverse_transform
    RobustScaler.set_params

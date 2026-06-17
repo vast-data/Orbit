@@ -355,9 +355,7 @@ class TestClassificationMetrics:
                         ),
                     )
                 # rounding as best_cutoff metrics value precisions are upto 2/3 decimals
-                _vo_res = (
-                    round(_vo_res, 2) if metric_name == "best_cutoff" else _vo_res
-                )
+                _vo_res = round(_vo_res, 2) if metric_name == "best_cutoff" else _vo_res
             elif metric_name in ["classification_report"]:
                 vo_report = getattr(vo_metrics, metric_name)(
                     "y_true_num",

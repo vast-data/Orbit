@@ -36,9 +36,7 @@ class TestCluster:
         )
 
         assert (
-            isinstance(vo_res, str)
-            if return_report
-            else isinstance(vo_res, type(None))
+            isinstance(vo_res, str) if return_report else isinstance(vo_res, type(None))
         )
 
     def test_plot_voronoi(self, model_class, get_vo_model, get_py_model):

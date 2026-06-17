@@ -601,7 +601,6 @@ class vDFJoinUnionSort(vDFMath):
                 raise ValueError(
                     f"Incorrect operator: '{op}'.\n"
                     f"Supported operators: {', '.join(all_operators)}.\n"
-                    f"Note: 'jaro', 'jarow', 'linterpolate', 'rinterpolate' are not supported in Trino."
                 )
             if op in ("=", ">", ">=", "<", "<="):
                 on_join += [f"x.{key1} {op} y.{key2}"]

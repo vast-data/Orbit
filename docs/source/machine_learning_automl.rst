@@ -35,7 +35,6 @@ AutoML
    AutoML.get_match_index
    AutoML.get_params
    AutoML.get_plotting_lib
-   AutoML.get_VAST_attributes
    AutoML.import_models
    AutoML.plot
    AutoML.set_params
@@ -83,7 +82,6 @@ AutoClustering
    AutoClustering.get_match_index
    AutoClustering.get_params
    AutoClustering.get_plotting_lib
-   AutoClustering.get_VAST_attributes
    AutoClustering.import_models
    AutoClustering.set_params
    AutoClustering.summarize
@@ -129,7 +127,6 @@ AutoDataPrep
    AutoDataPrep.get_match_index
    AutoDataPrep.get_params
    AutoDataPrep.get_plotting_lib
-   AutoDataPrep.get_VAST_attributes
    AutoDataPrep.import_models
    AutoDataPrep.set_params
    AutoDataPrep.summarize

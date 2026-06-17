@@ -247,7 +247,7 @@ def dayofweek(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"DAYOFWEEK({expr})", "float")
+    return StringSQL(f"DAY_OF_WEEK({expr})", "int")
 
 
 def dayofyear(expr: SQLExpression) -> StringSQL:
@@ -329,7 +329,7 @@ def dayofyear(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"DAYOFYEAR({expr})", "float")
+    return StringSQL(f"DAY_OF_YEAR({expr})", "float")
 
 
 def extract(expr: SQLExpression, field: str) -> StringSQL:
@@ -413,7 +413,7 @@ def extract(expr: SQLExpression, field: str) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"DATE_PART('{field}', {expr})", "int")
+    return StringSQL(f"EXTRACT({field.upper()} FROM {expr})", "int")
 
 
 def getdate() -> StringSQL:
@@ -480,7 +480,7 @@ def getdate() -> StringSQL:
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL("GETDATE()", "date")
+    return StringSQL("current_timestamp", "timestamp")
 
 
 def getutcdate() -> StringSQL:
@@ -547,7 +547,7 @@ def getutcdate() -> StringSQL:
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL("GETUTCDATE()", "date")
+    return StringSQL("current_timestamp AT TIME ZONE 'UTC'", "date")
 
 
 def hour(expr: SQLExpression) -> StringSQL:
@@ -865,7 +865,7 @@ def microsecond(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"MICROSECOND({expr})", "int")
+    return StringSQL(f"CAST(DATE_FORMAT({expr}, '%f') AS INTEGER)", "int")
 
 
 def month(expr: SQLExpression) -> StringSQL:
@@ -1420,7 +1420,7 @@ def timestamp(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"({expr})::timestamp", "date")
+    return StringSQL(f"CAST(({expr}) AS TIMESTAMP)", "date")
 
 
 def week(expr: SQLExpression) -> StringSQL:

@@ -14,7 +14,6 @@ from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import quote_ident
 from vastorbit._utils._sql._sys import _executeSQL
 from vastorbit._utils._sql._vast_version import (
-    check_minimum_version,
     vast_version,
 )
 from vastorbit.errors import VersionError
@@ -147,9 +146,6 @@ class LinearModel:
         .. code-block::
 
             model = LinearRegression(
-                tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -158,9 +154,6 @@ class LinearModel:
 
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
-                tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -341,9 +334,6 @@ class LinearModel:
         .. code-block::
 
             model = LinearRegression(
-                tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -352,9 +342,6 @@ class LinearModel:
 
             from vastorbit.machine_learning.vast import LinearRegression
             model = LinearRegression(
-                tol = 1e-6,
-                max_iter = 100,
-                solver = 'newton',
                 fit_intercept = True,
             )
 
@@ -536,7 +523,7 @@ class LinearModelClassifier(LinearModel):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'newton',
+                solver = 'newton-cg',
                 fit_intercept = True,
             )
 
@@ -547,7 +534,7 @@ class LinearModelClassifier(LinearModel):
             model = LogisticRegression(
                 tol = 1e-6,
                 max_iter = 100,
-                solver = 'newton',
+                solver = 'newton-cg',
                 fit_intercept = True,
             )
 
@@ -653,12 +640,6 @@ class ElasticNet(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -767,9 +748,8 @@ class ElasticNet(LinearModel, Regressor):
 
         model = ElasticNet(
             tol = 1e-6,
-            C = 1,
+            alpha = 1,
             max_iter = 100,
-            solver = 'CGD',
             l1_ratio = 0.5,
             fit_intercept = True,
         )
@@ -795,9 +775,8 @@ class ElasticNet(LinearModel, Regressor):
         from vastorbit.machine_learning.vast import ElasticNet
         model = ElasticNet(
             tol = 1e-6,
-            C = 1,
+            alpha = 1,
             max_iter = 100,
-            solver = 'CGD',
             l1_ratio = 0.5,
             fit_intercept = True,
         )
@@ -973,7 +952,9 @@ class ElasticNet(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -1048,7 +1029,6 @@ class ElasticNet(LinearModel, Regressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs
@@ -1105,12 +1085,6 @@ class Lasso(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -1219,9 +1193,8 @@ class Lasso(LinearModel, Regressor):
 
         model = Lasso(
             tol = 1e-6,
-            C = 0.5,
+            alpha = 0.5,
             max_iter = 100,
-            solver = 'CGD',
         )
 
     .. hint::
@@ -1245,9 +1218,8 @@ class Lasso(LinearModel, Regressor):
         from vastorbit.machine_learning.vast import Lasso
         model = Lasso(
             tol = 1e-6,
-            C = 0.5,
+            alpha = 0.5,
             max_iter = 100,
-            solver = 'CGD',
         )
 
     Model Training
@@ -1442,7 +1414,9 @@ class Lasso(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -1517,7 +1491,6 @@ class Lasso(LinearModel, Regressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs
@@ -1573,12 +1546,6 @@ class LinearRegression(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -1686,9 +1653,6 @@ class LinearRegression(LinearModel, Regressor):
     .. code-block::
 
         model = LinearRegression(
-            tol = 1e-6,
-            max_iter = 100,
-            solver = 'newton',
             fit_intercept = True,
         )
 
@@ -1712,9 +1676,6 @@ class LinearRegression(LinearModel, Regressor):
 
         from vastorbit.machine_learning.vast import LinearRegression
         model = LinearRegression(
-            tol = 1e-6,
-            max_iter = 100,
-            solver = 'newton',
             fit_intercept = True,
         )
 
@@ -1934,7 +1895,9 @@ class LinearRegression(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -2008,7 +1971,6 @@ class LinearRegression(LinearModel, Regressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs
@@ -2065,12 +2027,6 @@ class PLSRegression(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -2371,7 +2327,9 @@ class PLSRegression(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'scale': True})Model Exporting
+        model.set_params({'scale': True})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -2446,7 +2404,6 @@ class PLSRegression(LinearModel, Regressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs
@@ -2503,12 +2460,6 @@ class PoissonRegressor(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -2617,8 +2568,7 @@ class PoissonRegressor(LinearModel, Regressor):
 
         model = PoissonRegressor(
             tol = 1e-6,
-            penalty = 'L2',
-            C = 1,
+            alpha = 1,
             max_iter = 100,
             fit_intercept = True,
         )
@@ -2644,8 +2594,7 @@ class PoissonRegressor(LinearModel, Regressor):
         from vastorbit.machine_learning.vast import PoissonRegressor
         model = PoissonRegressor(
             tol = 1e-6,
-            penalty = 'L2',
-            C = 1,
+            alpha = 1,
             max_iter = 100,
             fit_intercept = True,
         )
@@ -2821,7 +2770,9 @@ class PoissonRegressor(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -2896,7 +2847,6 @@ class PoissonRegressor(LinearModel, Regressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs
@@ -2953,12 +2903,6 @@ class Ridge(LinearModel, Regressor):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -3067,9 +3011,9 @@ class Ridge(LinearModel, Regressor):
 
         model = Ridge(
             tol = 1e-6,
-            C = 0.5,
+            alpha = 0.5,
             max_iter = 100,
-            solver = 'newton',
+            solver = 'cholesky',
         )
 
     .. hint::
@@ -3093,9 +3037,9 @@ class Ridge(LinearModel, Regressor):
         from vastorbit.machine_learning.vast import Ridge
         model = Ridge(
             tol = 1e-6,
-            C = 0.5,
+            alpha = 0.5,
             max_iter = 100,
-            solver = 'newton',
+            solver = 'cholesky',
         )
 
     Model Training
@@ -3314,7 +3258,9 @@ class Ridge(LinearModel, Regressor):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -3389,7 +3335,6 @@ class Ridge(LinearModel, Regressor):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs
@@ -3452,12 +3397,6 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
 
         All attributes can be accessed using the
         :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_attributes`
-        method.
-
-    .. note::
-
-        Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.linear_model.LinearModel.get_VAST_attributes`
         method.
 
     Examples
@@ -3639,7 +3578,7 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
         model = LogisticRegression(
             tol = 1e-6,
             max_iter = 100,
-            solver = 'newton',
+            solver = 'newton-cg',
             fit_intercept = True,
         )
 
@@ -3665,7 +3604,7 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
         model = LogisticRegression(
             tol = 1e-6,
             max_iter = 100,
-            solver = 'newton',
+            solver = 'newton-cg',
             fit_intercept = True,
         )
 
@@ -4013,7 +3952,9 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
 
     .. ipython:: python
 
-        model.set_params({'tol': 0.001})Model Exporting
+        model.set_params({'tol': 0.001})
+
+    Model Exporting
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -4088,7 +4029,6 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self, name: str = None, overwrite_model: bool = False, **kwargs

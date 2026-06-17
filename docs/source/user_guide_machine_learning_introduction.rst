@@ -106,7 +106,7 @@ These algorithms are to used to segment the data (:py:mod:`~vastorbit.machine_le
 
     from vastorbit.machine_learning.vast import KMeans
 
-    model = KMeans(n_cluster = 3)
+    model = KMeans(n_clusters = 3)
     model.fit(iris, ["PetalLengthCm", "SepalLengthCm"])
     model.plot()
 
@@ -116,7 +116,7 @@ These algorithms are to used to segment the data (:py:mod:`~vastorbit.machine_le
 
     from vastorbit.machine_learning.vast import KMeans
 
-    model = KMeans(n_cluster = 3)
+    model = KMeans(n_clusters = 3)
     model.fit(iris, ["PetalLengthCm", "SepalLengthCm"])
     fig = model.plot()
     fig.write_html("SPHINX_DIRECTORY/figures/ug_ml_plot_introduction_3.html")

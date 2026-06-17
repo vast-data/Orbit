@@ -2300,7 +2300,7 @@ class StepwisePlot:
             name=f"{schema_loader}.test_LR_titanic",
             tol=1e-4,
             max_iter=100,
-            solver="newton",
+            solver="lbfgs",
         )
         stepwise_result = stepwise(
             model,
@@ -2360,7 +2360,7 @@ class StepwisePlot:
         custom_height = 60
         custom_width = 70
         model = LogisticRegression(
-            name="test_LR_titanic", tol=1e-4, max_iter=100, solver="newton"
+            name="test_LR_titanic", tol=1e-4, max_iter=100, solver="lbfgs"
         )
         # Act
         stepwise_result = stepwise(

@@ -60,7 +60,10 @@ Let's ingest the datasets.
 
     import vastorbit.sql.functions as fun
 
-    combats = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/fights.csv")
+    try:
+        combats = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/fights.csv")
+    except:
+        combats = vo.VastFrame("fights")
     res = combats.head(5)
     html_file = open("SPHINX_DIRECTORY/figures/examples_combats_table.html", "w")
     html_file.write(res._repr_html_())
@@ -77,7 +80,10 @@ Let's ingest the datasets.
 .. ipython:: python
     :suppress:
 
-    pokemon = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/pokemons.csv")
+    try:
+        pokemon = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/pokemons.csv")
+    except:
+        pokemon = vo.VastFrame("pokemons")
     res = pokemon.head(5)
     html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_2.html", "w")
     html_file.write(res._repr_html_())

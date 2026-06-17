@@ -452,10 +452,10 @@ def load_market(schema: Optional[str] = None, name: str = "market") -> VastFrame
         :suppress:
 
         from vastorbit.datasets import load_market
-        
-        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_market", "w")
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_market.html", "w")
         html_file.write(
-            load_winequality()._repr_html_()
+            load_market()._repr_html_()
         )
         html_file.close()
 
@@ -508,10 +508,10 @@ def load_iris(schema: Optional[str] = None, name: str = "iris") -> VastFrame:
         :suppress:
 
         from vastorbit.datasets import load_iris
-        
-        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_iris", "w")
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_iris.html", "w")
         html_file.write(
-            load_winequality()._repr_html_()
+            load_iris()._repr_html_()
         )
         html_file.close()
 
@@ -573,10 +573,10 @@ def load_titanic(schema: Optional[str] = None, name: str = "titanic") -> VastFra
         :suppress:
 
         from vastorbit.datasets import load_titanic
-        
-        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic", "w")
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html", "w")
         html_file.write(
-            load_winequality()._repr_html_()
+            load_titanic()._repr_html_()
         )
         html_file.close()
 
@@ -615,19 +615,19 @@ def load_africa_education(
     This dataset is ideal for testing geospatial functions.
     If a table with the same name and schema already exists,
     this function creates a VastFrame from the input relation.
-    
+
     Parameters
     ----------
     schema : str, optional
         Schema of the new relation. If empty, the temporary schema is used.
     name : str, optional
         Name of the new relation.
-    
+
     Returns
     -------
     VastFrame
         The Africa Education VastFrame.
-    
+
     Examples
     --------
     .. code-block:: python
@@ -640,8 +640,8 @@ def load_africa_education(
         :suppress:
 
         from vastorbit.datasets import load_africa_education
-        
-        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_africa_education", "w")
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_africa_education.html", "w")
         html_file.write(
             load_winequality()._repr_html_()
         )
@@ -757,8 +757,8 @@ def load_winequality(
         :suppress:
 
         from vastorbit.datasets import load_winequality
-        
-        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality", "w")
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html", "w")
         html_file.write(
             load_winequality()._repr_html_()
         )
@@ -830,8 +830,8 @@ def load_airline_passengers(
         :suppress:
 
         from vastorbit.datasets import load_airline_passengers
-        
-        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_airline_passengers", "w")
+
+        html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_airline_passengers.html", "w")
         html_file.write(
             load_airline_passengers()._repr_html_()
         )
@@ -881,7 +881,7 @@ def load_amazon(schema: Optional[str] = None, name: str = "amazon") -> VastFrame
         :suppress:
 
         from vastorbit.datasets import load_amazon
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_amazon.html", "w")
         html_file.write(
             load_amazon()._repr_html_()
@@ -934,7 +934,7 @@ def load_commodities(
         :suppress:
 
         from vastorbit.datasets import load_commodities
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_commodities.html", "w")
         html_file.write(
             load_commodities()._repr_html_()
@@ -993,7 +993,7 @@ def load_gapminder(schema: Optional[str] = None, name: str = "gapminder") -> Vas
         :suppress:
 
         from vastorbit.datasets import load_gapminder
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_gapminder.html", "w")
         html_file.write(
             load_gapminder()._repr_html_()
@@ -1053,7 +1053,7 @@ def load_pop_growth(
         :suppress:
 
         from vastorbit.datasets import load_pop_growth
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_pop_growth.html", "w")
         html_file.write(
             load_pop_growth()._repr_html_()
@@ -1114,7 +1114,7 @@ def load_smart_meters(
         :suppress:
 
         from vastorbit.datasets import load_smart_meters
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_smart_meters.html", "w")
         html_file.write(
             load_smart_meters()._repr_html_()
@@ -1172,7 +1172,7 @@ def load_cities(schema: Optional[str] = None, name: str = "cities") -> VastFrame
         :suppress:
 
         from vastorbit.datasets import load_cities
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_cities.html", "w")
         html_file.write(
             load_cities()._repr_html_()
@@ -1293,7 +1293,7 @@ def load_laliga(schema: Optional[str] = None, name: str = "laliga") -> VastFrame
         :suppress:
 
         from vastorbit.datasets import load_laliga
-        
+
         html_file = open("SPHINX_DIRECTORY/figures/datasets_loaders_load_laliga.html", "w")
         html_file.write(
             load_laliga()._repr_html_()

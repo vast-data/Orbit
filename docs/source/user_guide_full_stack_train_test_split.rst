@@ -6,68 +6,7 @@ Train Test Split
 
 Before you test a supervised model, you'll need separate, non-overlapping sets for training and testing.
 
-In vastorbit, the :py:func:`~vastorbit.VastFrame.train_test_split` method uses a random number generator to decide how to split the data.
-
-.. code-block:: ipython
-
-    %load_ext vastorbit.sql
-
-.. code-block:: ipython
-    
-    %sql -c "SELECT SEEDED_RANDOM(0);"
-
-.. ipython:: python
-    :suppress:
-    :okwarning:
-
-    import vastorbit as vo
-    res = vo.VastFrame("SELECT SEEDED_RANDOM(0);")
-    html_file = open("SPHINX_DIRECTORY/figures/ug_fs_table_tts_1.html", "w")
-    html_file.write(res._repr_html_())
-    html_file.close()
-
-.. raw:: html
-    :file: SPHINX_DIRECTORY/figures/ug_fs_table_tts_1.html
-
-The ``SEEDED_RANDOM`` function chooses a number in the interval ``[0,1)``. Since the seed is user-provided, these results are reproducible. In this example, passing ``0`` as the seed always returns the same value.
-
-.. code-block:: ipython
-    
-    %sql -c "SELECT SEEDED_RANDOM(0);"
-
-.. ipython:: python
-    :suppress:
-    :okwarning:
-
-    import vastorbit as vo
-    res = vo.VastFrame("SELECT SEEDED_RANDOM(0);")
-    html_file = open("SPHINX_DIRECTORY/figures/ug_fs_table_tts_2.html", "w")
-    html_file.write(res._repr_html_())
-    html_file.close()
-
-.. raw:: html
-    :file: SPHINX_DIRECTORY/figures/ug_fs_table_tts_2.html
-
-A different seed will generate a different value.
-
-.. code-block:: ipython
-    
-    %%sql -c "SELECT SEEDED_RANDOM(1);"
-
-.. ipython:: python
-    :suppress:
-    :okwarning:
-
-    import vastorbit as vo
-    res = vo.VastFrame("SELECT SEEDED_RANDOM(1);")
-    html_file = open("SPHINX_DIRECTORY/figures/ug_fs_table_tts_3.html", "w")
-    html_file.write(res._repr_html_())
-    html_file.close()
-
-.. raw:: html
-    :file: SPHINX_DIRECTORY/figures/ug_fs_table_tts_3.html
-
-The :py:func:`~vastorbit.VastFrame.train_test_split` function generates a random seed and we can then share that seed between the training and testing sets.
+In vastorbit, the :py:func:`~vastorbit.VastFrame.train_test_split` method uses a random number generator to assign each row to either the training or the testing set, ensuring that the two sets never overlap.
 
 .. ipython:: python
 
@@ -88,13 +27,13 @@ The :py:func:`~vastorbit.VastFrame.train_test_split` function generates a random
 
     test.shape()
 
-Note that ``SEEDED_RANDOM`` depends on the order of your data. That is, if your data isn't sorted by a unique feature, the selected data might be inconsistent. To avoid this, we'll want to use the ``order_by`` parameter.
+Because the split is driven by a random assignment, it depends on the order in which the rows are processed. If your data isn't sorted by a unique (or near-unique) feature, the same row could end up in a different set from one run to the next. To make the split consistent and reproducible, pass the ``order_by`` parameter so the rows are processed in a deterministic order.
 
 .. ipython:: python
 
     train, test = titanic.train_test_split(order_by = {"fare": "asc"})
 
-Even if the ``fare`` has duplicates, ordering the data alone will drastically decrease the likelihood of a collision.
+Even if ``fare`` has duplicates, ordering the data this way drastically decreases the likelihood of a collision.
 
 Let's create a model and evaluate it.
 
@@ -116,7 +55,7 @@ When fitting the model with the :py:func:`~vastorbit.machine_learning.vast.Linea
     )
 
 .. code-block:: ipython
-    
+
     model.report()
 
 .. ipython:: python

@@ -5,6 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 from abc import abstractmethod
 from typing import Literal, Optional
 import numpy as np
+import sklearn
 
 from vastorbit.connection.errors import QueryError
 
@@ -18,7 +19,6 @@ from vastorbit._utils._sql._format import (
     schema_relation,
 )
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import check_minimum_version
 
 
 from vastorbit.core.tablesample.base import TableSample
@@ -34,7 +34,6 @@ General Functions.
 """
 
 
-@check_minimum_version
 @save_vastorbit_logs
 def balance(
     name: str,
@@ -169,7 +168,7 @@ def balance(
             y = "survived",
             method = "under",
         )
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_balance.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_preprocessing_balance.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -183,21 +182,79 @@ def balance(
         )
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_balance.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_preprocessing_balance.html
 
     .. seealso::
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.sample` : Sampling the dataset.
     """
+    method = str(method).lower()
+    if method not in ("hybrid", "over", "under"):
+        raise ValueError(
+            "Parameter 'method' must be one of 'hybrid', 'over' or 'under'."
+        )
+    ratio = float(ratio)
+    if method != "hybrid" and ratio <= 0:
+        raise ValueError("Parameter 'ratio' must be strictly positive.")
+
+    vdf = (
+        input_relation
+        if isinstance(input_relation, VastFrame)
+        else VastFrame(input_relation)
+    )
+    columns = vdf.get_columns()
+    y_q = quote_ident(y)
+    cols_csv = ", ".join(columns)
+    cols_src = ", ".join([f"_src.{col}" for col in columns])
+    rel = f"(SELECT {cols_csv} FROM {vdf})"
+
+    if method == "under":
+        target_expr = (
+            f"LEAST(c._cnt, CAST(ROUND(CAST(s._mn AS double) / {ratio}) AS bigint))"
+        )
+    elif method == "over":
+        target_expr = (
+            f"GREATEST(c._cnt, CAST(ROUND(CAST(s._mx AS double) * {ratio}) AS bigint))"
+        )
+    else:  # hybrid
+        target_expr = "s._av"
+
+    query = f"""
+        CREATE TABLE {name} AS
+        WITH _counts AS (
+            SELECT {y_q} AS _cls, COUNT(*) AS _cnt
+            FROM {rel} _c
+            GROUP BY {y_q}
+        ),
+        _stats AS (
+            SELECT
+                MIN(_cnt) AS _mn,
+                MAX(_cnt) AS _mx,
+                CAST(ROUND(AVG(CAST(_cnt AS double))) AS bigint) AS _av
+            FROM _counts
+        ),
+        _target AS (
+            SELECT c._cls, c._cnt, {target_expr} AS _tgt
+            FROM _counts c CROSS JOIN _stats s
+        ),
+        _expanded AS (
+            SELECT {cols_src}, t._tgt AS _tgt, random() AS _rand
+            FROM {rel} _src
+            JOIN _target t ON _src.{y_q} = t._cls
+            CROSS JOIN UNNEST(
+                sequence(1, CAST(CEIL(CAST(t._tgt AS double) / t._cnt) AS bigint))
+            ) AS u(_r)
+        ),
+        _ranked AS (
+            SELECT {cols_csv}, _tgt,
+                   ROW_NUMBER() OVER (PARTITION BY {y_q} ORDER BY _rand) AS _rn
+            FROM _expanded
+        )
+        SELECT {cols_csv}
+        FROM _ranked
+        WHERE _rn <= _tgt
+    """
     _executeSQL(
-        query=f"""
-            SELECT 
-                /*+LABEL('learn.preprocessing.balance')*/ 
-                BALANCE('{name}', 
-                        '{input_relation}', 
-                        '{y}', 
-                        '{method}_sampling' 
-                        USING PARAMETERS 
-                        sampling_ratio = {ratio})""",
+        query=query,
         title="Computing the Balanced Relation.",
     )
     return VastFrame(name)
@@ -213,13 +270,13 @@ class Preprocessing(Unsupervised):
 
     @property
     @abstractmethod
-    def _VAST_transform_sql(self) -> str:
+    def _transform_sql(self) -> str:
         """Must be overridden in child class"""
         raise NotImplementedError
 
     @property
     @abstractmethod
-    def _VAST_inverse_transform_sql(self) -> str:
+    def _inverse_transform_sql(self) -> str:
         """Must be overridden in child class"""
         raise NotImplementedError
 
@@ -385,40 +442,23 @@ class Preprocessing(Unsupervised):
         )
         X = format_type(X, dtype=list, na_out=self.X)
         X = quote_ident(X)
-        if key_columns:
-            key_columns = ", ".join(quote_ident(key_columns))
-        if exclude_columns:
-            exclude_columns = ", ".join(quote_ident(exclude_columns))
-        sql = f"""
-            {self._VAST_transform_sql}({', '.join(X)} 
-               USING PARAMETERS 
-               model_name = '{self.model_name}',
-               match_by_pos = 'true'"""
-        if key_columns:
-            sql += f", key_columns = '{key_columns}'"
-        if exclude_columns:
-            sql += f", exclude_columns = '{exclude_columns}'"
-        if self._model_type == "OneHotEncoder":
-            if isinstance(self.parameters["separator"], NoneType):
-                separator = "null"
+        exclude = set(quote_ident(exclude_columns)) if exclude_columns else set()
+        model_X = quote_ident(self.X)
+
+        transform = self.to_memmodel().transform_sql(model_X)
+        flat = []
+        for expr in transform:
+            if isinstance(expr, (list, tuple)):
+                flat.extend(expr)
             else:
-                separator = self.parameters["separator"].lower()
-            sql += f""", 
-                drop_first = '{str(self.parameters['drop_first']).lower()}',
-                ignore_null = '{str(self.parameters['ignore_null']).lower()}',
-                separator = '{separator}',
-                column_naming = '{self.parameters['column_naming']}'"""
-            if self.parameters["column_naming"].lower() in (
-                "values",
-                "values_relaxed",
-            ):
-                if isinstance(self.parameters["null_column_name"], NoneType):
-                    null_column_name = "null"
-                else:
-                    null_column_name = self.parameters["null_column_name"].lower()
-                sql += f", null_column_name = '{null_column_name}'"
-        sql += ")"
-        return clean_query(sql)
+                flat.append(expr)
+        names = self._get_names(X=model_X)
+        model_set = set(model_X)
+        # columns the model did not transform are passed through unchanged
+        projection = [col for col in X if col not in model_set and col not in exclude]
+        # transformed (and, for OneHotEncoder, expanded) columns
+        projection += [f"{expr} AS {name}" for expr, name in zip(flat, names)]
+        return clean_query(", ".join(projection))
 
     def deployInverseSQL(
         self,
@@ -514,23 +554,37 @@ class Preprocessing(Unsupervised):
         X, key_columns, exclude_columns = format_type(
             X, key_columns, exclude_columns, dtype=list
         )
+        X = quote_ident(X)
         if self._model_type == "OneHotEncoder":
             raise AttributeError(
                 "method 'deployInverseSQL' is not supported for OneHotEncoder models."
             )
-        sql = f"""
-            {self._VAST_inverse_transform_sql}({', '.join(X)} 
-                                                          USING PARAMETERS 
-                                                          model_name = '{self.model_name}',
-                                                          match_by_pos = 'true'"""
-        if key_columns:
-            key_columns = ", ".join([quote_ident(kcol) for kcol in key_columns])
-            sql += f", key_columns = '{key_columns}'"
-        if exclude_columns:
-            exclude_columns = ", ".join([quote_ident(ecol) for ecol in exclude_columns])
-            sql += f", exclude_columns = '{exclude_columns}'"
-        sql += ")"
-        return clean_query(sql)
+        exclude = set(quote_ident(exclude_columns)) if exclude_columns else set()
+        model_X = quote_ident(self.X)
+        memmodel = self.to_memmodel()
+
+        if hasattr(memmodel, "inverse_transform_sql"):
+            inverse = memmodel.inverse_transform_sql(model_X)
+            flat = []
+            for expr in inverse:
+                if isinstance(expr, (list, tuple)):
+                    flat.extend(expr)
+                else:
+                    flat.append(expr)
+        elif self._model_type == "Scaler":
+            flat = self._inverse_scale_sql(model_X)
+        else:
+            raise NotImplementedError(
+                f"Inverse deployment SQL is not available for {self._model_type}."
+            )
+        expr_by_col = dict(zip(model_X, flat))
+        projection = []
+        for col in X:
+            if col in expr_by_col and col not in exclude:
+                projection.append(f"{expr_by_col[col]} AS {col}")
+            else:
+                projection.append(col)
+        return clean_query(", ".join(projection))
 
     # Prediction / Transformation Methods.
 
@@ -610,7 +664,7 @@ class Preprocessing(Unsupervised):
             :okwarning:
 
             result = model.transform(data)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_scaler_transform_1.html", "w")
+            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_preprocessing_scaler_transform_1.html", "w")
             html_file.write(result._repr_html_())
             html_file.close()
 
@@ -619,7 +673,7 @@ class Preprocessing(Unsupervised):
             model.transform(data)
 
         .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_scaler_transform_1.html
+            :file: SPHINX_DIRECTORY/figures/machine_learning_preprocessing_scaler_transform_1.html
 
         Similarly, you can perform the
         inverse transform to get the
@@ -731,7 +785,7 @@ class Preprocessing(Unsupervised):
             :okwarning:
 
             result = model.transform(data)
-            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_scaler_transform_1.html", "w")
+            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_preprocessing_scaler_transform_1.html", "w")
             html_file.write(result._repr_html_())
             html_file.close()
 
@@ -740,7 +794,7 @@ class Preprocessing(Unsupervised):
             model.transform(data)
 
         .. raw:: html
-            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_scaler_transform_1.html
+            :file: SPHINX_DIRECTORY/figures/machine_learning_preprocessing_scaler_transform_1.html
 
         Similarly, you can perform the
         inverse transform to get the
@@ -781,6 +835,7 @@ class Preprocessing(Unsupervised):
         )
         main_relation = f"(SELECT {inverse_sql} FROM {vdf}) VASTORBIT_SUBTABLE"
         return VastFrame(main_relation)
+
 
 """
 Algorithms used for scaling.
@@ -859,7 +914,7 @@ class Scaler(Preprocessing):
     .. note::
 
         Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.preprocessing.Preprocessing.get_VAST_attributes`
+        :py:meth:`~vastorbit.machine_learning.vast.preprocessing.Preprocessing.get_attributes`
         method.
 
     Examples
@@ -992,7 +1047,7 @@ class Scaler(Preprocessing):
         :okwarning:
 
         result = model.transform(data)
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_scaler_transform_3.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_preprocessing_scaler_transform_3.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -1001,7 +1056,7 @@ class Scaler(Preprocessing):
         model.transform(data)
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_scaler_transform_3.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_preprocessing_scaler_transform_3.html
 
     Please refer to
     :py:meth:`~vastorbit.machine_learning.Scaler.transform`
@@ -1076,16 +1131,25 @@ class Scaler(Preprocessing):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["NORMALIZE_FIT"]:
-        return "NORMALIZE_FIT"
+    def _fit_sql(self) -> Literal[""]:
+        return ""
 
     @property
-    def _VAST_transform_sql(self) -> Literal["APPLY_NORMALIZE"]:
-        return "APPLY_NORMALIZE"
+    def _sklearn_model(self):
+        method = self.method_
+        if method == "minmax":
+            return sklearn.preprocessing.MinMaxScaler
+        elif method == "robust_zscore":
+            return sklearn.preprocessing.RobustScaler
+        return sklearn.preprocessing.StandardScaler
 
     @property
-    def _VAST_inverse_transform_sql(self) -> Literal["REVERSE_NORMALIZE"]:
-        return "REVERSE_NORMALIZE"
+    def _transform_sql(self) -> Literal[""]:
+        return ""
+
+    @property
+    def _inverse_transform_sql(self) -> Literal[""]:
+        return ""
 
     @property
     def _model_subcategory(self) -> Literal["PREPROCESSING"]:
@@ -1097,16 +1161,15 @@ class Scaler(Preprocessing):
 
     @property
     def _attributes(self) -> list[str]:
-        if self.parameters["method"] == "minmax":
+        if self.method_ == "minmax":
             return ["min_", "max_"]
-        elif self.parameters["method"] == "robust_zscore":
+        elif self.method_ == "robust_zscore":
             return ["median_", "mad_"]
         else:
             return ["mean_", "std_"]
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
@@ -1115,24 +1178,43 @@ class Scaler(Preprocessing):
         method: Literal["zscore", "robust_zscore", "minmax"] = "zscore",
     ) -> None:
         super().__init__(name, overwrite_model)
-        self.parameters = {"method": str(method).lower()}
+        self.method_ = str(method).lower()
+        self.parameters = {}
 
     # Attributes Methods.
 
     def _compute_attributes(self) -> None:
         """
-        Computes the model's attributes.
+        Computes the model's attributes from the fitted ``scikit-learn`` model.
         """
-        values = self.get_VAST_attributes("details").to_numpy()[:, 1:].astype(float)
         if self.parameters["method"] == "minmax":
-            self.min_ = values[:, 0]
-            self.max_ = values[:, 1]
+            self.min_ = np.asarray(self._model.data_min_, dtype=float)
+            self.max_ = np.asarray(self._model.data_max_, dtype=float)
         elif self.parameters["method"] == "robust_zscore":
-            self.median_ = values[:, 0]
-            self.mad_ = values[:, 1]
+            self.median_ = np.asarray(self._model.center_, dtype=float)
+            self.mad_ = np.asarray(self._model.scale_, dtype=float)
         else:
-            self.mean_ = values[:, 0]
-            self.std_ = values[:, 1]
+            self.mean_ = np.asarray(self._model.mean_, dtype=float)
+            self.std_ = np.asarray(self._model.scale_, dtype=float)
+
+    def _inverse_scale_sql(self, cols: list) -> list:
+        """
+        Builds the explicit inverse-transform SQL expressions
+        (Trino-compatible) for each scaled column.
+        """
+        method = self.parameters["method"]
+        out = []
+        for j, col in enumerate(cols):
+            if method == "minmax":
+                lo, hi = float(self.min_[j]), float(self.max_[j])
+                out.append(f"({col} * ({hi} - {lo}) + {lo})")
+            elif method == "robust_zscore":
+                center, scale = float(self.median_[j]), float(self.mad_[j])
+                out.append(f"({col} * {scale} + {center})")
+            else:
+                center, scale = float(self.mean_[j]), float(self.std_[j])
+                out.append(f"({col} * {scale} + {center})")
+        return out
 
     # I/O Methods.
 
@@ -1256,44 +1338,7 @@ class OneHotEncoder(Preprocessing):
         model with the same name as an
         existing model overwrites the
         existing model.
-    extra_levels: dict, optional
-        Additional levels in each  category that are not
-        in the input relation.
-    drop_first: bool, optional
-        If set to True,  treats the first level of the
-        categorical variable as the reference level.
-        Otherwise, every level of the categorical variable
-        has a corresponding column in the output view.
-    ignore_null: bool, optional
-        If set to True, Null values set all corresponding
-        one-hot binary columns to null.  Otherwise,  null
-        values in the input columns are treated as a
-        categorical level.
-    separator: str, optional
-        The  character that separates the input  variable
-        name  and  the indicator variable  level  in  the
-        output table.  To avoid using any separator,  set
-        this parameter to null value.
-    column_naming: str, optional
-        Appends   categorical  levels  to  column   names
-        according to the specified method:
-
-        - indices:
-            Uses  integer indices to  represent
-            categorical levels.
-
-        - values :
-            Uses  categorical  level names.  If
-            duplicate  column names occur,  the
-            function attempts  to  disambiguate
-            them  by appending _n,  where n  is
-            a zero-based integer index (_0, _1,
-            ..., _n).
-
-    null_column_name: str, optional
-        The  string used in  naming the indicator  column
-        for null values,  used only if ignore_null is set
-        to false and column_naming is set to 'values'.
+    **kwargs: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -1316,7 +1361,7 @@ class OneHotEncoder(Preprocessing):
     .. note::
 
         Several other attributes can be accessed by using the
-        :py:meth:`~vastorbit.machine_learning.vast.preprocessing.Preprocessing.get_VAST_attributes`
+        :py:meth:`~vastorbit.machine_learning.vast.preprocessing.Preprocessing.get_attributes`
         method.
 
     Examples
@@ -1452,7 +1497,7 @@ class OneHotEncoder(Preprocessing):
         :okwarning:
 
         result = model.transform(data)
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_ooe_transform_1.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_preprocessing_ooe_transform_1.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -1461,7 +1506,7 @@ class OneHotEncoder(Preprocessing):
         model.transform(data)
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_preprocessing_ooe_transform_1.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_preprocessing_ooe_transform_1.html
 
     Please refer to
     :py:meth:`~vastorbit.machine_learning.OneHotEncoder.transform`
@@ -1530,15 +1575,19 @@ class OneHotEncoder(Preprocessing):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["ONE_HOT_ENCODER_FIT"]:
-        return "ONE_HOT_ENCODER_FIT"
+    def _fit_sql(self) -> Literal[""]:
+        return ""
 
     @property
-    def _VAST_transform_sql(self) -> Literal["APPLY_ONE_HOT_ENCODER"]:
-        return "APPLY_ONE_HOT_ENCODER"
+    def _sklearn_model(self):
+        return sklearn.preprocessing.OneHotEncoder
 
     @property
-    def _VAST_inverse_transform_sql(self) -> Literal[""]:
+    def _transform_sql(self) -> Literal[""]:
+        return ""
+
+    @property
+    def _inverse_transform_sql(self) -> Literal[""]:
         return ""
 
     @property
@@ -1555,28 +1604,15 @@ class OneHotEncoder(Preprocessing):
 
     # System & Special Methods.
 
-    @check_minimum_version
     @save_vastorbit_logs
     def __init__(
         self,
         name: str = None,
         overwrite_model: bool = False,
-        extra_levels: Optional[dict] = None,
-        drop_first: bool = True,
-        ignore_null: bool = True,
-        separator: str = "_",
-        column_naming: Literal["indices", "values", "values_relaxed"] = "indices",
-        null_column_name: str = "null",
+        **kwargs
     ) -> None:
         super().__init__(name, overwrite_model)
-        self.parameters = {
-            "extra_levels": format_type(extra_levels, dtype=dict),
-            "drop_first": drop_first,
-            "ignore_null": ignore_null,
-            "separator": separator,
-            "column_naming": str(column_naming).lower(),
-            "null_column_name": null_column_name,
-        }
+        self.parameters = kwargs
 
     # Attributes Methods.
 
@@ -1601,45 +1637,25 @@ class OneHotEncoder(Preprocessing):
 
     def _compute_attributes(self) -> None:
         """
-        Computes the model's attributes.
+        Computes the model's attributes from the fitted ``scikit-learn`` model.
         """
-        query = f"""
-            SELECT 
-                category_name, 
-                category_level::varchar, 
-                category_level_index 
-            FROM (SELECT GET_MODEL_ATTRIBUTE(USING PARAMETERS 
-                            model_name = '{self.model_name}', 
-                            attr_name = 'integer_categories')) 
-                            VASTORBIT_SUBTABLE"""
-        try:
-            self.cat_ = TableSample.read_sql(
-                query=f"""
-                    {query}
-                    UNION ALL 
-                    SELECT GET_MODEL_ATTRIBUTE(USING PARAMETERS 
-                            model_name = '{self.model_name}', 
-                            attr_name = 'varchar_categories')""",
-                title="Getting Model Attributes.",
-            )
-        except QueryError:
-            try:
-                self.cat_ = TableSample.read_sql(
-                    query=query,
-                    title="Getting Model Attributes.",
-                )
-            except QueryError:
-                self.cat_ = self.get_VAST_attributes("varchar_categories")
-        self.cat_ = self.cat_.to_list()
-        cat = self._compute_ohe_list([c[0:2] for c in self.cat_])
-        cat_list_idx = []
-        for i, x1 in enumerate(cat[0]):
-            for j, x2 in enumerate(self.X):
-                if x2.lower()[1:-1] == x1:
-                    cat_list_idx += [j]
-        categories = []
-        for i in cat_list_idx:
-            categories += [cat[1][i]]
+        # scikit-learn stores one array of category levels per input column,
+        # aligned with the order of self.X.
+        categories = [list(levels) for levels in self._model.categories_]
+
+        # Rebuild the parallel-list layout expected by _get_names / deploySQL.
+        category_name, category_level, category_level_index = [], [], []
+        for column, levels in zip(self.X, categories):
+            col_name = quote_ident(column)[1:-1]
+            for idx, level in enumerate(levels):
+                category_name.append(col_name)
+                category_level.append(level)
+                category_level_index.append(idx)
+        self.cat_ = {
+            "category_name": category_name,
+            "category_level": category_level,
+            "category_level_index": category_level_index,
+        }
         self.categories_ = categories
         self.column_naming_ = self.parameters["column_naming"]
         self.drop_first_ = self.parameters["drop_first"]

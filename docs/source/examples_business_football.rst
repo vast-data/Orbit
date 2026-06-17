@@ -46,7 +46,10 @@ Let's create a VastFrame of the dataset.
 .. ipython:: python
     :suppress:
 
-    football = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/football/games.csv")
+    try:
+        football = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/football/games.csv")
+    except:
+        football = vo.VastFrame("games")
     res = football.head(5)
     html_file = open("SPHINX_DIRECTORY/figures/examples_football_table_head.html", "w")
     html_file.write(res._repr_html_())
@@ -459,7 +462,10 @@ First let's encode the different continents so we can compute the correct aggreg
 .. ipython:: python
     :suppress:
 
-    football = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/football/games.csv")
+    try:
+        football = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/football/games.csv")
+    except:
+        football = vo.VastFrame("games")
     res = football.case_when(
         'confederation', 
         football["tournament"] == 'UEFA Euro qualification', 5,

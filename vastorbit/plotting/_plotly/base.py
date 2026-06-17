@@ -6,8 +6,14 @@ from typing import Literal, Optional
 
 # --- VAST brand Plotly templates (brand.vastdata.com) ------------------------
 _VAST_COLORWAY = [
-    "#1FD9FE", "#29B8FF", "#0E86B8", "#5BE49B",
-    "#F5A623", "#9FB3C8", "#7B8CFF", "#E5484D",
+    "#1FD9FE",
+    "#29B8FF",
+    "#0E86B8",
+    "#5BE49B",
+    "#F5A623",
+    "#9FB3C8",
+    "#7B8CFF",
+    "#E5484D",
 ]
 _VAST_FONT = "Moderat, Inter, Helvetica Neue, Arial, sans-serif"
 _vast_templates_registered = False
@@ -31,13 +37,22 @@ def _register_vast_templates() -> None:
             paper_bgcolor="#03142C",
             plot_bgcolor="#0A2240",
             font=dict(family=_VAST_FONT, color="#E8EFF7"),
-            xaxis=dict(gridcolor="#1B3A5C", linecolor="#1B3A5C",
-                       zerolinecolor="#1B3A5C", tickcolor="#1B3A5C"),
-            yaxis=dict(gridcolor="#1B3A5C", linecolor="#1B3A5C",
-                       zerolinecolor="#1B3A5C", tickcolor="#1B3A5C"),
+            xaxis=dict(
+                gridcolor="#1B3A5C",
+                linecolor="#1B3A5C",
+                zerolinecolor="#1B3A5C",
+                tickcolor="#1B3A5C",
+            ),
+            yaxis=dict(
+                gridcolor="#1B3A5C",
+                linecolor="#1B3A5C",
+                zerolinecolor="#1B3A5C",
+                tickcolor="#1B3A5C",
+            ),
             legend=dict(font=dict(color="#E8EFF7")),
-            hoverlabel=dict(bgcolor="#0A2240", bordercolor="#1FD9FE",
-                            font=dict(color="#E8EFF7")),
+            hoverlabel=dict(
+                bgcolor="#0A2240", bordercolor="#1FD9FE", font=dict(color="#E8EFF7")
+            ),
         )
     )
     pio.templates["vast_light"] = go.layout.Template(
@@ -46,12 +61,21 @@ def _register_vast_templates() -> None:
             paper_bgcolor="#FFFFFF",
             plot_bgcolor="#FFFFFF",
             font=dict(family=_VAST_FONT, color="#03142C"),
-            xaxis=dict(gridcolor="#E7EBF1", linecolor="#C7CBD4",
-                       zerolinecolor="#E7EBF1", tickcolor="#C7CBD4"),
-            yaxis=dict(gridcolor="#E7EBF1", linecolor="#C7CBD4",
-                       zerolinecolor="#E7EBF1", tickcolor="#C7CBD4"),
-            hoverlabel=dict(bgcolor="#FFFFFF", bordercolor="#1FD9FE",
-                            font=dict(color="#03142C")),
+            xaxis=dict(
+                gridcolor="#E7EBF1",
+                linecolor="#C7CBD4",
+                zerolinecolor="#E7EBF1",
+                tickcolor="#C7CBD4",
+            ),
+            yaxis=dict(
+                gridcolor="#E7EBF1",
+                linecolor="#C7CBD4",
+                zerolinecolor="#E7EBF1",
+                tickcolor="#C7CBD4",
+            ),
+            hoverlabel=dict(
+                bgcolor="#FFFFFF", bordercolor="#1FD9FE", font=dict(color="#03142C")
+            ),
         )
     )
     # transparent for embedding into the docs (page supplies the surface)
@@ -229,30 +253,34 @@ class PlotlyBase(PlottingBase):
                 sizey_paper = 0.2
             d["annotations"] = [
                 dict(
-                    x=0.5,           # Center horizontally
-                    y=-0.2,         # Below the chart
+                    x=0.5,  # Center horizontally
+                    y=-0.2,  # Below the chart
                     showarrow=False,
-                    text="This chart was generated with VAST Orbit by VAST Data", 
+                    text="This chart was generated with VAST Orbit by VAST Data",
                     xanchor="center",  # Anchor text to center
-                    yanchor="top",     # Anchor to top of text (so it sits below chart)
+                    yanchor="top",  # Anchor to top of text (so it sits below chart)
                     xref="paper",
                     yref="paper",
                     font=dict(size=8, color="gray"),
                     opacity=0.8,
                 )
             ]
-            d["margin"] = dict(b=120, t=50, l=50, r=50) # Extra bottom margin for the logo height
-            d["images"] = [dict(
-                source=vast_logo_png(),
-                xref="paper", 
-                yref="paper",
-                x=0.5,              # Center horizontally (same as text)
-                y=-0.25,            # Below the text
-                sizex=0.8 * sizex_paper, 
-                sizey=0.8 * sizey_paper,
-                sizing="contain",
-                xanchor="center",   # Center the logo
-                yanchor="top",      # Logo sits below the text
-                opacity=0.8,
-            )]
+            d["margin"] = dict(
+                b=120, t=50, l=50, r=50
+            )  # Extra bottom margin for the logo height
+            d["images"] = [
+                dict(
+                    source=vast_logo_png(),
+                    xref="paper",
+                    yref="paper",
+                    x=0.5,  # Center horizontally (same as text)
+                    y=-0.25,  # Below the text
+                    sizex=0.8 * sizex_paper,
+                    sizey=0.8 * sizey_paper,
+                    sizing="contain",
+                    xanchor="center",  # Center the logo
+                    yanchor="top",  # Logo sits below the text
+                    opacity=0.8,
+                )
+            ]
         return d

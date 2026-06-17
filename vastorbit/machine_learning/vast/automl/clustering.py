@@ -14,7 +14,7 @@ from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit.machine_learning.model_selection import best_k
 from vastorbit.machine_learning.vast.automl.dataprep import AutoDataPrep
 from vastorbit.machine_learning.vast.base import VASTModel
-from vastorbit.machine_learning.vast.cluster import KMeans, KPrototypes
+from vastorbit.machine_learning.vast.cluster import KMeans
 
 
 class AutoClustering(VASTModel):
@@ -29,16 +29,14 @@ class AutoClustering(VASTModel):
     overwrite_model: bool, optional
         If set to True, training a model with the same name
         as an existing model overwrites the existing model.
-    n_cluster: int, optional
+    n_clusters: int, optional
         Number  of clusters. If empty, an optimal number  of
         clusters  are determined using multiple  k-means
         models.
     init: str | list, optional
         The method for finding the initial cluster  centers.
-            kmeanspp : Uses   the    k-means++   method   to
+            k-means++ : Uses   the    k-means++   method   to
                        initialize the centers.
-                       [Only available  when  use_kprototype
-                        is set to False]
             random   : Randomly  subsamples the data to find
                        initial centers.
         Alternatively,  you  can  specify  a list  with  the
@@ -51,15 +49,6 @@ class AutoClustering(VASTModel):
         has  moved more than  a distance of 'tol' from  the
         previous
         iteration.
-    use_kprototype: bool, optional
-        If set to True,  the function uses the k-prototypes
-        algorithm  instead  of  k-means.  k-prototypes  can
-        handle categorical features.
-    gamma: float, optional
-        [Only  if use_kprototype is set to True]  Weighting
-        factor  for categorical columns. It determines  the
-        relative  importance  of numerical and  categorical
-        attributes.
     preprocess_data: bool, optional
         If True, the data will be preprocessed.
     preprocess_dict: dict, optional
@@ -113,12 +102,10 @@ class AutoClustering(VASTModel):
         self,
         name: Optional[str] = None,
         overwrite_model: bool = False,
-        n_cluster: Optional[int] = None,
-        init: Union[Literal["kmeanspp", "random"], ArrayLike] = "kmeanspp",
+        n_clusters: Optional[int] = None,
+        init: Union[Literal["k-means++", "random"], ArrayLike] = "k-means++",
         max_iter: int = 300,
         tol: float = 1e-4,
-        use_kprototype: bool = False,
-        gamma: float = 1.0,
         preprocess_data: bool = True,
         preprocess_dict: dict = {
             "identify_ts": False,
@@ -130,12 +117,10 @@ class AutoClustering(VASTModel):
     ) -> None:
         super().__init__(name, overwrite_model)
         self.parameters = {
-            "n_cluster": n_cluster,
+            "n_clusters": n_clusters,
             "init": init,
             "max_iter": max_iter,
             "tol": tol,
-            "use_kprototype": use_kprototype,
-            "gamma": gamma,
             "print_info": print_info,
             "preprocess_data": preprocess_data,
             "preprocess_dict": preprocess_dict,
@@ -173,20 +158,18 @@ class AutoClustering(VASTModel):
             self.preprocess_ = model_preprocess
         else:
             self.preprocess_ = None
-        if not self.parameters["n_cluster"]:
+        if not self.parameters["n_clusters"]:
             if self.parameters["print_info"]:
                 print_message(
                     f"\033[1m\033[4mFinding a suitable number of clusters\033[0m\033[0m\n"
                 )
-            self.parameters["n_cluster"] = best_k(
+            self.parameters["n_clusters"] = best_k(
                 input_relation=input_relation,
                 X=X,
-                n_cluster=(1, 100),
+                n_clusters=(1, 100),
                 init=self.parameters["init"],
                 max_iter=self.parameters["max_iter"],
                 tol=self.parameters["tol"],
-                use_kprototype=self.parameters["use_kprototype"],
-                gamma=self.parameters["gamma"],
                 elbow_score_stop=0.9,
                 tqdm=self.parameters["print_info"],
             )
@@ -197,21 +180,11 @@ class AutoClustering(VASTModel):
         else:
             loop = range(1)
         for i in loop:
-            if self.parameters["use_kprototype"]:
-                self.model_ = KPrototypes(
-                    self.model_name,
-                    n_cluster=self.parameters["n_cluster"],
-                    init=self.parameters["init"],
-                    max_iter=self.parameters["max_iter"],
-                    tol=self.parameters["tol"],
-                    gamma=self.parameters["gamma"],
-                )
-            else:
-                self.model_ = KMeans(
-                    self.model_name,
-                    n_cluster=self.parameters["n_cluster"],
-                    init=self.parameters["init"],
-                    max_iter=self.parameters["max_iter"],
-                    tol=self.parameters["tol"],
-                )
+            self.model_ = KMeans(
+                self.model_name,
+                n_clusters=self.parameters["n_clusters"],
+                init=self.parameters["init"],
+                max_iter=self.parameters["max_iter"],
+                tol=self.parameters["tol"],
+            )
             self.model_.fit(input_relation, X=X)

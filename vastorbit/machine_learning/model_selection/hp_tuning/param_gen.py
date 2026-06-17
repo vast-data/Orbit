@@ -45,7 +45,7 @@ def parameter_grid(param_grid: dict) -> list[dict]:
             {
                 "nbins": [10, 100, 360],
                 "alpha": [0.1, 0.3, 0.5],
-                "solver": ["bfgs", "newton"],
+                "solver": ["lbfgs", "newton-cg"],
             },
         )
 
@@ -154,7 +154,7 @@ def gen_params_grid(
     ):
         if optimized_grid == 0:
             params_grid = {
-                "max_features": ["auto", "max"]
+                "max_features": ["sqrt", "max"]
                 + list(range(1, max_nfeatures, math.ceil(max_nfeatures / nbins))),
                 "max_leaf_nodes": list(range(1, int(1e9), math.ceil(int(1e9) / nbins))),
                 "max_depth": list(range(1, 100, math.ceil(100 / nbins))),
@@ -177,7 +177,7 @@ def gen_params_grid(
                 )
         elif optimized_grid == 1:
             params_grid = {
-                "max_features": ["auto", "max"],
+                "max_features": ["sqrt", "max"],
                 "max_leaf_nodes": [32, 64, 128, 1000, 1e4, 1e6, 1e9],
                 "max_depth": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50],
                 "min_samples_leaf": [1, 2, 3, 4, 5],
@@ -202,7 +202,7 @@ def gen_params_grid(
                 params_grid["n_estimators"] = [1, 5, 10, 15, 20, 30, 40, 50, 100]
         elif optimized_grid == 2:
             params_grid = {
-                "max_features": ["auto", "max"],
+                "max_features": ["sqrt", "max"],
                 "max_leaf_nodes": [32, 64, 128, 1000],
                 "max_depth": [4, 5, 6],
                 "min_samples_leaf": [1, 2],
@@ -249,32 +249,21 @@ def gen_params_grid(
         if optimized_grid == 0:
             params_grid = {
                 "tol": [1e-4, 1e-6, 1e-8],
-                "C": [elem / 1000 for elem in range(1, 5000, math.ceil(5000 / nbins))],
-                "intercept_mode": ["regularized", "unregularized"],
                 "max_iter": [100, 500, 1000],
             }
         elif optimized_grid == 1:
             params_grid = {
                 "tol": [1e-6],
-                "C": [1e-1, 0.0, 1.0, 10.0],
-                "intercept_mode": ["regularized", "unregularized"],
                 "max_iter": [100],
             }
         elif optimized_grid == 2:
             params_grid = {
                 "tol": [1e-6],
-                "C": [0.0, 1.0],
-                "intercept_mode": ["regularized", "unregularized"],
                 "max_iter": [100],
             }
         elif optimized_grid == -666:
             return {
                 "tol": {"type": float, "range": [1e-8, 1e-2], "nbins": nbins},
-                "C": {"type": float, "range": [0.0, 1000.0], "nbins": nbins},
-                "intercept_mode": {
-                    "type": str,
-                    "values": ["regularized", "unregularized"],
-                },
                 "max_iter": {"type": int, "range": [10, 1000], "nbins": nbins},
             }
     elif isinstance(estimator, (vml.XGBClassifier, vml.XGBRegressor)):
@@ -464,20 +453,18 @@ def gen_params_grid(
             params_grid = {"tol": [1e-4, 1e-6, 1e-8], "max_iter": [100, 500, 1000]}
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(estimator, vml.LinearRegression):
-                params_grid["solver"] = ["newton", "bfgs"]
-            elif isinstance(
-                estimator, (vml.Lasso, vml.LogisticRegression, vml.ElasticNet)
+            if isinstance(
+                estimator, (vml.LogisticRegression,)
             ):
-                params_grid["solver"] = ["newton", "bfgs", "cgd"]
+                params_grid["solver"] = ["lbfgs", "newton-cg"]
             if isinstance(
                 estimator,
-                (vml.Lasso, vml.Ridge, vml.ElasticNet, vml.LogisticRegression),
+                (vml.Lasso, vml.Ridge, vml.LogisticRegression),
             ):
                 params_grid["C"] = [
                     elem / 1000 for elem in range(1, 5000, math.ceil(5000 / nbins))
                 ]
-            if isinstance(estimator, (vml.LogisticRegression, vml.ElasticNet)):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 params_grid["l1_ratio"] = [
                     elem / 1000 for elem in range(1, 1000, math.ceil(1000 / nbins))
                 ]
@@ -485,20 +472,18 @@ def gen_params_grid(
             params_grid = {"tol": [1e-6], "max_iter": [100]}
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(estimator, vml.LinearRegression):
-                params_grid["solver"] = ["newton", "bfgs"]
-            elif isinstance(
-                estimator, (vml.Lasso, vml.LogisticRegression, vml.ElasticNet)
+            if isinstance(
+                estimator, (vml.LogisticRegression,)
             ):
-                params_grid["solver"] = ["newton", "bfgs", "cgd"]
+                params_grid["solver"] = ["lbfgs", "newton-cg"]
             if isinstance(
                 estimator,
-                (vml.Lasso, vml.Ridge, vml.ElasticNet, vml.LogisticRegression),
+                (vml.Lasso, vml.Ridge, vml.LogisticRegression),
             ):
                 params_grid["C"] = [1e-1, 0.0, 1.0, 10.0]
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(estimator, (vml.LogisticRegression, vml.ElasticNet)):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 params_grid["l1_ratio"] = [
                     0.1,
                     0.2,
@@ -514,20 +499,18 @@ def gen_params_grid(
             params_grid = {"tol": [1e-6], "max_iter": [100]}
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(estimator, vml.LinearRegression):
-                params_grid["solver"] = ["newton", "bfgs"]
-            elif isinstance(
-                estimator, (vml.Lasso, vml.LogisticRegression, vml.ElasticNet)
+            if isinstance(
+                estimator, (vml.LogisticRegression,)
             ):
-                params_grid["solver"] = ["bfgs", "cgd"]
+                params_grid["solver"] = ["lbfgs", "newton-cg"]
             if isinstance(
                 estimator,
-                (vml.Lasso, vml.Ridge, vml.ElasticNet, vml.LogisticRegression),
+                (vml.Lasso, vml.Ridge, vml.LogisticRegression),
             ):
                 params_grid["C"] = [1.0]
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(estimator, (vml.LogisticRegression, vml.ElasticNet)):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 params_grid["l1_ratio"] = [0.5]
         elif optimized_grid == -666:
             result = {
@@ -539,15 +522,13 @@ def gen_params_grid(
                     "type": str,
                     "values": ["none", "l1", "l2", "enet"],
                 }
-            if isinstance(estimator, vml.LinearRegression):
-                result["solver"] = {"type": str, "values": ["newton", "bfgs"]}
-            elif isinstance(
-                estimator, (vml.Lasso, vml.LogisticRegression, vml.ElasticNet)
+            if isinstance(
+                estimator, (vml.LogisticRegression,)
             ):
-                result["solver"] = {"type": str, "values": ["bfgs", "cgd"]}
+                result["solver"] = {"type": str, "values": ["lbfgs", "newton-cg"]}
             if isinstance(
                 estimator,
-                (vml.Lasso, vml.Ridge, vml.ElasticNet, vml.LogisticRegression),
+                (vml.Lasso, vml.Ridge, vml.LogisticRegression),
             ):
                 result["C"] = {
                     "type": float,
@@ -559,7 +540,7 @@ def gen_params_grid(
                     "type": str,
                     "values": ["none", "l1", "l2", "enet"],
                 }
-            if isinstance(estimator, (vml.LogisticRegression, vml.ElasticNet)):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 result["l1_ratio"] = {
                     "type": float,
                     "range": [0.0, 1.0],
@@ -569,14 +550,14 @@ def gen_params_grid(
     elif isinstance(estimator, vml.KMeans):
         if optimized_grid == 0:
             params_grid = {
-                "n_cluster": list(range(2, 100, math.ceil(100 / nbins))),
-                "init": ["kmeanspp", "random"],
+                "n_clusters": list(range(2, 100, math.ceil(100 / nbins))),
+                "init": ["k-means++", "random"],
                 "max_iter": [100, 500, 1000],
                 "tol": [1e-4, 1e-6, 1e-8],
             }
         elif optimized_grid == 1:
             params_grid = {
-                "n_cluster": [
+                "n_clusters": [
                     2,
                     3,
                     4,
@@ -594,14 +575,14 @@ def gen_params_grid(
                     300,
                     1000,
                 ],
-                "init": ["kmeanspp", "random"],
+                "init": ["k-means++", "random"],
                 "max_iter": [1000],
                 "tol": [1e-8],
             }
         elif optimized_grid == 2:
             params_grid = {
-                "n_cluster": [2, 3, 4, 5, 10, 20, 100],
-                "init": ["kmeanspp"],
+                "n_clusters": [2, 3, 4, 5, 10, 20, 100],
+                "init": ["k-means++"],
                 "max_iter": [1000],
                 "tol": [1e-8],
             }
@@ -609,75 +590,20 @@ def gen_params_grid(
             return {
                 "tol": {"type": float, "range": [1e-2, 1e-8], "nbins": nbins},
                 "max_iter": {"type": int, "range": [1, 1000], "nbins": nbins},
-                "n_cluster": {"type": int, "range": [1, 10000], "nbins": nbins},
-                "init": {"type": str, "values": ["kmeanspp", "random"]},
-            }
-    elif isinstance(estimator, vml.KPrototypes):
-        if optimized_grid == 0:
-            params_grid = {
-                "n_cluster": list(range(2, 100, math.ceil(100 / nbins))),
-                "init": ["random"],
-                "max_iter": [100, 500, 1000],
-                "tol": [1e-4, 1e-6, 1e-8],
-                "gamma": [0.1, 1.0, 10.0],
-            }
-        elif optimized_grid == 1:
-            params_grid = {
-                "n_cluster": [
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10,
-                    15,
-                    20,
-                    50,
-                    100,
-                    200,
-                    300,
-                    1000,
-                ],
-                "init": ["random"],
-                "max_iter": [1000],
-                "tol": [1e-8],
-                "gamma": [1.0],
-            }
-        elif optimized_grid == 2:
-            params_grid = {
-                "n_cluster": [2, 3, 4, 5, 10, 20, 100],
-                "init": ["random"],
-                "max_iter": [1000],
-                "tol": [1e-8],
-                "gamma": [1.0],
-            }
-        elif optimized_grid == -666:
-            return {
-                "tol": {"type": float, "range": [1e-2, 1e-8], "nbins": nbins},
-                "max_iter": {"type": int, "range": [1, 1000], "nbins": nbins},
-                "n_cluster": {"type": int, "range": [1, 10000], "nbins": nbins},
-                "gamma": {"type": float, "range": [1e-2, 100], "nbins": nbins},
-                "init": {"type": str, "values": ["random"]},
+                "n_clusters": {"type": int, "range": [1, 10000], "nbins": nbins},
+                "init": {"type": str, "values": ["k-means++", "random"]},
             }
     elif isinstance(estimator, vml.BisectingKMeans):
         if optimized_grid == 0:
             params_grid = {
-                "n_cluster": list(range(2, 100, math.ceil(100 / nbins))),
-                "bisection_iterations": list(range(10, 1000, math.ceil(1000 / nbins))),
-                "split_method": ["size", "sum_squares"],
-                "min_divisible_cluster_size": list(
-                    range(2, 100, math.ceil(100 / nbins))
-                ),
-                "init": ["kmeanspp", "pseudo"],
+                "n_clusters": list(range(2, 100, math.ceil(100 / nbins))),
+                "init": ["k-means++", "random"],
                 "max_iter": [100, 500, 1000],
                 "tol": [1e-4, 1e-6, 1e-8],
             }
         elif optimized_grid == 1:
             params_grid = {
-                "n_cluster": [
+                "n_clusters": [
                     2,
                     3,
                     4,
@@ -695,22 +621,14 @@ def gen_params_grid(
                     300,
                     1000,
                 ],
-                "bisection_iterations": list(range(10, 1000, math.ceil(1000 / nbins))),
-                "split_method": ["size", "sum_squares"],
-                "min_divisible_cluster_size": list(
-                    range(2, 100, math.ceil(100 / nbins))
-                ),
-                "init": ["kmeanspp", "pseudo"],
+                "init": ["k-means++", "random"],
                 "max_iter": [1000],
                 "tol": [1e-8],
             }
         elif optimized_grid == 2:
             params_grid = {
-                "n_cluster": [2, 3, 4, 5, 10, 20, 100],
-                "bisection_iterations": [1, 2, 3],
-                "split_method": ["sum_squares"],
-                "min_divisible_cluster_size": [2, 3, 4],
-                "init": ["kmeanspp"],
+                "n_clusters": [2, 3, 4, 5, 10, 20, 100],
+                "init": ["k-means++", "random"],
                 "max_iter": [1000],
                 "tol": [1e-8],
             }
@@ -718,37 +636,12 @@ def gen_params_grid(
             return {
                 "tol": {"type": float, "range": [1e-8, 1e-2], "nbins": nbins},
                 "max_iter": {"type": int, "range": [1, 1000], "nbins": nbins},
-                "bisection_iterations": {
-                    "type": int,
-                    "range": [1, 1000],
-                    "nbins": nbins,
-                },
-                "split_method": {"type": str, "values": ["sum_squares"]},
-                "n_cluster": {"type": int, "range": [1, 10000], "nbins": nbins},
-                "init": {"type": str, "values": ["kmeanspp", "pseudo"]},
+                "n_clusters": {"type": int, "range": [1, 10000], "nbins": nbins},
+                "init": {"type": str, "values": ["k-means++", "random"]},
             }
     params_grid = parameter_grid(params_grid)
     final_param_grid = []
     for param in params_grid:
-        if "C" in param and param["C"] == 0:
-            del param["C"]
-            if "l1_ratio" in param:
-                del param["l1_ratio"]
-            if "penalty" in param:
-                param["penalty"] = "none"
-        if "penalty" in param:
-            if (
-                param["penalty"] in ("none", "l2")
-                and "solver" in param
-                and param["solver"] == "cgd"
-            ):
-                param["solver"] = "bfgs"
-            if param["penalty"] in ("none", "l1", "l2") and "l1_ratio" in param:
-                del param["l1_ratio"]
-            if param["penalty"] == "none" and "C" in param:
-                del param["C"]
-            if param["penalty"] in ("l1", "enet") and "solver" in param:
-                param["solver"] = "cgd"
         if param not in final_param_grid:
             final_param_grid += [param]
     if len(final_param_grid) > lmax and lmax > 0:

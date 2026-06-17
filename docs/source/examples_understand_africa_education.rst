@@ -391,7 +391,7 @@ Our goal will be to optimize the ``median_absolute_error``.
 
     gcv_params = {
         'n_estimators': 40,
-        'max_features': 'auto',
+        'max_features': 'sqrt',
         'max_leaf_nodes': 100,
         'sample': 0.7,
         'max_depth': 10,
@@ -873,7 +873,7 @@ Let's create a logistic regression to understand what circumstances allowed thes
     )
     model_africa_logit_best = LogisticRegression(
         name="africa_logit_best", 
-        solver="BFGS",
+        solver="lbfgs",
     )
     model_africa_logit_best.fit(
         africa,
@@ -901,7 +901,7 @@ Let's create a logistic regression to understand what circumstances allowed thes
         ]
     )
     vo.drop("africa_logit_best")
-    model_africa_logit_best = LogisticRegression(name="africa_logit_best",solver="BFGS")
+    model_africa_logit_best = LogisticRegression(name="africa_logit_best", solver="lbfgs")
     model_africa_logit_best.fit(africa,predictors,"best")
     fig = model_africa_logit_best.features_importance()
     fig.write_html("SPHINX_DIRECTORY/figures/examples_africa_feature_final.html")

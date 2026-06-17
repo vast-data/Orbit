@@ -117,7 +117,7 @@ def apply(func: SQLExpression, *args, **kwargs) -> StringSQL:
         "GeometryN",
         "GeometryType",
         "GeomFromGeoHash",
-        "GeomFromText",
+        "GeometryFromText",
         "GeomFromWKB",
         "Intersection",
         "Intersects",
@@ -968,7 +968,7 @@ def cot(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"COT({expr})", "float")
+    return StringSQL(f"1.0 / TAN({expr})", "float")
 
 
 def degrees(expr: SQLExpression) -> StringSQL:
@@ -1140,7 +1140,9 @@ def distance(
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL(f"DISTANCE({lat0}, {lon0}, {lat1}, {lon1}, {radius})", "float")
+    return StringSQL(
+        f"GREAT_CIRCLE_DISTANCE({lat0}, {lon0}, {lat1}, {lon1}, {radius})", "float"
+    )
 
 
 def exp(expr: SQLExpression) -> StringSQL:
@@ -1504,7 +1506,9 @@ def hash(*args) -> StringSQL:
     for arg in args:
         expr += [format_magic(arg)]
     expr = ", ".join([str(elem) for elem in expr])
-    return StringSQL(f"HASH({expr})", "float")
+    return StringSQL(
+        f"FROM_BIG_ENDIAN_64(XXHASH64(TO_UTF8(CAST(({expr} AS VARCHAR))))", "float"
+    )
 
 
 def isfinite(expr: SQLExpression) -> StringSQL:
@@ -2602,4 +2606,4 @@ def trunc(expr: SQLExpression, places: int = 0) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"TRUNC({expr}, {places})", "float")
+    return StringSQL(f"TRUNCATE({expr}, {places})", "float")

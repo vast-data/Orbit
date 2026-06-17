@@ -47,8 +47,6 @@ Let's  create a new schema and assign the data to a :py:mod:`~vastorbit.VastFram
 
 .. code-block:: ipython
 
-    vo.drop("movies", method="schema")
-    vo.create_schema("movies")
     filmtv_movies = vo.read_csv("movies.csv", schema = "movies")
     filmtv_movies.head(5)
 
@@ -57,9 +55,10 @@ Let's take a look at the first few entries in the dataset.
 .. ipython:: python
     :suppress:
 
-    vo.drop("movies", method="schema")
-    vo.create_schema("movies")
-    filmtv_movies = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/movies/movies.csv", schema = "movies")
+    try:
+        filmtv_movies = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/movies/movies.csv")
+    except:
+        filmtv_movies = vo.VastFrame("movies")
     res = filmtv_movies.head(5)
     html_file = open("SPHINX_DIRECTORY/figures/examples_movies_table.html", "w")
     html_file.write(res._repr_html_())
@@ -176,7 +175,10 @@ We can extract the five main actors for each movie with regular expressions.
     :suppress:
 
     for i in range(1, 5):
-        filmtv_movies2 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/movies/movies.csv")
+        try:
+            filmtv_movies2 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/movies/movies.csv")
+        except:
+            filmtv_movies2 = vo.VastFrame("movies")
         filmtv_movies2.regexp(
             column = "actors",
             method = "substr",
@@ -731,7 +733,6 @@ Let's create a model to evaluate an unbiased score for each different movie.
             "Category",
         ],
     )
-    vo.drop("filmtv_movies_lr") # If model name already exists
     model = LinearRegression()
     model.fit("filmtv_movies_mco", predictors, "avg_vote")
 

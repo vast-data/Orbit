@@ -1304,7 +1304,7 @@ class vDFInOut(vDFSystem):
         transformations = []
         for col in columns:
             if self[col].category() == "complex":
-                transformations += [f"TO_JSON({col}) AS {col}"]
+                transformations += [f"JSON_FORMAT(CAST({col} AS JSON)) AS {col}"]
             else:
                 transformations += [col]
         total = self.shape()[0]
