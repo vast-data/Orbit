@@ -581,7 +581,7 @@ class TimeSeriesByCategory(TimeSeriesModelBase):
             feature's importance.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -1269,7 +1269,7 @@ class TimeSeriesByCategory(TimeSeriesModelBase):
                 start point.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 

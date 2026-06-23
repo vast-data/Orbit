@@ -116,8 +116,7 @@ def create_table(
 
         create_table(
             table_name = "employees",
-            schema = "default",
-            dtype = {"name": "VARCHAR(60)", "salary": "FLOAT"},
+            dtype = {"name": "VARCHAR(60)", "salary": "REAL"},
             genSQL = True,
         )
 
@@ -127,8 +126,7 @@ def create_table(
 
         create_table(
             table_name = "employees",
-            schema = "default",
-            dtype = {"name": "VARCHAR(60)", "salary": "FLOAT"},
+            dtype = {"name": "VARCHAR(60)", "salary": "REAL"},
         )
 
     The table can be utilized as a VastFrame.
@@ -137,7 +135,7 @@ def create_table(
 
         import vastorbit as vo
 
-        vo.VastFrame("default.employees")
+        vo.VastFrame("employees")
 
     .. ipython:: python
         :suppress:
@@ -145,10 +143,10 @@ def create_table(
         from vastorbit import VastFrame, drop
 
         html_file = open("SPHINX_DIRECTORY/figures/sql_create_create_table.html", "w")
-        html_file.write(VastFrame(input_relation = '"default"."employees"')._repr_html_())
+        html_file.write(VastFrame(input_relation = "employees")._repr_html_())
         html_file.close()
 
-        drop("default.employees")
+        drop("employees")
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/sql_create_create_table.html

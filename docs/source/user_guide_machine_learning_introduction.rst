@@ -14,7 +14,7 @@ Supervised Learning
 Supervised Learning techniques map an input to an output based on some example dataset. This type of learning consists of two main types:
  - **Regression:** The Response is numerical (``Linear Regression``, ``SVM Regression``, ``RF Regression``...).
  - **Classification:** The Response is categorical (``Gradient Boosting``, ``Naive Bayes``, ``Logistic Regression``...).
-For example, predicting the total charges of a Telco customer using their tenure would be a type of regression. The following code is drawing a linear regression using the ``TotalCharges`` as a function of the ``tenure`` in the `telco churn dataset <https://github.com/vastdata-dev/vastorbit/tree/master/docs/source/notebooks/data_exploration/correlations/data>`_.
+For example, predicting the total charges of a Telco customer using their tenure would be a type of regression. The following code is drawing a linear regression using the ``TotalCharges`` as a function of the ``tenure`` in the `telco churn dataset <https://github.com/vastdata-dev/vastorbit/tree/master/docs/source/notebooks/data_exploration/correlations/data>`__.
 
 .. code-block:: python
 

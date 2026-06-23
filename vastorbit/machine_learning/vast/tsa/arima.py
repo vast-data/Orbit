@@ -72,19 +72,19 @@ class ARIMA(TimeSeriesModelBase):
     Many attributes are created
     during the fitting phase.
 
-    phi_: numpy.array
+    ``phi_``: numpy.array
         The coefficient of the AutoRegressive process.
         It represents the strength and direction of the
         relationship between a variable and its past
         values.
-    theta_: numpy.array
+    ``theta_``: numpy.array
         The theta coefficient of the Moving Average
         process. It signifies the impact and contribution
         of the lagged error terms in determining the
         current value within the time series model.
-    mean_: float
+    ``mean_``: float
         The mean of the time series values.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the AutoRegressive part coefficients, which
         are normalized based on their range. Subsequently,
@@ -94,13 +94,13 @@ class ARIMA(TimeSeriesModelBase):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    mse_: float
+    ``mse_``: float
         The mean squared error (MSE) of the model, based
         on one-step forward forecasting, may not always
         be relevant. Utilizing a full forecasting approach
         is recommended to compute a more meaningful and
         comprehensive metric.
-    n_: int
+    ``n_``: int
         The number of rows used to fit the model.
 
     .. note::
@@ -725,19 +725,19 @@ class ARMA(TimeSeriesModelBase):
         Many attributes are created
         during the fitting phase.
 
-        phi_: numpy.array
+        ``phi_``: numpy.array
             The coefficient of the AutoRegressive process.
             It represents the strength and direction of the
             relationship between a variable and its past
             values.
-        theta_: numpy.array
+        ``theta_``: numpy.array
             The theta coefficient of the Moving Average
             process. It signifies the impact and contribution
             of the lagged error terms in determining the
             current value within the time series model.
-        mean_: float
+        ``mean_``: float
             The mean of the time series values.
-        feature_importances_: numpy.array
+        ``feature_importances_``: numpy.array
             The importance of features is computed through
             the AutoRegressive part coefficients, which
             are normalized based on their range. Subsequently,
@@ -747,13 +747,13 @@ class ARMA(TimeSeriesModelBase):
             method to compute it initially, and the computed
             values will be subsequently utilized for subsequent
             calls.
-        mse_: float
+        ``mse_``: float
             The mean squared error (MSE) of the model, based
             on one-step forward forecasting, may not always
             be relevant. Utilizing a full forecasting approach
             is recommended to compute a more meaningful and
             comprehensive metric.
-        n_: int
+        ``n_``: int
             The number of rows used to fit the model.
 
         .. note::
@@ -950,7 +950,6 @@ class ARMA(TimeSeriesModelBase):
             tends to be precise when your time series primarily consists of an
             auto-regressive component. However, its accuracy may be a topic of
             discussion if the time series contains other components as well.
-    _____
 
         One important thing in time-series forecasting is that it has two
         types of forecasting:
@@ -1399,18 +1398,18 @@ class AR(TimeSeriesModelBase):
     Many attributes are created
     during the fitting phase.
 
-    phi_: numpy.array
+    ``phi_``: numpy.array
         The coefficient of the AutoRegressive process.
         It represents the strength and direction of the
         relationship between a variable and its past
         values.
-    intercept_: float
+    ``intercept_``: float
         Represents the expected value of the time series
         when the lagged values are zero. It signifies the
         baseline or constant term in the model, capturing
         the average level of the series in the absence of
         any historical influence.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the AutoRegressive part coefficients, which
         are normalized based on their range. Subsequently,
@@ -1420,13 +1419,13 @@ class AR(TimeSeriesModelBase):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    mse_: float
+    ``mse_``: float
         The mean squared error (MSE) of the model, based
         on one-step forward forecasting, may not always
         be relevant. Utilizing a full forecasting approach
         is recommended to compute a more meaningful and
         comprehensive metric.
-    n_: int
+    ``n_``: int
         The number of rows used to fit the model.
 
     .. note::
@@ -2033,26 +2032,26 @@ class MA(TimeSeriesModelBase):
         Many attributes are created
         during the fitting phase.
 
-        theta_: numpy.array
+        ``theta_``: numpy.array
             The theta coefficient of the Moving Average
             process. It signifies the impact and contribution
             of the lagged error terms in determining the
             current value within the time series model.
-        mu_: float
+        ``mu_``: float
             Represents the mean or average of the series. It
             is a constant term that reflects the expected
             value of the time series in the absence of any
             temporal dependencies or influences from past
             error terms.
-        mean_: float
+        ``mean_``: float
             The mean of the time series values.
-        mse_: float
+        ``mse_``: float
             The mean squared error (MSE) of the model, based
             on one-step forward forecasting, may not always
             be relevant. Utilizing a full forecasting approach
             is recommended to compute a more meaningful and
             comprehensive metric.
-        n_: int
+        ``n_``: int
             The number of rows used to fit the model.
 
         .. note::
@@ -2242,7 +2241,6 @@ class MA(TimeSeriesModelBase):
             don't work using ``X`` matrices and ``y``
             vectors. Instead, we work directly with lists
             of predictors and the response name.
-    _____
 
         One important thing in time-series forecasting is that it has two
         types of forecasting:
@@ -2681,7 +2679,7 @@ class VAR(AR):
     Many attributes are created
     during the fitting phase.
 
-    phi_: numpy.array
+    ``phi_``: numpy.array
         The coefficient of the AutoRegressive process.
         It represents the strength and direction of the
         relationship between a variable and its past
@@ -2692,7 +2690,7 @@ class VAR(AR):
             In the case of multivariate analysis, each
             coefficient is represented by a matrix of
             numbers.
-    intercept_: float
+    ``intercept_``: float
         Represents the expected value of the time series
         when the lagged values are zero. It signifies the
         baseline or constant term in the model, capturing
@@ -2704,7 +2702,7 @@ class VAR(AR):
             In the case of multivariate analysis, the
             intercept is represented by a vector of
             numbers.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the AutoRegressive part coefficients, which
         are normalized based on their range. Subsequently,
@@ -2714,13 +2712,13 @@ class VAR(AR):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    mse_: float
+    ``mse_``: float
         The mean squared error (MSE) of the model, based
         on one-step forward forecasting, may not always
         be relevant. Utilizing a full forecasting approach
         is recommended to compute a more meaningful and
         comprehensive metric.
-    n_: int
+    ``n_``: int
         The number of rows used to fit the model.
 
     .. note::

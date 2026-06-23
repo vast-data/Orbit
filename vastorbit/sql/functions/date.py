@@ -44,8 +44,8 @@ def date(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -62,7 +62,7 @@ def date(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["date_x"] = vof.date(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_date.html", "w")
         html_file.write(df._repr_html_())
@@ -123,8 +123,8 @@ def day(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:00:00',
-                    '09-05-1959 03:00:00',
+                    '1993-11-03 12:00:00',
+                    '1959-09-05 03:00:00',
                 ],
             },
         )
@@ -142,7 +142,7 @@ def day(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:00:00', '09-05-1959 03:00:00']})
+        df = VastFrame({"x": ['1993-11-03 12:00:00', '1959-09-05 03:00:00']})
         df["x"].astype("timestamp")
         df["day_x"] = vof.day(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_day.html", "w")
@@ -165,7 +165,7 @@ def day(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"DAY({expr})", "float")
+    return StringSQL(f"DAY({expr})", "real")
 
 
 def dayofweek(expr: SQLExpression) -> StringSQL:
@@ -205,8 +205,8 @@ def dayofweek(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:00:00',
-                    '09-05-1959 03:00:00',
+                    '1993-11-03 12:00:00',
+                    '1959-09-05 03:00:00',
                 ],
             },
         )
@@ -224,7 +224,7 @@ def dayofweek(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:00:00', '09-05-1959 03:00:00']})
+        df = VastFrame({"x": ['1993-11-03 12:00:00', '1959-09-05 03:00:00']})
         df["x"].astype("timestamp")
         df["dayofweek_x"] = vof.dayofweek(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_dayofweek.html", "w")
@@ -287,8 +287,8 @@ def dayofyear(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:00:00',
-                    '09-05-1959 03:00:00',
+                    '1993-11-03 12:00:00',
+                    '1959-09-05 03:00:00',
                 ],
             },
         )
@@ -306,7 +306,7 @@ def dayofyear(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:00:00', '09-05-1959 03:00:00']})
+        df = VastFrame({"x": ['1993-11-03 12:00:00', '1959-09-05 03:00:00']})
         df["x"].astype("timestamp")
         df["dayofyear_x"] = vof.dayofyear(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_dayofyear.html", "w")
@@ -329,7 +329,7 @@ def dayofyear(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"DAY_OF_YEAR({expr})", "float")
+    return StringSQL(f"DAY_OF_YEAR({expr})", "real")
 
 
 def extract(expr: SQLExpression, field: str) -> StringSQL:
@@ -375,7 +375,7 @@ def extract(expr: SQLExpression, field: str) -> StringSQL:
 
     .. code-block:: python
 
-        df = VastFrame({"x": ['11-03-1993', '12-03-1993']})
+        df = VastFrame({"x": ['1993-11-03', '1993-03-12']})
         df["x"].astype("timestamp")
 
     Now, let's go ahead and apply the function.
@@ -390,9 +390,9 @@ def extract(expr: SQLExpression, field: str) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993', '12-03-1993']})
+        df = VastFrame({"x": ['1993-11-03', '1993-03-12']})
         df["x"].astype("timestamp")
-        df["months"] = vof.extract(df["x"], "MONTHS")
+        df["months"] = vof.extract(df["x"], "MONTH")
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_extract.html", "w")
         html_file.write(df._repr_html_())
         html_file.close()
@@ -587,8 +587,8 @@ def hour(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:00:00',
-                    '09-05-1959 03:00:00',
+                    '1993-11-03 12:00:00',
+                    '1959-09-05 03:00:00',
                 ],
             },
         )
@@ -606,7 +606,7 @@ def hour(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:00:00', '09-05-1959 03:00:00']})
+        df = VastFrame({"x": ['1993-11-03 12:00:00', '1959-05-09 03:00:00']})
         df["x"].astype("timestamp")
         df["hour_x"] = vof.hour(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_hour.html", "w")
@@ -741,8 +741,8 @@ def minute(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:00',
-                    '09-05-1959 03:10:00',
+                    '1993-11-03 12:05:00',
+                    '1959-09-05 03:10:00',
                 ],
             },
         )
@@ -760,7 +760,7 @@ def minute(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:00', '09-05-1959 03:10:00']})
+        df = VastFrame({"x": ['1993-11-03 12:05:00', '1959-09-05 03:10:00']})
         df["x"].astype("timestamp")
         df["minute_x"] = vof.minute(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_minute.html", "w")
@@ -823,8 +823,8 @@ def microsecond(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -842,7 +842,7 @@ def microsecond(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["x"].astype("timestamp")
         df["microsecond_x"] = vof.microsecond(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_microsecond.html", "w")
@@ -905,8 +905,8 @@ def month(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -924,7 +924,7 @@ def month(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["x"].astype("timestamp")
         df["month_x"] = vof.month(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_month.html", "w")
@@ -1001,10 +1001,10 @@ def overlaps(
 
         df = VastFrame(
             {
-                "start0": ['11-03-1993'],
-                "end0": ['12-03-1993'],
-                "start1": ['11-30-1993'],
-                "end1": ['11-30-1994'],
+                "start0": ['1993-11-03'],
+                "end0": ['1993-03-12'],
+                "start1": ['1993-11-30'],
+                "end1": ['1994-11-30'],
             },
         )
         df["start0"].astype("timestamp")
@@ -1025,10 +1025,10 @@ def overlaps(
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-                df = VastFrame({"start0": ['11-03-1993'],
-                          "end0": ['12-03-1993'],
-                          "start1": ['11-30-1993'],
-                          "end1": ['11-30-1994']})
+                df = VastFrame({"start0": ['1993-11-03'],
+                          "end0": ['1993-12-03'],
+                          "start1": ['1993-11-30'],
+                          "end1": ['1994-11-30']})
         df["start0"].astype("timestamp")
         df["start1"].astype("timestamp")
         df["end0"].astype("timestamp")
@@ -1100,8 +1100,8 @@ def quarter(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -1119,7 +1119,7 @@ def quarter(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["x"].astype("timestamp")
         df["quarter_x"] = vof.quarter(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_quarter.html", "w")
@@ -1159,42 +1159,36 @@ def round_date(expr: SQLExpression, precision: str = "DD") -> StringSQL:
 
         **Century**:
                     CC | SCC
-
         **Year**:
                     SYYY | YYYY | YEAR | YYY | YY | Y
-
         **ISO Year**:
                     IYYY | IYY | IY | I
-
         **Quarter**:
                     Q
-
         **Month**:
                     MONTH | MON | MM | RM
-
         **Same weekday as first day of year**:
                     WW
-
         **Same weekday as first day of ISO year**:
                     IW
-
         **Same weekday as first day of month**:
                     W
-
         **Day (default)**:
                     DDD | DD | J
-
         **First weekday**:
                     DAY | DY | D
-
         **Hour**:
                     HH | HH12 | HH24
-
         **Minute**:
                     MI
-
         **Second**:
                     SS
+
+        .. note::
+
+            On Trino, ``Century``, ``ISO Year`` and the weekday-aligned
+            codes (``WW``, ``IW``, ``W``) have no native equivalent and
+            raise ``NotImplementedError``.
 
     Returns
     -------
@@ -1220,7 +1214,7 @@ def round_date(expr: SQLExpression, precision: str = "DD") -> StringSQL:
 
     .. code-block:: python
 
-        df = VastFrame({"x": ['11/03/1993', '09/05/1959']})
+        df = VastFrame({"x": ['1993-11-03', '1959-09-09']})
         df["x"].astype("date")
 
     Now, let's go ahead and apply the function.
@@ -1235,7 +1229,7 @@ def round_date(expr: SQLExpression, precision: str = "DD") -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11/03/1993', '09/05/1959']})
+        df = VastFrame({"x": ['1993-11-03', '1959-09-09']})
         df["x"].astype("date")
         df["round_x"] = vof.round_date(df["x"], 'MM')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_round_date.html", "w")
@@ -1258,7 +1252,42 @@ def round_date(expr: SQLExpression, precision: str = "DD") -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ROUND({expr}, '{precision}')", "date")
+    unit_map = {
+        # Year
+        "SYYY": "year", "YYYY": "year", "YEAR": "year",
+        "YYY": "year", "YY": "year", "Y": "year",
+        # Quarter
+        "Q": "quarter",
+        # Month
+        "MONTH": "month", "MON": "month", "MM": "month", "RM": "month",
+        # Week (nearest week start; Trino weeks start on Monday)
+        "DAY": "week", "DY": "week", "D": "week",
+        # Day
+        "DDD": "day", "DD": "day", "J": "day",
+        # Hour
+        "HH": "hour", "HH12": "hour", "HH24": "hour",
+        # Minute
+        "MI": "minute",
+        # Second
+        "SS": "second",
+    }
+    key = str(precision).upper()
+    if key not in unit_map:
+        raise NotImplementedError(
+            f"round_date precision {precision!r} is not supported on Trino. "
+            "Supported: year (YYYY/YEAR/...), quarter (Q), month (MM/MONTH/...), "
+            "week (DAY/DY/D), day (DD/DDD/J), hour (HH/HH12/HH24), minute (MI), "
+            "second (SS). Century, ISO-year and weekday-aligned codes "
+            "(CC, IYYY, WW, IW, W) have no Trino equivalent."
+        )
+    unit = unit_map[key]
+    lower = f"DATE_TRUNC('{unit}', {expr})"
+    upper = f"DATE_ADD('{unit}', 1, {lower})"
+    return StringSQL(
+        f"(CASE WHEN ({expr} - {lower}) < ({upper} - {expr}) "
+        f"THEN {lower} ELSE {upper} END)",
+        "date",
+    )
 
 
 def second(expr: SQLExpression) -> StringSQL:
@@ -1298,8 +1327,8 @@ def second(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -1317,7 +1346,7 @@ def second(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["x"].astype("timestamp")
         df["second_x"] = vof.second(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_second.html", "w")
@@ -1380,8 +1409,8 @@ def timestamp(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -1398,7 +1427,7 @@ def timestamp(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["timestamp_x"] = vof.timestamp(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_timestamp.html", "w")
         html_file.write(df._repr_html_())
@@ -1462,8 +1491,8 @@ def week(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -1481,7 +1510,7 @@ def week(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["x"].astype("timestamp")
         df["week_x"] = vof.week(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_week.html", "w")
@@ -1544,8 +1573,8 @@ def year(expr: SQLExpression) -> StringSQL:
         df = VastFrame(
             {
                 "x": [
-                    '11-03-1993 12:05:10.23',
-                    '09-05-1959 03:10:20.12',
+                    '1993-11-03 12:05:10.23',
+                    '1959-09-05 03:10:20.12',
                 ],
             },
         )
@@ -1563,7 +1592,7 @@ def year(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['11-03-1993 12:05:10.23', '09-05-1959 03:10:20.12']})
+        df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
         df["x"].astype("timestamp")
         df["year_x"] = vof.year(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_year.html", "w")

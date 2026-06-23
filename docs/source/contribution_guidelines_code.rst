@@ -170,7 +170,7 @@ ____
 
 .. tip::
 
-   **First time contributor?** Start with issues labeled `good-first-issue` on GitHub. Join us on Slack (`vastsupport.slack.com <https://vastsupport.slack.com>`_) if you need help!
+   **First time contributor?** Start with issues labeled `good-first-issue` on GitHub. Join us on Slack (`vastsupport.slack.com <https://vastsupport.slack.com>`__) if you need help!
 
 .. seealso::
 

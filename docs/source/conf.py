@@ -183,6 +183,10 @@ rst_prolog += """
 
    <i class="vast vast-networking" role="img" aria-label="connection"></i>
 
+.. |i-error| raw:: html
+
+   <i class="vast vast-no-silos" role="img" aria-label="error handling"></i>
+
 .. |i-guide| raw:: html
 
    <i class="vast vast-configuration-guide" role="img" aria-label="user guide"></i>
@@ -221,7 +225,7 @@ rst_prolog += """
 
 .. |i-multisource| raw:: html
 
-   <i class="vast vast-no-silos" role="img" aria-label="multi-source access"></i>
+   <i class="vast vast-merging-arrows" role="img" aria-label="multi-source access"></i>
 
 .. |i-files| raw:: html
 
@@ -295,6 +299,10 @@ rst_prolog += """
 
    <i class="vast vast-wrench" role="img" aria-label="functions"></i>
 
+.. |i-utils| raw:: html
+
+   <i class="vast vast-table-database" role="img" aria-label="utilities"></i>
+
 .. |i-geo| raw:: html
 
    <i class="vast vast-globe" role="img" aria-label="geospatial"></i>
@@ -302,6 +310,10 @@ rst_prolog += """
 .. |i-joins| raw:: html
 
    <i class="vast vast-merging-arrows" role="img" aria-label="joins"></i>
+
+.. |i-outliers| raw:: html
+
+   <i class="vast vast-data-analytics" role="img" aria-label="outliers"></i>
 
 .. |i-dupes| raw:: html
 
@@ -467,6 +479,7 @@ keep_going = True
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
     "IPython.sphinxext.ipython_directive",
     "IPython.sphinxext.ipython_console_highlighting",
     "nbsphinx",
@@ -495,6 +508,12 @@ import vastorbit  # isort:skip
 version = str(vastorbit.__version__)
 
 autosummary_generate = True
+
+napoleon_numpy_docstring = True
+napoleon_google_docstring = False
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_use_ivar = True
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -653,6 +672,7 @@ html_favicon = "_static/vlogo.png"
 # Customization
 html_css_files = [
     "css/vast_brand.css",  # VAST brand tokens — must load before the other stylesheets
+    "css/vast_features.css",
     "css/custom_styling.css",
     "css/ai_assistant.css",
     "css/vast_icons.css",  # official VAST icon font (122 glyphs, _static/fonts/)

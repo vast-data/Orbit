@@ -4,7 +4,6 @@
 Clustering & Anomaly Detection
 ===============================
 
-______
 
 Clustering
 ----------

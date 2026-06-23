@@ -560,7 +560,7 @@ class VASTModel(PlottingUtils):
         ----------
         parameters: dict, optional
             New parameters.
-        **kwargs
+        ``**kwargs``
             New parameters can also
             be passed as arguments,
             Example:
@@ -1395,7 +1395,7 @@ class VASTModel(PlottingUtils):
             two predictors.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -1741,7 +1741,7 @@ class Tree:
         chart: PlottingObject, optional
             The chart object
             to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -1894,7 +1894,7 @@ class Tree:
         chart: PlottingObject, optional
             The chart object
             to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -2293,19 +2293,19 @@ class Tree:
             to customize each node of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         edge_style: dict, optional
             ``dictionary`` of options
             to customize each edge of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         leaf_style: dict, optional
             ``dictionary`` of options
             to customize each leaf of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
 
         Returns
         -------
@@ -2439,7 +2439,7 @@ class Tree:
         pic_path: str, optional
             Absolute path to save
             the image of the tree.
-        *args, **kwargs: Any, optional
+        *args, ``**kwargs``: Any, optional
             Arguments to pass to
             the ``to_graphviz``
             method.
@@ -3746,7 +3746,7 @@ class BinaryClassifier(Supervised):
             object is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -3861,7 +3861,7 @@ class BinaryClassifier(Supervised):
             object  is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -3975,7 +3975,7 @@ class BinaryClassifier(Supervised):
             object  is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -4089,7 +4089,7 @@ class BinaryClassifier(Supervised):
             object  is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -5533,7 +5533,7 @@ class MulticlassClassifier(Supervised):
             the two predictors.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -5649,7 +5649,7 @@ class MulticlassClassifier(Supervised):
             Plotting object is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -5765,7 +5765,7 @@ class MulticlassClassifier(Supervised):
             Plotting object is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -5881,7 +5881,7 @@ class MulticlassClassifier(Supervised):
             Plotting object is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -5997,7 +5997,7 @@ class MulticlassClassifier(Supervised):
             Plotting object is returned.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -6303,7 +6303,7 @@ class Regressor(Supervised):
          .. raw:: html
              :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report.html
 
-        We can easily get the ANOVA table using:
+         We can easily get the ANOVA table using:
 
          .. ipython:: python
              :suppress:

@@ -201,13 +201,17 @@ class vDFText(vDFRolling):
         column = self.format_colnames(column)
         pattern_str = pattern.replace("'", "''")
 
+        if position and position > 1:
+            target = f"SUBSTR({column}, {position})"
+        else:
+            target = column
+
         if method == "count":
-            # REGEXP_COUNT(string, pattern) → bigint
-            expr = f"REGEXP_COUNT({column}, '{pattern_str}')"
+            # Trino: regexp_count(string, pattern) -> bigint
+            expr = f"REGEXP_COUNT({target}, '{pattern_str}')"
 
         elif method in ("like", "ilike"):
-            # REGEXP_LIKE(string, pattern) → boolean
-            # For case-insensitive, use (?i) flag
+            
             if method == "ilike":
                 pattern_str = f"(?i){pattern_str}"
             expr = f"REGEXP_LIKE({column}, '{pattern_str}')"
@@ -219,38 +223,56 @@ class vDFText(vDFRolling):
             expr = f"NOT REGEXP_LIKE({column}, '{pattern_str}')"
 
         elif method == "substr":
-            # REGEXP_EXTRACT(string, pattern) → varchar
-            # REGEXP_EXTRACT(string, pattern, group) → varchar
-            # For getting nth occurrence, use REGEXP_EXTRACT_ALL + ELEMENT_AT
-            if occurrence == 1:
-                expr = f"REGEXP_EXTRACT({column}, '{pattern_str}')"
+
+            if occurrence and occurrence > 1:
+                expr = (
+                    f"ELEMENT_AT(REGEXP_EXTRACT_ALL({target}, "
+                    f"'{pattern_str}'), {occurrence})"
+                )
             else:
-                # REGEXP_EXTRACT_ALL returns array, use ELEMENT_AT for nth occurrence
-                expr = f"ELEMENT_AT(REGEXP_EXTRACT_ALL({column}, '{pattern_str}'), {occurrence})"
+                expr = f"REGEXP_EXTRACT({target}, '{pattern_str}')"
 
         elif method == "replace":
-            # REGEXP_REPLACE(string, pattern, replacement) → varchar
-            # REGEXP_REPLACE(string, pattern, function) → varchar
-            # REGEXP_REPLACE(string, pattern, replacement, position) → varchar
             if replacement is None:
                 replacement = ""
             replacement_str = replacement.replace("'", "''")
 
-            if position > 1:
-                expr = f"REGEXP_REPLACE({column}, '{pattern_str}', '{replacement_str}', {position})"
+            if position and position > 1:
+                prefix = f"SUBSTR({column}, 1, {position - 1})"
+                body = (
+                    f"REGEXP_REPLACE({target}, '{pattern_str}', "
+                    f"'{replacement_str}')"
+                )
+                expr = f"CONCAT({prefix}, {body})"
             else:
-                expr = f"REGEXP_REPLACE({column}, '{pattern_str}', '{replacement_str}')"
+                expr = (
+                    f"REGEXP_REPLACE({column}, '{pattern_str}', "
+                    f"'{replacement_str}')"
+                )
 
         elif method == "instr":
-            # REGEXP_POSITION(string, pattern) → integer
-            # REGEXP_POSITION(string, pattern, start) → integer
-            # REGEXP_POSITION(string, pattern, start, occurrence) → integer
-            if position > 1 and occurrence > 1:
-                expr = f"REGEXP_POSITION({column}, '{pattern_str}', {position}, {occurrence})"
-            elif position > 1:
-                expr = f"REGEXP_POSITION({column}, '{pattern_str}', {position})"
+
+            if position and position > 1 and occurrence and occurrence > 1:
+                raw = (
+                    f"REGEXP_POSITION({column}, '{pattern_str}', "
+                    f"{position}, {occurrence})"
+                )
+            elif position and position > 1:
+                raw = f"REGEXP_POSITION({column}, '{pattern_str}', {position})"
             else:
-                expr = f"REGEXP_POSITION({column}, '{pattern_str}')"
+                raw = f"REGEXP_POSITION({column}, '{pattern_str}')"
+
+            if return_position and return_position != 0:
+                match_len = (
+                    f"COALESCE(LENGTH(REGEXP_EXTRACT({target}, "
+                    f"'{pattern_str}')), 0)"
+                )
+                expr = (
+                    f"CASE WHEN {raw} = -1 THEN 0 "
+                    f"ELSE {raw} + {match_len} END"
+                )
+            else:
+                expr = f"CASE WHEN {raw} = -1 THEN 0 ELSE {raw} END"
 
         else:
             raise ValueError(f"Unsupported regex method: {method}")

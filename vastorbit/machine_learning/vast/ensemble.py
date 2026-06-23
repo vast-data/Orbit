@@ -51,16 +51,6 @@ class RandomForest(Tree):
         for more information on Classification models.
     """
 
-    # Properties.
-
-    @property
-    def _model_importance_function(self) -> Literal["RF_PREDICTOR_IMPORTANCE"]:
-        return "RF_PREDICTOR_IMPORTANCE"
-
-    @property
-    def _model_importance_feature(self) -> Literal["IMPORTANCE_VALUE"]:
-        return "IMPORTANCE_VALUE"
-
 
 class XGBoost(Tree):
     """
@@ -76,16 +66,6 @@ class XGBoost(Tree):
         :py:class:`~vastorbit.machine_learning.vast.ensemble.XGBClassifier`
         for more information on Classification models.
     """
-
-    # Properties.
-
-    @property
-    def _model_importance_function(self) -> Literal["XGB_PREDICTOR_IMPORTANCE"]:
-        return "XGB_PREDICTOR_IMPORTANCE"
-
-    @property
-    def _model_importance_feature(self) -> Literal["AVG_GAIN"]:
-        return "AVG_GAIN"
 
     # Attributes Methods.
 
@@ -369,7 +349,7 @@ class XGBoost(Tree):
          .. raw:: html
              :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
 
-        Let's import the model:
+         Let's import the model:
 
          .. ipython:: python
 
@@ -465,21 +445,21 @@ class RandomForestRegressor(Regressor, RandomForest):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of BinaryTreeRegressor
+    ``trees_``: list of BinaryTreeRegressor
         Tree models are instances of `
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor`,
         each possessing various attributes.
         For more detailed information, refer
         to the documentation for
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the MDI (Mean Decreased Impurity). To
         determine the final score, vastorbit sums the
@@ -490,7 +470,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    feature_importances_trees_: dict of numpy.array
+    ``feature_importances_trees_``: dict of numpy.array
         Each element of the array represents the feature
         importance of tree i.
         The importance of features is calculated
@@ -500,7 +480,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    n_estimators_: int
+    ``n_estimators_``: int
         The number of model estimators.
 
     .. note::
@@ -823,7 +803,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -1091,14 +1071,14 @@ class XGBRegressor(Regressor, XGBoost):
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of BinaryTreeRegressor
+    ``trees_``: list of BinaryTreeRegressor
         Tree models are instances of `
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor`,
         each possessing various attributes.
         For more detailed information, refer
         to the documentation for
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the average gain of each tree. To determine
         the final score, vastorbit sums the scores of each
@@ -1109,7 +1089,7 @@ class XGBRegressor(Regressor, XGBoost):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    feature_importances_trees_: dict of numpy.array
+    ``feature_importances_trees_``: dict of numpy.array
         Each element of the array represents the feature
         importance of tree i.
         The importance of features is calculated
@@ -1119,9 +1099,9 @@ class XGBRegressor(Regressor, XGBoost):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    mean_: float
+    ``mean_``: float
         The mean of the response column.
-    eta_: float
+    ``eta_``: float
         The learning rate, is a crucial hyperparameter in
         machine learning algorithms. It determines the step
         size at each iteration during the model training
@@ -1131,7 +1111,7 @@ class XGBRegressor(Regressor, XGBoost):
         phase. Adjusting the learning rate is often necessary
         to strike a balance between model accuracy and
         computational efficiency.
-    n_estimators_: int
+    ``n_estimators_``: int
         The number of model estimators.
 
     .. note::
@@ -1458,7 +1438,7 @@ class XGBRegressor(Regressor, XGBoost):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -1727,21 +1707,21 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of BinaryTreeClassifier
+    ``trees_``: list of BinaryTreeClassifier
         Tree models are instances of `
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier`,
         each possessing various attributes.
         For more detailed information, refer
         to the documentation for
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the MDI (Mean Decreased Impurity). To
         determine the final score, vastorbit sums the
@@ -1752,7 +1732,7 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    feature_importances_trees_: dict of numpy.array
+    ``feature_importances_trees_``: dict of numpy.array
         Each element of the array represents the feature
         importance of tree i.
         The importance of features is calculated
@@ -1762,9 +1742,9 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    n_estimators_: int
+    ``n_estimators_``: int
         The number of model estimators.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -2310,7 +2290,7 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -2606,14 +2586,14 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of BinaryTreeClassifier
+    ``trees_``: list of BinaryTreeClassifier
         Tree models are instances of `
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier`,
         each possessing various attributes.
         For more detailed information, refer
         to the documentation for
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the average gain of each tree. To determine
         the final score, vastorbit sums the scores of each
@@ -2624,7 +2604,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    feature_importances_trees_: dict of numpy.array
+    ``feature_importances_trees_``: dict of numpy.array
         Each element of the array represents the feature
         importance of tree i.
         The importance of features is calculated
@@ -2634,11 +2614,11 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    logodds_: numpy.array
+    ``logodds_``: numpy.array
         The log-odds. It quantifies the logarithm of the
         odds ratio, providing a measure of the likelihood
         of an event occurring.
-    eta_: float
+    ``eta_``: float
         The learning rate, is a crucial hyperparameter in
         machine learning algorithms. It determines the step
         size at each iteration during the model training
@@ -2648,9 +2628,9 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         phase. Adjusting the learning rate is often necessary
         to strike a balance between model accuracy and
         computational efficiency.
-    n_estimators_: int
+    ``n_estimators_``: int
         The number of model estimators.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -3200,7 +3180,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -3511,23 +3491,23 @@ class IsolationForest(Clustering, Tree):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of BinaryTreeAnomaly
+    ``trees_``: list of BinaryTreeAnomaly
         Tree models are instances of `
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeAnomaly`,
         each possessing various attributes.
         For more detailed information, refer
         to the documentation for
         :py:class:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeAnomaly`.
-    psy_: int
+    ``psy_``: int
         Sampling size used to compute the final score.
-    n_estimators_: int
+    ``n_estimators_``: int
         The number of model estimators.
 
     .. note::
@@ -3741,7 +3721,7 @@ class IsolationForest(Clustering, Tree):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 

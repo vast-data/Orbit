@@ -160,3 +160,76 @@ def _executeSQL(
     elif method == "fetchall":
         return cursor.fetchall()
     return cursor
+
+def purge_memory(
+    schema: str = "default",
+    catalog: str = "memory",
+    like: Optional[str] = None,
+    raise_on_error: bool = False,
+) -> int:
+    """
+    Drops staging tables left behind in Trino's ``memory`` connector.
+
+    VastOrbit ingestion helpers (for example :py:func:`~vastorbit.read_csv`)
+    stage data in the ``memory`` connector before copying it into VAST. When a
+    load raises before its cleanup step, the staging table survives and either
+    fills the connector's memory budget (``MEMORY_LIMIT_EXCEEDED``) or collides
+    with the next load (``table ... already exists``). Call this at the start of
+    a session, notebook, or documentation build to reset that state.
+
+    Parameters
+    ----------
+    schema: str, optional
+        Schema inside the memory connector to purge. Default: ``"default"``.
+    catalog: str, optional
+        Catalog name of the memory connector. Default: ``"memory"``.
+    like: str, optional
+        SQL ``LIKE`` pattern. When set, only tables whose name matches the
+        pattern are dropped (for example ``"_vastorbit_tmp_%"`` to spare
+        user-created tables). When ``None``, every table in ``schema`` is dropped.
+    raise_on_error: bool, optional
+        When ``True``, the first failed ``DROP`` is re-raised. When ``False``
+        (default), failures are swallowed so a single locked or vanished table
+        never aborts the purge.
+
+    Returns
+    -------
+    int
+        Number of tables successfully dropped.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        from vastorbit._utils._sql._sys import purge_memory
+
+        purge_memory()                      # full reset before an example
+        purge_memory(like="_vastorbit_tmp_%")   # only VastOrbit's own staging
+    """
+    # 1. Enumerate the staging tables currently in the memory connector.
+    list_sql = (
+        f"SELECT table_name "
+        f"FROM {catalog}.information_schema.tables "
+        f"WHERE table_schema = '{schema}'"
+    )
+    if like is not None:
+        list_sql += f" AND table_name LIKE '{like}'"
+
+    rows = _executeSQL(
+        list_sql,
+        title="Listing memory-connector staging tables",
+        method="fetchall",
+    )
+    tables = [row[0] for row in rows] if rows else []
+
+    # 2. Drop each table independently so one failure never blocks the rest.
+    dropped = 0
+    for table in tables:
+        drop_sql = f'DROP TABLE IF EXISTS {catalog}.{schema}."{table}"'
+        try:
+            _executeSQL(drop_sql, title=f"Dropping {catalog}.{schema}.{table}")
+            dropped += 1
+        except Exception:
+            if raise_on_error:
+                raise
+    return dropped

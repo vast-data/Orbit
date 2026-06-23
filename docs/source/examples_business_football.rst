@@ -3,7 +3,7 @@
 Football
 =========
 
-In this example, we use the ``football`` dataset to predict the outcomes of games between various teams. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/football/football.ipynb>`_ and the dataset `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/football/games.csv>`_.
+In this example, we use the ``football`` dataset to predict the outcomes of games between various teams. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/football/football.ipynb>`__ and the dataset `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/football/games.csv>`__.
 
 - **date:** Date of the game.
 - **home_team:** Home Team.
@@ -41,7 +41,7 @@ Let's create a VastFrame of the dataset.
 .. code-block:: python
 
     football = vo.read_csv("games.csv")
-    football.head(5)
+    football
 
 .. ipython:: python
     :suppress:
@@ -50,7 +50,7 @@ Let's create a VastFrame of the dataset.
         football = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/football/games.csv")
     except:
         football = vo.VastFrame("games")
-    res = football.head(5)
+    res = football
     html_file = open("SPHINX_DIRECTORY/figures/examples_football_table_head.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -355,6 +355,7 @@ Let's consider the World Cup as a special tournament. It is the only one where t
         football["tournament"], "FIFA World Cup", 
         1, 0,
     )
+    football["Word_Cup"]
 
 .. ipython:: python
     :suppress:
@@ -1875,17 +1876,17 @@ Let's export the result to our VAST database using the variable ``match_sample``
 
 .. code-block:: python
 
-    vo.drop("football_train", method = "table")
+    vo.drop("football_train", method = "view")
     all_matchs.to_db(
         name = "football_train",
-        relation_type = "table",
+        relation_type = "view",
         db_filter = (fun.year(all_matchs["date"]) <= 2015) & (fun.year(all_matchs["date"]) > 1980) & (all_matchs["match_sample"] == 1),
     )
 
-    vo.drop("football_test", method = "table")
+    vo.drop("football_test", method = "view")
     all_matchs.to_db(
         name = "football_test",
-        relation_type = "table",
+        relation_type = "view",
         db_filter = (fun.year(all_matchs["date"]) > 2015) & (all_matchs["match_sample"] == 1),
     )
 
@@ -1933,6 +1934,11 @@ It's time to make predictions about the outcomes of games. We have a lot of vari
             "victory_team1",
             "victory_team2",
             "draw",
+            "tournament",
+            "team1",
+            "team2",
+            "confederation_1",
+            "confederation_2",
         ],
     )
 
@@ -2128,3 +2134,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

@@ -1011,7 +1011,7 @@ class vDCEncode(vDCFill):
                 if self.category() == "int":
                     h = int(max(math.floor(h), 1))
             floor_end = -1 if (self.category() == "int") else ""
-            if (h > 1) or (self.category() == "float"):
+            if (h > 1) or (self.category() == "real"):
                 trans = (
                     f"'[' || CAST(FLOOR({{}} / {h}) * {h} AS VARCHAR) || ';' || CAST((FLOOR({{}} / {h}) * {h} + {h}{floor_end}) AS VARCHAR) || ']'",
                     "varchar",
@@ -1350,7 +1350,7 @@ class vDCEncode(vDCFill):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.discretize` : Discretization.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.one_hot_encode` : One Hot Encoding.
         """
-        if self.category() in ["date", "float"]:
+        if self.category() in ["date", "real"]:
             warning_message = (
                 "label_encode is only available for categorical variables."
             )
@@ -1495,7 +1495,7 @@ class vDCEncode(vDCFill):
             (
                 f"AVG({response}) OVER (PARTITION BY {{}})",
                 "int",
-                "float",
+                "real",
             )
         ]
         self._parent._update_catalog(erase=True, columns=[self._alias])

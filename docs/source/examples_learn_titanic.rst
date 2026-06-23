@@ -3,7 +3,7 @@
 Titanic
 ========
 
-This example uses the ``titanic`` dataset to predict the survival of passengers on the Titanic. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/titanic/titanic.ipynb>`_.
+This example uses the ``titanic`` dataset to predict the survival of passengers on the Titanic. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/titanic/titanic.ipynb>`__.
 
 We will follow the data science cycle (Data Exploration - Data Preparation - Data Modeling - Model Evaluation - Model Deployment) to solve this problem.
 
@@ -85,7 +85,7 @@ Let's focus our analysis on the columns ``name`` and ``cabin``. We'll begin with
     :suppress:
     :okwarning:
 
-    from vastorbit.machine_learning.vast import CountVectorizer
+    from vastorbit.machine_learning.vast import TfidfVectorizer
 
     model = TfidfVectorizer()
     model.fit(titanic, "ticket", x="Name")
@@ -125,21 +125,21 @@ Here, we have the cabin IDs, the letter of which represents a certain position o
 
 .. code-block:: python
 
-    model = CountVectorizer()
-    model.fit("titanic", ["cabin"])
-    model.transform()["token"].str_slice(1, 1).groupby(
-        columns = ["token"], expr = ["SUM(cnt)"]
-    ).head(30)
+    model = TfidfVectorizer()
+    model.fit(titanic, "ticket", x="cabin")
+    model.transform(titanic, "ticket", x="cabin")["word"].str_slice(1, 2).groupby(
+        columns = ["word"], expr = ["SUM(tf) AS occurences"]
+    ).sort({"occurences": "desc"})
 
 .. ipython:: python
     :suppress:
     :okwarning:
 
-    model = CountVectorizer()
-    model.fit("titanic", ["cabin"])
-    res = model.transform()["token"].str_slice(1, 1).groupby(
-        columns = ["token"], expr = ["SUM(cnt)"]
-    ).head(30)
+    model = TfidfVectorizer()
+    model.fit(titanic, "ticket", x="cabin")
+    res = model.transform(titanic, "ticket", x="cabin")["word"].str_slice(1, 2).groupby(
+        columns = ["word"], expr = ["SUM(tf) AS occurences"]
+    ).sort({"occurences": "desc"})
     html_file = open("SPHINX_DIRECTORY/figures/examples_titanic_table_count_vect_3.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -154,20 +154,20 @@ We'll revisit this problem later. For now, let's drop the columns that don't aff
 .. code-block:: python
 
     titanic.drop(["body", "home.dest", "embarked", "ticket"])
-    titanic["cabin"].str_slice(1, 1)["name"].str_extract(
-            ' ([A-Za-z]+)\.')["boat"].fillna(
+    titanic["cabin"].str_slice(1, 2)["name"].str_extract(
+            ' ([A-Za-z]+)\\.')["boat"].fillna(
             method = "0ifnull"
-    )["cabin"].fillna("No Cabin")
+    )["cabin"].fillna("No Cabin")["name"].one_hot_encode()
 
 .. ipython:: python
     :suppress:
     :okwarning:
 
     titanic.drop(["body", "home.dest", "embarked", "ticket"])
-    res = titanic["cabin"].str_slice(1, 1)["name"].str_extract(
-            ' ([A-Za-z]+)\.')["boat"].fillna(
+    res = titanic["cabin"].str_slice(1, 2)["name"].str_extract(
+            ' ([A-Za-z]+)\\.')["boat"].fillna(
             method = "0ifnull"
-    )["cabin"].fillna("No Cabin")
+    )["cabin"].fillna("No Cabin")["name"].one_hot_encode()
     html_file = open("SPHINX_DIRECTORY/figures/examples_titanic_table_drop_clean.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -331,11 +331,11 @@ Let's move on to modeling our data. Save the :py:mod:`~vastorbit.VastFrame` to y
 
     # Titanic Boat
     drop("titanic_boat", method = "view")
-    titanic_boat = titanic.search(titanic["boat"] == 1).to_db("titanic_boat", relation_type = "view")
+    titanic_boat = titanic.search(titanic["boat"] == 1).to_db("titanic_boat", relation_type = "view", inplace = True)
 
     # Titanic No Boat
     drop("titanic_no_boat", method = "view")
-    titanic_no_boat = titanic.search(titanic["boat"] == 0).to_db("titanic_no_boat", relation_type = "view")
+    titanic_no_boat = titanic.search(titanic["boat"] == 0).to_db("titanic_no_boat", relation_type = "view", inplace = True)
 
 Machine Learning
 -----------------
@@ -402,7 +402,7 @@ Let's move on to passengers without a lifeboat.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_titanic_table_without_boat.html
 
-Only 20 survived. Let's find out why.
+Only 23 survived. Let's find out why.
 
 .. code-block:: python
 
@@ -429,11 +429,10 @@ One of our predictors is categorical: the passenger title. Some of these predict
     from vastorbit.machine_learning.vast import RandomForestClassifier
     from vastorbit.machine_learning.model_selection import cross_validate
 
-    predictors = titanic.get_columns(exclude_columns = ["survived"])
+    predictors = titanic.get_columns(exclude_columns = ["survived", "name", "fare", "boat"])
     response = "survived"
     model = RandomForestClassifier(
-        n_estimators = 40, 
-        max_depth = 4,
+        n_estimators = 7,
     )
     cross_validate(model, titanic_no_boat, predictors, response)
 
@@ -444,11 +443,10 @@ One of our predictors is categorical: the passenger title. Some of these predict
     from vastorbit.machine_learning.vast import RandomForestClassifier
     from vastorbit.machine_learning.model_selection import cross_validate
 
-    predictors = titanic.get_columns(exclude_columns = ["survived"])
+    predictors = titanic.get_columns(exclude_columns = ["survived", "name", "fare", "boat"])
     response = "survived"
     model = RandomForestClassifier(
-        n_estimators = 40, 
-        max_depth = 4,
+        n_estimators = 7,
     )
     res = cross_validate(model, titanic_no_boat, predictors, response)
     html_file = open("SPHINX_DIRECTORY/figures/examples_titanic_table_ml_cv.html", "w")
@@ -458,7 +456,7 @@ One of our predictors is categorical: the passenger title. Some of these predict
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_titanic_table_ml_cv.html
 
-This dataset is pretty unbalanced so we'll use an ``AUC`` to evaluate it. Looking at our table, our model has an average ``AUC`` of more than 0.9, so our model is quite good.
+This dataset is pretty unbalanced so we'll use an ``AUC`` to evaluate it. Looking at our table, our model has an average ``AUC`` of more than 0.8, so our model is quite good.
 
 We can now build a model with the entire dataset.
 
@@ -484,9 +482,15 @@ Let's look at the importance of each feature.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_titanic_table_features.html
 
-As expected, the passenger's title is the most important predictors of survival.
+As expected, the passenger's age and title are the most important predictors of survival.
 
 Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

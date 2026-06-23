@@ -3,7 +3,7 @@
 Booking
 ========
 
-This example uses the ``expedia`` dataset to predict, based on site activity, whether a user is likely to make a booking. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/booking/booking.ipynb>`_ and the dataset `here <https://www.kaggle.com/c/expedia-hotel-recommendations/data>`_.
+This example uses the ``expedia`` dataset to predict, based on site activity, whether a user is likely to make a booking. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/booking/booking.ipynb>`__ and the dataset `here <https://www.kaggle.com/c/expedia-hotel-recommendations/data>`__.
 
 - **cnt:** Number of similar events in the context of the same user session.
 - **user_location_city:** The ID of the city in which the customer is located.
@@ -54,13 +54,16 @@ Let's create a VastFrame of the dataset.
 .. code-block:: python
 
     expedia = vo.read_csv("expedia.csv", parse_nrows = 1000)
-    expedia.head(5)
+    expedia
 
 .. ipython:: python
     :suppress:
 
-    expedia = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/booking/expedia.csv")
-    res = expedia.head(5)
+    try:
+        expedia = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/booking/expedia.csv")
+    except:
+        expedia = vo.VastFrame("expedia")
+    res = expedia
     html_file = open("SPHINX_DIRECTORY/figures/examples_expedia_table_head.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -154,7 +157,7 @@ We can now aggregate the session and get some useful statistics out of it:
  - **orig_destination_distance:** Average of the physical distances between the hotels and the customer.
  - **srch_family_cnt:** The number of people specified in the hotel room.
 
-.. ipython:: python
+.. code-block:: python
 
     import vastorbit.sql.functions as fun
 
@@ -168,12 +171,42 @@ We can now aggregate the session and get some useful statistics out of it:
             fun.max(expedia["date_time"])._as("end_session_date_time"),
             "EXTRACT(SECOND FROM MAX(date_time) - MIN(date_time)) AS session_duration",
             fun.max(expedia["is_booking"])._as("is_booking"),
-            fun.avg(expedia["trip_duration"])._as("trip_duration"),
+            "EXTRACT(DAY FROM AVG(trip_duration)) AS trip_duration",
             fun.avg(expedia["orig_destination_distance"])._as("avg_distance"),
             fun.sum(expedia["cnt"])._as("nb_click_session"),
             fun.median(expedia["srch_children_cnt"] + expedia["srch_adults_cnt"])._as("srch_family_cnt"),
         ],
     )
+    expedia
+
+.. ipython:: python
+    :suppress:
+
+    import vastorbit.sql.functions as fun
+
+    expedia = expedia.groupby(
+        columns = [
+            "user_id",
+            "session_id", 
+            "mode_hotel_cluster_count",
+        ], 
+        expr = [
+            fun.max(expedia["date_time"])._as("end_session_date_time"),
+            "EXTRACT(SECOND FROM MAX(date_time) - MIN(date_time)) AS session_duration",
+            fun.max(expedia["is_booking"])._as("is_booking"),
+            "EXTRACT(DAY FROM AVG(trip_duration)) AS trip_duration",
+            fun.avg(expedia["orig_destination_distance"])._as("avg_distance"),
+            fun.sum(expedia["cnt"])._as("nb_click_session"),
+            fun.median(expedia["srch_children_cnt"] + expedia["srch_adults_cnt"])._as("srch_family_cnt"),
+        ],
+    )
+    res = expedia
+    html_file = open("SPHINX_DIRECTORY/figures/examples_expedia_analytic_gb_1.html", "w")
+    html_file.write(res._repr_html_())
+    html_file.close()
+
+.. raw:: html
+    :file: SPHINX_DIRECTORY/figures/examples_expedia_analytic_gb_1.html
 
 Let's look at the missing values.
 
@@ -363,3 +396,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

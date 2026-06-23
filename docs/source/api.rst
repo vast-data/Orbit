@@ -32,6 +32,7 @@ Essential modules for connecting to VAST and working with data.
 
 .. grid:: 2 2 3 3
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
@@ -84,6 +85,7 @@ Tools for building, training, and deploying ML models at scale.
 
 .. grid:: 2 2 3 3
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
@@ -120,6 +122,7 @@ Create interactive charts and explore data visually.
 
 .. grid:: 2 2 3 3
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
@@ -169,6 +172,7 @@ Utilities for managing data in VAST DataBase.
 
 .. grid:: 2 2 3 3
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
@@ -216,10 +220,11 @@ Advanced Topics
 
 .. grid:: 2 2 3 3
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
-      .. card:: |warn| Error Handling
+      .. card:: |i-error| Error Handling
           :link: api.error
           :link-type: ref
           :text-align: center

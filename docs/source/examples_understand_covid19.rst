@@ -3,7 +3,7 @@
 COVID-19
 =========
 
-This example uses the ``covid19`` dataset to predict the number of deaths and cases one day in advance. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/covid19/covid19.ipynb>`_.
+This example uses the ``covid19`` dataset to predict the number of deaths and cases one day in advance. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/covid19/covid19.ipynb>`__.
 
 - **date:** Date of the record.
 - **cases:** Number of people infected.
@@ -33,14 +33,14 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/covid19/deaths.csv>`_.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/covid19/deaths.csv>`__.
 
 .. code-block:: python
 
     from vastorbit.datasets import load_commodities
 
     covid19 = vo.read_csv("deaths.csv")
-    covid19.head(10)
+    covid19
 
 .. ipython:: python
     :suppress:
@@ -49,8 +49,8 @@ Let's create a VastFrame of the dataset. The dataset is available `here <https:/
         covid19 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/covid19/deaths.csv")
     except:
         covid19 = vo.VastFrame("deaths")
-    res = covid19.head(10)
-    html_file = open("SPHINX_DIRECTORY/figures/examples_commodities_table_head.html", "w")
+    res = covid19
+    html_file = open("SPHINX_DIRECTORY/figures/examples_covid19_table_head.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
@@ -441,3 +441,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

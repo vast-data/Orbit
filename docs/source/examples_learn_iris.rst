@@ -3,7 +3,7 @@
 Iris
 =====
 
-This example uses the ``iris`` dataset to predict the species of various flowers based on their physical features. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/iris/iris.ipynb>`_.
+This example uses the ``iris`` dataset to predict the species of various flowers based on their physical features. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/iris/iris.ipynb>`__.
 
 - **PetalLengthCm:** Petal Length in cm
 - **PetalWidthCm:** Petal Width in cm
@@ -327,3 +327,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

@@ -9,6 +9,7 @@ Understand your data through statistics and visualization.
 ____
 
 .. grid:: 1
+    :class-container: feature-tiles
 
     .. grid-item::
 

@@ -6,7 +6,7 @@ Joins
 
 When working with datasets, we often need to merge data from different sources. To do this, we need keys on which to join our data.
 
-Let's use the `US Flights 2015 datasets <https://www.kaggle.com/datasets/usdot/flight-delays>`_. We have three datasets.
+Let's use the `US Flights 2015 datasets <https://www.kaggle.com/datasets/usdot/flight-delays>`__. We have three datasets.
 
 First, we have information on each flight.
 
@@ -48,8 +48,8 @@ Second, we have information on each airport.
                             "CITY": "Varchar(60)",
                             "STATE": "Varchar(20)",
                             "COUNTRY": "Varchar(20)",
-                            "LATITUDE": "float",
-                            "LONGITUDE": "float",
+                            "LATITUDE": "real",
+                            "LONGITUDE": "real",
                         }
     )
     res = airports.head(100)

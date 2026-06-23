@@ -102,7 +102,8 @@ def regexp_count(
     """
     expr = format_magic(expr)
     pattern = format_magic(pattern)
-    return StringSQL(f"REGEXP_COUNT({expr}, {pattern}, {position})", "int")
+    src = f"SUBSTR({expr}, {position})" if position != 1 else expr
+    return StringSQL(f"REGEXP_COUNT({src}, {pattern})", "int")
 
 
 def regexp_ilike(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
@@ -191,7 +192,7 @@ def regexp_ilike(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
     """
     expr = format_magic(expr)
     pattern = format_magic(pattern)
-    return StringSQL(f"REGEXP_ILIKE({expr}, {pattern})")
+    return StringSQL(f"REGEXP_LIKE({expr}, '(?i)' || {pattern})", "bool")
 
 
 def regexp_instr(
@@ -297,8 +298,13 @@ def regexp_instr(
     """
     expr = format_magic(expr)
     pattern = format_magic(pattern)
+    pos = f"REGEXP_POSITION({expr}, {pattern}, {position}, {occurrence})"
+    if return_position == 0:
+        return StringSQL(f"(CASE WHEN {pos} = -1 THEN 0 ELSE {pos} END)", "int")
+    # return_position = 1 -> position just past the end of the match
+    matched = f"REGEXP_EXTRACT({expr}, {pattern})"
     return StringSQL(
-        f"REGEXP_INSTR({expr}, {pattern}, {position}, {occurrence}, {return_position})"
+        f"(CASE WHEN {pos} = -1 THEN 0 ELSE {pos} + LENGTH({matched}) END)", "int"
     )
 
 
@@ -388,7 +394,7 @@ def regexp_like(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
     """
     expr = format_magic(expr)
     pattern = format_magic(pattern)
-    return StringSQL(f"REGEXP_LIKE({expr}, {pattern})")
+    return StringSQL(f"REGEXP_LIKE({expr}, {pattern})", "bool")
 
 
 def regexp_replace(
@@ -494,9 +500,18 @@ def regexp_replace(
     expr = format_magic(expr)
     target = format_magic(target)
     replacement = format_magic(replacement)
-    return StringSQL(
-        f"REGEXP_REPLACE({expr}, {target}, {replacement}, {position}, {occurrence})"
-    )
+    if occurrence != 1:
+        raise NotImplementedError(
+            "Trino's REGEXP_REPLACE replaces all matches and cannot target a "
+            "single occurrence; 'occurrence' other than 1 is not supported."
+        )
+    if position != 1:
+        # Replace only within the tail starting at `position`, keeping the
+        # untouched prefix intact.
+        prefix = f"SUBSTR({expr}, 1, {position} - 1)"
+        tail = f"REGEXP_REPLACE(SUBSTR({expr}, {position}), {target}, {replacement})"
+        return StringSQL(f"CONCAT({prefix}, {tail})")
+    return StringSQL(f"REGEXP_REPLACE({expr}, {target}, {replacement})")
 
 
 def regexp_extract(
@@ -594,4 +609,9 @@ def regexp_extract(
     """
     expr = format_magic(expr)
     pattern = format_magic(pattern)
-    return StringSQL(f"regexp_extract({expr}, {pattern}, {position}, {occurrence})")
+    src = f"SUBSTR({expr}, {position})" if position != 1 else expr
+    if occurrence == 1:
+        return StringSQL(f"REGEXP_EXTRACT({src}, {pattern})")
+    return StringSQL(
+        f"ELEMENT_AT(REGEXP_EXTRACT_ALL({src}, {pattern}), {occurrence})"
+    )

@@ -11,6 +11,7 @@ Get started with VAST Orbit and learn the fundamentals of in-database analytics.
 ____
 
 .. grid:: 1
+    :class-container: feature-tiles
 
     .. grid-item::
 
@@ -20,7 +21,9 @@ ____
             :text-align: center
             :class-card: custom-card-9
 
-            **4 minutes**
+            4 mins
+
+            ^^^^^^^
 
             Configure your connection and set up your environment for in-database analytics.
 
@@ -32,7 +35,9 @@ ____
             :text-align: center
             :class-card: custom-card-9
 
-            **12 minutes**
+            12 mins
+
+            ^^^^^^^
 
             Master the VastFrame object for efficient data manipulation without moving data.
 
@@ -44,9 +49,19 @@ ____
             :text-align: center
             :class-card: custom-card-9
 
-            **20 minutes**
+            20 mins
+
+            ^^^^^^^
 
             Optimize your workflow with proven techniques for performance and efficiency.
+
+.. container:: vob-learn-cta
+
+   .. button-ref:: user_guide.introduction.installation
+      :ref-type: ref
+      :class: vob-learn-btn
+
+      Start Learning →
 
 .. toctree::
     :hidden:

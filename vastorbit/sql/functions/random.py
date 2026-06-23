@@ -68,7 +68,7 @@ def random() -> StringSQL:
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL("RANDOM()", "float")
+    return StringSQL("RANDOM()", "real")
 
 
 def randomint(n: int) -> StringSQL:
@@ -220,5 +220,5 @@ def seeded_random(random_state: int) -> StringSQL:
             ))
         ))) % 100) / 100.0
     """,
-        "float",
+        "real",
     )

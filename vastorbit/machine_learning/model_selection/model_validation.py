@@ -20,9 +20,11 @@ from vastorbit._typing import (
     SQLColumns,
     SQLRelation,
 )
+from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type
 
+from vastorbit.sql.drop import drop
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
@@ -30,6 +32,26 @@ from vastorbit.core.vastframe.base import VastFrame
 from vastorbit.machine_learning.vast.base import VASTModel
 
 from vastorbit.plotting._utils import PlottingUtils
+
+
+def _materialize(vdf: VastFrame, label: str) -> str:
+    """
+    Persists ``vdf`` to a temporary base table and repoints the frame at it,
+    returning the table name (for later cleanup with :py:func:`_drop_relation`).
+    """
+    name = gen_tmp_name(schema=conf.get_option("temp_schema"), name=f"cv_{label}")
+    vdf.to_db(name, relation_type="table", inplace=True)
+    return name
+
+
+def _drop_relation(name: Optional[str]) -> None:
+    """Best-effort drop of a temporary table created by :py:func:`_materialize`."""
+    if not name:
+        return
+    try:
+        drop(name, method="table")
+    except Exception:
+        pass
 
 
 @save_vastorbit_logs
@@ -552,27 +574,36 @@ def cross_validate(
         train, test = input_relation.train_test_split(
             test_size=float(1 / cv), order_by=[X[0]], random_state=random_state
         )
-        start_time = time.time()
-        estimator.fit(
-            train,
-            X,
-            y,
-            test,
-            return_report=True,
-        )
-        total_time += [time.time() - start_time]
-        fun = estimator.report
-        kwargs = {"metrics": final_metrics}
-        key = "value"
-        if estimator._model_subcategory == "CLASSIFIER" and not (
-            estimator._is_binary_classifier()
-        ):
-            key = f"avg_{average}"
-        result[f"{i + 1}-fold"] = fun(**kwargs)[key]
-        if training_score:
-            estimator.test_relation = estimator.input_relation
-            result_train[f"{i + 1}-fold"] = fun(**kwargs)[key]
-        estimator.drop()
+        # Flatten the (possibly deeply nested) split/sample relations into base
+        # tables so the per-fold metric query stays under Trino's stage limit.
+        train_name = test_name = None
+        try:
+            train_name = _materialize(train, "train")
+            test_name = _materialize(test, "test")
+            start_time = time.time()
+            estimator.fit(
+                train,
+                X,
+                y,
+                test,
+                return_report=True,
+            )
+            total_time += [time.time() - start_time]
+            fun = estimator.report
+            kwargs = {"metrics": final_metrics}
+            key = "value"
+            if estimator._model_subcategory == "CLASSIFIER" and not (
+                estimator._is_binary_classifier()
+            ):
+                key = f"avg_{average}"
+            result[f"{i + 1}-fold"] = fun(**kwargs)[key]
+            if training_score:
+                estimator.test_relation = estimator.input_relation
+                result_train[f"{i + 1}-fold"] = fun(**kwargs)[key]
+        finally:
+            estimator.drop()
+            _drop_relation(train_name)
+            _drop_relation(test_name)
     n = len(final_metrics)
     total = [[] for item in range(n)]
     total_time = np.array(total_time).astype(float)
@@ -938,7 +969,7 @@ def learning_curve(
         Select whether you want
         to get the chart as the
         output only.
-    **style_kwargs
+    ``**style_kwargs``
         Any optional parameter
         to pass to the Plotting
         functions.
@@ -1088,31 +1119,39 @@ def learning_curve(
         loop = sizes
     for s in loop:
         relation = input_relation.sample(x=s)
-        lc_result = cross_validate(
-            estimator,
-            relation,
-            X,
-            y,
-            metrics=metric,
-            cv=cv,
-            average=average,
-            pos_label=pos_label,
-            cutoff=cutoff,
-            show_time=True,
-            training_score=True,
-            tqdm=False,
-        )
-        lc_result_final += [
-            (
-                relation.shape()[0],
-                lc_result[0][metric][cv],
-                lc_result[0][metric][cv + 1],
-                lc_result[1][metric][cv],
-                lc_result[1][metric][cv + 1],
-                lc_result[0]["time"][cv],
-                lc_result[0]["time"][cv + 1],
+        # Persist the sample once per size: makes it deterministic across the cv
+        # folds (the same rows are reused) and removes one more nested sub-query
+        # from each fold's metric query.
+        relation_name = None
+        try:
+            relation_name = _materialize(relation, "lc_sample")
+            lc_result = cross_validate(
+                estimator,
+                relation,
+                X,
+                y,
+                metrics=metric,
+                cv=cv,
+                average=average,
+                pos_label=pos_label,
+                cutoff=cutoff,
+                show_time=True,
+                training_score=True,
+                tqdm=False,
             )
-        ]
+            lc_result_final += [
+                (
+                    relation.shape()[0],
+                    lc_result[0][metric][cv],
+                    lc_result[0][metric][cv + 1],
+                    lc_result[1][metric][cv],
+                    lc_result[1][metric][cv + 1],
+                    lc_result[0]["time"][cv],
+                    lc_result[0]["time"][cv + 1],
+                )
+            ]
+        finally:
+            _drop_relation(relation_name)
     if method in ("efficiency", "scalability"):
         lc_result_final.sort(key=lambda tup: tup[0])
     else:

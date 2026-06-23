@@ -16,7 +16,7 @@ Outliers consist of three main types:
 
 Global outliers are often the most critical type and can add a significant amount of bias into the data. Fortunately, we can easily identify these outliers by computing the ``Z-Score``.
 
-Let's look at some examples using the `Heart Disease <https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset>`_ dataset. This dataset contains information on patients who are likely to have heart-related complications.
+Let's look at some examples using the `Heart Disease <https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset>`__ dataset. This dataset contains information on patients who are likely to have heart-related complications.
 
 .. code-block:: python
 

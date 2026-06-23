@@ -3,7 +3,7 @@
 Spam
 =====
 
-This example uses the ``spam`` dataset to detect SMS spam. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/spam/spam.ipynb>`_.
+This example uses the ``spam`` dataset to detect SMS spam. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/spam/spam.ipynb>`__.
 
 - **v1:** the SMS type (spam or ham).
 - **v2:** SMS content.
@@ -29,7 +29,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/spam/spam.csv>`_.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/spam/spam.csv>`__.
 
 .. code-block:: ipython
 
@@ -39,15 +39,18 @@ Let's take a look at the first few entries in the dataset.
 
 .. code-block:: ipython
     
-    spam.head(10)
+    spam
 
 .. ipython:: python
     :suppress:
 
-    spam = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/spam/spam.csv",
-    )
-    res = spam.head(10)
+    try:
+        spam = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/spam/spam.csv",
+        )
+    except:
+        spam = vo.VastFrame("spam")
+    res = spam
     html_file = open("SPHINX_DIRECTORY/figures/examples_spam_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -65,6 +68,7 @@ Our dataset relies on text analysis. First, we should create some features. For 
     import vastorbit.sql.functions as fun
 
     spam["length"] = fun.length(spam["content"])
+    spam["text_index"] = fun.row_number()._over(by = "content") # index for tfidf
     spam["content"].apply("LOWER({})")
     spam["type"].decode('spam', 1, 0)
 
@@ -74,6 +78,7 @@ Our dataset relies on text analysis. First, we should create some features. For 
     import vastorbit.sql.functions as fun
 
     spam["length"] = fun.length(spam["content"])
+    spam["text_index"] = fun.row_number()._over(by = "content") # index for tfidf
     spam["content"].apply("LOWER({})")
     res = spam["type"].decode('spam', 1, 0)
     html_file = open("SPHINX_DIRECTORY/figures/examples_spam_table_clean.html", "w")
@@ -106,17 +111,17 @@ Let's compute some statistics using the length of the message.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_spam_table_describe.html
 
-.. note:: Spam tends to be longer than a normal message. First, let's create a view with just spam. Then, we'll use the :py:mod:`~vastorbit.machine_learning.vast.CountVectorizer` to create a dictionary and identify keywords.
+.. note:: Spam tends to be longer than a normal message. First, let's create a view with just spam. Then, we'll use the :py:mod:`~vastorbit.machine_learning.vast.TfidfVectorizer` to create a dictionary and identify keywords.
 
 .. code-block:: python
 
     spams = spam.search(spam["type"] == 1)
 
-    from vastorbit.machine_learning.vast import CountVectorizer
+    from vastorbit.machine_learning.vast import TfidfVectorizer
 
-    dict_spams = CountVectorizer()
-    dict_spams.fit(spams, ["content"])
-    dict_spams = dict_spams.transform()
+    dict_spams = TfidfVectorizer()
+    dict_spams.fit(spams, index = "text_index", x = "content")
+    dict_spams = dict_spams.transform(spams, index = "text_index", x = "content")
     dict_spams
 
 .. ipython:: python
@@ -125,11 +130,11 @@ Let's compute some statistics using the length of the message.
 
     spams = spam.search(spam["type"] == 1)
 
-    from vastorbit.machine_learning.vast import CountVectorizer
+    from vastorbit.machine_learning.vast import TfidfVectorizer
 
-    dict_spams = CountVectorizer()
-    dict_spams.fit(spams, ["content"])
-    dict_spams = dict_spams.transform()
+    dict_spams = TfidfVectorizer()
+    dict_spams.fit(spams, index = "text_index", x = "content")
+    dict_spams = dict_spams.transform(spams, index = "text_index", x = "content")
     res = dict_spams
     html_file = open("SPHINX_DIRECTORY/figures/examples_spam_table_clean_2.html", "w")
     html_file.write(res._repr_html_())
@@ -142,14 +147,17 @@ Let's add the most occurent words in our :py:mod:`~vastorbit.VastFrame` and comp
 
 .. code-block:: python
 
-    for word in dict_spams.head(200).values["token"]:
+    for word in dict_spams.groupby("word", "SUM(tf) AS cnt").sort({"cnt": "desc"}).head(200).values["word"]:
         if word not in ['content', 'length', 'type'] : # because there is already a column called content, length and type
-            spam.regexp(
-                name = word,
-                pattern = word,
-                method = "count",
-                column = "content",
-            )
+            try:
+                spam.regexp(
+                    name = word,
+                    pattern = word,
+                    method = "count",
+                    column = "content",
+                )
+            except:
+                pass
     spam.corr(focus = "type")
 
 .. ipython:: python
@@ -158,14 +166,17 @@ Let's add the most occurent words in our :py:mod:`~vastorbit.VastFrame` and comp
 
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
-    for word in dict_spams.head(200).values["token"]:
+    for word in dict_spams.groupby("word", "SUM(tf) AS cnt").sort({"cnt": "desc"}).head(200).values["word"]:
         if word not in ['content', 'length', 'type'] : # because there is already a column called content, length and type
-            spam.regexp(
-                name = word,
-                pattern = word,
-                method = "count",
-                column = "content",
-            )
+            try:
+                spam.regexp(
+                    name = word,
+                    pattern = word,
+                    method = "count",
+                    column = "content",
+                )
+            except:
+                pass
     fig = spam.corr(focus = "type")
     fig.write_html("SPHINX_DIRECTORY/figures/examples_spam_corr.html")
 
@@ -253,13 +264,13 @@ ________
 Machine Learning
 -----------------
 
-The ``Naive Bayes`` classifier is a powerful and performant algorithm for text analytics and binary classification. Before using it on our data, let's use a ``cross-validation`` to test the efficiency of our model.
+The ``LogisticRegression`` classifier is a powerful and performant algorithm for text analytics and binary classification. Before using it on our data, let's use a ``cross-validation`` to test the efficiency of our model.
 
 .. code-block:: python
 
-    from vastorbit.machine_learning.vast import MultinomialNB
+    from vastorbit.machine_learning.vast import LogisticRegression
 
-    model = MultinomialNB()
+    model = LogisticRegression(max_iter=1000)
 
     from vastorbit.machine_learning.model_selection import cross_validate
 
@@ -275,9 +286,9 @@ The ``Naive Bayes`` classifier is a powerful and performant algorithm for text a
     :suppress:
     :okwarning:
 
-    from vastorbit.machine_learning.vast import MultinomialNB
+    from vastorbit.machine_learning.vast import LogisticRegression
 
-    model = MultinomialNB()
+    model = LogisticRegression(max_iter=1000)
 
     from vastorbit.machine_learning.model_selection import cross_validate
 
@@ -312,3 +323,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

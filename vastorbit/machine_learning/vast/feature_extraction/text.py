@@ -106,20 +106,20 @@ class TfidfVectorizer(VASTModel):
     Many attributes are created
     during the fitting phase.
 
-    vocabulary_: ArrayLike
+    ``vocabulary_``: ArrayLike
         The ultimate vocabulary. If empty, it implies that all
         words are utilized, and the user opted not to compute a
         specific vocabulary.
-    fixed_vocabulary_: bool
+    ``fixed_vocabulary_``: bool
         Boolean indicating whether a vocabulary was supplied by
         the user.
-    idf_: VastFrame
+    ``idf_``: VastFrame
         The IDF table which is computed based on the relation
         used for the fitting process.
-    tf_: VastFrame
+    ``tf_``: VastFrame
         The TF table which is computed based on the relation
         used for the fitting process.
-    stop_words_: ArrayLike
+    ``stop_words_``: ArrayLike
         Terms are excluded under the following conditions:
 
         - They appear in an excessive number of documents
@@ -131,7 +131,7 @@ class TfidfVectorizer(VASTModel):
         This functionality is only applicable when no specific
         vocabulary is provided and ``compute_vocabulary`` is
         set to True.
-    n_document_: int
+    ``n_document_``: int
         Total number of document. This functionality is only
         applicable when no specific vocabulary is provided and
         ``compute_vocabulary`` is set to True.
@@ -188,7 +188,7 @@ class TfidfVectorizer(VASTModel):
         data = vo.VastFrame(
             {
                 "id": (list(range(1,len(documents)+1))),
-                "values": documents,
+                "docs": documents,
             }
         )
 
@@ -203,7 +203,7 @@ class TfidfVectorizer(VASTModel):
         model.fit(
             input_relation = data,
             index = "id",
-            x = "values",
+            x = "docs",
         )
 
     We apply the transform function to obtain the idf representation.
@@ -213,7 +213,7 @@ class TfidfVectorizer(VASTModel):
         model.transform(
             vdf = data,
             index = "id",
-            x = "values",
+            x = "docs",
         )
 
     .. ipython:: python
@@ -222,8 +222,8 @@ class TfidfVectorizer(VASTModel):
         from vastorbit.machine_learning.vast.feature_extraction.text import TfidfVectorizer
 
         model = TfidfVectorizer(name = "test_idf", overwrite_model = True)
-        model.fit(input_relation = data, index = "id", x = "values")
-        result = model.transform(vdf = data, index = "id", x = "values")
+        model.fit(input_relation = data, index = "id", x = "docs")
+        result = model.transform(vdf = data, index = "id", x = "docs")
         html_file = open("SPHINX_DIRECTORY/figures/machine_learning_feature_extraction_text_tfidf.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
@@ -261,20 +261,20 @@ class TfidfVectorizer(VASTModel):
         model.fit(
             input_relation = data,
             index = "id",
-            x = "values",
+            x = "docs",
         )
         model.transform(
             vdf = data,
             index = "id",
-            x = "values",
+            x = "docs",
         )
 
     .. ipython:: python
         :suppress:
 
         model = TfidfVectorizer(max_df = 4, min_df = 1,)
-        model.fit(input_relation = data, index = "id", x = "values")
-        result = model.transform(vdf = data, index = "id", x = "values")
+        model.fit(input_relation = data, index = "id", x = "docs")
+        result = model.transform(vdf = data, index = "id", x = "docs")
         html_file = open("SPHINX_DIRECTORY/figures/machine_learning_feature_extraction_text_tfidf_2.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()

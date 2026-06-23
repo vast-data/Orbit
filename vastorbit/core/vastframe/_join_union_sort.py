@@ -3,6 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 import copy
+import re
 from typing import Literal, Optional, Union, TYPE_CHECKING
 
 from vastorbit._typing import SQLColumns, SQLExpression, SQLRelation
@@ -185,6 +186,7 @@ class vDFJoinUnionSort(vDFMath):
         how: Literal["left", "right", "cross", "full", "self", "inner", None] = "inner",
         expr1: Optional[SQLExpression] = None,
         expr2: Optional[SQLExpression] = None,
+        on_interpolate: Optional[dict] = None,
     ) -> "VastFrame":
         """
         Joins the :py:class:`~VastFrame` with another
@@ -270,6 +272,46 @@ class vDFJoinUnionSort(vDFMath):
             optionally as aliases. Aliases are recommended
             to avoid ambiguous names. For example: ``column``
             or ``column AS my_new_alias``.
+        on_interpolate: dict, optional
+            Performs an **interpolated** (time-series "as-of")
+            join. It must be a dictionary of the form
+            ``{"left_time_col": "right_time_col"}`` mapping the
+            time column of the current :py:class:`~VastFrame`
+            to the time column of the ``input_relation``. For
+            each left-hand row, the most recent right-hand row
+            whose time is **less than or equal to** the
+            left-hand time is matched
+            (last-observation-carried-forward) — the equivalent
+            of Vertica's ``INTERPOLATE PREVIOUS VALUE`` join.
+
+            .. note::
+
+                Trino exposes no native interpolated / ASOF
+                join, so vastorbit emulates it: both relations
+                are interleaved on the time axis and the latest
+                right-hand reading is propagated forward with
+                ``LAST_VALUE(...) IGNORE NULLS``. When
+                ``on_interpolate`` is set, ``expr1`` and
+                ``expr2`` must list explicit columns, any
+                equality keys passed through ``on`` are used to
+                partition the interpolation (e.g. independently
+                per sensor or per region), and only
+                ``how="left"`` (default) and ``how="inner"``
+                are supported.
+
+            For example, to enrich smart-meter consumption with
+            the most recent weather reading at or before each
+            measurement:
+
+            .. code-block:: python
+
+                consumption.join(
+                    weather,
+                    how = "left",
+                    on_interpolate = {"dateUTC": "dateUTC"},
+                    expr1 = ["dateUTC", "meterID", "value"],
+                    expr2 = ["humidity", "temperature"],
+                )
 
         Returns
         -------
@@ -580,6 +622,18 @@ class vDFJoinUnionSort(vDFMath):
         first_relation = extract_and_rename_subquery(self._genSQL(), alias="x")
         second_relation = extract_and_rename_subquery(f"{input_relation}", alias="y")
 
+        # Interpolated ("as-of" / previous-value) join.
+        if on_interpolate:
+            return self._interpolate_join(
+                first_relation=first_relation,
+                second_relation=second_relation,
+                on_interpolate=on_interpolate,
+                on_list=on_list,
+                expr1=expr1,
+                expr2=expr2,
+                how=how,
+            )
+
         # ON
         on_join = []
         # Supported operators
@@ -627,6 +681,123 @@ class vDFJoinUnionSort(vDFMath):
         query = (
             f"SELECT {expr} FROM {first_relation}{how}JOIN {second_relation} {on_join}"
         )
+        return create_new_vdf(query)
+
+    def _interpolate_join(
+        self,
+        first_relation: str,
+        second_relation: str,
+        on_interpolate: dict,
+        on_list: list,
+        expr1,
+        expr2,
+        how: Optional[str] = "left",
+    ) -> "VastFrame":
+        """
+        Build a Trino-compatible interpolated ("previous value" / as-of) join.
+
+        For each left-hand row the most recent right-hand row whose time is
+        ``<=`` the left-hand time is matched.
+        """
+
+        def _split(prefix: str, e) -> tuple:
+            # "col AS alias" -> ("prefix.col AS alias", "alias")
+            # "col"          -> ("prefix.col AS col",   "col")
+            parts = re.split(r"\s+as\s+", str(e).strip(), flags=re.IGNORECASE)
+            col = parts[0].strip()
+            name = parts[-1].strip() if len(parts) > 1 else col
+            return f"{prefix}.{col} AS {name}", name
+
+        def _is_star(cols) -> bool:
+            return (
+                not cols
+                or cols == "*"
+                or any(str(c).strip() in ("*", "") for c in cols)
+            )
+
+        # Explicit columns are required to align the two UNION branches.
+        if _is_star(expr1) or _is_star(expr2):
+            raise ValueError(
+                "Interpolated joins ('on_interpolate') require explicit column "
+                "lists in both 'expr1' and 'expr2'."
+            )
+
+        how = (how or "left").lower()
+        if how not in ("left", "inner"):
+            raise ValueError(
+                "Interpolated joins ('on_interpolate') support only "
+                "how='left' (default) or how='inner'."
+            )
+
+        # Time axis (first pair of on_interpolate). Keys are quoted exactly like
+        # regular `on` keys for consistency with the rest of join().
+        left_time_col, right_time_col = next(iter(on_interpolate.items()))
+        left_time = f"x.{quote_ident(left_time_col)}"
+        right_time = f"y.{quote_ident(right_time_col)}"
+
+        # Equality keys passed via `on` become interpolation partitions.
+        part_pairs = [
+            (quote_ident(item[0]), quote_ident(item[1]))
+            for item in on_list
+            if len(item) >= 3 and item[2] == "="
+        ]
+        part_names = [f"_vo_k{i}" for i in range(len(part_pairs))]
+
+        # Output columns (raw, like the standard join path).
+        left_quals = [_split("x", e) for e in expr1]
+        right_quals = [_split("y", e) for e in expr2]
+        left_names = [name for _, name in left_quals]
+        right_names = [name for _, name in right_quals]
+
+        # --- Left branch (src = 1): real left cols, NULL right cols ----------
+        left_select = [f"{left_time} AS _vo_t"]
+        left_select += [
+            f"x.{k1} AS {pname}" for (k1, _), pname in zip(part_pairs, part_names)
+        ]
+        left_select += [sql for sql, _ in left_quals]
+        left_select += [f"NULL AS {name}" for name in right_names]
+        left_select += ["NULL AS _vo_rt", "1 AS _vo_src"]
+        left_branch = f"SELECT {', '.join(left_select)} FROM {first_relation}"
+
+        # --- Right branch (src = 0): NULL left cols, real right cols ---------
+        right_select = [f"{right_time} AS _vo_t"]
+        right_select += [
+            f"y.{k2} AS {pname}" for (_, k2), pname in zip(part_pairs, part_names)
+        ]
+        right_select += [f"NULL AS {name}" for name in left_names]
+        right_select += [sql for sql, _ in right_quals]
+        right_select += [f"{right_time} AS _vo_rt", "0 AS _vo_src"]
+        right_branch = f"SELECT {', '.join(right_select)} FROM {second_relation}"
+
+        # --- Carry the latest right-hand reading forward ---------------------
+        # The src tiebreak (right = 0 sorts before left = 1) makes an
+        # equal-timestamp right row visible to the left row, matching the
+        # "<=" (previous-value) semantics of the original INTERPOLATE join.
+        partition = (
+            "PARTITION BY " + ", ".join(part_names) + " " if part_names else ""
+        )
+        over = f"OVER ({partition}ORDER BY _vo_t, _vo_src)"
+
+        filled_select = list(left_names)
+        filled_select += [
+            f"LAST_VALUE({name}) IGNORE NULLS {over} AS {name}"
+            for name in right_names
+        ]
+        filled_select += [
+            f"LAST_VALUE(_vo_rt) IGNORE NULLS {over} AS _vo_rt",
+            "_vo_src",
+        ]
+
+        merged = f"({left_branch} UNION ALL {right_branch}) AS _vo_merged"
+        filled = f"SELECT {', '.join(filled_select)} FROM {merged}"
+
+        # --- Keep left rows; inner additionally requires a matched right row --
+        where = "_vo_src = 1"
+        if how == "inner":
+            where += " AND _vo_rt IS NOT NULL"
+        final_cols = ", ".join(left_names + right_names)
+        query = f"SELECT {final_cols} FROM ({filled}) AS _vo_filled WHERE {where}"
+
         return create_new_vdf(query)
 
     @save_vastorbit_logs

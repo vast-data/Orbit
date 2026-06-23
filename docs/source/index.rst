@@ -1,397 +1,442 @@
 .. _index:
 
-***********************************
-Welcome to VAST Orbit Documentation
-***********************************
+.. raw:: html
+
+   <div class="vob-hero">
+     <div class="vob-hero__bg" style="background-image:url('_static/website/about_us/cover/the_vision.png')"></div>
+     <div class="vob-hero__inner">
 
 .. include:: logo_include.rst
 
-**Python API for In-Database Analytics and AI with VAST**
+.. raw:: html
 
-VAST Orbit unlocks the **endless possibilities** of VAST Database for data science and AI. Perform all your data preparation, exploration, and machine learning directly in VAST Database - no data movement required. Query across databases, data lakes, and files with familiar pandas-like syntax. Train ML models and deploy for blazing-fast in-database inference at any scale.
+       <p class="vob-hero__tagline">The Python library for data science and AI that runs where your data lives.</p>
+
+.. container:: vob-hero-cta
+
+   .. button-ref:: getting_started
+       :ref-type: ref
+       :color: primary
+
+       Get started
+
+   .. button-ref:: connection
+       :ref-type: ref
+       :color: secondary
+
+       Connect to VAST
+
+   .. button-ref:: api
+       :ref-type: ref
+       :color: secondary
+
+       Browse the API
+
+.. raw:: html
+
+     </div>
+   </div>
+
+==============================
+In-database data science & AI
+==============================
+
+VAST Orbit lets data scientists, analysts, and ML engineers run a complete
+workflow — preparing, exploring, analyzing, and modeling data — directly inside
+the VAST Data Platform, using the pandas- and scikit-learn-style API they already
+know. Instead of copying data out to a notebook, VAST Orbit pushes the work down to
+where the data sits and brings only the answers back, so the same code runs on a
+kilobyte or a petabyte, against a table or a Parquet file, without a rewrite.
+
+.. raw:: html
+
+   <div class="vob-video">
+     <video controls preload="none"
+            poster="_static/website/video/vastorbit_intro_poster.png">
+       <source src="_static/website/video/vastorbit_trailer_med.mp4"  type="video/mp4">
+     </video>
+   </div>
+
+What VAST Orbit brings to your business
+---------------------------------------
+
+Most data science works backwards: the data is huge and stays put, while the tools
+are small and insist everything be copied to them. VAST Orbit removes the copy —
+preparation, analytics, and scoring all run inside VAST — and that single change pays
+off differently for everyone who touches the data.
+
+.. tab-set::
+
+    .. tab-item:: For data scientists
+
+        .. image:: _static/website/about_us/cover/data_scientist_dashboard.png
+            :class: about-cover
+            :alt: Familiar Python, at any scale
+
+        .. raw:: html
+
+            <span class="tab-lead">Your tools and your syntax, at any scale.</span>
+
+        Keep the pandas and scikit-learn habits you already have. ``VastFrame`` behaves
+        like a DataFrame and the models follow the scikit-learn API, so the notebook you
+        write against a sample becomes production code against the full table — no
+        rewrite, no new language, and no waiting on an export before you can think.
+
+        Because the work runs in VAST, the size of the data stops being your problem:
+        the same few lines hold whether you are working through a megabyte or a petabyte.
+
+    .. tab-item:: For platform & data teams
+
+        .. image:: _static/website/about_us/cover/platform.png
+            :class: about-cover
+            :alt: One governed surface
+
+        .. raw:: html
+
+            <span class="tab-lead">One governed surface instead of pipeline sprawl.</span>
+
+        Since the work executes where the data lives, there are no extracts to copy and
+        no side pipelines to babysit. Sensitive data stays inside VAST under one set of
+        controls, lineage stays intact, and the platform you already run becomes the
+        single place analysts, models, and agents all work.
+
+        That means far less to secure, move, and reconcile — and far fewer moving parts
+        between a question and its answer.
+
+    .. tab-item:: For the business
+
+        .. image:: _static/website/about_us/cover/data_scientist_business.png
+            :class: about-cover
+            :alt: Answers sooner, for less
+
+        .. raw:: html
+
+            <span class="tab-lead">Answers sooner, on more of your data, for less.</span>
+
+        Every copy is time lost, compute and storage paid for twice, and another place
+        data can leak. Removing it means questions are answered sooner, against more of
+        the estate at once, at a fraction of the infrastructure cost.
+
+        A central data strategy stops being an architecture diagram and becomes
+        something teams use day to day — on a single table or every asset across the
+        business.
+
+Key features
+------------
+
+.. grid:: 1 2 3 3
+    :gutter: 3
+    :class-container: feature-tiles
+
+    .. grid-item-card:: |i-indb| No data movement
+        :text-align: center
+
+        Preparation, analytics, and scoring execute inside VAST. Your data never
+        leaves the platform, so work stays fast, governed, and secure.
+
+    .. grid-item-card:: |i-frame| Python you already know
+        :text-align: center
+
+        ``VastFrame`` behaves like a pandas DataFrame and the models follow the
+        scikit-learn API, so notebook code becomes production code unchanged.
+
+    .. grid-item-card:: |i-multisource| One query, every source
+        :text-align: center
+
+        One federated query joins VAST tables, data-lake files, and external
+        databases — with no ETL pipeline to build first.
+
+    .. grid-item-card:: |i-scale| Scale without rewrites
+        :text-align: center
+
+        VAST's flash-native, disaggregated architecture keeps queries interactive
+        from gigabytes to exabytes, so workflows grow with your data.
+
+    .. grid-item-card:: |i-inml| Machine learning in place
+        :text-align: center
+
+        Train on intelligently sampled data, then deploy the model for in-database
+        inference that scores billions of rows where they live.
+
+    .. grid-item-card:: |i-magic| Ready for AI agents
+        :text-align: center
+
+        A built-in MCP server and the ``%%ai`` and ``%%sql`` notebook magics let
+        assistants and LLMs query and reason over your VAST data directly.
+
+What you can do with it
+-----------------------
+
+.. tab-set::
+
+    .. tab-item:: Prepare & explore
+
+        .. image:: _static/website/about_us/cover/indb_dashboard.png
+            :class: about-cover
+            :alt: Prepare and explore data in VAST
+
+        .. raw:: html
+
+            <span class="tab-lead">Clean, shape, and understand data at any scale.</span>
+
+        Cleaning and shaping data is usually the slowest part of a project, and it
+        only gets slower as the data grows. With VAST Orbit you handle missing values,
+        remove duplicates, normalize, encode, and engineer features using familiar
+        calls that execute inside VAST — so a petabyte table feels like a megabyte one
+        and nothing is pulled into Python first.
+
+        When it is time to look before you leap, charts and statistical summaries are
+        generated from intelligent samples, letting you profile distributions,
+        correlations, and outliers across billions of rows in seconds rather than
+        waiting on an export.
+
+    .. tab-item:: Analyze across sources
+
+        .. image:: _static/website/about_us/cover/different_sources.png
+            :class: about-cover
+            :alt: Analyze across every source
+
+        .. raw:: html
+
+            <span class="tab-lead">Join everything, in one query, close to the data.</span>
+
+        Real questions rarely live in a single table. Because VAST Orbit reaches your
+        data through one federated query engine, one piece of Python can join a VAST
+        table with Parquet files in the data lake and a customer record in PostgreSQL — all
+        in the same query and all executed next to the data.
+
+        That turns the idea of a central data layer from an architecture diagram into
+        something an analyst can use day to day: ad-hoc analysis across the whole
+        estate, with no ETL job to schedule and no warehouse to load first.
+
+    .. tab-item:: Machine learning
+
+        .. image:: _static/website/about_us/cover/healthcare.png
+            :class: about-cover
+            :alt: Machine learning in the database
+
+        .. raw:: html
+
+            <span class="tab-lead">Train flexibly, then score billions of rows in place.</span>
+
+        VAST Orbit supports a hybrid workflow that matches how teams really work:
+        train quickly with the embedded algorithms or bring a scikit-learn model you
+        trained locally, then deploy it for inference that runs as SQL inside VAST.
+
+        Scoring happens where the data is, so you can refresh predictions on live data
+        continuously — fraud scores, churn risk, demand forecasts — instead of
+        shuttling features and results between systems and serving infrastructure.
+
+    .. tab-item:: AI platform
+
+        .. image:: _static/website/about_us/cover/ai_development_platform.png
+            :class: about-cover
+            :alt: An AI development platform on VAST
+
+        .. raw:: html
+
+            <span class="tab-lead">Make your data a first-class tool for AI.</span>
+
+        Modern AI is only as good as its access to context. VAST Orbit exposes your
+        data and its own analytics as tools an LLM can call through an MCP server, and
+        the ``%%ai`` magic lets you ask a question in plain language and get back a
+        working, schema-aware query.
+
+        The result is a single governed platform where analysts, models, and agents
+        all operate on the same data, with no copies in between — the foundation for
+        AI applications you can actually trust in production.
+
+Use cases
+---------
+
+The same library powers very different problems, because they all come down to
+running analytics and models close to large, fast-moving data.
+
+.. grid:: 1 2 3 3
+    :gutter: 3
+    :class-container: feature-tiles
+
+    .. grid-item-card:: |i-fraud| Fraud detection
+        :text-align: center
+
+        Score every transaction against historical patterns in place and catch fraud
+        in real time — without exporting sensitive financial data.
+
+    .. grid-item-card:: |i-churn| Customer 360 & churn
+        :text-align: center
+
+        Combine CRM, billing, and clickstream into one view and predict churn where
+        the data already sits, then refresh scores continuously.
+
+    .. grid-item-card:: |i-telecom| Telecom & networks
+        :text-align: center
+
+        Optimize coverage and capacity over billions of call-detail records, joining
+        live traffic with historical patterns in a single query.
+
+    .. grid-item-card:: |i-energy| IoT & asset health
+        :text-align: center
+
+        Monitor sensor streams and forecast failures across live and historical
+        readings together, scoring devices where their data lands.
+
+    .. grid-item-card:: |i-insurance| Risk & insurance
+        :text-align: center
+
+        Price risk and flag anomalies across policy, claims, and external data sets at
+        once, with full lineage and no data leaving the platform.
+
+    .. grid-item-card:: |i-bio| Life sciences
+        :text-align: center
+
+        Explore genomic and clinical data at petabyte scale with familiar Python,
+        keeping regulated data governed inside VAST throughout.
+
+A quick look
+------------
+
+Connect once, then prepare, join, visualize, and model — every step executing in
+VAST:
+
+.. code-block:: python
+
+    import vastorbit as vo
+
+    # Connect to VAST
+    vo.new_connection({
+        "host": "vast-cluster.example.com",
+        "port": 8080,
+        "catalog": "vast_catalog",
+        "schema": "analytics",
+    })
+
+    # A VastFrame is a handle to data in VAST — nothing is pulled into Python
+    customers = vo.VastFrame("vast_catalog.crm.customers")
+
+    # Prepare the data, in place
+    customers = customers.fillna({"income": 0, "age": customers["age"].avg()})
+    customers["income_norm"] = customers.normalize("income")
+
+    # Explore with intelligent sampling
+    customers["age"].hist(nbins=20)
+
+    # Join a VAST table with data-lake files — one query, executed in VAST
+    transactions = vo.VastFrame("hive.default.transactions")
+    enriched = customers.join(transactions, on="customer_id", how="inner")
+
+    # Train a model, then score billions of rows in the database
+    from vastorbit.machine_learning.vast import RandomForestClassifier
+
+    model = RandomForestClassifier()
+    model.fit(enriched, ["age", "tenure"], "churn")
+    predictions = model.predict(enriched)   # runs inside VAST
+
+Built on the VAST Data Platform
+-------------------------------
+
+VAST Orbit is only as capable as the foundation beneath it. The VAST Data Platform
+unifies storage, database, and compute into one consistent system, so every asset —
+transactional tables, data-lake files, streaming events, and vector embeddings —
+lives in one place and speaks one language. When the infrastructure is that
+consistent, everything becomes possible: there is no copy step to slow you down, no
+second system to reconcile, and no scale ceiling to design around.
+
+VAST Orbit turns that consistency into a single queryable surface for Python, where
+one ``VastFrame`` reaches a table or a file, a gigabyte or an exabyte, all the same
+way. It works with **VAST 4.5 and later**. Learn more about the foundation it builds
+on at the `VAST Data Platform <https://www.vastdata.com/platform/database>`__.
+
+Today that single query runs on Trino; VAST's own query engine is on the way and will
+become the default. Because you work through one ``VastFrame`` API, your code stays
+exactly the same when the engine underneath it changes.
+
+Installation
+------------
+
+Install the beta with pip:
+
+.. code-block:: bash
+
+    pip install vastorbit
+
+VAST Orbit needs **Python 3.12+**, network access to your VAST cluster, and
+**VAST 4.5 or later**. Version 0.1.x is a beta; a production-ready 1.0.0 is on the
+way. See :ref:`getting_started` for full setup and :ref:`connection` for connection
+and authentication options.
+
+.. note::
+
+    Placeholders such as ``vast-cluster.example.com`` and ``vast_catalog`` stand in
+    for your own cluster host and catalog names throughout the docs.
+
+Explore the documentation
+--------------------------
 
 .. grid:: 2 2 2 2
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item-card:: |i-start| Getting Started
         :link: getting_started
         :link-type: ref
         :text-align: center
 
-        Installation, quick start, and your first query in 5 minutes.
+        Install VAST Orbit and run your first in-database query in minutes.
 
     .. grid-item-card:: |i-connect| Connection Guide
         :link: connection
         :link-type: ref
         :text-align: center
 
-        Connect to VAST Database and configure your environment.
+        Connect to VAST, authenticate, and reach every catalog.
 
     .. grid-item-card:: |i-guide| User Guide
         :link: user_guide
         :link-type: ref
         :text-align: center
 
-        Master VastFrame operations and in-database analytics.
+        Master ``VastFrame`` and the in-database operations behind it.
 
     .. grid-item-card:: |i-ml| Machine Learning
         :link: api.machine_learning
         :link-type: ref
         :text-align: center
 
-        Train models and deploy for in-database inference at scale.
+        Train models and deploy them for inference at production scale.
 
     .. grid-item-card:: |i-charts| Chart Gallery
         :link: chart_gallery
         :link-type: ref
         :text-align: center
 
-        Interactive visualizations with intelligent sampling.
+        See the visualizations VAST Orbit can build from sampled data.
 
-    .. grid-item-card:: |i-api| API Reference
-        :link: api
+    .. grid-item-card:: |i-stats| Statistics
+        :link: statistics
         :link-type: ref
         :text-align: center
 
-        Complete API documentation with 400+ functions.
+        The library by the numbers — measured live from the source.
 
     .. grid-item-card:: |i-examples| Examples
         :link: examples
         :link-type: ref
         :text-align: center
 
-        Hands-on tutorials for analytics and ML workflows.
+        Follow end-to-end tutorials across analytics and ML workflows.
 
     .. grid-item-card:: |i-about| About Us
         :link: about_us
         :link-type: ref
         :text-align: center
 
-        Meet the creator and learn VAST Orbit's vision.
-
-What is VAST Orbit?
-==================
-
-VAST Orbit is a Python library that brings the full power of VAST Database to data scientists and AI developers:
-
-**In-Database Data Preparation:**
-
-- Clean, transform, and prepare data directly in VAST
-- Handle missing values, normalize, encode features
-- All preprocessing executes in VAST - no data movement
-- Scale from megabytes to petabytes with the same code
-
-**Interactive Exploration:**
-
-- Generate charts and visualizations with intelligent sampling
-- Analyze distributions, correlations, and patterns
-- Explore data interactively without moving it to Python
-- pandas-like syntax for familiar workflows
-
-**Multi-Source Analytics:**
-
-- Query VAST tables, data lake files, and external databases
-- Join across tables, Parquet files, PostgreSQL, MongoDB
-- All in one query, executing in VAST
-
-**In-Database ML:**
-
-- Train models with VAST Orbit's embedded algorithms
-- Deploy for in-database inference in VAST
-- Score billions of rows without data movement
-- 10 ML algorithms available (RandomForest, XGBoost, LinearRegression, etc.)
-
-**400+ Functions:**
-
-- pandas-like DataFrame operations
-- Advanced analytics and statistics
-- Geospatial and time series analysis
-- Text processing and JSON handling
-
-Key Features
-============
-
-.. grid:: 1 1 2 2
-
-    .. grid-item-card:: |i-prep| Data Preparation
-        :text-align: center
-
-        Clean, transform, and engineer features directly in VAST - handle missing values, outliers, and encoding at any scale.
-
-    .. grid-item-card:: |i-explore| Interactive Exploration
-        :text-align: center
-
-        Generate charts, analyze distributions, and discover patterns with intelligent sampling - all without moving data.
-
-    .. grid-item-card:: |i-indb| In-Database Processing
-        :text-align: center
-
-        All operations execute in VAST Database - aggregations, joins, and analytics with zero data movement.
-
-    .. grid-item-card:: |i-multisource| Multi-Source Access
-        :text-align: center
-
-        Query VAST tables alongside S3 files, PostgreSQL, MongoDB, and 30+ data sources - all in one query.
-
-    .. grid-item-card:: |i-files| Direct File Queries
-        :text-align: center
-
-        Query Parquet, CSV, JSON files directly without loading. No "COPY" required - just point and query.
-
-    .. grid-item-card:: |i-inml| In-Database ML
-        :text-align: center
-
-        Train with VAST Orbit's embedded models or import sklearn, deploy for in-database inference at production scale in VAST.
-
-Quick Example
-=============
-
-Data preparation, exploration, and ML in just a few lines:
-
-.. code-block:: python
-
-    import vastorbit as vo
-
-    # Connect to VAST Database
-    vo.new_connection({
-        'host': 'vast-cluster.example.com',
-        'port': 8080,
-        'catalog': 'vast_catalog'
-    })
-
-    # Query VAST table - executes in-database
-    customers = vo.VastFrame('vast_catalog.crm.customers')
-
-    # Data preparation - all in VAST
-    customers = customers.fillna({'income': 0, 'age': customers['age'].avg()})
-    customers = customers.drop_duplicates()
-    customers['income_normalized'] = customers.normalize('income')
-    
-    # Explore with charts - intelligent sampling
-    customers['age'].hist(nbins=20)
-    customers.scatter(['income', 'spending'])
-    
-    # Query S3 Parquet files
-    transactions = vo.VastFrame('hive.default.transactions')
-
-    # Join across sources - all in VAST!
-    result = customers.join(
-        transactions,
-        on='customer_id',
-        how='inner'
-    )
-    
-    # Analyze with pandas-like syntax - executes in VAST
-    summary = result.groupby(['region'], ['sum(revenue)', 'avg(customer_lifetime_value)'])
-
-    # Train ML model with VAST Orbit - samples and trains automatically
-    from vastorbit.machine_learning.vast import RandomForestClassifier
-    model = RandomForestClassifier()
-    model.fit(result, ['age', 'tenure'], 'churn')
-
-    # Deploy for in-database inference in VAST - no data movement!
-    predictions = model.predict(result)  # Executes in VAST Database!
-
-Architecture
-============
-
-VAST Orbit brings Python to VAST Database for in-database analytics and AI:
-
-.. code-block:: text
-
-    Python Code (pandas/sklearn syntax)
-            ↓
-    VAST Orbit API (intelligent query translation)
-            ↓
-    ┌────────────────────────────────────────┐
-    │      VAST Database                     │
-    │  • In-Database Execution               │
-    │  • Zero Data Movement                  │
-    │  • Compressed Columnar Storage         │
-    │  • Multi-Source Federation             │
-    │  • Real-time Ingestion                 │
-    └────────────────────────────────────────┘
-
-**In-Database Processing**: All operations execute where your data lives  
-**Multi-Source Access**: Query tables, files, and external databases  
-**Zero Movement**: Data stays in VAST - only results come to Python  
-
-Why VAST Database?
-==================
-
-VAST revolutionizes data infrastructure for AI:
-
-**Unified Database**: Transactional + Analytical in one system (no separate OLTP/OLAP)
-
-**DASE Architecture**:
-
-- Single-millisecond latency at exabyte scale
-- Linear performance scaling
-- All-flash economics
-
-**AI-Ready**: Native vector support, streaming analytics, real-time event processing
-
-**File & Table Unification**: Query structured tables and unstructured files seamlessly
-
-Learn more at `VAST Data Platform <https://www.vastdata.com/platform/database>`_.
-
-Installation
-============
-
-Install VAST Orbit Beta using pip:
-
-.. code-block:: bash
-
-    pip install vastorbit
-
-Requirements:
-
-- Python 3.12+
-- VAST Database 5.0.0-sp10+
-- Network access to VAST cluster
-
-**Note**: Version 0.1.0 is in beta. Production-ready version 1.0.0 coming soon.
-
-See :ref:`getting_started` for detailed installation instructions.
-
-What Makes VAST Orbit Special?
-==============================
-
-VAST Orbit brings Python data science to VAST Database with true in-database execution:
-
-**Core Capabilities:**
-
-1. **In-Database Data Preparation**: Clean, transform, and engineer features directly in VAST - handle missing values, encode categoricals, normalize at scale
-2. **Interactive Exploration**: Generate charts, analyze distributions, discover patterns - all with intelligent sampling from VAST
-3. **Multi-Source Queries**: Join VAST tables with files, PostgreSQL, MongoDB - all in one query
-4. **Direct File Access**: Query Parquet/CSV/JSON without loading to database tables
-5. **In-Database ML**: Train with VAST Orbit's embedded models or import your own, deploy for inference at scale in VAST
-6. **400+ Functions**: Comprehensive analytics toolkit with pandas-like API
-
-**The VAST Orbit Advantage:**
-
-- **Zero Data Movement**: Compute where data lives, at VAST scale
-- **Familiar Syntax**: pandas and sklearn APIs you already know
-- **Production Ready**: Deploy from notebook to production without code changes
-- **Limitless Scale**: Query gigabytes to petabytes with the same code
-
-VAST Orbit gives you endless possibilities for analytics and AI on VAST Database.
-
-Documentation Sections
-======================
-
-.. grid:: 2
-
-    .. grid-item::
-
-        **Getting Started**
-
-        - :ref:`getting_started` - Installation and quick start
-        - :ref:`connection` - Connecting to VAST Database
-        - :ref:`whats_new` - Latest features and changes
-
-    .. grid-item::
-
-        **Core Concepts**
-
-        - :ref:`user_guide` - VastFrame and in-database operations
-        - :ref:`examples` - Hands-on tutorials
-        - :ref:`contribution_guidelines` - Contributing
-
-    .. grid-item::
-
-        **Advanced Topics**
-
-        - :ref:`api.machine_learning` - In-database ML workflows
-        - :ref:`chart_gallery` - Visualization examples
-        - :ref:`statistics` - Library metrics
-
-    .. grid-item::
-
-        **Reference**
-
-        - :ref:`api` - Complete API documentation
-        - :ref:`about_us` - Creator and team
-
-Use Cases
-=========
-
-**Data Preparation:**
-
-- Clean and transform data directly in VAST
-- Handle missing values, duplicates, outliers
-- Feature engineering at scale
-- All preprocessing in-database - no data movement
-
-**Data Exploration:**
-
-- Interactive charts and visualizations
-- Statistical analysis and profiling
-- Pattern discovery and correlation analysis
-- Explore petabytes as easily as gigabytes
-
-**AI/ML Development:**
-
-- Prepare features in VAST with embedded transformations
-- Train with VAST Orbit's models or import your own
-- Deploy for in-database inference at scale
-- Real-time predictions on live data
-
-**Multi-Source Analytics:**
-
-- Query across VAST tables, files, and databases
-- Ad-hoc analysis without ETL
-- Data quality validation in VAST
-
-Community & Support
-===================
-
-**Get Help:**
-
-- |i-docs| Documentation: This site
-- |i-chat| GitHub: https://github.com/vastdata-dev/vastorbit
-- |i-email| Support: `vastsupport.slack.com <https://vastsupport.slack.com>`_
-
-**Resources:**
-
-- `VAST Platform Docs <https://docs.vastdata.com>`_
-- `VAST Database Guide <https://docs.vastdata.com/database>`_
-
-**Contributing:**
-
-We welcome contributions! See :ref:`contribution_guidelines`.
-
-What's New
-==========
-
-**Version 0.1.0 Beta** (Latest)
-
-- Beta release for VAST Database
-- In-database processing for all operations
-- Hybrid ML: local training + in-database inference
-- 400+ functions for comprehensive analytics
-- Direct file querying (Parquet, CSV, JSON)
-- 10 ML inference algorithms
-
-Production-ready **Version 1.0.0** coming soon.
-
-See :ref:`whats_new` for complete changelog.
-
-Next Steps
-==========
-
-Ready to unlock endless possibilities with VAST? Here's your path:
-
-1. **Install**: Follow :ref:`getting_started`
-2. **Connect**: Set up VAST connection in :ref:`connection`
-3. **Query**: Learn in-database operations in :ref:`user_guide`
-4. **Try Examples**: Work through tutorials in :ref:`examples`
-5. **Build ML**: Create in-database workflows in :ref:`api.machine_learning`
-6. **Visualize**: Generate charts in :ref:`chart_gallery`
+        Meet the people behind VAST Orbit and the story that shaped it.
 
 .. note::
 
-    VAST Orbit brings Python data science to VAST Database. Query anywhere, analyze everything, build AI at any scale - all with in-database execution and zero data movement.
+    VAST Orbit brings Python data science to the VAST Data Platform — query
+    anywhere, analyze everything, and build AI at any scale, all with in-database
+    execution and zero data movement.
 
 .. toctree::
     :hidden:

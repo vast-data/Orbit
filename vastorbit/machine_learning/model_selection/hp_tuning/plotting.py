@@ -329,7 +329,7 @@ def validation_curve(
     show: bool, optional
         Select whether you want to get
         the chart as the output only.
-    **style_kwargs
+    ``**style_kwargs``
         Any  optional parameter to
         pass to the Plotting functions.
 
@@ -565,7 +565,7 @@ def plot_acf_pacf(
     show: bool, optional
         If  set to  True,  the  Plotting  object is
         returned.
-    **style_kwargs
+    ``**style_kwargs``
         Any optional  parameter to pass to the Plotting
         functions.
 

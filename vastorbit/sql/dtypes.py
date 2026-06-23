@@ -2,6 +2,8 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
+import uuid
+
 from typing import Optional, Union, List, Tuple
 
 import vastorbit._config.config as conf
@@ -90,16 +92,6 @@ def trino_dtype(
     )
 
     has_precision_scale = not any(res.startswith(t) for t in no_precision_types)
-
-    # if display_size and has_precision_scale and res.startswith(("varchar", "char")):
-    #    res += f"({display_size})"
-    # elif scale and precision and has_precision_scale:
-    #    res += f"({precision},{scale})"
-    # elif precision and has_precision_scale and res.startswith("decimal"):
-    #    if scale:
-    #        res += f"({precision},{scale})"
-    #    else:
-    #        res += f"({precision})"
 
     return res
 
@@ -347,20 +339,57 @@ def _get_expression_types(
     usecols: Optional[List[str]] = None,
 ) -> Union[str, List[Tuple[str, str]]]:
     """
-    Get data types for a SQL expression by executing it with LIMIT 0
-    and reading the cursor description.
+    Get data types for a SQL expression.
     """
     cursor = current_cursor()
 
-    # Build the query
+    # Project only the requested columns.
     if column:
-        column_name_ident = quote_ident(column)
-        query = f"SELECT {column_name_ident} FROM ({expr}) AS x LIMIT 0"
+        select_clause = quote_ident(column)
     elif usecols:
-        columns_str = ", ".join([quote_ident(c) for c in usecols])
-        query = f"SELECT {columns_str} FROM ({expr}) AS x LIMIT 0"
+        select_clause = ", ".join([quote_ident(c) for c in usecols])
     else:
-        query = f"SELECT * FROM ({expr}) AS x LIMIT 0"
+        select_clause = "*"
+
+    inner = f"SELECT {select_clause} FROM ({expr}) AS x"
+
+    # --- Preferred path: PREPARE + DESCRIBE OUTPUT (analysis only) ----------
+    stmt_name = "vo_dtype_" + uuid.uuid4().hex
+    try:
+        cursor.execute(f"PREPARE {stmt_name} FROM {inner}")
+        try:
+            cursor.execute(f"DESCRIBE OUTPUT {stmt_name}")
+            rows = cursor.fetchall()
+        finally:
+            try:
+                cursor.execute(f"DEALLOCATE PREPARE {stmt_name}")
+            except Exception:
+                pass
+
+        # DESCRIBE OUTPUT columns:
+        # (Column Name, Catalog, Schema, Table, Type, Type Size, Aliased)
+        ctype = []
+        for row in rows:
+            col_name = row[0]
+            type_str = row[4] if len(row) > 4 and row[4] is not None else None
+            # Trino emits a single empty sentinel row for no-output statements.
+            if not col_name and not type_str:
+                continue
+            ctype.append(
+                (col_name, trino_dtype(type_name=str(type_str or "unknown")))
+            )
+
+        if ctype:
+            if column:
+                return ctype[0][1]
+            return ctype
+        # No usable rows -> fall through to the LIMIT 0 path below.
+    except Exception:
+        # DESCRIBE OUTPUT unsupported or failed -> fall back below.
+        pass
+
+    # --- Fallback: LIMIT 0 + cursor description -----------------------------
+    query = f"{inner} LIMIT 0"
 
     try:
         cursor.execute(query)

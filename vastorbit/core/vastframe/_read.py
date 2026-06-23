@@ -66,7 +66,7 @@ class vDFRead(vDFUtils):
         elif isinstance(index, int):
             columns = self.get_columns()
             for idx, elem in enumerate(columns):
-                if self[elem].category() == "float":
+                if self[elem].category() == "real":
                     columns[idx] = f"CAST({elem} AS DOUBLE)"
             if index < 0:
                 index += self.shape()[0]
@@ -803,8 +803,8 @@ class vDCRead(vDCUtils):
                 vcol._init_transf = f"{self._init_transf}[{index}]"
                 return vcol
             else:
-                cast_b = "CAST(" if self.category() == "float" else ""
-                cast_e = " AS DOUBLE)" if self.category() == "float" else ""
+                cast_b = "CAST(" if self.category() == "real" else ""
+                cast_e = " AS DOUBLE)" if self.category() == "real" else ""
                 if index < 0:
                     index += self._parent.shape()[0]
                 return _executeSQL(

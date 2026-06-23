@@ -658,7 +658,7 @@ def stepwise(
         If  set to True, the stepwise graphic is drawn.
     chart: PlottingObject, optional
         The chart object to plot on.
-    **style_kwargs
+    ``**style_kwargs``
         Any  optional  parameter  to pass to the  Plotting
         functions.
 

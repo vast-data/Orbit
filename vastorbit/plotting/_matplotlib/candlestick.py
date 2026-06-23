@@ -86,46 +86,46 @@ class CandleStick(MatplotlibBase):
             up = up.to_numpy()
             ax.bar(
                 up[:, 0],
-                up[:, 2].astype("float") - up[:, 1].astype("float"),
+                up[:, 2].astype("real") - up[:, 1].astype("real"),
                 width,
-                bottom=up[:, 1].astype("float"),
+                bottom=up[:, 1].astype("real"),
                 color=col_up,
             )
             ax.bar(
                 up[:, 0],
-                up[:, 3].astype("float") - up[:, 2].astype("float"),
+                up[:, 3].astype("real") - up[:, 2].astype("real"),
                 width2,
-                bottom=up[:, 2].astype("float"),
+                bottom=up[:, 2].astype("real"),
                 color=col_up,
             )
             ax.bar(
                 up[:, 0],
-                up[:, 4].astype("float") - up[:, 1].astype("float"),
+                up[:, 4].astype("real") - up[:, 1].astype("real"),
                 width2,
-                bottom=up[:, 1].astype("float"),
+                bottom=up[:, 1].astype("real"),
                 color=col_up,
             )
         if down.shape()[0] > 0:
             down = down.to_numpy()
             ax.bar(
                 down[:, 0],
-                down[:, 2].astype("float") - down[:, 1].astype("float"),
+                down[:, 2].astype("real") - down[:, 1].astype("real"),
                 width,
-                bottom=down[:, 1].astype("float"),
+                bottom=down[:, 1].astype("real"),
                 color=col_down,
             )
             ax.bar(
                 down[:, 0],
-                down[:, 3].astype("float") - down[:, 1].astype("float"),
+                down[:, 3].astype("real") - down[:, 1].astype("real"),
                 width2,
-                bottom=down[:, 1].astype("float"),
+                bottom=down[:, 1].astype("real"),
                 color=col_down,
             )
             ax.bar(
                 down[:, 0],
-                down[:, 4].astype("float") - down[:, 2].astype("float"),
+                down[:, 4].astype("real") - down[:, 2].astype("real"),
                 width2,
-                bottom=down[:, 2].astype("float"),
+                bottom=down[:, 2].astype("real"),
                 color=col_down,
             )
         return ax

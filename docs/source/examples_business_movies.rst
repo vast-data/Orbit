@@ -4,7 +4,7 @@ Movies Scoring and Clustering
 ==============================
 
 This example uses the ``filmtv_movies`` dataset to evaluate the quality of the movies and create clusters of similar movies. 
-You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/movies/movies.ipynb>`_.
+You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/movies/movies.ipynb>`__.
 
 The columns provided include:
 
@@ -47,7 +47,7 @@ Let's  create a new schema and assign the data to a :py:mod:`~vastorbit.VastFram
 
 .. code-block:: ipython
 
-    filmtv_movies = vo.read_csv("movies.csv", schema = "movies")
+    filmtv_movies = vo.read_csv("movies.csv")
     filmtv_movies.head(5)
 
 Let's take a look at the first few entries in the dataset.
@@ -157,7 +157,7 @@ We can extract the five main actors for each movie with regular expressions.
 .. code-block:: python
 
     for i in range(1, 5):
-        filmtv_movies2 = vo.read_csv("movies.csv")
+        filmtv_movies2 = vo.VastFrame("movies")
         filmtv_movies2.regexp(
             column = "actors",
             method = "substr",
@@ -169,7 +169,7 @@ We can extract the five main actors for each movie with regular expressions.
             filmtv_movies = filmtv_movies2.copy()
         else:
             filmtv_movies = filmtv_movies.append(filmtv_movies2)
-    filmtv_movies["actor"].describe()
+    filmtv_movies["actor"].topk(100)
 
 .. ipython:: python
     :suppress:
@@ -190,13 +190,13 @@ We can extract the five main actors for each movie with regular expressions.
             filmtv_movies = filmtv_movies2.copy()
         else:
             filmtv_movies = filmtv_movies.append(filmtv_movies2)
-    res = filmtv_movies["actor"].describe()
+    res = filmtv_movies["actor"].topk(100)
     html_file = open("SPHINX_DIRECTORY/figures/examples_movies_describe_actors.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examplexamples_movies_describe_actorses_movies_search_votes.html
+    :file: SPHINX_DIRECTORY/figures/examples_movies_describe_actors.html
 
 By aggregating the data, we can find the number of actors and the number of votes by actor. 
 We can then normalize the data using the min-max method and quantify the notoriety of the actors.
@@ -444,7 +444,7 @@ Now, let's look at the countries that made the most movies.
 
     filmtv_movies_complete.groupby(
         columns = ["country"], 
-        expr = ["COUNT(*)"]
+        expr = ["COUNT(*) AS count"]
     ).sort({"count" : "desc"}).head(10)
 
 .. ipython:: python
@@ -452,7 +452,7 @@ Now, let's look at the countries that made the most movies.
 
     res = filmtv_movies_complete.groupby(
         columns = ["country"], 
-        expr = ["COUNT(*)"],
+        expr = ["COUNT(*) AS count"],
     ).sort({"count" : "desc"}).head(10)
     html_file = open("SPHINX_DIRECTORY/figures/examples_movies_filmtv_country_head.html", "w")
     html_file.write(res._repr_html_())
@@ -510,35 +510,37 @@ We can use this variable to create language groups.
 
     # Creation of the new feature
     filmtv_movies_complete.case_when('language_area', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Arabic_Middle_Est))), 'Arabic_Middle_Est',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Chinese_Japan_Asian))), 'Chinese_Japan_Asian', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Indian))), 'Indian', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Hebrew))), 'Hebrew', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Spanish_Portuguese))), 'Spanish_Portuguese', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(English))), 'English',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(French))), 'French',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Italian))), 'Italian',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(German_North_Europe))), 'German_North_Europe',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Russian_Est_Europe))), 'Russian_Est_Europe',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Grec_Balkan))), 'Grec_Balkan', 
-            'Others') 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Arabic_Middle_Est))), 'Arabic_Middle_Est',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Chinese_Japan_Asian))), 'Chinese_Japan_Asian', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Indian))), 'Indian', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Hebrew))), 'Hebrew', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Spanish_Portuguese))), 'Spanish_Portuguese', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(English))), 'English',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(French))), 'French',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Italian))), 'Italian',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(German_North_Europe))), 'German_North_Europe',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Russian_Est_Europe))), 'Russian_Est_Europe',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Grec_Balkan))), 'Grec_Balkan', 
+        'Others'
+    )
 
 .. ipython:: python
     :suppress:
 
     res = filmtv_movies_complete.case_when('language_area', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Arabic_Middle_Est))), 'Arabic_Middle_Est',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Chinese_Japan_Asian))), 'Chinese_Japan_Asian', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Indian))), 'Indian', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Hebrew))), 'Hebrew', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Spanish_Portuguese))), 'Spanish_Portuguese', 
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(English))), 'English',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(French))), 'French',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Italian))), 'Italian',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(German_North_Europe))), 'German_North_Europe',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Russian_Est_Europe))), 'Russian_Est_Europe',
-            vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Grec_Balkan))), 'Grec_Balkan', 
-            'Others') 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Arabic_Middle_Est))), 'Arabic_Middle_Est',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Chinese_Japan_Asian))), 'Chinese_Japan_Asian', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Indian))), 'Indian', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Hebrew))), 'Hebrew', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Spanish_Portuguese))), 'Spanish_Portuguese', 
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(English))), 'English',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(French))), 'French',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Italian))), 'Italian',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(German_North_Europe))), 'German_North_Europe',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Russian_Est_Europe))), 'Russian_Est_Europe',
+        vo.StringSQL("REGEXP_LIKE(Country, '{}')".format("|".join(Grec_Balkan))), 'Grec_Balkan', 
+        'Others'
+    )
     html_file = open("SPHINX_DIRECTORY/figures/examples_movies_filmtv_complete_language.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -551,35 +553,35 @@ We can do the same for the genres.
 .. code-block:: python
 
     filmtv_movies_complete.case_when(
-            'Category', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Drama|Noir')"), 'Drama', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Comedy|Grotesque')"), 'Comedy', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Fantasy|Super-hero')"), 'Fantasy', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Romantic|Sperimental|Mélo')"), 'Romantic', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Thriller|Crime|Gangster')"), 'Thriller', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Action|Western|War|Spy')"), 'Action', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Adventure')"), 'Adventure', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Animation')"), 'Animation', 
-            vo.StringSQL("REGEXP_LIKE(Genre, 'Horror')"), 'Horror', 
-            'Others'
-    ) 
+        'Category', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Drama|Noir')"), 'Drama', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Comedy|Grotesque')"), 'Comedy', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Fantasy|Super-hero')"), 'Fantasy', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Romantic|Sperimental|Mélo')"), 'Romantic', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Thriller|Crime|Gangster')"), 'Thriller', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Action|Western|War|Spy')"), 'Action', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Adventure')"), 'Adventure', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Animation')"), 'Animation', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Horror')"), 'Horror', 
+        'Others'
+    )
 
 .. ipython:: python
     :suppress:
 
     res = filmtv_movies_complete.case_when(
-         'Category', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Drama|Noir')"), 'Drama', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Comedy|Grotesque')"), 'Comedy', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Fantasy|Super-hero')"), 'Fantasy', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Romantic|Sperimental|Mélo')"), 'Romantic', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Thriller|Crime|Gangster')"), 'Thriller', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Action|Western|War|Spy')"), 'Action', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Adventure')"), 'Adventure', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Animation')"), 'Animation', 
-         vo.StringSQL("REGEXP_LIKE(Genre, 'Horror')"), 'Horror', 
-         'Others'
-    ) 
+        'Category', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Drama|Noir')"), 'Drama', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Comedy|Grotesque')"), 'Comedy', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Fantasy|Super-hero')"), 'Fantasy', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Romantic|Sperimental|Mélo')"), 'Romantic', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Thriller|Crime|Gangster')"), 'Thriller', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Action|Western|War|Spy')"), 'Action', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Adventure')"), 'Adventure', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Animation')"), 'Animation', 
+        vo.StringSQL("REGEXP_LIKE(Genre, 'Horror')"), 'Horror', 
+        'Others'
+    )
     html_file = open("SPHINX_DIRECTORY/figures/examples_movies_filmtv_complete_category_genre.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -622,14 +624,14 @@ We can then drop the few remaining missing values.
 .. code-block:: python
 
     filmtv_movies_complete["notoriety_actors"].fillna(
-        method = "median",
+        method = "mean",
         by = [
             "director",
             "Category",
         ],
     )
     filmtv_movies_complete["castings_actors"].fillna(
-        method = "median",
+        method = "mean",
         by = [
             "director",
             "Category",
@@ -641,14 +643,14 @@ We can then drop the few remaining missing values.
     :suppress:
 
     filmtv_movies_complete["notoriety_actors"].fillna(
-        method = "median",
+        method = "mean",
         by = [
             "director",
             "Category",
         ],
     )
     filmtv_movies_complete["castings_actors"].fillna(
-        method = "median",
+        method = "mean",
         by = [
             "director",
             "Category",
@@ -679,7 +681,7 @@ Before we export the data, we should normalize the numerical columns to get the 
         ],
     )
     for elem in ["category", "period", "language_area"]:
-        filmtv_movies_complete[elem].get_dummies(drop_first = True)
+        filmtv_movies_complete[elem].one_hot_encode(drop_first = True)
 
 We can export the results to our VAST database.
 
@@ -700,17 +702,23 @@ We can export the results to our VAST database.
     :suppress:
 
     vo.drop("filmtv_movies_complete")
-    filmtv_movies_complete.to_db(
-        name = "filmtv_movies_complete",
-        relation_type = "table",
-        inplace = True,
-    )
+    try:
+        filmtv_movies_complete.to_db(
+            name = "filmtv_movies_complete",
+            relation_type = "table",
+            inplace = True,
+        )
+    except:
+        pass
     vo.drop("filmtv_movies_mco")
-    filmtv_movies_complete.to_db(
-        name = "filmtv_movies_mco",
-        relation_type = "view",
-        db_filter = "votes > 0.02",
-    )
+    try:
+        x = filmtv_movies_complete.to_db(
+            name = "filmtv_movies_mco",
+            relation_type = "view",
+            db_filter = "votes > 0.02",
+        )
+    except:
+        x = vo.VastFrame("filmtv_movies_mco")
 
 Machine Learning : Adjusting the Films Rates
 ---------------------------------------------
@@ -888,9 +896,7 @@ Let's compute the :py:func:`~vastorbit.machine_learning.model_selection.elbow` c
     )
 
     from vastorbit.machine_learning.model_selection import elbow
-    import vastorbit
 
-    vastorbit.set_option("plotting_lib", "plotly") # to switch plotting graphics to plotly
     elbow_chart = elbow(
         filmtv_movies_complete,
         predictors,
@@ -905,22 +911,19 @@ Let's compute the :py:func:`~vastorbit.machine_learning.model_selection.elbow` c
 .. ipython:: python
     :suppress:
 
-    import vastorbit
-
-    vastorbit.set_option("plotting_lib", "plotly")
     fig = elbow_chart
     fig.write_html("SPHINX_DIRECTORY/figures/examples_movies_filmtv_elbow_plot.html")
 
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_movies_filmtv_elbow_plot.html
 
-By looking at the elbow curve, we can choose 15 clusters. Let's create a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model.
+By looking at the elbow curve, we can choose 4 clusters. Let's create a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model.
 
 .. ipython:: python
 
     from vastorbit.machine_learning.vast.cluster import KMeans
 
-    model_kmeans = KMeans(n_clusters = 15)
+    model_kmeans = KMeans(n_clusters = 4)
     model_kmeans.fit(filmtv_movies_complete, predictors)
     model_kmeans.clusters_
 
@@ -1111,3 +1114,9 @@ Conclusion
 ----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

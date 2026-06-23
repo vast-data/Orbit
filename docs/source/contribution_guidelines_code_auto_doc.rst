@@ -477,11 +477,11 @@ Module reference: :py:mod:`~vastorbit.VastFrame`
 
 .. code-block:: rst
 
-   `Link Text <https://example.com>`_
+   `Link Text <https://example.com>`__
 
 **This renders as:**
 
-`Link Text <https://example.com>`_
+`Link Text <https://example.com>`__
 
 ----
 
@@ -1048,22 +1048,22 @@ Useful Resources
 
 **reStructuredText (RST):**
 
-- `RST Primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_ - Official RST basics from Sphinx
-- `RST Directives <https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html>`_ - Available directives and formatting options
-- `RST Cheat Sheet <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_ - Quick reference for common markup
-- `RST Syntax Specification <https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html>`_ - Complete syntax specification
+- `RST Primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__ - Official RST basics from Sphinx
+- `RST Directives <https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html>`__ - Available directives and formatting options
+- `RST Cheat Sheet <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`__ - Quick reference for common markup
+- `RST Syntax Specification <https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html>`__ - Complete syntax specification
 
 **Sphinx:**
 
-- `Sphinx Domains and Roles <https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html>`_ - Specialized markup for Python code
-- `Sphinx Configuration <https://www.sphinx-doc.org/en/master/usage/configuration.html>`_ - Configure Sphinx behavior
-- `Common RST Substitutions <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#substitutions>`_ - Reusable content definitions
+- `Sphinx Domains and Roles <https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html>`__ - Specialized markup for Python code
+- `Sphinx Configuration <https://www.sphinx-doc.org/en/master/usage/configuration.html>`__ - Configure Sphinx behavior
+- `Common RST Substitutions <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#substitutions>`__ - Reusable content definitions
 
 **Python Documentation:**
 
-- `Docutils Documentation <https://docutils.sourceforge.io/docs/index.html>`_ - RST parsing library
-- `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_ - Standard docstring format we follow
-- `Sphinx Napoleon <https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`_ - Extension for parsing NumPy docstrings
+- `Docutils Documentation <https://docutils.sourceforge.io/docs/index.html>`__ - RST parsing library
+- `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`__ - Standard docstring format we follow
+- `Sphinx Napoleon <https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`__ - Extension for parsing NumPy docstrings
 
 **VAST Orbit Specific:**
 

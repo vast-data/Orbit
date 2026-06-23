@@ -121,7 +121,7 @@ class TestVDCTyping:
         titanic_vd_fun["sex"].astype("varchar(10)")
         assert titanic_vd_fun["sex"].dtype() == "varchar(10)"
 
-        titanic_vd_fun["age"].astype("float")
+        titanic_vd_fun["age"].astype("real")
         assert titanic_vd_fun["age"].dtype() == "double"
 
     def test_astype_str_to_array(self):
@@ -137,7 +137,7 @@ class TestVDCTyping:
         """
         test function - category
         """
-        assert titanic_vd_fun["age"].category() == "float"
+        assert titanic_vd_fun["age"].category() == "real"
 
     def test_ctype(self, titanic_vd_fun):
         """

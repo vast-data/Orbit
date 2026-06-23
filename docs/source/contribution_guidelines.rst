@@ -46,7 +46,7 @@ Bug Reports
 
    **Security issues** should NOT be reported publicly. Contact us directly:
    
-   - **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`_
+   - **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`__
    - **Support**: File a case with VAST support
 
 .. tip::
@@ -99,8 +99,8 @@ Community
 
 **Get Help:**
 
-- |i-chat| **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`_
-- **Issues**: https://github.com/vastdata-dev/vastorbit/issues
+- |i-chat| **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`__
+- |i-error| **Issues**: https://github.com/vastdata-dev/vastorbit/issues
 
 **Stay Updated:**
 

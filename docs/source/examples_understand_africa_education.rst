@@ -4,7 +4,7 @@ Africe Education
 =================
 
 This example uses the 'Africa Education' dataset to predict student performance. 
-You can can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/understand/africa_education/africa_education.ipynb>`_.
+You can can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/understand/africa_education/africa_education.ipynb>`__.
 
 - **COUNTRY:** COUNTRY ID.
 - **REGION:** REGION ID.
@@ -94,11 +94,25 @@ You can skip the below cell if you already have an established connection.
 
 Let's create a VastFrame of the dataset.
 
-.. ipython:: python
+.. code-block:: python
 
     from vastorbit.datasets import load_africa_education
-
+    
     africa = load_africa_education()
+    africa
+
+.. ipython:: python
+    :suppress:
+
+    from vastorbit.datasets import load_africa_education
+    africa = load_africa_education()
+    res = africa
+    html_file = open("SPHINX_DIRECTORY/figures/examples_africa_table_head.html", "w")
+    html_file.write(res._repr_html_())
+    html_file.close()
+
+.. raw:: html
+    :file: SPHINX_DIRECTORY/figures/examples_africa_table_head.html
 
 .. warning::
     
@@ -119,7 +133,6 @@ Remember our goal: find a way to predict students' final scores (``zralocp`` & `
 
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
-    africa = africa.sample(x = 0.1)
     fig = africa.corr(width = 800, with_numbers = False)
     fig.write_html("SPHINX_DIRECTORY/figures/examples_africe_corr_matrix.html")
 
@@ -250,14 +263,14 @@ Eight seems to be a suitable number of clusters. Let's compute a :py:mod:`~vasto
 
     from vastorbit.machine_learning.vast import KMeans
 
-    model = KMeans(n_clusters = 8)
+    model = KMeans(n_clusters = 5)
     model.fit(africa, X = ["lon", "lat"])
 
 .. ipython:: python
     :suppress:
 
     from vastorbit.machine_learning.vast import KMeans
-    model = KMeans(n_clusters = 8)
+    model = KMeans(n_clusters = 5)
     model.fit(africa, X = ["lon", "lat"])
 
 We can add the prediction to the :py:mod:`~vastorbit.VastFrame` and draw the scatter map.
@@ -277,7 +290,7 @@ We can add the prediction to the :py:mod:`~vastorbit.VastFrame` and draw the sca
 
     # Filtering and drawing Africa
     africa_world = africa_world[africa_world["continent"] == "Africa"]
-    ax = africa_world["geometry"].geo_plot(color = "white", edgecolor = "black",)
+    ax = africa_world["geometry"].geo_plot(color = "white", edgecolor = "black")
 
 .. ipython:: python
     :suppress:
@@ -915,3 +928,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

@@ -59,9 +59,9 @@ class AutoClustering(VASTModel):
 
     Attributes
     ----------
-    preprocess_: object
+    ``preprocess_``: object
         Model used to preprocess the data.
-    model_: object
+    ``model_``: object
         Final model used for clustering.
     """
 

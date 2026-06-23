@@ -21,8 +21,6 @@ ____
           :text-align: center
           :class-card: custom-card-3
           
-          +++
-          
           Train with sklearn/Spark, deploy for in-database inference at scale.
           
           +++
@@ -35,8 +33,6 @@ ____
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
-          
-          +++
           
           Evaluate models with accuracy, precision, recall, F1, AUC-ROC, and more.
           
@@ -51,8 +47,6 @@ ____
           :text-align: center
           :class-card: custom-card-3
           
-          +++
-          
           Cross-validation, hyperparameter tuning, and model comparison.
           
           +++
@@ -66,8 +60,6 @@ ____
           :text-align: center
           :class-card: custom-card-3
           
-          +++
-          
           Platform-independent models for easy export and deployment.
           
           +++
@@ -80,8 +72,6 @@ ____
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
-          
-          +++
           
           Automated model building and hyperparameter optimization.
           

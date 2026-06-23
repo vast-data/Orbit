@@ -3,7 +3,7 @@
 Amazon
 =======
 
-This example uses the ``amazon`` dataset to predict the number of forest fires in Brazil. You can download a copy of the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/amazon/amazon.ipynb>`_.
+This example uses the ``amazon`` dataset to predict the number of forest fires in Brazil. You can download a copy of the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/amazon/amazon.ipynb>`__.
 
 - **date:** Date of the record
 - **number:** Number of forest fires
@@ -298,3 +298,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

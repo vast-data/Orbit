@@ -965,8 +965,8 @@ def extract_precision_scale(ctype: str) -> tuple:
         # varchar(80)
         extract_precision_scale('varchar(80)')
 
-        # numeric(4, 6)
-        extract_precision_scale('numeric(4, 6)')
+        # decimal(4, 6)
+        extract_precision_scale('decimal(4, 6)')
 
     .. note::
 
@@ -1655,3 +1655,87 @@ def schema_relation(relation: Any, do_quote: bool = True) -> tuple[str, str]:
         return (quote_ident(schema), quote_ident(relation))
     else:
         return (schema, relation)
+
+
+_UNITS = {"year", "month", "day", "hour", "minute", "second"}
+_SECONDS = {"second": 1, "minute": 60, "hour": 3600, "day": 86400}
+
+
+def format_interval(s: str, *, as_seconds: bool = False) -> str:
+    """
+    Rewrite a human-readable interval string as a Trino-safe expression.
+
+    Trino does not accept Vertica / PostgreSQL free-form interval literals
+    such as ``INTERVAL '30 minutes'``: it requires the value and the unit to
+    be separate, with the unit given as a trailing keyword drawn from the six
+    supported units (``YEAR``, ``MONTH``, ``DAY``, ``HOUR``, ``MINUTE``,
+    ``SECOND``). This helper parses a single ``"<value> <unit>"`` string and,
+    by default, emits it as ``<value> * INTERVAL '1' <UNIT>`` — a form valid
+    both as a literal and when the value is later swapped for a column.
+
+    For a ``RANGE`` window frame, the offset type must match the ``ORDER BY``
+    key's type: an *interval* only works when the sort key is a date/timestamp.
+    When the sort key is an integer count of seconds (e.g. the credit-card
+    ``"Time"`` column), pass ``as_seconds=True`` to get the offset as a plain
+    integer number of seconds instead.
+
+    Parameters
+    ----------
+    s : str
+        A single value-and-unit interval, for example ``"30 minutes"``,
+        ``"2 hours"`` or ``"1 day"``. Surrounding whitespace is ignored and the
+        unit may be singular or plural. ``"week"`` / ``"weeks"`` is accepted and
+        converted to days (multiplied by 7), since Trino has no ``WEEK`` unit.
+    as_seconds : bool, optional
+        If ``True``, return the total number of seconds as an integer string
+        instead of an interval expression — for ``RANGE`` frames ordered by an
+        integer-seconds column. Only ``second``/``minute``/``hour``/``day``
+        (and ``week``) are convertible; ``month``/``year`` raise, since their
+        length in seconds is not fixed. Defaults to ``False``.
+
+    Returns
+    -------
+    str
+        ``"<n> * INTERVAL '1' <UNIT>"`` by default, or the total seconds as an
+        integer string (e.g. ``"18000"``) when ``as_seconds=True``.
+
+    Raises
+    ------
+    ValueError
+        If ``s`` is not a single integer value followed by a unit; if the unit
+        is not one of the Trino-supported units (after the week conversion); or
+        if ``as_seconds=True`` is requested for a ``month``/``year`` unit.
+
+    Examples
+    --------
+    >>> format_interval("30 minutes")
+    "30 * INTERVAL '1' MINUTE"
+    >>> format_interval("1 day")
+    "1 * INTERVAL '1' DAY"
+    >>> format_interval("2 weeks")
+    "14 * INTERVAL '1' DAY"
+    >>> format_interval("5 hours", as_seconds=True)
+    '18000'
+    >>> format_interval("2 weeks", as_seconds=True)
+    '1209600'
+
+    See Also
+    --------
+    format_timestamp : build a Trino ``TIMESTAMP`` literal / cast.
+    """
+    m = re.fullmatch(r"\s*([+-]?\d+)\s*([a-zA-Z]+)\s*", s)
+    if not m:
+        raise ValueError(f"Not a single value+unit interval: {s!r}")
+    n, unit = int(m.group(1)), m.group(2).lower().rstrip("s")
+    if unit == "week":            # Trino has no WEEK
+        n, unit = n * 7, "day"
+    if unit not in _UNITS:
+        raise ValueError(f"Unsupported Trino interval unit: {unit!r}")
+    if as_seconds:
+        if unit not in _SECONDS:
+            raise ValueError(
+                f"Cannot express {unit!r} as a fixed number of seconds "
+                f"(month/year vary in length); use a timestamp ORDER BY key instead."
+            )
+        return str(n * _SECONDS[unit])
+    return f"{n} * INTERVAL '1' {unit.upper()}"

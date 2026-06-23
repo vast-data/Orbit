@@ -602,19 +602,19 @@ class Tree(InMemoryModel):
             to customize each node of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         edge_style: dict, optional
             ``dictionary`` of options
             to customize each edge of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         leaf_style: dict, optional
             ``dictionary`` of options
             to customize each leaf of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
 
         Returns
         -------
@@ -801,7 +801,7 @@ class Tree(InMemoryModel):
         pic_path: str, optional
             Absolute path to save
             the image of the tree.
-        *args, **kwargs: Any, optional
+        *args, ``**kwargs``: Any, optional
             Arguments to pass to the
             ``to_graphviz`` method.
 
@@ -1015,7 +1015,7 @@ class BinaryTreeRegressor(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1023,7 +1023,7 @@ class BinaryTreeRegressor(Tree):
     Use
     :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor.to_graphviz`
     method to generate code for a
-    `Graphviz <https://graphviz.org/>`_
+    `Graphviz <https://graphviz.org/>`__
     tree.
 
     .. ipython:: python
@@ -1051,7 +1051,7 @@ class BinaryTreeRegressor(Tree):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -1246,7 +1246,7 @@ class BinaryTreeAnomaly(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1254,7 +1254,7 @@ class BinaryTreeAnomaly(Tree):
     Use
     :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeAnomaly.to_graphviz`
     method to generate code for a
-    `Graphviz <https://graphviz.org/>`_
+    `Graphviz <https://graphviz.org/>`__
     tree.
 
     .. ipython:: python
@@ -1282,7 +1282,7 @@ class BinaryTreeAnomaly(Tree):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeAnomaly.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -1498,7 +1498,7 @@ class BinaryTreeClassifier(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1506,7 +1506,7 @@ class BinaryTreeClassifier(Tree):
     Use
     :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier.to_graphviz`
     method to generate code for a
-    `Graphviz <https://graphviz.org/>`_ tree.
+    `Graphviz <https://graphviz.org/>`__ tree.
 
     .. ipython:: python
 
@@ -1533,7 +1533,7 @@ class BinaryTreeClassifier(Tree):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -1751,7 +1751,7 @@ class NonBinaryTree(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1759,7 +1759,7 @@ class NonBinaryTree(Tree):
     Use
     :py:meth:`~vastorbit.machine_learning.memmodel.tree.NonBinaryTree.to_graphviz`
     method to generate code for a
-    `Graphviz <https://graphviz.org/>`_ tree.
+    `Graphviz <https://graphviz.org/>`__ tree.
 
     .. ipython:: python
 
@@ -1786,7 +1786,7 @@ class NonBinaryTree(Tree):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.NonBinaryTree.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -2339,19 +2339,19 @@ class NonBinaryTree(Tree):
             to customize each node of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         edge_style: dict, optional
             ``dictionary`` of options
             to customize each edge of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         leaf_style: dict, optional
             ``dictionary`` of options
             to customize each leaf of
             the tree. For a list of
             options, see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
 
         Returns
         -------

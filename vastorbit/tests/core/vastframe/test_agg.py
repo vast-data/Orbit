@@ -138,7 +138,7 @@ class TestAgg:
             # ("approx_unique", None, None, REL_TOLERANCE, ABS_TOLERANCE, [[3.0, 2.0, 1233.0, 2.0, 96.0, 7.0, 8.0, 888.0, 275.0, 181.0, 3.0, 26.0, 118.0, 355.0], [96.0, 275.0, 3.0, 2.0]]),  # fail due to randomness in output
             ("count", "count", REL_TOLERANCE, ABS_TOLERANCE, None),
             ("cvar", None, REL_TOLERANCE, ABS_TOLERANCE, None),
-            # ("dtype", None, REL_TOLERANCE, ABS_TOLERANCE, [['int', 'int', 'varchar(164)', 'varchar(20)', 'numeric(6,3)', 'int', 'int', 'varchar(36)', 'numeric(10,5)', 'varchar(30)', 'varchar(20)', 'varchar(100)', 'int', 'varchar(100)'], ['numeric(6,3)', 'numeric(10,5)', 'int', 'int']]),  # fail due to randomness in output
+            # ("dtype", None, REL_TOLERANCE, ABS_TOLERANCE, [['int', 'int', 'varchar(164)', 'varchar(20)', 'decimal(6,3)', 'int', 'int', 'varchar(36)', 'decimal(10,5)', 'varchar(30)', 'varchar(20)', 'varchar(100)', 'int', 'varchar(100)'], ['decimal(6,3)', 'decimal(10,5)', 'int', 'int']]),  # fail due to randomness in output
             ("iqr", None, REL_TOLERANCE, ABS_TOLERANCE, None),
             ("kurtosis", None, REL_TOLERANCE, ABS_TOLERANCE, None),
             ("jb", None, 1e-00, ABS_TOLERANCE, None),

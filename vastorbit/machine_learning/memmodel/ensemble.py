@@ -75,7 +75,7 @@ class Ensemble(InMemoryModel):
             Unique tree identifier,
             an integer in the range
             ``[0, n_estimators - 1]``.
-        *args, **kwargs: Any, optional
+        *args, ``**kwargs``: Any, optional
             Arguments to pass to
             the ``to_graphviz``
             method.
@@ -262,7 +262,7 @@ class RandomForestRegressor(Ensemble):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -288,7 +288,7 @@ class RandomForestRegressor(Ensemble):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.RandomForestRegressor.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -612,7 +612,7 @@ class RandomForestClassifier(Ensemble, MulticlassClassifier):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -638,7 +638,7 @@ class RandomForestClassifier(Ensemble, MulticlassClassifier):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -1000,7 +1000,7 @@ class XGBRegressor(Ensemble):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -1026,7 +1026,7 @@ class XGBRegressor(Ensemble):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -1397,7 +1397,7 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -1423,7 +1423,7 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::
@@ -1796,7 +1796,7 @@ class IsolationForest(Ensemble):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -1822,7 +1822,7 @@ class IsolationForest(Ensemble):
 
         :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.IsolationForest.plot_tree`
         requires the
-        `Graphviz <https://graphviz.org/download/>`_
+        `Graphviz <https://graphviz.org/download/>`__
         module.
 
     .. note::

@@ -330,13 +330,13 @@ def _header_cell(name, dtype, percent, full_mode):
         category = to_category(type_val)
         lowered = name.lower().split(" ")
         if category == "spatial" or (
-            category == "float"
+            category == "real"
             and any(k in lowered for k in ("lat", "latitude", "lon", "longitude"))
         ):
             key = "spatial"
         elif type_val.lower() == "boolean":
             key = "bool"
-        elif category in ("int", "float", "binary", "uuid"):
+        elif category in ("int", "real", "binary", "uuid"):
             key = "num"
         elif category == "text":
             key = "text"

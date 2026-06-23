@@ -184,6 +184,7 @@ def read_csv(
     na_rep: str = "",
     infer_types: bool = True,
     genSQL: bool = False,
+    batch_size: int = 800,
 ) -> Union[VastFrame, List[VastFrame], list[str]]:
     """
     Read CSV file(s) and create table in database via Trino.
@@ -226,6 +227,9 @@ def read_csv(
         Whether to infer types from data (default: True)
     genSQL : bool, optional
         If True, return SQL statements without executing
+    batch_size: int, optional
+        Batch size specifies the number of rows inserted into the 
+        VAST DB concurrently during a bulk operation.
 
     Returns
     -------
@@ -288,6 +292,7 @@ def read_csv(
             na_rep=na_rep,
             infer_types=infer_types,
             genSQL=genSQL,
+            batch_size=batch_size,
         )
 
         if genSQL:
@@ -327,6 +332,7 @@ def read_csv(
                 na_rep=na_rep,
                 infer_types=False,  # Use dtype from first file
                 genSQL=False,
+                batch_size=batch_size,
             )
 
         print(f"Successfully loaded {len(files)} files into {vdf.current_relation()}")
@@ -349,6 +355,7 @@ def read_csv(
             na_rep=na_rep,
             infer_types=infer_types,
             genSQL=genSQL,
+            batch_size=batch_size,
         )
 
 
@@ -367,6 +374,7 @@ def _read_single_csv(
     na_rep: str = "",
     infer_types: bool = True,
     genSQL: bool = False,
+    batch_size: int = 800,
 ) -> Union[VastFrame, list[str]]:
     """
     Internal function to read a single CSV file.
@@ -535,7 +543,6 @@ def _read_single_csv(
         cursor.execute(create_memory_sql)
 
         # Insert data in batches
-        batch_size = 1000
         for i in range(0, len(df_full), batch_size):
             batch = df_full.iloc[i : i + batch_size]
 

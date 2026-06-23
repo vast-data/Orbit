@@ -103,13 +103,13 @@ class AutoDataPrep(VASTModel):
 
     Attributes
     ----------
-    X_in_: list
+    ``X_in_``: list
         Variables used to fit the model.
-    X_out_: list
+    ``X_out_``: list
         Variables created by the model.
-    sql_: str
+    ``sql_``: str
         SQL needed to deploy the model.
-    final_relation_: VastFrame
+    ``final_relation_``: VastFrame
         Relation created after fitting the model.
     """
 

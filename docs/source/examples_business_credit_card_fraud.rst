@@ -3,7 +3,7 @@
 Credit Card Fraud
 ==================
 
-In this example, we use vastorbit to detect fraudulent credit card transactions. You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/credit_card_fraud/credit-card-fraud.ipynb>`_ and the dataset `here <https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud>`_.
+In this example, we use vastorbit to detect fraudulent credit card transactions. You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/credit_card_fraud/credit-card-fraud.ipynb>`__ and the dataset `here <https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud>`__.
 
 The Credit Card Fraud Detection dataset contains credit card transactions from September 2013 by European cardholders. It contains numerical input variables from a principal component analysis (:py:mod:`~vastorbit.machine_learning.vast.decomposition.PCA`) transformation.
 
@@ -43,10 +43,7 @@ Let's create a VastFrame of the dataset.
 
 .. code-block:: python
 
-    creditcard = vo.read_csv(
-        "creditcard.csv", 
-        parse_nrows = 1000,
-    )
+    creditcard = vo.read_csv("creditcard.csv")
     creditcard.head(5)
 
 .. ipython:: python
@@ -94,12 +91,12 @@ Let's convert the number of seconds elapsed to the correct date and time. We kno
 
 .. code-block:: python
 
-    creditcard["Time"].apply("TIMESTAMPADD(second, {}::int, '2013-09-01 00:00:00'::timestamp)")
+    creditcard["Time"].apply("DATE_ADD('second', CAST({} AS bigint), TIMESTAMP '2013-09-01 00:00:00')")
 
 .. ipython:: python
     :suppress:
 
-    res = creditcard["Time"].apply("TIMESTAMPADD(second, {}::int, '2013-09-01 00:00:00'::timestamp)")
+    res = creditcard["Time"].apply("DATE_ADD('second', CAST({} AS bigint), TIMESTAMP '2013-09-01 00:00:00')")
     html_file = open("SPHINX_DIRECTORY/figures/examples_creditcardfraud_apply.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -325,8 +322,8 @@ We will split the dataset into a train (day 1) and a test (day 2).
 
 .. ipython:: python
 
-    train = creditcard.search("Time  < '2013-09-02 00:00:00'")
-    test  = creditcard.search("Time >= '2013-09-02 00:00:00'")
+    train = creditcard.search("Time  < TIMESTAMP '2013-09-02 00:00:00'")
+    test  = creditcard.search("Time >= TIMESTAMP '2013-09-02 00:00:00'")
 
 Supervision
 ++++++++++++
@@ -342,7 +339,7 @@ Supervising would make this pretty easy since it would just be a binary classifi
     predictors = creditcard.get_columns(exclude_columns = ["Class", "Time"])
     response = "Class"
     model = LogisticRegression(
-        max_iter = 1000,
+        max_iter = 3000,
     )
     model.fit(train, predictors, response, test)
     model.classification_report()
@@ -355,7 +352,7 @@ Supervising would make this pretty easy since it would just be a binary classifi
     predictors = creditcard.get_columns(exclude_columns = ["Class", "Time"])
     response = "Class"
     model = LogisticRegression(
-        max_iter = 1000,
+        max_iter = 3000,
     )
     model.fit(train, predictors, response, test)
     res = model.classification_report()
@@ -496,7 +493,7 @@ Once we deploy the unsupervised model and can reliably detect suspicious transac
 
     from vastorbit.machine_learning.vast import KMeans
 
-    model = KMeans(n_clusters = 20)
+    model = KMeans(n_clusters = 13)
     model.fit(creditcard, ["V12", "V17", "V10"])
 
 Let's direct our attention to the smallest clusters.
@@ -551,7 +548,7 @@ Let's use the ``Z-score`` to detect global outliers of the distribution.
         [
             "COUNT(*) AS total", 
             "100 * AVG(Class) AS percent_fraud",
-            "SUM(Class) / 492 AS total_fraud",
+            "SUM(Class) AS total_fraud",
         ],
     ).sort("total")
 
@@ -568,7 +565,7 @@ Let's use the ``Z-score`` to detect global outliers of the distribution.
         [
             "COUNT(*) AS total", 
             "100 * AVG(Class) AS percent_fraud",
-            "SUM(Class) / 492 AS total_fraud",
+            "SUM(Class) AS total_fraud",
         ],
     ).sort("total")
     html_file = open("SPHINX_DIRECTORY/figures/examples_creditcardfraud_groupby_2_ml.html", "w")
@@ -645,3 +642,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

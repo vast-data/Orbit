@@ -49,7 +49,7 @@ def print_query(query: str, title: Optional[str] = None) -> None:
     screen_columns = shutil.get_terminal_size().columns
     query_print = clean_query(query)
     query_print = indent_vo_sql(query)
-    if conf.get_import_success("IPython"):
+    if conf.get_import_success("IPython") and not(conf.get_option("theme") == "sphinx"):
         print_message(f"<h4>{title}</h4>", "display")
         query_print = query_print.replace("\n", " <br>").replace("  ", " &emsp; ")
         print_message(query_print, "display")

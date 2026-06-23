@@ -886,23 +886,23 @@ class Scaler(Preprocessing):
 
     **For StandardScaler:**
 
-    mean_: numpy.array
+    ``mean_``: numpy.array
         Model's features means.
-    std_: numpy.array
+    ``std_``: numpy.array
         Model's features standard deviation.
 
     **For MinMaxScaler:**
 
-    min_: numpy.array
+    ``min_``: numpy.array
         Model's features minimums.
-    max_: numpy.array
+    ``max_``: numpy.array
         Model's features maximums.
 
     **For RobustScaler:**
 
-    median_: numpy.array
+    ``median_``: numpy.array
         Model's features medians.
-    mad_: numpy.array
+    ``mad_``: numpy.array
         Model's features median absolute deviations.
 
     .. note::
@@ -1187,10 +1187,10 @@ class Scaler(Preprocessing):
         """
         Computes the model's attributes from the fitted ``scikit-learn`` model.
         """
-        if self.parameters["method"] == "minmax":
+        if self.method_ == "minmax":
             self.min_ = np.asarray(self._model.data_min_, dtype=float)
             self.max_ = np.asarray(self._model.data_max_, dtype=float)
-        elif self.parameters["method"] == "robust_zscore":
+        elif self.method_ == "robust_zscore":
             self.median_ = np.asarray(self._model.center_, dtype=float)
             self.mad_ = np.asarray(self._model.scale_, dtype=float)
         else:
@@ -1202,7 +1202,7 @@ class Scaler(Preprocessing):
         Builds the explicit inverse-transform SQL expressions
         (Trino-compatible) for each scaled column.
         """
-        method = self.parameters["method"]
+        method = self.method_
         out = []
         for j, col in enumerate(cols):
             if method == "minmax":
@@ -1254,9 +1254,9 @@ class Scaler(Preprocessing):
             :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.Scaler`
             for more information.
         """
-        if self.parameters["method"] == "minmax":
+        if self.method_ == "minmax":
             return mm.MinMaxScaler(self.min_, self.max_)
-        elif self.parameters["method"] == "robust_zscore":
+        elif self.method_ == "robust_zscore":
             return mm.StandardScaler(self.median_, self.mad_)
         else:
             return mm.StandardScaler(self.mean_, self.std_)
@@ -1338,18 +1338,18 @@ class OneHotEncoder(Preprocessing):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    categories_: numpy.array
+    ``categories_``: numpy.array
         ArrayLike of the categories of the different features.
-    column_naming_: str
+    ``column_naming_``: str
         Method used to name the model's outputs.
-    drop_first_: bool
+    ``drop_first_``: bool
         If False, the first dummy of each category was dropped.
 
     .. note::

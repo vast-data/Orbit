@@ -30,7 +30,7 @@ FUNCTIONS_REGRESSION_SQL_DICTIONARY = {
     "rmse": "SQRT(AVG(POW({y_true} - {y_score}, 2)))",
     "root_mean_squared_error": "SQRT(AVG(POW({y_true} - {y_score}, 2)))",
     "mean_squared_log_error": "AVG(POW(LOG({y_true} + 1) - LOG({y_score} + 1), 2))",
-    "msle": "AVG(POW(LOG({y_true} + 1) - LOG({y_score} + 1), 2))",
+    "msle": "AVG(POW(LN({y_true} + 1) - LN({y_score} + 1), 2))",
     "quantile_error": "APPROX_PERCENTILE(ABS({y_true} - {y_score}), {q})",
     "qe": "APPROX_PERCENTILE(ABS({y_true} - {y_score}), {q})",
     "r2": "1.00000000 - (SUM(POWER({y_true} - {y_score}, 2))) / (SUM(POWER({y_true} - _vastorbit_avg_y_true, 2)))",

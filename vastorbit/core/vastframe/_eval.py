@@ -249,7 +249,7 @@ class vDFEval(vDFInOut):
             if (quote_ident(column) in expr) or (
                 re.search(re.compile(f"\\b{column_str}\\b"), expr)
             ):
-                max_floor = max(len(self[column]._transf), max_floor)
+                max_floor = max(len(self[column]._transf) + 1, max_floor)
         transformations = [
             (
                 "___vastorbit_UNDEFINED___",

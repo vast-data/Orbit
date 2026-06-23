@@ -180,7 +180,7 @@ def het_breuschpagan(
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     .. note::
 
@@ -275,7 +275,7 @@ def het_breuschpagan(
         that the noise was in fact heteroscedestic.
 
         For more information check out
-        `this link <https://www.statology.org/breusch-pagan-test/>`_.
+        `this link <https://www.statology.org/breusch-pagan-test/>`__.
     """
     if isinstance(input_relation, VastFrame):
         vdf = input_relation.copy()
@@ -452,7 +452,7 @@ def het_goldfeldquandt(
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     .. note::
 
@@ -729,7 +729,7 @@ def het_white(
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     .. note::
 

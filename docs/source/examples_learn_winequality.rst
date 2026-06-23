@@ -4,7 +4,7 @@ Wine Quality
 =============
 
 This example uses the Wine Quality dataset to predict the quality of white wine. 
-You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/winequality/winequality.ipynb>`_.
+You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/winequality/winequality.ipynb>`__.
 
 - fixed acidity
 - volatile acidity
@@ -220,10 +220,16 @@ Let's create our ``KNN`` model.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_winequality_table_ml_cv.html
 
-Our model is pretty good. Our predicted scores have a median absolute error of less than 0.5. 
+Our model is good enough for the use case. Our predicted scores have a median absolute error of less than 1. 
 If we want to improve this model, we'll probably need more relevant features.
 
 Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

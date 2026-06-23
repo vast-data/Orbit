@@ -9,6 +9,7 @@ Build and deploy predictive models with VAST Orbit.
 ____
 
 .. grid:: 1 2 2 2
+    :class-container: feature-tiles
 
     .. grid-item::
 

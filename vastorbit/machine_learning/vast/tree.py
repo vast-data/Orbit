@@ -34,20 +34,20 @@ class DecisionTreeRegressor(RandomForestRegressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of one BinaryTreeRegressor
+    ``trees_``: list of one BinaryTreeRegressor
         One tree model which is instance of
         ``BinaryTreeRegressor``. It possess various
         attributes. For more detailed information,
         refer to the documentation for
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the MDI (Mean Decreased Impurity). To
         determine the final score, vastorbit sums the
@@ -378,7 +378,7 @@ class DecisionTreeRegressor(RandomForestRegressor):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -483,13 +483,13 @@ class DummyTreeRegressor(RandomForestRegressor):
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of one BinaryTreeRegressor
+    ``trees_``: list of one BinaryTreeRegressor
         One tree model which is instance of
         ``BinaryTreeRegressor``. It possess various
         attributes. For more detailed information,
         refer to the documentation for
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeRegressor`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the MDI (Mean Decreased Impurity). To
         determine the final score, vastorbit sums the
@@ -811,7 +811,7 @@ class DummyTreeRegressor(RandomForestRegressor):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -932,20 +932,20 @@ class DecisionTreeClassifier(RandomForestClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of one BinaryTreeClassifier
+    ``trees_``: list of one BinaryTreeClassifier
         One tree model which is instance of
         ``BinaryTreeClassifier``. It possess various
         attributes. For more detailed information,
         refer to the documentation for
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the MDI (Mean Decreased Impurity). To
         determine the final score, vastorbit sums the
@@ -956,7 +956,7 @@ class DecisionTreeClassifier(RandomForestClassifier):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -1501,7 +1501,7 @@ class DecisionTreeClassifier(RandomForestClassifier):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -1649,13 +1649,13 @@ class DummyTreeClassifier(RandomForestClassifier):
     Many attributes are created
     during the fitting phase.
 
-    trees_: list of one BinaryTreeClassifier
+    ``trees_``: list of one BinaryTreeClassifier
         One tree model which is instance of
         ``BinaryTreeClassifier``. It possess various
         attributes. For more detailed information,
         refer to the documentation for
         :py:meth:`~vastorbit.machine_learning.memmodel.tree.BinaryTreeClassifier`.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features. It is calculated
         using the MDI (Mean Decreased Impurity). To
         determine the final score, vastorbit sums the
@@ -1666,7 +1666,7 @@ class DummyTreeClassifier(RandomForestClassifier):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -2205,7 +2205,7 @@ class DummyTreeClassifier(RandomForestClassifier):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 

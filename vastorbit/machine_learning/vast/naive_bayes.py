@@ -38,21 +38,21 @@ class NaiveBayes(MulticlassClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    prior_: numpy.array
+    ``prior_``: numpy.array
         The model's classes probabilities.
-    attributes_: list of dict
+    ``attributes_``: list of dict
         ``list`` of the model's attributes.
         Each feature is represented by a
         ``dictionary``, which differs based
         on the distribution.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -347,7 +347,7 @@ class NaiveBayes(MulticlassClassifier):
         allows the flexibility to use three averaging
         techniques: ``micro``, ``macro`` and ``weighted``.
         Please refer to
-        `this link <https://towardsdatascience.com/micro-macro-weighted-averages-of-f1-score-clearly-explained-b603420b292f>`_
+        `this link <https://towardsdatascience.com/micro-macro-weighted-averages-of-f1-score-clearly-explained-b603420b292f>`__
         for more details on how they are calculated.
 
     Prediction

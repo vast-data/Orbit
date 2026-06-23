@@ -73,7 +73,7 @@ class TestMachineLearning:
         titanic_vd_fun_fillna["age"].fillna(30)
 
         titanic_pdf = titanic_vd_fun_fillna.to_pandas()
-        titanic_pdf[columns] = titanic_pdf[columns].astype("float")
+        titanic_pdf[columns] = titanic_pdf[columns].astype("real")
         titanic_vd_fun_copy = titanic_vd_fun_fillna.copy()
 
         def _get_columns(df):
@@ -250,7 +250,7 @@ class TestMachineLearning:
         test function - outliers
         """
         titanic_pdf = titanic_vd_fun.to_pandas()
-        titanic_pdf[columns] = titanic_pdf[columns].astype("float")
+        titanic_pdf[columns] = titanic_pdf[columns].astype("real")
 
         titanic_vd_fun.outliers(
             columns=columns, name=name, threshold=threshold, robust=robust

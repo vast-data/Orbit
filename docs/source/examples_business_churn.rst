@@ -3,7 +3,7 @@
 Telco Churn
 ============
 
-This example uses the Telco Churn dataset to predict which Telco user is likely to churn; that is, customers that will likely stop using Telco. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/churn.ipynb>`_.
+This example uses the Telco Churn dataset to predict which Telco user is likely to churn; that is, customers that will likely stop using Telco. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/churn.ipynb>`__.
 
 - **Churn:** customers that left within the last month.
 - **Services:** services of each customer (phone, multiple lines, internet, online security, online backup, device protection, tech support, and streaming TV and movies).
@@ -31,7 +31,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`_.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`__.
 
 .. code-block:: ipython
 
@@ -46,9 +46,12 @@ Let's take a look at the first few entries in the dataset.
 .. ipython:: python
     :suppress:
 
-    churn = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/churn/customers.csv",
-    )
+    try:
+        churn = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/churn/customers.csv",
+        )
+    except:
+        churn = vo.VastFrame("customers")
     res = churn.head(10)
     html_file = open("SPHINX_DIRECTORY/figures/examples_churn_table.html", "w")
     html_file.write(res._repr_html_())
@@ -77,7 +80,7 @@ Let's examine our data.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_churn_table_describe.html
 
-Several variables are categorical, and since they all have low cardinalities, we can compute their dummies. We can also convert all booleans to numeric.
+Several variables are categorical, and since they all have low cardinalities, we can compute their dummies. We can also convert all booleans to numeric and fill the missing values.
 
 .. code-block:: python
 
@@ -105,6 +108,7 @@ Several variables are categorical, and since they all have low cardinalities, we
             "InternetService",
         ],
     )
+    churn.fillna()
 
 .. ipython:: python
     :suppress:
@@ -125,7 +129,7 @@ Several variables are categorical, and since they all have low cardinalities, we
         "StreamingMovies",
     ]:
         churn[column].decode("Yes", 1, 0)
-    res = churn.one_hot_encode().drop(
+    churn.one_hot_encode().drop(
         [
             "customerID", 
             "gender", 
@@ -134,6 +138,7 @@ Several variables are categorical, and since they all have low cardinalities, we
             "InternetService",
         ],
     )
+    res = churn.fillna()
     html_file = open("SPHINX_DIRECTORY/figures/examples_insurance_table_clean_1.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -219,7 +224,7 @@ Let's train and evaluate our model.
     from vastorbit.machine_learning.vast import LogisticRegression
 
     model = LogisticRegression(
-        max_iter = 1000,
+        max_iter = 3000,
     )
     model.fit(
         train, 
@@ -236,7 +241,7 @@ Let's train and evaluate our model.
     from vastorbit.machine_learning.vast import LogisticRegression
 
     model = LogisticRegression(
-        max_iter = 1000,
+        max_iter = 3000,
     )
     model.fit(
         train, 
@@ -348,9 +353,15 @@ We'll use a lift chart to help us identify which of our customers are likely to 
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_churn_lift_chart.html
 
-By targeting less than ``30%`` of the entire distribution, our predictions will be more than three times more accurate than the other ``70%``.
+By targeting less than ``10%`` of the entire distribution, our predictions will be more than two times more accurate than the other ``90%``.
 
 Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

@@ -32,10 +32,10 @@ def gen_dataset(features_ranges: dict, nrows: int = 1000) -> VastFrame:
             'int' and 'range'  must  include
             two integers  that represent the
             lower and the upper bounds.
-         - For float:
+         - For reals:
             The subdictionary must
             include two keys: "type" must be
-            set to'float' and 'range' must
+            set to'real' and 'range' must
             include two floats that represent
             the lower and the upper bounds.
          - For date:

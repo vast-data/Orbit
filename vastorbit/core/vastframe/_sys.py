@@ -675,7 +675,7 @@ class vDFSystem(vDFTyping):
                 maxsize, expsize = 8, self[column].store_usage()
             elif ctype.startswith("bool"):
                 maxsize, expsize = 1, 1
-            elif ctype.startswith(("float", "double", "real")):
+            elif ctype.startswith(("real", "double", "real")):
                 maxsize, expsize = 8, 8
             elif ctype.startswith(("decimal", "number", "numeric", "money")):
                 try:

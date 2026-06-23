@@ -333,7 +333,7 @@ Data Types
 VAST Orbit recognizes four main data types:
 
 - ``int`` – Treated as categorical when low cardinality, otherwise numeric
-- ``float`` – Numeric data types
+- ``real`` – Numeric data types
 - ``date`` – Date/timestamp types
 - ``text`` – Categorical data types
 

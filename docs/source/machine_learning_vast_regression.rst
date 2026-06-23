@@ -5,7 +5,6 @@ Regression
 ===============
 
 
-______
 
 
 Linear Models
@@ -606,5 +605,4 @@ K-Nearest Neighbors Regressor (Beta)
    :toctree: api/
 
    KNeighborsRegressor.object_type
-______
 

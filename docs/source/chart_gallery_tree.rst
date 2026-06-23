@@ -129,7 +129,7 @@ Chart Customization
 vastorbit empowers users with a high degree of flexibility when it comes to tailoring the visual aspects of their plots. 
 This customization extends to essential elements such as **color schemes**, **text labels**, and **plot sizes**, as well as a wide range of other attributes that can be fine-tuned to align with specific design preferences and analytical requirements. Whether you want to make your visualizations more visually appealing or need to convey specific insights with precision, vastorbit's customization options enable you to craft graphics that suit your exact needs.
 
-.. note:: vastorbit's tree plots, generated using Graphviz, can be tailored to your preferences by utilizing Graphviz parameters. You can explore the full list of available parameters and their descriptions by visiting the following link: `graphviz <https://graphviz.org/doc/info/attrs.html>`_
+.. note:: vastorbit's tree plots, generated using Graphviz, can be tailored to your preferences by utilizing Graphviz parameters. You can explore the full list of available parameters and their descriptions by visiting the following link: `graphviz <https://graphviz.org/doc/info/attrs.html>`__
 
 Example
 ~~~~~~~

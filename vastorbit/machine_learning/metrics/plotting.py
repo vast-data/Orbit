@@ -58,7 +58,7 @@ def lift_chart(
         returned.
     chart: PlottingObject, optional
        The chart object to plot on.
-    **style_kwargs
+    ``**style_kwargs``
         Any   optional  parameter  to  pass  to   the
         Plotting functions.
 
@@ -143,7 +143,7 @@ def prc_curve(
         returned.
     chart: PlottingObject, optional
        The chart object to plot on.
-    **style_kwargs
+    ``**style_kwargs``
         Any   optional  parameter  to  pass  to   the
         Plotting functions.
 
@@ -223,7 +223,7 @@ def roc_curve(
         returned.
     chart: PlottingObject, optional
        The chart object to plot on.
-    **style_kwargs
+    ``**style_kwargs``
         Any   optional  parameter  to  pass  to   the
         Plotting functions.
 

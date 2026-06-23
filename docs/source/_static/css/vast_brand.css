@@ -168,3 +168,23 @@ body {
 code, pre, kbd, samp, .highlight {
   font-family: var(--vast-font-mono);
 }
+
+/* ==========================================================================
+   ADDITIONS — amber warning icon + slimmer sidebar on wide screens
+   ========================================================================== */
+
+/* Amber accent token (signals caution; pairs with the cyan/red status icons) */
+:root                     { --vast-amber: #E08600; }
+body[data-theme="dark"]   { --vast-amber: #FFC24B; }
+
+/* |warn| renders <span class="vi vi-warning vi-amber">. The .vi kit colors its
+   mask/glyph from `color` (that's how vi-cyan / vi-red work) — .vi-amber was
+   simply never defined, so the warning icon had no fill. Define it. */
+.vi-amber { color: var(--vast-amber); }
+
+/* Slim the left navigation as the window widens, handing the freed width back
+   to the article. Furo sizes both side columns from --sidebar-width (15em by
+   default) and keeps the content centred, so the centre column grows. */
+@media (min-width: 82em)  { :root, body, .page { --sidebar-width: 13em;  } }
+@media (min-width: 100em) { :root, body, .page { --sidebar-width: 12em;  } }
+@media (min-width: 120em) { :root, body, .page { --sidebar-width: 11.5em; } }

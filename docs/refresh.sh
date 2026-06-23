@@ -1,26 +1,37 @@
 #!/bin/bash
 # =============================================================================
-# VastOrbit docs refresh — three gears:
+# VastOrbit docs refresh — four gears:
 #
-#   ./refresh.sh            FULL  : reinstall package, clean, execute all code,
-#                                   post-process. The release-quality build.
-#   ./refresh.sh fast       FAST  : no reinstall, no clean, FAST_DOCS=1
-#                                   (no code execution). Structure/content
-#                                   iteration in a fraction of the time.
-#   ./refresh.sh css        CSS   : no build at all — just sync _static
-#                                   (css/js/icons/fonts/thumbs) into the built
-#                                   HTML. Styling iteration in ~1 second.
+#   ./refresh.sh                 FULL : reinstall package, clean, execute all
+#                                       code, post-process. Release-quality.
+#   ./refresh.sh fast            FAST : no reinstall, no clean, FAST_DOCS=1
+#                                       (no code execution). Structure/content
+#                                       iteration in a fraction of the time.
+#   ./refresh.sh file <path.rst> FILE : rebuild ONE page, keep every other built
+#                                       page. Executes only that page's code,
+#                                       reusing the existing doctree cache.
+#                                         ./refresh.sh file source/getting_started.rst
+#                                       Prose-only (skip code) for that one page:
+#                                         FAST_DOCS=1 ./refresh.sh file source/foo.rst
+#   ./refresh.sh css             CSS  : no build at all — just sync _static
+#                                       (css/js/icons/fonts/thumbs) into the built
+#                                       HTML. Styling iteration in ~1 second.
 #
-# Every build (full/fast) now writes logs to docs/_logs/ and bundles them into
+# Every build (full/fast/file) writes logs to docs/_logs/ and bundles them into
 # docs/_logs/docs_logs.zip so they can be shared for diagnosis:
 #     build.log            full stdout+stderr of the build
 #     sphinx_warnings.log  Sphinx's own warnings (missing :file: includes, etc.)
 #     figure_errors.log    the exact example cells that failed to execute
 # For clean, readable logs run single-threaded:  JOBS=1 ./refresh.sh
+#
+# NOTE: `file` mode assumes you have already run a `full` (or `fast`) build at
+# least once, so the doctree cache in $BUILDDIR/doctrees exists. It does NOT
+# reinstall or re-patch the installed package — see the autodoc caveat below.
 # =============================================================================
 set -euo pipefail
 
 MODE="${1:-full}"
+TARGET="${2:-}"          # used by `file` mode: the single .rst to rebuild
 
 # ── Headless build: never open chart windows or browser tabs ────────────────
 export MPLBACKEND=Agg          # matplotlib: render in memory, no window
@@ -28,6 +39,14 @@ export PLOTLY_RENDERER=json    # plotly: fig.show() becomes a no-op print
 export BROWSER=true            # webbrowser.open() runs /bin/true -> nothing
 
 SITE_PKGS="$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
+
+# ── Where the Sphinx Makefile reads sources / writes output ─────────────────
+# `file` mode bypasses `make` to target a single page, so it needs these
+# explicitly. Read them from the Makefile; fall back to the quickstart defaults.
+SOURCEDIR="$(awk -F'=' '/^[[:space:]]*SOURCEDIR[[:space:]]*=/{gsub(/[[:space:]]/,"",$2);print $2;exit}' Makefile 2>/dev/null || true)"
+BUILDDIR="$(awk -F'=' '/^[[:space:]]*BUILDDIR[[:space:]]*=/{gsub(/[[:space:]]/,"",$2);print $2;exit}' Makefile 2>/dev/null || true)"
+SOURCEDIR="${SOURCEDIR:-source}"
+BUILDDIR="${BUILDDIR:-_build}"
 
 # ── Log setup ────────────────────────────────────────────────────────────────
 LOG_DIR="$PWD/_logs"
@@ -127,6 +146,9 @@ python3 replace_sphinx_dir.py 2>&1 | tee -a "$BUILD_LOG"
 # SPHINX_DIRECTORY/figures/..` fails to write/resolve and the figure is never
 # inserted. No reverse needed: the full build reinstalls the package next time,
 # overwriting these files.
+#
+# `file` mode relies on a PRIOR full build having already patched the installed
+# package (the patch persists until the next reinstall), so it doesn't redo it.
 if [ "$MODE" = "full" ] && [ -d "$SITE_PKGS/vastorbit" ]; then
     echo ">>> Resolving SPHINX_DIRECTORY in installed package docstrings"
     DOCS_DIR="$PWD" python3 - "$SITE_PKGS/vastorbit" <<'PY' 2>&1 | tee -a "$BUILD_LOG"
@@ -159,6 +181,44 @@ SPHINX_W="-w $SPHINX_WARN_LOG"
 if [ "$MODE" = "fast" ]; then
     echo ">>> FAST build: incremental, no code execution (jobs=$JOBS)"
     FAST_DOCS=1 make html SPHINXOPTS="-j $JOBS $SPHINX_W" 2>&1 | tee -a "$BUILD_LOG"
+
+elif [ "$MODE" = "file" ]; then
+    # ── SINGLE-FILE gear: rebuild ONE page, keep every other built page ─────
+    [ -n "$TARGET" ] || {
+        echo "!!! file mode needs a target .rst, e.g.:" >&2
+        echo "       ./refresh.sh file $SOURCEDIR/getting_started.rst" >&2
+        exit 1
+    }
+    # Accept either a full path or a name relative to the source dir.
+    if   [ -f "$TARGET" ];            then :
+    elif [ -f "$SOURCEDIR/$TARGET" ]; then TARGET="$SOURCEDIR/$TARGET"
+    else
+        echo "!!! No such file: '$TARGET' (looked in . and $SOURCEDIR/)" >&2
+        exit 1
+    fi
+    [ -d "$BUILDDIR/doctrees" ] || echo ">>> WARN: no doctree cache at $BUILDDIR/doctrees — run a full build once first, or this will re-read everything."
+
+    if [ "${FAST_DOCS:-0}" = "1" ]; then
+        echo ">>> SINGLE-FILE build: $TARGET  (prose only, no code, jobs=$JOBS)"
+    else
+        echo ">>> SINGLE-FILE build: $TARGET  (executes only this page, jobs=$JOBS)"
+    fi
+
+    # Bump mtime so Sphinx re-reads (and re-executes) just this one source,
+    # even when replace_sphinx_dir.py left it untouched.
+    touch "$TARGET"
+
+    # Call sphinx-build directly: `make` uses -M make-mode, which ignores the
+    # positional filename and so can't restrict to one page. Two things make
+    # this surgical:
+    #   -d "$BUILDDIR/doctrees"   reuse the SAME cache the Makefile built, so no
+    #                             other page is re-read or its code re-executed.
+    #   "$TARGET" (trailing)      restrict the WRITE phase to this one page.
+    # FAST_DOCS is inherited from the environment, so prefixing the command with
+    # FAST_DOCS=1 skips this page's code execution (prose/structure-only edits).
+    sphinx-build -b html -d "$BUILDDIR/doctrees" -j "$JOBS" $SPHINX_W \
+        "$SOURCEDIR" "$BUILDDIR/html" "$TARGET" 2>&1 | tee -a "$BUILD_LOG"
+
 else
     echo ">>> FULL build: clean + execute everything (jobs=$JOBS)"
     make clean 2>&1 | tee -a "$BUILD_LOG"

@@ -8,7 +8,7 @@ from typing import Optional, Union
 from vastorbit._typing import SQLColumns, TYPE_CHECKING
 from vastorbit._utils._gen import gen_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import format_type
+from vastorbit._utils._sql._format import format_type, format_interval
 
 from vastorbit.core.vastframe._corr import vDFCorr
 
@@ -48,7 +48,9 @@ class vDFRolling(vDFCorr):
             Make use of the ``order_by`` parameter to sort
             your data. Otherwise, you might encounter unexpected
             results, as databases do not work with indexes, and
-            the data may be randomly shuffled.
+            the data may be randomly shuffled. A time-based
+            (``RANGE``) window **requires** ``order_by`` to be a
+            single timestamp/date column.
 
         Parameters
         ----------
@@ -188,15 +190,16 @@ class vDFRolling(vDFCorr):
 
             vdf.rolling(
                 func = "sum",
-                window = (-1,1),
+                window = (-1, 1),
                 columns = ["sale"],
+                order_by = ["date"],
             )
 
         .. ipython:: python
             :suppress:
 
             vdf["date"].astype("timestamp")
-            vdf.rolling(func = "sum", window = (-1,1), columns = ["sale"])
+            vdf.rolling(func="sum", window=(-1, 1), columns=["sale"], order_by=["date"])
             result = vdf
             html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_vDFPivot_rolling.html", "w")
             html_file.write(result._repr_html_())
@@ -227,159 +230,158 @@ class vDFRolling(vDFCorr):
         if len(window) != 2:
             raise ValueError("The window must be composed of exactly 2 elements.")
 
-        window = list(window)
-        rule = [0, 0]
-        method = "rows"
+        # ── Is this a time (RANGE) window, and what does it sort by? ─────────
+        # "5 minutes" / a timedelta -> RANGE; plain ints -> ROWS. For a RANGE
+        # frame the bound type must match the ORDER BY key type:
+        #   - timestamp/date key -> interval bound  (e.g. 5 * INTERVAL '1' MINUTE)
+        #   - integer/float key  -> numeric bound in SECONDS (e.g. the credit-card
+        #     "Time" column, an integer count of seconds).
+        def _is_time_bound(w):
+            if isinstance(w, datetime.timedelta):
+                return True
+            return isinstance(w, str) and w.strip().lower() != "unbounded"
 
-        # Parse window bounds
+        range_as_seconds = False
+        if any(_is_time_bound(w) for w in window):
+            if not order_by:
+                raise ValueError(
+                    "A time-based (RANGE) window requires `order_by` set to the column "
+                    "that defines time (a timestamp/date, or an integer count of seconds)."
+                )
+            if len(order_by) != 1:
+                raise ValueError(
+                    "A RANGE window frame allows exactly one ORDER BY column in Trino; "
+                    f"got {len(order_by)}."
+                )
+            # Numeric sort key -> express the bound in seconds instead of an interval.
+            range_as_seconds = self[order_by[0]].category() != "date"
+
+        # ── Parse the two window bounds into full SQL frame tokens ───────────
+        bound = ["", ""]
+        method = "rows"
         for idx, w in enumerate(window):
             if isinstance(w, (int, float)) and abs(w) == float("inf"):
                 w = "unbounded"
 
             if isinstance(w, str):
-                if w.lower() == "unbounded":
-                    rule[idx] = "PRECEDING" if idx == 0 else "FOLLOWING"
-                    window[idx] = "UNBOUNDED"
+                if w.strip().lower() == "unbounded":
+                    bound[idx] = "UNBOUNDED " + ("PRECEDING" if idx == 0 else "FOLLOWING")
                 else:
-                    # Parse time intervals like "- 5 minutes"
-                    nb_min = 0
-                    for i, char in enumerate(window[idx]):
+                    # Leading minus signs (optionally space-separated) -> PRECEDING.
+                    i = nb_min = 0
+                    for i, char in enumerate(w):
                         if char == "-":
                             nb_min += 1
                         elif char != " ":
                             break
-                    rule[idx] = "PRECEDING" if nb_min % 2 == 1 else "FOLLOWING"
-                    interval_str = window[idx][i:].strip()
-                    window[idx] = f"INTERVAL '{interval_str}'"
+                    side = "PRECEDING" if nb_min % 2 == 1 else "FOLLOWING"
+                    value = format_interval(w[i:].strip(), as_seconds=range_as_seconds)
+                    # Works for both "0" (seconds) and "0 * INTERVAL ..." (interval).
+                    is_zero = value.split(" * ", 1)[0].strip() == "0"
+                    bound[idx] = "CURRENT ROW" if is_zero else f"{value} {side}"
                     method = "range"
-            elif isinstance(w, datetime.timedelta):
-                rule[idx] = (
-                    "PRECEDING" if window[idx] < datetime.timedelta(0) else "FOLLOWING"
-                )
-                # Convert timedelta to interval
-                total_seconds = abs(int(window[idx].total_seconds()))
-                window[idx] = f"INTERVAL '{total_seconds}' SECOND"
-                method = "range"
-            else:
-                rule[idx] = "PRECEDING" if int(window[idx]) < 0 else "FOLLOWING"
-                window[idx] = abs(int(window[idx]))
 
-        columns = format_type(columns, dtype=list)
+            elif isinstance(w, datetime.timedelta):
+                side = "PRECEDING" if w < datetime.timedelta(0) else "FOLLOWING"
+                seconds = abs(int(w.total_seconds()))
+                if seconds == 0:
+                    bound[idx] = "CURRENT ROW"
+                elif range_as_seconds:
+                    bound[idx] = f"{seconds} {side}"
+                else:
+                    bound[idx] = f"INTERVAL '{seconds}' SECOND {side}"
+                method = "range"
+
+            else:
+                n = int(w)
+                side = "PRECEDING" if n < 0 else "FOLLOWING"
+                bound[idx] = "CURRENT ROW" if n == 0 else f"{abs(n)} {side}"
+
         if not name:
-            name = gen_name(
-                [func] + columns + [str(window[0]), rule[0], str(window[1]), rule[1]]
-            )
-            name = f"moving_{name}"
+            name = "moving_" + gen_name([func, *columns, bound[0], bound[1]])
 
         columns, by = self.format_colnames(columns, by)
-        by = "" if not by else "PARTITION BY " + ", ".join(by)
+        by = "PARTITION BY " + ", ".join(by) if by else ""
 
+        # ── ORDER BY (range validity already checked above) ──────────────────
         if not order_by:
             order_by = f" ORDER BY {columns[0]}"
         else:
             order_by = self._get_sort_syntax(order_by)
 
-        # Build window frame
-        windows_frame = f""" 
-            OVER ({by}{order_by} 
-            {method.upper()} 
-            BETWEEN {window[0]} {rule[0]} 
-            AND {window[1]} {rule[1]})"""
+        # ── Window frame ("#" in each expression below is replaced by this) ──
+        windows_frame = (
+            f" OVER ({by}{order_by} {method.upper()} "
+            f"BETWEEN {bound[0]} AND {bound[1]})"
+        )
 
+        # ── Function -> SQL ──────────────────────────────────────────────────
         func_lower = func.lower()
+        col = columns[0]
+        col2 = columns[1] if len(columns) > 1 else None
 
-        # Map function names to SQL functions
-        if func_lower in ("mean", "avg"):
-            expr = f"AVG({columns[0]})#"
+        simple = {
+            "mean": f"AVG({col})#",
+            "avg": f"AVG({col})#",
+            "std": f"STDDEV({col})#",
+            "var": f"VAR_SAMP({col})#",
+            "kurtosis": f"KURTOSIS({col})#",
+            "skewness": f"SKEWNESS({col})#",
+            "count": f"COUNT({col})#",
+            "max": f"MAX({col})#",
+            "min": f"MIN({col})#",
+            "sum": f"SUM({col})#",
+            "range": f"MAX({col})# - MIN({col})#",
+            "sem": f"STDDEV({col})# / SQRT(COUNT({col})#)",
+        }
 
-        elif func_lower == "std":
-            expr = f"STDDEV({columns[0]})#"
-
-        elif func_lower == "var":
-            expr = f"VAR_SAMP({columns[0]})#"
-
-        elif func_lower == "kurtosis":
-            # Trino has built-in KURTOSIS function
-            expr = f"KURTOSIS({columns[0]})#"
-
-        elif func_lower == "skewness":
-            # Trino has built-in SKEWNESS function
-            expr = f"SKEWNESS({columns[0]})#"
+        mean_name = None
+        if func_lower in simple:
+            expr = simple[func_lower]
 
         elif func_lower == "jb":
-            # Jarque-Bera = n/6 * (S^2 + (K-3)^2/4)
-            # where S = skewness, K = kurtosis, n = count
-            expr = f"""
-                COUNT({columns[0]})# / 6.0 * (
-                    POWER(SKEWNESS({columns[0]})#, 2) + 
-                    POWER(KURTOSIS({columns[0]})# - 3, 2) / 4.0
-                )"""
+            expr = (
+                f"COUNT({col})# / 6.0 * ("
+                f"POWER(SKEWNESS({col})#, 2) + "
+                f"POWER(KURTOSIS({col})# - 3, 2) / 4.0)"
+            )
 
         elif func_lower == "aad":
-            # Average absolute deviation from mean
-            # Need to compute mean first, then avg of abs deviations
-            # For window functions, we'll use the approximation
             import secrets
 
-            columns_0_str = columns[0].replace('"', "").lower()
-            random_int = secrets.randbelow(10000001)
-            mean_name = f"{columns_0_str}_mean_{random_int}"
-
-            self.eval(mean_name, f"AVG({columns[0]}){windows_frame}")
-            expr = f"AVG(ABS({columns[0]} - {mean_name}))#"
+            mean_name = f"{col.replace(chr(34), '').lower()}_mean_{secrets.randbelow(10_000_001)}"
+            self.eval(mean_name, f"AVG({col}){windows_frame}")
+            expr = f"AVG(ABS({col} - {mean_name}))#"
 
         elif func_lower == "prod":
-            # Product using exp(sum(ln(abs(x))))
-            # Handle sign and zeros
-            expr = f"""
-                CASE 
-                    WHEN COUNT(CASE WHEN {columns[0]} = 0 THEN 1 END)# > 0 THEN 0
-                    ELSE 
-                        CASE MOD(COUNT(CASE WHEN {columns[0]} < 0 THEN 1 END)#, 2)
-                            WHEN 0 THEN 1
-                            ELSE -1
-                        END 
-                        * EXP(SUM(LN(ABS({columns[0]})))#)
-                END"""
+            expr = (
+                "CASE "
+                f"WHEN COUNT(CASE WHEN {col} = 0 THEN 1 END)# > 0 THEN 0 "
+                "ELSE "
+                f"CASE MOD(COUNT(CASE WHEN {col} < 0 THEN 1 END)#, 2) "
+                "WHEN 0 THEN 1 ELSE -1 END "
+                f"* EXP(SUM(LN(ABS({col})))#) "
+                "END"
+            )
 
         elif func_lower in ("corr", "cov", "beta"):
-            if len(columns) < 2 or columns[1] == columns[0]:
-                if func_lower == "cov":
-                    expr = f"VAR_SAMP({columns[0]})#"
-                else:
-                    expr = "1"
-            else:
-                if func_lower == "corr":
-                    expr = f"CORR({columns[0]}, {columns[1]})#"
-                elif func_lower == "beta":
-                    expr = f"COVAR_SAMP({columns[0]}, {columns[1]})# / NULLIF(VAR_SAMP({columns[1]})#, 0)"
-                else:  # cov
-                    expr = f"COVAR_SAMP({columns[0]}, {columns[1]})#"
-
-        elif func_lower == "range":
-            expr = f"MAX({columns[0]})# - MIN({columns[0]})#"
-
-        elif func_lower == "sem":
-            # Standard error of mean = STDDEV / SQRT(COUNT)
-            expr = f"STDDEV({columns[0]})# / SQRT(COUNT({columns[0]})#)"
-
-        elif func_lower == "count":
-            expr = f"COUNT({columns[0]})#"
-
-        elif func_lower in ("max", "min", "sum"):
-            expr = f"{func_lower.upper()}({columns[0]})#"
+            if col2 is None or col2 == col:
+                expr = f"VAR_SAMP({col})#" if func_lower == "cov" else "1"
+            elif func_lower == "corr":
+                expr = f"CORR({col}, {col2})#"
+            elif func_lower == "beta":
+                expr = f"COVAR_SAMP({col}, {col2})# / NULLIF(VAR_SAMP({col2})#, 0)"
+            else:  # cov
+                expr = f"COVAR_SAMP({col}, {col2})#"
 
         else:
-            # Try using the function as-is (for any other SQL aggregate functions)
-            expr = f"{func.upper()}({columns[0]})#"
+            expr = f"{func.upper()}({col})#"
 
-        # Replace # with window frame
-        expr = expr.replace("#", windows_frame)
+        # Splice the window frame into every aggregate and materialise the column.
+        self.eval(name=name, expr=expr.replace("#", windows_frame))
 
-        self.eval(name=name, expr=expr)
-
-        if func_lower == "aad":
-            self._vars["exclude_columns"] += [f'"{mean_name}"']
+        if mean_name is not None:
+            self._vars["exclude_columns"].append(f'"{mean_name}"')
 
         return self
 

@@ -3,9 +3,9 @@
 Health Insurance Costs
 =======================
 
-In this example, we use a `dataset of personal medical costs <https://www.kaggle.com/mirichoi0218/insurance>`_ to create a model to estimate treatment costs.
+In this example, we use a `dataset of personal medical costs <https://www.kaggle.com/mirichoi0218/insurance>`__ to create a model to estimate treatment costs.
 
-You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/insurance/insurance.ipynb>`_.
+You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/insurance/insurance.ipynb>`__.
     
 The columns provided include:
 
@@ -38,30 +38,28 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a new schema and assign the data to a :py:mod:`~vastorbit.VastFrame` object.
+Let's assign the data to a :py:mod:`~vastorbit.VastFrame` object.
 
 .. code-block:: ipython
 
-    vo.drop("insurance", method="schema")
-    vo.create_schema("insurance")
-    data = vo.read_csv("insurance.csv", schema = "insurance")
+    data = vo.read_csv("insurance.csv")
 
 Let's take a look at the first few entries in the dataset.
 
 .. code-block:: ipython
     
-    data.head(5)
+    data
 
 .. ipython:: python
     :suppress:
-
-    vo.drop("insurance", method="schema")
-    vo.create_schema("insurance")
-    data = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/insurance/insurance.csv",
-        schema = "insurance",
-    )
-    res = data.head(5)
+    
+    try:
+        data = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/insurance/insurance.csv",
+        )
+    except:
+        data = vo.VastFrame("insurance")
+    res = data
     html_file = open("SPHINX_DIRECTORY/figures/examples_insurance_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -179,7 +177,7 @@ Let's check the average number of smokers for each age-group. Before we do, we'l
     import vastorbit.sql.functions as fun
 
     # Applying the decode function
-    data["smoker_int"] = fun.decode(data["smoker"], True, 1, 0)
+    data["smoker_int"] = fun.decode(data["smoker"], "yes", 1, 0)
 
 Now we can plot the average number of smokers for each age group.
 
@@ -316,7 +314,6 @@ Remember, we label-encoded ``smoker`` from boolean. Let's label-encode some othe
     # encoding age
     data["age"].label_encode()
 
-
 .. ipython:: python
     :suppress:
 
@@ -385,7 +382,7 @@ For this example, let's use a ``Random Forest`` model.
     # train the model
     rf_model.fit(
         data,
-        X = ["age", "sex", "bmi", "children", "smoker", "region"], 
+        X = ["age", "sex", "bmi", "children", "smoker_int", "region"], 
         y = "charges",
     )
 
@@ -449,7 +446,7 @@ Let's plot the predicted values and compare them to the real ones.
     data.to_db("insurance.final_ins_data", relation_type = "table")
 
 Now, let's examine the importance of each feature for this model. 
-Ours is a random forest model, so we can use the built-in VAST function ``RF_PREDICTOR_IMPORTANCE()`` to calculate the importance of each predictor with Mean Decrease in Impurity (MDI).
+Ours is a random forest model, so we can use the built-in VAST function to calculate the importance of each predictor with Mean Decrease in Impurity (MDI).
 
 .. code-block:: python
 
@@ -470,7 +467,7 @@ Ours is a random forest model, so we can use the built-in VAST function ``RF_PRE
 
 .. code-block:: python
 
-    data.to_db("insurance.final_ins_data", relation_type = "table")
+    data.to_db("final_ins_data", relation_type = "table")
 
 .. code-block:: python
 
@@ -511,7 +508,7 @@ It seems that smoking habits have a significant effect on medical costs. Next in
 
 As one might expect, the correlation between charges and region is almost 0.
 
-Now, let's see what we can learn from a stepwise model with forward elimination using Bayesian information criterion (BIC) as a selection criteria.
+Now, let's see what we can learn from a stepwise model with backward elimination using Bayesian information criterion (BIC) as a selection criteria.
 
 .. code-block:: python
 
@@ -525,8 +522,8 @@ Now, let's see what we can learn from a stepwise model with forward elimination 
     stepwise(
         model,
         input_relation = data, 
-        direction = "forward",
-        X = ["age","sex", "bmi", "children", "smoker", "region"], 
+        direction = "backward",
+        X = ["age","sex", "bmi", "children", "smoker_int", "region"], 
         y = "charges",
     )
 
@@ -544,8 +541,8 @@ Now, let's see what we can learn from a stepwise model with forward elimination 
     res = stepwise(
         model,
         input_relation = data, 
-        direction = "forward",
-        X = ["age","sex", "bmi", "children", "smoker", "region"], 
+        direction = "backward",
+        X = ["age","sex", "bmi", "children", "smoker_int", "region"], 
         y = "charges",
     )
     html_file = open("SPHINX_DIRECTORY/figures/examples_insurance_lr_stepwise.html", "w")
@@ -561,3 +558,9 @@ Conclusion
 ------------
 
 In this example, we used several methods to identify the primary factors that affect one's insurance costs.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

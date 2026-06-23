@@ -771,7 +771,7 @@ class vDFCorr(vDFEncode):
             returned.
         chart: PlottingObject, optional
             The chart object used to plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to pass to the  plotting
             functions.
 
@@ -1141,7 +1141,7 @@ class vDFCorr(vDFEncode):
             returned.
         chart: PlottingObject, optional
             The chart object used to plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any   optional  parameter  to  pass  to  the   plotting
             functions.
 
@@ -1296,7 +1296,7 @@ class vDFCorr(vDFEncode):
             If set to True, the Plotting object is returned.
         chart: PlottingObject, optional
             The chart object used to plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass to the plotting functions.
 
         Returns
@@ -1628,7 +1628,7 @@ class vDFCorr(vDFEncode):
             (kind must be set to 'heatmap').
         chart: PlottingObject, optional
             The chart object used to plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter  to  pass  to  the plotting
             functions.
 
@@ -1862,7 +1862,7 @@ class vDFCorr(vDFEncode):
 
         chart: PlottingObject, optional
             The chart object used to plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter  to  pass  to  the plotting
             functions.
 
@@ -2062,7 +2062,7 @@ class vDFCorr(vDFEncode):
             returned.
         chart: PlottingObject, optional
             The chart object used to plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter to  pass to the  plotting
             functions.
 

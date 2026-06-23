@@ -199,12 +199,12 @@ class AutoML(VASTModel):
 
     Attributes
     ----------
-    preprocess_: object
+    ``preprocess_``: object
         Model used to preprocess the data.
-    best_model_: object
+    ``best_model_``: object
         Most  efficient   models  found  during  the
         search.
-    model_grid_ : TableSample
+    ``model_grid_`` : TableSample
         Grid   containing   the   different   models
         information.
     """
@@ -337,8 +337,6 @@ class AutoML(VASTModel):
         """
         if self.overwrite_model:
             self.drop()
-        else:
-            self._is_already_stored(raise_error=True)
         if isinstance(X, NoneType):
             if not y:
                 exclude_columns = []
@@ -658,7 +656,7 @@ class AutoML(VASTModel):
         ----------
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -699,7 +697,7 @@ class AutoML(VASTModel):
                 step     : stepwise plot.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional  parameter  to pass to  the
             Plotting functions.
 

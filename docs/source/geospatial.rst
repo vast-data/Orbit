@@ -4,8 +4,6 @@
 Geospatial
 ==============
 
-______
-
 Geospatial Functions
 --------------------
 

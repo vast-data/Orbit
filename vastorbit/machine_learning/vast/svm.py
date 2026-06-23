@@ -39,23 +39,23 @@ class LinearSVR(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -517,23 +517,23 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -543,7 +543,7 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -1115,7 +1115,7 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
             Maximum  number of points to display.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 

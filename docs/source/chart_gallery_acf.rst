@@ -143,7 +143,7 @@ This customization extends to essential elements such as **color schemes**, **te
 
 .. Important:: Different customization parameters are available for Plotly and Matplotlib. 
     For a comprehensive list of customization features, please consult the documentation of the respective 
-    libraries: `plotly <https://plotly.com/python-api-reference/>`_, `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_.
+    libraries: `plotly <https://plotly.com/python-api-reference/>`__, `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`__.
 
 Colors
 ~~~~~~

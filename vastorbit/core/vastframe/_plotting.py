@@ -65,7 +65,7 @@ class vDFPlot(vDFMachineLearning):
             The position of the whiskers.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to
             pass to the plotting functions.
 
@@ -313,7 +313,7 @@ class vDFPlot(vDFMachineLearning):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass  to the plotting functions.
 
@@ -604,7 +604,7 @@ class vDFPlot(vDFMachineLearning):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to
             pass to the plotting functions.
 
@@ -826,7 +826,7 @@ class vDFPlot(vDFMachineLearning):
             represent each column's ``h``.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the plotting functions.
 
@@ -986,7 +986,7 @@ class vDFPlot(vDFMachineLearning):
             invalid.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to  pass  to  the plotting
             functions.
 
@@ -1114,7 +1114,7 @@ class vDFPlot(vDFMachineLearning):
             Higher values give smoother density estimates.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass to the plotting
             functions.
 
@@ -1283,7 +1283,7 @@ class vDFPlot(vDFMachineLearning):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any   optional  parameter  to   pass  to  the
             plotting functions.
 
@@ -1428,7 +1428,7 @@ class vDFPlot(vDFMachineLearning):
             If set to True, the Median is drawn.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to pass to the  plotting
             functions.
 
@@ -1703,7 +1703,7 @@ class vDFPlot(vDFMachineLearning):
             the final drawing.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to pass to the  plotting
             functions.
 
@@ -1824,7 +1824,7 @@ class vDFPlot(vDFMachineLearning):
             numerical VastColumns.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to pass to  the plotting
             functions.
 
@@ -1974,7 +1974,7 @@ class vDFPlot(vDFMachineLearning):
             parameter is empty or invalid.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass to the plotting
             functions.
 
@@ -2132,7 +2132,7 @@ class vDFPlot(vDFMachineLearning):
             Path  to the  image used as a background.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to pass to the  plotting
             functions.
 
@@ -2272,7 +2272,7 @@ class vDFPlot(vDFMachineLearning):
             Path to the image to display as background.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to pass to the  plotting
             functions.
 
@@ -2450,7 +2450,7 @@ class vDFPlot(vDFMachineLearning):
         max_nb_points: int, optional
             Maximum  number of points to display for
             each scatter plot.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to pass to the
             plotting functions.
 
@@ -2562,7 +2562,7 @@ class vDFPlot(vDFMachineLearning):
             Inliers border color.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter to pass to  the
             plotting functions.
 
@@ -2824,7 +2824,7 @@ class vDCPlot(vDCScaler):
             The position of the whiskers.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to  pass to the  plotting
             functions.
 
@@ -2999,7 +2999,7 @@ class vDCPlot(vDCScaler):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to  pass to the  plotting
             functions.
 
@@ -3168,7 +3168,7 @@ class vDCPlot(vDCScaler):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to  pass to the  plotting
             functions.
 
@@ -3333,7 +3333,7 @@ class vDCPlot(vDCScaler):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to pass to  the  plotting
             functions.
 
@@ -3470,7 +3470,7 @@ class vDCPlot(vDCScaler):
             h is computed.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional parameter to pass to  the  plotting
             functions.
 
@@ -3626,7 +3626,7 @@ class vDCPlot(vDCScaler):
             filtered.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to  pass  to  the  plotting
             functions.
 
@@ -3759,7 +3759,7 @@ class vDCPlot(vDCScaler):
             Higher values give smoother density estimates.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass to the
             plotting functions.
 
@@ -3912,7 +3912,7 @@ class vDCPlot(vDCScaler):
             the 3rd of November 1993.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to pass to the  plotting
             functions.
 
@@ -4046,7 +4046,7 @@ class vDCPlot(vDCScaler):
 
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to pass to the  plotting
             functions.
 
@@ -4166,7 +4166,7 @@ class vDCPlot(vDCScaler):
             If set to True, the Median is drawn.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any  optional  parameter  to pass to the  plotting
             functions.
 
@@ -4257,7 +4257,7 @@ class vDCPlot(vDCScaler):
 
         Parameters
         ----------
-        *args / **kwargs:
+        *args / ``**kwargs``:
             Any optional parameter to pass to the geopandas
             plot function.
             For more information, see:

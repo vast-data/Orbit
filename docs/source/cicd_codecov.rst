@@ -19,7 +19,7 @@ reducing the likelihood of undiscovered bugs.
 
 For the latest statistics on code-coverage of 
 ```vastorbit``` please look at 
-`this link <https://app.codecov.io/gh/VAST/vastorbit>`_.
+`this link <https://app.codecov.io/gh/VAST/vastorbit>`__.
 
 .. image:: /_static/img_code_coverage_1.png
     :width: 50%

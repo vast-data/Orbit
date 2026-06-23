@@ -17,19 +17,25 @@ ____
             :link: api.sql.functions
             :link-type: ref
             :text-align: center
-            :class-card: custom-card
+            :class-card: custom-card-3
             
             SQL functions for building and transforming features.
+            
+            +++
+            View API →
 
     .. grid-item::
     
-        .. card:: |i-functions| Utilities
+        .. card:: |i-utils| Utilities
             :link: api.sql.utils
             :link-type: ref
             :text-align: center
-            :class-card: custom-card
+            :class-card: custom-card-3
             
             Functions for dropping, creating, and inserting data into tables.
+            
+            +++
+            View API →
 
     .. grid-item::
     
@@ -37,9 +43,12 @@ ____
             :link: api.sql.geospatial
             :link-type: ref
             :text-align: center
-            :class-card: custom-card
+            :class-card: custom-card-3
             
             Functions for performing spatial joins and building geo indexes.
+            
+            +++
+            View API →
 
 ____
 

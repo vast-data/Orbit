@@ -475,7 +475,7 @@ class vDFMachineLearning(vDFScaler):
                     categories = sorted(
                         [float(c.split(";")[1][0:-1]) for c in categories]
                     )
-                    ctype = "float"
+                    ctype = "real"
                 else:
                     categories = sorted([int(c) for c in categories])
                     ctype = "int"
@@ -640,7 +640,7 @@ class vDFMachineLearning(vDFScaler):
             columns_tmp = self.get_columns()
             remove_cols = []
             for col in columns_tmp:
-                if self[col].category() not in ("float", "int", "text") or (
+                if self[col].category() not in ("real", "int", "text") or (
                     self[col].category() == "text"
                     and self[col].nunique() > max_cardinality
                 ):
@@ -649,12 +649,12 @@ class vDFMachineLearning(vDFScaler):
             remove_cols = []
             columns_tmp = self.format_colnames(columns_tmp)
             for col in columns_tmp:
-                if self[col].category() not in ("float", "int", "text") or (
+                if self[col].category() not in ("real", "int", "text") or (
                     self[col].category() == "text"
                     and self[col].nunique() > max_cardinality
                 ):
                     remove_cols += [col]
-                    if self[col].category() not in ("float", "int", "text"):
+                    if self[col].category() not in ("real", "int", "text"):
                         warning_message = (
                             f"VastColumn '{col}' is of category '{self[col].category()}'. "
                             "This method only accepts categorical & numerical inputs. "

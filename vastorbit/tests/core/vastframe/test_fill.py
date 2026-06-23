@@ -83,7 +83,7 @@ class TestFill:
 
         if method[column] == "auto":
             method[column] = (
-                "mean" if titanic_vd[column].dtype().startswith("numeric") else "mode"
+                "mean" if titanic_vd[column].dtype().startswith("decimal") else "mode"
             )
 
         if method[column] == "mode":
@@ -100,7 +100,7 @@ class TestFill:
             )
         py_res = titanic_pdf[column]
 
-        if titanic_vd[column].dtype().startswith("numeric"):
+        if titanic_vd[column].dtype().startswith("decimal"):
             vo_res = vo_res.sum()
             py_res = py_res.sum()
         else:

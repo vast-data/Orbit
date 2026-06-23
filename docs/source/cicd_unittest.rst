@@ -10,7 +10,7 @@ development lifecycle, offering a systematic approach to
 validating the correctness and reliability of individual 
 units of code, often corresponding to public functions 
 within Python files. For vastorbit we use
-`Pytest <https://docs.pytest.org/en/7.4.x/>`_ to run unit 
+`Pytest <https://docs.pytest.org/en/7.4.x/>`__ to run unit 
 tests.
 
 A key practice is to create dedicated 

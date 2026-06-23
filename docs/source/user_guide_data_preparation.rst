@@ -9,6 +9,7 @@ Essential techniques for cleaning and transforming data.
 ____
 
 .. grid:: 1 2 2 2
+    :class-container: feature-tiles
 
     .. grid-item::
 
@@ -40,7 +41,7 @@ ____
 
     .. grid-item::
 
-        .. card:: |warn| Outliers
+        .. card:: |i-outliers| Outliers
             :link: user_guide.data_preparation.outliers
             :link-type: ref
             :text-align: center

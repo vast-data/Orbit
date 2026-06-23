@@ -35,7 +35,7 @@ class vDFMath(vDFFilter):
         vdf = self.copy()
         columns = vdf.numcol()
         for col in columns:
-            if vdf[col].category() == "float":
+            if vdf[col].category() == "real":
                 vdf[col].apply_fun(func="ceil")
         return vdf
 
@@ -43,7 +43,7 @@ class vDFMath(vDFFilter):
         vdf = self.copy()
         columns = vdf.numcol()
         for col in columns:
-            if vdf[col].category() == "float":
+            if vdf[col].category() == "real":
                 vdf[col].apply_fun(func="floor")
         return vdf
 
@@ -57,7 +57,7 @@ class vDFMath(vDFFilter):
         vdf = self.copy()
         columns = vdf.numcol()
         for col in columns:
-            if vdf[col].category() == "float":
+            if vdf[col].category() == "real":
                 vdf[col].apply_fun(func="round", x=n)
         return vdf
 
@@ -501,17 +501,17 @@ class vDFMath(vDFFilter):
         Applies each function of the dictionary to the input VastColumns.
 
         Parameters
-         ----------
-         func: dict
+        ----------
+        func: dict
             Dictionary of functions.
             The dictionary must be in the following format:
             {column1: func1, ..., columnk: funck}. Each function variable
             must be  composed of two  flower brackets {}. For example, to
             apply the function x -> x^2 + 2, use "POWER({}, 2) + 2".
 
-         Returns
-         -------
-         VastFrame
+        Returns
+        -------
+        VastFrame
             self
 
         Examples

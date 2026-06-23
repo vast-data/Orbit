@@ -686,7 +686,7 @@ vastorbit empowers users with a high degree of flexibility when it comes to tail
 
     Now, the chart variable includes the graphic. Depending on the library you are using, you will obtain a different object.
 
-.. Important:: Different customization parameters are available for Plotly and Matplotlib. For a comprehensive list of customization features, please consult the documentation of the respective libraries: `plotly <https://plotly.com/python-api-reference/>`_, `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_.
+.. Important:: Different customization parameters are available for Plotly and Matplotlib. For a comprehensive list of customization features, please consult the documentation of the respective libraries: `plotly <https://plotly.com/python-api-reference/>`__, `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`__.
 
 Colors
 ~~~~~~
@@ -930,5 +930,3 @@ Text
 
         @savefig plotting_matplotlib_barh_1D_custom_yaxis_label.png
         data["grade"].barh().set_ylabel("Custom Y Axis")
-
-_____

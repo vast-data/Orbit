@@ -95,9 +95,9 @@ class KNeighborsRegressor(Regressor):
     Many attributes are created
     during the fitting phase.
 
-    n_neighbors_: int
+    ``n_neighbors_``: int
         Number of neighbors.
-    p_: int
+    ``p_``: int
         The ``p`` of the ``p``-distances.
 
     .. note::
@@ -706,11 +706,11 @@ class KNeighborsClassifier(MulticlassClassifier):
     Many attributes are created
     during the fitting phase.
 
-    n_neighbors_: int
+    ``n_neighbors_``: int
         Number of neighbors.
-    p_: int
+    ``p_``: int
         The ``p`` of the ``p``-distances.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -1029,7 +1029,7 @@ class KNeighborsClassifier(MulticlassClassifier):
         allows the flexibility to use three averaging
         techniques: ``micro``, ``macro`` and ``weighted``.
         Please refer to
-        `this link <https://towardsdatascience.com/micro-macro-weighted-averages-of-f1-score-clearly-explained-b603420b292f>`_
+        `this link <https://towardsdatascience.com/micro-macro-weighted-averages-of-f1-score-clearly-explained-b603420b292f>`__
         for more details on how they are calculated.
 
     Prediction
@@ -1647,7 +1647,7 @@ class KNeighborsClassifier(MulticlassClassifier):
                 self.deploySQL() + f" WHERE predict_neighbors = '{pos_label}'"
             )
             y_score = f"(CASE WHEN proba_predict > {cutoff} THEN 1 ELSE 0 END)"
-            y_true = f"DECODE({self.y}, '{pos_label}', 1, 0)"
+            y_true = f"CASE WHEN {self.y} = '{pos_label}' THEN 1 ELSE 0 END"
             return mt.confusion_matrix(y_true, y_score, input_relation)
 
     # Model Evaluation Methods.
@@ -1750,17 +1750,11 @@ class KNeighborsClassifier(MulticlassClassifier):
         # Generating the probabilities
         if isinstance(pos_label, NoneType):
             predict = [
-                f"""COALESCE(AVG(DECODE(predict_neighbors, 
-                                          '{c}', 
-                                          proba_predict, 
-                                          NULL)), 0) AS {gen_name([name, c])}"""
+                f"""COALESCE(AVG(CASE WHEN predict_neighbors = '{c}' THEN proba_predict END), 0) AS {gen_name([name, c])}"""
                 for c in self.classes_
             ]
         else:
-            predict = [f"""COALESCE(AVG(DECODE(predict_neighbors, 
-                                          '{pos_label}', 
-                                          proba_predict, 
-                                          NULL)), 0) AS {name}"""]
+            predict = [f"""COALESCE(AVG(CASE WHEN predict_neighbors = '{pos_label}' THEN proba_predict END), 0) AS {name}"""]
         if key_columns:
             key_columns_str = ", " + ", ".join(key_columns)
         else:

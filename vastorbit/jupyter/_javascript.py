@@ -103,14 +103,14 @@ def beautiful_header(
                         or "lon" in val.lower().split(" ")
                         or "longitude" in val.lower().split(" ")
                     )
-                    and category == "float"
+                    and category == "real"
                 ):
                     category = '<div style="margin-bottom: 6px;">&#x1f30e;</div>'
                 elif type_val.lower() == "boolean":
                     category = (
                         '<div style="margin-bottom: 6px; color: #0073E7;">010</div>'
                     )
-                elif category in ("int", "float", "binary", "uuid"):
+                elif category in ("int", "real", "binary", "uuid"):
                     category = (
                         '<div style="margin-bottom: 6px; color: #29B8FF;">123</div>'
                     )

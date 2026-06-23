@@ -17,6 +17,21 @@ NAN = StringSQL("CAST('NaN' AS DOUBLE)")
 PI = StringSQL("PI()")
 TAU = StringSQL("2 * PI()")
 
+
+def _factorial_sql(x: SQLExpression) -> str:
+    """
+    Returns Trino SQL computing the factorial of ``x``.
+
+    Trino has no ``!`` operator or ``FACTORIAL`` function (both exist in
+    Vertica), so ``n!`` is built as the product of ``1..n`` with
+    ``REDUCE(SEQUENCE(...))``. ``GREATEST(x, 1)`` keeps ``0! = 1`` and stops
+    ``SEQUENCE`` from erroring on an empty/descending range; the value is cast
+    to ``bigint`` because the factorial is an integer product.
+    """
+    n = f"CAST(GREATEST({x}, 1) AS bigint)"
+    return f"REDUCE(SEQUENCE(1, {n}), BIGINT '1', (a, b) -> a * b, a -> a)"
+
+
 """
 General Function.
 """
@@ -32,7 +47,7 @@ def apply(func: SQLExpression, *args, **kwargs) -> StringSQL:
     func: SQLExpression
         VAST Function. For geospatial
         functions, you can write  the function
-        name without the ST_ prefix.
+        name without the ``ST_`` prefix.
     args: SQLExpression, optional
         Expressions.
     kwargs: SQLExpression, optional
@@ -202,6 +217,7 @@ def abs(expr: SQLExpression) -> StringSQL:
     .. code-block:: python
 
         df = VastFrame({"x": [0, -1, -2, -3]})
+        df["x"].astype("int")
 
     Now, let's go ahead and apply the function.
 
@@ -216,6 +232,7 @@ def abs(expr: SQLExpression) -> StringSQL:
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [0, -1, -2, -3]})
+        df["x"].astype("int")
         df["abs_x"] = vof.abs(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_abs.html", "w")
         html_file.write(df._repr_html_())
@@ -237,7 +254,7 @@ def abs(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ABS({expr})", "float")
+    return StringSQL(f"ABS({expr})", "real")
 
 
 def acos(expr: SQLExpression) -> StringSQL:
@@ -309,7 +326,7 @@ def acos(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ACOS({expr})", "float")
+    return StringSQL(f"ACOS({expr})", "real")
 
 
 def asin(expr: SQLExpression) -> StringSQL:
@@ -381,7 +398,7 @@ def asin(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ASIN({expr})", "float")
+    return StringSQL(f"ASIN({expr})", "real")
 
 
 def atan(expr: SQLExpression) -> StringSQL:
@@ -453,7 +470,7 @@ def atan(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ATAN({expr})", "float")
+    return StringSQL(f"ATAN({expr})", "real")
 
 
 def atan2(quotient: SQLExpression, divisor: SQLExpression) -> StringSQL:
@@ -533,7 +550,7 @@ def atan2(quotient: SQLExpression, divisor: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     quotient, divisor = format_magic(quotient), format_magic(divisor)
-    return StringSQL(f"ATAN2({quotient}, {divisor})", "float")
+    return StringSQL(f"ATAN2({quotient}, {divisor})", "real")
 
 
 def cbrt(expr: SQLExpression) -> StringSQL:
@@ -605,7 +622,7 @@ def cbrt(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"CBRT({expr})", "float")
+    return StringSQL(f"CBRT({expr})", "real")
 
 
 def ceil(expr: SQLExpression) -> StringSQL:
@@ -677,7 +694,7 @@ def ceil(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"CEIL({expr})", "float")
+    return StringSQL(f"CEIL({expr})", "real")
 
 
 def comb(n: int, k: int) -> StringSQL:
@@ -716,7 +733,7 @@ def comb(n: int, k: int) -> StringSQL:
     .. code-block:: python
 
         df = VastFrame({"x": [2, 10, 16, 33]})
-        df["x"].astype("float")
+        df["x"].astype("real")
 
     Now, let's go ahead and apply the function.
 
@@ -731,7 +748,7 @@ def comb(n: int, k: int) -> StringSQL:
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, 10, 16, 33]})
-        df["x"].astype("float")
+        df["x"].astype("real")
         df["comb_x"] = vof.comb(33, df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_comb.html", "w")
         html_file.write(df._repr_html_())
@@ -752,7 +769,11 @@ def comb(n: int, k: int) -> StringSQL:
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL(f"({n})! / (({k})! * ({n} - {k})!)", "float")
+    return StringSQL(
+        f"({_factorial_sql(n)}) / "
+        f"(({_factorial_sql(k)}) * ({_factorial_sql(f'{n} - {k}')}))",
+        "real",
+    )
 
 
 def cos(expr: SQLExpression) -> StringSQL:
@@ -824,7 +845,7 @@ def cos(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"COS({expr})", "float")
+    return StringSQL(f"COS({expr})", "real")
 
 
 def cosh(expr: SQLExpression) -> StringSQL:
@@ -896,7 +917,7 @@ def cosh(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"COSH({expr})", "float")
+    return StringSQL(f"COSH({expr})", "real")
 
 
 def cot(expr: SQLExpression) -> StringSQL:
@@ -968,7 +989,7 @@ def cot(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"1.0 / TAN({expr})", "float")
+    return StringSQL(f"1.0 / TAN({expr})", "real")
 
 
 def degrees(expr: SQLExpression) -> StringSQL:
@@ -1040,15 +1061,15 @@ def degrees(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"DEGREES({expr})", "float")
+    return StringSQL(f"DEGREES({expr})", "real")
 
 
 def distance(
-    lat0: float, lon0: float, lat1: float, lon1: float, radius: float = 6371.009
+    lat0: float, lon0: float, lat1: float, lon1: float,
 ) -> StringSQL:
     """
     Returns the distance (in kilometers) between two
-    points.
+    points in Earth.
 
     Parameters
     ----------
@@ -1060,10 +1081,6 @@ def distance(
         Ending point latitude.
     lon1: float
         Ending point longitude.
-    radius: float
-        Specifies the radius of the curvature of the
-        earth  at the midpoint between the  starting
-        and ending points.
 
     Returns
     -------
@@ -1141,7 +1158,7 @@ def distance(
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     return StringSQL(
-        f"GREAT_CIRCLE_DISTANCE({lat0}, {lon0}, {lat1}, {lon1}, {radius})", "float"
+        f"GREAT_CIRCLE_DISTANCE({lat0}, {lon0}, {lat1}, {lon1})", "real"
     )
 
 
@@ -1214,7 +1231,7 @@ def exp(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"EXP({expr})", "float")
+    return StringSQL(f"EXP({expr})", "real")
 
 
 def factorial(expr: SQLExpression) -> StringSQL:
@@ -1286,7 +1303,7 @@ def factorial(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"({expr})!", "int")
+    return StringSQL(_factorial_sql(expr), "int")
 
 
 def floor(expr: SQLExpression) -> StringSQL:
@@ -1430,7 +1447,7 @@ def gamma(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"({expr} - 1)!", "float")
+    return StringSQL(_factorial_sql(f"{expr} - 1"), "real")
 
 
 def hash(*args) -> StringSQL:
@@ -1507,7 +1524,7 @@ def hash(*args) -> StringSQL:
         expr += [format_magic(arg)]
     expr = ", ".join([str(elem) for elem in expr])
     return StringSQL(
-        f"FROM_BIG_ENDIAN_64(XXHASH64(TO_UTF8(CAST(({expr} AS VARCHAR))))", "float"
+        f"FROM_BIG_ENDIAN_64(XXHASH64(TO_UTF8(CAST(({expr} AS VARCHAR))))", "real"
     )
 
 
@@ -1544,8 +1561,7 @@ def isfinite(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df = VastFrame({"x": ['0', 'inf', 'nan', '15']})
-        df["x"].astype("float")
+        df = VastFrame("SELECT 0 AS x UNION SELECT infinity() UNION SELECT nan() UNION SELECT 15")
 
     Now, let's go ahead and apply the function.
 
@@ -1559,8 +1575,7 @@ def isfinite(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['0', 'inf', 'nan', '15']})
-        df["x"].astype("float")
+        df = VastFrame("SELECT 0 AS x UNION SELECT infinity() UNION SELECT nan() UNION SELECT 15")
         df["isfinite_x"] = vof.isfinite(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_isfinite.html", "w")
         html_file.write(df._repr_html_())
@@ -1582,7 +1597,7 @@ def isfinite(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr, cat = format_magic(expr, True)
-    return StringSQL(f"(({expr}) = ({expr})) AND (ABS({expr}) < infinity())", cat)
+    return StringSQL(f"(({expr}) = ({expr})) AND (ABS(CAST({expr} AS DOUBLE)) < infinity())", cat)
 
 
 def isinf(expr: SQLExpression) -> StringSQL:
@@ -1618,8 +1633,7 @@ def isinf(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df = VastFrame({"x": ['0', 'inf', '0.7', '15']})
-        df["x"].astype("float")
+        df = VastFrame("SELECT 0 AS x UNION SELECT infinity() UNION SELECT nan() UNION SELECT 15")
 
     Now, let's go ahead and apply the function.
 
@@ -1633,8 +1647,7 @@ def isinf(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['0', 'inf', '0.7', '15']})
-        df["x"].astype("float")
+        df = VastFrame("SELECT 0 AS x UNION SELECT infinity() UNION SELECT nan() UNION SELECT 15")
         df["isinf_x"] = vof.isinf(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_isinf.html", "w")
         html_file.write(df._repr_html_())
@@ -1656,7 +1669,7 @@ def isinf(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ABS({expr}) = infinity()", "float")
+    return StringSQL(f"ABS(CAST({expr} AS DOUBLE)) = infinity()", "real")
 
 
 def isnan(expr: SQLExpression) -> StringSQL:
@@ -1692,8 +1705,7 @@ def isnan(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df = VastFrame({"x": ['0', 'inf', 'nan', '15']})
-        df["x"].astype("float")
+        df = VastFrame("SELECT 0 AS x UNION SELECT infinity() UNION SELECT nan() UNION SELECT 15")
 
     Now, let's go ahead and apply the function.
 
@@ -1707,8 +1719,7 @@ def isnan(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['0', 'inf', 'nan', '15']})
-        df["x"].astype("float")
+        df = VastFrame("SELECT 0 AS x UNION SELECT infinity() UNION SELECT nan() UNION SELECT 15")
         df["isnan_x"] = vof.isnan(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_isnan.html", "w")
         html_file.write(df._repr_html_())
@@ -1802,7 +1813,7 @@ def lgamma(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"LN(({expr} - 1)!)", "float")
+    return StringSQL(f"LN({_factorial_sql(f'{expr} - 1')})", "real")
 
 
 def ln(expr: SQLExpression) -> StringSQL:
@@ -1874,7 +1885,7 @@ def ln(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"LN({expr})", "float")
+    return StringSQL(f"LN({expr})", "real")
 
 
 def log(expr: SQLExpression, base: int = 10) -> StringSQL:
@@ -1913,7 +1924,7 @@ def log(expr: SQLExpression, base: int = 10) -> StringSQL:
     .. code-block:: python
 
         df = VastFrame({"x": [2, 10, 16, 33]})
-        df["x"].astype("float")
+        df["x"].astype("real")
 
     Now, let's go ahead and apply the function.
 
@@ -1928,7 +1939,7 @@ def log(expr: SQLExpression, base: int = 10) -> StringSQL:
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, 10, 16, 33]})
-        df["x"].astype("float")
+        df["x"].astype("real")
         df["log_x"] = vof.log(df["x"], 10)
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_log.html", "w")
         html_file.write(df._repr_html_())
@@ -1950,7 +1961,7 @@ def log(expr: SQLExpression, base: int = 10) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"LOG({base}, {expr})", "float")
+    return StringSQL(f"LOG({base}, {expr})", "real")
 
 
 def radians(expr: SQLExpression) -> StringSQL:
@@ -2022,7 +2033,7 @@ def radians(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"RADIANS({expr})", "float")
+    return StringSQL(f"RADIANS({expr})", "real")
 
 
 def round(expr: SQLExpression, places: int = 0) -> StringSQL:
@@ -2061,7 +2072,7 @@ def round(expr: SQLExpression, places: int = 0) -> StringSQL:
     .. code-block:: python
 
         df = VastFrame({"x": [2.95, 4.50, 4.63, 8.99]})
-        df["x"].astype("float")
+        df["x"].astype("real")
 
     Now, let's go ahead and apply the function.
 
@@ -2076,7 +2087,7 @@ def round(expr: SQLExpression, places: int = 0) -> StringSQL:
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2.95, 4.50, 4.63, 8.99]})
-        df["x"].astype("float")
+        df["x"].astype("real")
         df["round_x"] = vof.round(df["x"], 1)
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_round.html", "w")
         html_file.write(df._repr_html_())
@@ -2098,7 +2109,7 @@ def round(expr: SQLExpression, places: int = 0) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"ROUND({expr}, {places})", "float")
+    return StringSQL(f"ROUND({expr}, {places})", "real")
 
 
 def sign(expr: SQLExpression) -> StringSQL:
@@ -2242,7 +2253,7 @@ def sin(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"SIN({expr})", "float")
+    return StringSQL(f"SIN({expr})", "real")
 
 
 def sinh(expr: SQLExpression) -> StringSQL:
@@ -2314,7 +2325,7 @@ def sinh(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"SINH({expr})", "float")
+    return StringSQL(f"SINH({expr})", "real")
 
 
 def sqrt(expr: SQLExpression) -> StringSQL:
@@ -2386,7 +2397,7 @@ def sqrt(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"SQRT({expr})", "float")
+    return StringSQL(f"SQRT({expr})", "real")
 
 
 def tan(expr: SQLExpression) -> StringSQL:
@@ -2458,7 +2469,7 @@ def tan(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"TAN({expr})", "float")
+    return StringSQL(f"TAN({expr})", "real")
 
 
 def tanh(expr: SQLExpression) -> StringSQL:
@@ -2530,7 +2541,7 @@ def tanh(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"TANH({expr})", "float")
+    return StringSQL(f"TANH({expr})", "real")
 
 
 def trunc(expr: SQLExpression, places: int = 0) -> StringSQL:
@@ -2541,8 +2552,6 @@ def trunc(expr: SQLExpression, places: int = 0) -> StringSQL:
     ----------
     expr: SQLExpression
         Expression.
-    places: int
-        Number used to truncate the expression.
 
     Returns
     -------
@@ -2569,13 +2578,13 @@ def trunc(expr: SQLExpression, places: int = 0) -> StringSQL:
     .. code-block:: python
 
         df = VastFrame({"x": [2.95, 4.50, 4.63, 8.99]})
-        df["x"].astype("float")
+        df["x"].astype("real")
 
     Now, let's go ahead and apply the function.
 
     .. code-block:: python
 
-        df["trunc_x"] = vof.trunc(df["x"], 1)
+        df["trunc_x"] = vof.trunc(df["x"])
         display(df)
 
     .. ipython:: python
@@ -2584,8 +2593,8 @@ def trunc(expr: SQLExpression, places: int = 0) -> StringSQL:
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2.95, 4.50, 4.63, 8.99]})
-        df["x"].astype("float")
-        df["trunc_x"] = vof.trunc(df["x"], 1)
+        df["x"].astype("real")
+        df["trunc_x"] = vof.trunc(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_math_trunc.html", "w")
         html_file.write(df._repr_html_())
         html_file.close()
@@ -2606,4 +2615,7 @@ def trunc(expr: SQLExpression, places: int = 0) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"TRUNCATE({expr}, {places})", "float")
+    if places == 0:
+        return StringSQL(f"TRUNCATE({expr})", "real")
+    factor = f"POWER(10, {places})"
+    return StringSQL(f"TRUNCATE({expr} * {factor}) / {factor}", "real")

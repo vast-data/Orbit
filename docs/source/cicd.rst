@@ -213,7 +213,7 @@ For Contributors
 
 .. tip::
 
-   Set up pre-commit hooks to run checks automatically before each commit. See our `contributing guide <https://github.com/vastdata-dev/vastorbit/blob/main/CONTRIBUTING.md>`_ for setup instructions.
+   Set up pre-commit hooks to run checks automatically before each commit. See our `contributing guide <https://github.com/vastdata-dev/vastorbit/blob/main/CONTRIBUTING.md>`__ for setup instructions.
 
 ____
 

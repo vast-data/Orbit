@@ -504,7 +504,7 @@ class Decomposition(Preprocessing):
             of the model's components.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -637,7 +637,7 @@ class Decomposition(Preprocessing):
             of the model's components.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -762,7 +762,7 @@ class Decomposition(Preprocessing):
         ----------
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -895,25 +895,25 @@ class PCA(Decomposition):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    principal_components_: numpy.array
+    ``principal_components_``: numpy.array
         Matrix of the principal components.
-    mean_: numpy.array
+    ``mean_``: numpy.array
         List of the averages of each input feature.
-    cos2_: numpy.array
+    ``cos2_``: numpy.array
         Quality of representation of each observation in
         the principal component space. A high cos2 value
         indicates that the observation is well-represented
         in the reduced-dimensional space defined by the
         principal components, while a low value suggests
         poor representation.
-    explained_variance_: numpy.array
+    ``explained_variance_``: numpy.array
         Represents the proportion of the total variance in
         the original dataset that is captured by a specific
         principal component or a combination of principal
@@ -1327,18 +1327,18 @@ class MCA(PCA):
     Many attributes are created
     during the fitting phase.
 
-    principal_components_: numpy.array
+    ``principal_components_``: numpy.array
         Matrix of the principal components.
-    mean_: numpy.array
+    ``mean_``: numpy.array
         List of the averages of each input feature.
-    cos2_: numpy.array
+    ``cos2_``: numpy.array
         Quality of representation of each observation in
         the principal component space. A high cos2 value
         indicates that the observation is well-represented
         in the reduced-dimensional space defined by the
         principal components, while a low value suggests
         poor representation.
-    explained_variance_: numpy.array
+    ``explained_variance_``: numpy.array
         Represents the proportion of the total variance in
         the original dataset that is captured by a specific
         principal component or a combination of principal
@@ -1684,7 +1684,7 @@ class MCA(PCA):
             component.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -1816,7 +1816,7 @@ class MCA(PCA):
             model's components.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -1965,7 +1965,7 @@ class MCA(PCA):
                 is used as CMAP.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -2125,17 +2125,17 @@ class SVD(Decomposition):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    values_: numpy.array
+    ``values_``: numpy.array
         Matrix of the right
         singular vectors.
-    values_: numpy.array
+    ``values_``: numpy.array
         Array of the singular
         values for each input
         feature.

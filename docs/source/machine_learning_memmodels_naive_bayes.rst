@@ -5,7 +5,6 @@ Naive Bayes
 =============
 
 
-______
 
 
 Naive Bayes

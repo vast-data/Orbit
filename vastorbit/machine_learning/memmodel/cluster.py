@@ -661,7 +661,7 @@ class KMeans(Clustering):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -811,7 +811,7 @@ class NearestCentroid(Clustering):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -958,7 +958,7 @@ class BisectingKMeans(Clustering, Tree):
     Use
     :py:meth:`~vastorbit.machine_learning.memmodel.cluster.BisectingKMeans.to_graphviz`
     method to generate code for a
-    `Graphviz <https://graphviz.org/>`_
+    `Graphviz <https://graphviz.org/>`__
     tree.
 
     .. ipython:: python
@@ -985,7 +985,7 @@ class BisectingKMeans(Clustering, Tree):
     .. note::
 
         :py:meth:`~vastorbit.machine_learning.memmodel.cluster.BisectingKMeans.plot_tree`
-        requires the `Graphviz <https://graphviz.org/download/>`_
+        requires the `Graphviz <https://graphviz.org/download/>`__
         module.
 
     **Deploy SQL Code**
@@ -1033,7 +1033,7 @@ class BisectingKMeans(Clustering, Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -1341,19 +1341,19 @@ class BisectingKMeans(Clustering, Tree):
             customize each node of the
             tree. For a list of options,
             see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         edge_style: dict, optional
             Dictionary  of options to
             customize each arrow of the
             tree. For a list of options,
             see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
         leaf_style: dict, optional
             Dictionary  of options to
             customize each leaf of the
             tree. For a list of options,
             see the:
-            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_ .
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`__ .
 
         Returns
         -------
@@ -1629,7 +1629,7 @@ class KPrototypes(Clustering):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 

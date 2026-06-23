@@ -288,7 +288,7 @@ class StandardScaler(Scaler):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -314,9 +314,9 @@ class MinMaxScaler(Scaler):
     Parameters
     ----------
 
-    min_: ArrayLike
+    ``min_``: ArrayLike
         Model's features minimums.
-    max_: ArrayLike
+    ``max_``: ArrayLike
         Model's features maximums.
 
     .. note::
@@ -401,7 +401,7 @@ class MinMaxScaler(Scaler):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -539,7 +539,7 @@ class OneHotEncoder(InMemoryModel):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 

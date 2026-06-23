@@ -30,7 +30,7 @@ The :py:func:`~vastorbit.VastFrame.aggregate` method is the best way to compute 
   help(vo.VastFrame.agg)
 
 This is a tremendously useful function for understanding your data. 
-Let's use the `churn dataset <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`_
+Let's use the `churn dataset <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`__
 
 .. code-block::
 

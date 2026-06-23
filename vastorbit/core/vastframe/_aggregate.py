@@ -1427,7 +1427,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -1514,7 +1514,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -1595,7 +1595,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -1676,7 +1676,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -1760,7 +1760,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -1853,7 +1853,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the VastColumns names. If empty, all VastColumns
             are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any  optional parameter to pass to the Aggregate  function.
 
         Returns
@@ -1953,7 +1953,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the VastColumns names. If empty, all VastColumns
             are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any  optional parameter to pass to the Aggregate  function.
 
         Returns
@@ -2035,7 +2035,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the VastColumns names. If empty, all VastColumns
             are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter  to pass to  the Aggregate function.
 
         Returns
@@ -2127,7 +2127,7 @@ class vDFAgg(vDFEval):
         approx: bool, optional
             If set to True, the approximate median is returned. By setting this
             parameter to False, the function`s performance can drastically decrease.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate function.
 
         Returns
@@ -2216,7 +2216,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the VastColumns names. If empty, all numerical VastColumns are
             used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate function.
 
         Returns
@@ -2315,7 +2315,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List  of the VastColumn  names.  If empty, all
             numerical VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2427,7 +2427,7 @@ class vDFAgg(vDFEval):
             returned. By  setting  this parameter to  False,
             the  function's  performance   can  drastically
             decrease.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2539,7 +2539,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List  of the VastColumns names. If empty,  all
             numerical VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2632,7 +2632,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             numerical VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2718,7 +2718,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List  of the VastColumns names.  If empty, all
             numerical VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2801,7 +2801,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns names.  If empty, all
             numerical VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2884,7 +2884,7 @@ class vDFAgg(vDFEval):
         columns: SQLColumns, optional
             List of the  VastColumns  names. If empty, all
             numerical VastColumns are used.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any optional parameter to pass to the Aggregate
             function.
 
@@ -2983,7 +2983,7 @@ class vDFAgg(vDFEval):
         desc: bool, optional
             If  set  to  True and ``sort_result`` is  set  to  True,
             the result is sorted in descending order.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any  optional  parameter  to  pass  to  the Aggregate
             function.
 
@@ -3094,7 +3094,7 @@ class vDFAgg(vDFEval):
             If set to True, the  approximate cardinality  is  returned.
             By  setting  this  parameter   to  False,  the  function's
             performance can drastically decrease.
-        **agg_kwargs
+        ``**agg_kwargs``
             Any   optional   parameter  to   pass   to  the  Aggregate
             function.
 
@@ -3638,7 +3638,7 @@ class vDCAgg(vDCEval):
             result = result.values[self._alias]
         elif (method == "cat_stats") and (numcol != ""):
             numcol = self._parent.format_colnames(numcol)
-            assert self._parent[numcol].category() in ("float", "int"), TypeError(
+            assert self._parent[numcol].category() in ("real", "int"), TypeError(
                 "The column 'numcol' must be numerical"
             )
             cast_b = "CAST(" if (self._parent[numcol].isbool()) else ""
@@ -3654,15 +3654,15 @@ class vDCAgg(vDCEval):
                         '{category}' AS "index", 
                         COUNT({self}) AS count, 
                         100.0000000000 * COUNT({self}) / {self._parent.shape()[0]} AS percent, 
-                        AVG({numcol}{cast}) AS mean, 
-                        STDDEV({numcol}{cast}) AS std, 
-                        MIN({numcol}{cast}) AS min, 
-                        APPROX_PERCENTILE ({numcol}{cast}, 0.1) AS "approx_10%", 
-                        APPROX_PERCENTILE ({numcol}{cast}, 0.25) AS "approx_25%", 
-                        APPROX_PERCENTILE ({numcol}{cast}, 0.5) AS "approx_50%", 
-                        APPROX_PERCENTILE ({numcol}{cast}, 0.75) AS "approx_75%", 
-                        APPROX_PERCENTILE ({numcol}{cast}, 0.9) AS "approx_90%", 
-                        MAX({numcol}{cast}) AS max 
+                        AVG({cast_b}{numcol}{cast_e}) AS mean, 
+                        STDDEV({cast_b}{numcol}{cast_e}) AS std, 
+                        MIN({cast_b}{numcol}{cast_e}) AS min, 
+                        APPROX_PERCENTILE ({cast_b}{numcol}{cast_e}, 0.1) AS "approx_10%", 
+                        APPROX_PERCENTILE ({cast_b}{numcol}{cast_e}, 0.25) AS "approx_25%", 
+                        APPROX_PERCENTILE ({cast_b}{numcol}{cast_e}, 0.5) AS "approx_50%", 
+                        APPROX_PERCENTILE ({cast_b}{numcol}{cast_e}, 0.75) AS "approx_75%", 
+                        APPROX_PERCENTILE ({cast_b}{numcol}{cast_e}, 0.9) AS "approx_90%", 
+                        MAX({cast_b}{numcol}{cast_e}) AS max 
                    FROM vdf_table"""
                 if category in ("None", None):
                     tmp_query += f" WHERE {self} IS NULL"
@@ -3686,7 +3686,7 @@ class vDCAgg(vDCEval):
         ):
             query = f"""(SELECT 
                             CAST({self} AS VARCHAR), 
-                            COUNT(*) 
+                            COUNT(*) AS count
                         FROM vdf_table 
                         GROUP BY {self} 
                         ORDER BY COUNT(*) DESC 

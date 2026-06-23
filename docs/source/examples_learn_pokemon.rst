@@ -3,9 +3,9 @@
 Pokemon
 ========
 
-This example uses the ``pokemon`` and ``combats`` datasets to predict the winner of a 1-on-1 Pokemon battle. You can download the Jupyter Notebook of the study here and two datasets:
+This example uses the ``pokemons`` and ``combats`` datasets to predict the winner of a 1-on-1 Pokemon battle. You can download the Jupyter Notebook of the study here and two datasets:
 
-`pokemon <https://github.com/vastdata-dev/vastorbit/tree/master/examples/learn/pokemon/pokemons.csv>`_
+`pokemons <https://github.com/vastdata-dev/vastorbit/tree/master/examples/learn/pokemon/pokemons.csv>`__
 
 - **Name:** The name of the Pokemon.
 - **Generation:** Pokemon's generation.
@@ -19,7 +19,7 @@ This example uses the ``pokemon`` and ``combats`` datasets to predict the winner
 - **Type_1:** Pokemon's first type.
 - **Type_2:** Pokemon's second type.
 
-`fights <https://github.com/vastdata-dev/vastorbit/tree/master/examples/learn/pokemon/fights.csv>`_
+`fights <https://github.com/vastdata-dev/vastorbit/tree/master/examples/learn/pokemon/fights.csv>`__
 
 - **First_pokemon:** Pokemon of trainer 1.
 - **Second_pokemon:** Pokemon of trainer 2.
@@ -50,21 +50,17 @@ Let's ingest the datasets.
 
 .. code-block:: python
     
-    import vastorbit.sql.functions as fun
-
     combats = vo.read_csv("fights.csv")
-    combats.head(5)
+    combats
 
 .. ipython:: python
     :suppress:
-
-    import vastorbit.sql.functions as fun
 
     try:
         combats = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/fights.csv")
     except:
         combats = vo.VastFrame("fights")
-    res = combats.head(5)
+    res = combats
     html_file = open("SPHINX_DIRECTORY/figures/examples_combats_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -74,51 +70,51 @@ Let's ingest the datasets.
 
 .. code-block:: python
 
-    pokemon = vo.read_csv("pokemons.csv")
-    pokemon.head(5)
+    pokemons = vo.read_csv("pokemons.csv")
+    pokemons
 
 .. ipython:: python
     :suppress:
 
     try:
-        pokemon = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/pokemons.csv")
+        pokemons = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/pokemon/pokemons.csv")
     except:
-        pokemon = vo.VastFrame("pokemons")
-    res = pokemon.head(5)
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_2.html", "w")
+        pokemons = vo.VastFrame("pokemons")
+    res = pokemons
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_table_2.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_2.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_table_2.html
 
 Data Exploration and Preparation
 ---------------------------------
 
-The table ``combats`` will be joined to the table ``pokemon`` to predict the winner.
+The table ``combats`` will be joined to the table ``pokemons`` to predict the winner.
 
-The ``pokemon`` table contains the information on each Pokemon. Let's describe this table.
+The ``pokemons`` table contains the information on each Pokemon. Let's describe this table.
 
 .. code-block:: python
 
-    pokemon.describe(method = "categorical", unique = True)
+    pokemons.describe(method = "categorical", unique = True)
 
 .. ipython:: python
     :suppress:
 
-    res = pokemon.describe(method = "categorical", unique = True)
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_describe.html", "w")
+    res = pokemons.describe(method = "categorical", unique = True)
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_table_describe.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_describe.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_table_describe.html
 
-The pokemon's ``Name``, ``Generation``, and whether or not it's ``Legendary`` will never influence the outcome of the battle, so we can drop these columns.
+The pokemons's ``Name``, ``Generation``, and whether or not it's ``Legendary`` will never influence the outcome of the battle, so we can drop these columns.
 
 .. code-block:: python
 
-    pokemon.drop(
+    pokemons.drop(
         [
             "Generation", 
             "Legendary", 
@@ -129,25 +125,25 @@ The pokemon's ``Name``, ``Generation``, and whether or not it's ``Legendary`` wi
 .. ipython:: python
     :suppress:
 
-    res = pokemon.drop(
+    res = pokemons.drop(
         [
             "Generation", 
             "Legendary", 
             "Name",
         ]
     )
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_drop.html", "w")
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_table_drop.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_drop.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_table_drop.html
 
 The ``ID`` will be the key to join the data. By joining the data, we will be able to create more relevant features.
 
 .. ipython:: python
 
-    fights = pokemon.join(
+    fights = pokemons.join(
         combats, 
         on = {"ID": "First_Pokemon"}, 
         how = "inner",
@@ -165,7 +161,7 @@ The ``ID`` will be the key to join the data. By joining the data, we will be abl
             "First_Pokemon", 
             "Second_Pokemon", 
             "Winner",
-        ]).join(pokemon, 
+        ]).join(pokemons, 
         on = {"Second_Pokemon": "ID"}, 
         how = "inner",
         expr2 = [
@@ -193,10 +189,12 @@ The ``ID`` will be the key to join the data. By joining the data, we will be abl
             ]
     )
 
-Features engineering is the key. Here, we can create features that describe the stat differences between the first and second Pokemon. We can also change ``winner`` to a binary value: 1 if the first pokemon won and 0 otherwise.
+Features engineering is the key. Here, we can create features that describe the stat differences between the first and second Pokemon. We can also change ``winner`` to a binary value: 1 if the first pokemons won and 0 otherwise.
 
 .. ipython:: python
-
+    
+    import vastorbit.sql.functions as fun
+    
     fights["Sp_Atk_diff"] = fights["Sp_Atk_1"] - fights["Sp_Atk_2"]
     fights["Speed_diff"] = fights["Speed_1"] - fights["Speed_2"]
     fights["Sp_Def_diff"] = fights["Sp_Def_1"] - fights["Sp_Def_2"]
@@ -230,12 +228,12 @@ Missing values can not be handled by most machine learning models. Let's see whi
     :suppress:
 
     res = fights.count()
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_1.html", "w")
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_table_clean_1.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_1.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_table_clean_1.html
 
 In terms of missing values, our only concern is the Pokemon's second type (``Type_2_1`` and ``Type_2_2``). Since some Pokemon only have one type, these features are MNAR (missing values not at random). We can impute the missing values by creating another category.
 
@@ -249,12 +247,12 @@ In terms of missing values, our only concern is the Pokemon's second type (``Typ
 
     fights["Type_2_1"].fillna("No")
     res = fights["Type_2_2"].fillna("No")
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html", "w")
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_table_clean_2.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_table_clean_2.html
 
 Let's use a one hot encoder to get numerical dummies out of the different types.
 
@@ -272,12 +270,12 @@ Let's use a one hot encoder to get numerical dummies out of the different types.
     fights["Type_1_2"].one_hot_encode()
     fights["Type_2_1"].one_hot_encode()
     res = fights["Type_2_2"].one_hot_encode()
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html", "w")
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_table_clean_2.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_table_clean_2.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_table_clean_2.html
 
 Let's use the current_relation method to see how our data preparation so far on the :py:mod:`~vastorbit.VastFrame` generates SQL code.
 
@@ -299,10 +297,10 @@ Let's look at the correlations between all the variables.
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
     fig = fights.corr(method = "spearman")
-    fig.write_html("SPHINX_DIRECTORY/figures/examples_pokemon_corr.html")
+    fig.write_html("SPHINX_DIRECTORY/figures/examples_pokemons_corr.html")
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_corr.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_corr.html
 
 Many variables are correlated to the response column. We have enough information to create our predictive model.
 
@@ -330,12 +328,12 @@ Let's create a ``LogisticRegression`` to see the importance of the features in t
     predictors = fights.get_columns(exclude_columns = ["Winner", "Type_1_1", "Type_1_2", "Type_2_1", "Type_2_2"])
     model = LogisticRegression(max_iter=1000)
     res = cross_validate(model, fights, predictors, "Winner")
-    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemon_cv.html", "w")
+    html_file = open("SPHINX_DIRECTORY/figures/examples_pokemons_cv.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_cv.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_cv.html
 
 We have an excellent model with an average ``AUC`` of more than ``99%``. Let's create a model with the entire dataset and look at the importance of each feature.
 
@@ -358,10 +356,10 @@ We have an excellent model with an average ``AUC`` of more than ``99%``. Let's c
         "Winner",
     )
     fig = model.features_importance()
-    fig.write_html("SPHINX_DIRECTORY/figures/examples_pokemon_feature_importances_ml.html")
+    fig.write_html("SPHINX_DIRECTORY/figures/examples_pokemons_feature_importances_ml.html")
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_pokemon_feature_importances_ml.html
+    :file: SPHINX_DIRECTORY/figures/examples_pokemons_feature_importances_ml.html
 
 Based on our model, it seems that a Pokemon's speed and attack stats are the strongest predictors for the winner of a battle.
 
@@ -369,3 +367,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

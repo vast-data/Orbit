@@ -42,7 +42,7 @@ def extract_col_dt_from_query(query: str, field: str) -> tuple:
         sql += '\n"location_city" Array[varchar],'
         sql += '\n"menu" Array[Row('
         sql += '\n"item" varchar,'
-        sql += '\n"price" numeric'
+        sql += '\n"price" decimal'
         sql += '\n)],'
         sql += '\n"name" varchar'
         sql += '\n);"'

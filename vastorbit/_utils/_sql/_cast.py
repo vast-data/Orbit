@@ -79,7 +79,7 @@ def to_varchar(
 
 def to_dtype_category(
     expr: type,
-) -> Literal["float", "int", "text", "date", "complex", "undefined"]:
+) -> Literal["real", "int", "text", "date", "complex", "undefined"]:
     """
     Returns the category associated
     with the Python input type.
@@ -126,7 +126,7 @@ def to_dtype_category(
         category = expr.category()
     else:
         if isinstance(expr, float):
-            category = "float"
+            category = "real"
         elif isinstance(expr, int):
             category = "int"
         elif isinstance(expr, str):
@@ -183,7 +183,7 @@ def to_sql_dtype(dtype: Union[type, str]) -> Union[type, str]:
     if dtype in (str, "str", "string"):
         dtype = "varchar"
     elif dtype == float:
-        dtype = "float"
+        dtype = "real"
     elif dtype == int:
         dtype = "integer"
     elif dtype == datetime.datetime:
@@ -204,7 +204,7 @@ def to_sql_dtype(dtype: Union[type, str]) -> Union[type, str]:
         dtype = "set"
     elif isinstance(dtype, str):
         dtype = dtype.lower().strip()
-    if dtype == "float":
+    if dtype == "real":
         dtype = "double"
     elif dtype == "bool":
         dtype = "boolean"
@@ -216,7 +216,7 @@ def to_category(
 ) -> Literal[
     "text",
     "int",
-    "float",
+    "real",
     "date",
     "binary",
     "uuid",
@@ -275,7 +275,7 @@ def to_category(
         elif ctype.startswith(("bigint", "bool", "int", "smallint", "tinyint")):
             return "int"
         elif ctype.startswith(("decimal", "double", "float", "money", "num", "real")):
-            return "float"
+            return "real"
         elif ctype.startswith("geo"):
             return "spatial"
         elif ctype.startswith(("binary", "byte", "raw")):

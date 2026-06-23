@@ -48,7 +48,7 @@ def avg(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.avg(df["x"]))])
+        df.select([str(vof.avg(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -57,7 +57,7 @@ def avg(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_avg.html", "w")
-        html_file.write(df.select([str(vof.avg(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.avg(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -76,7 +76,7 @@ def avg(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"AVG({expr})", "float")
+    return StringSQL(f"AVG({expr})", "real")
 
 
 mean = avg
@@ -123,7 +123,7 @@ def bool_and(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.bool_and(df["x"]))])
+        df.select([str(vof.bool_and(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -132,7 +132,7 @@ def bool_and(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [True, False, True, True]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_bool_and.html", "w")
-        html_file.write(df.select([str(vof.bool_and(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.bool_and(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -196,7 +196,7 @@ def bool_or(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.bool_or(df["x"]))])
+        df.select([str(vof.bool_or(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -205,7 +205,7 @@ def bool_or(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [True, False, True, True]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_bool_or.html", "w")
-        html_file.write(df.select([str(vof.bool_or(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.bool_or(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -269,7 +269,7 @@ def bool_xor(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.bool_xor(df["x"]))])
+        df.select([str(vof.bool_xor(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -278,7 +278,7 @@ def bool_xor(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [True, False, True, True]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_bool_xor.html", "w")
-        html_file.write(df.select([str(vof.bool_xor(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.bool_xor(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -340,7 +340,7 @@ def count(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.count(df["x"]))])
+        df.select([str(vof.count(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -349,7 +349,7 @@ def count(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, None, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_count.html", "w")
-        html_file.write(df.select([str(vof.count(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.count(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -574,7 +574,7 @@ def max(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.max(df["x"]))])
+        df.select([str(vof.max(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -583,7 +583,7 @@ def max(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_max.html", "w")
-        html_file.write(df.select([str(vof.max(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.max(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -602,7 +602,7 @@ def max(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"MAX({expr})", "float")
+    return StringSQL(f"MAX({expr})", "real")
 
 
 def median(expr: SQLExpression) -> StringSQL:
@@ -645,7 +645,7 @@ def median(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.median(df["x"]))])
+        df.select([str(vof.median(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -654,7 +654,7 @@ def median(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_median.html", "w")
-        html_file.write(df.select([str(vof.median(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.median(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -673,7 +673,7 @@ def median(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"APPROX_PERCENTILE({expr}, 0.5)", "float")
+    return StringSQL(f"APPROX_PERCENTILE({expr}, 0.5)", "real")
 
 
 def min(expr: SQLExpression) -> StringSQL:
@@ -716,7 +716,7 @@ def min(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.min(df["x"]))])
+        df.select([str(vof.min(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -725,7 +725,7 @@ def min(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_min.html", "w")
-        html_file.write(df.select([str(vof.min(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.min(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -744,7 +744,7 @@ def min(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"MIN({expr})", "float")
+    return StringSQL(f"MIN({expr})", "real")
 
 
 def nth_value(expr: SQLExpression, row_number: int) -> StringSQL:
@@ -871,7 +871,7 @@ def quantile(expr: SQLExpression, number: float) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.quantile(df["x"], 0.25))])
+        df.select([str(vof.quantile(df["x"], 0.25)._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -880,7 +880,7 @@ def quantile(expr: SQLExpression, number: float) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_quantile.html", "w")
-        html_file.write(df.select([str(vof.quantile(df["x"], 0.25))])._repr_html_())
+        html_file.write(df.select([str(vof.quantile(df["x"], 0.25)._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -901,7 +901,7 @@ def quantile(expr: SQLExpression, number: float) -> StringSQL:
     expr = format_magic(expr)
     return StringSQL(
         f"APPROX_PERCENTILE({expr}, {number})",
-        "float",
+        "real",
     )
 
 
@@ -1080,7 +1080,7 @@ def std(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.std(df["x"]))])
+        df.select([str(vof.std(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -1089,7 +1089,7 @@ def std(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_std.html", "w")
-        html_file.write(df.select([str(vof.std(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.std(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -1108,7 +1108,7 @@ def std(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"STDDEV({expr})", "float")
+    return StringSQL(f"STDDEV({expr})", "real")
 
 
 stddev = std
@@ -1154,7 +1154,7 @@ def sum(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.sum(df["x"]))])
+        df.select([str(vof.sum(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -1163,7 +1163,7 @@ def sum(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_sum.html", "w")
-        html_file.write(df.select([str(vof.sum(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.sum(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -1182,7 +1182,7 @@ def sum(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"SUM({expr})", "float")
+    return StringSQL(f"SUM({expr})", "real")
 
 
 def var(expr: SQLExpression) -> StringSQL:
@@ -1225,7 +1225,7 @@ def var(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df.select([str(vof.var(df["x"]))])
+        df.select([str(vof.var(df["x"])._as("res_agg"))])
 
     .. ipython:: python
         :suppress:
@@ -1234,7 +1234,7 @@ def var(expr: SQLExpression) -> StringSQL:
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": [2, -11, 7, 12]})
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_analytic_var.html", "w")
-        html_file.write(df.select([str(vof.var(df["x"]))])._repr_html_())
+        html_file.write(df.select([str(vof.var(df["x"])._as("res_agg"))])._repr_html_())
         html_file.close()
 
     .. raw:: html
@@ -1253,7 +1253,7 @@ def var(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"VARIANCE({expr})", "float")
+    return StringSQL(f"VARIANCE({expr})", "real")
 
 
 variance = var

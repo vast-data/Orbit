@@ -328,7 +328,7 @@ class vDFTyping(vDFRead):
                     title="Looking at columns with low cardinality.",
                     method="fetchfirstelem",
                 )
-            elif self[column].category() == "float":
+            elif self[column].category() == "real":
                 is_cat = False
             else:
                 is_cat = True
@@ -1246,4 +1246,4 @@ class vDCTyping(vDCRead):
             data["empid"].isnum()
 
         """
-        return self.category() in ("float", "int")
+        return self.category() in ("real", "int")

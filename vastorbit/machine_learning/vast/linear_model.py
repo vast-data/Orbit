@@ -90,7 +90,7 @@ class LinearModel:
             the feature's importance.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass
             to the Plotting functions.
 
@@ -278,7 +278,7 @@ class LinearModel:
         chart: PlottingObject, optional
             The chart object
             to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -465,7 +465,7 @@ class LinearModelClassifier(LinearModel):
         chart: PlottingObject, optional
             The chart object to
             plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -609,23 +609,23 @@ class ElasticNet(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -1054,23 +1054,23 @@ class Lasso(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -1516,23 +1516,23 @@ class LinearRegression(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -1996,23 +1996,23 @@ class PLSRegression(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -2429,23 +2429,23 @@ class PoissonRegressor(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -2872,23 +2872,23 @@ class Ridge(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -3364,23 +3364,23 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    coef_: numpy.array
+    ``coef_``: numpy.array
         The regression coefficients. The order of
         coefficients is the same as the order of
         columns used during the fitting phase.
-    intercept_: float
+    ``intercept_``: float
         The expected value of the dependent variable
         when all independent variables are zero,
         serving as the baseline or constant term in
         the model.
-    feature_importances_: numpy.array
+    ``feature_importances_``: numpy.array
         The importance of features is computed through
         the model coefficients, which are normalized
         based on their range. Subsequently, an
@@ -3390,7 +3390,7 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
         method to compute it initially, and the computed
         values will be subsequently utilized for subsequent
         calls.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::

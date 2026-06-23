@@ -398,10 +398,10 @@ Interactive plots must be saved as HTML files and then included:
         vo.set_option("plotting_lib", "plotly")
         data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
         fig = data.bar("counts")
-        fig.write_html("figures/core_VastFrame_vDFPlot_bar_example.html")
+        fig.write_html("SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_example.html")
 
     .. raw:: html
-        :file: figures/core_VastFrame_vDFPlot_bar_example.html
+        :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_example.html
 
 **This renders as:**
 
@@ -412,10 +412,10 @@ Interactive plots must be saved as HTML files and then included:
     vo.set_option("plotting_lib", "plotly")
     data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
     fig = data.bar("counts")
-    fig.write_html("figures/core_VastFrame_vDFPlot_bar_example.html")
+    fig.write_html("SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_example.html")
 
 .. raw:: html
-    :file: figures/core_VastFrame_vDFPlot_bar_plotly.html
+    :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_plotly.html
 
 *(Notice: An interactive Plotly chart is embedded - you can hover, zoom, pan)*
 
@@ -425,8 +425,8 @@ Interactive plots must be saved as HTML files and then included:
 
    **File paths for HTML:**
    
-   - **When saving** (in Python): Use relative path ``"figures/filename.html"``
-   - **When loading** (in RST): Use a path relative to the ``docs/`` source dir: ``figures/filename.html`` (portable across machines and CI)
+   - **When saving** (in Python): write to ``"SPHINX_DIRECTORY/figures/filename.html"`` — the ``SPHINX_DIRECTORY`` token is replaced with the absolute ``docs/`` path at build time.
+   - **When loading** (in RST): reference the same file with ``:file: SPHINX_DIRECTORY/figures/filename.html``. The build substitutes the token before Sphinx reads the page and reverses it afterwards, so nothing machine-specific is committed.
 
 ----
 
@@ -442,12 +442,12 @@ Display VastFrame tables as interactive HTML:
 
         import vastorbit as vo
         data = vo.VastFrame({"a": [1, 2, 3], "b": [4, 5, 6], "c": [7, 8, 9]})
-        html_file = open("figures/core_VastFrame_table_example.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_table_example.html", "w")
         html_file.write(data._repr_html_())
         html_file.close()
 
     .. raw:: html
-        :file: figures/core_VastFrame_table_example.html
+        :file: SPHINX_DIRECTORY/figures/core_VastFrame_table_example.html
 
 **This renders as:**
 
@@ -456,12 +456,12 @@ Display VastFrame tables as interactive HTML:
 
     import vastorbit as vo
     data = vo.VastFrame({"a": [1, 2, 3], "b": [4, 5, 6], "c": [7, 8, 9]})
-    html_file = open("figures/core_VastFrame_table_example.html", "w")
+    html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_table_example.html", "w")
     html_file.write(data._repr_html_())
     html_file.close()
 
 .. raw:: html
-    :file: figures/core_VastFrame_table_example.html
+    :file: SPHINX_DIRECTORY/figures/core_VastFrame_table_example.html
 
 *(Notice: An interactive VastFrame table with sortable columns)*
 
@@ -833,7 +833,7 @@ Example 2: Plotting Function (bar)
             vo.set_option("plotting_lib", "plotly")
             data = vo.VastFrame({"counts":[1,1,1,2,2,3]})
             fig = data.bar("counts")
-            fig.write_html("figures/core_VastFrame_vDFPlot_bar_plotly_example2.html")
+            fig.write_html("SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_plotly_example2.html")
 
         .. code-block:: python
         
@@ -842,7 +842,7 @@ Example 2: Plotting Function (bar)
             data.bar("counts")
 
         .. raw:: html
-            :file: figures/core_VastFrame_vDFPlot_bar_plotly_example2.html
+            :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_plotly_example2.html
 
         ----
 
@@ -1250,7 +1250,7 @@ Example 4: Data Transformation (pivot)
 
             from vastorbit.datasets import load_smart_meters
             sm = load_smart_meters()
-            html_file = open("figures/core_VastFrame_aggregate_pivot_input.html", "w")
+            html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_aggregate_pivot_input.html", "w")
             html_file.write(sm.head(10)._repr_html_())
             html_file.close()
 
@@ -1261,7 +1261,7 @@ Example 4: Data Transformation (pivot)
             sm.head(10)
 
         .. raw:: html
-            :file: figures/core_VastFrame_aggregate_pivot_input.html
+            :file: SPHINX_DIRECTORY/figures/core_VastFrame_aggregate_pivot_input.html
 
         **Basic pivot table:**
 
@@ -1274,7 +1274,7 @@ Example 4: Data Transformation (pivot)
                 values="electricity",
                 aggr="sum"
             )
-            html_file = open("figures/core_VastFrame_aggregate_pivot_output.html", "w")
+            html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_aggregate_pivot_output.html", "w")
             html_file.write(pivoted.head(5)._repr_html_())
             html_file.close()
 
@@ -1289,7 +1289,7 @@ Example 4: Data Transformation (pivot)
             pivoted.head(5)
 
         .. raw:: html
-            :file: figures/core_VastFrame_aggregate_pivot_output.html
+            :file: SPHINX_DIRECTORY/figures/core_VastFrame_aggregate_pivot_output.html
 
         **Advanced aggregation:**
 
@@ -1427,4 +1427,4 @@ Key Takeaways
 
    - :ref:`contribution_guidelines.code.auto_doc` - Full documentation guide
    - :ref:`contribution_guidelines.code.auto_doc.render` - Preview locally
-   - `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_ - Official style guide
+   - `NumPy Docstring Guide <https://numpydoc.readthedocs.io/en/latest/format.html>`__ - Official style guide

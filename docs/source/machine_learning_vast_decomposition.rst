@@ -5,7 +5,6 @@ Decomposition & Preprocessing
 ===================================
 
 
-______
 
 Decomposition
 --------------

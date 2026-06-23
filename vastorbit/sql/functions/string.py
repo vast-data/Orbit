@@ -546,7 +546,7 @@ def soundex_matches(
     """
     expr1 = format_magic(expr1)
     expr2 = format_magic(expr2)
-    return StringSQL(f"SOUNDEX({expr1}) = SOUNDEX({expr2}))", "int")
+    return StringSQL(f"SOUNDEX({expr1}) = SOUNDEX({expr2})", "bool")
 
 
 # Hamming
@@ -628,4 +628,4 @@ def hamming_distance(
     """
     expr1 = format_magic(expr1)
     expr2 = format_magic(expr2)
-    return StringSQL(f"HAMMING_DISTANCE({expr1}, {expr2})", "float")
+    return StringSQL(f"HAMMING_DISTANCE({expr1}, {expr2})", "real")

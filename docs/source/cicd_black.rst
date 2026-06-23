@@ -4,7 +4,7 @@
 Black
 ======
 
-`Black <https://pypi.org/project/black/>`_ is a highly 
+`Black <https://pypi.org/project/black/>`__ is a highly 
 popular and powerful code formatting tool 
 for Python that automatically reformats Python code to comply 
 with a standardized style guide, known as PEP 8. Developed 

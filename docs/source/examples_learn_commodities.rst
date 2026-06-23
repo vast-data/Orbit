@@ -3,7 +3,7 @@
 Commodities
 ============
 
-This example uses the ``commodities`` dataset to predict the price of different commodities. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/winequality/winequality.ipynb>`_.
+This example uses the ``commodities`` dataset to predict the price of different commodities. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/winequality/winequality.ipynb>`__.
 
 - **date:** Date of the record.
 - **Gold:** Price per ounce of Gold.
@@ -362,7 +362,7 @@ Let's create the :py:mod:`~vastorbit.machine_learning.vast.tsa.arima.VAR` model 
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_commodities_table_ml_score.html
 
-Our model is excellent. Let's predict the values these commodities in the near future.
+Let's predict the values these commodities in the near future.
 
 Gold
 +++++
@@ -454,9 +454,15 @@ Dol_Eur:
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_commodities_table_pred_plot_4.html
 
-The model performs well but may be somewhat unstable. To improve it, we could apply data preparation techniques, such as seasonal decomposition, before building the :py:mod:`~vastorbit.machine_learning.vast.tsa.arima.VAR` model.
+The models may be somewhat unstable. To improve them, we could apply data preparation techniques, such as seasonal decomposition, before building the :py:mod:`~vastorbit.machine_learning.vast.tsa.arima.VAR` model.
 
 Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

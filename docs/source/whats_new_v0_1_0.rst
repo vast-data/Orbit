@@ -21,7 +21,7 @@ Welcome to the first release of **VAST Orbit** - Python data science for VAST Da
 
 .. important::
 
-   **Beta Status**: VAST Orbit 0.1.0 is in beta. Production-ready version 1.0.0 coming soon. API may change based on feedback. Report issues at **`vastsupport.slack.com <https://vastsupport.slack.com>`_**.
+   **Beta Status**: VAST Orbit 0.1.0 is in beta. Production-ready version 1.0.0 coming soon. API may change based on feedback. Report issues at **`vastsupport.slack.com <https://vastsupport.slack.com>`__**.
 
 ____
 
@@ -189,7 +189,7 @@ Getting Started
 
 **Support:**
 
-- Slack: `vastsupport.slack.com <https://vastsupport.slack.com>`_
+- Slack: `vastsupport.slack.com <https://vastsupport.slack.com>`__
 - GitHub: https://github.com/vastdata-dev/vastorbit
 
 ____

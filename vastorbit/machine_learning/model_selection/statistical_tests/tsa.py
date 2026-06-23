@@ -275,7 +275,7 @@ def adfuller(
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     Example 2: Stationary
     ^^^^^^^^^^^^^^^^^^^^^^
@@ -320,7 +320,7 @@ def adfuller(
         that there is stationarity.
 
         For more information, see
-        `Mann-Kendall Test <https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm>`_.
+        `Mann-Kendall Test <https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm>`__.
     """
     if isinstance(input_relation, VastFrame):
         vdf = input_relation.copy()
@@ -576,7 +576,7 @@ def mkt(
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     Example 1: No Trend
     ^^^^^^^^^^^^^^^^^^^^
@@ -621,7 +621,7 @@ def mkt(
         significant to disprove the null hypothesis.
 
         For more information check out
-        `this link <https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm>`_.
+        `this link <https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm>`__.
     """
     if isinstance(input_relation, VastFrame):
         vdf = input_relation.copy()
@@ -738,19 +738,19 @@ def cochrane_orcutt(
         A Linear Model with the different information
         stored as attributes:
 
-        - intercept_:
+        - ``intercept_``:
             Model's intercept.
 
-        - coef_:
+        - ``coef_``:
             Model's coefficients.
 
-        - pho_:
+        - ``pho_``:
             Cochrane-Orcutt pho.
 
-        - anova_table_:
+        - ``anova_table_``:
             ANOVA table.
 
-        - r2_:
+        - ``r2_``:
             R2 score.
 
     Examples

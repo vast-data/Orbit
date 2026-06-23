@@ -16,14 +16,14 @@ However, despite their wide adoption, research isn't mature enough to avoid prob
 Dataset
 ++++++++
 
-In this example of **predictive maintenance**, we propose a data-driven method to estimate the health of a battery using the `Li-ion battery dataset <https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/>`_ released by NASA.
+In this example of **predictive maintenance**, we propose a data-driven method to estimate the health of a battery using the `Li-ion battery dataset <https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/>`__ released by NASA.
 
 This dataset includes information on Li-ion batteries over several charge and discharge cycles at room temperature. Charging was at a constant current (CC) at 1.5A until the battery voltage reached 4.2V and then continued in a constant voltage (CV) mode until the charge current dropped to 20mA. 
 
 Discharge was at a constant current (CC) level of 2A until the battery voltage fell to 2.7V.
 
 You can download the Jupyter Notebook of the study 
-`here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/battery/battery.ipynb>`_.
+`here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/battery/battery.ipynb>`__.
 
 The dataset includes the following:
 
@@ -56,18 +56,32 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Before we import the data, we'll drop any existing schemas of the same name.
-
-.. ipython:: python
-
-    vo.drop("battery_data", method="schema")
-    vo.create_schema("battery_data", True)
-
 Let us now ingest the data.
 
-.. code-block:: python
+.. code-block::
 
-    battery5 = vo.read_csv("data/data.csv")
+    # load datasets as VastFrame objects
+    battery5  = vo.read_csv("battery.csv")
+
+    # Display
+    battery5
+
+.. ipython:: python
+    :suppress:
+
+    try:
+        battery5 = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/battery/battery.csv",
+        )
+    except:
+        battery5 = vo.VastFrame("battery")
+    res = battery5
+    html_file = open("SPHINX_DIRECTORY/figures/examples_battery5_table.html", "w")
+    html_file.write(res._repr_html_())
+    html_file.close()
+
+.. raw:: html
+    :file: SPHINX_DIRECTORY/figures/examples_battery5_table.html
 
 .. warning::
     
@@ -76,20 +90,6 @@ Let us now ingest the data.
 
 Understanding the Data
 -----------------------
-
-Let's examine our data. Here, we use :py:func:`~vastorbit.VastFrame.head` to retrieve the first five rows of the dataset.
-
-.. ipython:: python
-    :suppress:
-
-    battery5 = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/battery/data.csv",)
-    res = battery5
-    html_file = open("SPHINX_DIRECTORY/figures/examples_battery_table_head.html", "w")
-    html_file.write(res._repr_html_())
-    html_file.close()
-
-.. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_battery_table_head.html
 
 Let's perform a few aggregations with :py:func:`~vastorbit.VastFrame.describe` to get a high-level overview of the dataset.
 
@@ -156,7 +156,7 @@ To see how the voltage changes during the cycle, we extract the initial and fina
             ],
     ).sort("start_time")
     cycling_info["cycle_id"] = "ROW_NUMBER() OVER(ORDER BY start_time)"
-    cycling_info.head(100)
+    cycling_info
 
 .. ipython:: python
     :suppress:
@@ -188,7 +188,7 @@ To see how the voltage changes during the cycle, we extract the initial and fina
             ],
     ).sort("start_time")
     cycling_info["cycle_id"] = "ROW_NUMBER() OVER(ORDER BY start_time)"
-    res = cycling_info.head(100)
+    res = cycling_info
     html_file = open("SPHINX_DIRECTORY/figures/examples_battery_cycling_info.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -259,7 +259,7 @@ Let's examine how voltage changes between cycles and their transitions.
             "MAX(last_voltage_measured)  AS max_last_voltage",
         ],
     )
-    cycling_info.head(100)
+    cycling_info
 
 .. ipython:: python
     :suppress:
@@ -276,7 +276,7 @@ Let's examine how voltage changes between cycles and their transitions.
             "MAX(last_voltage_measured)  AS max_last_voltage",
         ],
     )
-    res = cycling_info.head(100)
+    res = cycling_info
     html_file = open("SPHINX_DIRECTORY/figures/examples_battery_cycling_info_after_groupby.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -327,21 +327,6 @@ But first we need to perform some preprocessing.
 Now we can plot the graphs. In vastorbit we have multiple options to plot the graphs with different syntax of customization. For a complete list of all the graphs and their options check out the :ref:`chart_gallery`.
 
 Now let's first try to plot this using Matplotlib:
-
-.. code-block:: python
-
-    import matplotlib.pyplot as plt
-    from matplotlib.pyplot import axhline
-
-    # Switch the plotting library to Matplotlib
-    vo.set_option("plotting_lib", "matplotlib")
-
-    fig = plt.figure()
-    ax = d_cap.plot(ts = "discharge_id", columns = ["Capacity", "smooth_capacity"])
-    ax.axhline(y = 1.4, label = "End-of-life criteria")
-    ax.set_title("Capacity degradation curve of the battery, its smoothed version and its end-of-life threshold")
-    ax.legend() 
-    plt.show()
 
 .. ipython:: python
 
@@ -457,14 +442,14 @@ Since measurements like voltage and temperature tend to differ within the differ
 
 .. code-block:: python
 
-    sample_cycle = battery5[battery5["Capacity"] == "1.83514614292266"]
+    sample_cycle = battery5[battery5["Capacity"] == 1.83514614292266]
     sample_cycle["Voltage_measured"].plot(ts = "Time")
     sample_cycle["Temperature_measured"].plot(ts = "Time")
 
 .. ipython:: python
     :suppress:
 
-    sample_cycle = battery5[battery5["Capacity"] == "1.83514614292266"]
+    sample_cycle = battery5[battery5["Capacity"] == 1.83514614292266]
     sample_cycle["Voltage_measured"].plot(ts = "Time")
     fig = sample_cycle["Temperature_measured"].plot(ts = "Time")
     fig.write_html("SPHINX_DIRECTORY/figures/examples_battery_temp_plot.html")
@@ -510,7 +495,7 @@ We'll define new features that describe the minimum and maximum temperature duri
         discharging_data,
         on_interpolate = {"start_time": "start_time"},
         how = "left",
-        expr1 = ["*"],
+        expr1 = discharge_cycle_metrics.get_columns(),
         expr2 = ["SOH AS SOH"],
     )
 
@@ -527,7 +512,7 @@ We'll define new features that describe the minimum and maximum temperature duri
     )
 
     # save it to db
-    final_df.to_db(name = "battery_data.finaldata_battery_5")
+    final_df.to_db(name = "finaldata_battery_5")
 
 .. ipython:: python
     :suppress:
@@ -566,7 +551,7 @@ We'll define new features that describe the minimum and maximum temperature duri
         discharging_data,
         on_interpolate = {"start_time": "start_time"},
         how = "left",
-        expr1 = ["*"],
+        expr1 = discharge_cycle_metrics.get_columns(),
         expr2 = ["SOH AS SOH"],
     )
 
@@ -599,7 +584,7 @@ Machine Learning
     from vastorbit.machine_learning.vast import LinearRegression, RandomForestRegressor, Ridge
 
     model = AutoML(
-        "battery_data.battery_autoML", 
+        "battery_autoML", 
         estimator = [
             RandomForestRegressor(),
             LinearRegression(),
@@ -608,7 +593,7 @@ Machine Learning
         estimator_type = "regressor"
     )
     model.fit(
-        "battery_data.finaldata_battery_5", 
+        "finaldata_battery_5", 
         X = [
             "min_temp",
             "max_temp",
@@ -626,9 +611,9 @@ Machine Learning
     from vastorbit.machine_learning.vast.automl import AutoML
     from vastorbit.machine_learning.vast import LinearRegression, RandomForestRegressor, Ridge
 
-    vo.drop("battery_data.battery_autoML")
+    vo.drop("battery_autoML")
     model = AutoML(
-        "battery_data.battery_autoML", 
+        "battery_autoML", 
         estimator = [
             RandomForestRegressor(),
             LinearRegression(),
@@ -637,7 +622,7 @@ Machine Learning
         estimator_type = "regressor"
     )
     model.fit(
-        "battery_data.finaldata_battery_5", 
+        "finaldata_battery_5", 
         X = [
             "min_temp",
             "max_temp",
@@ -676,8 +661,8 @@ We can now define the model using those hyperparameters and train it.
 .. code-block:: python
 
     # define a regression model based on the selected parameters
-    model_rf = LinearRegression(name = "btr_lr1", **params)
-    model_rf.fit(
+    final_model = LinearRegression(name = "btr_lr1", **params)
+    final_model.fit(
         final_df,
         X = [
             "min_temp",
@@ -692,18 +677,10 @@ We can now define the model using those hyperparameters and train it.
 .. ipython:: python
     :suppress:
 
-    # define a regression model based on the selected parameters
-    if "n_estimators" in params:
-        params.pop("n_estimators")
-    if "C" in params:
-        params.pop("C")
-    if "max_features" in params:
-        params.pop("max_features")
-    if "max_leaf_nodes" in params:
-        params.pop("max_leaf_nodes")        
+    # define a regression model based on the selected parameters      
     vo.drop("btr_lr1")
-    model_rf = LinearRegression(name = "btr_lr1", **params)
-    model_rf.fit(
+    final_model = LinearRegression(name = "btr_lr1", **params)
+    final_model.fit(
         final_df,
         X = [
             "min_temp",
@@ -717,12 +694,12 @@ We can now define the model using those hyperparameters and train it.
 
 .. code-block:: python
 
-    model_rf.regression_report()
+    final_model.regression_report()
 
 .. ipython:: python
     :suppress:
 
-    res = model_rf.regression_report()
+    res = final_model.regression_report()
     html_file = open("SPHINX_DIRECTORY/figures/examples_battery_reg_reprot.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -735,7 +712,7 @@ The predictive power of our model looks pretty good. Let's use our model to pred
 .. code-block:: python
 
     # take the predicted values and the plot them along the true ones
-    result = model_rf.predict(
+    result = final_model.predict(
         final_df, 
         name = "SOH_estimates",
     )
@@ -748,7 +725,7 @@ The predictive power of our model looks pretty good. Let's use our model to pred
     :suppress:
     :okwarning:
 
-    result = model_rf.predict(
+    result = final_model.predict(
         final_df, 
         name = "SOH_estimates"
     )
@@ -765,3 +742,9 @@ Conclusion
 -----------
 
 We successfully defined a battery degradation model that can make accurate predictions about the health of a Li-ion battery. This model could be used to, for example, accurately send warnings to users when their batteries meet the EOL criteria.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

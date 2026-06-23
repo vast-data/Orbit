@@ -3,21 +3,21 @@
 Smart Meters
 =============
 
-This example uses the following datasets to predict peoples' electricity consumption. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/smart_meters.ipynb>`_. We'll use the following datasets:
+This example uses the following datasets to predict peoples' electricity consumption. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/smart_meters.ipynb>`__. We'll use the following datasets:
 
-`sm_consumption <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_consumption.csv>`_
+`sm_consumption <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_consumption.csv>`__
 
 - **dateUTC:** Date and time of the record.
 - **meterID:** Smart meter ID.
 - **value:** Electricity consumed during 30 minute interval (in kWh).
 
-`sm_weather <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_weather.csv>`_
+`sm_weather <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_weather.csv>`__
 
 - **dateUTC:** Date and time of the record.
 - **temperature:** Temperature.
 - **humidity:** Humidity.
 
-`sm_meters <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_meters.csv>`_
+`sm_meters <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_meters.csv>`__
 
 - **longitude:** Longitude.
 - **latitude:** Latitude.
@@ -51,17 +51,17 @@ Create the :py:mod:`~vastorbit.VastFrame` of the datasets:
     sm_consumption = vo.read_csv(
         "sm_consumption.csv",
         dtype = {
-            "meterID": "Integer",
-            "dateUTC": "Timestamp(6)",
-            "value": "Float(22)",
+            "meterID": "INTEGER",
+            "dateUTC": "TIMESTAMP(6)",
+            "value": "REAL",
         }
     )
     sm_weather = vo.read_csv(
         "sm_weather.csv",
         dtype = {
-            "dateUTC": "Timestamp(6)",
-            "temperature": "Float(22)",
-            "humidity": "Float(22)",
+            "dateUTC": "TIMESTAMP(6)",
+            "temperature": "REAL",
+            "humidity": "REAL",
         }
     )
     sm_meters = vo.read_csv("sm_meters.csv")
@@ -70,29 +70,38 @@ Create the :py:mod:`~vastorbit.VastFrame` of the datasets:
 
 .. code-block:: python
 
-    sm_consumption.head(100)
+    sm_consumption
 
 .. ipython:: python
     :suppress:
 
-    sm_consumption = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/smart_meters/sm_consumption.csv",
-        dtype = {
-            "meterID": "Integer",
-            "dateUTC": "Timestamp(6)",
-            "value": "Float(22)",
-        }
-    )
-    sm_weather = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/smart_meters/sm_weather.csv",
-        dtype = {
-            "dateUTC": "Timestamp(6)",
-            "temperature": "Float(22)",
-            "humidity": "Float(22)",
-        }
-    )
-    sm_meters = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/smart_meters/sm_meters.csv")
-    res = sm_consumption.head(100)
+    try:
+        sm_consumption = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/smart_meters/sm_consumption.csv",
+            dtype = {
+                "meterID": "INTEGER",
+                "dateUTC": "TIMESTAMP(6)",
+                "value": "REAL",
+            }
+        )
+    except:
+        sm_consumption = vo.VastFrame("sm_consumption")
+    try:
+        sm_weather = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/smart_meters/sm_weather.csv",
+            dtype = {
+                "dateUTC": "TIMESTAMP(6)",
+                "temperature": "REAL",
+                "humidity": "REAL",
+            }
+        )
+    except:
+        sm_weather = vo.VastFrame("sm_weather")
+    try:
+        sm_meters = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/smart_meters/sm_meters.csv")
+    except:
+        sm_meters = vo.VastFrame("sm_meters")
+    res = sm_consumption
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_consumption_table_head.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -102,12 +111,12 @@ Create the :py:mod:`~vastorbit.VastFrame` of the datasets:
 
 .. code-block:: python
 
-    sm_weather.head(100)
+    sm_weather
 
 .. ipython:: python
     :suppress:
 
-    res = sm_weather.head(100)
+    res = sm_weather
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_weather_table_head.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -117,12 +126,12 @@ Create the :py:mod:`~vastorbit.VastFrame` of the datasets:
 
 .. code-block:: python
 
-    sm_meters.head(100)
+    sm_meters
 
 .. ipython:: python
     :suppress:
 
-    res = sm_weather.head(100)
+    res = sm_weather
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_meters_table_head.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -151,7 +160,7 @@ In vastorbit, you can interpolate joins; VAST will find the closest timestamp to
         expr1 = ["dateUTC", "meterID", "value"],
         expr2 = ["humidity", "temperature"],
     )
-    sm_consumption_weather.head(100)
+    sm_consumption_weather
 
 .. ipython:: python
     :suppress:
@@ -163,7 +172,7 @@ In vastorbit, you can interpolate joins; VAST will find the closest timestamp to
         expr1 = ["dateUTC", "meterID", "value"],
         expr2 = ["humidity", "temperature"],
     )
-    res = sm_consumption_weather.head(100)
+    res = sm_consumption_weather
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_consumption_weather_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -205,7 +214,7 @@ The dataset ``sm_meters`` is pretty important. In particular, the type of reside
 
     # Plotting the final map.
     df = world.to_geopandas(geometry = "geometry")
-    df = df[df["country"].isin(["Ireland", "United Kingdom"])]
+    df = df[df["name"].isin(["Ireland", "United Kingdom"])]
     ax = df.plot(
         edgecolor = "black",
         color = "white",
@@ -302,30 +311,32 @@ Let's join ``sm_meters`` with ``sm_consumption_weather``.
 
 .. code-block:: python
 
-    sm_consumption_weather_region = sm_consumption_weather.join(
+   sm_consumption_weather_region = sm_consumption_weather.join(
         sm_meters,
-        how = "natural",
+        how = "left",
+        on = {"meterid": "meterid"},
         expr1 = ["*"],
         expr2 = [
             "residenceType", 
             "region",
         ],
     )
-    sm_consumption_weather_region.head(100)
+    sm_consumption_weather_region
 
 .. ipython:: python
     :suppress:
 
     sm_consumption_weather_region = sm_consumption_weather.join(
         sm_meters,
-        how = "natural",
+        how = "left",
+        on = {"meterid": "meterid"},
         expr1 = ["*"],
         expr2 = [
             "residenceType", 
             "region",
         ],
     )
-    res = sm_consumption_weather_region.head(100)
+    res = sm_consumption_weather_region
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_consumption_weather_region_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -394,7 +405,7 @@ To get an equally-sliced dataset, we can then interpolate to fill any gaps. This
 
     sm_consumption_weather_region_clean = sm_consumption_weather_region_clean.interpolate(
         ts = "dateUTC",
-        rule = "30 minutes",
+        rule = "2 hours",
         method = {
             "value": "linear",
             "humidity": "linear",
@@ -404,14 +415,14 @@ To get an equally-sliced dataset, we can then interpolate to fill any gaps. This
         },
         by = ["meterID"],
     )
-    sm_consumption_weather_region_clean.head(100)
+    sm_consumption_weather_region_clean
 
 .. ipython:: python
     :suppress:
 
     sm_consumption_weather_region_clean = sm_consumption_weather_region_clean.interpolate(
         ts = "dateUTC",
-        rule = "30 minutes",
+        rule = "2 hours",
         method = {
             "value": "linear",
             "humidity": "linear",
@@ -421,7 +432,7 @@ To get an equally-sliced dataset, we can then interpolate to fill any gaps. This
         },
         by = ["meterID"],
     )
-    res = sm_consumption_weather_region_clean.head(100)
+    res = sm_consumption_weather_region_clean
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_consumption_weather_region_clean_1.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -435,8 +446,8 @@ Let's aggregate the data to figure out the monthly energy consumption for each s
 
     import vastorbit.sql.functions as fun
 
-    sm_consumption_weather_region_clean["month"] = "MONTH(dateUTC)"
-    sm_consumption_weather_region_clean["date_month"] = "DATE_TRUNC('MONTH', dateUTC::date)"
+    sm_consumption_weather_region_clean["month"] = "MONTH(CAST(dateUTC AS date))"
+    sm_consumption_weather_region_clean["date_month"] = "DATE_TRUNC('MONTH', CAST(dateUTC AS date))"
     sm_consumption_month = sm_consumption_weather_region_clean.groupby(
         columns = [
             "meterID",
@@ -451,7 +462,7 @@ Let's aggregate the data to figure out the monthly energy consumption for each s
             fun.avg(sm_consumption_weather_region["humidity"])._as("avg_humidity"),
         ],
     ).filter(
-        "date_month < '2015-09-01'",
+        "date_month < CAST('2015-09-01' AS DATE)",
     )
     vo.drop("sm_consumption_month", method = "table")
     sm_consumption_month.to_db(
@@ -465,8 +476,8 @@ Let's aggregate the data to figure out the monthly energy consumption for each s
 
     import vastorbit.sql.functions as fun
 
-    sm_consumption_weather_region_clean["month"] = "MONTH(dateUTC)"
-    sm_consumption_weather_region_clean["date_month"] = "DATE_TRUNC('MONTH', dateUTC::date)"
+    sm_consumption_weather_region_clean["month"] = "MONTH(CAST(dateUTC AS date))"
+    sm_consumption_weather_region_clean["date_month"] = "DATE_TRUNC('MONTH', CAST(dateUTC AS date))"
     sm_consumption_month = sm_consumption_weather_region_clean.groupby(
         columns = [
             "meterID",
@@ -644,7 +655,7 @@ Since most of our data is categorical, let's encode them with One-hot encoding. 
         drop_first = False,
         max_cardinality = 20,
     )
-    sm_consumption_month.head(100)
+    sm_consumption_month
 
 .. ipython:: python
     :suppress:
@@ -654,7 +665,7 @@ Since most of our data is categorical, let's encode them with One-hot encoding. 
         drop_first = False,
         max_cardinality = 20,
     )
-    res = sm_consumption_month.head(100)
+    res = sm_consumption_month
     html_file = open("SPHINX_DIRECTORY/figures/examples_sm_consumption_month_clean_4.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -734,10 +745,11 @@ We expect to see a fall in energy consumption during summer and then an increase
 
 .. code-block:: python
 
-    sm_consumption_final["prediction"] = fun.case_when(
-        sm_consumption_final["date_month"] < '2015-01-01', sm_consumption_final["avg_value"],
-        fun.lag(sm_consumption_final["avg_value"], 12)._over(order_by = ["date_month"]),
-    )
+    sm_consumption_final["prediction"] = """
+        CASE WHEN "date_month" < CAST('2015-01-01' AS DATE) THEN "avg_value"
+             ELSE LAG("avg_value", 12) OVER (ORDER BY "date_month")
+             END
+    """
     sm_consumption_final.plot(ts = "date_month", columns = ["prediction", "avg_value"])
 
 .. ipython:: python
@@ -745,10 +757,11 @@ We expect to see a fall in energy consumption during summer and then an increase
 
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
-    sm_consumption_final["prediction"] = fun.case_when(
-        sm_consumption_final["date_month"] < '2015-01-01', sm_consumption_final["avg_value"],
-        fun.lag(sm_consumption_final["avg_value"], 12)._over(order_by = ["date_month"]),
-    )
+    sm_consumption_final["prediction"] = """
+        CASE WHEN "date_month" < CAST('2015-01-01' AS DATE) THEN "avg_value"
+             ELSE LAG("avg_value", 12) OVER (ORDER BY "date_month")
+             END
+    """
     fig = sm_consumption_final.plot(ts = "date_month", columns = ["prediction", "avg_value"])
     fig.write_html("SPHINX_DIRECTORY/figures/examples_sm_consumption_final_8.html")
 
@@ -800,7 +813,7 @@ Let's create our model.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_sm_consumption_model_report_9.html
 
-The model seems to be good with an adjusted ``R2`` of ``77.5%``, and the F-Statistic indicates that at least one of the two predictors is useful. Let's look at the residual plot.
+The model seems to be good with an adjusted ``R2`` of ``79%+``, and the F-Statistic indicates that at least one of the two predictors is useful. Let's look at the residual plot.
 
 .. code-block:: python
 
@@ -833,7 +846,7 @@ Looking at the residual plot, we can see that the error variance varies by quite
 
     het_breuschpagan(sm_consumption_final, "residual", predictors)
 
-The ``p-value`` is ``4.81%`` and sits around the ``5%`` threshold, so we can't really draw any conclusions.
+The ``p-value`` is ``8%`` and sits above the ``5%`` threshold, so we can't really draw any conclusions.
 
 Let's look at the entire regression report.
 
@@ -861,3 +874,9 @@ Conclusion
 -----------
 
 We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

@@ -533,7 +533,7 @@ class TableSample:
     def category(self, column: str) -> Literal[
         "bool",
         "date",
-        "float",
+        "real",
         "int",
         "undefined",
         "text",
@@ -611,7 +611,7 @@ class TableSample:
             if isinstance(xi, (int, np.int_)):
                 return "int"
             if isinstance(xi, (float, np.float64)):
-                return "float"
+                return "real"
             if isinstance(xi, (datetime.datetime, datetime.date)):
                 return "date"
         return "undefined"

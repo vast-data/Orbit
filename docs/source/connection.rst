@@ -8,7 +8,7 @@ Connection
 
 **Connecting to VAST Data Platform with VAST Orbit**
 
-VAST Orbit connects to the VAST Data Platform through Trino, the powerful distributed SQL query engine. This connection unlocks access to VAST DataBase tables, data lake files, and any other Trino-supported data source - all through one unified Python API.
+VAST Orbit connects to the VAST Data Platform through Trino today, a powerful distributed SQL query engine (VAST's own engine is coming). This connection unlocks access to VAST DataBase tables, data lake files, and any other Trino-supported data source - all through one unified Python API.
 
 .. important::
 
@@ -17,24 +17,24 @@ VAST Orbit connects to the VAST Data Platform through Trino, the powerful distri
 Connection Overview
 -------------------
 
-VAST Orbit leverages **Trino** as the query engine to access:
+Today, VAST Orbit reaches your data through **Trino**, and that is what gives a single
+Python session reach across so many systems at once. (VAST's own query engine is on
+the way and will become the default; because the API stays the same, none of the code
+on this page changes when it does.) Through Trino it can read tables in
+VAST's unified transactional and analytical database, query Parquet, CSV, and JSON
+files sitting in S3 or the VAST DataStore, connect to external databases such as
+PostgreSQL, MySQL, and MongoDB (and thirty-plus other sources), tap streaming topics
+in Kafka or Pulsar, and address any other catalog configured in Trino.
 
-- **VAST DataBase**: Tables in VAST's unified transactional/analytical database
-- **Data Lake Files**: Parquet, CSV, JSON files in S3/VAST DataStore
-- **External Databases**: PostgreSQL, MySQL, MongoDB, and 30+ other sources
-- **Streaming Data**: Kafka, Pulsar topics
-- **Any Trino Catalog**: Federated access across all configured data sources
-
-This federated architecture means you can:
-
-✓ Query VAST tables and S3 files in the same Python code  
-✓ Join data across multiple databases without ETL  
-✓ Access live and historical data simultaneously  
-✓ Use familiar pandas-like syntax for everything  
+In practice that federation means you can query VAST tables and S3 files in the same
+piece of code, join data across several databases without building an ETL pipeline
+first, work with live and historical data side by side, and do all of it with the
+familiar pandas-like syntax VAST Orbit provides — the connection details below are
+the only setup that stands between you and that.
 
 .. note::
 
-   VAST Orbit uses the `trino-python-client <https://github.com/trinodb/trino-python-client>`_ under the hood, providing full access to Trino's capabilities.
+   VAST Orbit uses the `trino-python-client <https://github.com/trinodb/trino-python-client>`__ under the hood, providing full access to Trino's capabilities.
 
 Quick Start Connection
 ----------------------
@@ -453,14 +453,14 @@ To query Parquet, CSV, or JSON files, configure Hive catalog in Trino:
        'schema': 'default'
    })
 
-   # Query Parquet files
-   vdf = vo.VastFrame.from_parquet('s3://bucket/path/data.parquet')
+   # Parquet is read in place: it's exposed through the hive catalog, so you just
+   # reference it as a table (catalog.schema.table — the bucket is sometimes part
+   # of it). Trino federation reads the files directly; there is no load step.
+   vdf = vo.VastFrame('hive.default.events')
 
-   # Query CSV files
-   vdf = vo.VastFrame.from_csv('s3://bucket/data.csv')
-
-   # Query JSON files
-   vdf = vo.VastFrame.from_json('s3://bucket/data.json')
+   # CSV and JSON files that need ingesting use the read_* helpers
+   vdf = vo.read_csv('s3://bucket/data.csv')
+   vdf = vo.read_json('s3://bucket/data.json')
 
 Direct File Querying
 ^^^^^^^^^^^^^^^^^^^^
@@ -469,11 +469,9 @@ Create external tables on-the-fly:
 
 .. code-block:: python
 
-   # Define file location and format
-   file_location = 's3://data-lake/sales/2024/'
-   
-   # Query directly (VAST Orbit creates temp external table)
-   vdf = vo.read_parquet(file_location, catalog='hive', schema='temp')
+   # Point a VastFrame at the location exposed in the hive catalog and query it
+   # directly — catalog.schema.table, no temp table to manage yourself.
+   vdf = vo.VastFrame('hive.temp.sales_2024')
 
 Troubleshooting
 ---------------
@@ -608,26 +606,23 @@ Complete production-ready connection setup:
    # Connect
    try:
        vo.new_connection(conn_config)
-       print(f"✓ Connected to: {vo.current_connection()}")
+       print(f"Connected to: {vo.current_connection()}")
    except Exception as e:
        print(f"✗ Connection failed: {e}")
        raise
 
 Conclusion
-==========
+----------
 
-VAST Orbit's connection to the VAST Data Platform via Trino unlocks endless possibilities:
-
-✓ Query VAST DataBase tables  
-✓ Access data lake files directly  
-✓ Join across multiple data sources  
-✓ Use familiar Python syntax for everything  
-
-With your connection established, you're ready to explore the full power of VAST Orbit for federated analytics and AI development.
+With a connection in place, VAST Orbit can query VAST DataBase tables, read data-lake
+files directly, join across multiple sources in a single query, and let you do all of
+it with familiar Python. That is the whole point of connecting through Trino: one
+session, every source, no data movement. From here you are ready to explore the full
+power of VAST Orbit for federated analytics and AI development.
 
 .. seealso::
 
    - :ref:`getting_started` - Quick start guide
    - :ref:`user_guide` - VastFrame operations and federated queries
-   - `Trino Documentation <https://trino.io/docs/current/>`_ - Trino reference
-   - `VAST Data Platform <https://www.vastdata.com/platform/database>`_ - VAST overview
+   - `Trino Documentation <https://trino.io/docs/current/>`__ - Trino reference
+   - `VAST Data Platform <https://www.vastdata.com/platform/database>`__ - VAST overview

@@ -15,7 +15,7 @@ You must always verify that all the assumptions of a given algorithm are met bef
 
 Most of regression models are sensitive to unnormalized data, so it's important to normalize and decompose your data before using them (though some models like random forest can handle unnormalized and correlated data). If we don't follow the assumptions, we might get unexpected results (example: negative ``R2``).
 
-Let's predict the total charges of the Telco customers using their tenure. We will start by importing `the telco dataset <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`_.
+Let's predict the total charges of the Telco customers using their tenure. We will start by importing `the telco dataset <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`__.
 
 .. code-block:: ipython
     

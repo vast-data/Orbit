@@ -205,7 +205,7 @@ class Clustering(Unsupervised):
             points to display.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -329,40 +329,40 @@ class KMeans(Clustering):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    clusters_: numpy.array
+    ``clusters_``: numpy.array
         Cluster centers.
-    p_: int
+    ``p_``: int
         The ``p`` of the ``p``-distances.
-    between_clusters_ss_: float
+    ``between_clusters_ss_``: float
         The between-cluster sum of squares (BSS) measures
         the dispersion between different clusters and is
         an important metric in evaluating the effectiveness
         of a clustering algorithm.
-    total_ss_: float
+    ``total_ss_``: float
         The total sum of squares (TSS) is used to assess
         the total dispersion of data points from the overall
         mean, providing a basis for evaluating the clustering
         algorithm's performance.
-    total_within_clusters_ss_: float
+    ``total_within_clusters_ss_``: float
         The within-cluster sum of squares (WSS) gauges the
         dispersion of data points within individual clusters
         in a clustering analysis. It reflects the compactness
         of clusters and is instrumental in evaluating the
         homogeneity of the clusters produced by the algorithm.
-    elbow_score_: float
+    ``elbow_score_``: float
         The elbow score. It helps identify the optimal number
         of clusters by observing the point where the rate of
         WSS reduction slows down, resembling the bend or
         'elbow' in the plot, indicative of an optimal clustering
         solution. The bigger the better.
-    converged_: boolean
+    ``converged_``: boolean
         True if the model converged.
 
     .. note::
@@ -843,7 +843,7 @@ class KMeans(Clustering):
         chart: PlottingObject, optional
             The chart object
             to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -962,14 +962,14 @@ class BisectingKMeans(KMeans, Tree):
         model with the same name as an
         existing model overwrites the
         existing model.
-    **kwargs: SKLEARN model parameters.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
     Many attributes are created
     during the fitting phase.
 
-    cluster_centers_, labels_, inertia_, n_features_in_, feature_names_in_
+    ``cluster_centers_``, ``labels_``, ``inertia_``, ``n_features_in_``, ``feature_names_in_``
 
     .. note::
 
@@ -1229,7 +1229,7 @@ class BisectingKMeans(KMeans, Tree):
         render nicely in jupyter environment.
 
     In order to plot graph using
-    `graphviz <https://graphviz.org/>`_
+    `graphviz <https://graphviz.org/>`__
     separately, you can extract the
     graphviz DOT file code as follows:
 
@@ -1690,7 +1690,7 @@ class BisectingKMeans(KMeans, Tree):
         pic_path: str, optional
             Absolute path to save
             the image of the tree.
-        *args, **kwargs: Any, optional
+        *args, ``**kwargs``: Any, optional
             Arguments to pass to the
             ``to_graphviz`` method.
 
@@ -1834,11 +1834,11 @@ class DBSCAN(VASTModel):
     Many attributes are created
     during the fitting phase.
 
-    n_clusters_: int
+    ``n_clusters_``: int
         Number of clusters.
-    p_: int
+    ``p_``: int
         The ``p`` of the ``p``-distances.
-    n_noise_: int
+    ``n_noise_``: int
         Number of outliers.
 
     .. note::
@@ -2468,7 +2468,7 @@ class DBSCAN(VASTModel):
             points to display.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 
@@ -2594,11 +2594,11 @@ class NearestCentroid(MulticlassClassifier):
     Many attributes are created
     during the fitting phase.
 
-    clusters_: numpy.array
+    ``clusters_``: numpy.array
         Cluster centers.
-    p_: int
+    ``p_``: int
         The ``p`` of the ``p``-distances.
-    classes_: numpy.array
+    ``classes_``: numpy.array
         The classes labels.
 
     .. note::
@@ -2888,7 +2888,7 @@ class NearestCentroid(MulticlassClassifier):
         allows the flexibility to use three averaging
         techniques: ``micro``, ``macro`` and ``weighted``.
         Please refer to
-        `this link <https://towardsdatascience.com/micro-macro-weighted-averages-of-f1-score-clearly-explained-b603420b292f>`_
+        `this link <https://towardsdatascience.com/micro-macro-weighted-averages-of-f1-score-clearly-explained-b603420b292f>`__
         for more details on how they are calculated.
 
     Prediction

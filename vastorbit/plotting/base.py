@@ -1429,7 +1429,7 @@ class PlottingBase(PlottingBaseSQL):
                                   * {interval} 
                                   + {interval}{floor_end} AS VARCHAR) 
                           || ']'"""
-                if (interval > 1) or (vdf[column].category() == "float"):
+                if (interval > 1) or (vdf[column].category() == "real"):
                     matrix += [expr]
                 else:
                     matrix += [

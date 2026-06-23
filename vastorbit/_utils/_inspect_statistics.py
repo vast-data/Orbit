@@ -28,7 +28,7 @@ def count_functions_classes_methods(
     module_name: str
         Name of the module
         to inspect.
-    class_: str, optional
+    ``class_``: str, optional
         Class to inspect.
 
     Returns
@@ -175,7 +175,6 @@ def summarise_vastorbit_functions():
     """
     f = count_vastorbit_functions()
     res = []
-    res += [("VAST Utils", "QueryProfiler", f["QueryProfiler"][2])]
     res += [("Loaders & Generators", "Loaders", f["Loaders"][0])]
     res += [("Loaders & Generators", "Generators", f["Generators"][0])]
     res += [("Data Visualization Functions", "Matplotlib", f["Plotting Matplotlib"][1])]
@@ -309,7 +308,7 @@ def vastorbit_stats_vdf() -> "VastFrame":
     return create_new_vdf(res)
 
 
-def summarise_vastorbit_chart(kind: str = "barh") -> PlottingObject:
+def summarise_vastorbit_chart(kind: str = "pie") -> PlottingObject:
     """
     Returns a summary of the
     entire vastorbit as a
@@ -359,7 +358,6 @@ def summarise_vastorbit_chart(kind: str = "barh") -> PlottingObject:
             method="sum",
             of="number",
             max_cardinality=1000,
-            kind="drilldown",
             categoryorder="total desc",
         )
     elif kind == "pie":

@@ -23,7 +23,7 @@ class ConversionError(Exception):
 
         def is_convertible(dtype: str):
 
-            if dtype != "float":
+            if dtype != "real":
 
                 raise ConversionError(
                     "The function exclusively accepts float values."

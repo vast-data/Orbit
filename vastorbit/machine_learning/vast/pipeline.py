@@ -141,7 +141,7 @@ class Pipeline:
             New parameters.  It must be a  dictionary with
             the  Pipeline names as keys and the parameter
             dictionary as values.
-        **kwargs
+        ``**kwargs``
             New parameters can also be passed as arguments.
             Example: set_params(pipeline1 = dict1,
                                 pipeline2 = dict2)

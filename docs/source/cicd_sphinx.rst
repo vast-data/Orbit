@@ -6,7 +6,7 @@ Automated Documentation using Sphinx
 =====================================
 
 
-`Sphinx <https://www.sphinx-doc.org/en/master/tutorial/automatic-doc-generation.html>`_ 
+`Sphinx <https://www.sphinx-doc.org/en/master/tutorial/automatic-doc-generation.html>`__ 
 is a widely used tool in the Python ecosystem that 
 automates the generation of documentation for software 
 projects. It streamlines the process of creating and 

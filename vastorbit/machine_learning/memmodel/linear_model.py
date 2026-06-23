@@ -107,7 +107,7 @@ class LinearModel(InMemoryModel):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -523,7 +523,7 @@ class LinearModelClassifier(LinearModel):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 

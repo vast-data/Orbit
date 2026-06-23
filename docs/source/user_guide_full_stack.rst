@@ -9,6 +9,7 @@ Advanced techniques for end-to-end data science workflows.
 ____
 
 .. grid:: 1 2 2 2
+    :class-container: feature-tiles
 
     .. grid-item::
 

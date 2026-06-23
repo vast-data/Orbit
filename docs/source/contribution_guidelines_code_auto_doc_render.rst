@@ -16,7 +16,7 @@ Quick Start
 **Two Options:**
 
 1. **Simple Testing** - Test single file (recommended for quick checks)
-2. **Full Setup** - Complete Sphinx environment (see `Sphinx Quickstart <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_)
+2. **Full Setup** - Complete Sphinx environment (see `Sphinx Quickstart <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`__)
 
 ____
 
@@ -237,4 +237,4 @@ ____
 
    - :ref:`contribution_guidelines.code.auto_doc` - Complete documentation guide
    - :ref:`contribution_guidelines.code.auto_doc.example` - Docstring examples
-   - `Sphinx Documentation <https://www.sphinx-doc.org/>`_ - Official Sphinx docs
+   - `Sphinx Documentation <https://www.sphinx-doc.org/>`__ - Official Sphinx docs

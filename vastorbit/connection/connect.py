@@ -26,6 +26,26 @@ Connecting to the DB.
 """
 
 
+# Default Trino session properties applied to every vastorbit connection.
+DEFAULT_SESSION_PROPERTIES = {
+    "query_max_stage_count": "300",
+    "distinct_aggregations_strategy": "single_step",
+}
+
+
+def _build_session_properties(connection_config: Optional[dict] = None) -> dict:
+    """
+    Merge the default session properties with any "session.<name>" overrides
+    found in the connection config.
+    """
+    session_properties = dict(DEFAULT_SESSION_PROPERTIES)
+    if connection_config:
+        for key, val in connection_config.items():
+            if isinstance(key, str) and key.startswith("session."):
+                session_properties[key[len("session.") :]] = str(val)
+    return session_properties
+
+
 def auto_connect() -> None:
     """
     Automatically creates
@@ -510,6 +530,9 @@ def vast_connection(
             "Authorization": f"Bearer {connection_config['oauth_access_token']}"
         }
 
+    # Session properties (defaults + any "session.*" overrides from the config).
+    trino_params["session_properties"] = _build_session_properties(connection_config)
+
     return trino.dbapi.connect(**trino_params)
 
 
@@ -572,6 +595,7 @@ def vastorbitlab_connection() -> Any:
         "user": "admin",
         "catalog": "vast",
         "schema": "default",
+        "session_properties": _build_session_properties(),
     }
     return trino.dbapi.connect(**conn_info)
 

@@ -33,12 +33,12 @@ def current_session() -> int:
         | :py:meth:`~vastorbit.username` : current DB username.
         | :py:meth:`~vastorbit.has_privileges` : checks user privileges.
     """
-    res = _executeSQL(
-        query="SELECT /*+LABEL(current_session)*/ CURRENT_SESSION();",
-        method="fetchfirstelem",
-        print_time_sql=False,
-    )
-    return int(res.split(":")[1], base=16)
+    # Trino has no CURRENT_SESSION() function. VAST Orbit already assigns a
+    # per-process hex session identifier on the client side, so use that instead
+    # of a database round-trip — it is the value the vastorbit logs key on.
+    from vastorbit.connection.global_connection import VASTORBIT_SESSION_IDENTIFIER
+
+    return int(VASTORBIT_SESSION_IDENTIFIER, base=16)
 
 
 def username() -> str:

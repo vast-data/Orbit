@@ -4,7 +4,7 @@
 Pylint
 =======
 
-`Pylint <https://pypi.org/project/pylint/#:~:text=What%20is%20Pylint%3F,code%20without%20actually%20running%20it.>`_ 
+`Pylint <https://pypi.org/project/pylint/#:~:text=What%20is%20Pylint%3F,code%20without%20actually%20running%20it.>`__ 
 is a powerful static code analysis tool for Python 
 that evaluates code against a set of coding standards and 
 identifies potential errors, stylistic issues, and other 

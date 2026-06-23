@@ -1,39 +1,36 @@
 .. _getting_started:
 
-=================
+===============
 Getting Started
-=================
+===============
 
 .. include:: logo_include.rst
 
-Welcome to VAST Orbit, the Python library for in-database data science on VAST Database. Prepare data, explore interactively, and build ML models - all with zero data movement.
+VAST Orbit is the open-source Python library for in-database data science on the
+VAST Data Platform. This guide takes you from an empty environment to your first
+in-database query: install the library, connect to VAST, and prepare,
+explore, and model your data without ever moving it.
 
 Overview
 --------
 
-VAST Orbit brings complete data science workflows to VAST Database with in-database execution at any scale.
-
-**In-Database Data Science:**
-
-- **Data Preparation**: Clean, transform, engineer features directly in VAST
-- **Interactive Exploration**: Generate charts and visualize billions of rows
-- **Advanced Analytics**: 400+ functions executing in VAST
-- **Machine Learning**: Train and deploy models for in-database inference
-- **Multi-Source Access**: Query VAST tables, files, and external databases
-- **Zero Data Movement**: All processing where data lives
+Everything you would normally do in a notebook — clean and shape data, explore it
+with charts, run analytics, and train and score models — VAST Orbit does directly
+inside VAST, with the pandas- and scikit-learn-style API you already know. Because
+the work executes where the data lives, the same code runs unchanged whether you are
+holding a few megabytes or many petabytes, and nothing leaves the platform except the
+results you ask for.
 
 What is VAST Database?
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-VAST Database is a unified transactional and analytical database designed for AI:
-
-- **Unified Architecture**: ACID transactions + analytics in one system
-- **Columnar Storage**: Optimized for data science workloads
-- **Sub-ms Latency**: Flash-native performance at exabyte scale
-- **Linear Scaling**: From gigabytes to exabytes seamlessly
-- **File & Table Access**: Query tables and files with same API
-
-Learn more at the `VAST Database documentation <https://www.vastdata.com/platform/database>`_.
+VAST Database is a unified transactional and analytical database built for AI. It
+combines ACID transactions with analytics in a single system, stores data in a
+columnar format tuned for data-science workloads, and delivers flash-native,
+sub-millisecond latency that scales linearly from gigabytes to exabytes. Crucially,
+it lets you query tables and files through the same interface — which is exactly what
+lets VAST Orbit treat your whole estate as one surface. Learn more in the
+`VAST Database documentation <https://www.vastdata.com/platform/database>`__.
 
 Installation
 ------------
@@ -41,43 +38,33 @@ Installation
 Prerequisites
 ^^^^^^^^^^^^^
 
-**System Requirements:**
-
-- Python 3.12 or higher
-- Linux or macOS
-- Network access to VAST cluster
-
-**VAST Infrastructure:**
-
-- VAST Database 5.0.0-sp10 or later
-- Access credentials
-- Virtual IP pool configured
+You will need Python 3.12 or newer on Linux or macOS, network access to your VAST
+cluster, and a VAST deployment running **VAST 4.5 or later** with access credentials
+and a configured virtual IP pool.
 
 Installing VAST Orbit
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+
+Install the library with pip:
 
 .. code-block:: bash
 
    pip install vastorbit
 
-For development:
+For a development setup that includes the test and docs tooling:
 
 .. code-block:: bash
 
    pip install vastorbit[dev]
 
-Installing Jupyter Lab (Optional)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-For interactive workflows:
+If you work in notebooks, Jupyter Lab pairs well with VAST Orbit's interactive charts:
 
 .. code-block:: bash
 
    pip install jupyterlab
    jupyter lab
 
-Verify Installation
-^^^^^^^^^^^^^^^^^^^
+Verify the installation by importing the package and printing its version:
 
 .. code-block:: python
 
@@ -85,14 +72,14 @@ Verify Installation
    print(vo.__version__)
 
 .. note::
-   
-   Version 0.1.0 is in beta. Production-ready 1.0.0 coming soon.
 
-Quick Start
+   Version 0.1.x is a beta; a production-ready 1.0.0 is on the way.
+
+Quick start
 -----------
 
-5-Minute Tutorial
-^^^^^^^^^^^^^^^^^
+The fastest way to understand VAST Orbit is to run a short workflow end to end. Each
+step below executes inside VAST.
 
 **1. Connect to VAST Database**
 
@@ -101,199 +88,167 @@ Quick Start
    import vastorbit as vo
 
    vo.new_connection({
-       'host': 'your-vast-cluster.com',
-       'port': 8080,
-       'catalog': 'your_catalog',
-       'schema': 'your_schema',
-       'user': 'your_username',
-       'http_scheme': 'https'
+       "host": "your-vast-cluster.com",
+       "port": 8080,
+       "catalog": "your_catalog",
+       "schema": "your_schema",
+       "user": "your_username",
+       "http_scheme": "https",
    })
 
-**2. Load Data**
+.. note::
+
+   Today VAST Orbit connects through Trino; VAST's own query engine is coming and
+   will become the default. Because the API is the same, your code won't change when
+   it does.
+
+**2. Load data**
+
+A :py:class:`~VastFrame` is a handle to data in VAST — creating one does not pull
+anything into Python.
 
 .. code-block:: python
 
-   # From VAST table
-   vdf = vo.VastFrame('customer_data')
+   # A VAST table, addressed as catalog.schema.table
+   vdf = vo.VastFrame("vast_catalog.analytics.customer_data")
 
-   # From Parquet files
-   vdf = vo.VastFrame.from_parquet('s3://bucket/path/')
+   # Parquet in the data lake is exposed through the hive catalog, so you just
+   # reference it as a table - Trino reads it in place, with no load step
+   vdf = vo.VastFrame("hive.default.transactions")
 
-   # From CSV files
-   vdf = vo.VastFrame.from_csv('s3://bucket/data.csv')
+   # CSV or JSON files that need ingesting use the read_* helpers
+   vdf = vo.read_csv("s3://bucket/data.csv")
+   vdf = vo.read_json("s3://bucket/data.json")
 
-   # Preview
    vdf.head(10)
 
-**3. Data Preparation - In VAST**
+**3. Prepare the data — in VAST**
 
 .. code-block:: python
 
-   # Clean data - all executes in VAST
-   vdf = vdf.fillna({'income': 0, 'age': vdf['age'].avg()})
+   vdf = vdf.fillna({"income": 0, "age": vdf["age"].avg()})
    vdf = vdf.drop_duplicates()
-   
-   # Transform
-   vdf['income_normalized'] = vdf.normalize('income')
-   
-   # Profile
+   vdf["income_normalized"] = vdf.normalize("income")
    vdf.describe()
 
-**4. Explore with Charts**
+**4. Explore with charts**
+
+Charts are drawn from intelligent samples, so they are instant even on very large
+tables.
 
 .. code-block:: python
 
-   # Histogram with intelligent sampling
-   vdf['age'].hist(nbins=20)
-   
-   # Scatter plot
-   vdf.scatter(['income', 'spending'])
-   
-   # Correlation matrix
+   vdf["age"].hist(nbins=20)
+   vdf.scatter(["income", "spending"])
    vdf.corr()
 
-**5. Analytics - In VAST**
+**5. Run analytics — in VAST**
 
 .. code-block:: python
 
-   # Filter (executes in VAST)
-   filtered = vdf[vdf['amount'] > 1000]
+   filtered = vdf[vdf["amount"] > 1000]
 
-   # Aggregate
    result = vdf.groupby(
-      ['region'],
-      [
-         'sum(revenue) AS total_revenue', 
-         'count(*) AS num_customers',
-         'avg(transaction) AS avg_transaction'
-      ]
+       ["region"],
+       [
+           "sum(revenue) AS total_revenue",
+           "count(*) AS num_customers",
+           "avg(transaction) AS avg_transaction",
+       ],
    )
 
-**6. Join Across Sources**
+**6. Join across sources**
 
 .. code-block:: python
 
-   # Join VAST table with files
-   customers = vo.VastFrame('vast_catalog.customers')
-   transactions = vo.VastFrame.from_parquet('s3://lake/transactions/')
-   
-   result = customers.join(
-       transactions, 
-       on='customer_id',
-       how='inner'
-   )
+   customers = vo.VastFrame("vast_catalog.analytics.customers")
+   transactions = vo.VastFrame("hive.lake.transactions")   # parquet via hive catalog
 
-**7. Machine Learning**
+   result = customers.join(transactions, on="customer_id", how="inner")
+
+**7. Train and deploy a model**
 
 .. code-block:: python
 
-   # Train with VAST Orbit's embedded model
    from vastorbit.machine_learning.vast import RandomForestClassifier
-   
+
    model = RandomForestClassifier()
-   model.fit(vdf, ['feature1', 'feature2'], 'target')
+   model.fit(vdf, ["feature1", "feature2"], "target")
 
-   # In-database inference - no data movement!
-   predictions = model.predict(vdf)
+   predictions = model.predict(vdf)   # in-database inference, no data movement
 
-What's Next?
+What's next?
 ------------
 
 .. grid:: 2
+    :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item-card:: |i-guide| User Guide
         :link: user_guide
         :link-type: ref
 
-        Learn data preparation and in-database analytics
+        Learn data preparation and in-database analytics in depth.
 
     .. grid-item-card:: |i-charts| Chart Gallery
         :link: chart_gallery
         :link-type: ref
 
-        Create interactive visualizations
+        See the interactive visualizations you can create.
 
     .. grid-item-card:: |i-ml| Machine Learning
         :link: api.machine_learning
         :link-type: ref
 
-        Train and deploy ML models in VAST
+        Train models and deploy them for inference in VAST.
 
     .. grid-item-card:: |i-connect| Connection Guide
         :link: connection
         :link-type: ref
 
-        Configure connections and access
+        Configure connections, catalogs, and authentication.
 
 Architecture
 ------------
 
-In-Database Execution
-^^^^^^^^^^^^^^^^^^^^^
-
-VAST Orbit executes all operations in VAST Database:
-
-.. code-block:: text
-
-   Your Python Code
-   (pandas-like syntax)
-          ↓
-   VAST Orbit API
-   (query translation)
-          ↓
-   ┌────────────────────────────────┐
-   │     VAST Database              │
-   │  • Data Preparation            │
-   │  • Analytics                   │
-   │  • ML Inference                │
-   │  • Chart Sampling              │
-   │                                │
-   │  Zero Data Movement            │
-   └────────────────────────────────┘
-
-**Key Benefits:**
-
-- All operations execute in VAST
-- Data stays in database
-- Process petabytes like megabytes
-- Production-ready from notebook
-
-Machine Learning Architecture
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Hybrid workflow for flexibility and scale:
+VAST Orbit sits between your Python and VAST: you write familiar pandas-style code,
+the library translates it into queries, and VAST executes them where the data lives.
+Nothing is copied into Python — preparation, analytics, chart sampling, and model
+inference all happen in the database, and only the results come back.
 
 .. code-block:: text
 
-   TRAINING
-   ┌─────────────────────────────────┐
-   │  VAST Orbit Embedded Models     │
-   │    or                           │
-   │  Import sklearn models          │
-   │         ↓                       │
-   │  Automatic sampling for training│
-   └─────────────────────────────────┘
-   
-   INFERENCE (In-Database)
-   ┌─────────────────────────────────┐
-   │  model.predict(VastFrame)       │
-   │         ↓                       │
-   │  Executes in VAST Database      │
-   │  (Billions of rows, no movement)│
-   └─────────────────────────────────┘
+   Your Python code (pandas-style)
+            |
+            v
+   VAST Orbit  (query translation)
+            |
+            v
+   +--------------------------------+
+   |          VAST Database         |
+   |  - Data preparation            |
+   |  - Analytics                   |
+   |  - ML inference                |
+   |  - Chart sampling              |
+   |        Zero data movement      |
+   +--------------------------------+
 
-Key Concepts
-^^^^^^^^^^^^
+For machine learning, the workflow is hybrid by design: you train with the embedded
+algorithms or import a model you built locally with scikit-learn, and then deploy it
+so that scoring runs as SQL inside VAST — across billions of rows, with no export and
+no separate serving layer.
 
-**VastFrame**: Core data structure representing data in VAST. All operations execute in-database.
+Key concepts
+------------
 
-**In-Database Processing**: Data preparation, analytics, and ML execute in VAST, not Python.
+A **VastFrame** is the core structure: a handle to data in VAST whose operations all
+execute in the database rather than in Python. **In-database processing** means that
+preparation, analytics, and ML run where the data sits. **Intelligent sampling** is
+how charts stay instant — visualizations are drawn from representative samples rather
+than from every row. And **multi-source access** means a single VastFrame API reaches
+VAST tables, data-lake files, and external databases alike.
 
-**Intelligent Sampling**: Charts visualize billions of rows using smart sampling algorithms.
-
-**Multi-Source**: Access VAST tables, files, and external databases with unified API.
-
-System Requirements
+System requirements
 -------------------
 
 +------------------+------------------------------------------------------+
@@ -303,40 +258,22 @@ System Requirements
 +------------------+------------------------------------------------------+
 | OS               | Linux, macOS                                         |
 +------------------+------------------------------------------------------+
-| VAST Database    | 5.0.0-sp10 or later                                  |
+| VAST             | 4.5 or later                                         |
 +------------------+------------------------------------------------------+
 | Network          | Access to VAST cluster                               |
 +------------------+------------------------------------------------------+
 
-Getting Help
+Getting help
 ------------
 
-**Documentation:**
-
-- `VAST Database Docs <https://docs.vastdata.com>`_
-- `VAST Orbit GitHub <https://github.com/vastdata-dev/vastorbit>`_
-
-**Support:**
-
-- GitHub Issues: `github.com/vastdata-dev/vastorbit/issues <https://github.com/vastdata-dev/vastorbit/issues>`_
-- Slack: `vastsupport.slack.com <https://vastsupport.slack.com>`_
-
-**Learn More:**
-
-- :ref:`examples` - Hands-on tutorials
-- :ref:`api` - Complete API reference
-
-Next Steps
-----------
-
-Continue your journey:
-
-1. :ref:`user_guide` - Master data preparation and analytics
-2. :ref:`chart_gallery` - Create visualizations
-3. :ref:`api.machine_learning` - Build ML workflows
-4. :ref:`examples` - Step-by-step tutorials
-5. :ref:`connection` - Advanced connection options
+For questions and discussion, the VAST Slack at
+`vastsupport.slack.com <https://vastsupport.slack.com>`__ is the best place to start.
+To report a bug or request a feature, open an issue at
+`github.com/vastdata-dev/vastorbit/issues <https://github.com/vastdata-dev/vastorbit/issues>`__.
+And to go deeper, the :ref:`examples` and the :ref:`api` reference cover the full
+library.
 
 .. note::
 
-   VAST Orbit brings Python data science to VAST Database. Prepare, explore, analyze, and build AI - all with in-database execution at any scale.
+   VAST Orbit brings Python data science to the VAST Data Platform: prepare, explore,
+   analyze, and build AI - all with in-database execution at any scale.

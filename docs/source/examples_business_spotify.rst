@@ -5,7 +5,7 @@ Predicting Popularity on Spotify
 
 This example uses the publicly-available Spotify from Kaggle to predict the popularity of Polish songs and artists on Spotify. We'll also use a model to group artists together based on how similar their songs are.
 
-You can download the Jupyter notebook of this study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/understand/spotify/spotify.ipynb>`_.
+You can download the Jupyter notebook of this study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/understand/spotify/spotify.ipynb>`__.
 
 .. note:: We are only using polish artists and a subset of the tracks dataset filtered by a handful of artists.
 
@@ -77,14 +77,6 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-
-Create a new schema, "spotify".
-
-.. ipython:: python
-
-    vo.drop("spotify", method = "schema")
-    vo.create_schema("spotify")
-
 Data Loading
 -------------
 
@@ -93,37 +85,41 @@ Load the datasets into the :py:mod:`~vastorbit.VastFrame` with :py:func:`~vastor
 .. code-block::
 
     # load datasets as VastFrame objects
-    artists = vo.read_csv("artists.csv", schema = "spotify", parse_nrows = 100)
-    tracks  = vo.read_csv("tracks.csv", schema = "spotify", parse_nrows = 100)
+    artists = vo.read_csv("artists.csv")
+    tracks  = vo.read_csv("tracks.csv")
 
     # Display
-    artists.head(100)
+    artists
 
 .. ipython:: python
     :suppress:
 
-    artists = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/spotify/artists.csv", 
-        schema = "spotify", 
-        parse_nrows = 100,
-    )
-    res = artists.head(100)
+    try:
+        artists = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/spotify/artists.csv",
+        )
+    except:
+        artists = vo.VastFrame("artists")
+    res = artists
     html_file = open("SPHINX_DIRECTORY/figures/examples_spotify_artists_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
 
-.. code-block::
-
-    tracks.head(100)
-
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_spotify_artists_table.html
 
+.. code-block::
+
+    tracks
+
 .. ipython:: python
     :suppress:
-
-    tracks  = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/spotify/tracks.csv",schema = "spotify",parse_nrows = 100)
-    res = tracks.head(100)
+    
+    try:
+        tracks = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/spotify/tracks.csv")
+    except:
+        tracks = vo.VastFrame("tracks")
+    res = tracks
     html_file = open("SPHINX_DIRECTORY/figures/examples_spotify_tracks_table.html", "w")
     html_file.write(res._repr_html_())
     html_file.close()
@@ -133,24 +129,7 @@ Load the datasets into the :py:mod:`~vastorbit.VastFrame` with :py:func:`~vastor
 
 .. warning::
     
-    This example uses a sample dataset. For the full analysis, you should consider using the complete dataset.
-
-Since we are only focusing on Polish artists in this subset of data, let us save it in the database with the proper name. 
-
-.. code-block::
-
-    polish_artists = artists
-
-    # save it to the database
-    polish_artists.to_db('"spotify"."polish_artists"', relation_type = "table")
-
-.. ipython:: python
-    :suppress:
-
-    polish_artists = artists
-    # save it to the database
-    vo.drop("spotify.polish_artists")
-    polish_artists.to_db('"spotify"."polish_artists"', relation_type = "table")
+    This example uses a sample dataset. It only includes Polish artists. For the full analysis, you should consider using the complete dataset.
 
 Data Exploration 
 -----------------
@@ -160,7 +139,7 @@ We can visualize the top ``60`` most-followed Polish artists with a bar chart.
 .. code-block:: python
 
     # make a chart of the top 50 most-followed Polish artists
-    polish_artists.bar(
+    artists.bar(
         ["name"], 
         method = "mean",
         of = "followers",
@@ -172,7 +151,7 @@ We can visualize the top ``60`` most-followed Polish artists with a bar chart.
     :suppress:
 
     vo.set_option("plotting_lib","plotly")
-    fig = polish_artists.bar(
+    fig = artists.bar(
         ["name"], 
         method = "mean",
         of = "followers",
@@ -189,7 +168,7 @@ We can do the same with the most popular tracks. For example, we can graph Monik
 .. code-block::
 
     # find Monika Brodka's songs
-    brodka_tracks = tracks.search("artists ilike '%brodka%'")
+    brodka_tracks = tracks.search("LOWER(artists) like '%brodka%'")
 
     # plot Brodka's tracks ordered by popularity
     brodka_tracks.bar(
@@ -204,7 +183,7 @@ We can do the same with the most popular tracks. For example, we can graph Monik
     :suppress:
     :okwarning:
 
-    brodka_tracks = tracks.search("artists ilike '%brodka%'")
+    brodka_tracks = tracks.search("LOWER(artists) like '%brodka%'")
     fig = brodka_tracks.bar(
         ["name"], 
         method = "mean",
@@ -262,7 +241,7 @@ Timing is a classic factor for success, so let's look at the popularity of Monik
 .. code-block:: 
 
     # extract year from the date
-    brodka_tracks["release_year"] = "year(release_date::date)"
+    brodka_tracks["release_year"] = "YEAR(CAST(release_date AS DATE))"
 
     # smooth the popularity using rolling mean
     brodka_tracks.rolling(
@@ -281,7 +260,7 @@ Timing is a classic factor for success, so let's look at the popularity of Monik
     :suppress:
 
     # extract year from the date
-    brodka_tracks["release_year"] = "year(release_date::date)"
+    brodka_tracks["release_year"] = "YEAR(CAST(release_date AS DATE))"
 
     # smooth the popularity using rolling mean
     brodka_tracks.rolling(
@@ -308,7 +287,7 @@ features change and correlate with each other in Monika's most popular songs.
 .. code-block::
 
     # extract year from date
-    tracks["release_year"] = "year(release_date::date)"
+    tracks["release_year"] = "YEAR(CAST(release_date AS DATE))"
 
     # get the average of numerical features during the year
     yearly_aggs = tracks.groupby(
@@ -334,7 +313,7 @@ features change and correlate with each other in Monika's most popular songs.
     :suppress:
     :okwarning:
 
-    tracks['release_year'] = "year(release_date::date)"
+    tracks['release_year'] = "YEAR(CAST(release_date AS DATE))"
     yearly_aggs = tracks.groupby(
         "release_year", [
             "AVG(danceability) as danceability",
@@ -387,19 +366,19 @@ Additionally, we manipulate our data a bit to make things easier later on:
 .. code-block:: python
 
     %%sql
-    DROP TABLE IF EXISTS spotify.polish_tracks;
-    CREATE TABLE spotify.polish_tracks AS
-    SELECT * FROM spotify.tracks 
-    WHERE id_artists IN (SELECT t.id_artists FROM spotify.tracks t JOIN spotify.polish_artists p
+    DROP TABLE IF EXISTS polish_tracks;
+    CREATE TABLE polish_tracks AS
+    SELECT * FROM tracks 
+    WHERE id_artists IN (SELECT t.id_artists FROM tracks t JOIN artists p
                         ON t.id_artists LIKE '%' || p.id || '%');
-    CREATE TABLE spotify.polish_tracks_clean AS
+    CREATE TABLE polish_tracks_clean AS
     SELECT 
         x.*, 
         x.duration_ms / 60000 AS duration_minute,
-        x.release_date::date AS release_year,
+        CAST(x.release_date AS date) AS release_year,
         y.followers AS artists_followers,
         y.popularity AS artist_popularity
-    FROM spotify.polish_tracks AS x LEFT JOIN spotify.artists AS y
+    FROM polish_tracks AS x LEFT JOIN artists AS y
     ON x.id_artists LIKE '%' || y.id || '%';
 
 .. ipython:: python
@@ -410,26 +389,34 @@ Additionally, we manipulate our data a bit to make things easier later on:
 
     _executeSQL(
         """
-        DROP TABLE IF EXISTS spotify.polish_tracks;
-        CREATE TABLE spotify.polish_tracks AS
-        SELECT * FROM spotify.tracks 
-        WHERE id_artists IN (SELECT t.id_artists FROM spotify.tracks t JOIN spotify.polish_artists p
-                            ON t.id_artists LIKE '%' || p.id || '%');
-        CREATE TABLE spotify.polish_tracks_clean AS
+        DROP TABLE IF EXISTS polish_tracks
+        """
+    )
+    _executeSQL(
+        """
+        CREATE TABLE polish_tracks AS
+        SELECT * FROM tracks 
+        WHERE id_artists IN (SELECT t.id_artists FROM tracks t JOIN artists p
+                            ON t.id_artists LIKE '%' || p.id || '%')
+        """
+    )
+    _executeSQL(
+        """
+        CREATE TABLE polish_tracks_clean AS
         SELECT 
             x.*, 
             x.duration_ms / 60000 AS duration_minute,
-            x.release_date::date AS release_year,
+            CAST(x.release_date AS DATE) AS release_year,
             y.followers AS artists_followers,
             y.popularity AS artist_popularity
-        FROM spotify.polish_tracks AS x LEFT JOIN spotify.artists AS y
-        ON x.id_artists LIKE '%' || y.id || '%';
+        FROM polish_tracks AS x LEFT JOIN artists AS y
+        ON x.id_artists LIKE '%' || y.id || '%'
         """
     )
 
 .. code-block:: python
 
-    polish_tracks = vo.VastFrame("spotify.polish_tracks_clean")
+    polish_tracks = vo.VastFrame("polish_tracks_clean")
 
     # count the number of artists per track
     polish_tracks.regexp(
@@ -444,7 +431,7 @@ Additionally, we manipulate our data a bit to make things easier later on:
     :suppress:
     :okwarning:
 
-    polish_tracks = vo.VastFrame("spotify.polish_tracks_clean")
+    polish_tracks = vo.VastFrame("polish_tracks_clean")
 
     # count the number of artists per track
     polish_tracks.regexp(
@@ -488,8 +475,8 @@ Define a list of predictors and the response, and then save the normalized versi
         columns = predictors,
     )
     # save the final dataset to the database
-    vo.drop("spotify.polish_tracks_data_final")
-    polish_tracks.to_db('"spotify"."polish_tracks_data_final"', relation_type = "table")
+    vo.drop("polish_tracks_data_final")
+    polish_tracks.to_db("polish_tracks_data_final", relation_type = "table")
 
 .. ipython:: python
     :suppress:
@@ -515,8 +502,8 @@ Define a list of predictors and the response, and then save the normalized versi
         method = "minmax",
         columns = predictors,
     )
-    vo.drop("spotify.polish_tracks_data_final")
-    polish_tracks.to_db('"spotify"."polish_tracks_data_final"', relation_type = "table")
+    vo.drop("polish_tracks_data_final")
+    polish_tracks.to_db("polish_tracks_data_final", relation_type = "table")
 
 Machine Learning
 -----------------
@@ -537,7 +524,7 @@ We can use :py:mod:`~vastorbit.machine_learning.vast.automl.AutoML` to easily ge
 
     # define the model
     auto_model = AutoML(
-        "spotify.automl_spotify_polish",
+        "automl_spotify_polish",
         estimator = "fast",
         preprocess_data = True,
         stepwise = False,
@@ -550,7 +537,7 @@ Train the model.
     :okwarning:
 
     auto_model.fit(
-        "spotify.polish_tracks_data_final", 
+        "polish_tracks_data_final", 
         predictors, 
         response
     )   
@@ -588,7 +575,7 @@ Thanks to :py:mod:`~vastorbit.machine_learning.vast.automl.AutoML`, we know best
     from vastorbit.machine_learning.vast import LinearRegression
 
     # define the model
-    rf_model = LinearRegression("spotify.linear_regression_spotify", **hyperparams)
+    rf_model = LinearRegression("linear_regression_spotify", **hyperparams)
 
     # train the model
     rf_model.fit(polish_tracks, predictors, response) 
@@ -606,12 +593,8 @@ Thanks to :py:mod:`~vastorbit.machine_learning.vast.automl.AutoML`, we know best
 
     from vastorbit.machine_learning.vast import LinearRegression
 
-    if "C" in hyperparams:
-        hyperparams.pop("C")
-    if "l1_ratio" in hyperparams:
-        hyperparams.pop("l1_ratio")
     # define the model
-    rf_model = LinearRegression("spotify.linear_regression_spotify", **hyperparams)
+    rf_model = LinearRegression("linear_regression_spotify", **hyperparams)
 
     # train the model
     rf_model.fit(polish_tracks, predictors, response) 
@@ -765,7 +748,7 @@ Let's start by taking the averages of these numerical features for each artist.
     )
 
     # save relation to the database as "artists_features"
-    artists_features.to_db('"spotify"."artists_features"')
+    artists_features.to_db("artists_features")
 
 .. ipython:: python
     :suppress:
@@ -788,7 +771,10 @@ Let's start by taking the averages of these numerical features for each artist.
     )
 
     # save relation to the database as "artists_features"
-    artists_features.to_db('"spotify"."artists_features"')
+    try:
+        artists_features.to_db("artists_features")
+    except:
+        artists_features = vo.VastFrame("artists_features")
     res = artists_features
     html_file = open("SPHINX_DIRECTORY/figures/examples_spotify_artists_features.html", "w")
     html_file.write(res._repr_html_())
@@ -817,7 +803,7 @@ Grouping means clustering, so we use an :py:func:`~vastorbit.machine_learning.mo
 
     # elbow curve
     elbow_curve = elbow(
-        '"spotify"."artists_features"',
+        "artists_features",
         preds,
         n_clusters = (1, 20),
         show = True,
@@ -846,7 +832,7 @@ Let's define and use the VAST :py:mod:`~vastorbit.machine_learning.vast.cluster.
 
     # define k-means
     model = KMeans(
-        '"spotify"."KMeans_spotify"', 
+        "KMeans_spotify", 
         n_clusters = 7,
     )
 
@@ -856,7 +842,7 @@ We can train our new model on the ``artists_features`` relation we saved earlier
 
     # train the model
     model.fit(
-        '"spotify"."artists_features"', 
+        "artists_features", 
         X = preds,
     )
 
@@ -880,7 +866,7 @@ Plot the result of the k-means algoritm:
 
     # predict the genres
     pred_genres = model.predict(
-        '"spotify"."artists_features"', 
+        "artists_features", 
         X = [
             "danceability",
             "energy",
@@ -916,3 +902,9 @@ Conclusion
 -----------
 
 We were able to predict the popularity Polish songs with a :py:mod:`~vastorbit.machine_learning.vast.ensemble.RandomForestRegressor` model suggested by :py:mod:`~vastorbit.machine_learning.vast.automl.AutoML`. We then created a :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` model to group artists into ``genres`` (clusters) based on the feature-commonalities in their tracks.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

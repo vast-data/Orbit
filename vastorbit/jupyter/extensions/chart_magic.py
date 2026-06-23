@@ -182,8 +182,8 @@ def chart_magic(line: str, cell: Optional[str] = None, local_ns: Optional[dict] 
     For a comprehensive list of customization features,
     please consult the documentation for the respective
     plotting libraries:
-    `plotly <https://plotly.com/python-api-reference/>`_,
-    `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`_.
+    `plotly <https://plotly.com/python-api-reference/>`__,
+    `matplotlib <https://matplotlib.org/stable/api/matplotlib_configuration_api.html>`__.
 
     Parameters
     ----------

@@ -34,7 +34,16 @@ Latest Release
           :link-type: ref
           :class-card: custom-card
           
-          Initial release of VAST Orbit - Python API for data science at scale on VAST Data Platform.
+          The first public release of **VAST Orbit** — the open-source Python
+          library that brings data science directly to the **VAST Data Platform**.
+          Everything runs through the **VastFrame**, a familiar pandas-like interface
+          that pushes each transformation, aggregation, and model down to the
+          database.
+          
+          This release delivers the full stack: descriptive statistics and
+          correlation analysis, an interactive charting library, end-to-end machine
+          learning. It runs on Trino today, with VAST's native query engine on the way, 
+          and your code stays exactly the same when it lands.
           
           +++
           View Release Notes →

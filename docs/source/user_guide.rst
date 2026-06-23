@@ -39,6 +39,7 @@ Learning Path
 Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
 
 .. grid:: 1 1 2 2
+    :class-container: feature-tiles
     :gutter: 3
 
     .. grid-item::
@@ -51,8 +52,6 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           :class-footer: user_guide_footer
           
           ⏱️ **36 minutes**
-          
-          +++
           
           Master VAST Orbit fundamentals including **VastFrame** (pandas-like API) and **VastColumn** operations. Learn how to connect to VAST DataBase and execute your first queries.
           
@@ -79,8 +78,6 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           
           ⏱️ **20 minutes**
           
-          +++
-          
           Load data from multiple sources into VAST DataBase. Query files directly (Parquet, CSV, JSON) without loading. Access external databases via VASTDB's federated queries.
           
           **Key Topics:**
@@ -105,8 +102,6 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           :class-footer: user_guide_footer
           
           ⏱️ **34 minutes**
-          
-          +++
           
           Discover patterns and insights through interactive visualizations. Create charts that execute in-database with automatic sampling for large datasets.
           
@@ -133,8 +128,6 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           
           ⏱️ **52 minutes**
           
-          +++
-          
           Transform raw data into analysis-ready datasets. All operations execute in-database for maximum performance on large datasets.
           
           **Key Topics:**
@@ -159,8 +152,6 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           :class-footer: user_guide_footer
           
           ⏱️ **38 minutes**
-          
-          +++
           
           Build hybrid ML workflows: train models with sklearn/Spark, deploy for blazing-fast in-database inference. Scale to billions of rows without data movement.
           
@@ -187,8 +178,6 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           
           ⏱️ **87 minutes**
           
-          +++
-          
           Advanced topics for production deployments. User-defined functions, geospatial analysis, streaming pipelines, and integration with the broader data ecosystem.
           
           **Key Topics:**
@@ -210,6 +199,7 @@ Quick Navigation
 **By Topic:**
 
 .. grid:: 2 2 3 3
+    :class-container: feature-tiles
     :gutter: 2
 
     .. grid-item::
@@ -236,7 +226,7 @@ Quick Navigation
 **Prerequisites:**
 
 - Basic Python knowledge (pandas familiarity helpful)
-- Access to a VAST Cluster (5.0.0-sp10+)
+- Access to a VAST Cluster (4.5+)
 - Python 3.12+ installed
 - Familiarity with SQL concepts (helpful but not required)
 
@@ -297,7 +287,7 @@ Here's a taste of what you'll learn:
 
 .. note::
 
-   **Questions?** Join our community at **`vastsupport.slack.com <https://vastsupport.slack.com>`_** or check the :ref:`api` for detailed documentation.
+   **Questions?** Join our community at **`vastsupport.slack.com <https://vastsupport.slack.com>`__** or check the :ref:`api` for detailed documentation.
 
 ____
 

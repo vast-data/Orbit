@@ -5,7 +5,6 @@ Linear Model
 ==================
 
 
-______
 
 
 Base Class

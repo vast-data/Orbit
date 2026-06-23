@@ -75,7 +75,7 @@ class Option:
     validator: Callable
         Function to check the input in
         case of option change.
-    map_: dict, optional
+    ``map_``: dict, optional
         Dictionary to Map to the Right Value.
 
     Attributes

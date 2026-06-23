@@ -135,7 +135,7 @@ def jarque_bera(input_relation: SQLRelation, column: str) -> tuple[float, float]
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     Uniform Distribution
     ^^^^^^^^^^^^^^^^^^^^^
@@ -325,7 +325,7 @@ def kurtosistest(input_relation: SQLRelation, column: str) -> tuple[float, float
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     Uniform Distribution
     ^^^^^^^^^^^^^^^^^^^^^
@@ -523,7 +523,7 @@ def normaltest(input_relation: SQLRelation, column: str) -> tuple[float, float]:
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     Uniform Distribution
     ^^^^^^^^^^^^^^^^^^^^^
@@ -727,7 +727,7 @@ def skewtest(input_relation: SQLRelation, column: str) -> tuple[float, float]:
         is considered the threshold to reject the
         null hypothesis. But it is not always
         the case -
-        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`_
+        `read more <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10232224/#:~:text=If%20the%20p%2Dvalue%20is,necessarily%20have%20to%20be%200.05.>`__
 
     Uniform Distribution
     ^^^^^^^^^^^^^^^^^^^^^

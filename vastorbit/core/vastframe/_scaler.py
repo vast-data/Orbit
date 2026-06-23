@@ -452,8 +452,8 @@ class vDCScaler(vDCText):
                     final_transformation = [
                         (
                             f"({{}} - {avg}) / {nullifzero}({stddev}{nullifzero_end})",
-                            "float",
-                            "float",
+                            "real",
+                            "real",
                         )
                     ]
 
@@ -475,8 +475,8 @@ class vDCScaler(vDCText):
                         final_transformation = [
                             (
                                 f"({{}} - {med}) / ({mad})",
-                                "float",
-                                "float",
+                                "real",
+                                "real",
                             )
                         ]
                 else:
@@ -589,8 +589,8 @@ class vDCScaler(vDCText):
                     final_transformation = [
                         (
                             f"({{}} - {cmin}) / {nullifzero}({cmax} - {cmin}{nullifzero_end})",
-                            "float",
-                            "float",
+                            "real",
+                            "real",
                         )
                     ]
 

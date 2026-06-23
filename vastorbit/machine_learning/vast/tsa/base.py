@@ -721,8 +721,8 @@ class TimeSeriesModelBase(VASTModel):
         """
         Computes the model's attributes from fitted coefficients.
 
-        For AR/VAR models, this stores the computed phi_, intercept_,
-        n_, and mse_ attributes.
+        For AR/VAR models, this stores the computed ``phi_``, ``intercept_``,
+        ``n_``, and ``mse_`` attributes.
         """
         if self._model_type in ("AR", "VAR"):
             # Store coefficients as numpy arrays
@@ -771,7 +771,7 @@ class TimeSeriesModelBase(VASTModel):
             If set to ``True``, draw the feature's importance.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to pass to the Plotting functions.
 
         Returns
@@ -2300,7 +2300,7 @@ class TimeSeriesModelBase(VASTModel):
             draw the TS plot.
         chart: PlottingObject, optional
             The chart object to plot on.
-        **style_kwargs
+        ``**style_kwargs``
             Any optional parameter to
             pass to the Plotting functions.
 

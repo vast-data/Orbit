@@ -11,7 +11,7 @@ ____
 Step 1: Git
 ===========
 
-Fork the project on `Github <https://github.com/vastdata-dev/vastorbit>`_ and check out your copy locally.
+Fork the project on `Github <https://github.com/vastdata-dev/vastorbit>`__ and check out your copy locally.
 
 .. code-block:: bash
 
@@ -28,7 +28,7 @@ Your GitHub repository **YOURUSERNAME/vastorbit** will be called "origin" in Git
 Configure Git for the first time
 ---------------------------------
 
-Make sure git knows your `name <https://help.github.com/articles/setting-your-username-in-git>`_ and `email address <https://help.github.com/articles/setting-your-commit-email-address-in-git/>`_:
+Make sure git knows your `name <https://help.github.com/articles/setting-your-username-in-git>`__ and `email address <https://help.github.com/articles/setting-your-commit-email-address-in-git/>`__:
 
 .. code-block:: bash
 
@@ -64,7 +64,7 @@ Step 4: Get the test suite running (Under development)
 
 *vastorbit* comes with its own test suite in the `vastorbit/tests` directory. It's our policy to make sure all tests pass at all times.
 
-We appreciate any and all contributions to the test suite! These tests use a Python module: `pytest <https://docs.pytest.org/en/latest/>`_. You might want to check out the pytest documentation for more details.
+We appreciate any and all contributions to the test suite! These tests use a Python module: `pytest <https://docs.pytest.org/en/latest/>`__. You might want to check out the pytest documentation for more details.
 
 You must have access to a VAST database to run the tests. We recommend using a non-production database, because some tests may need the superuser permission to manipulate global settings and potentially break that database. Here's one way to go about it:
 
@@ -114,7 +114,7 @@ Spin up your VAST database for tests and then config test settings:
     # Delete your environment variables after tests
     unset VP_TEST_PASSWORD
 
-`Tox <https://tox.readthedocs.io>`_ is a tool for running those tests in different Python environments. *vastorbit* includes a `tox.ini` file that lists all Python versions we test. Tox is installed with the `requirements-dev.txt`, discussed above.
+`Tox <https://tox.readthedocs.io>`__ is a tool for running those tests in different Python environments. *vastorbit* includes a `tox.ini` file that lists all Python versions we test. Tox is installed with the `requirements-dev.txt`, discussed above.
 
 Edit `tox.ini` envlist property to list the version(s) of Python you have installed. Then you can run the **tox** command from any place in the *vastorbit* source tree. If `VP_TEST_LOG_DIR` sets to a relative path, it will be in the *vastorbit* directory no matter where you run the **tox** command.
 
@@ -146,7 +146,7 @@ The arguments after the `--` will be substituted everywhere where you specify `{
 
 You might also run `pytest` directly, which will evaluate tests in your current Python environment, rather than across the Python environments/versions that are enumerated in `tox.ini`.
 
-For more usages about `tox <https://tox.readthedocs.io>`_, see the Python documentation.
+For more usages about `tox <https://tox.readthedocs.io>`__, see the Python documentation.
 
 ____
 
@@ -207,7 +207,7 @@ A good pull request means:
 - well-formed messages for each commit
 - documentation and tests, if needed
 
-Go to https://github.com/YOURUSERNAME/vastorbit and `make a Pull Request <https://help.github.com/articles/creating-a-pull-request/>`_ to `VAST:master`.
+Go to https://github.com/YOURUSERNAME/vastorbit and `make a Pull Request <https://help.github.com/articles/creating-a-pull-request/>`__ to `VAST:master`.
 
 Sign the CLA
 ------------

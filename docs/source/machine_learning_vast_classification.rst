@@ -4,7 +4,6 @@
 Classification
 ===============
 
-______
 
 
 Linear Models
@@ -520,5 +519,4 @@ Nearest Centroid (Beta)
    NearestCentroid.object_type
 
 
-_____
 

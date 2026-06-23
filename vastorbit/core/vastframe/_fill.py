@@ -117,7 +117,7 @@ class vDFFill(vDFPivot):
             data = load_titanic()
 
         .. raw:: html
-            :file: :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
+            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
 
         .. note::
 
@@ -847,7 +847,7 @@ class vDCFill(vDCMath):
             data = load_titanic()
 
         .. raw:: html
-            :file: :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
+            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
 
         .. note::
 
@@ -934,7 +934,7 @@ class vDCFill(vDCMath):
         elif expr:
             new_column = f"COALESCE({{}}, {expr})"
         elif method == "0ifnull":
-            new_column = "CASE {} WHEN NULL THEN 0 ELSE 1 END"
+            new_column = "CASE WHEN {} IS NULL THEN 0 ELSE 1 END"
         elif method in ("mean", "avg", "median"):
             fun = "MEDIAN" if (method == "median") else "AVG"
             if by == []:
@@ -985,9 +985,14 @@ class vDCFill(vDCMath):
                         COALESCE({{}}, {fun}({{}}) 
                             OVER (PARTITION BY {', '.join(by)}))"""
             else:
-                new_column = f"""
-                    COALESCE({{}}, {fun}({{}}) 
-                        OVER (PARTITION BY {', '.join(by)}))"""
+                if fun == "MEDIAN":
+                    new_column = f"""
+                        COALESCE({{}}, APPROX_PERCENTILE({{}}, 0.5) 
+                            OVER (PARTITION BY {', '.join(by)}))"""
+                else:
+                    new_column = f"""
+                        COALESCE({{}}, {fun}({{}}) 
+                            OVER (PARTITION BY {', '.join(by)}))"""
         elif method in ("ffill", "pad", "bfill", "backfill"):
             assert order_by, ValueError(
                 "If the method is in ffill|pad|bfill|backfill then 'order_by'"
@@ -1001,7 +1006,7 @@ class vDCFill(vDCMath):
                     OVER ({partition_by} 
                     ORDER BY {order_by_ts}))"""
         if method in ("mean", "median") or isinstance(val, float):
-            category, ctype = "float", "float"
+            category, ctype = "real", "real"
         elif method == "0ifnull":
             category, ctype = "int", "bool"
         else:

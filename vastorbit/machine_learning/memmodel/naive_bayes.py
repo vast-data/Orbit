@@ -155,7 +155,7 @@ class NaiveBayes(MulticlassClassifier):
 
     Here we will be using attributes
     of model trained on well known
-    `titanic dataset <https://github.com/vastdata-dev/vastorbit/blob/master/vastorbit/datasets/data/titanic.csv>`_.
+    `titanic dataset <https://github.com/vastdata-dev/vastorbit/blob/master/vastorbit/datasets/data/titanic.csv>`__.
 
     It tries to predict the port
     of embarkation (C = Cherbourg,
@@ -286,7 +286,7 @@ class NaiveBayes(MulticlassClassifier):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`_
+        `SKLEARN <https://scikit-learn.org/>`__
         models.
     """
 
@@ -581,10 +581,10 @@ class NaiveBayes(MulticlassClassifier):
                 elif prob["type"] == "bernoulli":
                     prob = f"(CASE WHEN {x} THEN {prob[c]} ELSE {1 - prob[c]} END)"
                 elif prob["type"] == "categorical":
-                    prob_res = f"DECODE({x}"
+                    prob_res = f"CASE "
                     for cat in prob[str(c)]:
-                        prob_res += f", '{cat}', {prob[str(c)][cat]}"
-                    prob = prob_res + ")"
+                        prob_res += f"WHEN {x} = '{cat}' THEN {prob[str(c)][cat]} "
+                    prob = prob_res + "END"
                 else:
                     prob = f"""
                         {1 / np.sqrt(2 * np.pi * prob[c]['sigma_sq'])} 
