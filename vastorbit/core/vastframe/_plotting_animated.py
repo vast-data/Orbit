@@ -95,7 +95,7 @@ class vDFAnimatedPlot(vDFPlot):
 
             The below example is a very basic one. For
             other more detailed examples and customization
-            options, please see :ref:`chart_gallery.animated`_
+            options, please see :ref:`chart_gallery.animated`
 
         Let's begin by importing `vastorbit`.
 
@@ -246,7 +246,7 @@ class vDFAnimatedPlot(vDFPlot):
 
             The below example is a very basic one. For
             other more detailed examples and customization
-            options, please see :ref:`chart_gallery.animated`_
+            options, please see :ref:`chart_gallery.animated`
 
         Let's begin by importing `vastorbit`.
 
@@ -396,7 +396,7 @@ class vDFAnimatedPlot(vDFPlot):
 
             The below example is a very basic one. For
             other more detailed examples and customization
-            options, please see :ref:`chart_gallery.animated`_
+            options, please see :ref:`chart_gallery.animated`
 
         Let's begin by importing `vastorbit`.
 
@@ -558,7 +558,7 @@ class vDFAnimatedPlot(vDFPlot):
 
             The below example is a very basic one. For
             other more detailed examples and customization
-            options, please see :ref:`chart_gallery.animated`_
+            options, please see :ref:`chart_gallery.animated`
 
         Let's begin by importing `vastorbit`.
 

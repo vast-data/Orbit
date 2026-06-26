@@ -143,3 +143,9 @@ Connection Parameters
 
    - :ref:`user_guide.introduction.vdf` – Learn about VastFrame
    - :ref:`api.connect` – Complete connection API reference
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

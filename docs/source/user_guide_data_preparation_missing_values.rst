@@ -129,3 +129,9 @@ The :py:func:`~vastorbit.VastFrame.fillna` method offers many options. Let's use
 Depending on the circumstances, we'll need to investigate to find the most suitable solution.
 
 In conclusion, before imputing missing data, you have to understand why it might be missing and how it relates to the rest of your dataset.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

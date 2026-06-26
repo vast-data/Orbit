@@ -37,8 +37,8 @@ from vastorbit.machine_learning.vast.cluster import NearestCentroid
 from vastorbit.machine_learning.vast.ensemble import (
     RandomForestRegressor,
     RandomForestClassifier,
-    XGBClassifier,
-    XGBRegressor,
+    GradientBoostingClassifier,
+    GradientBoostingRegressor,
 )
 from vastorbit.machine_learning.vast.naive_bayes import NaiveBayes
 from vastorbit.machine_learning.vast.linear_model import (
@@ -93,30 +93,38 @@ class AutoML(VASTModel):
             accuracy    : Accuracy
             auc         : Area Under the Curve
                           (ROC)
+
             ba          : Balanced Accuracy
                           = (tpr + tnr) / 2
             bm          : Informedness
                           = tpr + tnr - 1
             csi         : Critical Success Index
                           = tp / (tp + fn + fp)
+
             f1          : F1 Score
             fdr         : False Discovery Rate = 1 - ppv
             fm          : Fowlkes–Mallows index
                           = sqrt(ppv * tpr)
+
             fnr         : False Negative Rate
                           = fn / (fn + tp)
+
             for         : False Omission Rate = 1 - npv
             fpr         : False Positive Rate
                           = fp / (fp + tn)
+
             logloss     : Log Loss
             lr+         : Positive Likelihood Ratio
                           = tpr / fpr
+
             lr-         : Negative Likelihood Ratio
                           = fnr / tnr
+
             dor         : Diagnostic Odds Ratio
             mcc         : Matthews Correlation Coefficient
             mk          : Markedness
                           = ppv + npv - 1
+
             npv         : Negative Predictive Value
                           = tn / (tn + fn)
             prc_auc     : Area Under the Curve
@@ -368,11 +376,11 @@ class AutoML(VASTModel):
                 ]
                 if estimator_method in ("native", "all"):
                     if v[0] > 10 or (v[0] == 10 and v[1] >= 1):
-                        self.parameters["estimator"] += [XGBClassifier(self.model_name)]
+                        self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name)]
                     if v[0] >= 9:
                         self.parameters["estimator"] += [
                             # LinearSVC(self.model_name),
-                            RandomForestClassifier(self.model_name),
+                            RandomForestClassifier(self.model_name, n_estimators = 5),
                         ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
@@ -391,11 +399,11 @@ class AutoML(VASTModel):
                 ]
                 if estimator_method in ("native", "all"):
                     if v[0] > 10 or (v[0] == 10 and v[1] >= 1):
-                        self.parameters["estimator"] += [XGBRegressor(self.model_name)]
+                        self.parameters["estimator"] += [GradientBoostingRegressor(self.model_name)]
                     if v[0] >= 9:
                         self.parameters["estimator"] += [
                             LinearSVR(self.model_name),
-                            RandomForestRegressor(self.model_name),
+                            RandomForestRegressor(self.model_name, n_estimators = 5),
                         ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
@@ -406,10 +414,10 @@ class AutoML(VASTModel):
                 self.parameters["estimator"] = [NaiveBayes(self.model_name)]
                 if estimator_method in ("native", "all"):
                     if v[0] >= 10 and v[1] >= 1:
-                        self.parameters["estimator"] += [XGBClassifier(self.model_name)]
+                        self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name)]
                     if v[0] >= 9:
                         self.parameters["estimator"] += [
-                            RandomForestClassifier(self.model_name)
+                            RandomForestClassifier(self.model_name, n_estimators = 5)
                         ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
@@ -425,8 +433,8 @@ class AutoML(VASTModel):
             (
                 RandomForestRegressor,
                 RandomForestClassifier,
-                XGBRegressor,
-                XGBClassifier,
+                GradientBoostingRegressor,
+                GradientBoostingClassifier,
                 NaiveBayes,
                 LinearRegression,
                 ElasticNet,
@@ -448,8 +456,8 @@ class AutoML(VASTModel):
                     (
                         RandomForestRegressor,
                         RandomForestClassifier,
-                        XGBRegressor,
-                        XGBClassifier,
+                        GradientBoostingRegressor,
+                        GradientBoostingClassifier,
                         NaiveBayes,
                         LinearRegression,
                         ElasticNet,

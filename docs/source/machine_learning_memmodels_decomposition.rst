@@ -36,6 +36,7 @@ PCA
    :toctree: api/
 
    PCA.object_type
+
 ____
 
 SVD

@@ -114,7 +114,7 @@ def does_table_exist(table_name: str, schema: str) -> bool:
         any errors; instead, it returns a boolean value,
         True or False.
     """
-    query = f"SELECT COUNT(*) FROM tables WHERE table_name='{table_name:}' AND table_schema='{schema}';"
+    query = f"SELECT COUNT(*) FROM information_schema.tables WHERE table_name='{table_name:}' AND table_schema='{schema}';"
     result = _executeSQL(query, title="Does the table exist?", method="fetchfirstelem")
     if result == 0:
         return False
@@ -159,7 +159,7 @@ def does_view_exist(view_name: str, schema: str) -> bool:
         any errors; instead, it returns a boolean value,
         True or False.
     """
-    query = f"SELECT COUNT(*) FROM v_catalog.views WHERE table_name='{view_name:}' AND table_schema='{schema}';"
+    query = f"SELECT COUNT(*) FROM information_schema.views WHERE table_name='{view_name:}' AND table_schema='{schema}';"
     result = _executeSQL(query, title="Does the table exist?", method="fetchfirstelem")
     if result == 0:
         return False

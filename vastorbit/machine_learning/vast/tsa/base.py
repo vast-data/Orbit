@@ -62,6 +62,14 @@ class TimeSeriesModelBase(VASTModel):
             "n_",
         ]
         if self._model_type in ("ARMA", "ARIMA"):
+            # When the MA term is absent (and no differencing for ARIMA) the
+            # model is fitted as AR(p) and exposes the AR attribute set.
+            if self._is_ar_like:
+                return [
+                    "phi_",
+                    "intercept_",
+                    "feature_importances_",
+                ] + common_params
             return [
                 "phi_",
                 "theta_",
@@ -86,6 +94,24 @@ class TimeSeriesModelBase(VASTModel):
         Returns ``True`` if the model is multivariate.
         """
         return isinstance(self.y, list) and len(self.y) > 1
+
+    @property
+    def _is_ar_like(self) -> bool:
+        """
+        ``True`` when the model can be fitted with the pure-SQL AR machinery:
+        AR, VAR, or an ARMA / ARIMA whose Moving-Average term is absent
+        (``q == 0``) and, for ARIMA, with no differencing (``d == 0``). In those
+        cases the model is mathematically an autoregression of order
+        ``order[0]`` and is routed through the AR code path.
+        """
+        if self._model_type in ("AR", "VAR"):
+            return True
+        order = self.parameters.get("order", [0, 0, 0])
+        if self._model_type == "ARMA":
+            return len(order) >= 2 and order[1] == 0
+        if self._model_type == "ARIMA":
+            return len(order) >= 3 and order[1] == 0 and order[2] == 0
+        return False
 
     # Model Fitting Method.
 
@@ -208,13 +234,21 @@ class TimeSeriesModelBase(VASTModel):
         else:
             self.test_relation = self.input_relation
 
+        # ARMA/ARIMA with no Moving-Average term (and, for ARIMA, no
+        # differencing) are exactly AR(order[0]); expose ``p`` so the shared AR
+        # machinery can fit, deploy and predict them.
+        if self._model_type in ("ARMA", "ARIMA") and self._is_ar_like:
+            self.parameters["p"] = self.parameters.get("order", [1])[0]
+
         # Fit using SQL
-        if self._model_type in ("AR", "VAR"):
+        if self._is_ar_like:
             self._fit_ar_sql()
         else:
             raise NotImplementedError(
-                f"SQL training not implemented for {self._model_type} models. "
-                f"Only AR and VAR models are supported."
+                f"SQL training not implemented for {self._model_type} models "
+                f"with the requested order. Only AR/VAR, and ARMA/ARIMA without "
+                f"a Moving-Average term (q=0) and without differencing (d=0), "
+                f"can be trained using pure SQL."
             )
 
         # Compute attributes
@@ -724,7 +758,7 @@ class TimeSeriesModelBase(VASTModel):
         For AR/VAR models, this stores the computed ``phi_``, ``intercept_``,
         ``n_``, and ``mse_`` attributes.
         """
-        if self._model_type in ("AR", "VAR"):
+        if self._is_ar_like:
             # Store coefficients as numpy arrays
             if hasattr(self, "_phi_values"):
                 self.phi_ = (
@@ -974,7 +1008,7 @@ class TimeSeriesModelBase(VASTModel):
         NotImplementedError
             For MA/ARMA/ARIMA models, as they require iterative calculations.
         """
-        if self._model_type not in ("AR", "VAR"):
+        if not self._is_ar_like:
             raise NotImplementedError(
                 f"deploySQL not implemented for {self._model_type} models. "
                 f"Only AR and VAR models support SQL-based deployment."
@@ -1201,7 +1235,7 @@ class TimeSeriesModelBase(VASTModel):
         NotImplementedError
             For MA/ARMA/ARIMA models.
         """
-        if self._model_type not in ("AR", "VAR"):
+        if not self._is_ar_like:
             raise NotImplementedError(
                 f"Predict not implemented for {self._model_type} models. "
                 f"Only AR and VAR models support SQL-based prediction."
@@ -1434,7 +1468,7 @@ class TimeSeriesModelBase(VASTModel):
         lag_cols = []
         for i in range(1, p + 1):
             for col in y:
-                col_name = col[1:-1]
+                col_name = col.strip('"')
                 lag_cols.append(
                     f"LAG({col}, {i}) OVER (ORDER BY {ts}) AS {col_name}_lag{i}"
                 )
@@ -1442,7 +1476,7 @@ class TimeSeriesModelBase(VASTModel):
         # Build prediction formulas for each variable
         prediction_formulas = []
         for var_idx in range(n_vars):
-            y_col_name = y[var_idx][1:-1]
+            y_col_name = y[var_idx].strip('"')
 
             # Get coefficients for this equation
             phi_coefs = self._phi_values[var_idx]
@@ -1458,7 +1492,7 @@ class TimeSeriesModelBase(VASTModel):
             coef_idx = 0
             for lag in range(1, p + 1):
                 for col_idx, col in enumerate(y):
-                    col_name = col[1:-1]
+                    col_name = col.strip('"')
                     if coef_idx < len(phi_coefs):
                         coef = float(phi_coefs[coef_idx])
                         coef_str = f"({coef})" if coef < 0 else str(coef)
@@ -1484,7 +1518,7 @@ class TimeSeriesModelBase(VASTModel):
                     {ts},
                     {', '.join(prediction_formulas)}
                 FROM lagged_data
-                WHERE {' AND '.join([f"{y[0][1:-1]}_lag{i} IS NOT NULL" for i in range(1, p + 1)])}
+                WHERE {' AND '.join([f"{y[0].strip('"')}_lag{i} IS NOT NULL" for i in range(1, p + 1)])}
             )
             SELECT 
                 {"idx," if output_index else ""}
@@ -1795,6 +1829,7 @@ class TimeSeriesModelBase(VASTModel):
                 predictions for further forecasting.
                 This method is often referred to as
                 "one step ahead" forecasting.
+
              - forecast:
                 the model initiates forecasting from
                 an initial value and entirely disregards
@@ -1846,7 +1881,7 @@ class TimeSeriesModelBase(VASTModel):
         .. ipython:: python
             :okwarning:
 
-            model = ARIMA(order = (12, 1, 2))
+            model = ARIMA(order = (12, 0, 0))
 
         We can now fit the model:
 
@@ -2124,7 +2159,7 @@ class TimeSeriesModelBase(VASTModel):
         .. ipython:: python
             :okwarning:
 
-            model = ARIMA(order = (12, 1, 2))
+            model = ARIMA(order = (12, 0, 0))
 
         We can now fit the model:
 
@@ -2346,7 +2381,7 @@ class TimeSeriesModelBase(VASTModel):
         .. ipython:: python
             :okwarning:
 
-            model = ARIMA(order = (12, 1, 2))
+            model = ARIMA(order = (12, 0, 0))
 
         We can now fit the model:
 

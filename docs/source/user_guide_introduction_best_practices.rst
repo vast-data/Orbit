@@ -138,14 +138,14 @@ VastFrame works like a SQL view. Heavy transformations (joins, window functions,
 
     titanic = vo.VastFrame("titanic")
     titanic["sex"].label_encode()["boat"].fillna(method="0ifnull")["name"].str_extract(
-        ' ([A-Za-z]+)\.').eval("family_size", expr="parch + sibsp + 1").drop(
+        r' ([A-Za-z]+)\.').eval("family_size", expr="parch + sibsp + 1").drop(
         columns=["cabin", "body", "ticket", "home.dest"])["fare"].fill_outliers().fillna()
 
 .. ipython:: python
     :suppress:
 
     titanic = vo.VastFrame("titanic")
-    titanic["sex"].label_encode()["boat"].fillna(method="0ifnull")["name"].str_extract(' ([A-Za-z]+)\.').eval("family_size", expr="parch + sibsp + 1").drop(columns=["cabin", "body", "ticket", "home.dest"])["fare"].fill_outliers().fillna()
+    titanic["sex"].label_encode()["boat"].fillna(method="0ifnull")["name"].str_extract(r' ([A-Za-z]+)\.').eval("family_size", expr="parch + sibsp + 1").drop(columns=["cabin", "body", "ticket", "home.dest"])["fare"].fill_outliers().fillna()
 
 .. ipython:: python
 
@@ -368,7 +368,7 @@ Control query concurrency for large datasets with many columns.
     
     vdf = gen_dataset(
         features_ranges,
-        nrows=100000,
+        nrows=10000,
     ).to_db(
         "test_dataset", 
         relation_type="table", 
@@ -388,7 +388,7 @@ Control query concurrency for large datasets with many columns.
     vo.drop("test_dataset", method="table")
     vdf = gen_dataset(
         features_ranges,
-        nrows=100000,
+        nrows=10000,
     ).to_db(
         "test_dataset", 
         relation_type="table", 
@@ -430,3 +430,9 @@ Control query concurrency for large datasets with many columns.
 .. tip::
 
    Use ``ncols_block`` and ``processes`` to balance query load on shared databases.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

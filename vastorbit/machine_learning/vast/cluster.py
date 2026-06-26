@@ -462,14 +462,6 @@ class KMeans(Clustering):
             tol = 1e-4,
         )
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -1068,14 +1060,6 @@ class BisectingKMeans(KMeans, Tree):
             tol = 1e-4,
         )
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -1309,7 +1293,7 @@ class BisectingKMeans(KMeans, Tree):
 
     **To SQL**
 
-    You can get the SQL query equivalent of the XGB model by:
+    You can get the SQL query equivalent of the GB model by:
 
     .. ipython:: python
         :okwarning:
@@ -1392,49 +1376,98 @@ class BisectingKMeans(KMeans, Tree):
         labels = self._model.labels_
         n_clusters = self._model.n_clusters
 
-        # 1. Cluster centers
-        self.clusters_ = self._model.cluster_centers_
-
-        # 2. Tree structure (not available in sklearn)
-        self.children_left_ = None
-        self.children_right_ = None
-
-        # 3. Cluster sizes
-        unique_labels, counts = np.unique(labels, return_counts=True)
-        self.cluster_size_ = counts
-
-        # 4. Total Within-Cluster Sum of Squares
+        # 2. Total / Between Sum of Squares (computed from the flat clustering)
         self.total_within_clusters_ss_ = self._model.inertia_
-
-        # 5. Total Sum of Squares
         X_centered = self._X - self._X.mean(axis=0)
         self.total_ss_ = np.sum(X_centered**2)
-
-        # 6. Between-Cluster Sum of Squares
         self.between_clusters_ss_ = self.total_ss_ - self.total_within_clusters_ss_
-
-        # 7. Elbow Score
         self.elbow_score_ = self.between_clusters_ss_ / self.total_ss_
-
-        # 8. Per-cluster Within-SS
-        self.cluster_i_ss_ = np.array(
-            [
-                (
-                    np.sum(
-                        (self._X[labels == i] - self._model.cluster_centers_[i]) ** 2
-                    )
-                    if np.sum(labels == i) > 0
-                    else 0.0
-                )
-                for i in range(n_clusters)
-            ]
-        )
-
-        # 9. Cluster scores (ratio)
-        self.cluster_score_ = self.cluster_i_ss_ / self.total_within_clusters_ss_
-
-        # 10. Distance metric
         self.p_ = 2
+
+        # 3. Tree structure.
+        # scikit-learn does not expose the bisecting hierarchy as flat arrays,
+        # but it keeps it in the private ``_bisecting_tree``. The memmodel
+        # (predict_sql / get_tree / to_graphviz) needs ``children_left_`` /
+        # ``children_right_`` arrays indexed by node id (root = node 0, ``None``
+        # at leaves) and a ``clusters_`` array holding the centroid of *every*
+        # node, internal nodes included. Walk the tree to rebuild them; without
+        # this the children are ``None`` and the memmodel raises
+        # "array is 0-dimensional" / "len() of unsized object".
+        bisecting_tree = getattr(self._model, "_bisecting_tree", None)
+        if bisecting_tree is not None:
+            centers, children_left, children_right, leaf_label = [], [], [], []
+
+            def _add_node(node):
+                node_id = len(centers)
+                centers.append(np.asarray(node.center, dtype=float))
+                children_left.append(None)
+                children_right.append(None)
+                leaf_label.append(getattr(node, "label", None))
+                return node_id
+
+            root_id = _add_node(bisecting_tree)
+            queue = [(bisecting_tree, root_id)]
+            while queue:
+                node, node_id = queue.pop(0)
+                left = getattr(node, "left", None)
+                right = getattr(node, "right", None)
+                if left is not None and right is not None:
+                    left_id = _add_node(left)
+                    right_id = _add_node(right)
+                    children_left[node_id] = left_id
+                    children_right[node_id] = right_id
+                    leaf_label[node_id] = None
+                    queue += [(left, left_id), (right, right_id)]
+
+            n_nodes = len(centers)
+            self.clusters_ = np.array(centers)
+            self.children_left_ = np.array(children_left, dtype=object)
+            self.children_right_ = np.array(children_right, dtype=object)
+
+            # Per-node size and within-cluster SS, indexed by node id. Leaves take
+            # their own cluster value; internal nodes aggregate their subtree so
+            # get_tree()/to_graphviz() can label every node.
+            size = np.zeros(n_nodes)
+            within_ss = np.zeros(n_nodes)
+            for node_id in range(n_nodes):
+                label = leaf_label[node_id]
+                if label is not None:
+                    mask = labels == label
+                    size[node_id] = int(np.sum(mask))
+                    within_ss[node_id] = np.sum(
+                        (self._X[mask] - centers[node_id]) ** 2
+                    )
+            for node_id in range(n_nodes - 1, -1, -1):
+                if children_left[node_id] is not None:
+                    left_id = children_left[node_id]
+                    right_id = children_right[node_id]
+                    size[node_id] = size[left_id] + size[right_id]
+                    within_ss[node_id] = within_ss[left_id] + within_ss[right_id]
+            self.cluster_size_ = size.astype(int)
+            self.cluster_i_ss_ = within_ss
+            self.cluster_score_ = within_ss / self.total_within_clusters_ss_
+        else:
+            # Defensive fallback: keep the flat clustering if the private tree
+            # is unavailable (older/newer scikit-learn).
+            self.clusters_ = self._model.cluster_centers_
+            self.children_left_ = None
+            self.children_right_ = None
+            unique_labels, counts = np.unique(labels, return_counts=True)
+            self.cluster_size_ = counts
+            self.cluster_i_ss_ = np.array(
+                [
+                    (
+                        np.sum(
+                            (self._X[labels == i] - self._model.cluster_centers_[i])
+                            ** 2
+                        )
+                        if np.sum(labels == i) > 0
+                        else 0.0
+                    )
+                    for i in range(n_clusters)
+                ]
+            )
+            self.cluster_score_ = self.cluster_i_ss_ / self.total_within_clusters_ss_
 
     # I/O Methods.
 
@@ -2115,6 +2148,43 @@ class DBSCAN(VASTModel):
 
     # Model Fitting Method.
 
+    def _is_already_stored(self, raise_error: bool = False) -> bool:
+        """
+        Checks whether the model's output table already exists in the
+        database. DBSCAN materialises its result as a regular table named
+        ``model_name``, so existence is resolved against
+        ``information_schema.tables``.
+        """
+        name = self.model_name.replace('"', "")
+        parts = name.split(".")
+        table = parts[-1]
+        if len(parts) >= 3:
+            info_relation = f"{parts[-3]}.information_schema.tables"
+            schema = parts[-2]
+        else:
+            info_relation = "information_schema.tables"
+            schema = parts[-2] if len(parts) == 2 else None
+        where = f"table_name = '{table}'"
+        if schema:
+            where += f" AND table_schema = '{schema}'"
+        result = _executeSQL(
+            query=f"""
+                SELECT /*+LABEL('learn.cluster.DBSCAN._is_already_stored')*/
+                    table_name
+                FROM {info_relation}
+                WHERE {where}""",
+            method="fetchall",
+            print_time_sql=False,
+        )
+        is_stored = len(result) > 0
+        if is_stored and raise_error:
+            raise NameError(
+                f"The model '{self.model_name}' already exists! Use "
+                "'overwrite_model = True' to overwrite it, or choose a "
+                "different model name."
+            )
+        return is_stored
+
     def fit(
         self,
         input_relation: SQLRelation,
@@ -2211,23 +2281,23 @@ class DBSCAN(VASTModel):
         self.X = X
         self.key_columns = quote_ident(key_columns)
         self.input_relation = input_relation
-        name_main = gen_tmp_name(name="main")
-        name_dbscan_clusters = gen_tmp_name(name="clusters")
+        name_main = gen_tmp_name(schema=conf.get_option("temp_schema"), name="main")
+        created_main = False
         try:
             if not index:
                 index = "id"
-                drop(f"v_temp_schema.{name_main}", method="table")
+                drop(name_main, method="table")
                 _executeSQL(
                     query=f"""
-                    CREATE LOCAL TEMPORARY TABLE {name_main} 
-                    ON COMMIT PRESERVE ROWS AS 
+                    CREATE TABLE {name_main} AS
                     SELECT /*+LABEL('learn.cluster.DBSCAN.fit')*/
-                        ROW_NUMBER() OVER() AS id, 
+                        ROW_NUMBER() OVER () AS id, 
                         {', '.join(X + key_columns)} 
                     FROM {self.input_relation} 
                     WHERE {' AND '.join([f"{item} IS NOT NULL" for item in X])}""",
                     title="Computing the DBSCAN Table [Step 0]",
                 )
+                created_main = True
             else:
                 _executeSQL(
                     query=f"""
@@ -2243,7 +2313,7 @@ class DBSCAN(VASTModel):
                 f"POWER(ABS(x.{X[i]} - y.{X[i]}), {self.parameters['p']})"
                 for i in range(len(X))
             ]
-            distance = f"POWER({' + '.join(distance)}, 1 / {self.parameters['p']})"
+            distance = f"POWER({' + '.join(distance)}, 1.0 / {self.parameters['p']})"
             table = f"""
                 SELECT 
                     node_id, 
@@ -2305,48 +2375,34 @@ class DBSCAN(VASTModel):
                     ) and isinstance(clusters[node], NoneType):
                         clusters[node] = clusters[node_neighbor]
                 del graph[0]
-            try:
-                with open(f"{name_dbscan_clusters}.csv", "w", encoding="utf-8") as f:
-                    for c in clusters:
-                        f.write(f"{c}, {clusters[c]}\n")
-                drop(f"v_temp_schema.{name_dbscan_clusters}", method="table")
-                _executeSQL(
-                    query=f"""
-                    CREATE LOCAL TEMPORARY TABLE {name_dbscan_clusters}
-                    (node_id int, cluster int) 
-                    ON COMMIT PRESERVE ROWS""",
-                    print_time_sql=False,
-                )
-                query = f"""
-                    COPY v_temp_schema.{name_dbscan_clusters}(node_id, cluster) 
-                    FROM {{}} 
-                         DELIMITER ',' 
-                         ESCAPE AS '\\';"""
-                if isinstance(current_cursor(), trino.dbapi.Cursor):
-                    _executeSQL(
-                        query=query.format("STDIN"),
-                        method="copy",
-                        print_time_sql=False,
-                        path=f"./{name_dbscan_clusters}.csv",
-                    )
-                else:
-                    _executeSQL(
-                        query=query.format(f"LOCAL './{name_dbscan_clusters}.csv'"),
-                        print_time_sql=False,
-                    )
-                _executeSQL("COMMIT;", print_time_sql=False)
-            finally:
-                os.remove(f"{name_dbscan_clusters}.csv")
             self.n_clusters_ = i
+            # Attach the (node_id -> cluster) mapping with an inline VALUES table
+            # joined back to the data. This replaces the Vertica-only
+            # CSV-write + COPY round-trip, which Trino does not support.
+            assigned = [
+                (node_id, cluster)
+                for node_id, cluster in clusters.items()
+                if not isinstance(cluster, NoneType)
+            ]
+            cols = ", ".join(self.X + self.key_columns)
+            if assigned:
+                values = ", ".join(f"({node_id}, {cluster})" for node_id, cluster in assigned)
+                cluster_join = (
+                    f" LEFT JOIN (VALUES {values}) AS y(node_id, cluster) "
+                    f"ON x.{index} = y.node_id"
+                )
+                cluster_select = "COALESCE(cluster, -1)"
+            else:
+                # No core points were found: every row is noise.
+                cluster_join = ""
+                cluster_select = "-1"
             _executeSQL(
                 query=f"""
                     CREATE TABLE {self.model_name} AS 
                        SELECT /*+LABEL('learn.cluster.DBSCAN.fit')*/
-                            {', '.join(self.X + self.key_columns)}, 
-                            COALESCE(cluster, -1) AS dbscan_clusters 
-                       FROM v_temp_schema.{name_main} AS x 
-                       LEFT JOIN v_temp_schema.{name_dbscan_clusters} AS y 
-                       ON x.{index} = y.node_id""",
+                            {cols}, 
+                            {cluster_select} AS dbscan_clusters 
+                       FROM {name_main} AS x{cluster_join}""",
                 title="Computing the DBSCAN Table [Step 2]",
             )
             self.n_noise_ = _executeSQL(
@@ -2361,8 +2417,8 @@ class DBSCAN(VASTModel):
             )
             self.p_ = self.parameters["p"]
         finally:
-            drop(f"v_temp_schema.{name_main}", method="table")
-            drop(f"v_temp_schema.{name_dbscan_clusters}", method="table")
+            if created_main:
+                drop(name_main, method="table")
 
     # Prediction / Transformation Methods.
 

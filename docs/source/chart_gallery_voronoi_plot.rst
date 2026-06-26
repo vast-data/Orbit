@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.voronoi_plot:
 
 ================================
@@ -280,7 +282,9 @@ Text
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/plotting_plotly_plot_voronoi_custom_y_title.html
 
+.. ipython:: python
+   :suppress:
 
-
-_____
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()
 

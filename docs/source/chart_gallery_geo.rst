@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.geo:
 
 ================
@@ -130,3 +132,9 @@ vastorbit empowers users with a high degree of flexibility when it comes to tail
 This customization extends to essential elements such as **color schemes**, **text labels**, and **plot sizes**, as well as a wide range of other attributes that can be fine-tuned to align with specific design preferences and analytical requirements. Whether you want to make your visualizations more visually appealing or need to convey specific insights with precision, vastorbit's customization options enable you to craft graphics that suit your exact needs.
 
 .. note:: As geospatial plots encompass various chart types such as heatmaps and scatter plots, customization options vary between graphics. To tailor your visualization, please refer to the corresponding :ref:`chart_gallery` for specific guidance on customization.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

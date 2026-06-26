@@ -110,6 +110,13 @@ class VASTModel(PlottingUtils):
                 continue  # native-only parameter; not a scikit-learn argument
             if key == "init" and value == "k-means++":
                 value = "k-means++"  # VastOrbit -> scikit-learn naming
+            if key == "max_features" and value == "max":
+                # VastOrbit "max" (use all features) -> scikit-learn None.
+                value = None
+            if key == "class_weight" and isinstance(value, (list, tuple)):
+                # VastOrbit accepts a per-class weight list; scikit-learn wants
+                # a {class_index: weight} mapping.
+                value = {i: w for i, w in enumerate(value)}
             out[key] = value
         return out
 
@@ -1600,9 +1607,25 @@ class Supervised(VASTModel):
             all_cols = self.X + [self.y]
             data = vdf[all_cols].to_numpy()
 
-            # Split into X and y
-            X = data[:, :-1]  # All columns except last
+            # Split into X and y. Fetching X and y in one query preserves row
+            # order, but if the response is categorical the combined array is
+            # promoted to a string dtype; cast the predictors back to float so
+            # the scikit-learn estimator receives numeric X.
+            X = data[:, :-1].astype(float)  # All columns except last
             y = data[:, -1]  # Last column
+
+            # scikit-learn estimators reject NaN/Inf. Drop rows with missing
+            # values in the predictors (and in the response when it is numeric)
+            # so models fit on data containing nulls — e.g. lagged/differenced
+            # series or columns with blanks — instead of raising. A categorical
+            # (string) response only filters on X.
+            finite_mask = np.isfinite(X).all(axis=1)
+            if y.dtype.kind in "fiu":
+                y = y.astype(float)
+                finite_mask &= np.isfinite(y)
+            if not finite_mask.all():
+                X = X[finite_mask]
+                y = y[finite_mask]
 
             model = self._sklearn_model(**self._get_sklearn_params())
             model.fit(X, y)
@@ -1651,7 +1674,7 @@ class Tree:
                 ):
                     tree["split_predictor"][i] = j
 
-            if self._model_type == "XGBClassifier" and isinstance(
+            if self._model_type == "GradientBoostingClassifier" and isinstance(
                 tree["log_odds"][i], str
             ):
                 val, all_val = tree["log_odds"][i].split(","), {}
@@ -1688,7 +1711,7 @@ class Tree:
             tree["prediction"],
             tree["is_categorical_split"],
         ]
-        if self._model_type == "XGBClassifier":
+        if self._model_type == "GradientBoostingClassifier":
             trees_arrays += [tree["log_odds"]]
         if return_probability:
             trees_arrays += [tree["probability/variance"]]
@@ -1803,12 +1826,7 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "sqrt",
-                max_leaf_nodes = 32,
-                max_depth = 3,
-                min_samples_leaf = 5,
-                min_info_gain = 0.0,
-                nbins = 32,
+                n_estimators = 5
             )
 
         We can now fit the model:
@@ -1956,12 +1974,7 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "sqrt",
-                max_leaf_nodes = 32,
-                max_depth = 3,
-                min_samples_leaf = 5,
-                min_info_gain = 0.0,
-                nbins = 32,
+                n_estimators = 5
             )
 
         We can now fit the model:
@@ -2090,13 +2103,7 @@ class Tree:
             :okwarning:
  
             model = RandomForestClassifier(
-                max_features = "sqrt",
-                max_leaf_nodes = 32,
-                sample = 0.5,
-                max_depth = 3,
-                min_samples_leaf = 5,
-                min_info_gain = 0.0,
-                nbins = 32,
+                n_estimators = 5
             )
  
         We can now fit the model:
@@ -2152,7 +2159,7 @@ class Tree:
             )
  
         if hasattr(self._model, "estimators_"):
-            # RandomForest -> 1-D estimators_; GradientBoosting (XGB*) -> 2-D,
+            # RandomForest -> 1-D estimators_; GradientBoosting (GradientBoosting*) -> 2-D,
             # so ravel handles both. IsolationForest also exposes estimators_.
             skl_tree = np.ravel(self._model.estimators_)[tree_id].tree_
         else:
@@ -2197,7 +2204,7 @@ class Tree:
         }
         if is_isolation:
             cols["leaf_path_length"] = []
-        if self._model_type == "XGBClassifier":
+        if self._model_type == "GradientBoostingClassifier":
             cols["log_odds"] = []
  
         for i in range(n_nodes):
@@ -2206,8 +2213,11 @@ class Tree:
             cols["node_id"].append(i)
             cols["node_depth"].append(node_depth[i])
             cols["is_leaf"].append(bool(is_leaf))
-            # scikit-learn splits are always numeric (no native categorical split).
-            cols["is_categorical_split"].append(False)
+            # scikit-learn splits are always numeric (no native categorical
+            # split); leaf nodes have no split at all and are marked None so the
+            # JSON/tree export routes them through the leaf-value branch instead
+            # of trying to float() a non-existent numeric threshold.
+            cols["is_categorical_split"].append(None if is_leaf else False)
             cols["training_row_count"].append(int(n_node_samples[i]))
  
             if not is_leaf:
@@ -2219,7 +2229,7 @@ class Tree:
                 cols["probability/variance"].append(None)
                 if is_isolation:
                     cols["leaf_path_length"].append(None)
-                if self._model_type == "XGBClassifier":
+                if self._model_type == "GradientBoostingClassifier":
                     cols["log_odds"].append(None)
                 continue
  
@@ -2239,7 +2249,7 @@ class Tree:
                 k = int(np.argmax(counts))
                 cols["prediction"].append(self.classes_[k])
                 cols["probability/variance"].append(float(counts[k] / total))
-                if self._model_type == "XGBClassifier":
+                if self._model_type == "GradientBoostingClassifier":
                     cols["log_odds"].append(
                         ",".join(
                             f"{self.classes_[j]}:{float(value[i][0][j])}"
@@ -2365,12 +2375,7 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "sqrt",
-                max_leaf_nodes = 32,
-                max_depth = 3,
-                min_samples_leaf = 5,
-                min_info_gain = 0.0,
-                nbins = 32,
+                n_estimators = 5
             )
 
         We can now fit the model:
@@ -2502,12 +2507,7 @@ class Tree:
             :okwarning:
 
             model = RandomForestClassifier(
-                max_features = "sqrt",
-                max_leaf_nodes = 32,
-                max_depth = 3,
-                min_samples_leaf = 5,
-                min_info_gain = 0.0,
-                nbins = 32,
+                n_estimators = 5
             )
 
         We can now fit the model:
@@ -4197,7 +4197,11 @@ class MulticlassClassifier(Supervised):
         Checks if the pos_label is correct.
         """
         if isinstance(pos_label, NoneType) and self._is_binary_classifier():
-            return 1
+            # Default to the actual positive class (the second sorted class),
+            # not a hardcoded 1 — binary responses are not always labelled {0,1}
+            # (e.g. {2,4} or string labels), and a literal 1 would then fail the
+            # class-membership check on the re-validation in _get_sql_plot.
+            return self.classes_[1]
         if isinstance(pos_label, NoneType):
             return None
         if str(pos_label) not in [str(c) for c in self.classes_]:
@@ -4297,7 +4301,7 @@ class MulticlassClassifier(Supervised):
         .. ipython:: python
             :okwarning:
 
-            model = RandomForestClassifier()
+            model = RandomForestClassifier(n_estimators = 5)
 
         We can now fit the model:
 
@@ -6877,11 +6881,19 @@ class Unsupervised(VASTModel):
 
         # Initialization
         X = format_type(X, dtype=list)
-        self.X = quote_ident(X)
         if isinstance(input_relation, VastFrame):
             self.input_relation = input_relation.current_relation()
         else:
             self.input_relation = input_relation
+
+        # Per the docstring, an empty X means "use all numerical columns".
+        # Without this, self.X stays empty while scikit-learn is still fit on
+        # the numerical columns, so the fitted parameter vectors and self.X end
+        # up with different lengths and transform()/deploySQL() later raise
+        # "length of parameter 'X' must be equal to the length of the vector".
+        if not X:
+            X = VastFrame(self.input_relation).numcol()
+        self.X = quote_ident(X)
 
         if not (isinstance(self._sklearn_model, NoneType)):
             vdf = VastFrame(self.input_relation)

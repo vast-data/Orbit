@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.stepwise:
 
 =============
@@ -316,3 +318,9 @@ vastorbit empowers users with a high degree of flexibility when it comes to tail
 This customization extends to essential elements such as **color schemes**, **text labels**, and **plot sizes**, as well as a wide range of other attributes that can be fine-tuned to align with specific design preferences and analytical requirements. Whether you want to make your visualizations more visually appealing or need to convey specific insights with precision, vastorbit's customization options enable you to craft graphics that suit your exact needs.
 
 .. note:: As stepwise plots are essentially scatter and bubble plots, customization options are identical to those available for :ref:`chart_gallery.scatter`.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

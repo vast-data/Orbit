@@ -21,7 +21,11 @@ First, we have information on each flight.
     :suppress:
 
     import vastorbit as vo
-    flights = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/flights/flights.csv")
+
+    try:
+        flights = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/flights/flights.csv")
+    except:
+        flights = vo.VastFrame("flights")
     res = flights.head(100)
     html_file = open("SPHINX_DIRECTORY/figures/ug_dp_table_join_1.html", "w")
     html_file.write(res._repr_html_())
@@ -41,17 +45,21 @@ Second, we have information on each airport.
     :suppress:
 
     import vastorbit as vo
-    airports = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/flights/airports.csv",
-                        dtype = {
-                            "IATA_CODE": "Varchar(20)",
-                            "AIRPORT": "Varchar(156)",
-                            "CITY": "Varchar(60)",
-                            "STATE": "Varchar(20)",
-                            "COUNTRY": "Varchar(20)",
-                            "LATITUDE": "real",
-                            "LONGITUDE": "real",
-                        }
-    )
+
+    try:
+        airports = vo.read_csv("SPHINX_DIRECTORY/source/_static/website/examples/data/flights/airports.csv",
+            dtype = {
+                "IATA_CODE": "Varchar(20)",
+                "AIRPORT": "Varchar(156)",
+                "CITY": "Varchar(60)",
+                "STATE": "Varchar(20)",
+                "COUNTRY": "Varchar(20)",
+                "LATITUDE": "real",
+                "LONGITUDE": "real",
+            }
+        )
+    except:
+        airports = vo.VastFrame("airports")
     res = airports.head(100)
     html_file = open("SPHINX_DIRECTORY/figures/ug_dp_table_join_2.html", "w")
     html_file.write(res._repr_html_())
@@ -241,3 +249,9 @@ Let's use a cross join of the ``airports`` dataset on itself to compute the dist
 vastorbit offers many powerful options for joining datasets.
 
 In the next lesson, we'll learn how to deal with duplicates.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

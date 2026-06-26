@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.corr:
 
 ==================
@@ -355,5 +357,9 @@ Text
         @savefig plotting_matplotlib_corr_custom_xaxis_label.png
         data.corr(method = "pearson").set_xlabel("Custom X Axis")
 
-_____
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()
 

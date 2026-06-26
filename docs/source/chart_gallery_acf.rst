@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.acf:
 
 =====================
@@ -293,5 +295,8 @@ Text
         @savefig plotting_matplotlib_acf_custom_yaxis_label.png
         data.acf(column = "number", ts = "date", method = "pearson").set_ylabel("Custom Y Axis")
 
-_____
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

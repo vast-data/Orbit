@@ -13,6 +13,9 @@ In vastorbit, the :py:func:`~vastorbit.VastFrame.train_test_split` method uses a
     from vastorbit.datasets import load_titanic
 
     titanic = load_titanic()
+    # LinearRegression is scikit-learn backed and rejects NaN, so we drop rows
+    # with missing values in the columns we model on before splitting.
+    titanic = titanic.dropna(columns = ["age", "fare", "survived"])
     train, test = titanic.train_test_split()
 
 .. ipython:: python
@@ -71,3 +74,9 @@ When fitting the model with the :py:func:`~vastorbit.machine_learning.vast.Linea
     :file: SPHINX_DIRECTORY/figures/ug_fs_table_tts_4.html
 
 All model evaluation abstractions will now use the test relation for the scoring. After that, you can evaluate the efficiency of your model.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

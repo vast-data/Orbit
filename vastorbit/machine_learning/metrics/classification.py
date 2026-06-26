@@ -338,12 +338,12 @@ def confusion_matrix(
             FROM (
                 SELECT 
                     CASE 
-                        WHEN {y_true} = {q}{pos_label}{q} THEN 1
+                        WHEN CAST({y_true} AS VARCHAR) = '{pos_label}' THEN 1
                         WHEN {y_true} IS NULL THEN NULL
                         ELSE 0 
                     END AS actual,
                     CASE 
-                        WHEN {y_score} = {q}{pos_label}{q} THEN 1
+                        WHEN CAST({y_score} AS VARCHAR) = '{pos_label}' THEN 1
                         WHEN {y_score} IS NULL THEN NULL
                         ELSE 0 
                     END AS predicted
@@ -384,8 +384,8 @@ def confusion_matrix(
             q = ""
             if isinstance(label, str):
                 q = "'"
-            actual_case += f"WHEN {y_true} = {q}{label}{q} THEN {idx} "
-            predicted_case += f"WHEN {y_score} = {q}{label}{q} THEN {idx} "
+            actual_case += f"WHEN CAST({y_true} AS VARCHAR) = '{label}' THEN {idx} "
+            predicted_case += f"WHEN CAST({y_score} AS VARCHAR) = '{label}' THEN {idx} "
 
         actual_case += "ELSE NULL END"
         predicted_case += "ELSE NULL END"
@@ -920,6 +920,7 @@ def diagnostic_odds_ratio(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1065,6 +1066,7 @@ def f1_score(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1209,6 +1211,7 @@ def false_negative_rate(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1350,6 +1353,7 @@ def false_positive_rate(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1494,6 +1498,7 @@ def false_discovery_rate(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1638,6 +1643,7 @@ def false_omission_rate(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1782,6 +1788,7 @@ def fowlkes_mallows_index(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -1926,6 +1933,7 @@ def informedness(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2072,6 +2080,7 @@ def markedness(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2220,6 +2229,7 @@ def matthews_corrcoef(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2364,6 +2374,7 @@ def negative_predictive_score(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2508,6 +2519,7 @@ def negative_likelihood_ratio(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2653,6 +2665,7 @@ def positive_likelihood_ratio(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2797,6 +2810,7 @@ def precision_score(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -2942,6 +2956,7 @@ def prevalence_threshold(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -3086,6 +3101,7 @@ def recall_score(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -3230,6 +3246,7 @@ def specificity_score(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -3424,7 +3441,7 @@ def _compute_roc_curve(
     -- Step 1: Prepare data with binary labels
     prepared_data AS (
         SELECT 
-            CASE WHEN {y_true} = {q}{pos_label}{q} THEN 1 ELSE 0 END AS actual,
+            CASE WHEN CAST({y_true} AS VARCHAR) = '{pos_label}' THEN 1 ELSE 0 END AS actual,
             CAST({y_score} AS DOUBLE) AS score
         FROM {input_relation}
         WHERE {y_true} IS NOT NULL AND {y_score} IS NOT NULL
@@ -3528,7 +3545,7 @@ def _compute_prc_curve(
     -- Step 1: Prepare data with binary labels
     prepared_data AS (
         SELECT 
-            CASE WHEN {y_true} = {q}{pos_label}{q} THEN 1 ELSE 0 END AS actual,
+            CASE WHEN CAST({y_true} AS VARCHAR) = '{pos_label}' THEN 1 ELSE 0 END AS actual,
             CAST({y_score} AS DOUBLE) AS score
         FROM {input_relation}
         WHERE {y_true} IS NOT NULL AND {y_score} IS NOT NULL
@@ -3630,7 +3647,7 @@ def _compute_lift_curve(
     -- Step 1: Prepare data with binary labels
     prepared_data AS (
         SELECT 
-            CASE WHEN {y_true} = {q}{pos_label}{q} THEN 1 ELSE 0 END AS actual,
+            CASE WHEN CAST({y_true} AS VARCHAR) = '{pos_label}' THEN 1 ELSE 0 END AS actual,
             CAST({y_score} AS DOUBLE) AS score
         FROM {input_relation}
         WHERE {y_true} IS NOT NULL AND {y_score} IS NOT NULL
@@ -4071,6 +4088,7 @@ def best_cutoff(
 
         - None:
             accuracy.
+
         If  empty,  the  behaviour  is  similar to  the
         'scores' option.
     labels: ArrayLike, optional
@@ -4886,7 +4904,7 @@ def log_loss(
                 SELECT 
                     /*+LABEL('learn.metrics.logloss')*/ 
                     AVG(CASE 
-                            WHEN {y_true} = {q}{pos_label}{q}
+                            WHEN CAST({y_true} AS VARCHAR) = '{pos_label}'
                             THEN - LN(CAST({y_s} AS DOUBLE) + 1e-90) 
                             ELSE - LN(CAST(1 - {y_s} AS DOUBLE) + 1e-90) 
                         END) 
@@ -5257,6 +5275,7 @@ def classification_report(
         is the list of two elements:
         - list of column names for class probabilities
           for each class
+
         - Prediction value
 
     .. note::
@@ -5404,14 +5423,14 @@ def classification_report(
             tn, fn, fp, tp = all_cm_metrics[idx]
             if prob_list:
                 y_s = y_score[0].format(pos_label)
-                y_t = f"CASE {y_true} WHEN {q}{pos_label}{q} THEN 1 ELSE 0 END"
+                y_t = f"CASE CAST({y_true} AS VARCHAR) WHEN '{pos_label}' THEN 1 ELSE 0 END"
         else:
             if estimator:
                 cm = estimator.confusion_matrix(pos_label=pos_label, cutoff=cutoff)
             else:
                 y_s = y_score[0].format(pos_label)
                 y_p = y_score[1]
-                y_t = f"CASE {y_true} WHEN {q}{pos_label}{q} THEN 1 ELSE 0 END"
+                y_t = f"CASE CAST({y_true} AS VARCHAR) WHEN '{pos_label}' THEN 1 ELSE 0 END"
                 cm = confusion_matrix(y_true, y_p, input_relation, pos_label=pos_label)
             tn, tp = cm[0][0], cm[1][1]
             fn, fp = cm[1][0], cm[0][1]

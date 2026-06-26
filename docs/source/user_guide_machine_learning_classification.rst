@@ -51,8 +51,8 @@ We'll predict flower species using the Iris dataset with a Random Forest Classif
 .. ipython:: python
 
     model = RandomForestClassifier(
-        n_estimators=100,
-        max_depth=5,
+        n_estimators = 5,
+        max_depth = 3,
     )
 
 **Train the model:**
@@ -267,9 +267,8 @@ Advanced Techniques
 
     # Grid search for best parameters
     best_model = RandomForestClassifier(
-        n_estimators=200,
-        max_depth=10,
-        max_features=2,
+        n_estimators = 5,
+        max_depth = 3,
     )
 
 **Feature engineering:**
@@ -317,3 +316,9 @@ Now that you understand classification, explore:
    - :ref:`api.machine_learning` – Complete ML API reference
    - :ref:`examples.learn.titanic` – Binary classification example
    - :ref:`examples.learn.iris` – Multiclass classification example
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

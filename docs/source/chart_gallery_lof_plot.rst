@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.lof:
 
 ================================
@@ -369,5 +371,9 @@ Text
         @savefig plotting_matplotlib_lof_2d_plot_custom_yaxis_label.png
         model_lof_2d.plot().set_ylabel("Custom Y Axis")
 
-_____
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()
 

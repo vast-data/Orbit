@@ -14,8 +14,8 @@ from vastorbit.machine_learning.memmodel.ensemble import (
     IsolationForest,
     RandomForestClassifier,
     RandomForestRegressor,
-    XGBClassifier,
-    XGBRegressor,
+    GradientBoostingClassifier,
+    GradientBoostingRegressor,
 )
 from vastorbit.machine_learning.memmodel.linear_model import (
     LinearModel,

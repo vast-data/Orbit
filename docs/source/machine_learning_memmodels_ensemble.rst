@@ -106,15 +106,15 @@ Random Forest Classifier
 
 ____
 
-XGBoost Regressor
-------------------------
+GradientBoosting Regressor
+--------------------------
 
 .. currentmodule:: vastorbit.machine_learning.memmodel
    
 .. autosummary::
    :toctree: api/
 
-   ensemble.XGBRegressor
+   ensemble.GradientBoostingRegressor
 
 .. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
 
@@ -123,11 +123,11 @@ XGBoost Regressor
 .. autosummary::
    :toctree: api/
 
-   XGBRegressor.get_attributes
-   XGBRegressor.plot_tree
-   XGBRegressor.predict
-   XGBRegressor.predict_sql
-   XGBRegressor.set_attributes
+   GradientBoostingRegressor.get_attributes
+   GradientBoostingRegressor.plot_tree
+   GradientBoostingRegressor.predict
+   GradientBoostingRegressor.predict_sql
+   GradientBoostingRegressor.set_attributes
 
 
 **Attributes:**
@@ -135,21 +135,21 @@ XGBoost Regressor
 .. autosummary::
    :toctree: api/
 
-   XGBRegressor.object_type
+   GradientBoostingRegressor.object_type
 
 
 
 _____
 
-XGBoost Classifier
-------------------------
+GradientBoosting Classifier
+---------------------------
 
 .. currentmodule:: vastorbit.machine_learning.memmodel
    
 .. autosummary::
    :toctree: api/
 
-   ensemble.XGBClassifier
+   ensemble.GradientBoostingClassifier
 
 .. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
 
@@ -158,20 +158,20 @@ XGBoost Classifier
 .. autosummary::
    :toctree: api/
 
-   XGBClassifier.get_attributes
-   XGBClassifier.plot_tree
-   XGBClassifier.predict
-   XGBClassifier.predict_proba
-   XGBClassifier.predict_proba_sql
-   XGBClassifier.predict_sql
-   XGBClassifier.set_attributes
+   GradientBoostingClassifier.get_attributes
+   GradientBoostingClassifier.plot_tree
+   GradientBoostingClassifier.predict
+   GradientBoostingClassifier.predict_proba
+   GradientBoostingClassifier.predict_proba_sql
+   GradientBoostingClassifier.predict_sql
+   GradientBoostingClassifier.set_attributes
 
 **Attributes:**
 
 .. autosummary::
    :toctree: api/
 
-   XGBClassifier.object_type
+   GradientBoostingClassifier.object_type
 
 
 _____

@@ -95,6 +95,7 @@ AutoClustering
    :toctree: api/
 
    AutoDataPrep.object_type
+
 ______
 
 

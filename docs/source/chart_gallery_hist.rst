@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.hist:
 
 
@@ -558,4 +560,8 @@ Text
         @savefig plotting_matplotlib_hist_custom_yaxis_label.png
         data["score1"].hist().set_ylabel("Custom Y Axis")
 
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

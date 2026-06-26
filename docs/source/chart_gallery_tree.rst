@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.tree:
 
 =============================
@@ -27,7 +29,7 @@ Machine Learning - Tree Plots
     data = vo.VastFrame({"x": np.concatenate([x, x + k]), "y": np.concatenate([y, y + k]), "z": np.concatenate([z, z + k]), "c": [random.randint(0, 1) for _ in range(N)]})
 
     # Defining a Tree Based model
-    model = vml.RandomForestClassifier()
+    model = vml.RandomForestClassifier(n_estimators = 4)
 
     # Fitting the model
     model.fit(data, ["x", "y", "z"], "c")
@@ -78,7 +80,7 @@ Let's proceed by creating a Random Forest Classifier model using the complete da
     import vastorbit.machine_learning.vast as vml
 
     # Defining the Models
-    model = vml.RandomForestClassifier()
+    model = vml.RandomForestClassifier(n_estimators = 4)
 
     # Fitting the models
     model.fit(data, ["x", "y", "z"], "c")
@@ -171,3 +173,9 @@ Example
 
 
 .. hint:: In vastorbit, when a model consists of multiple trees, you can utilize the `tree_id` parameter to access and analyze specific trees within the model.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

@@ -40,7 +40,7 @@ def load_random_forest_model(schema_loader, dummy_dist_vd):
     col_name_1 = "0"
     col_name_2 = "1"
     by_col = "binary"
-    model = RandomForestClassifier(f"{schema_loader}.random_forest_plot_test")
+    model = RandomForestClassifier(f"{schema_loader}.random_forest_plot_test", n_estimators = 5)
     model.drop()
     model.fit(dummy_dist_vd, [col_name_1, col_name_2], by_col)
     yield model

@@ -21,15 +21,9 @@ TAU = StringSQL("2 * PI()")
 def _factorial_sql(x: SQLExpression) -> str:
     """
     Returns Trino SQL computing the factorial of ``x``.
-
-    Trino has no ``!`` operator or ``FACTORIAL`` function (both exist in
-    Vertica), so ``n!`` is built as the product of ``1..n`` with
-    ``REDUCE(SEQUENCE(...))``. ``GREATEST(x, 1)`` keeps ``0! = 1`` and stops
-    ``SEQUENCE`` from erroring on an empty/descending range; the value is cast
-    to ``bigint`` because the factorial is an integer product.
     """
     n = f"CAST(GREATEST({x}, 1) AS bigint)"
-    return f"REDUCE(SEQUENCE(1, {n}), BIGINT '1', (a, b) -> a * b, a -> a)"
+    return f"REDUCE(SEQUENCE(1, {n}), DOUBLE '1', (a, b) -> a * b, a -> a)"
 
 
 """
@@ -1303,7 +1297,7 @@ def factorial(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(_factorial_sql(expr), "int")
+    return StringSQL(_factorial_sql(expr), "float")
 
 
 def floor(expr: SQLExpression) -> StringSQL:
@@ -1524,7 +1518,7 @@ def hash(*args) -> StringSQL:
         expr += [format_magic(arg)]
     expr = ", ".join([str(elem) for elem in expr])
     return StringSQL(
-        f"FROM_BIG_ENDIAN_64(XXHASH64(TO_UTF8(CAST(({expr} AS VARCHAR))))", "real"
+        f"FROM_BIG_ENDIAN_64(XXHASH64(TO_UTF8(CAST({expr} AS VARCHAR))))", "real"
     )
 
 

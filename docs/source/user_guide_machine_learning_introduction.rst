@@ -14,6 +14,7 @@ Supervised Learning
 Supervised Learning techniques map an input to an output based on some example dataset. This type of learning consists of two main types:
  - **Regression:** The Response is numerical (``Linear Regression``, ``SVM Regression``, ``RF Regression``...).
  - **Classification:** The Response is categorical (``Gradient Boosting``, ``Naive Bayes``, ``Logistic Regression``...).
+
 For example, predicting the total charges of a Telco customer using their tenure would be a type of regression. The following code is drawing a linear regression using the ``TotalCharges`` as a function of the ``tenure`` in the `telco churn dataset <https://github.com/vastdata-dev/vastorbit/tree/master/docs/source/notebooks/data_exploration/correlations/data>`__.
 
 .. code-block:: python
@@ -40,6 +41,7 @@ For example, predicting the total charges of a Telco customer using their tenure
     from vastorbit.machine_learning.vast import LinearRegression
 
     model = LinearRegression()
+    churn = churn.dropna(columns = ["tenure", "TotalCharges"])
     model.fit(churn, ["tenure"], "TotalCharges")
     fig = model.plot()
     fig.write_html("SPHINX_DIRECTORY/figures/ug_ml_plot_introduction_1.html")
@@ -127,3 +129,9 @@ These algorithms are to used to segment the data (:py:mod:`~vastorbit.machine_le
 In this section, we went over a few of the many ML algorithms available in vastorbit.
 
 In the next lesson, we'll go over :ref:`user_guide.machine_learning.time_series`
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

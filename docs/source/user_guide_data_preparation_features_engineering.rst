@@ -219,3 +219,9 @@ Let's look at forest fires for each state three months preceding two months foll
 Moving windows give us infinite possibilities for creating new features.
 
 After we've finished preparing our data, our next task is to create a machine learning model.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

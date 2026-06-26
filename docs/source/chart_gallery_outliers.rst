@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.outliers:
 
 ===========================
@@ -360,5 +362,9 @@ Text
         @savefig plotting_matplotlib_outliers_2d_plot_custom_yaxis_label.png
         data.outliers_plot(columns = ["x", "y"], ).set_ylabel("Custom Y Axis")
 
-_____
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()
 

@@ -39,6 +39,7 @@ Tree
    :toctree: api/
 
    Tree.object_type
+
 ____
 
 Binary Tree Regressor

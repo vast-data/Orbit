@@ -184,14 +184,6 @@ class LinearSVR(LinearModel, Regressor):
             max_iter = 100,
         )
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -669,14 +661,6 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
             class_weight = [1, 1],
             max_iter = 100,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 

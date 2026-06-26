@@ -267,6 +267,13 @@ class VastFrame(vDFAnimatedPlot):
     We can also use a SQL Query:
 
     .. ipython:: python
+        :suppress:
+        
+        from vastorbit.datasets import load_titanic
+
+        load_titanic()
+
+    .. ipython:: python
 
         # Write a SQL Query to fetch three rows from the Titanic table
         sql_query = "SELECT age, sex FROM default.titanic LIMIT 3;"
@@ -292,8 +299,8 @@ class VastFrame(vDFAnimatedPlot):
 
     .. ipython:: python
 
-        # Create a VastFrame from the titanic table in public schema
-        vdf = vo.VastFrame("default.titanic")
+        # Create a VastFrame from the titanic table in default schema
+        vdf = vo.VastFrame("titanic")
 
     .. ipython:: python
         :suppress:

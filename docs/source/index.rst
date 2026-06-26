@@ -327,7 +327,7 @@ VAST:
     # Train a model, then score billions of rows in the database
     from vastorbit.machine_learning.vast import RandomForestClassifier
 
-    model = RandomForestClassifier()
+    model = RandomForestClassifier(n_estimators = 4)
     model.fit(enriched, ["age", "tenure"], "churn")
     predictions = model.predict(enriched)   # runs inside VAST
 

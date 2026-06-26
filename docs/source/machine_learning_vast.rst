@@ -22,7 +22,7 @@ ____
       :class-card: custom-card-4
       :img-top: /_static/thumbs/thumb_classification_plot.svg
 
-      Logistic Regression, Random Forest, XGBoost, Naive Bayes
+      Logistic Regression, Random Forest, GradientBoosting, Naive Bayes
 
       +++
       View API →
@@ -34,7 +34,7 @@ ____
       :class-card: custom-card-4
       :img-top: /_static/thumbs/thumb_regression_plot.svg
 
-      Linear, Ridge, Lasso, Random Forest, XGBoost
+      Linear, Ridge, Lasso, Random Forest, GradientBoosting
 
       +++
       View API →

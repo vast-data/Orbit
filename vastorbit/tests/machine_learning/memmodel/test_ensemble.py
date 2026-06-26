@@ -7,8 +7,8 @@ from vastorbit.machine_learning.memmodel.tree import BinaryTreeRegressor
 from vastorbit.machine_learning.memmodel.tree import BinaryTreeClassifier
 from vastorbit.machine_learning.memmodel.ensemble import RandomForestRegressor
 from vastorbit.machine_learning.memmodel.ensemble import RandomForestClassifier
-from vastorbit.machine_learning.memmodel.ensemble import XGBRegressor
-from vastorbit.machine_learning.memmodel.ensemble import XGBClassifier
+from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingRegressor
+from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingClassifier
 
 
 @pytest.fixture(scope="module")
@@ -94,7 +94,7 @@ def memmodel_xgbr():
         threshold=["female", 30, None, None, None],
         value=[None, None, 1, 3, 6],
     )
-    memmodel_xgbr = XGBRegressor(
+    memmodel_xgbr = GradientBoostingRegressor(
         trees=[model1, model2, model3],
         mean=2.5,
         eta=0.9,
@@ -128,7 +128,7 @@ def memmodel_xgbc():
         value=[None, None, [0.4, 0.4, 0.2], [0.2, 0.2, 0.6], [0.2, 0.5, 0.3]],
         classes=["a", "b", "c"],
     )
-    memmodel_xgbc = XGBClassifier(
+    memmodel_xgbc = GradientBoostingClassifier(
         trees=[model1, model2, model3],
         classes=["a", "b", "c"],
         logodds=[0.1, 0.12, 0.15],
@@ -290,9 +290,9 @@ class TestRandomForestClassifier:
         assert memmodel_rfc.object_type == "RandomForestClassifier"
 
 
-class TestXGBRegressor:
+class TestGradientBoostingRegressor:
     """
-    test class - TestXGBRegressor
+    test class - TestGradientBoostingRegressor
     """
 
     @pytest.mark.parametrize(
@@ -347,12 +347,12 @@ class TestXGBRegressor:
         """
         test function - object_type
         """
-        assert memmodel_xgbr.object_type == "XGBRegressor"
+        assert memmodel_xgbr.object_type == "GradientBoostingRegressor"
 
 
-class TestXGBClassifier:
+class TestGradientBoostingClassifier:
     """
-    test class - TestXGBClassifier
+    test class - TestGradientBoostingClassifier
     """
 
     @pytest.mark.parametrize(
@@ -443,4 +443,4 @@ class TestXGBClassifier:
         """
         test function - object_type
         """
-        assert memmodel_xgbc.object_type == "XGBClassifier"
+        assert memmodel_xgbc.object_type == "GradientBoostingClassifier"

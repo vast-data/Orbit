@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.tsa:
 
 =====================================
@@ -285,5 +287,9 @@ Text
         @savefig plotting_matplotlib_tsa_plot_custom_yaxis_label.png
         model.plot(data, "date", "passengers", npredictions = 11, method="forecast").set_ylabel("Custom Y Axis")
 
-_____
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()
 

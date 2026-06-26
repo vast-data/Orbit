@@ -211,14 +211,6 @@ class KNeighborsRegressor(Regressor):
 
         model = KNeighborsRegressor()
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -922,14 +914,6 @@ class KNeighborsClassifier(MulticlassClassifier):
            p = 2,
         )
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     Model Training
     ^^^^^^^^^^^^^^^
 
@@ -1560,7 +1544,7 @@ class KNeighborsClassifier(MulticlassClassifier):
         """
         filter_sql = ""
         if not (isinstance(pos_label, NoneType)):
-            filter_sql = f"WHERE predict_neighbors = '{pos_label}'"
+            filter_sql = f"WHERE CAST(predict_neighbors AS VARCHAR) = '{pos_label}'"
         return f"""
             (SELECT 
                 * 
@@ -1602,13 +1586,13 @@ class KNeighborsClassifier(MulticlassClassifier):
         elif allSQL:
             return f"""
                 (CASE 
-                    WHEN predict_neighbors = '{pos_label}' THEN proba_predict
+                    WHEN CAST(predict_neighbors AS VARCHAR) = '{pos_label}' THEN proba_predict
                     ELSE NULL 
                  END)"""
         else:
             return f"""
                 (CASE 
-                    WHEN proba_predict < {cutoff} AND predict_neighbors = '{pos_label}' THEN NULL
+                    WHEN proba_predict < {cutoff} AND CAST(predict_neighbors AS VARCHAR) = '{pos_label}' THEN NULL
                     ELSE predict_neighbors 
                  END)"""
 
@@ -1632,11 +1616,13 @@ class KNeighborsClassifier(MulticlassClassifier):
         """
         if isinstance(pos_label, NoneType):
             input_relation = f"""
-                (SELECT 
-                    *, 
-                    ROW_NUMBER() OVER(PARTITION BY {", ".join(self.X)}, row_id 
-                                      ORDER BY proba_predict DESC) AS pos 
-                 FROM {self.deploySQL()}) neighbors_table WHERE pos = 1"""
+                (SELECT * FROM
+                    (SELECT 
+                        *, 
+                        ROW_NUMBER() OVER(PARTITION BY {", ".join(self.X)}, row_id 
+                                          ORDER BY proba_predict DESC) AS pos 
+                     FROM {self.deploySQL()}) neighbors_table 
+                 WHERE pos = 1) AS confusion_input"""
             return mt.confusion_matrix(
                 self.y, "predict_neighbors", input_relation, labels=self.classes_
             )
@@ -1644,10 +1630,11 @@ class KNeighborsClassifier(MulticlassClassifier):
             cutoff = self._check_cutoff(cutoff=cutoff)
             pos_label = self._check_pos_label(pos_label=pos_label)
             input_relation = (
-                self.deploySQL() + f" WHERE predict_neighbors = '{pos_label}'"
+                f"(SELECT * FROM {self.deploySQL()} "
+                f"WHERE CAST(predict_neighbors AS VARCHAR) = '{pos_label}') AS confusion_input"
             )
             y_score = f"(CASE WHEN proba_predict > {cutoff} THEN 1 ELSE 0 END)"
-            y_true = f"CASE WHEN {self.y} = '{pos_label}' THEN 1 ELSE 0 END"
+            y_true = f"CASE WHEN CAST({self.y} AS VARCHAR) = '{pos_label}' THEN 1 ELSE 0 END"
             return mt.confusion_matrix(y_true, y_score, input_relation)
 
     # Model Evaluation Methods.
@@ -1695,7 +1682,7 @@ class KNeighborsClassifier(MulticlassClassifier):
                         ELSE '{self.classes_[0]}' 
                      END) AS {name} 
                  FROM {table} 
-                 WHERE predict_neighbors = '{self.classes_[1]}') VASTORBIT_SUBTABLE"""
+                 WHERE CAST(predict_neighbors AS VARCHAR) = '{self.classes_[1]}') VASTORBIT_SUBTABLE"""
         else:
             table = self.deploySQL(
                 X=X,
@@ -1750,11 +1737,11 @@ class KNeighborsClassifier(MulticlassClassifier):
         # Generating the probabilities
         if isinstance(pos_label, NoneType):
             predict = [
-                f"""COALESCE(AVG(CASE WHEN predict_neighbors = '{c}' THEN proba_predict END), 0) AS {gen_name([name, c])}"""
+                f"""COALESCE(AVG(CASE WHEN CAST(predict_neighbors AS VARCHAR) = '{c}' THEN proba_predict END), 0) AS {gen_name([name, c])}"""
                 for c in self.classes_
             ]
         else:
-            predict = [f"""COALESCE(AVG(CASE WHEN predict_neighbors = '{pos_label}' THEN proba_predict END), 0) AS {name}"""]
+            predict = [f"""COALESCE(AVG(CASE WHEN CAST(predict_neighbors AS VARCHAR) = '{pos_label}' THEN proba_predict END), 0) AS {name}"""]
         if key_columns:
             key_columns_str = ", " + ", ".join(key_columns)
         else:
@@ -1791,7 +1778,7 @@ class KNeighborsClassifier(MulticlassClassifier):
                 f"""
                 SELECT
                     {', '.join(self.X)},
-                    COALESCE(AVG(CASE WHEN predict_neighbors = '{pos_label}' THEN proba_predict ELSE NULL), 0) AS {{0}}
+                    COALESCE(AVG(CASE WHEN CAST(predict_neighbors AS VARCHAR) = '{pos_label}' THEN proba_predict ELSE NULL), 0) AS {{0}}
                 FROM """
                 + self.deploySQL(X=self.X, test_relation="{1}")
                 + f" GROUP BY {', '.join(self.X)}"
@@ -1799,7 +1786,8 @@ class KNeighborsClassifier(MulticlassClassifier):
             args = [self.X, sql]
         else:
             input_relation = (
-                self.deploySQL() + f" WHERE predict_neighbors = '{pos_label}'"
+                f"(SELECT * FROM {self.deploySQL()} "
+                f"WHERE CAST(predict_neighbors AS VARCHAR) = '{pos_label}') AS metric_input"
             )
             args = [self.y, "proba_predict", input_relation, pos_label]
         return args

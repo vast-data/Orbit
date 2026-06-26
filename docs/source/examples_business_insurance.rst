@@ -311,7 +311,7 @@ Remember, we label-encoded ``smoker`` from boolean. Let's label-encode some othe
     # encoding region
     data["region"].label_encode()
 
-    # encoding age
+    # encoding age (already discretized into a handful of bins above)
     data["age"].label_encode()
 
 .. ipython:: python
@@ -323,8 +323,9 @@ Remember, we label-encoded ``smoker`` from boolean. Let's label-encode some othe
     # encoding region
     data["region"].label_encode()
 
-    # encoding age
+    # encoding age (already discretized into a handful of bins above)
     data["age"].label_encode()
+
     res = data
     html_file = open("SPHINX_DIRECTORY/figures/examples_insurance_table_encoded_new.html", "w")
     html_file.write(res._repr_html_())
@@ -369,14 +370,8 @@ For this example, let's use a ``Random Forest`` model.
 
     # define the random forest model
     rf_model = RandomForestRegressor(
-        n_estimators = 20,
-        max_features = "sqrt",
-        max_leaf_nodes = 32, 
-        sample = 0.7,
+        n_estimators = 5,
         max_depth = 3,
-        min_samples_leaf = 5,
-        min_info_gain = 0.0,
-        nbins = 32,
     )
 
     # train the model

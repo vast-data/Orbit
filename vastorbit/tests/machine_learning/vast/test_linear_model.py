@@ -76,11 +76,7 @@ class TestLinearModel:
         vo_res, py_res = 0.0, 0.0
 
         if model_class in ["AR", "MA", "ARMA", "ARIMA"]:
-            _model_class_tuple = (
-                None
-                if model_class in ["DummyTreeRegressor", "DummyTreeClassifier"]
-                else namedtuple(model_class, model_params[0])(*model_params[1][0])
-            )
+            _model_class_tuple = namedtuple(model_class, model_params[0])(*model_params[1][0])
             if ts_fit_attr == "phi_":
                 vo_res = getattr(vo_model_obj.model, ts_fit_attr)
                 py_res = list(getattr(py_model_obj.model, py_ts_fit_attr))

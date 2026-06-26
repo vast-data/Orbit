@@ -338,6 +338,27 @@ class PCA(InMemoryModel):
             sql += [" + ".join(sql_tmp)]
         return sql
 
+    def inverse_transform_sql(self, X: ArrayLike) -> list[str]:
+        """
+        Returns the SQL needed to reconstruct the original features from the
+        principal components (inverse PCA transform). ``X`` holds the names of
+        the ``n_components`` component columns; the result has one expression
+        per original feature: ``mean_j + SUM_i comp_i * principal_components_[j, i]``.
+        """
+        m, n = self.principal_components_.shape
+        if len(X) != n:
+            raise ValueError(
+                "The length of parameter 'X' must be equal to the number of "
+                "principal components."
+            )
+        sql = []
+        for j in range(m):
+            terms = [
+                f"{X[i]} * {self.principal_components_[:, i][j]}" for i in range(n)
+            ]
+            sql += [f"({' + '.join(terms)}) + {self.mean_[j]}"]
+        return sql
+
     # Special Methods - Matrix Rotation.
 
     @staticmethod
@@ -738,4 +759,26 @@ class SVD(InMemoryModel):
             for j in range(m):
                 sql_tmp += [f"{X[j]} * {self.vectors_[:, i][j]} / {self.values_[i]}"]
             sql += [" + ".join(sql_tmp)]
+        return sql
+
+    def inverse_transform_sql(self, X: ArrayLike) -> list[str]:
+        """
+        Returns the SQL needed to reconstruct the original features from the SVD
+        components (inverse transform). ``X`` holds the names of the
+        ``n_components`` component columns; the result has one expression per
+        original feature: ``SUM_i comp_i * values_[i] * vectors_[j, i]``.
+        """
+        m, n = self.vectors_.shape
+        if len(X) != n:
+            raise ValueError(
+                "The length of parameter 'X' must be equal to the number of "
+                "SVD components."
+            )
+        sql = []
+        for j in range(m):
+            terms = [
+                f"{X[i]} * {self.values_[i]} * {self.vectors_[:, i][j]}"
+                for i in range(n)
+            ]
+            sql += [" + ".join(terms)]
         return sql

@@ -363,3 +363,9 @@ Our goal is to predict the number of forest fires in Brazil. To do this, we can 
 We can see the seasonality forest fires.
 
 It's mathematically impossible to build the perfect correlation function, but we still have several powerful functions at our disposal for finding relationships in all kinds of datasets.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

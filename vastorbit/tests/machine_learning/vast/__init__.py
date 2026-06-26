@@ -112,62 +112,7 @@ rel_abs_tol_map = {
         "to_python": {"rel": 1e-00, "abs": ABS_TOLERANCE},
         "load_model": {"rel": 1e-00, "abs": ABS_TOLERANCE},
     },
-    "DummyTreeRegressor": {
-        "explained_variance": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "max_error": {"rel": 1e-03, "abs": ABS_TOLERANCE},
-        "median_absolute_error": {"rel": 1e-03, "abs": ABS_TOLERANCE},
-        "mean_absolute_error": {"rel": 1e-05, "abs": ABS_TOLERANCE},
-        "mean_squared_error": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "mean_squared_log_error": {"rel": 1e-04, "abs": ABS_TOLERANCE},
-        "rmse": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        **dict.fromkeys(
-            ["r2", "R-squared"], {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE}
-        ),
-        **dict.fromkeys(
-            ["r2_adj", "Adj. R-squared"], {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE}
-        ),
-        "aic": {"rel": 1e-05, "abs": ABS_TOLERANCE},
-        "bic": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "F-statistic": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "Prob (F-statistic)": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "Kurtosis": {"rel": 5e-03, "abs": ABS_TOLERANCE},
-        "Skewness": {"rel": 3e-04, "abs": ABS_TOLERANCE},
-        "Jarque-Bera (JB)": {"rel": 6e-03, "abs": ABS_TOLERANCE},
-        "df": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "ss": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "ms": {"rel": 1e-03, "abs": ABS_TOLERANCE},
-        "f": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "p_value": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "coef_": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "intercept_": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "score": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "predict": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "to_python": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "load_model": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-    },
-    "DummyTreeClassifier": {
-        "auc": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "prc_auc": {"rel": 1e-02, "abs": ABS_TOLERANCE},
-        "accuracy": {"rel": 1e-02, "abs": ABS_TOLERANCE},
-        "log_loss": {"rel": 1e-00, "abs": ABS_TOLERANCE},
-        "precision": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "recall": {"rel": 1e-00, "abs": ABS_TOLERANCE},
-        "f1_score": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "mcc": {"rel": 1e-02, "abs": ABS_TOLERANCE},
-        "markedness": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "csi": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "confusion_matrix": {"rel": 4e-001, "abs": ABS_TOLERANCE},
-        "cutoff_curve": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "lift_chart": {"rel": 1e-00, "abs": ABS_TOLERANCE},
-        "prc_curve": {"rel": 1e-02, "abs": ABS_TOLERANCE},
-        "predict_proba": {"rel": 1e-00, "abs": ABS_TOLERANCE},
-        "roc_curve": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "score": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-        "predict": {"rel": 3e-02, "abs": ABS_TOLERANCE},
-        "to_python": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
-        "load_model": {"rel": 1e-01, "abs": ABS_TOLERANCE},
-    },
-    "XGBRegressor": {
+    "GradientBoostingRegressor": {
         "explained_variance": {"rel": 9e-01, "abs": ABS_TOLERANCE},
         "max_error": {"rel": 3e-01, "abs": ABS_TOLERANCE},
         "median_absolute_error": {"rel": 7e-01, "abs": ABS_TOLERANCE},
@@ -199,7 +144,7 @@ rel_abs_tol_map = {
         "to_python": {"rel": REL_TOLERANCE, "abs": ABS_TOLERANCE},
         "load_model": {"rel": 3e-02, "abs": ABS_TOLERANCE},
     },
-    "XGBClassifier": {
+    "GradientBoostingClassifier": {
         "auc": {"rel": 5e-02, "abs": ABS_TOLERANCE},
         "prc_auc": {"rel": 8e-02, "abs": ABS_TOLERANCE},
         "accuracy": {"rel": 9e-02, "abs": ABS_TOLERANCE},
@@ -507,8 +452,7 @@ rel_abs_tol_map = {
 REGRESSION_MODELS = [
     "RandomForestRegressor",
     "DecisionTreeRegressor",
-    "DummyTreeRegressor",
-    "XGBRegressor",
+    "GradientBoostingRegressor",
     "LinearRegression",
     "Ridge",
     "Lasso",
@@ -519,8 +463,7 @@ REGRESSION_MODELS = [
 CLASSIFICATION_MODELS = [
     "RandomForestClassifier",
     "DecisionTreeClassifier",
-    "DummyTreeClassifier",
-    "XGBClassifier",
+    "GradientBoostingClassifier",
 ]
 TIMESERIES_MODELS = ["AR", "MA", "ARMA", "ARIMA"]
 CLUSTER_MODELS = ["KMeans"]

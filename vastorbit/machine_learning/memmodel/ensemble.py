@@ -75,7 +75,7 @@ class Ensemble(InMemoryModel):
             Unique tree identifier,
             an integer in the range
             ``[0, n_estimators - 1]``.
-        *args, ``**kwargs``: Any, optional
+        ``*args``, ``**kwargs``: Any, optional
             Arguments to pass to
             the ``to_graphviz``
             method.
@@ -298,7 +298,7 @@ class RandomForestRegressor(Ensemble):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
@@ -648,7 +648,7 @@ class RandomForestClassifier(Ensemble, MulticlassClassifier):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
@@ -877,11 +877,11 @@ class RandomForestClassifier(Ensemble, MulticlassClassifier):
         return clean_query(res)
 
 
-class XGBRegressor(Ensemble):
+class GradientBoostingRegressor(Ensemble):
     """
     :py:class:`~vastorbit.machine_learning.memmodel.base.InMemoryModel`
     implementation of the
-    ``XGBoost`` regressor
+    ``GradientBoosting`` regressor
     algorithm.
 
     Parameters
@@ -940,14 +940,14 @@ class XGBRegressor(Ensemble):
 
     Now we will use above
     models to create
-    :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor`
+    :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor`
     model.
 
     .. ipython:: python
 
-        from vastorbit.machine_learning.memmodel.ensemble import XGBRegressor
+        from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingRegressor
 
-        model_xgbr = XGBRegressor(
+        model_gbr = GradientBoostingRegressor(
             trees = [model1, model2, model3],
             mean = 2.5,
             eta = 0.9,
@@ -958,7 +958,7 @@ class XGBRegressor(Ensemble):
         We have used ``mean`` that represents
         average of the response column and
         ``eta`` that represents learning
-        rate of ``XGBoost`` regressor model.
+        rate of ``GradientBoosting`` regressor model.
         Both are optional parameters.
 
     Create a dataset.
@@ -970,12 +970,12 @@ class XGBRegressor(Ensemble):
     **Making In-Memory Predictions**
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor.predict`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor.predict`
     method to do predictions.
 
     .. ipython:: python
 
-        model_xgbr.predict(data)
+        model_gbr.predict(data)
 
     **Deploy SQL Code**
 
@@ -986,14 +986,14 @@ class XGBRegressor(Ensemble):
         cnames = ["sex", "fare"]
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor.predict_sql`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor.predict_sql`
     method to get the SQL code
     needed to deploy the model
     using its attributes.
 
     .. ipython:: python
 
-        model_xgbr.predict_sql(cnames)
+        model_gbr.predict_sql(cnames)
 
     .. hint::
 
@@ -1006,25 +1006,25 @@ class XGBRegressor(Ensemble):
     **Drawing Trees**
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor.plot_tree`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor.plot_tree`
     method to draw the input tree.
 
     .. code-block:: python
 
-        model_xgbr.plot_tree(tree_id = 0)
+        model_gbr.plot_tree(tree_id = 0)
 
     .. ipython:: python
         :suppress:
 
-        res = model_xgbr.plot_tree(tree_id = 0)
-        res.render(filename='figures/machine_learning_memmodel_tree_xgbreg', format='png')
+        res = model_gbr.plot_tree(tree_id = 0)
+        res.render(filename='figures/machine_learning_memmodel_tree_gbreg', format='png')
 
 
-    .. image:: /../figures/machine_learning_memmodel_tree_xgbreg.png
+    .. image:: /../figures/machine_learning_memmodel_tree_gbreg.png
 
     .. important::
 
-        :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor.plot_tree`
+        :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor.plot_tree`
         requires the
         `Graphviz <https://graphviz.org/download/>`__
         module.
@@ -1036,14 +1036,14 @@ class XGBRegressor(Ensemble):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
 
     @property
-    def object_type(self) -> Literal["XGBRegressor"]:
-        return "XGBRegressor"
+    def object_type(self) -> Literal["GradientBoostingRegressor"]:
+        return "GradientBoostingRegressor"
 
     @property
     def _attributes(self) -> list[str]:
@@ -1066,7 +1066,7 @@ class XGBRegressor(Ensemble):
     def predict(self, X: ArrayLike) -> np.ndarray:
         """
         Predicts using the
-        :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor`
+        :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor`
         model.
 
         Parameters
@@ -1115,9 +1115,9 @@ class XGBRegressor(Ensemble):
 
         .. ipython:: python
 
-            from vastorbit.machine_learning.memmodel.ensemble import XGBRegressor
+            from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingRegressor
 
-            model_xgbr = XGBRegressor(
+            model_gbr = GradientBoostingRegressor(
                 trees = [model1, model2, model3],
                 mean = 2.5,
                 eta = 0.9,
@@ -1133,12 +1133,12 @@ class XGBRegressor(Ensemble):
 
         .. ipython:: python
 
-            model_xgbr.predict(data)
+            model_gbr.predict(data)
 
         .. note::
 
             Refer to
-            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor`
+            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor`
             for more information about the
             different methods and usages.
         """
@@ -1197,9 +1197,9 @@ class XGBRegressor(Ensemble):
 
         .. ipython:: python
 
-            from vastorbit.machine_learning.memmodel.ensemble import XGBRegressor
+            from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingRegressor
 
-            model_xgbr = XGBRegressor(
+            model_gbr = GradientBoostingRegressor(
                 trees = [model1, model2, model3],
                 mean = 2.5,
                 eta = 0.9,
@@ -1216,12 +1216,12 @@ class XGBRegressor(Ensemble):
 
         .. ipython:: python
 
-            model_xgbr.predict_sql(cnames)
+            model_gbr.predict_sql(cnames)
 
         .. note::
 
             Refer to
-            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor`
+            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor`
             for more information about the
             different methods and usages.
         """
@@ -1229,11 +1229,11 @@ class XGBRegressor(Ensemble):
         return f"({' + '.join(trees_pred)}) * {self.eta_} + {self.mean_}"
 
 
-class XGBClassifier(Ensemble, MulticlassClassifier):
+class GradientBoostingClassifier(Ensemble, MulticlassClassifier):
     """
     :py:class:`~vastorbit.machine_learning.memmodel.base.InMemoryModel`
     implementation of the
-    ``XGBoost`` classifier
+    ``GradientBoosting`` classifier
     algorithm.
 
     Parameters
@@ -1260,7 +1260,7 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
     **Initalization**
 
-    A ``XGBoostClassifier`` model is
+    A ``GradientBoostingClassifier`` model is
     an ensemble of multiple binary
     tree classifier models. In this
     example, we will create three
@@ -1315,14 +1315,14 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
         )
 
     Now we will use above models to create
-    :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier`
+    :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier`
     model.
 
     .. ipython:: python
 
-        from vastorbit.machine_learning.memmodel.ensemble import XGBClassifier
+        from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingClassifier
 
-        model_xgbc = XGBClassifier(
+        model_gbc = GradientBoostingClassifier(
             trees = [model1, model2, model3],
             classes = ["a", "b", "c"],
             logodds = [0.1, 0.12, 0.15],
@@ -1334,7 +1334,7 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
         We have used ``logodds`` that
         represents logodds of the response
         column and ``learning_rate`` that
-        represents learning rate of ``XGBoost``
+        represents learning rate of ``GradientBoosting``
         regressor model. Both are optional
         parameters.
 
@@ -1347,21 +1347,21 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
     **Making In-Memory Predictions**
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.predict`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier.predict`
     method to do predictions.
 
     .. ipython:: python
 
-        model_xgbc.predict(data)
+        model_gbc.predict(data)
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.predict_proba`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier.predict_proba`
     method to compute the predicted
     probabilities for each class.
 
     .. ipython:: python
 
-        model_xgbc.predict_proba(data)
+        model_gbc.predict_proba(data)
 
     **Deploy SQL Code**
 
@@ -1372,17 +1372,17 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
         cnames = ["sex", "fare"]
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.predict_sql`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier.predict_sql`
     method to get the SQL code
     needed to deploy the model
     using its attributes.
 
     .. ipython:: python
 
-        model_xgbc.predict_sql(cnames)
+        model_gbc.predict_sql(cnames)
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.predict_proba_sql`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier.predict_proba_sql`
     method to get the SQL code
     needed to deploy the model
     probabilities using its
@@ -1390,7 +1390,7 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
     .. ipython:: python
 
-        model_xgbc.predict_proba_sql(cnames)
+        model_gbc.predict_proba_sql(cnames)
 
     .. hint::
 
@@ -1403,25 +1403,25 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
     **Drawing Trees**
 
     Use
-    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.plot_tree`
+    :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier.plot_tree`
     method to draw the input tree.
 
     .. code-block:: python
 
-        model_xgbc.plot_tree(tree_id = 0)
+        model_gbc.plot_tree(tree_id = 0)
 
     .. ipython:: python
         :suppress:
 
-        res = model_xgbc.plot_tree(tree_id = 0)
-        res.render(filename='figures/machine_learning_memmodel_ensemble_xgbclassifier', format='png')
+        res = model_gbc.plot_tree(tree_id = 0)
+        res.render(filename='figures/machine_learning_memmodel_ensemble_gbclassifier', format='png')
 
 
-    .. image:: /../figures/machine_learning_memmodel_ensemble_xgbclassifier.png
+    .. image:: /../figures/machine_learning_memmodel_ensemble_gbclassifier.png
 
     .. important::
 
-        :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier.plot_tree`
+        :py:meth:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier.plot_tree`
         requires the
         `Graphviz <https://graphviz.org/download/>`__
         module.
@@ -1433,14 +1433,14 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
 
     @property
-    def object_type(self) -> Literal["XGBClassifier"]:
-        return "XGBClassifier"
+    def object_type(self) -> Literal["GradientBoostingClassifier"]:
+        return "GradientBoostingClassifier"
 
     @property
     def _attributes(self) -> list[str]:
@@ -1538,9 +1538,9 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
         .. ipython:: python
 
-            from vastorbit.machine_learning.memmodel.ensemble import XGBClassifier
+            from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingClassifier
 
-            model_xgbc = XGBClassifier(
+            model_gbc = GradientBoostingClassifier(
                 trees = [model1, model2, model3],
                 classes = ["a", "b", "c"],
                 logodds = [0.1, 0.12, 0.15],
@@ -1557,12 +1557,12 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
         .. ipython:: python
 
-            model_xgbc.predict_proba(data)
+            model_gbc.predict_proba(data)
 
         .. note::
 
             Refer to
-            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier`
+            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier`
             for more information about the
             different methods and usages.
         """
@@ -1648,9 +1648,9 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
         .. ipython:: python
 
-            from vastorbit.machine_learning.memmodel.ensemble import XGBClassifier
+            from vastorbit.machine_learning.memmodel.ensemble import GradientBoostingClassifier
 
-            model_xgbc = XGBClassifier(
+            model_gbc = GradientBoostingClassifier(
                 trees = [model1, model2, model3],
                 classes = ["a", "b", "c"],
                 logodds = [0.1, 0.12, 0.15],
@@ -1668,12 +1668,12 @@ class XGBClassifier(Ensemble, MulticlassClassifier):
 
         .. ipython:: python
 
-            model_xgbc.predict_proba_sql(cnames)
+            model_gbc.predict_proba_sql(cnames)
 
         .. note::
 
             Refer to
-            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier`
+            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier`
             for more information about the
             different methods and usages.
         """
@@ -1832,7 +1832,7 @@ class IsolationForest(Ensemble):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.

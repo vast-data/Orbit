@@ -132,6 +132,7 @@ class Decomposition(Preprocessing):
             :py:class:`~vastorbit.machine_learning.vast.decomposition.SVD`
             for a more detailed example.
         """
+        X = format_type(X, dtype=list, na_out=self.X)
         res = self.to_memmodel().transform_sql(X)
         if n_components > 0:
             res = res[:n_components]
@@ -139,7 +140,7 @@ class Decomposition(Preprocessing):
             tot = 0.0
             k = 0
             while tot < cutoff:
-                tot += self.explained_variance_ratio_[i]
+                tot += self.explained_variance_ratio_[k]
                 k += 1
             res = res[:k]
         return res
@@ -1021,14 +1022,6 @@ class PCA(Decomposition):
     You can select the number of components by the ``n_component``
     parameter. If it is not provided, then all are considered.
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -1231,10 +1224,13 @@ class PCA(Decomposition):
         """
         Computes the model's attributes.
         """
-        # 1. Principal components (loadings/eigenvectors)
+        # 1. Principal components (loadings/eigenvectors). Stored as
+        # (n_features, n_components): the memmodel transform/inverse and the
+        # plotting/contribution helpers all index columns as components, so the
+        # sklearn-native (n_components, n_features) must be transposed here.
         self.principal_components_ = (
-            self._model.components_
-        )  # Shape: (n_components, n_features)
+            self._model.components_.T
+        )  # Shape: (n_features, n_components)
 
         # 2. Mean (feature means)
         self.mean_ = self._model.mean_
@@ -2242,14 +2238,6 @@ class SVD(Decomposition):
     You can select the number of components by the ``n_component``
     parameter. If it is not provided, then all are considered.
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -2449,8 +2437,11 @@ class SVD(Decomposition):
         """
         Computes the model's attributes.
         """
-        # 1. Right singular vectors (V^T matrix)
-        self.vectors_ = self._model.components_  # Shape: (n_components, n_features)
+        # 1. Right singular vectors (V matrix). Stored as
+        # (n_features, n_components) to match the memmodel transform/inverse and
+        # plotting helpers, which index columns as components; sklearn exposes
+        # components_ as (n_components, n_features), so transpose it.
+        self.vectors_ = self._model.components_.T  # Shape: (n_features, n_components)
 
         # 2. Singular values
         self.values_ = self._model.singular_values_

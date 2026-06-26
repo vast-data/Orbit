@@ -155,6 +155,7 @@ MCA (Beta)
    :toctree: api/
 
    MCA.object_type
+
 ____
 
 Preprocessing 

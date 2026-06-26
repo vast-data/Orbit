@@ -28,9 +28,12 @@ Let's predict the total charges of the Telco customers using their tenure. We wi
 
     import vastorbit as vo
 
-    churn = vo.read_csv(
-        "SPHINX_DIRECTORY/source/_static/website/examples/data/churn/customers.csv",
-    )
+    try:
+        churn = vo.read_csv(
+            "SPHINX_DIRECTORY/source/_static/website/examples/data/churn/customers.csv",
+        )
+    except:
+        churn = vo.VastFrame("customers")
 
 Next, we can import a linear regression model.
 
@@ -48,6 +51,9 @@ We can then fit the model with our data.
 
 .. ipython:: python
     
+    # TotalCharges has a few blank values; LinearRegression is scikit-learn
+    # backed and rejects NaN, so we drop those rows first.
+    churn = churn.dropna(columns = ["tenure", "TotalCharges"])
     model.fit(churn, ["tenure"], "TotalCharges")
 
 .. code-block:: python
@@ -87,3 +93,9 @@ We have many metrics to evaluate the model.
 Our example forgoes splitting the data into training and testing, which is important for real-world work. Our main goal in this lesson is to look at the metrics used to evaluate regressions. The most famous metric is ``R2``: generally speaking, the closer ``R2`` is to ``1``, the better the model is.
 
 In the next lesson, we'll go over :ref:`user_guide.machine_learning.classification`
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

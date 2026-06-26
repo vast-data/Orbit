@@ -133,24 +133,22 @@ def model_params(model_class):
                 # (5, 'max', 1e6, 0.42, 6, 8, 0.3, 20),
             ],
         ),
-        "XGBRegressor": (
-            "max_ntree, max_depth, nbins, learning_rate, min_split_loss, weight_reg, sample, col_sample_by_tree, col_sample_by_node",
+        "GradientBoostingRegressor": (
+            "n_estimators, max_depth, nbins, learning_rate, min_split_loss, weight_reg, sample, col_sample_by_tree, col_sample_by_node",
             [
                 # (None, None, None, None, None, None, None, None),  # accuracy does not mach with default parameters
                 (10, 5, 32, 0.1, 0.0, 0.0, 1.0, 1.0, 1.0),
                 # (5, 'max', 1e6, 0.42, 6, 8, 0.3, 20),
             ],
         ),
-        "XGBClassifier": (
-            "max_ntree, max_depth, nbins, learning_rate, min_split_loss, weight_reg, sample, col_sample_by_tree, col_sample_by_node",
+        "GradientBoostingClassifier": (
+            "n_estimators, max_depth, nbins, learning_rate, min_split_loss, weight_reg, sample, col_sample_by_tree, col_sample_by_node",
             [
                 # (None, None, None, None, None, None, None, None),  # accuracy does not mach with default parameters
                 (10, 5, 32, 0.1, 0.0, 0.0, 1.0, 1.0, 1.0),
                 # (5, 'max', 1e6, 0.42, 6, 8, 0.3, 20),
             ],
         ),
-        "DummyTreeRegressor": (),
-        "DummyTreeClassifier": (),
         "Ridge": (
             "tol, c, max_iter, solver, fit_intercept",
             [
@@ -268,11 +266,7 @@ def regression_report_none(
     """
     test function - regression/report None
     """
-    _model_class_tuple = (
-        None
-        if model_class in ["DummyTreeRegressor", "DummyTreeClassifier"]
-        else namedtuple(model_class, model_params[0])(*model_params[1][0])
-    )
+    _model_class_tuple = namedtuple(model_class, model_params[0])(*model_params[1][0])
     vo_model_obj = get_vo_model(model_class)
 
     if model_class in TIMESERIES_MODELS:
@@ -312,8 +306,7 @@ def regression_report_none(
     if model_class in [
         "RandomForestRegressor",
         "DecisionTreeRegressor",
-        "DummyTreeRegressor",
-        "XGBRegressor",
+        "GradientBoostingRegressor",
     ]:
         py_model_obj = get_py_model(model_class)
         regression_metrics_map = regression_metrics(model_class, model_obj=py_model_obj)
@@ -357,8 +350,7 @@ def regression_report_details(
     if model_class in [
         "RandomForestRegressor",
         "DecisionTreeRegressor",
-        "DummyTreeRegressor",
-        "XGBRegressor",
+        "GradientBoostingRegressor",
     ]:
         py_model_obj = get_py_model(model_class)
         regression_metrics_map = regression_metrics(model_class, model_obj=py_model_obj)
@@ -373,10 +365,8 @@ def regression_report_details(
             py_res = "RandomForestRegressor"
         elif model_class == "DecisionTreeRegressor":
             py_res = "RandomForestRegressor"  # need to check on this
-        elif model_class == "XGBRegressor":
-            py_res = "XGBRegressor"  # need to check on this
-        elif model_class == "DummyTreeRegressor":
-            py_res = "DummyTreeRegressor"
+        elif model_class == "GradientBoostingRegressor":
+            py_res = "GradientBoostingRegressor"  # need to check on this
         elif model_class == "LinearSVR":
             py_res = "LinearSVR"
         elif model_class == "PoissonRegressor":
@@ -433,8 +423,7 @@ def regression_report_anova(
     if model_class in [
         "RandomForestRegressor",
         "DecisionTreeRegressor",
-        "DummyTreeRegressor",
-        "XGBRegressor",
+        "GradientBoostingRegressor",
     ]:
         py_model_obj = get_py_model(model_class)
         regression_metrics_map = regression_metrics(model_class, model_obj=py_model_obj)
@@ -456,11 +445,7 @@ def model_score(
     """
     test function - score
     """
-    _model_class_tuple = (
-        None
-        if model_class in ["DummyTreeRegressor", "DummyTreeClassifier"]
-        else namedtuple(model_class, model_params[0])(*model_params[1][0])
-    )
+    _model_class_tuple = namedtuple(model_class, model_params[0])(*model_params[1][0])
 
     # # skipping a test
     # if (model_class in ["Ridge", "LinearRegression"] and _model_class.solver == "cgd") or (
@@ -527,10 +512,10 @@ def model_score(
         vo_score = vo_model_obj.model.score(
             metric=vo_metric_name[0], average="binary", pos_label=1
         )
-    elif model_class == "XGBRegressor":
+    elif model_class == "GradientBoostingRegressor":
         vo_model_obj = get_vo_model(
             model_class,
-            max_ntree=_model_class_tuple.max_ntree,
+            n_estimators=_model_class_tuple.n_estimators,
             max_depth=_model_class_tuple.max_depth,
             nbins=_model_class_tuple.nbins,
             learning_rate=_model_class_tuple.learning_rate,
@@ -541,10 +526,10 @@ def model_score(
             col_sample_by_node=_model_class_tuple.col_sample_by_node,
         )
         vo_score = vo_model_obj.model.score(metric=vo_metric_name[0])
-    elif model_class == "XGBClassifier":
+    elif model_class == "GradientBoostingClassifier":
         vo_model_obj = get_vo_model(
             model_class,
-            max_ntree=_model_class_tuple.max_ntree,
+            n_estimators=_model_class_tuple.n_estimators,
             max_depth=_model_class_tuple.max_depth,
             nbins=_model_class_tuple.nbins,
             learning_rate=_model_class_tuple.learning_rate,
@@ -557,9 +542,6 @@ def model_score(
         vo_score = vo_model_obj.model.score(
             metric=vo_metric_name[0], average="binary", pos_label=1
         )
-    elif model_class in ["DummyTreeRegressor", "DummyTreeClassifier"]:
-        vo_model_obj = get_vo_model(model_class)
-        vo_score = vo_model_obj.model.score(metric=vo_metric_name[0])
     elif model_class == "LinearSVR":
         vo_model_obj = get_vo_model(
             model_class,
@@ -659,8 +641,7 @@ def model_score(
     if model_class in [
         "RandomForestClassifier",
         "DecisionTreeClassifier",
-        "DummyTreeClassifier",
-        "XGBClassifier",
+        "GradientBoostingClassifier",
     ]:
         vo_model_obj.pred_vdf.drop(
             columns=["survived_pred"]
@@ -724,10 +705,10 @@ def model_score(
         )
         _metrics = _metrics(model_class, model_obj=py_model_obj)
         py_score = _metrics[py_metric_name]
-    elif model_class in ["XGBRegressor"]:
+    elif model_class in ["GradientBoostingRegressor"]:
         py_model_obj = get_py_model(
             model_class,
-            n_estimators=_model_class_tuple.max_ntree,
+            n_estimators=_model_class_tuple.n_estimators,
             max_depth=_model_class_tuple.max_depth,
             max_bin=_model_class_tuple.nbins,
             learning_rate=_model_class_tuple.learning_rate,
@@ -740,10 +721,10 @@ def model_score(
         )
         metrics_map = _metrics(model_class, model_obj=py_model_obj)
         py_score = metrics_map[py_metric_name]
-    elif model_class in ["XGBClassifier"]:
+    elif model_class in ["GradientBoostingClassifier"]:
         py_model_obj = get_py_model(
             model_class,
-            n_estimators=_model_class_tuple.max_ntree,
+            n_estimators=_model_class_tuple.n_estimators,
             max_depth=_model_class_tuple.max_depth,
             max_bin=_model_class_tuple.nbins,
             learning_rate=_model_class_tuple.learning_rate,
@@ -756,10 +737,6 @@ def model_score(
         )
         _metrics = _metrics(model_class, model_obj=py_model_obj)
         py_score = _metrics[py_metric_name]
-    elif model_class in ["DummyTreeRegressor", "DummyTreeClassifier"]:
-        py_model_obj = get_py_model(model_class)
-        metrics_map = _metrics(model_class, model_obj=py_model_obj)
-        py_score = metrics_map[py_metric_name]
     elif model_class in ["LinearSVR"]:
         metrics_map = _metrics(model_class, fit_intercept=True)
         py_score = metrics_map[py_metric_name]
@@ -849,9 +826,9 @@ def get_model_params(model_class):
             },
         ),
         **dict.fromkeys(
-            ["XGBRegressor", "XGBClassifier"],
+            ["GradientBoostingRegressor", "GradientBoostingClassifier"],
             {
-                "max_ntree": 10,
+                "n_estimators": 10,
                 "max_depth": 10,
                 "nbins": 150,
                 "split_proposal_method": "'global'",
@@ -864,7 +841,6 @@ def get_model_params(model_class):
                 "col_sample_by_node": 1.0,
             },
         ),
-        **dict.fromkeys(["DummyTreeRegressor", "DummyTreeClassifier"], {}),
         **dict.fromkeys(
             ["LinearSVR"],
             {
@@ -944,10 +920,8 @@ def get_VAST_model_attributes(model_class):
                 "RandomForestClassifier",
                 "DecisionTreeRegressor",
                 "DecisionTreeClassifier",
-                "DummyTreeRegressor",
-                "DummyTreeClassifier",
-                "XGBRegressor",
-                "XGBClassifier",
+                "GradientBoostingRegressor",
+                "GradientBoostingClassifier",
             ],
             {
                 "attr_name": [
@@ -1127,11 +1101,11 @@ def get_VAST_model_attributes(model_class):
             },
         ),
     }
-    if model_class == "XGBRegressor":
+    if model_class == "GradientBoostingRegressor":
         VAST_attributes_map[model_class]["attr_name"].append("initial_prediction")
         VAST_attributes_map[model_class]["attr_fields"].append("initial_prediction")
         VAST_attributes_map[model_class]["#_of_rows"].append(1)
-    elif model_class == "XGBClassifier":
+    elif model_class == "GradientBoostingClassifier":
         VAST_attributes_map[model_class]["attr_name"].append("initial_prediction")
         VAST_attributes_map[model_class]["attr_fields"].append("response_label, value")
         VAST_attributes_map[model_class]["#_of_rows"].append(2)
@@ -1174,9 +1148,8 @@ def get_set_params(model_class):
             {"max_depth": 50, "nbins": 100},
         ),
         **dict.fromkeys(
-            ["XGBRegressor", "XGBClassifier"], {"max_depth": 50, "nbins": 100}
+            ["GradientBoostingRegressor", "GradientBoostingClassifier"], {"max_depth": 50, "nbins": 100}
         ),
-        **dict.fromkeys(["DummyTreeRegressor", "DummyTreeClassifier"], {}),
         **dict.fromkeys(
             ["LinearSVR"], {"intercept_mode": "unregularized", "max_iter": 500}
         ),
@@ -1222,10 +1195,8 @@ pytestmark = pytest.mark.parametrize(
         "RandomForestClassifier",
         "DecisionTreeRegressor",
         "DecisionTreeClassifier",
-        # "DummyTreeRegressor",
-        # "DummyTreeClassifier",
-        "XGBRegressor",
-        "XGBClassifier",
+        "GradientBoostingRegressor",
+        "GradientBoostingClassifier",
         "Ridge",
         "Lasso",
         "ElasticNet",
@@ -1568,7 +1539,7 @@ class TestBaseModelMethods:
         ],
     )
     @pytest.mark.skip(
-        reason="This test has started failing for index-DecisionTreeClassifier and index-XGBRegressor since 1/9/24"
+        reason="This test has started failing for index-DecisionTreeClassifier and index-GradientBoostingRegressor since 1/9/24"
     )
     def test_features_importance(self, get_vo_model, model_class, key_name):
         """
@@ -1580,8 +1551,7 @@ class TestBaseModelMethods:
         if model_class in [
             "RandomForestClassifier",
             "DecisionTreeClassifier",
-            "DummyTreeClassifier",
-            "XGBClassifier",
+            "GradientBoostingClassifier",
         ]:
             feature_importances_map["index"] = [
                 "sex",
@@ -1602,24 +1572,17 @@ class TestBaseModelMethods:
                 #     "fare",
                 # ]
                 feature_importances_map["importance"] = [76.4, 12.41, 11.19]
-            elif model_class in ["XGBClassifier"]:
+            elif model_class in ["GradientBoostingClassifier"]:
                 # feature_importances_map["index"] = [
                 #     "sex",
                 #     "fare",
                 #     "age",
                 # ]
                 feature_importances_map["importance"] = [97.88, 1.39, 0.73]
-            elif model_class in ["DummyTreeClassifier"]:
-                feature_importances_map["index"] = [
-                    "fare",
-                    "sex",
-                    "age",
-                ]
-                feature_importances_map["importance"] = [38.9, 36.61, 24.49]
         elif model_class in [
             "RandomForestRegressor",
             "DecisionTreeRegressor",
-            "XGBRegressor",
+            "GradientBoostingRegressor",
         ]:
             feature_importances_map["index"] = [
                 "alcohol",
@@ -1630,7 +1593,7 @@ class TestBaseModelMethods:
                 feature_importances_map["importance"] = [82.67, 12.91, 4.42]
             elif model_class in ["DecisionTreeRegressor"]:
                 feature_importances_map["importance"] = [83.65, 11.37, 4.98]
-            elif model_class in ["XGBRegressor"]:
+            elif model_class in ["GradientBoostingRegressor"]:
                 feature_importances_map["index"] = [
                     "alcohol",
                     "residual_sugar",
@@ -1669,14 +1632,7 @@ class TestBaseModelMethods:
                 "residual_sugar",
                 "citric_acid",
             ]
-            if model_class in ["DummyTreeRegressor"]:
-                # feature_importances_map["index"] = [
-                #     "alcohol",
-                #     "residual_sugar",
-                #     "citric_acid",
-                # ]
-                feature_importances_map["importance"] = [37.61, 36.56, 25.83]
-            elif model_class == "Ridge":
+            if model_class == "Ridge":
                 # feature_importances_map["index"] = ['alcohol', 'residual_sugar', 'citric_acid']
                 feature_importances_map["importance"] = [52.3, 32.63, 15.07]
             elif model_class == "LinearRegression":

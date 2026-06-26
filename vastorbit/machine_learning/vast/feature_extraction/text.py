@@ -123,9 +123,11 @@ class TfidfVectorizer(VASTModel):
         Terms are excluded under the following conditions:
 
         - They appear in an excessive number of documents
+
         (controlled by ``max_df``).
 
         - They appear in an insufficient number of documents
+
         (controlled by ``min_df``).
 
         This functionality is only applicable when no specific

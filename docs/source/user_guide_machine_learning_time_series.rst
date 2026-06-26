@@ -89,7 +89,7 @@ vastorbit offers several models, including a multiple time series model. For thi
 
     from vastorbit.machine_learning.vast import ARIMA
 
-    model = ARIMA(order = (12, 0, 1))
+    model = ARIMA(order = (12, 0, 0))
     model.fit(
         amazon, 
         y = "number", 
@@ -133,3 +133,9 @@ We can also draw our model using one-step ahead and dynamic forecasting.
     :file: SPHINX_DIRECTORY/figures/ug_ml_plot_ts_5.html
 
 In the next lesson, we'll go over :ref:`user_guide.machine_learning.regression`
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

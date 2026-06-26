@@ -90,3 +90,9 @@ ____
     user_guide_machine_learning_regression
     user_guide_machine_learning_classification
     user_guide_machine_learning_clustering
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

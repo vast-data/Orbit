@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.guide:
 
 =========================
@@ -165,7 +167,7 @@ The Chart Gallery offers various parameters to customize your visualizations. Tw
 2. `max_cardinality`: This parameter controls the maximum number of categories to display in charts. Understanding how to set this parameter is crucial for creating informative visualizations.
 
 Bar Bin Interval: ``h``
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ``h`` is a crucial parameter as it determines how numerical columns are binned. In our example, we can bin ``score1`` and ``score2``. If no values are entered, vastorbit will use methods like Sturges and Freedman Diaconis to determine the bin size for these two numerical features. Alternatively, you can specify a tuple (h1, h2) to set custom bin sizes.
 
@@ -311,3 +313,9 @@ Learn More
 For in-depth tutorials, code samples, and documentation, visit the `Chart Gallery Home Page` :ref:`chart_gallery`.
 
 We hope this guide helps you harness the full potential of the Chart Gallery for your data visualization needs.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

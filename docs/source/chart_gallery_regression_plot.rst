@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.regression_plot:
 
 ===================================
@@ -26,7 +28,7 @@ Machine Learning - Regression Plots
 
     # Defining the Models
     model_lr = vml.LinearRegression()
-    model_rf = vml.RandomForestRegressor()
+    model_rf = vml.RandomForestRegressor(n_estimators = 4)
 
     # Fitting the models
     model_lr.fit(data, "x", "y")
@@ -84,7 +86,7 @@ Let's proceed by creating both a linear regression model and a random forest reg
 
     # Defining the Models
     model_lr = vml.LinearRegression()
-    model_rf = vml.RandomForestRegressor()
+    model_rf = vml.RandomForestRegressor(n_estimators = 4)
 
     # Fitting the models
     model_lr.fit(data, "x", "y")
@@ -399,5 +401,8 @@ Text
         @savefig plotting_matplotlib_lr_plot_custom_yaxis_label.png
         model_lr.plot().set_ylabel("Custom Y Axis")
 
-_____
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

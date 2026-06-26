@@ -326,6 +326,7 @@ The following factors seem to have the greatest influence on a student's perform
  - Tanzanian teachers tend to overrate their students.
  - Age (younger students tend to perform better).
  - Being able to get to school by car.
+
 Let's add the prediction to the :py:mod:`~vastorbit.VastFrame` to see how our model performs its estimations.
 
 .. code-block:: python
@@ -623,3 +624,9 @@ Conclusion
 -----------
 
 We've seen two techniques that can help us create powerful linear regression models. While the first method normalized the data and looked for correlations, the second method applied a :py:mod:`~vastorbit.machine_learning.vast.decomposition.PCA` model. The second one allows us to confirm the Gauss-Markov assumptions - an essential part of using linear models.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

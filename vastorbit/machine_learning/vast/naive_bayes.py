@@ -238,14 +238,6 @@ class NaiveBayes(MulticlassClassifier):
 
         model = NaiveBayes()
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -652,6 +644,26 @@ class NaiveBayes(MulticlassClassifier):
     @property
     def _attributes(self) -> list[str]:
         return ["attributes_", "prior_", "classes_"]
+
+    @property
+    def _sklearn_model(self):
+        """
+        Selects the backing scikit-learn estimator from ``nbtype``. scikit-learn
+        has no mixed-distribution Naive Bayes, so ``"auto"`` maps to ``GaussianNB``.
+        ``alpha``/``nbtype`` that the chosen estimator does not accept are dropped
+        by :py:meth:`_get_sklearn_params`.
+        """
+        import sklearn.naive_bayes
+
+        mapping = {
+            "gaussian": sklearn.naive_bayes.GaussianNB,
+            "bernoulli": sklearn.naive_bayes.BernoulliNB,
+            "multinomial": sklearn.naive_bayes.MultinomialNB,
+            "categorical": sklearn.naive_bayes.CategoricalNB,
+        }
+        return mapping.get(
+            self.parameters.get("nbtype", "auto"), sklearn.naive_bayes.GaussianNB
+        )
 
     # System & Special Methods.
 

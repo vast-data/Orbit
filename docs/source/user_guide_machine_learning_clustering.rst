@@ -74,3 +74,9 @@ You can add the prediction to your :py:mod:`~vastorbit.VastFrame`.
 This concludes this lesson on clustering models in vastorbit.
 
 In the next lesson, we'll go over :ref:`user_guide.machine_learning.clustering`
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

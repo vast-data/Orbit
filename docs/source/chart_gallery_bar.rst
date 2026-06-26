@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.bar:
 
 
@@ -930,3 +932,9 @@ Text
 
         @savefig plotting_matplotlib_barh_1D_custom_yaxis_label.png
         data["grade"].barh().set_ylabel("Custom Y Axis")
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

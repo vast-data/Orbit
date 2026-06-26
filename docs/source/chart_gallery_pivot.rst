@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.pivot:
 
 ===========
@@ -415,4 +417,8 @@ Text
         @savefig plotting_matplotlib_pivot_custom_xaxis_label.png
         data.pivot_table(columns = ["category1", "category2"]).set_xlabel("Custom X Axis")
 
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

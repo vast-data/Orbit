@@ -4,7 +4,7 @@
 Integrating with GeoPandas
 ===========================
 
-As of version 0.4.0, vastorbit features GeoPandas integration. This allows you to easily export a :py:mod:`~vastorbit.VastFrame` as a GeoPandas DataFrame, giving you more control over geospatial data.
+GeoPandas integration allows you to easily export a :py:mod:`~vastorbit.VastFrame` as a GeoPandas DataFrame, giving you more control over geospatial data.
 
 This example demonstrates the advantages of GeoPandas integration with the ``world`` dataset.
 
@@ -41,9 +41,7 @@ The :py:func:`~vastorbit.VastFrame.apply` function of the vastorbit stats module
 
     import vastorbit.sql.functions as fun
 
-    world["geography"] = fun.apply("ST_GeometryFromText", world["geometry"])
-    world["geography"].astype("geography")
-    world["area"] = fun.apply("st_area", world["geography"])
+    world["area"] = fun.apply("st_area", world["geometry"])
     world.head(100)
 
 .. ipython:: python
@@ -51,9 +49,7 @@ The :py:func:`~vastorbit.VastFrame.apply` function of the vastorbit stats module
 
     import vastorbit.sql.functions as fun
 
-    world["geography"] = fun.apply("ST_GeometryFromText", world["geometry"])
-    world["geography"].astype("geography")
-    world["area"] = fun.apply("st_area", world["geography"])
+    world["area"] = fun.apply("st_area", world["geometry"])
     res = world.head(100)
     html_file = open("SPHINX_DIRECTORY/figures/ug_fs_table_gpd_2.html", "w")
     html_file.write(res._repr_html_())
@@ -134,3 +130,9 @@ You can also draw maps using the :py:func:`~vastorbit.VastFrame.geo_plot` method
         ax = ax,
         max_cardinality = 20,
     )
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

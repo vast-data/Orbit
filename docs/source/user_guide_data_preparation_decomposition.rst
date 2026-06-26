@@ -106,3 +106,9 @@ Most of the information is in the first two components with more than 97.7% of e
 
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/ug_dp_table_decomposition_4.html
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

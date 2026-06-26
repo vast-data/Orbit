@@ -13,8 +13,8 @@ from vastorbit.machine_learning.vast.ensemble import (
     IsolationForest,
     RandomForestClassifier,
     RandomForestRegressor,
-    XGBClassifier,
-    XGBRegressor,
+    GradientBoostingClassifier,
+    GradientBoostingRegressor,
 )
 from vastorbit.machine_learning.vast.feature_extraction.text import TfidfVectorizer
 from vastorbit.machine_learning.vast.linear_model import (
@@ -51,7 +51,5 @@ from vastorbit.machine_learning.vast.svm import LinearSVC, LinearSVR
 from vastorbit.machine_learning.vast.tree import (
     DecisionTreeClassifier,
     DecisionTreeRegressor,
-    DummyTreeClassifier,
-    DummyTreeRegressor,
 )
-from vastorbit.machine_learning.vast.tsa import ARIMA, ARMA, AR, MA, VAR
+from vastorbit.machine_learning.vast.tsa import ARIMA, ARMA, AR, VAR

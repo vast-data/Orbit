@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.range:
 
 
@@ -395,5 +397,9 @@ Text
         @savefig plotting_matplotlib_range_custom_yaxis_label.png
         data["population1"].range_plot(ts = "date").set_ylabel("Custom Y Axis")
 
-_____
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()
 

@@ -1,6 +1,6 @@
 .. _examples.understand.africa_education:
 
-Africe Education
+Africa Education
 =================
 
 This example uses the 'Africa Education' dataset to predict student performance. 
@@ -327,22 +327,16 @@ information to predict the students' scores.
     from vastorbit.machine_learning.vast import RandomForestRegressor
     from vastorbit.machine_learning.model_selection import cross_validate
 
-    predictors = africa.get_columns(
-        exclude_columns = [
-            "zralocp", 
-            "zmalocp",
-            "lat", 
-            "lon",
-            "schoolname",
-        ],
-    )
+    # RandomForest is backed by scikit-learn and needs numeric inputs, so we
+    # train on the numeric predictors only (the categorical text columns are
+    # left out). Shallow trees keep the generated prediction SQL compact.
     response = "zralocp"
+    predictors = africa.numcol(
+        exclude_columns = ["zralocp", "zmalocp", "lat", "lon"],
+    )
     model = RandomForestRegressor(
-        n_estimators = 40,
-        max_depth = 20,
-        min_samples_leaf = 4,
-        nbins = 20,
-        sample = 0.7,
+        n_estimators = 5,
+        max_depth = 3,
     )
     cross_validate(
         model, 
@@ -388,9 +382,8 @@ Our goal will be to optimize the ``median_absolute_error``.
     gcv = grid_search_cv(
         model,
         {
-            "min_samples_leaf": [1, 3],
-            "max_leaf_nodes": [50],
-            "max_depth": [5, 8],
+            "sample": [0.7, 1.0],
+            "max_depth": [2, 3],
         },
         metric = "median",
         input_relation = africa,
@@ -403,13 +396,9 @@ Our goal will be to optimize the ``median_absolute_error``.
     :suppress:
 
     gcv_params = {
-        'n_estimators': 40,
-        'max_features': 'sqrt',
-        'max_leaf_nodes': 100,
+        'n_estimators': 5,
+        'max_depth': 3,
         'sample': 0.7,
-        'max_depth': 10,
-        'min_samples_leaf': 3,
-        'min_info_gain': 0.0,
         'nbins': 20,
     }
 
@@ -861,7 +850,13 @@ We can then order these by descending average score and note the top five studen
         ],
         max_cardinality = 1000,
     )
-    africa.dropna()
+    res = africa.dropna()
+    html_file = open("SPHINX_DIRECTORY/figures/examples_africa_final_table_logit.html", "w")
+    html_file.write(res._repr_html_())
+    html_file.close()
+
+.. raw:: html
+    :file: SPHINX_DIRECTORY/figures/examples_africa_final_table_logit.html
 
 Let's create a logistic regression to understand what circumstances allowed these students to perform as well as they have.
 
@@ -900,16 +895,12 @@ Let's create a logistic regression to understand what circumstances allowed thes
     :okwarning:
 
     from vastorbit.machine_learning.vast import LogisticRegression
-    predictors = africa.get_columns(exclude_columns = [
-            "PLIGHT",
-            "PTRAVEL2",
-            "PREPEAT", 
-            "PENGLISH",
-            "SLOCAT",
-            "PFATHER",
-            "SPUPPR04",
-            "PNURSERY",
-            "zpmealsc",
+    predictors = africa.numcol(exclude_columns = [
+            "zralocp",
+            "zmalocp",
+            "lat",
+            "lon",
+            "student_class_position",
             "best",
         ]
     )

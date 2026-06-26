@@ -754,14 +754,6 @@ class ElasticNet(LinearModel, Regressor):
             fit_intercept = True,
         )
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -1196,14 +1188,6 @@ class Lasso(LinearModel, Regressor):
             alpha = 0.5,
             max_iter = 100,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -1655,14 +1639,6 @@ class LinearRegression(LinearModel, Regressor):
         model = LinearRegression(
             fit_intercept = True,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -2135,14 +2111,6 @@ class PLSRegression(LinearModel, Regressor):
 
         model = PLSRegression()
 
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
-
     .. important::
 
         The model name is crucial for the model
@@ -2572,14 +2540,6 @@ class PoissonRegressor(LinearModel, Regressor):
             max_iter = 100,
             fit_intercept = True,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -3015,14 +2975,6 @@ class Ridge(LinearModel, Regressor):
             max_iter = 100,
             solver = 'cholesky',
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -3581,14 +3533,6 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
             solver = 'newton-cg',
             fit_intercept = True,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 

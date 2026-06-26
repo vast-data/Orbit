@@ -346,7 +346,7 @@ def validation_curve(
 
         The below example is a very basic one. For
         other more detailed examples and customization
-        options, please see :ref:`chart_gallery.learning`_
+        options, please see :ref:`chart_gallery.learning`
 
     We import :py:mod:`vastorbit`:
 
@@ -403,7 +403,7 @@ def validation_curve(
         import vastorbit.machine_learning.model_selection as vms
 
         # Defining the Model
-        model = vml.RandomForestClassifier()
+        model = vml.RandomForestClassifier(n_estimators = 5)
 
     Let's draw the validation curve.
 

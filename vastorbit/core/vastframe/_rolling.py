@@ -254,7 +254,13 @@ class vDFRolling(vDFCorr):
                     f"got {len(order_by)}."
                 )
             # Numeric sort key -> express the bound in seconds instead of an interval.
-            range_as_seconds = self[order_by[0]].category() != "date"
+            if isinstance(order_by, dict):
+                first_order_by = list(order_by.keys())[0]
+            elif isinstance(order_by, (list, tuple)):
+                first_order_by = order_by[0]
+            else:
+                first_order_by = order_by
+            range_as_seconds = self[first_order_by].category() != "date"
 
         # ── Parse the two window bounds into full SQL frame tokens ───────────
         bound = ["", ""]

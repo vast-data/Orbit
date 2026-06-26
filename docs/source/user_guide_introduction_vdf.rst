@@ -439,3 +439,9 @@ VastFrame modifications don't affect the underlying database. To persist changes
 
    - :ref:`user_guide.introduction.best_practices` – Performance optimization tips
    - :ref:`api.vastframe` – Complete VastFrame API reference
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

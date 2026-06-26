@@ -1634,7 +1634,7 @@ class ImportanceBarChartPlot(BasicPlotTests):
         """
         Load test model
         """
-        model = RandomForestClassifier(f"{schema_loader}.importance_test")
+        model = RandomForestClassifier(f"{schema_loader}.importance_test", n_estimators = 5)
         model.fit(
             iris_vd,
             [self.COL_NAME_1, self.COL_NAME_2, self.COL_NAME_3, self.COL_NAME_4],

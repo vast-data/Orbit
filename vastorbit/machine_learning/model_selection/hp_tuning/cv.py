@@ -1690,7 +1690,7 @@ def bayesian_search_cv(
     else:
         all_params = ["C", "l1_ratio"]
     if not bayesian_nbins:
-        bayesian_nbins = max(int(np.exp(np.log(nrows) / len(all_params))), 1)
+        bayesian_nbins = max(int(np.exp(np.log(nrows) / max(len(all_params), 1))), 1)
     result = {}
     for elem in all_params:
         result[elem] = []

@@ -203,3 +203,9 @@ You can use the parameters ``ncols_block`` and ``processes`` to manage the resso
 For example, the parameter ``ncols_block`` will divide the main query into smaller using a specific number of columns. The parameter ``processes`` allows you to manage the number of queries you want to send at the same time. 
 
 An entire example is available in the :py:func:`~vastorbit.VastFrame.aggregate` documentation.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

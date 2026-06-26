@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.learning:
 
 ==============
@@ -28,7 +30,7 @@ Learning Curve
     data = vo.VastFrame({"x": np.concatenate([x, x + k]), "y": np.concatenate([y, y + k]), "z": np.concatenate([z, z + k]),"c": [random.randint(0, 1) for _ in range(N)]})
 
     # Defining the Model
-    model = vml.RandomForestClassifier()
+    model = vml.RandomForestClassifier(n_estimators = 4, max_depth = 2)
 
 General
 -------
@@ -74,7 +76,7 @@ Let's proceed by creating a Random Forest Classifier model using the complete da
     import vastorbit.machine_learning.model_selection as vms
 
     # Defining the Model
-    model = vml.RandomForestClassifier()
+    model = vml.RandomForestClassifier(n_estimators = 4, max_depth = 2)
 
 In the context of data visualization, we have the flexibility to harness multiple plotting libraries to craft a wide range of graphical representations. vastorbit, as a versatile tool, provides support for several graphic libraries, such as Matplotlib and Plotly. Each of these libraries offers unique features and capabilities, allowing us to choose the most suitable one for our specific data visualization needs.
 
@@ -282,3 +284,9 @@ vastorbit empowers users with a high degree of flexibility when it comes to tail
 This customization extends to essential elements such as **color schemes**, **text labels**, and **plot sizes**, as well as a wide range of other attributes that can be fine-tuned to align with specific design preferences and analytical requirements. Whether you want to make your visualizations more visually appealing or need to convey specific insights with precision, vastorbit's customization options enable you to craft graphics that suit your exact needs.
 
 .. note:: As learning curves are essentially range plots, customization options are identical to those available for :ref:`chart_gallery.range`.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

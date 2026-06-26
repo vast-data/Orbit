@@ -432,7 +432,7 @@ One of our predictors is categorical: the passenger title. Some of these predict
     predictors = titanic.get_columns(exclude_columns = ["survived", "name", "fare", "boat"])
     response = "survived"
     model = RandomForestClassifier(
-        n_estimators = 7,
+        n_estimators = 7
     )
     cross_validate(model, titanic_no_boat, predictors, response)
 
@@ -446,7 +446,7 @@ One of our predictors is categorical: the passenger title. Some of these predict
     predictors = titanic.get_columns(exclude_columns = ["survived", "name", "fare", "boat"])
     response = "survived"
     model = RandomForestClassifier(
-        n_estimators = 7,
+        n_estimators = 7
     )
     res = cross_validate(model, titanic_no_boat, predictors, response)
     html_file = open("SPHINX_DIRECTORY/figures/examples_titanic_table_ml_cv.html", "w")

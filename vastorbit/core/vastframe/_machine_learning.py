@@ -475,7 +475,11 @@ class vDFMachineLearning(vDFScaler):
                     categories = sorted(
                         [float(c.split(";")[1][0:-1]) for c in categories]
                     )
-                    ctype = "real"
+                    # Use double (64-bit) rather than real (32-bit): the bin
+                    # boundaries are Python floats (64-bit) used as dict keys, and
+                    # a 32-bit round-trip distorts them (e.g. 388.08 -> 388.08002),
+                    # so children[elem[0]] would raise KeyError.
+                    ctype = "double"
                 else:
                     categories = sorted([int(c) for c in categories])
                     ctype = "int"
@@ -524,6 +528,12 @@ class vDFMachineLearning(vDFScaler):
                 for cl in classes:
                     children[c][cl] = 0.0
             for elem in result:
+                # The binned value coming back from the query should be one of
+                # `categories`, but edge cases (binning boundary rounding, values
+                # outside the parsed bins) can yield a key that wasn't pre-seeded.
+                # Create the bucket on demand instead of raising KeyError.
+                if elem[0] not in children:
+                    children[elem[0]] = {cl: 0.0 for cl in classes}
                 children[elem[0]][elem[1]] = elem[2]
             for elem in children:
                 idx += 1

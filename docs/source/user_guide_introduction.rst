@@ -70,3 +70,9 @@ ____
     user_guide_introduction_installation
     user_guide_introduction_vdf
     user_guide_introduction_best_practices
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

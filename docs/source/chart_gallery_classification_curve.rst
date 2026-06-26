@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.classification_curve:
 
 =======================================
@@ -490,4 +492,8 @@ Text
         @savefig plotting_matplotlib_roc_curve_custom_yaxis_label.png
         model.roc_curve().set_ylabel("Custom Y Axis")
 
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

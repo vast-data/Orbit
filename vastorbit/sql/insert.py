@@ -156,7 +156,7 @@ def insert_into(
             query=f"""
                 SELECT /*+LABEL('insert_into')*/
                     column_name
-                FROM columns 
+                FROM information_schema.columns 
                 WHERE table_name = '{table_name}' 
                     AND table_schema = '{schema}' 
                 ORDER BY ordinal_position""",
@@ -173,7 +173,7 @@ def insert_into(
             query=f"""
                 INSERT INTO {input_relation} 
                 ({", ".join(cols)})
-                VALUES ({", ".join(["%s" for i in range(len(cols))])})""",
+                VALUES ({", ".join(["?" for i in range(len(cols))])})""",
             title=(
                 f"Insert new lines in the {table_name} table. "
                 "The batch insert is converted into a COPY "
@@ -199,7 +199,10 @@ def insert_into(
                 elif d is None or d != d:
                     sql_tmp += "NULL"
                 else:
-                    sql_tmp += f"'{d}'"
+                    # Numbers and booleans must be emitted as bare SQL literals;
+                    # quoting them (e.g. '3.3') makes them VARCHAR and triggers a
+                    # TYPE_MISMATCH against numeric/boolean target columns.
+                    sql_tmp += f"{d}"
                 sql_tmp += ","
             sql_tmp = sql_tmp[:-1] + ");"
             query = header + sql_tmp

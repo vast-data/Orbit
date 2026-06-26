@@ -68,6 +68,7 @@ class AutoDataPrep(VASTModel):
                   series      datasets,      'constant'
                   interpolation is used for categorical
                   features and 'linear' for the others.
+
             drop: Drops the missing values.
     cat_topk: int, optional
         Keeps  the top-k  most frequent categories  and

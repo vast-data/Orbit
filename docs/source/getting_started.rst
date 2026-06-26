@@ -172,7 +172,7 @@ tables.
 
    from vastorbit.machine_learning.vast import RandomForestClassifier
 
-   model = RandomForestClassifier()
+   model = RandomForestClassifier(n_estimators = 5)
    model.fit(vdf, ["feature1", "feature2"], "target")
 
    predictions = model.predict(vdf)   # in-database inference, no data movement

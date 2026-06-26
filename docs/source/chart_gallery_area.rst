@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.area:
 
 ==========
@@ -501,4 +503,8 @@ Text
         @savefig plotting_matplotlib_area_custom_yaxis_label.png
         data["Asia"].plot(ts = "date", kind = "area").set_ylabel("Custom Y Axis")
 
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

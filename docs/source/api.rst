@@ -301,7 +301,6 @@ Detailed documentation for every module, class, and function.
   jupyter
   machine_learning
   parsers
-  performance
   plotting
   sql
   stats

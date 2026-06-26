@@ -155,9 +155,7 @@ def calculate_regression_metrics(get_py_model):
             "RandomForestClassifier",
             "DecisionTreeRegressor",
             "DecisionTreeClassifier",
-            "XGBRegressor",
-            "DummyTreeRegressor",
-            # "DummyTreeClassifier",
+            "GradientBoostingRegressor",
         ]:
             y, pred, model = model_obj.y, model_obj.pred, model_obj.model
             if model_class in ["RandomForestRegressor", "RandomForestClassifier"]:
@@ -184,13 +182,9 @@ def calculate_regression_metrics(get_py_model):
         no_of_records = len(y)
         avg = sum(y) / no_of_records
         num_features = (
-            3
-            if model_class in ["DummyTreeRegressor"]
-            else (
-                1
-                if model_class in ["AR", "MA", "ARMA", "ARIMA"]
-                else (len(model.feature_names_in_))
-            )
+            1
+            if model_class in ["AR", "MA", "ARMA", "ARIMA"]
+            else (len(model.feature_names_in_))
         )
         # y_bar = y.mean()
         # ss_tot = ((y - y_bar) ** 2).sum()
@@ -285,9 +279,6 @@ def calculate_classification_metrics(get_py_model):
         )
 
         classification_metrics_map = {}
-        # no_of_records = len(y)
-        # avg = sum(y) / no_of_records
-        # num_features = 3 if model_class in ["DummyTreeClassifier"] else len(model.feature_names_in_)
 
         classification_metrics_map["auc"] = skl_metrics.auc(recall, precision)
         classification_metrics_map["prc_auc"] = skl_metrics.auc(recall, precision)

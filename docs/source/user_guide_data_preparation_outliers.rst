@@ -169,7 +169,7 @@ Other techniques like :py:mod:`~vastorbit.machine_learning.vast.cluster.DBSCAN` 
 .. code-block:: python
 
     heart_dbscan = model.predict()
-    heart_dbscan["outliers_dbscan"] = "(dbscan_clusters = -1)::int"
+    heart_dbscan["outliers_dbscan"] = "CAST((dbscan_clusters = -1) AS integer)"
     heart_dbscan.scatter(
         ["thalach", "chol"],
         by = "outliers_dbscan",
@@ -180,7 +180,7 @@ Other techniques like :py:mod:`~vastorbit.machine_learning.vast.cluster.DBSCAN` 
     :okwarning:
 
     heart_dbscan = model.predict()
-    heart_dbscan["outliers_dbscan"] = "(dbscan_clusters = -1)::int"
+    heart_dbscan["outliers_dbscan"] = "CAST((dbscan_clusters = -1) AS integer)"
     import vastorbit
     vastorbit.set_option("plotting_lib", "plotly")
     fig = heart_dbscan.scatter(
@@ -245,3 +245,9 @@ While :py:mod:`~vastorbit.machine_learning.vast.cluster.DBSCAN` identifies outli
     :file: SPHINX_DIRECTORY/figures/ug_dp_plot_outliers_9.html
 
 We have many other techniques like the :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` clustering for finding outliers, but the most important method is using the ``Z-Score``. After identifying outliers, we just have to decide how to impute the missing values. We'll focus on missing values in the next lesson.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

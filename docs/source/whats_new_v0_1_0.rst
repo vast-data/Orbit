@@ -69,7 +69,7 @@ What's Included
 
 **Machine Learning:**
 
-- 10 embedded models (RandomForest, XGBoost, LinearRegression, etc.)
+- 10 embedded models (RandomForest, GradientBoosting, LinearRegression, etc.)
 - sklearn model import support
 - In-database inference at scale
 - Production-ready deployment
@@ -116,7 +116,7 @@ What's Included
     
     # Train ML model
     from vastorbit.machine_learning.vast import RandomForestClassifier
-    model = RandomForestClassifier()
+    model = RandomForestClassifier(n_estimators = 4)
     model.fit(vdf, ['feature1', 'feature2'], 'target')
     
     # In-database inference

@@ -194,7 +194,7 @@ def read_csv(
     Parameters
     ----------
     path : str
-        Path to the CSV file(s). Supports wildcards (e.g., 'data/*.csv', 'file_*.csv')
+        Path to the CSV file(s). Supports wildcards (e.g., ``'data/*.csv'``, ``'file_*.csv'``)
     schema : str, optional
         Target schema. Supports formats:
         - 'schema_name' (uses default catalog from config)
@@ -687,7 +687,7 @@ def pcsv(
     Parameters
     ----------
     path : str
-        Path to the CSV file(s). Supports wildcards (e.g., '*.csv')
+        Path to the CSV file(s). Supports wildcards (e.g., ``'*.csv'``)
     sep : str, optional
         Column separator (default: ',')
     header : bool, optional

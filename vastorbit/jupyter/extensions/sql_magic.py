@@ -266,7 +266,7 @@ def sql_magic(
         %%sql
         -- Comment Test
         /* My VAST Version */
-        SELECT version(); -- Select my current version
+        SELECT version() AS version; -- Select my current version
 
     **Execution**: 0.005s
 
@@ -276,7 +276,7 @@ def sql_magic(
         %%sql
         -- Comment Test
         /* My VAST Version */
-        SELECT version(); -- Select my current version
+        SELECT version() AS version; -- Select my current version
 
     .. ipython:: python
         :suppress:

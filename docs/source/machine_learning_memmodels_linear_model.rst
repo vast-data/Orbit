@@ -37,6 +37,7 @@ Base Class
    :toctree: api/
 
    LinearModel.object_type
+
 _____
 
 
@@ -70,4 +71,5 @@ Linear Model Classifier
    :toctree: api/
 
    LinearModelClassifier.object_type
+
 ____

@@ -48,7 +48,7 @@ def read_json(
     Parameters
     ----------
     path : str
-        Path to the JSON file(s). Supports wildcards (e.g., 'data/*.json', 'file_*.json')
+        Path to the JSON file(s). Supports wildcards (e.g., ``'data/*.json'``, ``'file_*.json'``)
     schema : str, optional
         Target schema. Supports formats:
         - 'schema_name' (uses default catalog from config)
@@ -562,7 +562,7 @@ def pjson(path: str, lines: bool = False) -> dict[str, str]:
     Parameters
     ----------
     path : str
-        Path to the JSON file(s). Supports wildcards (e.g., '*.json')
+        Path to the JSON file(s). Supports wildcards (e.g., ``'*.json'``)
     lines : bool, optional
         If True, read JSON lines format (default: False)
 

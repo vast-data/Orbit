@@ -307,3 +307,9 @@ The following formats will be supported in upcoming releases:
    - :py:func:`~vastorbit.read_json` – JSON ingestion reference
    - :py:func:`~vastorbit.read_pandas` – pandas ingestion reference
    - :ref:`user_guide.introduction.vdf` – Working with VastFrames
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

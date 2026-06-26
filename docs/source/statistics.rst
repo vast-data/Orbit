@@ -29,7 +29,7 @@ complete, in-database data-science toolkit already ships in the box.
     # kind="pie" is the default; the drill-down bar is intentionally not used here.
     vo.set_option("plotting_lib", "plotly")
     fig = summarise_vastorbit_chart()
-    html_text = fig.htmlcontent.replace(
+    html_text = fig.to_html().replace(
         "container", "plotting_summarise_vastorbit_chart"
     )
     with open(

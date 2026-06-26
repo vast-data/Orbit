@@ -54,7 +54,7 @@ def date(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df["date_x"] = vof.date(df["x"])
+        df["date_x"] = vof.timestamp(df["x"])
         display(df)
 
     .. ipython:: python
@@ -63,7 +63,7 @@ def date(expr: SQLExpression) -> StringSQL:
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
         df = VastFrame({"x": ['1993-11-03 12:05:10.23', '1959-09-05 03:10:20.12']})
-        df["date_x"] = vof.date(df["x"])
+        df["date_x"] = vof.timestamp(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_date.html", "w")
         html_file.write(df._repr_html_())
         html_file.close()
@@ -665,7 +665,7 @@ def interval(expr: SQLExpression) -> StringSQL:
 
     .. code-block:: python
 
-        df = VastFrame({"x": ['1 day', '2 hours']})
+        df = VastFrame({"x": ['1d', '2h']})
 
     Now, let's go ahead and apply the function.
 
@@ -679,7 +679,7 @@ def interval(expr: SQLExpression) -> StringSQL:
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ['1 day', '2 hours']})
+        df = VastFrame({"x": ['1d', '2h']})
         df["interval_x"] = vof.interval(df["x"])
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_date_interval.html", "w")
         html_file.write(df._repr_html_())
@@ -701,7 +701,7 @@ def interval(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr = format_magic(expr)
-    return StringSQL(f"INTERVAL {expr} DAY TO SECOND", "interval")
+    return StringSQL(f"parse_duration({expr})", "interval")
 
 
 def minute(expr: SQLExpression) -> StringSQL:
@@ -1053,13 +1053,16 @@ def overlaps(
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
+    # Trino does not implement the SQL-standard ``OVERLAPS`` predicate, so the
+    # comparison is expressed directly: two periods overlap when each one starts
+    # before the other ends. LEAST/GREATEST normalise periods given in either
+    # order (start later than end).
+    s0, e0 = format_magic(start0), format_magic(end0)
+    s1, e1 = format_magic(start1), format_magic(end1)
     expr = f"""
-        ({format_magic(start0)},
-         {format_magic(end0)})
-         OVERLAPS
-        ({format_magic(start1)},
-         {format_magic(end1)})"""
-    return StringSQL(clean_query(expr), "int")
+        (LEAST({s0}, {e0}) < GREATEST({s1}, {e1})
+         AND LEAST({s1}, {e1}) < GREATEST({s0}, {e0}))"""
+    return StringSQL(clean_query(expr), "bool")
 
 
 def quarter(expr: SQLExpression) -> StringSQL:

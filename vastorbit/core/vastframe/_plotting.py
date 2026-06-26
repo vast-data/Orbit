@@ -814,7 +814,7 @@ class vDFPlot(vDFMachineLearning):
             Maximum number of distinct elements
             for :py:class:`~VastColumns` 1 and 2
             to be used as categorical. For these
-            elements, no  ``h
+            elements, no  h
             is picked or computed.
             If  of type tuple, represents the
             'max_cardinality' of each column.
@@ -2695,6 +2695,7 @@ class vDCPlot(vDCScaler):
                                     and Sturges.
                 freedman_diaconis : Freedman Diaconis
                                     [2 * IQR / n ** (1 / 3)]
+
                 sturges           : Sturges [CEIL(log2(n)) + 1]
 
         Returns
@@ -4257,7 +4258,7 @@ class vDCPlot(vDCScaler):
 
         Parameters
         ----------
-        *args / ``**kwargs``:
+        ``*args`` / ``**kwargs``:
             Any optional parameter to pass to the geopandas
             plot function.
             For more information, see:

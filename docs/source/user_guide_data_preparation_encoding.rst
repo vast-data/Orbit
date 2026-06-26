@@ -162,3 +162,9 @@ Let's use a mean encoding on the ``home.dest`` variable.
     :file: SPHINX_DIRECTORY/figures/ug_dp_table_encoding_8.html
 
 vastorbit offers many encoding techniques. For example, the :py:func:`~vastorbit.VastFrame.case_when` and :py:func:`~vastorbit.VastColumn.decode` methods allow the user to use a customized encoding on a column. The :py:func:`~vastorbit.VastColumn.discretize` method allows you to reduce the number of categories in a column. It's important to get familiar with all the techniques available so you can make informed decisions about which to use for a given dataset.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

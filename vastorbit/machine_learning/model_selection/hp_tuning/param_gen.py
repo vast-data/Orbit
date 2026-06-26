@@ -140,7 +140,7 @@ def gen_params_grid(
     """
     params_grid = {}
     if isinstance(
-        estimator, (vml.DummyTreeRegressor, vml.DummyTreeClassifier, vml.OneHotEncoder)
+        estimator, (vml.OneHotEncoder,)
     ):
         return params_grid
     elif isinstance(
@@ -266,7 +266,7 @@ def gen_params_grid(
                 "tol": {"type": float, "range": [1e-8, 1e-2], "nbins": nbins},
                 "max_iter": {"type": int, "range": [10, 1000], "nbins": nbins},
             }
-    elif isinstance(estimator, (vml.XGBClassifier, vml.XGBRegressor)):
+    elif isinstance(estimator, (vml.GradientBoostingClassifier, vml.GradientBoostingRegressor)):
         if optimized_grid == 0:
             params_grid = {
                 "nbins": list(range(2, 100, math.ceil(100 / nbins))),

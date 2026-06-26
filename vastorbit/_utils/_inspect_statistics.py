@@ -338,7 +338,7 @@ def summarise_vastorbit_chart(kind: str = "pie") -> PlottingObject:
         from vastorbit._utils._inspect_statistics import summarise_vastorbit_chart
         vo.set_option("plotting_lib", "plotly")
         fig = summarise_vastorbit_chart()
-        html_text = fig.htmlcontent.replace("container", "plotting_summarise_vastorbit_chart")
+        html_text = fig.to_html().replace("container", "plotting_summarise_vastorbit_chart")
         with open("SPHINX_DIRECTORY/figures/plotting_summarise_vastorbit_chart.html", "w") as file:
             file.write(html_text)
 

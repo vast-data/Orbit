@@ -52,18 +52,18 @@ class RandomForest(Tree):
     """
 
 
-class XGBoost(Tree):
+class GradientBoosting(Tree):
     """
     :py:class:`~vastorbit.machine_learning.vast.base.Tree`
-    implementation of XGBoost.
+    implementation of GradientBoosting.
 
 
     .. note::
 
         Refer to
-        :py:class:`~vastorbit.machine_learning.vast.ensemble.XGBRegressor`
+        :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingRegressor`
         for more information on Regression models. And refer to
-        :py:class:`~vastorbit.machine_learning.vast.ensemble.XGBClassifier`
+        :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingClassifier`
         for more information on Classification models.
     """
 
@@ -71,21 +71,21 @@ class XGBoost(Tree):
 
     def _compute_prior(self) -> Union[float, list[float]]:
         """
-        Returns the XGB priors.
+        Returns the ``GradientBoosting`` priors.
 
         Returns
         -------
         float / list
-            XGB priors.
+            GradientBoosting priors.
         """
         condition = [f"{x} IS NOT NULL" for x in self.X] + [f"{self.y} IS NOT NULL"]
         query = f"""
             SELECT 
-                /*+LABEL('learn.ensemble.XGBoost._compute_prior')*/ 
+                /*+LABEL('learn.ensemble.GradientBoosting._compute_prior')*/ 
                 {{}}
             FROM {self.input_relation} 
             WHERE {' AND '.join(condition)}{{}}"""
-        if self._model_type == "XGBRegressor" or (
+        if self._model_type == "GradientBoostingRegressor" or (
             len(self.classes_) == 2 and self.classes_[1] == 1 and self.classes_[0] == 0
         ):
             prior_ = _executeSQL(
@@ -118,22 +118,34 @@ class XGBoost(Tree):
             if attributes[5][i]:
                 split_conditions += [attributes[3][i]]
             elif isinstance(attributes[5][i], NoneType):
-                if self._model_type == "XGBRegressor":
-                    split_conditions += [
-                        float(attributes[4][i]) * self.parameters["learning_rate"]
-                    ]
-                elif (
-                    len(self.classes_) == 2
-                    and self.classes_[1] == 1
-                    and self.classes_[0] == 0
-                ):
-                    split_conditions += [
-                        self.parameters["learning_rate"] * float(attributes[6][i]["1"])
-                    ]
+                lr = self.parameters["learning_rate"]
+                if self._model_type == "GradientBoostingRegressor":
+                    split_conditions += [float(attributes[4][i]) * lr]
                 else:
-                    split_conditions += [
-                        self.parameters["learning_rate"] * float(attributes[6][i][c])
-                    ]
+                    # GB classifier leaves carry a log-odds contribution stored
+                    # as a "class:value,..." string. Parse it and pick the class
+                    # for this tree; gradient-boosting regression trees hold a
+                    # single contribution value (and the stored key is not always
+                    # the target class), so fall back to that value when the
+                    # exact class key is absent.
+                    raw = attributes[6][i]
+                    log_odds_map = {}
+                    if raw:
+                        for pair in str(raw).split(","):
+                            key_part, _, val_part = pair.partition(":")
+                            log_odds_map[key_part] = float(val_part)
+                    if (
+                        len(self.classes_) == 2
+                        and self.classes_[1] == 1
+                        and self.classes_[0] == 0
+                    ):
+                        wanted = "1"
+                    else:
+                        wanted = str(c)
+                    value = log_odds_map.get(wanted)
+                    if value is None:
+                        value = next(iter(log_odds_map.values()), 0.0)
+                    split_conditions += [lr * value]
             else:
                 split_conditions += [float(attributes[3][i])]
         return {
@@ -151,8 +163,7 @@ class XGBoost(Tree):
             "split_conditions": split_conditions,
             "split_indices": [0 if x is None else x for x in attributes[2]],
             "split_type": [
-                int(x) if isinstance(x, bool) else int(attributes[5][0])
-                for x in attributes[5]
+                int(x) if isinstance(x, bool) else 0 for x in attributes[5]
             ],
             "sum_hessian": [0.0 for i in range(n_nodes)],
             "tree_param": {
@@ -167,7 +178,7 @@ class XGBoost(Tree):
         """
         Method used to convert the model to JSON.
         """
-        if self._model_type == "XGBClassifier" and (
+        if self._model_type == "GradientBoostingClassifier" and (
             len(self.classes_) > 2 or self.classes_[1] != 1 or self.classes_[0] != 0
         ):
             trees = []
@@ -196,7 +207,7 @@ class XGBoost(Tree):
         """
         Method used to convert the model to JSON.
         """
-        if self._model_type == "XGBRegressor" or (
+        if self._model_type == "GradientBoostingRegressor" or (
             len(self.classes_) == 2 and self.classes_[1] == 1 and self.classes_[0] == 0
         ):
             bs, num_class, param, param_val = (
@@ -205,7 +216,7 @@ class XGBoost(Tree):
                 "reg_loss_param",
                 {"scale_pos_weight": "1"},
             )
-            if self._model_type == "XGBRegressor":
+            if self._model_type == "GradientBoostingRegressor":
                 objective = "reg:squarederror"
                 attributes_dict = {
                     "scikit_learn": '{"n_estimators": '
@@ -303,9 +314,9 @@ class XGBoost(Tree):
 
     def to_json(self, path: Optional[str] = None) -> Optional[str]:
         """
-         Creates a Python ``XGBoost`` JSON file
+         Creates a Python ``GradientBoosting`` JSON file
          that can be imported into the Python
-         ``XGBoost`` API.
+         ``GradientBoosting`` API.
 
          .. warning::
 
@@ -315,7 +326,7 @@ class XGBoost(Tree):
              might differ slightly because
              of normalization; while VAST
              uses multinomial ``LogisticRegression``,
-             ``XGBoost`` Python uses Softmax.
+             ``GradientBoosting`` Python uses Softmax.
              This difference does not affect
              the model's final predictions.
              Categorical predictors must be
@@ -353,15 +364,15 @@ class XGBoost(Tree):
 
          .. ipython:: python
 
-             from vastorbit.machine_learning.vast import XGBRegressor
+             from vastorbit.machine_learning.vast import GradientBoostingRegressor
 
          Then we can create the model:
 
          .. ipython:: python
              :okwarning:
 
-             model = XGBRegressor(
-                 max_ntree = 3,
+             model = GradientBoostingRegressor(
+                 n_estimators = 3,
                  max_depth = 3,
                  nbins = 6,
                  split_proposal_method = 'global',
@@ -402,8 +413,8 @@ class XGBoost(Tree):
          .. note::
 
              Refer to
-             :py:class:`~vastorbit.machine_learning.vast.ensemble.XGBRegressor`
-             or :py:class:`~vastorbit.machine_learning.vast.ensemble.XGBClassifier`
+             :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingRegressor`
+             or :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingClassifier`
              for more information about the
              different methods and usages.
         """
@@ -445,6 +456,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         model with the same name as an
         existing model overwrites the
         existing model.
+
     ``**kwargs``: SKLEARN model parameters.
 
     Attributes
@@ -601,22 +613,9 @@ class RandomForestRegressor(Regressor, RandomForest):
         :okwarning:
 
         model = RandomForestRegressor(
-            max_features = "sqrt",
-            max_leaf_nodes = 32,
-            sample = 0.5,
+            n_estimators = 5,
             max_depth = 3,
-            min_samples_leaf = 5,
-            min_info_gain = 0.0,
-            nbins = 32,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -835,6 +834,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         Please refer to
         :ref:`chart_gallery.contour`
         for more examples.Model Exporting
+
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -1004,9 +1004,9 @@ class RandomForestRegressor(Regressor, RandomForest):
             return mm.RandomForestRegressor(self.trees_)
 
 
-class XGBRegressor(Regressor, XGBoost):
+class GradientBoostingRegressor(Regressor, GradientBoosting):
     """
-    Creates an ``XGBRegressor`` object
+    Creates an ``GradientBoostingRegressor`` object
     using SKLEARN for training and
     the scalability of VASTDB for
     the inferences.
@@ -1021,50 +1021,8 @@ class XGBRegressor(Regressor, XGBoost):
         model with the same name as an
         existing model overwrites the
         existing model.
-    max_ntree: int, optional
-        Maximum number of trees that can be created
-        (the number of boosting iterations).
-    max_depth: int, optional
-        Maximum depth of each tree. Larger values
-        increase model complexity and the risk of
-        overfitting.
-    nbins: int, optional
-        Number of bins used to compute the candidate
-        split points of each column. A higher value
-        yields more accurate splits at the cost of
-        speed.
-    split_proposal_method: str, optional
-        Method used to propose split candidates.
 
-        - global:
-            candidates are computed once for the
-            whole tree.
-        - local:
-            candidates are recomputed at each split.
-    tol: float, optional
-        Tolerance used to stop training when no
-        further improvement is made.
-    learning_rate: float, optional
-        Learning rate (also known as ``eta``); it
-        shrinks the contribution of each tree to
-        reduce overfitting.
-    min_split_loss: float, optional
-        Minimum loss reduction (``gamma``) required
-        to make a further split on a leaf node.
-        ``0`` means no minimum.
-    weight_reg: float, optional
-        L2 regularization term (``lambda``) on the
-        tree weights. Higher values produce more
-        conservative models.
-    sample: float, optional
-        Fraction of rows used to train each tree
-        (subsampling), in the range ``(0, 1]``.
-    col_sample_by_tree: float, optional
-        Fraction of columns sampled when building
-        each tree, in the range ``(0, 1]``.
-    col_sample_by_node: float, optional
-        Fraction of columns sampled at each node,
-        in the range ``(0, 1]``.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -1132,7 +1090,7 @@ class XGBRegressor(Regressor, XGBoost):
 
     .. important::
 
-        Many tree-based models inherit from the ``XGB``
+        Many tree-based models inherit from the ``GradientBoosting``
         base class, and it's recommended to use it directly for
         access to a wider range of options.
 
@@ -1220,38 +1178,20 @@ class XGBRegressor(Regressor, XGBoost):
     Model Initialization
     ^^^^^^^^^^^^^^^^^^^^^
 
-    First we import the ``XGBRegressor`` model:
+    First we import the ``GradientBoostingRegressor`` model:
 
     .. ipython:: python
 
-        from vastorbit.machine_learning.vast import XGBRegressor
+        from vastorbit.machine_learning.vast import GradientBoostingRegressor
 
     Then we can create the model:
 
     .. ipython:: python
         :okwarning:
 
-        model = XGBRegressor(
-            max_ntree = 3,
-            max_depth = 3,
-            nbins = 6,
-            split_proposal_method = 'global',
-            tol = 0.001,
-            learning_rate = 0.1,
-            min_split_loss = 0,
-            weight_reg = 0,
-            sample = 0.7,
-            col_sample_by_tree = 1,
-            col_sample_by_node = 1,
+        model = GradientBoostingRegressor(
+            n_estimators = 3,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -1304,18 +1244,18 @@ class XGBRegressor(Regressor, XGBoost):
 
         vo.set_option("plotting_lib", "plotly")
         fig = model.features_importance()
-        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgbreg_feature.html")
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_gbreg_feature.html")
 
     .. code-block:: python
 
         result = model.features_importance()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgbreg_feature.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gbreg_feature.html
 
     .. note::
 
-        In models such as ``XGBoost``, feature importance is calculated
+        In models such as ``GradientBoosting``, feature importance is calculated
         using the average gain of each tree. To determine the final score,
         vastorbit sums the scores of each tree, normalizes them and applies an
         activation function to scale them.
@@ -1329,7 +1269,7 @@ class XGBRegressor(Regressor, XGBoost):
         :suppress:
 
         result = model.report()
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgbreg_report.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_gbreg_report.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -1338,7 +1278,7 @@ class XGBRegressor(Regressor, XGBoost):
         model.report()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgbreg_report.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gbreg_report.html
 
     .. important::
 
@@ -1348,7 +1288,7 @@ class XGBRegressor(Regressor, XGBoost):
         E.g. ``model.report(metrics = ["mse", "r2"])``.
 
     You can utilize the
-    :py:meth:`~vastorbit.machine_learning.vast.ensemble.XGBRegressor.score`
+    :py:meth:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingRegressor.score`
     function to calculate various regression metrics, with the R-squared being the default.
 
     .. ipython:: python
@@ -1375,7 +1315,7 @@ class XGBRegressor(Regressor, XGBoost):
             ],
             "prediction",
         )
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgbreg_prediction.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_gbreg_prediction.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -1395,7 +1335,7 @@ class XGBRegressor(Regressor, XGBoost):
         )
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgbreg_prediction.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gbreg_prediction.html
 
     .. note::
 
@@ -1404,7 +1344,7 @@ class XGBRegressor(Regressor, XGBoost):
         don't need to specify the predictors.
         Alternatively, you can pass only the
         :py:class:`~VastFrame` to the
-        :py:meth:`~vastorbit.machine_learning.vast.ensemble.XGBRegressor.predict`
+        :py:meth:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingRegressor.predict`
         function, but in this case, it's
         essential that the column names of
         the :py:class:`~VastFrame` match the
@@ -1425,10 +1365,10 @@ class XGBRegressor(Regressor, XGBoost):
         :suppress:
 
         res = model.plot_tree()
-        res.render(filename='figures/machine_learning_VAST_xgbreg', format='png')
+        res.render(filename='figures/machine_learning_VAST_gbreg', format='png')
 
 
-    .. image:: /../figures/machine_learning_VAST_xgbreg.png
+    .. image:: /../figures/machine_learning_VAST_gbreg.png
 
     .. note::
 
@@ -1470,6 +1410,7 @@ class XGBRegressor(Regressor, XGBoost):
         Please refer to
         :ref:`chart_gallery.contour`
         for more examples.Model Exporting
+
     ^^^^^^^^^^^^^^^^
 
     **To Memmodel**
@@ -1493,7 +1434,7 @@ class XGBRegressor(Regressor, XGBoost):
 
     **To SQL**
 
-    You can get the SQL query equivalent of the XGB model by:
+    You can get the SQL query equivalent of the ``GradientBoosting`` model by:
 
     .. ipython:: python
 
@@ -1527,7 +1468,7 @@ class XGBRegressor(Regressor, XGBoost):
     .. hint::
 
         The
-        :py:meth:`~vastorbit.machine_learning.vast.tree.XGBRegressor.to_python`
+        :py:meth:`~vastorbit.machine_learning.vast.tree.GradientBoostingRegressor.to_python`
         method is used to retrieve predictions,
         probabilities, or cluster distances. For
         specific details on how to use this method
@@ -1538,20 +1479,12 @@ class XGBRegressor(Regressor, XGBoost):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["XGB_REGRESSOR"]:
-        return "XGB_REGRESSOR"
-
-    @property
-    def _predict_sql(self) -> Literal["PREDICT_XGB_REGRESSOR"]:
-        return "PREDICT_XGB_REGRESSOR"
-
-    @property
     def _model_subcategory(self) -> Literal["REGRESSOR"]:
         return "REGRESSOR"
 
     @property
-    def _model_type(self) -> Literal["XGBRegressor"]:
-        return "XGBRegressor"
+    def _model_type(self) -> Literal["GradientBoostingRegressor"]:
+        return "GradientBoostingRegressor"
 
     @property
     def _attributes(self) -> list[str]:
@@ -1571,7 +1504,7 @@ class XGBRegressor(Regressor, XGBoost):
         self,
         name: str = None,
         overwrite_model: bool = False,
-        max_ntree: int = 10,
+        n_estimators: int = 10,
         max_depth: int = 5,
         nbins: int = 32,
         split_proposal_method: Literal["local", "global"] = "global",
@@ -1585,7 +1518,7 @@ class XGBRegressor(Regressor, XGBoost):
     ) -> None:
         super().__init__(name, overwrite_model)
         params = {
-            "max_ntree": max_ntree,
+            "n_estimators": n_estimators,
             "max_depth": max_depth,
             "nbins": nbins,
             "split_proposal_method": str(split_proposal_method).lower(),
@@ -1600,6 +1533,10 @@ class XGBRegressor(Regressor, XGBoost):
         self.parameters = params
 
     # Attributes Methods.
+
+    @property
+    def _sklearn_model(self) -> Literal[sklearn.ensemble.GradientBoostingRegressor]:
+        return sklearn.ensemble.GradientBoostingRegressor
 
     def _compute_attributes(self) -> None:
         """
@@ -1646,7 +1583,7 @@ class XGBRegressor(Regressor, XGBoost):
 
     # I/O Methods.
 
-    def to_memmodel(self) -> mm.XGBRegressor:
+    def to_memmodel(self) -> mm.GradientBoostingRegressor:
         """
         Converts the model to an InMemory object
         that can be used for different types of
@@ -1679,10 +1616,10 @@ class XGBRegressor(Regressor, XGBoost):
         .. note::
 
             Look at
-            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBRegressor`
+            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingRegressor`
             for more information.
         """
-        return mm.XGBRegressor(self.trees_, self.mean_, self.eta_)
+        return mm.GradientBoostingRegressor(self.trees_, self.mean_, self.eta_)
 
 
 """
@@ -1692,9 +1629,9 @@ Algorithms used for classification.
 
 class RandomForestClassifier(MulticlassClassifier, RandomForest):
     """
-    Creates an ``ElasticNet`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    Creates an ``RandomForestClassifier`` 
+    object using SKLEARN for training 
+    and the scalability of VASTDB for
     the inferences.
 
     Parameters
@@ -1707,6 +1644,7 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         model with the same name as an
         existing model overwrites the
         existing model.
+
     ``**kwargs``: SKLEARN model parameters.
 
     Attributes
@@ -1942,22 +1880,9 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         :okwarning:
 
         model = RandomForestClassifier(
-            max_features = "sqrt",
-            max_leaf_nodes = 32,
-            sample = 0.5,
+            n_estimators = 5,
             max_depth = 3,
-            min_samples_leaf = 5,
-            min_info_gain = 0.0,
-            nbins = 32,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -2519,9 +2444,9 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
             return mm.RandomForestClassifier(self.trees_, self.classes_)
 
 
-class XGBClassifier(MulticlassClassifier, XGBoost):
+class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
     """
-    Creates an ``XGBClassifier`` object
+    Creates an ``GradientBoostingClassifier`` object
     using SKLEARN for training and
     the scalability of VASTDB for
     the inferences.
@@ -2536,50 +2461,8 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         model with the same name as an
         existing model overwrites the
         existing model.
-    max_ntree: int, optional
-        Maximum number of trees that can be created
-        (the number of boosting iterations).
-    max_depth: int, optional
-        Maximum depth of each tree. Larger values
-        increase model complexity and the risk of
-        overfitting.
-    nbins: int, optional
-        Number of bins used to compute the candidate
-        split points of each column. A higher value
-        yields more accurate splits at the cost of
-        speed.
-    split_proposal_method: str, optional
-        Method used to propose split candidates.
 
-        - global:
-            candidates are computed once for the
-            whole tree.
-        - local:
-            candidates are recomputed at each split.
-    tol: float, optional
-        Tolerance used to stop training when no
-        further improvement is made.
-    learning_rate: float, optional
-        Learning rate (also known as ``eta``); it
-        shrinks the contribution of each tree to
-        reduce overfitting.
-    min_split_loss: float, optional
-        Minimum loss reduction (``gamma``) required
-        to make a further split on a leaf node.
-        ``0`` means no minimum.
-    weight_reg: float, optional
-        L2 regularization term (``lambda``) on the
-        tree weights. Higher values produce more
-        conservative models.
-    sample: float, optional
-        Fraction of rows used to train each tree
-        (subsampling), in the range ``(0, 1]``.
-    col_sample_by_tree: float, optional
-        Fraction of columns sampled when building
-        each tree, in the range ``(0, 1]``.
-    col_sample_by_node: float, optional
-        Fraction of columns sampled at each node,
-        in the range ``(0, 1]``.
+    ``**kwargs``: SKLEARN model parameters.
 
     Attributes
     ----------
@@ -2651,7 +2534,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
     .. important::
 
-        Many tree-based models inherit from the ``XGB``
+        Many tree-based models inherit from the ``GradientBoosting``
         base class, and it's recommended to use it directly for
         access to a wider range of options.
 
@@ -2811,24 +2694,24 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
     Model Initialization
     ^^^^^^^^^^^^^^^^^^^^^
 
-    First we import the ``XGBClassifier`` model:
+    First we import the ``GradientBoostingClassifier`` model:
 
     .. code-block::
 
-        from vastorbit.machine_learning.vast import XGBClassifier
+        from vastorbit.machine_learning.vast import GradientBoostingClassifier
 
     .. ipython:: python
         :suppress:
 
-        from vastorbit.machine_learning.vast import XGBClassifier
+        from vastorbit.machine_learning.vast import GradientBoostingClassifier
 
     Then we can create the model:
 
     .. ipython:: python
         :okwarning:
 
-        model = XGBClassifier(
-            max_ntree = 3,
+        model = GradientBoostingClassifier(
+            n_estimators = 3,
             max_depth = 3,
             nbins = 6,
             split_proposal_method = 'global',
@@ -2840,14 +2723,6 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
             col_sample_by_tree = 1,
             col_sample_by_node = 1,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -2900,18 +2775,18 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
         vo.set_option("plotting_lib", "plotly")
         fig = model.features_importance()
-        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_feature.html")
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_feature.html")
 
     .. code-block:: python
 
         result = model.features_importance()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_feature.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_feature.html
 
     .. note::
 
-        In models such as ``XGBoost``, feature importance is calculated
+        In models such as ``GradientBoosting``, feature importance is calculated
         using the average gain of each tree. To determine the final score,
         vastorbit sums the scores of each tree, normalizes them and applies an
         activation function to scale them.
@@ -2925,7 +2800,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         :suppress:
 
         result = model.report()
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_report.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_report.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -2934,7 +2809,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         model.report()
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_report.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_report.html
 
     .. important::
 
@@ -2952,7 +2827,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         :suppress:
 
         result = model.report(cutoff = 0.2)
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_report_cutoff.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_report_cutoff.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -2961,10 +2836,10 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         model.report(cutoff = 0.2)
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_report_cutoff.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_report_cutoff.html
 
     You can also use the
-    :py:meth:`~vastorbit.machine_learning.vast.ensemble.XGBClassifier.score`
+    :py:meth:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingClassifier.score`
     function to compute any classification metric. The default metric is the accuracy:
 
     .. ipython:: python
@@ -2991,7 +2866,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
             ],
             "prediction",
         )
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_prediction.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_prediction.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -3011,7 +2886,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         )
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_prediction.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_prediction.html
 
     .. note::
 
@@ -3020,7 +2895,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         don't need to specify the predictors.
         Alternatively, you can pass only the
         :py:class:`~VastFrame` to the
-        :py:meth:`~vastorbit.machine_learning.vast.ensemble.XGBClassifier.predict`
+        :py:meth:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingClassifier.predict`
         function, but in this case, it's
         essential that the column names of
         the :py:class:`~VastFrame` match the
@@ -3047,7 +2922,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
             ],
             "prediction",
         )
-        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_proba.html", "w")
+        html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_proba.html", "w")
         html_file.write(result._repr_html_())
         html_file.close()
 
@@ -3067,7 +2942,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         )
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_proba.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_proba.html
 
     .. note::
 
@@ -3131,10 +3006,10 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         :suppress:
 
         fig = model.roc_curve()
-        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_roc.html")
+        fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_roc.html")
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_xgb_classifier_roc.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_gb_classifier_roc.html
 
     .. important::
 
@@ -3167,10 +3042,10 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         :suppress:
 
         res = model.plot_tree()
-        res.render(filename='figures/machine_learning_VAST_tree_xgb_classifier_', format='png')
+        res.render(filename='figures/machine_learning_VAST_tree_gb_classifier_', format='png')
 
 
-    .. image:: /../figures/machine_learning_VAST_tree_xgb_classifier_.png
+    .. image:: /../figures/machine_learning_VAST_tree_gb_classifier_.png
 
     .. note::
 
@@ -3252,7 +3127,8 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
     **To SQL**
 
-    You can get the SQL query equivalent of the XGB model by:
+    You can get the SQL query equivalent of the 
+    ``GradientBoosting`` model by:
 
     .. ipython:: python
 
@@ -3286,7 +3162,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
     .. hint::
 
         The
-        :py:meth:`~vastorbit.machine_learning.vast.tree.XGBClassifier.to_python`
+        :py:meth:`~vastorbit.machine_learning.vast.tree.GradientBoostingClassifier.to_python`
         method is used to retrieve predictions,
         probabilities, or cluster distances. For
         specific details on how to use this method
@@ -3297,20 +3173,12 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal["XGB_CLASSIFIER"]:
-        return "XGB_CLASSIFIER"
-
-    @property
-    def _predict_sql(self) -> Literal["PREDICT_XGB_CLASSIFIER"]:
-        return "PREDICT_XGB_CLASSIFIER"
-
-    @property
     def _model_subcategory(self) -> Literal["CLASSIFIER"]:
         return "CLASSIFIER"
 
     @property
-    def _model_type(self) -> Literal["XGBClassifier"]:
-        return "XGBClassifier"
+    def _model_type(self) -> Literal["GradientBoostingClassifier"]:
+        return "GradientBoostingClassifier"
 
     @property
     def _attributes(self) -> list[str]:
@@ -3331,7 +3199,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         self,
         name: str = None,
         overwrite_model: bool = False,
-        max_ntree: int = 10,
+        n_estimators: int = 10,
         max_depth: int = 5,
         nbins: int = 32,
         split_proposal_method: Literal["local", "global"] = "global",
@@ -3345,7 +3213,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
     ) -> None:
         super().__init__(name, overwrite_model)
         params = {
-            "max_ntree": max_ntree,
+            "n_estimators": n_estimators,
             "max_depth": max_depth,
             "nbins": nbins,
             "split_proposal_method": str(split_proposal_method).lower(),
@@ -3360,6 +3228,10 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         self.parameters = params
 
     # Attributes Methods.
+
+    @property
+    def _sklearn_model(self) -> Literal[sklearn.ensemble.GradientBoostingClassifier]:
+        return sklearn.ensemble.GradientBoostingClassifier
 
     def _compute_attributes(self) -> None:
         """
@@ -3396,10 +3268,14 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
         # GradientBoosting stores estimators_ as a 2-D array (n_estimators, K)
         # with K == 1 for binary and K == n_classes for multiclass, so it is
-        # flattened before iterating (RandomForest's estimators_ is 1-D).
+        # flattened (C-order) before iterating; tree j therefore targets
+        # class (j % K). RandomForest's estimators_ is 1-D with class-count
+        # leaves, so it falls through the (shape == n_classes) branch below.
         n_classes = len(self.classes_)
+        K = self._model.estimators_.shape[1]
         trees = []
-        for est in estimators:
+        for t_idx, est in enumerate(estimators):
+            target_class = t_idx % K
             tree = est.tree_
             tree_d = {
                 "children_left": tree.children_left.astype(int),
@@ -3421,8 +3297,20 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
                         node_out = (np.ones(n_classes) / n_classes).tolist()
                 else:
                     # Single-output regression trees (gradient boosting): the
-                    # leaf carries a raw log-odds increment for one class.
-                    node_out = float(node_value[0])
+                    # leaf carries a raw log-odds increment. Expand it into a
+                    # per-class vector so the shared proba machinery (which
+                    # expects one value per class) works. Binary boosting has a
+                    # single decision function f: class 1 gets +f, class 0 gets
+                    # -f, which makes the downstream logistic+normalisation
+                    # collapse to sigmoid(f). Multiclass places the increment in
+                    # the tree's target class slot and 0 elsewhere.
+                    increment = float(node_value[0])
+                    node_out = [0.0] * n_classes
+                    if K == 1:
+                        node_out[0] = -increment
+                        node_out[1] = increment
+                    else:
+                        node_out[target_class] = increment
                 tree_d["value"].append(node_out)
             trees.append(mm.BinaryTreeClassifier(**tree_d))
         self.trees_ = trees
@@ -3430,7 +3318,7 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
 
     # I/O Methods.
 
-    def to_memmodel(self) -> mm.XGBClassifier:
+    def to_memmodel(self) -> mm.GradientBoostingClassifier:
         """
         Converts the model to an InMemory object
         that can be used for different types of
@@ -3463,10 +3351,10 @@ class XGBClassifier(MulticlassClassifier, XGBoost):
         .. note::
 
             Look at
-            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.XGBClassifier`
+            :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier`
             for more information.
         """
-        return mm.XGBClassifier(self.trees_, self.logodds_, self.classes_, self.eta_)
+        return mm.GradientBoostingClassifier(self.trees_, self.logodds_, self.classes_, self.eta_)
 
 
 """
@@ -3491,6 +3379,7 @@ class IsolationForest(Clustering, Tree):
         model with the same name as an
         existing model overwrites the
         existing model.
+
     ``**kwargs``: SKLEARN model parameters.
 
     Attributes
@@ -3599,17 +3488,8 @@ class IsolationForest(Clustering, Tree):
         :okwarning:
 
         model = IsolationForest(
-            n_estimators = 10,
-            nbins = 6,
+            n_estimators = 5,
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -3842,14 +3722,6 @@ class IsolationForest(Clustering, Tree):
     # Properties.
 
     @property
-    def _fit_sql(self) -> Literal[""]:
-        return ""
-
-    @property
-    def _predict_sql(self) -> Literal[""]:
-        return ""
-
-    @property
     def _sklearn_model(self) -> Literal[sklearn.ensemble.IsolationForest]:
         return sklearn.ensemble.IsolationForest
 
@@ -3899,12 +3771,29 @@ class IsolationForest(Clustering, Tree):
         trees = []
         for estimator in self._model.estimators_:
             tree = estimator.tree_
+            # Isolation-forest scoring needs, per node, [path-depth, n_samples]:
+            # the memmodel computes (depth + c(n_samples)) / c(psy). scikit-learn
+            # only exposes n_node_samples, so the depth is derived from the tree.
+            cl, cr = tree.children_left, tree.children_right
+            depths = np.zeros(tree.node_count, dtype=float)
+            stack = [(0, 0.0)]
+            while stack:
+                nid, d = stack.pop()
+                depths[nid] = d
+                if cl[nid] != -1:
+                    stack.append((int(cl[nid]), d + 1.0))
+                    stack.append((int(cr[nid]), d + 1.0))
+            node_samples = tree.n_node_samples.astype(float)
+            value = [
+                [float(depths[i]), float(node_samples[i])]
+                for i in range(tree.node_count)
+            ]
             tree_d = {
                 "children_left": tree.children_left.copy(),
                 "children_right": tree.children_right.copy(),
                 "feature": tree.feature.copy(),
                 "threshold": tree.threshold.astype(float).copy(),
-                "value": tree.n_node_samples.astype(float).copy(),
+                "value": value,
                 "psy": self.psy_,
             }
             trees += [mm.BinaryTreeAnomaly(**tree_d)]
@@ -3999,8 +3888,7 @@ class IsolationForest(Clustering, Tree):
             :okwarning:
 
             model = IsolationForest(
-                n_estimators = 10,
-                nbins = 6,
+                n_estimators = 5,
             )
 
         We can now fit the model:
@@ -4036,7 +3924,7 @@ class IsolationForest(Clustering, Tree):
                 "Incorrect parameter 'cutoff'.\nThe parameter "
                 "'cutoff' must be between 0.0 and 1.0, exclusive."
             )
-        score_sql = self.to_memmodel().transform_sql(X)
+        score_sql = self.to_memmodel().predict_sql(X)
         if isinstance(score_sql, (list, tuple)):
             score_sql = score_sql[0]
         if return_score:
@@ -4173,8 +4061,7 @@ class IsolationForest(Clustering, Tree):
             :okwarning:
 
             model = IsolationForest(
-                n_estimators = 10,
-                nbins = 6,
+                n_estimators = 5,
             )
 
         We can now fit the model:
@@ -4309,8 +4196,7 @@ class IsolationForest(Clustering, Tree):
             :okwarning:
 
             model = IsolationForest(
-                n_estimators = 10,
-                nbins = 6,
+                n_estimators = 5,
             )
 
         We can now fit the model:

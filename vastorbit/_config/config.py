@@ -729,7 +729,7 @@ register_option(
         in_validator(["light", "dark", "sphinx"]),
     )
 )
-register_option(Option("tqdm", True, "", bool_validator))
+register_option(Option("tqdm", False, "", bool_validator))
 
 # Formatting
 register_option(Option("count_on", False, "", bool_validator))

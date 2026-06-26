@@ -39,6 +39,7 @@ class AutoClustering(VASTModel):
                        initialize the centers.
             random   : Randomly  subsamples the data to find
                        initial centers.
+
         Alternatively,  you  can  specify  a list  with  the
         initial cluster centers.
     max_iter: int, optional

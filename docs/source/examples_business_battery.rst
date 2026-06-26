@@ -511,8 +511,8 @@ We'll define new features that describe the minimum and maximum temperature duri
         ],
     )
 
-    # save it to db
-    final_df.to_db(name = "finaldata_battery_5")
+    # save it to db (materialized as a table so downstream queries stay small)
+    final_df.to_db(name = "finaldata_battery_5", relation_type = "table")
 
 .. ipython:: python
     :suppress:
@@ -568,15 +568,16 @@ We'll define new features that describe the minimum and maximum temperature duri
     )
 
     # save it to db
-    vo.drop("battery_data.finaldata_battery_5")
-    final_df.to_db(name = "battery_data.finaldata_battery_5")
+    vo.drop("finaldata_battery_5", method = "view")
+    vo.drop("finaldata_battery_5", method = "table")
+    final_df.to_db(name = "finaldata_battery_5", relation_type = "table")
 
 Machine Learning
 -----------------
 
 :py:mod:`~vastorbit.machine_learning.vast.automl.AutoML` tests several models and returns input scores for each. We can use this to find the best model for our dataset.
 
-.. note:: We are only using the three algorithms, but you can change the ``estimator`` parameter to try all the ``native`` algorithms: ``estimator = 'native' ``
+.. note:: We are only using the three algorithms, but you can change the ``estimator`` parameter to try all the ``native`` algorithms: ``estimator = 'native'``
 
 .. code-block:: python
 
@@ -586,7 +587,7 @@ Machine Learning
     model = AutoML(
         "battery_autoML", 
         estimator = [
-            RandomForestRegressor(),
+            RandomForestRegressor(n_estimators = 4, max_depth = 3),
             LinearRegression(),
             Ridge(),
         ],
@@ -615,7 +616,7 @@ Machine Learning
     model = AutoML(
         "battery_autoML", 
         estimator = [
-            RandomForestRegressor(),
+            RandomForestRegressor(n_estimators = 4, max_depth = 3),
             LinearRegression(),
             Ridge(),
         ],

@@ -1945,12 +1945,8 @@ It's time to make predictions about the outcomes of games. We have a lot of vari
     from vastorbit.machine_learning.vast import RandomForestClassifier
 
     model = RandomForestClassifier(
-        max_depth = 25,
-        n_estimators = 20,
-        sample = 0.7,
-        nbins = 50,
-        max_leaf_nodes = 11000,
-        min_samples_leaf = 3,
+        n_estimators = 4,
+        max_depth = 3,
     )
     model.fit(
         "football_train",
@@ -2005,6 +2001,11 @@ Draws are pretty rare, so we'll only consider them if a tie was very likely to o
     model.predict_proba(test, name = "prob_1", pos_label = "1")
     model.predict_proba(test, name = "prob_X", pos_label = "X")
     model.predict_proba(test, name = "prob_2", pos_label = "2")
+    # Materialize the probabilities so the decision rule below compares stored
+    # columns instead of re-deriving the forest SQL for every reference.
+    vo.drop("football_pred", method = "table")
+    test.to_db(name = "football_pred", relation_type = "table")
+    test = vo.VastFrame("football_pred")
     test.case_when(
         "prediction",
         test["prob_1"] > test["prob_2"] + 0.05, "1",
@@ -2022,6 +2023,11 @@ Draws are pretty rare, so we'll only consider them if a tie was very likely to o
     model.predict_proba(test, name = "prob_1", pos_label = "1")
     model.predict_proba(test, name = "prob_X", pos_label = "X")
     model.predict_proba(test, name = "prob_2", pos_label = "2")
+    # Materialize the probabilities so the decision rule below compares stored
+    # columns instead of re-deriving the forest SQL for every reference.
+    vo.drop("football_pred", method = "table")
+    test.to_db(name = "football_pred", relation_type = "table")
+    test = vo.VastFrame("football_pred")
     res = test.case_when(
         "prediction",
         test["prob_1"] > test["prob_2"] + 0.05, "1",

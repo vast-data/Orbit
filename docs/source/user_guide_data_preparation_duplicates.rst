@@ -67,3 +67,9 @@ That said, if we did want to drop these duplicates, we can do so with the :py:fu
     :file: SPHINX_DIRECTORY/figures/ug_dp_table_duplicates_3.html
 
 Using this method will add an advanced analytical function to the SQL code generation which is quite expensive. You should only use this method after aggregating the data to avoid stacking heavy computations on top of each other.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

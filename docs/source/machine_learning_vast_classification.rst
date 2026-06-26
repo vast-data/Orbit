@@ -122,63 +122,6 @@ _____
 Tree-based algorithms
 ---------------------
 
-Dummy Tree
-~~~~~~~~~~
-
-.. currentmodule:: vastorbit.machine_learning.vast
-   
-.. autosummary::
-   :toctree: api/
-
-   tree.DummyTreeClassifier
-
-.. currentmodule:: vastorbit.machine_learning.vast.tree
-
-**Methods:**
-
-.. autosummary::
-   :toctree: api/
-
-   DummyTreeClassifier.classification_report
-   DummyTreeClassifier.confusion_matrix
-   DummyTreeClassifier.contour
-   DummyTreeClassifier.cutoff_curve
-   DummyTreeClassifier.deploySQL
-   DummyTreeClassifier.drop
-   DummyTreeClassifier.export_models
-   DummyTreeClassifier.features_importance
-   DummyTreeClassifier.fit
-   DummyTreeClassifier.get_attributes
-   DummyTreeClassifier.get_match_index
-   DummyTreeClassifier.get_params
-   DummyTreeClassifier.get_plotting_lib
-   DummyTreeClassifier.get_tree
-   DummyTreeClassifier.import_models
-   DummyTreeClassifier.lift_chart
-   DummyTreeClassifier.plot
-   DummyTreeClassifier.plot_tree
-   DummyTreeClassifier.prc_curve
-   DummyTreeClassifier.predict
-   DummyTreeClassifier.predict_proba=
-   DummyTreeClassifier.report
-   DummyTreeClassifier.roc_curve
-   DummyTreeClassifier.score
-   DummyTreeClassifier.set_params
-   DummyTreeClassifier.summarize
-   DummyTreeClassifier.to_binary
-   DummyTreeClassifier.to_graphviz
-   DummyTreeClassifier.to_memmodel
-   DummyTreeClassifier.to_python
-   DummyTreeClassifier.to_sql
-
-**Attributes:**
-
-.. autosummary::
-   :toctree: api/
-
-   DummyTreeClassifier.object_type
-
-
 Decision Tree
 ~~~~~~~~~~~~~~~~
 
@@ -293,15 +236,15 @@ Random Forest Classifier
 
    RandomForestClassifier.object_type
 
-XGBoost Classifier
-~~~~~~~~~~~~~~~~~~~
+GradientBoosting Classifier
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. currentmodule:: vastorbit.machine_learning.vast
    
 .. autosummary::
    :toctree: api/
 
-   ensemble.XGBClassifier
+   ensemble.GradientBoostingClassifier
 
 .. currentmodule:: vastorbit.machine_learning.vast.ensemble
 
@@ -311,45 +254,45 @@ XGBoost Classifier
    :toctree: api/
 
 
-   XGBClassifier.classification_report
-   XGBClassifier.confusion_matrix
-   XGBClassifier.contour
-   XGBClassifier.cutoff_curve
-   XGBClassifier.deploySQL
-   XGBClassifier.drop
-   XGBClassifier.export_models
-   XGBClassifier.features_importance
-   XGBClassifier.fit
-   XGBClassifier.get_attributes
-   XGBClassifier.get_match_index
-   XGBClassifier.get_params
-   XGBClassifier.get_plotting_lib
-   XGBClassifier.get_tree
-   XGBClassifier.import_models
-   XGBClassifier.lift_chart
-   XGBClassifier.plot
-   XGBClassifier.plot_tree
-   XGBClassifier.prc_curve
-   XGBClassifier.predict
-   XGBClassifier.predict_proba
-   XGBClassifier.report
-   XGBClassifier.roc_curve
-   XGBClassifier.score
-   XGBClassifier.set_params
-   XGBClassifier.summarize
-   XGBClassifier.to_binary
-   XGBClassifier.to_graphviz
-   XGBClassifier.to_json
-   XGBClassifier.to_memmodel
-   XGBClassifier.to_python
-   XGBClassifier.to_sql
+   GradientBoostingClassifier.classification_report
+   GradientBoostingClassifier.confusion_matrix
+   GradientBoostingClassifier.contour
+   GradientBoostingClassifier.cutoff_curve
+   GradientBoostingClassifier.deploySQL
+   GradientBoostingClassifier.drop
+   GradientBoostingClassifier.export_models
+   GradientBoostingClassifier.features_importance
+   GradientBoostingClassifier.fit
+   GradientBoostingClassifier.get_attributes
+   GradientBoostingClassifier.get_match_index
+   GradientBoostingClassifier.get_params
+   GradientBoostingClassifier.get_plotting_lib
+   GradientBoostingClassifier.get_tree
+   GradientBoostingClassifier.import_models
+   GradientBoostingClassifier.lift_chart
+   GradientBoostingClassifier.plot
+   GradientBoostingClassifier.plot_tree
+   GradientBoostingClassifier.prc_curve
+   GradientBoostingClassifier.predict
+   GradientBoostingClassifier.predict_proba
+   GradientBoostingClassifier.report
+   GradientBoostingClassifier.roc_curve
+   GradientBoostingClassifier.score
+   GradientBoostingClassifier.set_params
+   GradientBoostingClassifier.summarize
+   GradientBoostingClassifier.to_binary
+   GradientBoostingClassifier.to_graphviz
+   GradientBoostingClassifier.to_json
+   GradientBoostingClassifier.to_memmodel
+   GradientBoostingClassifier.to_python
+   GradientBoostingClassifier.to_sql
 
 **Attributes:**
 
 .. autosummary::
    :toctree: api/
 
-   XGBClassifier.object_type
+   GradientBoostingClassifier.object_type
 
 ________
 
@@ -407,6 +350,7 @@ Naive Bayes
    :toctree: api/
 
    NaiveBayes.object_type
+
 _______
 
 Neighbors

@@ -28,7 +28,7 @@ vastorbit 0.3.2 introduces the ``Magic`` methods, which offer some additional fl
     :file: SPHINX_DIRECTORY/figures/ug_fs_table_vdfm_1.html
 
 Feature Engineering, ``pandas``-style
-------------------------------------
+-------------------------------------
 
 You can create new features with in a ``pandas`` style.
 
@@ -299,3 +299,9 @@ To access a single row, we just have to specify the index.
 
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/ug_fs_table_vdfm_15.html
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

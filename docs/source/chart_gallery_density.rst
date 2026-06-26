@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.density:
 
 =======
@@ -147,7 +149,7 @@ ___________________
 Custom Parameters
 -------------------
 
-In vastorbit, there are various customization options available for tailoring your density plots to your specific needs. You can customize the bandwidth to control the smoothness of the plot, allowing you to emphasize or reduce the level of detail. Additionally, you have the choice to select the kernel from a range of options, providing flexibility in how the density is estimated and displayed.
+In vastorbit, you can tune the resolution of a density plot with the ``nbins`` parameter. ``nbins`` sets how many points are used to evaluate the estimated density curve: a lower value yields a coarser, smoother-looking curve that emphasizes the overall shape, while a higher value captures finer detail in the distribution.
 
 .. tab:: Plotly
 
@@ -156,35 +158,35 @@ In vastorbit, there are various customization options available for tailoring yo
 
         vo.set_option("plotting_lib", "plotly")
 
-    **Bandwidth**
+    **Smoother (fewer bins)**
 
     .. code-block:: python
         
-        data["score1"].density(bandwidth = 0.4)
+        data["score1"].density(nbins = 50)
 
     .. ipython:: python
         :suppress:
 
-        fig = data["score1"].density(bandwidth = 0.4, width = 600)
+        fig = data["score1"].density(nbins = 50, width = 600)
         fig.write_html("figures/plotting_plotly_density_custom_bandwidth.html")
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/plotting_plotly_density_custom_bandwidth.html
 
-    .. note:: You can adjust the bandwidth in vastorbit to fine-tune the level of smoothness or granularity in your density plots, allowing you to precisely control the appearance of your visualizations.
+    .. note:: Lowering ``nbins`` smooths the curve and reduces granularity, which is useful for emphasizing the overall shape of the distribution.
 
-    **Kernel**
+    **More detail (more bins)**
 
-    .. note:: In vastorbit, you have the flexibility to choose from various kernel options when creating density plots. This choice of kernel allows you to tailor the density estimation method to best represent your data distribution, ensuring your visualizations accurately capture the underlying patterns in your data.
+    .. note:: Raising ``nbins`` increases the resolution of the estimate, letting the curve follow finer features of your data distribution.
 
     .. code-block:: python
         
-        data["score1"].density(kernel='logistic')
+        data["score1"].density(nbins = 200)
 
     .. ipython:: python
         :suppress:
 
-        fig = data["score1"].density(kernel='logistic', width = 600)
+        fig = data["score1"].density(nbins = 200, width = 600)
         fig.write_html("figures/plotting_plotly_density_custom_kernel.html")
 
     .. raw:: html
@@ -197,25 +199,25 @@ In vastorbit, there are various customization options available for tailoring yo
 
         vo.set_option("plotting_lib", "matplotlib")
 
-    **Bandwidth**
+    **Smoother (fewer bins)**
 
     .. ipython:: python
         :okwarning:
 
         @savefig plotting_matplotlib_density_custom_bandwidth.png
-        data["score1"].density(bandwidth=0.4)
+        data["score1"].density(nbins=50)
 
-    .. note:: You can adjust the bandwidth in vastorbit to fine-tune the level of smoothness or granularity in your density plots, allowing you to precisely control the appearance of your visualizations.
+    .. note:: Lowering ``nbins`` smooths the curve and reduces granularity, which is useful for emphasizing the overall shape of the distribution.
 
-    **Kernel**
+    **More detail (more bins)**
 
-    .. note:: In vastorbit, you have the flexibility to choose from various kernel options when creating density plots. This choice of kernel allows you to tailor the density estimation method to best represent your data distribution, ensuring your visualizations accurately capture the underlying patterns in your data.
+    .. note:: Raising ``nbins`` increases the resolution of the estimate, letting the curve follow finer features of your data distribution.
 
     .. ipython:: python
         :okwarning:
 
         @savefig plotting_matplotlib_density_custom_kernel.png
-        data["score1"].density(kernel='logistic')
+        data["score1"].density(nbins=200)
 
 
 
@@ -472,4 +474,8 @@ Text
         @savefig plotting_matplotlib_density_custom_yaxis_label.png
         data["score1"].density().set_ylabel("Custom Y Axis")
 
+.. ipython:: python
+   :suppress:
 
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

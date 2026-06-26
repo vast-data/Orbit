@@ -28,8 +28,8 @@ class Scaler(InMemoryModel):
         Model's features
         second aggregation.
 
-    Attributes
-    ----------
+    .. rubric:: Attributes
+
     Attributes are identical to the input
     parameters, followed by an underscore
     ('_').
@@ -215,8 +215,8 @@ class StandardScaler(Scaler):
         and ``std`` of feature(s) define
         a ``StandardScaler`` model.
 
-    Attributes
-    ----------
+    .. rubric:: Attributes
+
     Attributes are identical to
     :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.Scaler`.
 
@@ -232,7 +232,7 @@ class StandardScaler(Scaler):
         from vastorbit.machine_learning.memmodel.preprocessing import StandardScaler
 
     A StandardScaler model is defined
-    by ``mean`` and ``std``values.
+    by ``mean`` and ``std`` values.
     In this example, we will use the
     following:
 
@@ -328,8 +328,8 @@ class MinMaxScaler(Scaler):
         features define a ``MinMaxScaler``
         model.
 
-    Attributes
-    ----------
+    .. rubric:: Attributes
+
     Attributes are identical to
     :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.Scaler`.
 
@@ -466,8 +466,8 @@ class OneHotEncoder(InMemoryModel):
         drop first dummy of each
         category.
 
-    Attributes
-    ----------
+    .. rubric:: Attributes
+
     Attributes are identical to the input
     parameters, followed by an underscore
     ('_').

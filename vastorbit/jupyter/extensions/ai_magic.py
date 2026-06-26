@@ -253,12 +253,12 @@ SYSTEM_PROMPT = textwrap.dedent("""\
     # ── Machine Learning ──
     from vastorbit.machine_learning.vast import (
         # Classification
-        RandomForestClassifier, XGBClassifier,
+        RandomForestClassifier, GradientBoostingClassifier,
         LogisticRegression, NaiveBayes,
         NearestCentroid, KNeighborsClassifier,
         LinearSVC,
         # Regression
-        RandomForestRegressor, XGBRegressor,
+        RandomForestRegressor, GradientBoostingRegressor,
         LinearRegression, Ridge, Lasso, ElasticNet,
         PLSRegression, PoissonRegressor,
         KNeighborsRegressor, LinearSVR,
@@ -273,7 +273,7 @@ SYSTEM_PROMPT = textwrap.dedent("""\
     )
 
     # Supervised (classification / regression):
-    model = RandomForestClassifier(n_estimators=10, max_depth=5, ...)
+    model = RandomForestClassifier(n_estimators = 5, max_depth=5, ...)
     model.fit(input_relation, X=["f1","f2"], y="target", test_relation="")
     model.predict(vdf, X=None, name="prediction", cutoff=0.5)
     model.predict_proba(vdf, X=None, name="prob", pos_label=None)

@@ -591,13 +591,13 @@ def hamming_distance(
 
     .. code-block:: python
 
-        df = VastFrame({"x": ["hello", "apple", "heroes", "allo"]})
+        df = VastFrame({"x": ["hello", "jello", "cello", "mello"]})
 
     Now, let's go ahead and apply the function.
 
     .. code-block:: python
 
-        df["hamming_distance_x"] = vof.hamming_distance(df["x"], 'heyllow')
+        df["hamming_distance_x"] = vof.hamming_distance(df["x"], 'hello')
         display(df)
 
     .. ipython:: python
@@ -605,8 +605,8 @@ def hamming_distance(
 
         from vastorbit import VastFrame
         import vastorbit.sql.functions as vof
-        df = VastFrame({"x": ["hello", "apple", "heroes", "allo"]})
-        df["hamming_distance_x"] = vof.hamming_distance(df["x"], 'heyllow')
+        df = VastFrame({"x": ["hello", "jello", "cello", "mello"]})
+        df["hamming_distance_x"] = vof.hamming_distance(df["x"], 'hello')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_string_hamming_distance.html", "w")
         html_file.write(df._repr_html_())
         html_file.close()

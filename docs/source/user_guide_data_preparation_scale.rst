@@ -83,3 +83,9 @@ The three main scaling techniques are available. Let's scale the ``fare`` and th
     :file: SPHINX_DIRECTORY/figures/ug_dp_table_norm_3.html
 
 Both of the features now scale in ``[0,1]``. It is also possible to scale by a specific partition with the ``by`` parameter.
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

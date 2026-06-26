@@ -1,3 +1,5 @@
+:orphan:
+
 .. _chart_gallery.pie:
 
 =========
@@ -577,3 +579,8 @@ Text
         @savefig plotting_matplotlib_pie_custom_title_label.png
         data["animal"].pie().set_title("Custom Title")
 
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

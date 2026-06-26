@@ -41,7 +41,7 @@ Let's start with pies and histograms. Drawing the pie or histogram of a categori
   vo.set_option("plotting_lib", "plotly")
   titanic = load_titanic()
   fig = titanic["pclass"].bar()
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_bar")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_bar")
   with open("figures/user_guides_data_exploration_titanic_bar.html", "w") as file:
     file.write(html_text)
 
@@ -56,7 +56,7 @@ Let's start with pies and histograms. Drawing the pie or histogram of a categori
   :suppress:
 
   fig = titanic["pclass"].pie()
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_pie")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_pie")
   with open("figures/user_guides_data_exploration_titanic_pie.html", "w") as file:
     file.write(html_text)
 
@@ -71,7 +71,7 @@ Let's start with pies and histograms. Drawing the pie or histogram of a categori
   :suppress:
 
   fig = titanic["home.dest"].bar()
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_home_dest_bar")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_home_dest_bar")
   with open("figures/user_guides_data_exploration_titanic_home_dest_bar.html", "w") as file:
     file.write(html_text)
 
@@ -88,7 +88,7 @@ These methods will draw the most occurent categories and merge the others. To ch
   :suppress:
 
   fig = titanic["home.dest"].bar(max_cardinality = 5)
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_home_dest_bar_max_cardinality")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_home_dest_bar_max_cardinality")
   with open("figures/user_guides_data_exploration_titanic_home_dest_bar_max_cardinality.html", "w") as file:
     file.write(html_text)
 
@@ -105,7 +105,7 @@ When dealing with numerical data types, the process is different. VAST needs to 
   :suppress:
 
   fig = titanic["age"].hist()
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_age_hist")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_age_hist")
   with open("figures/user_guides_data_exploration_titanic_age_hist.html", "w") as file:
     file.write(html_text)
 
@@ -120,7 +120,7 @@ When dealing with numerical data types, the process is different. VAST needs to 
   :suppress:
 
   fig = titanic["age"].hist(h = 5)
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_age_hist_h5")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_age_hist_h5")
   with open("figures/user_guides_data_exploration_titanic_age_hist_h5.html", "w") as file:
     file.write(html_text)
 
@@ -137,7 +137,7 @@ You can also change the occurences by another aggregation with the ``method`` an
   :suppress:
 
   fig = titanic["age"].hist(method = "avg", of = "survived")
-  html_text = fig.htmlcontent.replace("container", "user_guides_data_exploration_titanic_age_hist_avs")
+  html_text = fig.to_html().replace("container", "user_guides_data_exploration_titanic_age_hist_avs")
   with open("figures/user_guides_data_exploration_titanic_age_hist_avs.html", "w") as file:
     file.write(html_text)
 
@@ -420,3 +420,9 @@ Since time-series plots do not aggregate the data, it's important to choose the 
 
 .. raw:: html
   :file: SPHINX_DIRECTORY/figures/user_guides_data_exploration_amazon_time_plot.html
+
+.. ipython:: python
+   :suppress:
+
+   from vastorbit._utils._sql._sys import purge_memory
+   purge_memory()

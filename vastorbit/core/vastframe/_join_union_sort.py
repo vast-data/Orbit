@@ -135,7 +135,7 @@ class vDFJoinUnionSort(vDFMath):
             vdf.append(
                 vdf_2,
                 expr1 = [
-                    'CASE WHEN "score" > 20 THEN 20 ELSE "score" END',
+                    'CASE WHEN "score" > 20 THEN 20 ELSE "score" END AS "score"',
                     '"cat"',
                 ],
             )
@@ -143,7 +143,7 @@ class vDFJoinUnionSort(vDFMath):
         .. ipython:: python
             :suppress:
 
-            result = vdf.append(vdf_2, expr1=['CASE WHEN "score" > 20 THEN 20 ELSE "score" END', '"cat"'])
+            result = vdf.append(vdf_2, expr1=['CASE WHEN "score" > 20 THEN 20 ELSE "score" END AS "score"', '"cat"'])
             html_file = open("SPHINX_DIRECTORY/figures/core_VastFrame_join_union_sort_append_2.html", "w")
             html_file.write(result._repr_html_())
             html_file.close()

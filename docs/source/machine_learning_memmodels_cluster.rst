@@ -37,6 +37,7 @@ Base Class
    :toctree: api/
 
    Clustering.object_type
+
 _____
 
 K-Means
@@ -109,6 +110,7 @@ K-Prototypes
    :toctree: api/
 
    KPrototypes.object_type
+
 _______
 
 Bisecting K-Means
@@ -145,6 +147,7 @@ Bisecting K-Means
    :toctree: api/
 
    BisectingKMeans.object_type
+
 ________
 
 Nearest Centroid

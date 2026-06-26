@@ -859,6 +859,7 @@ class Scaler(Preprocessing):
         Method used to scale the data.
 
         - zscore:
+
         Scaling   using   the   Z-Score
 
         .. math::
@@ -866,6 +867,7 @@ class Scaler(Preprocessing):
             Z_score = (x - avg) / std
 
         - robust_zscore:
+
         Scaling using the Robust Z-Score.
 
         .. math::
@@ -873,14 +875,15 @@ class Scaler(Preprocessing):
             Z_rscore = (x - median) / (1.4826 * mad)
 
         - minmax:
+
         Normalization  using  the  Min  &  Max.
 
         .. math::
 
             Z_minmax = (x - min) / (max - min)
 
-    Attributes
-    ----------
+    .. rubric:: Attributes
+
     Many attributes are created
     during the fitting phase.
 
@@ -988,14 +991,6 @@ class Scaler(Preprocessing):
         :okwarning:
 
         model = Scaler(method = "zscore")
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -1338,10 +1333,11 @@ class OneHotEncoder(Preprocessing):
         model with the same name as an
         existing model overwrites the
         existing model.
+
     ``**kwargs``: SKLEARN model parameters.
 
-    Attributes
-    ----------
+    .. rubric:: Attributes
+
     Many attributes are created
     during the fitting phase.
 
@@ -1444,14 +1440,6 @@ class OneHotEncoder(Preprocessing):
             drop_first = False,
             column_naming = "values",
         )
-
-    .. hint::
-
-        In :py:mod:`vastorbit` 1.0.x and higher,
-        you do not need to specify the model name,
-        as the name is automatically assigned. If
-        you need to re-use the model, you can fetch
-        the model name from the model's attributes.
 
     .. important::
 
@@ -1609,10 +1597,24 @@ class OneHotEncoder(Preprocessing):
         self,
         name: str = None,
         overwrite_model: bool = False,
+        extra_levels: dict = {},
+        drop_first: bool = True,
+        ignore_null: bool = True,
+        separator: str = "_",
+        column_naming: str = "indices",
+        null_column_name: str = "null",
         **kwargs
     ) -> None:
         super().__init__(name, overwrite_model)
-        self.parameters = kwargs
+        self.parameters = {
+            "extra_levels": extra_levels,
+            "drop_first": drop_first,
+            "ignore_null": ignore_null,
+            "separator": separator,
+            "column_naming": column_naming,
+            "null_column_name": null_column_name,
+            **kwargs,
+        }
 
     # Attributes Methods.
 

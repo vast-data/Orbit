@@ -33,10 +33,8 @@ from vastorbit.tests.machine_learning.vast.test_base_model_methods import (
         "RandomForestClassifier",
         "DecisionTreeRegressor",
         "DecisionTreeClassifier",
-        "XGBRegressor",
-        "XGBClassifier",
-        # "DummyTreeRegressor",
-        # "DummyTreeClassifier",
+        "GradientBoostingRegressor",
+        "GradientBoostingClassifier",
     ],
 )
 class TestBaseTreeModel:
@@ -80,16 +78,14 @@ class TestBaseTreeModel:
         if model_class in [
             "RandomForestRegressor",
             "RandomForestClassifier",
-            "XGBRegressor",
-            "XGBClassifier",
+            "GradientBoostingRegressor",
+            "GradientBoostingClassifier",
         ]:
             vo_trees = model.get_tree(tree_id=5)
             assert vo_trees["tree_id"][-1] == 5
         elif model_class in [
             "DecisionTreeRegressor",
             "DecisionTreeClassifier",
-            "DummyTreeRegressor",
-            "DummyTreeClassifier",
         ]:
             vo_trees = model.get_tree(tree_id=0)
             assert vo_trees["tree_id"][-1] == 0
@@ -126,8 +122,7 @@ class TestBaseTreeModel:
     [
         "RandomForestRegressor",
         "DecisionTreeRegressor",
-        "XGBRegressor",
-        # "DummyTreeRegressor"
+        "GradientBoostingRegressor",
     ],
 )
 class TestRegressionTreeModel:
@@ -160,7 +155,7 @@ class TestRegressionTreeModel:
                 expected = [0.135338765036947, 0.817269880453645, 0.0473913545094082]
             elif model_class == "DecisionTreeRegressor":
                 expected = [0.113007597173622, 0.834435990806013, 0.0525564120203654]
-            elif model_class == "XGBRegressor":
+            elif model_class == "GradientBoostingRegressor":
                 key_name = "total_gain"
                 # expected = frequency = [0.353333324193954, 0.433333337306976, 0.213333338499069]
                 expected = [
@@ -364,8 +359,7 @@ class TestRegressionTreeModel:
     [
         "RandomForestClassifier",
         "DecisionTreeClassifier",
-        "XGBClassifier",
-        # "DummyTreeClassifier"
+        "GradientBoostingClassifier",
     ],
 )
 class TestClassificationTreeModel:
@@ -463,7 +457,7 @@ class TestClassificationTreeModel:
                 expected = [0.133497674381064, 0.15895498045659, 0.707547345162347]
             elif model_class == "DecisionTreeClassifier":
                 expected = [0.106193606304587, 0.159078836047269, 0.734727557648144]
-            elif model_class == "XGBClassifier":
+            elif model_class == "GradientBoostingClassifier":
                 key_name = "total_gain"
                 # expected = frequency = [0.353333324193954, 0.433333337306976, 0.213333338499069]
                 expected = [
@@ -634,8 +628,8 @@ class TestClassificationTreeModel:
 @pytest.mark.parametrize(
     "model_class",
     [
-        "XGBRegressor",
-        "XGBClassifier",
+        "GradientBoostingRegressor",
+        "GradientBoostingClassifier",
     ],
 )
 class TestXGBModel:
@@ -652,7 +646,7 @@ class TestXGBModel:
         """
         file_path = f"vo_exported_{model_class}_model.json"
 
-        if model_class == "XGBClassifier":
+        if model_class == "GradientBoostingClassifier":
             X = ["survived", "age", "fare"]
             y = ["pclass"]
             return_proba = True

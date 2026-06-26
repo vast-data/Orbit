@@ -339,6 +339,7 @@ Poisson Regression
    PoissonRegressor.to_memmodel
    PoissonRegressor.to_python
    PoissonRegressor.to_sql
+
 _____
 
 
@@ -346,58 +347,6 @@ _____
 
 Tree-based Models
 ------------------
-
-
-Dummy Tree
-~~~~~~~~~~~~~~~~
-
-.. currentmodule:: vastorbit.machine_learning.vast
-   
-.. autosummary::
-   :toctree: api/
-
-   tree.DummyTreeRegressor
-
-.. currentmodule:: vastorbit.machine_learning.vast.tree
-
-**Methods:**
-
-.. autosummary::
-   :toctree: api/
-
-   DummyTreeRegressor.contour
-   DummyTreeRegressor.deploySQL
-   DummyTreeRegressor.drop
-   DummyTreeRegressor.export_models
-   DummyTreeRegressor.features_importance
-   DummyTreeRegressor.fit
-   DummyTreeRegressor.get_attributes
-   DummyTreeRegressor.get_match_index
-   DummyTreeRegressor.get_params
-   DummyTreeRegressor.get_plotting_lib
-   DummyTreeRegressor.get_tree
-   DummyTreeRegressor.import_models
-   DummyTreeRegressor.plot
-   DummyTreeRegressor.plot_tree
-   DummyTreeRegressor.predict
-   DummyTreeRegressor.regression_report
-   DummyTreeRegressor.report
-   DummyTreeRegressor.score
-   DummyTreeRegressor.set_params
-   DummyTreeRegressor.summarize
-   DummyTreeRegressor.to_binary
-   DummyTreeRegressor.to_graphviz
-   DummyTreeRegressor.to_memmodel
-   DummyTreeRegressor.to_python
-   DummyTreeRegressor.to_sql
-
-
-**Attributes:**
-
-.. autosummary::
-   :toctree: api/
-
-   DummyTreeRegressor.object_type
 
 Decision Tree Regressor
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -504,8 +453,8 @@ Random Forest Regressor
    RandomForestRegressor.object_type
 
 
-XGB Regressor
-~~~~~~~~~~~~~~~~
+GradientBoostingRegressor
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    
 .. currentmodule:: vastorbit.machine_learning.vast
@@ -513,7 +462,7 @@ XGB Regressor
 .. autosummary::
    :toctree: api/
 
-   ensemble.XGBRegressor
+   ensemble.GradientBoostingRegressor
 
 .. currentmodule:: vastorbit.machine_learning.vast.ensemble
 
@@ -522,32 +471,32 @@ XGB Regressor
 .. autosummary::
    :toctree: api/
 
-   XGBRegressor.contour
-   XGBRegressor.deploySQL
-   XGBRegressor.drop
-   XGBRegressor.export_models
-   XGBRegressor.features_importance
-   XGBRegressor.fit
-   XGBRegressor.get_attributes
-   XGBRegressor.get_match_index
-   XGBRegressor.get_params
-   XGBRegressor.get_plotting_lib
-   XGBRegressor.get_tree
-   XGBRegressor.import_models
-   XGBRegressor.plot
-   XGBRegressor.plot_tree
-   XGBRegressor.predict
-   XGBRegressor.regression_report
-   XGBRegressor.report
-   XGBRegressor.score
-   XGBRegressor.set_params
-   XGBRegressor.summarize
-   XGBRegressor.to_binary
-   XGBRegressor.to_graphviz
-   XGBRegressor.to_json
-   XGBRegressor.to_memmodel
-   XGBRegressor.to_python
-   XGBRegressor.to_sql
+   GradientBoostingRegressor.contour
+   GradientBoostingRegressor.deploySQL
+   GradientBoostingRegressor.drop
+   GradientBoostingRegressor.export_models
+   GradientBoostingRegressor.features_importance
+   GradientBoostingRegressor.fit
+   GradientBoostingRegressor.get_attributes
+   GradientBoostingRegressor.get_match_index
+   GradientBoostingRegressor.get_params
+   GradientBoostingRegressor.get_plotting_lib
+   GradientBoostingRegressor.get_tree
+   GradientBoostingRegressor.import_models
+   GradientBoostingRegressor.plot
+   GradientBoostingRegressor.plot_tree
+   GradientBoostingRegressor.predict
+   GradientBoostingRegressor.regression_report
+   GradientBoostingRegressor.report
+   GradientBoostingRegressor.score
+   GradientBoostingRegressor.set_params
+   GradientBoostingRegressor.summarize
+   GradientBoostingRegressor.to_binary
+   GradientBoostingRegressor.to_graphviz
+   GradientBoostingRegressor.to_json
+   GradientBoostingRegressor.to_memmodel
+   GradientBoostingRegressor.to_python
+   GradientBoostingRegressor.to_sql
 
 
 **Attributes:**
@@ -555,7 +504,8 @@ XGB Regressor
 .. autosummary::
    :toctree: api/
 
-   XGBRegressor.object_type
+   GradientBoostingRegressor.object_type
+
 ____
 
 Neighbors

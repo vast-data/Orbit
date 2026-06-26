@@ -801,7 +801,7 @@ class Tree(InMemoryModel):
         pic_path: str, optional
             Absolute path to save
             the image of the tree.
-        *args, ``**kwargs``: Any, optional
+        ``*args``, ``**kwargs``: Any, optional
             Arguments to pass to the
             ``to_graphviz`` method.
 
@@ -1061,7 +1061,7 @@ class BinaryTreeRegressor(Tree):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
@@ -1292,7 +1292,7 @@ class BinaryTreeAnomaly(Tree):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
@@ -1543,7 +1543,7 @@ class BinaryTreeClassifier(Tree):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
@@ -1796,7 +1796,7 @@ class NonBinaryTree(Tree):
         detailed examples and
         customization options,
         please see
-        :ref:`chart_gallery.tree`_
+        :ref:`chart_gallery.tree`
     """
 
     # Properties.
@@ -1813,6 +1813,12 @@ class NonBinaryTree(Tree):
 
     def __init__(self, tree: dict, classes: Optional[ArrayLike] = None) -> None:
         classes = format_type(classes, dtype=list)
+        # `tree` is expected to be the raw CHAID dict, but callers sometimes pass
+        # an already-wrapped NonBinaryTree (e.g. the object returned by
+        # VastFrame.chaid()). Unwrap it so self.tree_ is always a dict; otherwise
+        # _predict_tree() raises "'NonBinaryTree' object is not subscriptable".
+        if isinstance(tree, NonBinaryTree):
+            tree = tree.tree_
         self.tree_ = copy.deepcopy(tree)
         self.classes_ = np.array(classes)
 
