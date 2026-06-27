@@ -1623,17 +1623,17 @@ class BisectingKMeans(KMeans, Tree):
             Dictionary of options to customize each  node
             of the tree.
             For a list of options, see the:
-            `Graphviz API < https://graphviz.org/doc/info/attrs.html>`_
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_
         edge_style: dict, optional
             Dictionary of options to customize each arrow
             of the tree.
             For a list of options, see the:
-            `Graphviz API < https://graphviz.org/doc/info/attrs.html>`_
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_
         leaf_style: dict, optional
             Dictionary of options to customize each  leaf
             of the tree.
             For a list of options, see the:
-            `Graphviz API < https://graphviz.org/doc/info/attrs.html>`_
+            `Graphviz API <https://graphviz.org/doc/info/attrs.html>`_
 
         Returns
         -------

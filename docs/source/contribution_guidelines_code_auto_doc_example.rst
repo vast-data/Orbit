@@ -415,7 +415,7 @@ Interactive plots must be saved as HTML files and then included:
     fig.write_html("SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_example.html")
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_plotly.html
+    :file: SPHINX_DIRECTORY/figures/core_VastFrame_vDFPlot_bar_example.html
 
 *(Notice: An interactive Plotly chart is embedded - you can hover, zoom, pan)*
 

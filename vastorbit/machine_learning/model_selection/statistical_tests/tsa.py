@@ -884,6 +884,10 @@ def cochrane_orcutt(
         if prais_winsten:
             new_val = f"COALESCE({new_val}, {predictor} * {(1 - pho ** 2) ** (0.5)})"
         vdf[predictor] = new_val
+    # The Cochrane-Orcutt transform uses LAG(), which produces a NULL first row;
+    # drop it before fitting (Prais-Winsten already COALESCEs that row away, so
+    # this is a no-op there) to avoid sklearn's "Input contains NaN".
+    vdf = vdf[X + [y]].dropna()
     model_tmp.drop()
     model_tmp.fit(
         vdf,

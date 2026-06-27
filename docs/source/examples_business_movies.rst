@@ -880,6 +880,12 @@ Since :py:mod:`~vastorbit.machine_learning.vast.cluster.KMeans` clustering is se
 Let's compute the :py:func:`~vastorbit.machine_learning.model_selection.elbow` curve to find a suitable number of clusters.
 
 .. ipython:: python
+    :suppress:
+
+    import vastorbit as vo
+    vo.set_option("plotting_lib", "plotly")
+
+.. ipython:: python
 
     predictors = filmtv_movies_complete.get_columns(
         exclude_columns = [

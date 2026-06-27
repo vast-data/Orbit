@@ -330,6 +330,9 @@ information to predict the students' scores.
     # RandomForest is backed by scikit-learn and needs numeric inputs, so we
     # train on the numeric predictors only (the categorical text columns are
     # left out). Shallow trees keep the generated prediction SQL compact.
+    
+    africa.one_hot_encode() # encoding of categorical features
+
     response = "zralocp"
     predictors = africa.numcol(
         exclude_columns = ["zralocp", "zmalocp", "lat", "lon"],
@@ -503,7 +506,6 @@ We can add these predictions to the main :py:mod:`~vastorbit.VastFrame`.
 
 .. code-block:: python
 
-    africa = africa.select(predictors[0:23] + ["zralocp", "zmalocp"])
     model_africa_rf_zralocp.predict(africa, name = "pred_zralocp")
     model_africa_rf_zmalocp.predict(africa, name = "pred_zmalocp")
 
@@ -511,7 +513,6 @@ We can add these predictions to the main :py:mod:`~vastorbit.VastFrame`.
     :suppress:
     :okwarning:
 
-    africa = africa.select(predictors[0:23] + ["zralocp", "zmalocp"])
     model_africa_rf_zralocp.predict(africa, name = "pred_zralocp")
     model_africa_rf_zmalocp.predict(africa, name = "pred_zmalocp")
     res = model_africa_rf_zmalocp
@@ -882,6 +883,7 @@ Let's create a logistic regression to understand what circumstances allowed thes
     model_africa_logit_best = LogisticRegression(
         name="africa_logit_best", 
         solver="lbfgs",
+        max_iter=2000,
     )
     model_africa_logit_best.fit(
         africa,
@@ -905,7 +907,7 @@ Let's create a logistic regression to understand what circumstances allowed thes
         ]
     )
     vo.drop("africa_logit_best")
-    model_africa_logit_best = LogisticRegression(name="africa_logit_best", solver="lbfgs")
+    model_africa_logit_best = LogisticRegression(name="africa_logit_best", solver="lbfgs", max_iter=2000,)
     model_africa_logit_best.fit(africa,predictors,"best")
     fig = model_africa_logit_best.features_importance()
     fig.write_html("SPHINX_DIRECTORY/figures/examples_africa_feature_final.html")

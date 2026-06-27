@@ -1414,8 +1414,8 @@ class vDCMath(vDCFilter):
             The field to extract. It must be one of the following:
             century | day | decade | doq | dow | doy | epoch | hour
             | isodow | isoweek | isoyear | millennium
-            | milliseconds | minute | month | quarter | second | time
-             zone | timezone_hour | timezone_minute | week | year
+            | milliseconds | minute | month | quarter | second
+            | timezone | timezone_hour | timezone_minute | week | year
 
         Returns
         -------

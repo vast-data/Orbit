@@ -99,6 +99,7 @@ class vDFAgg(vDFEval):
                 average.
              - median:
                 median.
+
                 .. note::
                     As median is not yet supported,
                     ``approx_median%`` will be used.
@@ -112,6 +113,7 @@ class vDFAgg(vDFEval):
                 q quantile (ex: 50% for the median)
                 Use the ``approx_q%`` (approximate quantile)
                 aggregation to get better performance.
+
                 .. note::
                     As percentile is not yet supported,
                     ``approx_q%`` will be used.
@@ -3898,7 +3900,7 @@ class vDCAgg(vDCEval):
         .. seealso::
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.count` : Count for particular columns.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.count_percent` :
-            Percentage count for particular columns.
+              Percentage count for particular columns.
         """
         return self.aggregate(["count"]).values[self._alias][0]
 

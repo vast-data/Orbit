@@ -1596,7 +1596,7 @@ class AR(TimeSeriesModelBase):
         fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_features.html")
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_features.html_____
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_features.html
 
     One important thing in time-series forecasting is that it has two
     types of forecasting:
@@ -2253,7 +2253,7 @@ class VAR(AR):
         fig.write_html("SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_var_features.html")
 
     .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_ar_features.html
+        :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_tsa_var_features.html
 
     .. note::
 

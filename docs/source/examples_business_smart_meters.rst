@@ -492,7 +492,7 @@ Let's aggregate the data to figure out the monthly energy consumption for each s
             fun.avg(sm_consumption_weather_region["humidity"])._as("avg_humidity"),
         ],
     ).filter(
-        "date_month < '2015-09-01'",
+        "date_month < CAST('2015-09-01' AS DATE)",
     )
     vo.drop("sm_consumption_month", method = "table")
     res = sm_consumption_month.to_db(

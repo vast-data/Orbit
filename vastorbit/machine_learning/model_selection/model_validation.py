@@ -3,6 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 import copy
+import warnings
 import secrets
 import time
 from typing import Literal, Optional, Union
@@ -36,11 +37,18 @@ from vastorbit.plotting._utils import PlottingUtils
 
 def _materialize(vdf: VastFrame, label: str) -> str:
     """
-    Persists ``vdf`` to a temporary base table and repoints the frame at it,
-    returning the table name (for later cleanup with :py:func:`_drop_relation`).
+    Persists ``vdf`` to a temporary base table and returns the table name.
+
+    The source frame is **not** mutated (``inplace=False``): if the underlying
+    ``CREATE TABLE`` fails, the caller's frame must keep pointing at its original
+    relation. The previous ``inplace=True`` version repointed the frame *before*
+    the create was confirmed, so a failed/partial create left every later query
+    referencing a table that never existed (``TABLE_NOT_FOUND``). Callers repoint
+    explicitly via ``VastFrame(name)`` only after this returns successfully, and
+    clean up with :py:func:`_drop_relation`.
     """
     name = gen_tmp_name(schema=conf.get_option("temp_schema"), name=f"cv_{label}")
-    vdf.to_db(name, relation_type="table", inplace=True)
+    vdf.to_db(name, relation_type="table", inplace=False)
     return name
 
 
@@ -514,6 +522,23 @@ def cross_validate(
     X = format_type(X, dtype=list)
     if isinstance(input_relation, str):
         input_relation = VastFrame(input_relation)
+    # Materialize the (possibly deeply nested) input relation to a flat base
+    # table ONCE up front. train_test_split runs an APPROX_PERCENTILE over
+    # ``input_relation`` on every fold; if the relation is deeply nested that
+    # query alone exceeds Trino's stage limit before any per-fold flattening
+    # can help. Flattening here keeps every fold's split query small.
+    _cv_base_name = None
+    try:
+        _cv_base_name = _materialize(input_relation, "cv_base")
+        input_relation = VastFrame(_cv_base_name)
+    except Exception as e:
+        # Falling back to the un-flattened relation means train_test_split runs
+        # its APPROX_PERCENTILE over a deeply nested query and may exceed Trino's
+        # stage limit. Surface why the flatten failed instead of swallowing it.
+        warnings.warn(f"cross_validate: could not materialize cv_base ({e!r}); "
+                      "falling back to the nested relation.")
+        _drop_relation(_cv_base_name)
+        _cv_base_name = None
     if cv < 2:
         raise ValueError("Cross Validation is only possible with at least 2 folds")
     if estimator._model_subcategory == "REGRESSOR":
@@ -579,7 +604,9 @@ def cross_validate(
         train_name = test_name = None
         try:
             train_name = _materialize(train, "train")
+            train = VastFrame(train_name)
             test_name = _materialize(test, "test")
+            test = VastFrame(test_name)
             start_time = time.time()
             estimator.fit(
                 train,
@@ -634,6 +661,7 @@ def cross_validate(
         result_train = TableSample(values=result_train).transpose()
         if show_time:
             result_train.values["time"] = total_time
+    _drop_relation(_cv_base_name)
     if training_score:
         return result, result_train
     else:
@@ -1015,7 +1043,7 @@ def learning_curve(
 
         import random
 
-        N = 500 # Number of Records
+        N = 200 # Number of Records
         k = 10 # step
 
         # Normal Distributions
@@ -1111,6 +1139,19 @@ def learning_curve(
         metric = "logloss"
     if isinstance(input_relation, str):
         input_relation = VastFrame(input_relation)
+    # Flatten the input relation up front: ``.sample()`` runs a quantile
+    # aggregation over ``input_relation`` for every size, which exceeds Trino's
+    # stage limit when the relation is deeply nested. Materializing once keeps
+    # each size's sample query small.
+    _lc_base_name = None
+    try:
+        _lc_base_name = _materialize(input_relation, "lc_base")
+        input_relation = VastFrame(_lc_base_name)
+    except Exception as e:
+        warnings.warn(f"learning_curve: could not materialize lc_base ({e!r}); "
+                      "falling back to the nested relation.")
+        _drop_relation(_lc_base_name)
+        _lc_base_name = None
     lc_result_final = []
     sizes = sorted(set(sizes))
     if conf.get_option("tqdm"):
@@ -1125,6 +1166,7 @@ def learning_curve(
         relation_name = None
         try:
             relation_name = _materialize(relation, "lc_sample")
+            relation = VastFrame(relation_name)
             lc_result = cross_validate(
                 estimator,
                 relation,
@@ -1243,6 +1285,7 @@ def learning_curve(
     data = {"x": x, "Y": Y}
     layout = {"columns": columns, "order_by": order_by, "y_label": y_label}
     vo_plt.RangeCurve(data=data, layout=layout).draw(**kwargs)
+    _drop_relation(_lc_base_name)
     if return_chart:
         return vo_plt.RangeCurve(data=data, layout=layout).draw(**kwargs)
     return result

@@ -143,8 +143,9 @@ class Pipeline:
             dictionary as values.
         ``**kwargs``
             New parameters can also be passed as arguments.
-            Example: set_params(pipeline1 = dict1,
-                                pipeline2 = dict2)
+            Example::
+
+                set_params(pipeline1 = dict1, pipeline2 = dict2)
         """
         parameters = format_type(parameters, dtype=dict)
         for param in {**parameters, **kwargs}:

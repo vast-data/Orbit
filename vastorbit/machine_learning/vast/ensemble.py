@@ -1504,17 +1504,7 @@ class GradientBoostingRegressor(Regressor, GradientBoosting):
         self,
         name: str = None,
         overwrite_model: bool = False,
-        n_estimators: int = 10,
-        max_depth: int = 5,
-        nbins: int = 32,
-        split_proposal_method: Literal["local", "global"] = "global",
-        tol: float = 0.001,
-        learning_rate: float = 0.1,
-        min_split_loss: float = 0.0,
-        weight_reg: float = 0.0,
-        sample: float = 1.0,
-        col_sample_by_tree: float = 1.0,
-        col_sample_by_node: float = 1.0,
+        **kwargs
     ) -> None:
         super().__init__(name, overwrite_model)
         params = {
@@ -3199,17 +3189,7 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
         self,
         name: str = None,
         overwrite_model: bool = False,
-        n_estimators: int = 10,
-        max_depth: int = 5,
-        nbins: int = 32,
-        split_proposal_method: Literal["local", "global"] = "global",
-        tol: float = 0.001,
-        learning_rate: float = 0.1,
-        min_split_loss: float = 0.0,
-        weight_reg: float = 0.0,
-        sample: float = 1.0,
-        col_sample_by_tree: float = 1.0,
-        col_sample_by_node: float = 1.0,
+        **kwargs
     ) -> None:
         super().__init__(name, overwrite_model)
         params = {
@@ -3744,11 +3724,7 @@ class IsolationForest(Clustering, Tree):
         self,
         name: str = None,
         overwrite_model: bool = False,
-        n_estimators: int = 100,
-        max_depth: int = 10,
-        nbins: int = 32,
-        sample: float = 0.632,
-        col_sample_by_tree: float = 1.0,
+        **kwargs
     ) -> None:
         super().__init__(name, overwrite_model)
         self.parameters = {

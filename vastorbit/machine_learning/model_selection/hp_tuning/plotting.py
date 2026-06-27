@@ -61,6 +61,7 @@ def validation_curve(
         Response Column.
     metric: str, optional
         Metric used to for model evaluation.
+
         - auto:
             logloss for classification
             & RMSE for regression.
@@ -373,8 +374,9 @@ def validation_curve(
     .. ipython:: python
 
         import random
+        import numpy as np
 
-        N = 500 # Number of Records
+        N = 200 # Number of Records
         k = 10 # step
 
         # Normal Distributions

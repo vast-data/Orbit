@@ -791,7 +791,8 @@ class TimeSeriesModelBase(VASTModel):
     # Features Importance
 
     def features_importance(
-        self, show: bool = True, chart: Optional[PlottingObject] = None, **style_kwargs
+        self, idx: int = 0, show: bool = True,
+        chart: Optional[PlottingObject] = None, **style_kwargs
     ) -> Union[PlottingObject, TableSample]:
         """
         Computes the model's features importance.
@@ -892,10 +893,10 @@ class TimeSeriesModelBase(VASTModel):
                 n_vars = len(self.y)
                 p = self.parameters.get("p", 1)
 
-                # Prepare data for first variable (or could show all)
-                # For simplicity, showing importance for first variable
+                # Prepare data for the requested variable (idx)
+                var_sel = idx if (isinstance(fi, list) and 0 <= idx < len(fi)) else 0
                 data = {
-                    "importance": fi[0] if isinstance(fi, list) else fi,
+                    "importance": fi[var_sel] if isinstance(fi, list) else fi,
                 }
                 # Feature names: all lags of all variables
                 feature_names = []

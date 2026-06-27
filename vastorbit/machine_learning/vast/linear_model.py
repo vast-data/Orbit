@@ -1374,16 +1374,16 @@ class Lasso(LinearModel, Regressor):
 
     .. important::
 
-    Machine learning models with two
-    predictors can usually benefit
-    from their own contour plot. This
-    visual representation aids in
-    exploring predictions and gaining
-    a deeper understanding of how these
-    models perform in different scenarios.
-    Please refer to
-    :ref:`chart_gallery.contour`
-    for more examples.
+        Machine learning models with two
+        predictors can usually benefit
+        from their own contour plot. This
+        visual representation aids in
+        exploring predictions and gaining
+        a deeper understanding of how these
+        models perform in different scenarios.
+        Please refer to
+        :ref:`chart_gallery.contour`
+        for more examples.
 
     Parameter Modification
     ^^^^^^^^^^^^^^^^^^^^^^^
@@ -1847,16 +1847,16 @@ class LinearRegression(LinearModel, Regressor):
 
     .. important::
 
-    Machine learning models with two
-    predictors can usually benefit
-    from their own contour plot. This
-    visual representation aids in
-    exploring predictions and gaining
-    a deeper understanding of how these
-    models perform in different scenarios.
-    Please refer to
-    :ref:`chart_gallery.contour`
-    for more examples.
+        Machine learning models with two
+        predictors can usually benefit
+        from their own contour plot. This
+        visual representation aids in
+        exploring predictions and gaining
+        a deeper understanding of how these
+        models perform in different scenarios.
+        Please refer to
+        :ref:`chart_gallery.contour`
+        for more examples.
 
     Parameter Modification
     ^^^^^^^^^^^^^^^^^^^^^^^
@@ -3186,16 +3186,16 @@ class Ridge(LinearModel, Regressor):
 
     .. important::
 
-    Machine learning models with two
-    predictors can usually benefit
-    from their own contour plot. This
-    visual representation aids in
-    exploring predictions and gaining
-    a deeper understanding of how these
-    models perform in different scenarios.
-    Please refer to
-    :ref:`chart_gallery.contour`
-    for more examples.
+        Machine learning models with two
+        predictors can usually benefit
+        from their own contour plot. This
+        visual representation aids in
+        exploring predictions and gaining
+        a deeper understanding of how these
+        models perform in different scenarios.
+        Please refer to
+        :ref:`chart_gallery.contour`
+        for more examples.
 
     Parameter Modification
     ^^^^^^^^^^^^^^^^^^^^^^^
@@ -3872,16 +3872,16 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
 
     .. important::
 
-    Machine learning models with two
-    predictors can usually benefit
-    from their own contour plot. This
-    visual representation aids in
-    exploring predictions and gaining
-    a deeper understanding of how these
-    models perform in different scenarios.
-    Please refer to
-    :ref:`chart_gallery.contour`
-    for more examples.
+        Machine learning models with two
+        predictors can usually benefit
+        from their own contour plot. This
+        visual representation aids in
+        exploring predictions and gaining
+        a deeper understanding of how these
+        models perform in different scenarios.
+        Please refer to
+        :ref:`chart_gallery.contour`
+        for more examples.
 
     Parameter Modification
     ^^^^^^^^^^^^^^^^^^^^^^^

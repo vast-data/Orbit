@@ -3,6 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 from abc import abstractmethod
+import re
 from typing import Literal, Optional
 import numpy as np
 import sklearn
@@ -456,8 +457,15 @@ class Preprocessing(Unsupervised):
         model_set = set(model_X)
         # columns the model did not transform are passed through unchanged
         projection = [col for col in X if col not in model_set and col not in exclude]
-        # transformed (and, for OneHotEncoder, expanded) columns
-        projection += [f"{expr} AS {name}" for expr, name in zip(flat, names)]
+        # transformed (and, for OneHotEncoder, expanded) columns. Some memmodels
+        # (OneHotEncoder) already emit ``<expr> AS "name"``; re-aliasing those
+        # produces ``... AS "x" AS "y"`` which is a SQL syntax error, so only add
+        # an alias when the expression does not already carry one.
+        _has_alias = re.compile(r'\s+AS\s+"[^"]+"\s*$', re.IGNORECASE)
+        projection += [
+            expr if _has_alias.search(expr) else f"{expr} AS {name}"
+            for expr, name in zip(flat, names)
+        ]
         return clean_query(", ".join(projection))
 
     def deployInverseSQL(

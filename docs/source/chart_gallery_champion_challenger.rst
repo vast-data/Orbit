@@ -16,7 +16,7 @@ Champion Challenger Plot
     import vastorbit.machine_learning.vast.automl as vmla
     import numpy as np
 
-    N = 500 # Number of Records
+    N = 200 # Number of Records
     k = 10 # step
 
     # Normal Distributions
@@ -34,9 +34,8 @@ Champion Challenger Plot
 
     # Defining the Model
     from vastorbit.machine_learning.vast import RandomForestClassifier, LogisticRegression
-    vo.drop("automl_demo")
+
     model = vmla.AutoML(
-        "automl_demo",
         estimator = [
             RandomForestClassifier(n_estimators = 4, max_depth = 3),
             LogisticRegression(),
@@ -62,7 +61,7 @@ Let's generate a dataset using the following data.
 
 .. code-block:: python
         
-    N = 500 # Number of Records
+    N = 200 # Number of Records
     k = 10 # step
 
     # Normal Distributions

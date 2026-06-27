@@ -18,7 +18,7 @@ Learning Curve
     import vastorbit.machine_learning.vast as vml
     import numpy as np
 
-    N = 500 # Number of Records
+    N = 200 # Number of Records
     k = 10 # step
 
     # Normal Distributions
@@ -49,7 +49,7 @@ Let's generate a dataset using the following data.
         
     import random
     
-    N = 500 # Number of Records
+    N = 200 # Number of Records
     k = 10 # step
 
     # Normal Distributions

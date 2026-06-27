@@ -178,8 +178,8 @@ Colors
     ..     fig = model.plot_voronoi(colors = ["red", "blue"])
     ..     fig.write_html("figures/plotting_plotly_plot_voronoi_custom_color_1.html")
 
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/plotting_plotly_plot_voronoi_custom_color_1.html
+    .. .. raw:: html
+    ..     :file: SPHINX_DIRECTORY/figures/plotting_plotly_plot_voronoi_custom_color_1.html
 
 .. tab:: Matplolib
 

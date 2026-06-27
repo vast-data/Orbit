@@ -575,94 +575,16 @@ We'll define new features that describe the minimum and maximum temperature duri
 Machine Learning
 -----------------
 
-:py:mod:`~vastorbit.machine_learning.vast.automl.AutoML` tests several models and returns input scores for each. We can use this to find the best model for our dataset.
-
-.. note:: We are only using the three algorithms, but you can change the ``estimator`` parameter to try all the ``native`` algorithms: ``estimator = 'native'``
-
-.. code-block:: python
-
-    from vastorbit.machine_learning.vast.automl import AutoML
-    from vastorbit.machine_learning.vast import LinearRegression, RandomForestRegressor, Ridge
-
-    model = AutoML(
-        "battery_autoML", 
-        estimator = [
-            RandomForestRegressor(n_estimators = 4, max_depth = 3),
-            LinearRegression(),
-            Ridge(),
-        ],
-        estimator_type = "regressor"
-    )
-    model.fit(
-        "finaldata_battery_5", 
-        X = [
-            "min_temp",
-            "max_temp",
-            "min_volt",
-            "time_to_reach_minvolt",
-            "time_to_reach_maxtemp",
-        ],
-        y = "SOH",
-    )
-
-.. ipython:: python
-    :suppress:
-    :okwarning:
-
-    from vastorbit.machine_learning.vast.automl import AutoML
-    from vastorbit.machine_learning.vast import LinearRegression, RandomForestRegressor, Ridge
-
-    vo.drop("battery_autoML")
-    model = AutoML(
-        "battery_autoML", 
-        estimator = [
-            RandomForestRegressor(n_estimators = 4, max_depth = 3),
-            LinearRegression(),
-            Ridge(),
-        ],
-        estimator_type = "regressor"
-    )
-    model.fit(
-        "finaldata_battery_5", 
-        X = [
-            "min_temp",
-            "max_temp",
-            "min_volt",
-            "time_to_reach_minvolt",
-            "time_to_reach_maxtemp",
-        ],
-        y = "SOH",
-    )
-
-We can visualize the performance and efficency differences of each model with a plot.
-
-.. code-block::
-
-    model.plot()
-
-.. ipython:: python
-    :suppress:
-    :okwarning:
-
-    fig = model.plot()
-    fig.write_html("SPHINX_DIRECTORY/figures/examples_battery_auto_ml_plot.html")
-
-.. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_battery_auto_ml_plot.html
-
-.. ipython:: python
-
-    # take the best model and its parameters
-    best_model = model.best_model_
-    params = best_model.get_params()
-    print(best_model._model_type)
-
-We can now define the model using those hyperparameters and train it.
+We can now build a regression model to estimate the battery's
+State of Health (``SOH``) from the engineered features.
+:py:class:`~vastorbit.machine_learning.vast.linear_model.LinearRegression`
+offers a good balance of accuracy and interpretability for this dataset.
 
 .. code-block:: python
 
-    # define a regression model based on the selected parameters
-    final_model = LinearRegression(name = "btr_lr1", **params)
+    from vastorbit.machine_learning.vast import LinearRegression
+
+    final_model = LinearRegression(name = "btr_lr1")
     final_model.fit(
         final_df,
         X = [
@@ -678,9 +600,10 @@ We can now define the model using those hyperparameters and train it.
 .. ipython:: python
     :suppress:
 
-    # define a regression model based on the selected parameters      
+    from vastorbit.machine_learning.vast import LinearRegression
+
     vo.drop("btr_lr1")
-    final_model = LinearRegression(name = "btr_lr1", **params)
+    final_model = LinearRegression(name = "btr_lr1")
     final_model.fit(
         final_df,
         X = [
@@ -692,6 +615,8 @@ We can now define the model using those hyperparameters and train it.
         ],
         y = "SOH",
     )
+
+We can evaluate the model with a regression report.
 
 .. code-block:: python
 
@@ -708,17 +633,19 @@ We can now define the model using those hyperparameters and train it.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_battery_reg_reprot.html
 
-The predictive power of our model looks pretty good. Let's use our model to predict the SoH of the battery. We can visualize our prediction with a plot against the true values.
+The predictive power of our model looks pretty good. Let's use our model
+to predict the SoH of the battery. We can visualize our prediction with a
+plot against the true values.
 
 .. code-block:: python
 
-    # take the predicted values and the plot them along the true ones
+    # take the predicted values and then plot them along the true ones
     result = final_model.predict(
-        final_df, 
+        final_df,
         name = "SOH_estimates",
     )
     result.plot(
-        ts = "start_time", 
+        ts = "start_time",
         columns = ["SOH", "SOH_estimates"],
     )
 
@@ -727,17 +654,17 @@ The predictive power of our model looks pretty good. Let's use our model to pred
     :okwarning:
 
     result = final_model.predict(
-        final_df, 
+        final_df,
         name = "SOH_estimates"
     )
     fig = result.plot(
-        ts = "start_time", 
+        ts = "start_time",
         columns = ["SOH", "SOH_estimates"],
     )
-    fig.write_html("SPHINX_DIRECTORY/figures/examples_battery_auto_ml_plot.html")
+    fig.write_html("SPHINX_DIRECTORY/figures/examples_battery_pred_plot.html")
 
 .. raw:: html
-    :file: SPHINX_DIRECTORY/figures/examples_battery_auto_ml_plot.html
+    :file: SPHINX_DIRECTORY/figures/examples_battery_pred_plot.html
 
 Conclusion
 -----------

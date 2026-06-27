@@ -3,8 +3,6 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 from vastorbit.machine_learning.model_selection.hp_tuning.cv import (
-    bayesian_search_cv,
-    enet_search_cv,
     grid_search_cv,
     randomized_search_cv,
 )

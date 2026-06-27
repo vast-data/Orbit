@@ -86,10 +86,13 @@ class AutoML(VASTModel):
                         perform  a multiclass
                         classification.
     metric: str, optional
-        Metric used for the model evaluation.
+        Metric used for the model evaluation::
+
             auto: logloss for  classification & RMSE for
                   regression.
-        For Classification:
+
+        For Classification::
+
             accuracy    : Accuracy
             auc         : Area Under the Curve
                           (ROC)
@@ -137,7 +140,9 @@ class AutoML(VASTModel):
                           = tp / (tp + fn)
             specificity : Specificity
                           = tn / (tn + fp)
-        For Regression:
+
+        For Regression::
+
             max    : Max error
             mae    : Mean absolute error
             median : Median absolute error
@@ -172,7 +177,8 @@ class AutoML(VASTModel):
         determine the final model list of parameters.
     stepwise_criterion: str, optional
         Criterion used when performing the final
-        estimator stepwise.
+        estimator stepwise::
+
             aic : Akaike’s information criterion
             bic : Bayesian information criterion
     stepwise_direction: str, optional
@@ -183,7 +189,8 @@ class AutoML(VASTModel):
         when performing the final estimator stepwise.
     x_order: str, optional
         Method for preprocessing  X before using the
-        stepwise algorithm.
+        stepwise algorithm::
+
             pearson  : X  is ordered  based  on  the
                        Pearson's         correlation
                        coefficient.

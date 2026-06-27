@@ -541,7 +541,7 @@ def chart_magic(line: str, cell: Optional[str] = None, local_ns: Optional[dict] 
         :suppress:
         :okwarning:
 
-        %%chart -k spearman
+        %%chart -k scatter
         SELECT age, fare FROM titanic;
 
     .. ipython:: python

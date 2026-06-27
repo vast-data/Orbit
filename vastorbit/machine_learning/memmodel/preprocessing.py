@@ -209,8 +209,8 @@ class StandardScaler(Scaler):
 
     .. note::
 
-        :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.StandardScaler`
-        are defined entirely by their
+        The :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.StandardScaler`
+        is defined entirely by its
         attributes. For example, ``mean``,
         and ``std`` of feature(s) define
         a ``StandardScaler`` model.
@@ -321,8 +321,8 @@ class MinMaxScaler(Scaler):
 
     .. note::
 
-        :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.MinMaxScaler`
-        are defined entirely by their
+        The :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.MinMaxScaler`
+        is defined entirely by its
         attributes. For example, ``minimum``,
         and ``maximum`` values of the input
         features define a ``MinMaxScaler``

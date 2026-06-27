@@ -44,8 +44,6 @@ Hyper Parameter Tuning
 .. autosummary::
    :toctree: api
 
-   bayesian_search_cv
-   enet_search_cv
    gen_params_grid
    grid_search_cv
    parameter_grid

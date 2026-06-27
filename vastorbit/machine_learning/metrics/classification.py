@@ -5268,11 +5268,13 @@ def classification_report(
 
         In binary classification, ``y_score`` should
         be a list of two column names:
+
         - Probability of true value
         - Prediction value
 
         In the case of multi-class, ``y_score``,
         is the list of two elements:
+
         - list of column names for class probabilities
           for each class
 
@@ -5465,12 +5467,19 @@ def classification_report(
     if num_classes > 2:
         return_scalar = False
         res_array = res.to_numpy()
+        # Models such as KNeighbors can return None for metrics they don't
+        # support (e.g. probability-based ones like AUC); coerce those to NaN so
+        # the macro / weighted averages don't raise "NoneType + NoneType".
+        res_array = np.array(
+            [[np.nan if v is None else v for v in row] for row in res_array],
+            dtype=float,
+        )
         n, m = res_array.shape
         avg_macro, avg_micro, avg_weighted = [], [], []
         for i in range(n):
-            avg_macro += [np.mean(res_array[i])]
+            avg_macro += [np.nanmean(res_array[i])]
             weights = np.array([args[3] + args[1] for args in all_cm_metrics])
-            avg_weighted += [(res_array[i] * weights).sum() / weights.sum()]
+            avg_weighted += [np.nansum(res_array[i] * weights) / weights.sum()]
         res.values["avg_macro"] = avg_macro
         res.values["avg_weighted"] = avg_weighted
         args = [sum(args[i] for args in all_cm_metrics) for i in range(4)]

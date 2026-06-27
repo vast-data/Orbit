@@ -181,7 +181,8 @@ def insert_into(
             ),
             data=list(map(tuple, data)),
         )
-        _executeSQL("COMMIT;", title="Commit.")
+        # Trino autocommits each statement; an explicit COMMIT with no open
+        # transaction raises NOT_IN_TRANSACTION ("No transaction in progress").
         return len(data)
     else:
         if genSQL:
@@ -214,7 +215,6 @@ def insert_into(
                         query=query,
                         title=f"Insert a new line in the relation: {input_relation}.",
                     )
-                    _executeSQL("COMMIT;", title="Commit.")
                     total_rows += 1
                 except Exception as e:
                     warning_message = f"Line {i} was skipped.\n{e}"

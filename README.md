@@ -1,8 +1,8 @@
 <p align="center">
-<img src='/assets/img/vo_logo.svg' width="180px">
+<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/vo_logo.png' width="180px">
 </p>
 
-> **Note:** VAST Orbit 0.1.x represents the first beta release series. The API and features are subject to change as we work toward a more robust 1.0.0 release.
+> **Beta:** VAST Orbit `0.1.x` is the first beta release series. The API and features will change as we work toward a stable `1.0.0`. See [Project Status & Roadmap](#project-status--roadmap).
 
 # VAST Orbit
 
@@ -14,6 +14,27 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
+## Introduction Video
+
+<!--
+  TODO: Add the introduction video.
+
+  Option A — clickable thumbnail (renders on both GitHub and PyPI; recommended):
+      replace the href with the video URL and the img with a real thumbnail.
+
+  Option B — inline playback on GitHub only: drag-and-drop an .mp4 into the
+  README editor on github.com; GitHub uploads it and inserts a
+  https://github.com/user-attachments/assets/... link that plays inline.
+-->
+<p align="center">
+  <a href="https://path/to/intro-video">
+    <img
+      src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/intro_video_thumbnail.png"
+      width="80%"
+      alt="VAST Orbit — Introduction (click to watch)">
+  </a>
+</p>
+
 <p align="center">
 <!-- TODO: Add benefits image -->
 <img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/benefits.png' width="92%">
@@ -23,6 +44,7 @@ VAST Orbit is a Python library with scikit-learn-like functionality for conducti
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Project Status & Roadmap](#project-status--roadmap)
 - [Installation](#installation)
 - [Connecting to the Database](#connecting-to-the-database)
 - [Documentation](#documentation)
@@ -49,7 +71,7 @@ Python has become the lingua franca of data science, offering unparalleled flexi
 - **Easy Data Exploration**: Interactive exploration of massive datasets without memory constraints
 - **Fast Data Preparation**: Leverage Trino's distributed processing for rapid data transformation
 - **Familiar Scikit-learn API**: Train models using the scikit-learn interface you already know
-- **In-Database Deployment**: Deploy trained models directly in VAST Database for production workloads
+- **In-Database Deployment**: Deploy trained models directly in VAST Database for production workloads _(with some current limitations — see [Project Status & Roadmap](#project-status--roadmap))_
 - **Easy Model Evaluation**: Comprehensive model evaluation tools with visual insights
 - **Seamless SQL Integration**: Use Python or SQL interchangeably based on your preference and use case
 
@@ -57,6 +79,19 @@ Python has become the lingua franca of data science, offering unparalleled flexi
 <!-- TODO: Add architecture diagram -->
 <img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/architecture.png' width="92%">
 </p>
+
+## Project Status & Roadmap
+
+VAST Orbit is **beta** software (the `0.1.x` series). It is evolving quickly, and we expect **multiple iterations before a stable `1.0.0`** — including occasional breaking changes to the API, defaults, and behavior as the library matures.
+
+A few things to keep in mind at this stage:
+
+- **Training back-end.** As of now, **most machine-learning models are trained with scikit-learn** (in-memory). Trained models can then be **deployed in-database** for prediction — though in-database deployment currently has **some limitations for certain algorithms**. Native in-database training is on the roadmap.
+- **In-database ML maturity.** Some of the **in-database ML capabilities are still beta** and under active validation; their coverage and behavior will keep improving across releases.
+- **Indicative roadmap.** Priorities and timelines are **indicative and may change based on user feedback and incoming requests**.
+- **Toward 1.0.0.** Expect the API surface, defaults, and feature set to keep maturing until the `1.0.0` milestone.
+
+Your feedback directly shapes what we build next — see [Help and Support](#help-and-support).
 
 ## Installation
 
@@ -314,9 +349,11 @@ data.outliers_plot(columns="Heights")
 
 #### Machine Learning
 
-VAST Orbit's machine learning capabilities allow you to train models using the familiar scikit-learn API and deploy them directly in the database for high-performance predictions. VAST Orbit supports a wide array of algorithms including time series forecasting, clustering, and classification.
+VAST Orbit's machine learning capabilities let you build models using the familiar scikit-learn API and evaluate them with rich, visual tooling. VAST Orbit supports a wide array of algorithms including time series forecasting, clustering, regression, and classification.
 
-**Key Feature: Train with scikit-learn syntax, deploy in-database for production**
+**Key idea: build with scikit-learn syntax, then deploy in-database for predictions.**
+
+> **Note (beta):** As of now, **most models are trained using scikit-learn** (in-memory) and can then be **deployed in-database** for prediction. In-database deployment is available for many algorithms but carries **some limitations depending on the model**, and a number of **in-database ML features are still beta**. Native in-database training is planned. See [Project Status & Roadmap](#project-status--roadmap).
 
 Example with Logistic Regression:
 
@@ -443,7 +480,7 @@ from vastorbit.machine_learning.model_selection.model_validation import cross_va
 
 # Data Preparation
 vdf["sex"].label_encode()["boat"].fillna(method="0ifnull")["name"].str_extract(
-    " ([A-Za-z]+)\."
+    r" ([A-Za-z]+)\."
 ).eval("family_size", expr="parch + sibsp + 1").drop(
     columns=["cabin", "body", "ticket", "home.dest"]
 )[
@@ -498,15 +535,12 @@ model.roc_curve()
 <img src="path/to/roc-curve.png" width="80%">
 </p>
 
-The model is now deployed in the database and ready for high-performance predictions!
+Once trained, the model can be deployed in the database for high-performance predictions _(in-database deployment availability and limitations vary by algorithm — see [Project Status & Roadmap](#project-status--roadmap))_.
 
 Enjoy!
 
 ## Help and Support
 
 For contribution guidelines and additional support documentation, please refer to the project documentation.
-
-For questions and community support, join our Slack channel: **vastsupport.slack.com**
-nal support documentation, please refer to the project documentation.
 
 For questions and community support, join our Slack channel: **vastsupport.slack.com**

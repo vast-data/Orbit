@@ -631,7 +631,7 @@ class VASTModel(PlottingUtils):
             specific to your class of interest,
             please refer to that particular class.
         """
-        new_parameters = copy.deepcopy({**self.parameters, **kwargs})
+        new_parameters = copy.deepcopy({**self.parameters, **parameters, **kwargs})
         self.__init__(**new_parameters)
 
     # Model's Summary.
@@ -5155,9 +5155,12 @@ class MulticlassClassifier(Supervised):
         args = [self.y, y_score, final_relation]
         kwargs = {}
         if metric not in ("aic", "bic"):
-            labels = None
-            if isinstance(pos_label, NoneType) or not (self._is_native):
-                labels = self.classes_
+            # Always provide the class labels: ``_get_yscore`` needs them to map
+            # ``pos_label`` to the correct per-class score column when the score
+            # vector has more than two entries (multiclass). Nulling ``labels``
+            # for native models with a set ``pos_label`` made that mapping
+            # impossible and raised "Wrong parameter 'y_score'".
+            labels = self.classes_
             kwargs = {
                 "average": average,
                 "labels": labels,
