@@ -24,6 +24,10 @@
 </p>
 
 <p align="center">
+  <video src="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4" controls width="100%"></video>
+</p>
+
+<p align="center">
 <!-- TODO: Add benefits image -->
 <img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/benefits.png' width="92%">
 </p>
