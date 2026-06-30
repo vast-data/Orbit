@@ -2,11 +2,8 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-import itertools
 from typing import Literal, Optional
-import numpy as np
 
-from vastorbit.connection.errors import QueryError
 
 from vastorbit._typing import (
     NoneType,
@@ -16,14 +13,12 @@ from vastorbit._typing import (
     SQLColumns,
     SQLRelation,
 )
-from vastorbit._utils._gen import gen_name, gen_tmp_name
-from vastorbit._utils._print import print_message
+from vastorbit._utils._gen import gen_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import (
     clean_query,
     format_type,
     quote_ident,
-    schema_relation,
 )
 from vastorbit._utils._sql._sys import _executeSQL
 
@@ -31,17 +26,13 @@ from vastorbit._utils._sql._sys import _executeSQL
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
 
-from vastorbit.plotting._utils import PlottingUtils
 
 import vastorbit.machine_learning.metrics as mt
 from vastorbit.machine_learning.vast.base import (
     MulticlassClassifier,
     Regressor,
-    Tree,
     VASTModel,
 )
-
-from vastorbit.sql.drop import drop
 
 """
 Algorithms used for regression.

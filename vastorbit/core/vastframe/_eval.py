@@ -230,13 +230,13 @@ class vDFEval(vDFInOut):
                 query,
                 name[1:-1].replace("'", "''"),
             )
-        except QueryError:
+        except QueryError as exc:
             raise vQueryError(
                 f"The expression '{expr}' seems to be incorrect.\nBy "
                 "turning on the SQL with the 'set_option' function, "
                 "you'll print the SQL code generation and probably "
                 "see why the evaluation didn't work."
-            )
+            ) from exc
 
         category = "undefined"
         if not ctype:

@@ -207,7 +207,7 @@ def _load_json_via_memory(json_pattern: str, memory_table: str, dtype: dict) -> 
     # Read and combine all JSON files
     all_data = []
     for json_file in json_files:
-        with open(json_file, "r") as f:
+        with open(json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
             if isinstance(data, list):
                 all_data.extend(data)
@@ -358,7 +358,7 @@ def load_dataset(
     # Try to return existing table
     try:
         return VastFrame(name, schema=schema)
-    except:
+    except Exception:
         pass
 
     # Table doesn't exist - create and load it
@@ -419,7 +419,7 @@ def load_dataset(
         # Cleanup memory table
         try:
             cursor.execute(f"DROP TABLE IF EXISTS memory.default.{memory_table}")
-        except:
+        except Exception:
             pass  # Ignore cleanup errors
 
         # Return VastFrame
@@ -429,7 +429,7 @@ def load_dataset(
         # Cleanup on error
         try:
             cursor.execute(f"DROP TABLE IF EXISTS memory.default.{memory_table}")
-        except:
+        except Exception:
             pass
 
         # Build full table name for cleanup
@@ -440,7 +440,7 @@ def load_dataset(
 
         try:
             drop(full_table_name, method="table")
-        except:
+        except Exception:
             pass
 
         raise e

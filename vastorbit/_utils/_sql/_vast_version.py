@@ -2,8 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from functools import wraps
-from typing import Any, Callable, Optional
+from typing import Optional
 
 from vastorbit._utils._sql._format import format_type
 from vastorbit.connection.connect import current_cursor

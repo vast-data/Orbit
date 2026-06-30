@@ -5,33 +5,25 @@ SPDX-License-Identifier: Apache-2.0
 from typing import Literal, Optional, Union
 from collections.abc import Iterable
 
-import numpy as np
 
 from tqdm.auto import tqdm
 
 import vastorbit._config.config as conf
 from vastorbit._typing import PythonNumber, PythonScalar, SQLColumns, SQLRelation
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._format import format_type
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._sys import _executeSQL
 
 
 from vastorbit.core.tablesample.base import TableSample
-from vastorbit.core.vastframe.base import VastFrame
 
-from vastorbit.datasets.generators import gen_meshgrid, gen_dataset
 
 from vastorbit.machine_learning.model_selection.hp_tuning.param_gen import (
     gen_params_grid,
     parameter_grid,
 )
 from vastorbit.machine_learning.model_selection.model_validation import cross_validate
-import vastorbit.machine_learning.vast as vml
 from vastorbit.machine_learning.vast.base import VASTModel
-
-from vastorbit.sql.drop import drop
 
 """
 RANDOM

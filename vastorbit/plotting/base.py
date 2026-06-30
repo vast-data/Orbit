@@ -569,7 +569,7 @@ class PlottingBase(PlottingBaseSQL):
         """
         try:
             return np.array([parse(d) for d in D])
-        except:
+        except Exception:
             return copy.deepcopy(D)
 
     @staticmethod
@@ -935,11 +935,11 @@ class PlottingBase(PlottingBaseSQL):
         else:
             h_, categories = [], None
             if isinstance(h, NoneType) or h <= 0:
-                for idx, column in enumerate(columns_):
+                for _idx, column in enumerate(columns_):
                     h_ += [vdf[column].numh()]
                 h = min(h_)
             data, cols = {"width": h}, []
-            for idx, column in enumerate(columns_):
+            for _idx, column in enumerate(columns_):
                 if vdf[column].isnum():
                     self._compute_plot_params(
                         vdf[column], method=method, of=of, max_cardinality=1, h=h
@@ -1524,10 +1524,10 @@ class PlottingBase(PlottingBaseSQL):
                         order = []
                         for item in L:
                             order += [float(item.split(";")[0].split("[")[1])]
-                    except:
+                    except Exception:
                         order = [float(item) for item in L]
                     L = [x for _, x in sorted(zip(order, L))]
-                except:
+                except Exception:
                     pass
                 matrix_categories += [copy.deepcopy(L)]
             x_labels, y_labels = matrix_categories
@@ -1829,7 +1829,7 @@ class PlottingBase(PlottingBaseSQL):
         n = len(columns)
         try:
             Z = X[:, :n].astype(float)
-        except:
+        except Exception:
             Z = X[:, :n]
         self.data = {"X": Z, "s": None, "c": None}
         self.layout = {

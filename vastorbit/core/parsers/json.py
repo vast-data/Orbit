@@ -244,7 +244,7 @@ def _read_json_to_dataframe(
     except ValueError as e:
         # Try alternative reading methods
         try:
-            with open(path, "r") as f:
+            with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
             # Convert to DataFrame
@@ -253,9 +253,9 @@ def _read_json_to_dataframe(
             elif isinstance(data, dict):
                 df = pd.json_normalize([data]) if flatten else pd.DataFrame([data])
             else:
-                raise ValueError(f"Unsupported JSON structure: {type(data)}")
+                raise ValueError(f"Unsupported JSON structure: {type(data)}") from e
         except Exception as e2:
-            raise ValueError(f"Failed to read JSON file: {e2}")
+            raise ValueError(f"Failed to read JSON file: {e2}") from e2
 
     # Flatten nested structures if requested
     if flatten and not lines:
@@ -263,7 +263,7 @@ def _read_json_to_dataframe(
             # Try to normalize nested structures
             if orient == "records" or isinstance(df.iloc[0].to_dict(), dict):
                 df = pd.json_normalize(df.to_dict("records"))
-        except:
+        except Exception:
             pass  # Keep original structure if normalization fails
 
     return df
@@ -329,7 +329,7 @@ def _read_single_json(
         try:
             cursor.execute(f"SELECT 1 FROM {full_table_name} LIMIT 1")
             table_exists = True
-        except:
+        except Exception:
             table_exists = False
 
         if table_exists and not insert:
@@ -451,13 +451,13 @@ def _read_single_json(
                         try:
                             date_str = pd.Timestamp(val).strftime("%Y-%m-%d")
                             values.append(f"DATE '{date_str}'")
-                        except:
+                        except Exception:
                             values.append("NULL")
                     elif "TIMESTAMP" in col_type:
                         try:
                             ts_str = pd.Timestamp(val).strftime("%Y-%m-%d %H:%M:%S")
                             values.append(f"TIMESTAMP '{ts_str}'")
-                        except:
+                        except Exception:
                             values.append("NULL")
                     elif "TIME" in col_type and "TIMESTAMP" not in col_type:
                         values.append(f"TIME '{str(val)}'")
@@ -537,13 +537,13 @@ def _read_single_json(
         # Cleanup on error
         try:
             cursor.execute(f"DROP TABLE IF EXISTS memory.default.{memory_table}")
-        except:
+        except Exception:
             pass
 
         if not insert:
             try:
                 drop(full_table_name, method="table")
-            except:
+            except Exception:
                 pass
 
         raise e

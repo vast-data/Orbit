@@ -85,7 +85,7 @@ class LOFPlot(MatplotlibBase):
                 Y = self.data["X"][:, 1]
                 size = (8, 6)
                 y_label = self.layout["columns"][1]
-            ax, fig, style_kwargs = self._get_ax_fig(
+            ax, _fig, style_kwargs = self._get_ax_fig(
                 ax, size=size, set_axis_below=True, grid=True, style_kwargs=style_kwargs
             )
             if isinstance(y_label, NoneType):
@@ -104,7 +104,7 @@ class LOFPlot(MatplotlibBase):
             for kwds in kwargs:
                 ax.scatter(X, Y, **kwds)
         elif len(self.layout["columns"]) == 4:
-            ax, fig, style_kwargs = self._get_ax_fig(
+            ax, _fig, style_kwargs = self._get_ax_fig(
                 ax, size=(8, 6), dim=3, style_kwargs=style_kwargs
             )
             ax.set_ylabel(self.layout["columns"][1])

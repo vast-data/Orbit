@@ -4,13 +4,11 @@ SPDX-License-Identifier: Apache-2.0
 
 from typing import Optional, Union, TYPE_CHECKING
 
-from vastorbit._typing import NoneType, SQLColumns, SQLExpression
+from vastorbit._typing import NoneType, SQLColumns
 from vastorbit._utils._object import create_new_vdf
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import format_type, quote_ident
+from vastorbit._utils._sql._format import format_type
 from vastorbit._utils._sql._merge import gen_coalesce, group_similar_names
-from vastorbit._utils._gen import gen_col_name
-from vastorbit.errors import EmptyParameter
 
 from vastorbit.core.vastframe._join_union_sort import vDFJoinUnionSort
 

@@ -60,7 +60,7 @@ class BoxPlot(MatplotlibBase):
             style_kwargs["vert"] = False
         elif "vert" not in style_kwargs:
             style_kwargs["vert"] = True
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax,
             size=(10, 6),
             set_axis_below=True,

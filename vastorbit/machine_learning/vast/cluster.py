@@ -2,10 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-import copy
-import os
-from abc import abstractmethod
-from typing import Literal, Optional, Union
+from typing import Literal, Optional
 
 import numpy as np
 import sklearn
@@ -22,9 +19,8 @@ from vastorbit._typing import (
 )
 from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import format_type, quote_ident, schema_relation
+from vastorbit._utils._sql._format import format_type, quote_ident
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit.connection import current_cursor
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
@@ -1450,7 +1446,7 @@ class BisectingKMeans(KMeans, Tree):
             self.clusters_ = self._model.cluster_centers_
             self.children_left_ = None
             self.children_right_ = None
-            unique_labels, counts = np.unique(labels, return_counts=True)
+            _unique_labels, counts = np.unique(labels, return_counts=True)
             self.cluster_size_ = counts
             self.cluster_i_ss_ = np.array(
                 [
@@ -1599,7 +1595,7 @@ class BisectingKMeans(KMeans, Tree):
         round_score: int = 2,
         percent: bool = False,
         vertical: bool = True,
-        node_style: dict = {"shape": "none"},
+        node_style: dict | None = None,
         edge_style: Optional[dict] = None,
         leaf_style: Optional[dict] = None,
     ) -> str:
@@ -1697,6 +1693,8 @@ class BisectingKMeans(KMeans, Tree):
             for more information about the
             different methods and usages.
         """
+        if node_style is None:
+            node_style = {"shape": "none"}
         return self.to_memmodel().to_graphviz(
             round_score=round_score,
             percent=percent,

@@ -22,7 +22,6 @@ from vastorbit._typing import (
 )
 from vastorbit._utils._map import vastorbit_agg_name
 from vastorbit._utils._object import create_new_vdf
-from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._cast import to_varchar
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import (
@@ -31,7 +30,6 @@ from vastorbit._utils._sql._format import (
     quote_ident,
 )
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import vast_version
 from vastorbit.connection import current_cursor
 from vastorbit.errors import (
     EmptyParameter,
@@ -354,7 +352,7 @@ class vDFAgg(vDFEval):
                     try:
                         n = int(n)
                         assert n >= 1
-                    except:
+                    except Exception as exc:
                         raise FunctionError(
                             f"The aggregation '{fun}' doesn't exist. To"
                             " compute the frequency of the n-th most "
@@ -362,14 +360,14 @@ class vDFAgg(vDFEval):
                             "k > 0. For example: top2_percent computes "
                             "the frequency of the second most occurent "
                             "element."
-                        )
+                        ) from exc
                     try:
                         expr = str(
                             self[column]
                             .topk(k=n, dropna=False)
                             .values["percent"][n - 1]
                         )
-                    except:
+                    except Exception:
                         expr = "0.0"
 
                 elif (len(fun.lower()) > 2) and (fun.lower().startswith("top")):
@@ -377,13 +375,13 @@ class vDFAgg(vDFEval):
                     try:
                         n = int(n)
                         assert n >= 1
-                    except:
+                    except Exception as exc:
                         raise FunctionError(
                             f"The aggregation '{fun}' doesn't exist. To"
                             " compute the n-th most occurent element, use "
                             "'topk' with n > 0. For example: "
                             "top2 computes the second most occurent element."
-                        )
+                        ) from exc
                     expr = format_magic(self[column].mode(n=n))
 
                 elif fun.lower() == "mode":
@@ -451,13 +449,13 @@ class vDFAgg(vDFEval):
                                 percentile = float(fun[0:-1]) / 100
                                 expr = f"""
                                     APPROX_PERCENTILE({cast_b}{column}{cast_e}, {percentile})"""
-                    except:
+                    except Exception as exc:
                         raise FunctionError(
                             f"The aggregation '{fun}' doesn't exist. If you "
                             "want to compute the percentile x of the element "
                             "please write 'x%' with x > 0. Example: 50% for "
                             "the median or approx_50% for the approximate median."
-                        )
+                        ) from exc
 
                 elif fun.lower() == "cvar":
                     q95 = self[column].quantile(0.95)
@@ -1001,7 +999,7 @@ class vDFAgg(vDFEval):
             if not columns:
                 columns = []
                 all_cols = self.get_columns()
-                for idx, column in enumerate(all_cols):
+                for _idx, column in enumerate(all_cols):
                     if self[column].isnum() or self[column].isdate():
                         columns += [column]
             func = ["dtype", "percent", "count", "min", "max", "range"]

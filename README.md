@@ -1,5 +1,5 @@
 <p align="center">
-<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/vo_logo.png' width="180px">
+<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/vo_logo.png' width="180px">
 </p>
 
 > **Beta:** VAST Orbit `0.1.x` is the first beta release series. The API and features will change as we work toward a stable `1.0.0`. See [Project Status & Roadmap](#project-status--roadmap).
@@ -10,34 +10,24 @@
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/vastorbit?color=yellowgreen)](https://anaconda.org/conda-forge/vastorbit)
 [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python Version](https://img.shields.io/badge/python-3.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/downloads/)
-[![codecov](https://codecov.io/gh/vastdata-dev/vastorbit/branch/master/graph/badge.svg?token=a6GiFYI9at)](https://codecov.io/gh/vastdata-dev/vastorbit)
+[![codecov](https://codecov.io/gh/vastdata-dev/vastorbit/branch/main/graph/badge.svg?token=a6GiFYI9at)](https://codecov.io/gh/vastdata-dev/vastorbit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
 ## Introduction Video
 
-<!--
-  TODO: Add the introduction video.
-
-  Option A — clickable thumbnail (renders on both GitHub and PyPI; recommended):
-      replace the href with the video URL and the img with a real thumbnail.
-
-  Option B — inline playback on GitHub only: drag-and-drop an .mp4 into the
-  README editor on github.com; GitHub uploads it and inserts a
-  https://github.com/user-attachments/assets/... link that plays inline.
--->
 <p align="center">
-  <a href="https://path/to/intro-video">
+  <a href="https://https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/docs/source/_static/website/video/vastorbit_intro_poster.png">
     <img
-      src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/intro_video_thumbnail.png"
-      width="80%"
-      alt="VAST Orbit — Introduction (click to watch)">
+      src="https://https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4"
+      width="100%"
+      alt="VAST Orbit — Trailer (click to watch)">
   </a>
 </p>
 
 <p align="center">
 <!-- TODO: Add benefits image -->
-<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/benefits.png' width="92%">
+<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/benefits.png' width="92%">
 </p>
 
 VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST Database. Train models using familiar scikit-learn syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
@@ -77,7 +67,7 @@ Python has become the lingua franca of data science, offering unparalleled flexi
 
 <p align="center">
 <!-- TODO: Add architecture diagram -->
-<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/master/assets/img/architecture.png' width="92%">
+<img src='https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/architecture.png' width="92%">
 </p>
 
 ## Project Status & Roadmap
@@ -101,8 +91,8 @@ To install VAST Orbit with pip:
 # Latest release version
 pip3 install vastorbit[all]
 
-# Latest commit on master branch
-pip3 install git+https://github.com/vastdata-dev/vastorbit.git@master
+# Latest commit on main branch
+pip3 install git+https://github.com/vastdata-dev/vastorbit.git@main
 ```
 
 To install VAST Orbit from source, run the following command from the root directory:
@@ -160,14 +150,14 @@ Dark mode, ideal for extended coding sessions, features a sleek and stylish dark
 
 <p align="center">
 <!-- TODO: Add dark theme screenshot -->
-<img src="path/to/dark-theme-screenshot.png" width="70%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/dark-theme-screenshot.png" width="100%">
 </p>
 
 On the other hand, Light mode serves as the default theme, offering a clean and bright interface for users who prefer a traditional coding ambiance.
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="path/to/light-theme-screenshot.png" width="70%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
 Theme can be easily switched by:
@@ -199,6 +189,11 @@ Execute your SQL queries:
 SELECT version();
 ```
 
+<p align="center">
+<!-- TODO: Add light theme screenshot -->
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/sql_version.png" width="100%">
+</p>
+
 ### SQL Plots
 
 You can create interactive, professional plots directly from SQL.
@@ -214,7 +209,7 @@ To create plots, simply provide the type of plot along with the SQL command.
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="path/to/sql-plot-screenshot.png" width="50%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/sql-plot-screenshot.png" width="100%">
 </p>
 
 ### Python and SQL Combo
@@ -227,20 +222,25 @@ VAST Orbit has a unique place in the market because it allows users to use Pytho
 import vastorbit as vo
 
 selected_titanic = vo.VastFrame(
-    "(SELECT pclass, embarked, AVG(survived) FROM titanic GROUP BY 1, 2) x"
+    "SELECT pclass, embarked, survived FROM titanic"
 )
-selected_titanic.groupby(columns=["pclass"], expr=["AVG(AVG)"])
+selected_titanic.groupby(columns=["pclass"], expr=["AVG(survived) AS avg_survived"])
 ```
+
+<p align="center">
+<!-- TODO: Add SQL plot screenshot -->
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/select_gb.png" width="100%">
+</p>
 
 ### Charts
 
-VAST Orbit comes integrated with three popular plotting libraries: matplotlib, highcharts, and plotly.
+VAST Orbit comes integrated with two popular plotting libraries: matplotlib and plotly.
 
 A gallery of VAST Orbit-generated charts will be available in the documentation.
 
 <p align="center">
 <!-- TODO: Add charts gallery screenshot -->
-<img src="path/to/charts-gallery.png" width="70%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/charts-gallery.png" width="100%">
 </p>
 
 ### Complete Machine Learning Pipeline
@@ -292,7 +292,7 @@ iris_data.scatter(
 
 <p align="center">
 <!-- TODO: Add scatter plot screenshot -->
-<img src="path/to/scatter-plot.png" width="40%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/scatter-plot.png" width="100%">
 </p>
 
 The **Correlation Matrix** is fast and convenient to compute. Users can choose from a wide variety of correlations, including Cramer, Spearman, Pearson, etc.
@@ -306,7 +306,7 @@ titanic.corr(method="spearman")
 
 <p align="center">
 <!-- TODO: Add correlation matrix screenshot -->
-<img src="path/to/correlation-matrix.png" width="75%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/correlation-matrix.png" width="100%">
 </p>
 
 By turning on the SQL print option, users can see and copy SQL queries:
@@ -325,7 +325,7 @@ titanic.corr(method="spearman", focus="survived")
 
 <p align="center">
 <!-- TODO: Add focused correlation screenshot -->
-<img src="path/to/focused-correlation.png" width="20%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/focused-correlation.png" width="100%">
 </p>
 
 #### Data Preparation
@@ -344,7 +344,7 @@ data.outliers_plot(columns="Heights")
 
 <p align="center">
 <!-- TODO: Add outliers plot screenshot -->
-<img src="path/to/outliers-plot.png" width="50%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/outliers-plot.png" width="100%">
 </p>
 
 #### Machine Learning
@@ -359,7 +359,10 @@ Example with Logistic Regression:
 
 ```python
 from vastorbit.machine_learning.model_selection.model_validation import cross_validate
-from vastorbit.machine_learning.linear_model import LogisticRegression
+from vastorbit.machine_learning.vast import LogisticRegression
+
+# Imputing missing values
+titanic_vd.fillna()
 
 # Create and evaluate model
 model = LogisticRegression()
@@ -375,7 +378,7 @@ cross_validate(
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="path/to/model-evaluation.png" width="50%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/model-evaluation.png" width="100%">
 </p>
 
 ### Loading Predefined Datasets
@@ -392,6 +395,11 @@ from vastorbit.datasets import load_iris
 iris_data = load_iris()
 ```
 
+<p align="center">
+<!-- TODO: Add model evaluation screenshot -->
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/iris-dataset.png" width="100%">
+</p>
+
 (2) Use the standard name of the dataset from the schema:
 
 ```python
@@ -399,6 +407,11 @@ import vastorbit as vo
 
 iris_data = vo.VastFrame(input_relation="public.iris")
 ```
+
+<p align="center">
+<!-- TODO: Add model evaluation screenshot -->
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/iris-dataset.png" width="100%">
+</p>
 
 ## Quickstart
 
@@ -432,7 +445,7 @@ Create a VastFrame from your data:
 ```python
 from vastorbit import VastFrame
 
-vdf = VastFrame("my_table")
+vdf = VastFrame("database.schema.my_table")
 ```
 
 Load a sample dataset:
@@ -443,6 +456,11 @@ from vastorbit.datasets import load_titanic
 vdf = load_titanic()
 ```
 
+<p align="center">
+<!-- TODO: Add model evaluation screenshot -->
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/light-theme-screenshot.png" width="100%">
+</p>
+
 Examine your data:
 
 ```python
@@ -450,8 +468,13 @@ vdf.describe()
 ```
 
 <p align="center">
+<!-- TODO: Add model evaluation screenshot -->
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/describe.png" width="100%">
+</p>
+
+<p align="center">
 <!-- TODO: Add describe output screenshot -->
-<img src="path/to/describe-output.png" width="100%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/describe-output.png" width="100%">
 </p>
 
 Print the SQL query with `set_option`:
@@ -475,7 +498,7 @@ vdf.describe()
 With VAST Orbit, you can solve ML problems with few lines of code:
 
 ```python
-from vastorbit.machine_learning.linear_model import LogisticRegression
+from vastorbit.machine_learning.vast import LogisticRegression
 from vastorbit.machine_learning.model_selection.model_validation import cross_validate
 
 # Data Preparation
@@ -501,7 +524,7 @@ cross_validate(
 
 <p align="center">
 <!-- TODO: Add cross-validation results screenshot -->
-<img src="path/to/cross-validation.png" width="100%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/cross-validation.png" width="100%">
 </p>
 
 Train and deploy the model:
@@ -520,7 +543,7 @@ model.features_importance()
 
 <p align="center">
 <!-- TODO: Add feature importance screenshot -->
-<img src="path/to/feature-importance.png" width="80%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/feature-importance.png" width="100%">
 </p>
 
 ROC Curve:
@@ -532,7 +555,7 @@ model.roc_curve()
 
 <p align="center">
 <!-- TODO: Add ROC curve screenshot -->
-<img src="path/to/roc-curve.png" width="80%">
+<img src="https://raw.githubusercontent.com/vastdata-dev/vastorbit/main/assets/img/roc-curve.png" width="100%">
 </p>
 
 Once trained, the model can be deployed in the database for high-performance predictions _(in-database deployment availability and limitations vary by algorithm — see [Project Status & Roadmap](#project-status--roadmap))_.

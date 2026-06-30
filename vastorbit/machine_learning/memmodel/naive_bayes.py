@@ -581,7 +581,7 @@ class NaiveBayes(MulticlassClassifier):
                 elif prob["type"] == "bernoulli":
                     prob = f"(CASE WHEN {x} != 0 THEN {prob[c]} ELSE {1 - prob[c]} END)"
                 elif prob["type"] == "categorical":
-                    prob_res = f"CASE "
+                    prob_res = "CASE "
                     for cat in prob[str(c)]:
                         prob_res += f"WHEN {x} = '{cat}' THEN {prob[str(c)][cat]} "
                     prob = prob_res + "END"

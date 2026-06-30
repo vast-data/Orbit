@@ -4,7 +4,7 @@ SPDX-License-Identifier: Apache-2.0
 
 import html
 import shutil
-from typing import Literal, Optional
+from typing import Optional
 
 import vastorbit._config.config as conf
 from vastorbit._typing import NoneType

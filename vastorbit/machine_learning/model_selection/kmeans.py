@@ -12,7 +12,6 @@ import vastorbit._config.config as conf
 from vastorbit._typing import PlottingObject, SQLColumns, SQLRelation
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._format import format_type, quote_ident, schema_relation
 
 from vastorbit.core.tablesample.base import TableSample
@@ -478,7 +477,7 @@ def elbow(
     else:
         L = n_clusters
         L.sort()
-    schema = schema_relation(input_relation)[0]
+    _schema = schema_relation(input_relation)[0]
     elbow_score = []
     between_clusters_ss = []
     total_ss = []

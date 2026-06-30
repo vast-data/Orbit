@@ -21,7 +21,7 @@ _vast_templates_registered = False
 
 def _register_vast_templates() -> None:
     """Register the VAST brand Plotly templates once per session."""
-    global _vast_templates_registered
+    global _vast_templates_registered  # pylint: disable=global-statement
     if _vast_templates_registered:
         return
     base = dict(
@@ -130,7 +130,7 @@ class PlotlyBase(PlottingBase):
             )
         labels_count = {}
         labels_father = {}
-        for j in range(pivot_array.shape[0] - 1):
+        for _j in range(pivot_array.shape[0] - 1):
             for i in range(len(pivot_array[0])):
                 current_label = pivot_array[-2][i]
                 if current_label not in labels_count:

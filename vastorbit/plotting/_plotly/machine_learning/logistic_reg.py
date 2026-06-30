@@ -146,7 +146,6 @@ class LogisticRegressionPlot(PlotlyBase):
                     )
                 )
             )
-            X_logit, Y_logit, Z_logit
 
             for i, x, y in [
                 (0, x0, y0),

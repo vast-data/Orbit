@@ -5,7 +5,6 @@ SPDX-License-Identifier: Apache-2.0
 import math
 from collections.abc import Iterable
 from typing import Callable, Literal, Optional, Union
-import numpy as np
 
 import vastorbit._config.config as conf
 from vastorbit._typing import (

@@ -172,7 +172,7 @@ def validate_path(path: str) -> str:
         try:
             os.makedirs(directory, 0o700, exist_ok=True)
         except Exception as e:
-            raise ValueError(f"Cannot create directory for path '{path}': {e}")
+            raise ValueError(f"Cannot create directory for path '{path}': {e}") from e
 
     if not os.access(directory, os.W_OK):
         raise ValueError(f"Cannot use path '{path}': directory is not writable.")

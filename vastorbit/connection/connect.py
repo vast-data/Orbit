@@ -14,7 +14,6 @@ from vastorbit._utils._print import print_message
 from vastorbit.connection.errors import ConnectionError, OAuthTokenRefreshError
 from vastorbit.connection.global_connection import (
     get_global_connection,
-    GlobalConnection,
 )
 from vastorbit.connection.read import read_dsn
 from vastorbit.connection.utils import get_confparser, get_connection_file
@@ -154,7 +153,7 @@ def connect(section: str, dsn: Optional[str] = None) -> None:
                 vast_connection(section, dsn, config=None), section, dsn
             )
         print_message("Connected Successfully!")
-    except OAuthTokenRefreshError as error:
+    except OAuthTokenRefreshError:
         print_message(
             "Access Denied: Your authentication credentials are incorrect or have expired. Please retry"
         )
@@ -166,9 +165,9 @@ def connect(section: str, dsn: Optional[str] = None) -> None:
                 vast_connection(section, dsn, config=None), section, dsn
             )
             print_message("Connected Successfully!")
-        except OAuthTokenRefreshError as error:
+        except OAuthTokenRefreshError as exc:
             print_message("Error persists:")
-            raise error
+            raise exc
     except ConnectionError as error:
         print_message(
             "A connection error occurred. Common reasons may be an invalid host, port, or, if requiring "
@@ -184,7 +183,7 @@ def connect(section: str, dsn: Optional[str] = None) -> None:
                 "'host': ..., 'user': ...}.\n"
                 "To view available connections, use the "
                 "the 'available_connections' function."
-            )
+            ) from e
         raise e
 
 
@@ -254,7 +253,9 @@ def set_connection(conn: Any) -> None:
         cursor.close()
         assert res == 1
     except Exception as e:
-        raise ConnectionError(f"The input connector is not working properly.\n{e}")
+        raise ConnectionError(
+            f"The input connector is not working properly.\n{e}"
+        ) from e
     gb_conn = get_global_connection()
     gb_conn.set_connection(conn)
 
@@ -387,8 +388,8 @@ def current_connection() -> Any:
                     conn = vastorbitlab_connection()
                     gb_conn.set_connection(conn)
 
-                except:
-                    raise e
+                except Exception as exc:
+                    raise e from exc
 
     return gb_conn.get_connection()
 

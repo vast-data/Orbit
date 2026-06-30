@@ -747,7 +747,9 @@ def min(expr: SQLExpression) -> StringSQL:
     return StringSQL(f"MIN({expr})", "real")
 
 
-def nth_value(expr: SQLExpression, row_number: int) -> StringSQL:
+def nth_value(
+    expr: SQLExpression, row_number: int
+) -> StringSQL:  # pylint: disable=redefined-outer-name
     """
     Returns the value evaluated at the row that is
     the nth row of the window (counting from 1).

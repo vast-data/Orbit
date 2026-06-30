@@ -2,12 +2,11 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from typing import Literal, Optional, Union
+from typing import Literal, Optional
 import numpy as np
 import sklearn
 
 from vastorbit._typing import PlottingObject
-from vastorbit._utils._sql._collect import save_vastorbit_logs
 
 from vastorbit.core.vastframe.base import VastFrame
 

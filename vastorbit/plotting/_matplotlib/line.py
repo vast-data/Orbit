@@ -68,7 +68,7 @@ class LinePlot(MatplotlibBase):
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
         colors = self.get_colors()
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=True, grid="y", style_kwargs=style_kwargs
         )
         plot_fun = ax.step if (self.layout["kind"] == "step") else ax.plot
@@ -184,7 +184,7 @@ class MultiLinePlot(MatplotlibBase):
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
         colors = self.get_colors()
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=True, grid="y", style_kwargs=style_kwargs
         )
         n, m = self.data["Y"].shape

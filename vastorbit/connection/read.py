@@ -132,7 +132,7 @@ def read_dsn(section: str, dsn: Optional[str] = None) -> Dict[str, Any]:
     if confparser.has_section(section):
         options = confparser.items(section)
 
-        gb_conn = get_global_connection()
+        _gb_conn = get_global_connection()
         conn_info: Dict[str, Any] = {
             "port": 8080,  # Default Trino port
             "user": "admin",

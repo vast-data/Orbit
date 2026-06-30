@@ -728,9 +728,9 @@ class Tree(InMemoryModel):
                     label = f'"{self.value_[i]}"'
                 elif hasattr(self, "psy"):
                     if not empty_color:
-                        color = classes_color[0]
+                        _color = classes_color[0]
                     else:
-                        color = "#eeeeee"
+                        _color = "#eeeeee"
                     anomaly_score = self.value_[i][0] + self._heuristic_length(
                         self.value_[i][1]
                     )

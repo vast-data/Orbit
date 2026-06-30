@@ -12,7 +12,6 @@ from vastorbit.connection.errors import QueryError
 from vastorbit._typing import NoneType, SQLColumns, SQLRelation
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type
-from vastorbit._utils._gen import gen_tmp_name
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame

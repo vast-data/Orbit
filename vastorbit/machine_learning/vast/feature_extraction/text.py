@@ -2,7 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from typing import Literal, Optional, Union
+from typing import Literal, Optional
 
 import numpy as np
 
@@ -628,7 +628,7 @@ class TfidfVectorizer(VASTModel):
             CROSS JOIN UNNEST(words) AS t(word_element)"""
 
         # Term frequency
-        q_tf = f"""
+        q_tf = """
             SELECT
                 row_id,
                 value AS word,

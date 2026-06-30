@@ -92,7 +92,7 @@ class ChampionChallengerPlot(MatplotlibBase):
         elif len(self.data["c"]) > 0:
             c = X[:, 2]
         colors = self.get_colors()
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=True, grid="y", style_kwargs=style_kwargs
         )
         if len(self.data["c"]) > 0:

@@ -150,7 +150,7 @@ class PieChart(MatplotlibBase):
                         zip(self.data["y"], self.layout["labels"]), key=lambda t: t[0]
                     )
                 )
-            except:
+            except Exception:
                 y, labels = self.data["y"], self.layout["labels"]
             N = len(labels)
             width = 2 * np.pi / N
@@ -189,7 +189,7 @@ class PieChart(MatplotlibBase):
                 labels, colors = zip(
                     *sorted(zip(labels, colors[:N]), key=lambda t: t[0])
                 )
-            except:
+            except Exception:
                 pass
             ax.legend(
                 [Line2D([0], [0], color=color) for color in colors],
@@ -254,7 +254,7 @@ class NestedPieChart(MatplotlibBase):
         wedgeprops = dict(width=0.3, edgecolor="w")
         colors, wedgeprops, kwargs = self._get_final_style(style_kwargs=style_kwargs)
         m, k = len(colors), 0
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax,
             size=(12, 8),
             set_axis_below=False,

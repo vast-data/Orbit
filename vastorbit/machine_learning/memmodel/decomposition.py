@@ -380,7 +380,7 @@ class PCA(InMemoryModel):
         p, k = Phi.shape
         R = np.eye(k)
         d = 0
-        for i in range(q):
+        for _i in range(q):
             d_old = d
             Lambda = np.dot(Phi, R)
             u, s, vh = svd(

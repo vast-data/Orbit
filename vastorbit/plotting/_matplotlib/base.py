@@ -5,7 +5,6 @@ SPDX-License-Identifier: Apache-2.0
 import copy
 from typing import Optional, Union
 
-import matplotlib as mpl
 from matplotlib.axes import Axes
 from matplotlib.pyplot import Figure
 import matplotlib.pyplot as plt
@@ -124,7 +123,7 @@ class MatplotlibBase(PlottingBase):
                 color="gray",
                 alpha=0.7,
             )
-        except:
+        except Exception:
             pass
 
         # Adjust layout to make room

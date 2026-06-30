@@ -6,7 +6,6 @@ from typing import Literal, Optional
 
 import plotly.graph_objects as go
 from plotly.graph_objs._figure import Figure
-import numpy as np
 
 from vastorbit.plotting._plotly.base import PlotlyBase
 

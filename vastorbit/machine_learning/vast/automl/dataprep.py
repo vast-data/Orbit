@@ -8,7 +8,6 @@ from typing import Literal, Optional
 
 import vastorbit._config.config as conf
 from vastorbit._typing import NoneType, TimeInterval, SQLColumns, SQLRelation
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type
 from vastorbit._utils._sql._sys import _executeSQL

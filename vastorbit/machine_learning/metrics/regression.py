@@ -1267,7 +1267,7 @@ def regression_report(
         if m in ("r2_adj", "aic", "bic") and not cnt_in:
             q_subquery += [
                 f"COUNT({y_true}) OVER() AS _vastorbit_cnt_y_true",
-                f"COUNT(_y_score) OVER() AS _vastorbit_cnt_y_score",
+                "COUNT(_y_score) OVER() AS _vastorbit_cnt_y_score",
             ]
             cnt_in = True
         if m in ("aic", "bic") and not mse_in:

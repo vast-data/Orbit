@@ -4,7 +4,6 @@ SPDX-License-Identifier: Apache-2.0
 
 from typing import Literal, Optional
 
-import numpy as np
 import plotly.graph_objects as go
 from plotly.graph_objs._figure import Figure
 

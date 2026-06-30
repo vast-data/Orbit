@@ -101,7 +101,7 @@ def infer_trino_type(series: pd.Series, column_name: str) -> str:
                 ):
                     return "TIMESTAMP"
                 return "DATE"
-        except:
+        except Exception:
             pass
 
         # Check if it's numeric
@@ -120,7 +120,7 @@ def infer_trino_type(series: pd.Series, column_name: str) -> str:
                         return "INTEGER"
                     return "BIGINT"
                 return "DOUBLE"
-        except:
+        except Exception:
             pass
 
         # Determine VARCHAR length
@@ -424,7 +424,7 @@ def _read_single_csv(
         try:
             cursor.execute(f"SELECT 1 FROM {full_table_name} LIMIT 1")
             table_exists = True
-        except:
+        except Exception:
             table_exists = False
 
         if table_exists and not insert:
@@ -565,13 +565,13 @@ def _read_single_csv(
                         try:
                             date_str = pd.Timestamp(val).strftime("%Y-%m-%d")
                             values.append(f"DATE '{date_str}'")
-                        except:
+                        except Exception:
                             values.append("NULL")
                     elif "TIMESTAMP" in col_type:
                         try:
                             ts_str = pd.Timestamp(val).strftime("%Y-%m-%d %H:%M:%S")
                             values.append(f"TIMESTAMP '{ts_str}'")
-                        except:
+                        except Exception:
                             values.append("NULL")
                     elif "TIME" in col_type and "TIMESTAMP" not in col_type:
                         values.append(f"TIME '{str(val)}'")
@@ -658,13 +658,13 @@ def _read_single_csv(
         # Cleanup on error
         try:
             cursor.execute(f"DROP TABLE IF EXISTS memory.default.{memory_table}")
-        except:
+        except Exception:
             pass
 
         if not insert:
             try:
                 drop(full_table_name, method="table")
-            except:
+            except Exception:
                 pass
 
         raise e

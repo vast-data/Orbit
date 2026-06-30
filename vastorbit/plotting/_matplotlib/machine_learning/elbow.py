@@ -41,7 +41,7 @@ class ElbowCurve(MatplotlibBase):
         """
         Draws a machine learning bubble plot using the Matplotlib API.
         """
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=False, grid="y", style_kwargs=style_kwargs
         )
         ax.plot(

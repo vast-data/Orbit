@@ -2,9 +2,8 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from typing import Any, Literal, Optional
+from typing import Literal, Optional
 
-import numpy as np
 
 from matplotlib.axes import Axes
 
@@ -50,9 +49,9 @@ class TSPlot(MatplotlibBase):
 
         # Initialization
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
-        colors = self.get_colors()
+        _colors = self.get_colors()
         color_kwargs = {"color": self.get_colors()}
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=True, grid="y", style_kwargs=style_kwargs
         )
         # Standard Error
@@ -92,8 +91,8 @@ class TSPlot(MatplotlibBase):
         # kwargs = {**kwargs, **{"linestyle": "dashed"}}
         ax.plot(*args, **kwargs, label="forecast")
         # Labels
-        min_x = min(min(self.data["x"]), min(self.data["x_pred"]))
-        max_x = max(max(self.data["x"]), max(self.data["x_pred"]))
+        min_x = min(*self.data["x"], *self.data["x_pred"])
+        max_x = max(*self.data["x"], *self.data["x_pred"])
         ax.set_xlim(min_x, max_x)
         ax.set_xlabel(self.layout["order_by"])
         ax.set_ylabel(self.layout["columns"])

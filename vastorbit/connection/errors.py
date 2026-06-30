@@ -10,23 +10,17 @@ class ConnectionError(Exception):
     Error class for database connection errors.
     """
 
-    pass
-
 
 class DuplicateObject(Exception):
     """
     Error class for database duplicate object.
     """
 
-    pass
-
 
 class MissingRelation(Exception):
     """
     Error class for database missing relations.
     """
-
-    pass
 
 
 """
@@ -42,8 +36,6 @@ class OAuthConfigurationError(ConnectionError):
     OAuth configuration setup.
     """
 
-    pass
-
 
 class OAuthEndpointDiscoveryError(ConnectionError):
     """
@@ -51,13 +43,9 @@ class OAuthEndpointDiscoveryError(ConnectionError):
     failure to get token url from discovery url.
     """
 
-    pass
-
 
 class OAuthTokenRefreshError(ConnectionError):
     """
     Error class which covers errors pertaining to
     failure to authenticate using Refresh Token.
     """
-
-    pass

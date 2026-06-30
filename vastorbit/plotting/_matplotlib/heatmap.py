@@ -91,7 +91,7 @@ class HeatMap(MatplotlibBase):
         kwargs = self._update_dict(kwargs, style_kwargs)
         try:
             im = ax.imshow(np.transpose(X), **kwargs)
-        except:
+        except Exception:
             if not isinstance(kwargs["extent"], NoneType):
                 kwargs["extent"] = None
                 im = ax.imshow(np.transpose(X), **kwargs)

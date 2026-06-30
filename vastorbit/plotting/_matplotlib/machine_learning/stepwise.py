@@ -36,7 +36,7 @@ class StepwisePlot(MatplotlibBase):
         Draws a stepwise plot using the Matplotlib API.
         """
         colors = self.get_colors()
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=True, grid="y", style_kwargs=style_kwargs
         )
         sign = "+" if self.layout["direction"] == "forward" else "-"

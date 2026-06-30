@@ -135,7 +135,7 @@ def drop(
 
     elif method == "temp":
         # Drop temporary tables
-        sql = f"""
+        sql = """
         SELECT table_schema, table_name 
         FROM information_schema.tables
         WHERE LOWER(table_name) LIKE '%_vastorbit_tmp_%'
@@ -150,7 +150,7 @@ def drop(
             drop(table, method="table")
 
         # Drop temporary views
-        sql = f"""
+        sql = """
         SELECT table_schema, table_name 
         FROM information_schema.views
         WHERE LOWER(table_name) LIKE '%_vastorbit_tmp_%'

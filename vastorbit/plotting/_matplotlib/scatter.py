@@ -66,7 +66,7 @@ class ScatterMatrix(MatplotlibBase):
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
         n = len(self.layout["columns"])
-        fig, axes = plt.subplots(
+        _fig, axes = plt.subplots(
             nrows=n,
             ncols=n,
             figsize=self._get_matrix_fig_size(n=n),
@@ -136,7 +136,7 @@ class ScatterPlot(MatplotlibBase):
         Draws a scatter plot using the Matplotlib API.
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
-        n, m = self.data["X"].shape
+        _n, m = self.data["X"].shape
         ax, fig, style_kwargs = self._get_ax_fig(
             ax,
             size=(8, 6),

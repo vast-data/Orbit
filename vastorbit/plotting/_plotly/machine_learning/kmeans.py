@@ -86,7 +86,7 @@ class VoronoiPlot(PlotlyBase):
         center = vor.points.mean(axis=0)
         try:
             ptp_bound = vor.points.ptp(axis=0)
-        except:
+        except Exception:
             ptp_bound = np.ptp(vor.points, axis=0)
         finite_segments = []
         infinite_segments = []

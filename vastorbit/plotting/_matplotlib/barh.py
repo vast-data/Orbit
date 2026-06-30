@@ -44,7 +44,7 @@ class HorizontalBarChart(MatplotlibBase):
         Draws a bar chart using the Matplotlib API.
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax,
             size=(10, min(int(len(self.data["x"]) / 1.8) + 1, 600)),
             grid="x",
@@ -126,14 +126,14 @@ class HorizontalBarChart2D(MatplotlibBase):
         m, n = matrix.shape
         yticks = [j for j in range(m)]
         if self.layout["kind"] == "density":
-            ax, fig, style_kwargs = self._get_ax_fig(
+            ax, _fig, style_kwargs = self._get_ax_fig(
                 ax,
                 size=(10, min(m * 3, 600) / 8 + 1),
                 grid="x",
                 style_kwargs=style_kwargs,
             )
         else:
-            ax, fig, style_kwargs = self._get_ax_fig(
+            ax, _fig, style_kwargs = self._get_ax_fig(
                 ax,
                 size=(10, min(m * 3, 600) / 2 + 1),
                 grid="x",
@@ -178,7 +178,7 @@ class HorizontalBarChart2D(MatplotlibBase):
         ax.set_xlabel(self.layout["method_of"])
         if self.layout["kind"] in ("density", "fully_stacked"):
             vals = ax.get_xticks()
-            max_val = max(abs(x) for x in vals)
+            _max_val = max(abs(x) for x in vals)
             ax.xaxis.set_major_locator(mticker.FixedLocator(vals))
             ax.set_xticklabels(["{:,.2%}".format(abs(x)) for x in vals])
         ax.legend(

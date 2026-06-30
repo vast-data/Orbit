@@ -54,7 +54,7 @@ class PCACirclePlot(MatplotlibBase):
         if "color" in style_kwargs:
             colors[0] = style_kwargs["color"]
         circle1 = plt.Circle((0, 0), 1, **self.init_style_circle)
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(6, 6), set_axis_below=True, grid=False, style_kwargs=style_kwargs
         )
         n = len(self.data["x"])
@@ -126,7 +126,7 @@ class PCAScreePlot(MatplotlibBase):
         """
         Draws a PCA Scree plot using the Matplotlib API.
         """
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax,
             size=(min(int(len(self.data["x"]) / 1.8) + 1, 600), 6),
             set_axis_below=True,
