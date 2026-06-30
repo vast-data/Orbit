@@ -1,5 +1,5 @@
 <p align="center">
-<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/vo_logo.png' width="180px">
+<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/vo_logo.png' width="480px">
 </p>
 
 > **Beta:** VAST Orbit `0.1.x` is the first beta release series. The API and features will change as we work toward a stable `1.0.0`. See [Project Status & Roadmap](#project-status--roadmap).
@@ -191,7 +191,7 @@ SELECT version();
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql_version.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql_version.png" width="30%">
 </p>
 
 ### SQL Plots
@@ -209,7 +209,7 @@ To create plots, simply provide the type of plot along with the SQL command.
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql-plot-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql-plot-screenshot.png" width="30%">
 </p>
 
 ### Python and SQL Combo
@@ -292,7 +292,7 @@ iris_data.scatter(
 
 <p align="center">
 <!-- TODO: Add scatter plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/scatter-plot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/scatter-plot.png" width="70%">
 </p>
 
 The **Correlation Matrix** is fast and convenient to compute. Users can choose from a wide variety of correlations, including Cramer, Spearman, Pearson, etc.
@@ -306,7 +306,7 @@ titanic.corr(method="spearman")
 
 <p align="center">
 <!-- TODO: Add correlation matrix screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/correlation-matrix.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/correlation-matrix.png" width="70%">
 </p>
 
 By turning on the SQL print option, users can see and copy SQL queries:
@@ -325,7 +325,7 @@ titanic.corr(method="spearman", focus="survived")
 
 <p align="center">
 <!-- TODO: Add focused correlation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/focused-correlation.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/focused-correlation.png" width="70%">
 </p>
 
 #### Data Preparation
@@ -344,7 +344,7 @@ data.outliers_plot(columns="Heights")
 
 <p align="center">
 <!-- TODO: Add outliers plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/outliers-plot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/outliers-plot.png" width="70%">
 </p>
 
 #### Machine Learning
@@ -397,7 +397,7 @@ iris_data = load_iris()
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="70%">
 </p>
 
 (2) Use the standard name of the dataset from the schema:
@@ -410,7 +410,7 @@ iris_data = vo.VastFrame(input_relation="public.iris")
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="70%">
 </p>
 
 ## Quickstart
@@ -466,11 +466,6 @@ Examine your data:
 ```python
 vdf.describe()
 ```
-
-<p align="center">
-<!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/describe.png" width="100%">
-</p>
 
 <p align="center">
 <!-- TODO: Add describe output screenshot -->
@@ -555,7 +550,7 @@ model.roc_curve()
 
 <p align="center">
 <!-- TODO: Add ROC curve screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/roc-curve.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/roc-curve.png" width="70%">
 </p>
 
 Once trained, the model can be deployed in the database for high-performance predictions _(in-database deployment availability and limitations vary by algorithm — see [Project Status & Roadmap](#project-status--roadmap))_.
