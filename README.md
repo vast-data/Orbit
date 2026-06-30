@@ -17,11 +17,9 @@
 ## Introduction Video
 
 <p align="center">
-  <a href="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_intro_poster.png">
-    <img
-      src="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4"
-      width="100%"
-      alt="VAST Orbit — Trailer (click to watch)">
+  <a href="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4">
+    <img src="docs/source/_static/website/video/vastorbit_intro_poster.png"
+         width="100%" alt="VAST Orbit — Trailer (click to watch)">
   </a>
 </p>
 
@@ -229,7 +227,7 @@ selected_titanic.groupby(columns=["pclass"], expr=["AVG(survived) AS avg_survive
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/select_gb.png" width="40%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/select_gb.png" width="30%">
 </p>
 
 ### Charts
