@@ -22,6 +22,10 @@ try:
 except ValueError:
     _MPL_MAJOR_MINOR = (3, 9)
 _BOXPLOT_LABELS_KW = "tick_labels" if _MPL_MAJOR_MINOR >= (3, 9) else "labels"
+# matplotlib deprecated boxplot's boolean ``vert`` argument in 3.10 in favour of
+# ``orientation`` ("vertical"/"horizontal"). Pass whichever the installed version
+# expects so no PendingDeprecationWarning is emitted.
+_BOXPLOT_USE_ORIENTATION = _MPL_MAJOR_MINOR >= (3, 10)
 
 
 class BoxPlot(MatplotlibBase):
@@ -73,13 +77,24 @@ class BoxPlot(MatplotlibBase):
         else:
             set_lim = ax.set_xlim
             set_tick = ax.set_yticklabels
+        if _BOXPLOT_USE_ORIENTATION:
+            orientation_kw = {
+                "orientation": "vertical" if style_kwargs["vert"] else "horizontal"
+            }
+        else:
+            orientation_kw = {"vert": style_kwargs["vert"]}
         box = ax.boxplot(
             self.data["X"],
             notch=False,
             patch_artist=True,
+            **orientation_kw,
             **{_BOXPLOT_LABELS_KW: self.layout["labels"]},
             **self.init_style,
-            **{key: value for key, value in style_kwargs.items() if key != "color"},
+            **{
+                key: value
+                for key, value in style_kwargs.items()
+                if key not in ("color", "vert")
+            },
         )
         set_tick(self.layout["labels"], rotation=90)
         for median in box["medians"]:
