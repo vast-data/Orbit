@@ -1,5 +1,5 @@
 <p align="center">
-<img src='https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/vo_logo.png' width="180px">
+<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/vo_logo.png' width="180px">
 </p>
 
 > **Beta:** VAST Orbit `0.1.x` is the first beta release series. The API and features will change as we work toward a stable `1.0.0`. See [Project Status & Roadmap](#project-status--roadmap).
@@ -17,9 +17,9 @@
 ## Introduction Video
 
 <p align="center">
-  <a href="https://github.com/vastdata-dev/VastOrbit/tree/main/docs/source/_static/website/video/vastorbit_intro_poster.png">
+  <a href="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_intro_poster.png">
     <img
-      src="https://github.com/vastdata-dev/VastOrbit/tree/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4"
+      src="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4"
       width="100%"
       alt="VAST Orbit — Trailer (click to watch)">
   </a>
@@ -27,7 +27,7 @@
 
 <p align="center">
 <!-- TODO: Add benefits image -->
-<img src='https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/benefits.png' width="92%">
+<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/benefits.png' width="92%">
 </p>
 
 VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST Database. Train models using familiar scikit-learn syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
@@ -67,7 +67,7 @@ Python has become the lingua franca of data science, offering unparalleled flexi
 
 <p align="center">
 <!-- TODO: Add architecture diagram -->
-<img src='https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/architecture.png' width="92%">
+<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/architecture.png' width="92%">
 </p>
 
 ## Project Status & Roadmap
@@ -150,14 +150,14 @@ Dark mode, ideal for extended coding sessions, features a sleek and stylish dark
 
 <p align="center">
 <!-- TODO: Add dark theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/dark-theme-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/dark-theme-screenshot.png" width="100%">
 </p>
 
 On the other hand, Light mode serves as the default theme, offering a clean and bright interface for users who prefer a traditional coding ambiance.
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/light-theme-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
 Theme can be easily switched by:
@@ -191,7 +191,7 @@ SELECT version();
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/sql_version.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql_version.png" width="100%">
 </p>
 
 ### SQL Plots
@@ -209,7 +209,7 @@ To create plots, simply provide the type of plot along with the SQL command.
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/sql-plot-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql-plot-screenshot.png" width="100%">
 </p>
 
 ### Python and SQL Combo
@@ -229,7 +229,7 @@ selected_titanic.groupby(columns=["pclass"], expr=["AVG(survived) AS avg_survive
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/select_gb.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/select_gb.png" width="100%">
 </p>
 
 ### Charts
@@ -240,7 +240,7 @@ A gallery of VAST Orbit-generated charts will be available in the documentation.
 
 <p align="center">
 <!-- TODO: Add charts gallery screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/charts-gallery.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/charts-gallery.png" width="100%">
 </p>
 
 ### Complete Machine Learning Pipeline
@@ -292,7 +292,7 @@ iris_data.scatter(
 
 <p align="center">
 <!-- TODO: Add scatter plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/scatter-plot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/scatter-plot.png" width="100%">
 </p>
 
 The **Correlation Matrix** is fast and convenient to compute. Users can choose from a wide variety of correlations, including Cramer, Spearman, Pearson, etc.
@@ -306,7 +306,7 @@ titanic.corr(method="spearman")
 
 <p align="center">
 <!-- TODO: Add correlation matrix screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/correlation-matrix.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/correlation-matrix.png" width="100%">
 </p>
 
 By turning on the SQL print option, users can see and copy SQL queries:
@@ -325,7 +325,7 @@ titanic.corr(method="spearman", focus="survived")
 
 <p align="center">
 <!-- TODO: Add focused correlation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/focused-correlation.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/focused-correlation.png" width="100%">
 </p>
 
 #### Data Preparation
@@ -344,7 +344,7 @@ data.outliers_plot(columns="Heights")
 
 <p align="center">
 <!-- TODO: Add outliers plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/outliers-plot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/outliers-plot.png" width="100%">
 </p>
 
 #### Machine Learning
@@ -378,7 +378,7 @@ cross_validate(
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/model-evaluation.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/model-evaluation.png" width="100%">
 </p>
 
 ### Loading Predefined Datasets
@@ -397,7 +397,7 @@ iris_data = load_iris()
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/iris-dataset.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="100%">
 </p>
 
 (2) Use the standard name of the dataset from the schema:
@@ -410,7 +410,7 @@ iris_data = vo.VastFrame(input_relation="public.iris")
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/iris-dataset.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="100%">
 </p>
 
 ## Quickstart
@@ -458,7 +458,7 @@ vdf = load_titanic()
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/light-theme-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
 Examine your data:
@@ -469,12 +469,12 @@ vdf.describe()
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/describe.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/describe.png" width="100%">
 </p>
 
 <p align="center">
 <!-- TODO: Add describe output screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/describe-output.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/describe-output.png" width="100%">
 </p>
 
 Print the SQL query with `set_option`:
@@ -524,7 +524,7 @@ cross_validate(
 
 <p align="center">
 <!-- TODO: Add cross-validation results screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/cross-validation.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/cross-validation.png" width="100%">
 </p>
 
 Train and deploy the model:
@@ -543,7 +543,7 @@ model.features_importance()
 
 <p align="center">
 <!-- TODO: Add feature importance screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/feature-importance.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/feature-importance.png" width="100%">
 </p>
 
 ROC Curve:
@@ -555,7 +555,7 @@ model.roc_curve()
 
 <p align="center">
 <!-- TODO: Add ROC curve screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/tree/main/assets/img/roc-curve.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/roc-curve.png" width="100%">
 </p>
 
 Once trained, the model can be deployed in the database for high-performance predictions _(in-database deployment availability and limitations vary by algorithm — see [Project Status & Roadmap](#project-status--roadmap))_.
