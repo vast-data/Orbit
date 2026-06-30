@@ -1730,7 +1730,9 @@ class vDFCorr(vDFEncode):
                         math.sqrt(2)
                         * scipy_special.erfinv(alpha)
                         / math.sqrt(self[column].count() - k + 1)
-                        * math.sqrt((1 + 2 * sum(acf[i] ** 2 for i in range(1, k))))
+                        * math.sqrt(
+                            (1 + 2 * sum((acf[i] or 0) ** 2 for i in range(1, k)))
+                        )
                     ]
             if columns[0] == column:
                 columns[0] = 0

@@ -85,53 +85,6 @@ def vastorbit_logo_html(size: str = "50%") -> str:
         code.
     """
 
-
-def vastorbit_logo_html(size: str = "50%") -> str:
-    """
-    Generates the HTML code
-    for the vastorbit logo.
-
-    Parameters
-    ----------
-    size: str, optional
-        Size for the logo. It should be
-        a percentage like '50%' or '99%'.
-
-    Returns
-    -------
-    str
-        vastorbit logo.
-
-    Examples
-    --------
-    The following code demonstrates the
-    usage of the function.
-
-    .. ipython:: python
-
-        # Import the function.
-        from vastorbit._utils._logo import vastorbit_logo_html
-
-        # result
-        logo = vastorbit_logo_html()
-
-    .. ipython:: python
-        :suppress:
-
-        html_file = open("SPHINX_DIRECTORY/figures/utils_vastorbit_logo.html", "w")
-        html_file.write(logo)
-        html_file.close()
-
-    .. raw:: html
-        :file: SPHINX_DIRECTORY/figures/utils_vastorbit_logo.html
-
-    .. note::
-
-        These functions serve as utilities to
-        construct others, simplifying the overall
-        code.
-    """
-
     # SVG content of VAST Data logo
 
     theme = conf.get_option("theme")
