@@ -148,8 +148,6 @@ def gen_params_grid(
         (
             vml.RandomForestRegressor,
             vml.RandomForestClassifier,
-            vml.DecisionTreeRegressor,
-            vml.DecisionTreeClassifier,
         ),
     ):
         if optimized_grid == 0:

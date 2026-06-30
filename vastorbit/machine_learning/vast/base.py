@@ -631,6 +631,7 @@ class VASTModel(PlottingUtils):
             specific to your class of interest,
             please refer to that particular class.
         """
+        parameters = format_type(parameters, dtype=dict)
         new_parameters = copy.deepcopy({**self.parameters, **parameters, **kwargs})
         self.__init__(**new_parameters)
 
@@ -733,7 +734,33 @@ class VASTModel(PlottingUtils):
             specific to your class of interest,
             please refer to that particular class.
         """
-        return None
+        lines = [f"=== {self._model_type} ===", f"model_name: {self.model_name}"]
+        try:
+            params = self.get_params()
+            if params:
+                lines.append("")
+                lines.append("Parameters:")
+                for key, val in params.items():
+                    lines.append(f"  {key}: {val}")
+        except Exception:
+            pass
+        try:
+            attr_names = self._attributes
+            if attr_names:
+                lines.append("")
+                lines.append("Attributes:")
+                for attr in attr_names:
+                    try:
+                        value = self.get_attributes(attr)
+                    except Exception:
+                        value = "<not computed>"
+                    svalue = str(value).replace("\n", " ")
+                    if len(svalue) > 200:
+                        svalue = svalue[:200] + "..."
+                    lines.append(f"  {attr}: {svalue}")
+        except Exception:
+            pass
+        return "\n".join(lines)
 
     # I/O Methods.
 
@@ -1611,7 +1638,16 @@ class Supervised(VASTModel):
             # order, but if the response is categorical the combined array is
             # promoted to a string dtype; cast the predictors back to float so
             # the scikit-learn estimator receives numeric X.
-            X = data[:, :-1].astype(float)  # All columns except last
+            # CategoricalNB operates on (possibly string) categories rather than
+            # floats. Ordinal-encode the predictors to integer codes and remember
+            # the encoder so the in-database SQL can reference the original labels.
+            if getattr(self, "parameters", {}).get("nbtype") == "categorical":
+                from sklearn.preprocessing import OrdinalEncoder
+
+                self._ordinal_encoder = OrdinalEncoder()
+                X = self._ordinal_encoder.fit_transform(data[:, :-1])
+            else:
+                X = data[:, :-1].astype(float)  # All columns except last
             y = data[:, -1]  # Last column
 
             # scikit-learn estimators reject NaN/Inf. Drop rows with missing

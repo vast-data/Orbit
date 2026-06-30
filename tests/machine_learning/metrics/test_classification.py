@@ -31,11 +31,11 @@ def test_accuracy(preds):
 
 
 def test_precision(preds):
-    assert 0.0 <= precision_score("y_true", "y_pred", preds) <= 1.0
+    assert 0.0 <= precision_score("y_true", "y_pred", preds, pos_label=1) <= 1.0
 
 
 def test_recall(preds):
-    assert 0.0 <= recall_score("y_true", "y_pred", preds) <= 1.0
+    assert 0.0 <= recall_score("y_true", "y_pred", preds, pos_label=1) <= 1.0
 
 
 def test_confusion_matrix(preds):

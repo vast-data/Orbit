@@ -224,14 +224,9 @@ To create a seasonal decomposition plot, we must visualize the primary time seri
         decomposition["passengers_seasonal"].plot(ts = "date", ax = ax3, color = "green")
         ax3.set_xlabel("")
         ax3.get_xaxis().set_ticks([])
+
+        @savefig plotting_matplotlib_seasonal.png
         decomposition["passengers_epsilon"].plot(ts = "date", ax = ax4, color = "grey")
-        plt.savefig("figures/plotting_matplotlib_seasonal.png")
-
-
-    .. image:: ../../../docs/figures/plotting_matplotlib_seasonal.png
-        :width: 100%
-        :align: center
-
 
 ___________________
 

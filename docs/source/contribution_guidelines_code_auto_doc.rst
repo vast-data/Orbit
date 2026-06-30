@@ -563,6 +563,7 @@ The ``@savefig`` directive saves the matplotlib figure to a file and displays it
 
 .. ipython:: python
    :suppress:
+   :okwarning:
 
    import matplotlib.pyplot as plt
    x = [1, 2, 3, 4, 5]

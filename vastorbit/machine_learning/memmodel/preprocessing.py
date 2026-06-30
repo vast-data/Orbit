@@ -198,15 +198,6 @@ class StandardScaler(Scaler):
     implementation of
     standard ``Scaler``.
 
-    Parameters
-    ----------
-    mean: ArrayLike
-        Model's features
-        averages.
-    std: ArrayLike
-        Model's features
-        standard deviations.
-
     .. note::
 
         The :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.StandardScaler`
@@ -219,6 +210,16 @@ class StandardScaler(Scaler):
 
     Attributes are identical to
     :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.Scaler`.
+
+
+    Parameters
+    ----------
+    mean: ArrayLike
+        Model's features
+        averages.
+    std: ArrayLike
+        Model's features
+        standard deviations.
 
     Examples
     --------
@@ -311,14 +312,6 @@ class MinMaxScaler(Scaler):
     implementation of
     ``MinMax`` scaler.
 
-    Parameters
-    ----------
-
-    ``min_``: ArrayLike
-        Model's features minimums.
-    ``max_``: ArrayLike
-        Model's features maximums.
-
     .. note::
 
         The :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.MinMaxScaler`
@@ -332,6 +325,15 @@ class MinMaxScaler(Scaler):
 
     Attributes are identical to
     :py:class:`~vastorbit.machine_learning.memmodel.preprocessing.Scaler`.
+
+
+    Parameters
+    ----------
+
+    ``min_``: ArrayLike
+        Model's features minimums.
+    ``max_``: ArrayLike
+        Model's features maximums.
 
     Examples
     --------
@@ -706,7 +708,7 @@ class OneHotEncoder(InMemoryModel):
             for j in range(len(self.categories_[i])):
                 if not self.drop_first_ or j > 0:
                     val = format_magic(self.categories_[i][j])
-                    sql_tmp_feature = f"(CASE WHEN {X[i]} = {val} THEN 1 ELSE 0 END)"
+                    sql_tmp_feature = f"(CASE WHEN CAST({X[i]} AS VARCHAR) = CAST({val} AS VARCHAR) THEN 1 ELSE 0 END)"
                     X_i = str(X[i]).replace('"', "")
                     if self.column_naming_ == "indices":
                         sql_tmp_feature += f' AS "{X_i}_{j}"'

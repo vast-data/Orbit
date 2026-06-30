@@ -352,7 +352,7 @@ def randomized_features_search_cv(
 
         import vastorbit.datasets as vod
 
-        data = vod.load_titanic()
+        data = vod.load_titanic().fillna()
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
@@ -677,7 +677,8 @@ def stepwise(
     .. ipython:: python
 
         import vastorbit.datasets as vod
-        data = vod.load_titanic()
+        
+        data = vod.load_titanic().fillna()
 
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_titanic.html
@@ -723,7 +724,8 @@ def stepwise(
         from vastorbit.machine_learning.model_selection import stepwise
 
         vo.set_option("plotting_lib", "plotly")
-        result = stepwise(model,
+        result = stepwise(
+            model,
             input_relation = data,
             X = ["age", "fare", "parch", "pclass",],
             y = "survived",

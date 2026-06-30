@@ -329,6 +329,7 @@ Now we can plot the graphs. In vastorbit we have multiple options to plot the gr
 Now let's first try to plot this using Matplotlib:
 
 .. ipython:: python
+    :okwarning:
 
     import matplotlib.pyplot as plt
     from matplotlib.pyplot import axhline

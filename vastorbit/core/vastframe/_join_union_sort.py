@@ -281,8 +281,7 @@ class vDFJoinUnionSort(vDFMath):
             each left-hand row, the most recent right-hand row
             whose time is **less than or equal to** the
             left-hand time is matched
-            (last-observation-carried-forward) — the equivalent
-            of Vertica's ``INTERPOLATE PREVIOUS VALUE`` join.
+            (last-observation-carried-forward)
 
             .. note::
 

@@ -23,7 +23,7 @@ def test_build_from_pandas():
 
 
 def test_head(titanic):
-    assert titanic.head(5).shape()[0] == 5
+    assert titanic.head(5).shape()[1] == 5   # TableSample.shape() is (cols, rows)
 
 
 def test_copy_is_independent(titanic):
@@ -41,5 +41,9 @@ def test_to_pandas(iris):
 
 def test_to_db_round_trip(titanic, name_factory):
     tbl = name_factory("io_table")
-    titanic.head(20).to_db(tbl, relation_type="table")
-    assert vo.VastFrame(tbl).shape()[0] == 20
+    # use well-typed numeric columns (avoid all-NULL cols like ``cabin`` whose
+    # type can't be inferred when round-tripped through a TableSample)
+    sub = titanic[["pclass", "age", "fare", "survived"]].dropna()
+    n = sub.shape()[0]
+    sub.to_db(tbl)
+    assert vo.VastFrame(tbl).shape()[0] == n

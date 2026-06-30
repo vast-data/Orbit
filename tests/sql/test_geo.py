@@ -15,5 +15,5 @@ def test_coordinate_converter(name_factory):
 
 
 def test_gen_meshgrid():
-    res = gen_meshgrid({"x": [0, 10], "y": [0, 10]})
+    res = gen_meshgrid({"x": {"type": int, "range": [0, 10]}, "y": {"type": int, "range": [0, 10]}})
     assert res is not None

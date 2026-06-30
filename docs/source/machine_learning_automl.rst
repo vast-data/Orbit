@@ -141,6 +141,3 @@ AutoDataPrep
    :toctree: api/
 
    AutoDataPrep.object_type
-
-
-_____

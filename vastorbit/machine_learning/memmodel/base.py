@@ -383,11 +383,13 @@ class MulticlassClassifier(InMemoryModel):
         else:
             classes_ = [i for i in range(m)]
         if m == 2:
+            class_1 = format_magic(classes_[1])
+            class_0 = format_magic(classes_[0])
             res = f"""
                 (CASE 
                     WHEN {trees_pred[1]} > 0.5 
-                        THEN {classes_[1]} 
-                    ELSE {classes_[0]} 
+                        THEN {class_1} 
+                    ELSE {class_0} 
                 END)"""
         else:
             sql = []

@@ -71,5 +71,3 @@ Linear Model Classifier
    :toctree: api/
 
    LinearModelClassifier.object_type
-
-____

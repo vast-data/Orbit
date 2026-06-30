@@ -207,5 +207,3 @@ Isolation Forest
    :toctree: api/
 
    IsolationForest.object_type
-
-____

@@ -93,21 +93,44 @@ def name_factory():
 # --------------------------------------------------------------------------- #
 # Datasets (loaded once per session, read-only)
 # --------------------------------------------------------------------------- #
+# Loaded once per session, then handed to each test as a fresh ``.copy()`` so
+# that in-place mutations (e.g. ``model.predict(vdf, name="pred")`` adding a
+# column) cannot leak between tests or parametrizations.
 @pytest.fixture(scope="session")
-def titanic(trino_connection):
+def _titanic_raw(trino_connection):
     return load_titanic()
 
 
+@pytest.fixture
+def titanic(_titanic_raw):
+    return _titanic_raw.copy()
+
+
 @pytest.fixture(scope="session")
-def iris(trino_connection):
+def _iris_raw(trino_connection):
     return load_iris()
 
 
+@pytest.fixture
+def iris(_iris_raw):
+    return _iris_raw.copy()
+
+
 @pytest.fixture(scope="session")
-def winequality(trino_connection):
+def _winequality_raw(trino_connection):
     return load_winequality()
 
 
+@pytest.fixture
+def winequality(_winequality_raw):
+    return _winequality_raw.copy()
+
+
 @pytest.fixture(scope="session")
-def airline(trino_connection):
+def _airline_raw(trino_connection):
     return load_airline_passengers()
+
+
+@pytest.fixture
+def airline(_airline_raw):
+    return _airline_raw.copy()

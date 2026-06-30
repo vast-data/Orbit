@@ -90,7 +90,7 @@ class vDFFilter(vDFAgg):
                     ],
                     "val": [0., 1., 2., 4., 5.],
                 }
-            )
+            )["time"].astype("timestamp")
 
         .. ipython:: python
             :suppress:
@@ -408,7 +408,7 @@ class vDFFilter(vDFAgg):
                     ],
                     "val": [0., 1., 2., 4.,5.],
                 }
-            )
+            )["time"].astype("timestamp")
 
         .. ipython:: python
             :suppress:
@@ -439,7 +439,7 @@ class vDFFilter(vDFAgg):
 
         .. code-block:: python
 
-            vdf.between(column= "time", start= "1993-11-02", end = "1993-11-04")
+            vdf.between(column = "time", start = "1993-11-02", end = "1993-11-04")
 
         .. ipython:: python
             :suppress:
@@ -544,7 +544,7 @@ class vDFFilter(vDFAgg):
                     ],
                     "val": [0., 1., 2., 4., 5., 3., 2.],
                 }
-            )
+            )["time"].astype("timestamp")
 
         .. ipython:: python
             :suppress:

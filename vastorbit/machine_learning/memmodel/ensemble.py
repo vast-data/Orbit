@@ -873,7 +873,7 @@ class RandomForestClassifier(Ensemble, MulticlassClassifier):
         trees_pred = [trees[i].predict_proba_sql(X) for i in range(n)]
         res = []
         for i in range(m):
-            res += [f"({' + '.join([val[i] for val in trees_pred])}) / {n}"]
+            res += [f"({' + '.join([str(val[i]) for val in trees_pred])}) / {n}"]
         return clean_query(res)
 
 
@@ -1164,6 +1164,8 @@ class GradientBoostingRegressor(Ensemble):
         str
             SQL code.
 
+        Examples
+        --------
         Import the required modules and
         create many ``BinaryTreeRegressor``.
 
@@ -1683,7 +1685,7 @@ class GradientBoostingClassifier(Ensemble, MulticlassClassifier):
         trees_pred = [self.trees_[i].predict_proba_sql(X) for i in range(n)]
         for i in range(m):
             proba += [f"""(1 / (1 + EXP(- ({self.logodds_[i]} + {self.eta_} 
-                     * ({' + '.join([prob[i] for prob in trees_pred])})))))"""]
+                     * ({' + '.join([str(prob[i]) for prob in trees_pred])})))))"""]
         proba_sum = f"({' + '.join(proba)})"
         return clean_query([f"{p} / {proba_sum}" for p in proba])
 

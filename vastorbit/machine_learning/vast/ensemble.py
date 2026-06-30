@@ -930,7 +930,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         # Extract individual trees
         trees = []
         for estimator in self._model.estimators_:
-            # Each estimator is a DecisionTreeRegressor
+            # Each estimator is a Decision Tree Regressor
             tree = estimator.tree_
 
             tree_d = {
@@ -1496,31 +1496,6 @@ class GradientBoostingRegressor(Regressor, GradientBoosting):
             "feature_importances_",
             "feature_importances_trees_",
         ]
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        params = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "nbins": nbins,
-            "split_proposal_method": str(split_proposal_method).lower(),
-            "tol": tol,
-            "learning_rate": learning_rate,
-            "min_split_loss": min_split_loss,
-            "weight_reg": weight_reg,
-            "sample": sample,
-            "col_sample_by_tree": col_sample_by_tree,
-            "col_sample_by_node": col_sample_by_node,
-        }
-        self.parameters = params
 
     # Attributes Methods.
 
@@ -3182,31 +3157,6 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
             "feature_importances_trees_",
         ]
 
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        params = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "nbins": nbins,
-            "split_proposal_method": str(split_proposal_method).lower(),
-            "tol": tol,
-            "learning_rate": learning_rate,
-            "min_split_loss": min_split_loss,
-            "weight_reg": weight_reg,
-            "sample": sample,
-            "col_sample_by_tree": col_sample_by_tree,
-            "col_sample_by_node": col_sample_by_node,
-        }
-        self.parameters = params
-
     # Attributes Methods.
 
     @property
@@ -3716,24 +3666,6 @@ class IsolationForest(Clustering, Tree):
     @property
     def _attributes(self) -> list[str]:
         return ["n_estimators_", "psy_", "trees_"]
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "nbins": nbins,
-            "sample": sample,
-            "col_sample_by_tree": col_sample_by_tree,
-        }
 
     # Attributes Methods.
 

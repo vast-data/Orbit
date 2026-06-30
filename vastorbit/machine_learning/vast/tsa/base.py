@@ -46,7 +46,7 @@ class TimeSeriesModelBase(VASTModel):
     Base Class for VAST Time Series Models.
 
     This implementation uses pure SQL for AR and VAR model training.
-    MA, ARMA, and ARIMA models with MA components are not supported.
+    ARIMA models with MA components are not supported.
     """
 
     # Properties.
@@ -61,9 +61,8 @@ class TimeSeriesModelBase(VASTModel):
             "mse_",
             "n_",
         ]
-        if self._model_type in ("ARMA", "ARIMA"):
-            # When the MA term is absent (and no differencing for ARIMA) the
-            # model is fitted as AR(p) and exposes the AR attribute set.
+        if self._model_type in ("ARIMA",):
+
             if self._is_ar_like:
                 return [
                     "phi_",
@@ -99,7 +98,7 @@ class TimeSeriesModelBase(VASTModel):
     def _is_ar_like(self) -> bool:
         """
         ``True`` when the model can be fitted with the pure-SQL AR machinery:
-        AR, VAR, or an ARMA / ARIMA whose Moving-Average term is absent
+        AR, VAR, or an ARIMA whose Moving-Average term is absent
         (``q == 0``) and, for ARIMA, with no differencing (``d == 0``). In those
         cases the model is mathematically an autoregression of order
         ``order[0]`` and is routed through the AR code path.
@@ -107,8 +106,6 @@ class TimeSeriesModelBase(VASTModel):
         if self._model_type in ("AR", "VAR"):
             return True
         order = self.parameters.get("order", [0, 0, 0])
-        if self._model_type == "ARMA":
-            return len(order) >= 2 and order[1] == 0
         if self._model_type == "ARIMA":
             return len(order) >= 3 and order[1] == 0 and order[2] == 0
         return False
@@ -192,20 +189,7 @@ class TimeSeriesModelBase(VASTModel):
             model.fit(data, "date", "passengers")
         """
         # Check if model has MA component - only AR/VAR models supported
-        if self._model_type == "MA":
-            raise NotImplementedError(
-                "Pure SQL training not available for MA models. "
-                "MA models require iterative error term calculations "
-                "that cannot be efficiently implemented in SQL."
-            )
-        elif self._model_type == "ARMA":
-            if self.parameters.get("order", [0, 0])[1] > 0:
-                raise NotImplementedError(
-                    "Pure SQL training not available for ARMA models "
-                    "with Moving Average component (q > 0). Only AR models "
-                    "can be trained using pure SQL."
-                )
-        elif self._model_type == "ARIMA":
+        if self._model_type == "ARIMA":
             if self.parameters.get("order", [0, 0, 0])[2] > 0:
                 raise NotImplementedError(
                     "Pure SQL training not available for ARIMA models "
@@ -234,10 +218,10 @@ class TimeSeriesModelBase(VASTModel):
         else:
             self.test_relation = self.input_relation
 
-        # ARMA/ARIMA with no Moving-Average term (and, for ARIMA, no
+        # ARIMA with no Moving-Average term (and, for ARIMA, no
         # differencing) are exactly AR(order[0]); expose ``p`` so the shared AR
         # machinery can fit, deploy and predict them.
-        if self._model_type in ("ARMA", "ARIMA") and self._is_ar_like:
+        if self._model_type in ("ARIMA",) and self._is_ar_like:
             self.parameters["p"] = self.parameters.get("order", [1])[0]
 
         # Fit using SQL
@@ -246,7 +230,7 @@ class TimeSeriesModelBase(VASTModel):
         else:
             raise NotImplementedError(
                 f"SQL training not implemented for {self._model_type} models "
-                f"with the requested order. Only AR/VAR, and ARMA/ARIMA without "
+                f"with the requested order. Only AR/VAR, and ARIMA without "
                 f"a Moving-Average term (q=0) and without differencing (d=0), "
                 f"can be trained using pure SQL."
             )
@@ -296,7 +280,7 @@ class TimeSeriesModelBase(VASTModel):
         """
         # Build lag columns
         lags = [
-            f"LAG({self.y}, {i}) OVER (ORDER BY {self.ts}) AS lag{i}"
+            f"CAST(LAG({self.y}, {i}) OVER (ORDER BY {self.ts}) AS DOUBLE) AS lag{i}"
             for i in range(1, p + 1)
         ]
 
@@ -305,7 +289,7 @@ class TimeSeriesModelBase(VASTModel):
             # beta = Cov(X,Y) / Var(X)
             query = f"""
                 WITH lagged_data AS (
-                    SELECT {self.y} AS y, {lags[0]}
+                    SELECT CAST({self.y} AS DOUBLE) AS y, {lags[0]}
                     FROM {self.input_relation}
                 ),
                 stats AS (
@@ -329,7 +313,7 @@ class TimeSeriesModelBase(VASTModel):
             # AR(2): Normal equations (X'X)^-1 X'Y with 2x2 matrix inversion
             query = f"""
                 WITH lagged_data AS (
-                    SELECT {self.y} AS y, {', '.join(lags)}
+                    SELECT CAST({self.y} AS DOUBLE) AS y, {', '.join(lags)}
                     FROM {self.input_relation}
                 ),
                 stats AS (
@@ -379,7 +363,7 @@ class TimeSeriesModelBase(VASTModel):
 
             query = f"""
                 WITH lagged_data AS (
-                    SELECT {self.y} AS y, {', '.join(lags)}
+                    SELECT CAST({self.y} AS DOUBLE) AS y, {', '.join(lags)}
                     FROM {self.input_relation}
                 ),
                 stats AS (
@@ -1007,7 +991,7 @@ class TimeSeriesModelBase(VASTModel):
         Raises
         ------
         NotImplementedError
-            For MA/ARMA/ARIMA models, as they require iterative calculations.
+            For ARIMA models, as they require iterative calculations.
         """
         if not self._is_ar_like:
             raise NotImplementedError(
@@ -1234,7 +1218,7 @@ class TimeSeriesModelBase(VASTModel):
         Raises
         ------
         NotImplementedError
-            For MA/ARMA/ARIMA models.
+            For ARIMA models.
         """
         if not self._is_ar_like:
             raise NotImplementedError(
@@ -1540,8 +1524,8 @@ class TimeSeriesModelBase(VASTModel):
         For AR models, feature importance is based on the magnitude
         of the phi coefficients.
         """
-        if self._model_type == "MA" or (
-            self._model_type in ("ARMA", "ARIMA")
+        if (
+            self._model_type in ("ARIMA",)
             and self.get_params().get("order", [0])[0] == 0
         ):
             raise AttributeError(
@@ -1920,9 +1904,7 @@ class TimeSeriesModelBase(VASTModel):
 
             Examples:
             :py:class:`~vastorbit.machine_learning.vast.tsa.ARIMA`;
-            :py:class:`~vastorbit.machine_learning.vast.tsa.ARMA`;
             :py:class:`~vastorbit.machine_learning.vast.tsa.AR`;
-            :py:class:`~vastorbit.machine_learning.vast.tsa.MA`;
         """
         if self._ismultivar():
             for i in range(len(self.y)):
@@ -2187,9 +2169,7 @@ class TimeSeriesModelBase(VASTModel):
 
             Examples:
             :py:class:`~vastorbit.machine_learning.vast.tsa.ARIMA`;
-            :py:class:`~vastorbit.machine_learning.vast.tsa.ARMA`;
             :py:class:`~vastorbit.machine_learning.vast.tsa.AR`;
-            :py:class:`~vastorbit.machine_learning.vast.tsa.MA`;
         """
         # Initialization
         metric = str(metric).lower()
@@ -2422,9 +2402,7 @@ class TimeSeriesModelBase(VASTModel):
 
             Examples:
             :py:class:`~vastorbit.machine_learning.vast.tsa.ARIMA`;
-            :py:class:`~vastorbit.machine_learning.vast.tsa.ARMA`;
             :py:class:`~vastorbit.machine_learning.vast.tsa.AR`;
-            :py:class:`~vastorbit.machine_learning.vast.tsa.MA`;
         """
         dataset_provided = not (isinstance(vdf, NoneType))
         y_str, n = self.y, len(self.y)

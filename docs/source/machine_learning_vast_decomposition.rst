@@ -396,5 +396,3 @@ Balance
    :toctree: api/
 
    preprocessing.balance
-
-_____

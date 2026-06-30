@@ -179,7 +179,7 @@ Let's build the first :py:mod:`~vastorbit.machine_learning.vast.svm.LinearSVC` t
 
     predictors = ["PetalLengthCm", "ratio_swl"]
     response = "Species_Iris-setosa"
-    model = LinearSVC("svc_setosa_iris")
+    model = LinearSVC("svc_setosa_iris", max_iter = 1000)
     cross_validate(model, iris, predictors, response)
 
 .. ipython:: python
@@ -190,7 +190,7 @@ Let's build the first :py:mod:`~vastorbit.machine_learning.vast.svm.LinearSVC` t
 
     predictors = ["PetalLengthCm", "ratio_swl"]
     response = "Species_Iris-setosa"
-    model = LinearSVC("svc_setosa_iris")
+    model = LinearSVC("svc_setosa_iris", max_iter = 1000)
     res = cross_validate(model, iris, predictors, response)
     html_file = open("SPHINX_DIRECTORY/figures/examples_iris_table_ml_cv.html", "w")
     html_file.write(res._repr_html_())
@@ -251,7 +251,7 @@ Let's create a model to classify the Iris virginica.
         "ratio_swl",
     ]
     response = "Species_Iris-virginica"
-    model = LinearSVC("svc_virginica_iris")
+    model = LinearSVC("svc_virginica_iris", max_iter = 1000)
     cross_validate(model, iris, predictors, response)
 
 .. ipython:: python
@@ -266,7 +266,7 @@ Let's create a model to classify the Iris virginica.
         "ratio_swl",
     ]
     response = "Species_Iris-virginica"
-    model = LinearSVC("svc_virginica_iris")
+    model = LinearSVC("svc_virginica_iris", max_iter = 1000)
     res = cross_validate(model, iris, predictors, response)
     html_file = open("SPHINX_DIRECTORY/figures/examples_iris_table_ml_cv_2.html", "w")
     html_file.write(res._repr_html_())

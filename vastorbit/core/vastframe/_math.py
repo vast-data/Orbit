@@ -1301,10 +1301,8 @@ class vDCMath(vDCFilter):
 
         .. seealso::
 
-            | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.applymap` :
-                Applies a function to all :py:class:`~VastColumn`s.
-            | ``VastColumn.``:py:meth:`~vastorbit.VastColumn.apply` :
-                Applies a function to the :py:class:`~VastColumn`.
+            | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.applymap` : Applies a function to all :py:class:`~VastColumn` objects.
+            | ``VastColumn.``:py:meth:`~vastorbit.VastColumn.apply` : Applies a function to the :py:class:`~VastColumn`.
         """
         # Normalize aliases
         func = func.lower()
@@ -1512,7 +1510,9 @@ class vDCMath(vDCFilter):
             | ``VastColumn.``:py:meth:`~vastorbit.VastColumn.slice` :
                 Slice the :py:class:`~VastColumn` by custom time-steps.
         """
-        return self.apply(func=f"EXTRACT({field.upper()} FROM {{}})")
+        return self.apply(
+            func=f"EXTRACT({field.upper()} FROM CAST({{}} AS TIMESTAMP))"
+        )
 
     @save_vastorbit_logs
     def div(self, x: PythonNumber) -> "VastFrame":

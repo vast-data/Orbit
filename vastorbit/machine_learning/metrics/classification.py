@@ -3377,9 +3377,6 @@ def _compute_function_metrics(
     """
     Returns the function metrics (ROC or PRC curve) using standard SQL.
 
-    This function replaces Vertica's proprietary ROC() and PRC() functions
-    with standard SQL that computes the curves manually.
-
     Parameters
     ----------
     y_true : str

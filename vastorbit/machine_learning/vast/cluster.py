@@ -2377,7 +2377,6 @@ class DBSCAN(VASTModel):
                 del graph[0]
             self.n_clusters_ = i
             # Attach the (node_id -> cluster) mapping with an inline VALUES table
-            # joined back to the data. This replaces the Vertica-only
             # CSV-write + COPY round-trip, which Trino does not support.
             assigned = [
                 (node_id, cluster)

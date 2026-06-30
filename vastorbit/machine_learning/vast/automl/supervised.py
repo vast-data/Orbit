@@ -19,7 +19,6 @@ from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type, schema_relation
-from vastorbit._utils._sql._vast_version import vast_version
 from vastorbit.errors import ModelError
 
 from vastorbit.core.tablesample.base import TableSample
@@ -365,7 +364,6 @@ class AutoML(VASTModel):
                 X = input_relation.get_columns(exclude_columns=exclude_columns)
         X = format_type(X, dtype=list)
         if isinstance(self.parameters["estimator"], str):
-            v = vast_version()
             self.parameters["estimator"] = self.parameters["estimator"].lower()
             estimator_method = self.parameters["estimator"]
             if not isinstance(input_relation, VastFrame):
@@ -382,13 +380,7 @@ class AutoML(VASTModel):
                     NaiveBayes(self.model_name),
                 ]
                 if estimator_method in ("native", "all"):
-                    if v[0] > 10 or (v[0] == 10 and v[1] >= 1):
-                        self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name)]
-                    if v[0] >= 9:
-                        self.parameters["estimator"] += [
-                            # LinearSVC(self.model_name),
-                            RandomForestClassifier(self.model_name, n_estimators = 5),
-                        ]
+                    self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name), RandomForestClassifier(self.model_name, n_estimators = 5), LinearSVC(self.model_name, max_iter = 1000)]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
                         KNeighborsClassifier(self.model_name),
@@ -405,13 +397,11 @@ class AutoML(VASTModel):
                     Lasso(self.model_name),
                 ]
                 if estimator_method in ("native", "all"):
-                    if v[0] > 10 or (v[0] == 10 and v[1] >= 1):
-                        self.parameters["estimator"] += [GradientBoostingRegressor(self.model_name)]
-                    if v[0] >= 9:
-                        self.parameters["estimator"] += [
-                            LinearSVR(self.model_name),
-                            RandomForestRegressor(self.model_name, n_estimators = 5),
-                        ]
+                    self.parameters["estimator"] += [
+                        GradientBoostingRegressor(self.model_name),
+                        LinearSVR(self.model_name, max_iter = 1000),
+                        RandomForestRegressor(self.model_name, n_estimators = 5),
+                    ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
                         KNeighborsRegressor(self.model_name)
@@ -420,12 +410,7 @@ class AutoML(VASTModel):
                 self.parameters["estimator_type"] = "multi"
                 self.parameters["estimator"] = [NaiveBayes(self.model_name)]
                 if estimator_method in ("native", "all"):
-                    if v[0] >= 10 and v[1] >= 1:
-                        self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name)]
-                    if v[0] >= 9:
-                        self.parameters["estimator"] += [
-                            RandomForestClassifier(self.model_name, n_estimators = 5)
-                        ]
+                    self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name), RandomForestClassifier(self.model_name, n_estimators = 5)]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
                         KNeighborsClassifier(self.model_name),

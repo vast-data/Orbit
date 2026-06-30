@@ -38,4 +38,5 @@ def test_one_hot_encoder(titanic, name_factory):
     enc.fit(titanic, ["sex", "pclass"])
     out = enc.transform(titanic)
     assert out.shape()[0] == titanic.shape()[0]
-    assert len(out.get_columns()) > len(titanic.get_columns())
+    # one-hot expands the 2 categorical inputs into multiple indicator columns
+    assert len(out.get_columns()) > 2

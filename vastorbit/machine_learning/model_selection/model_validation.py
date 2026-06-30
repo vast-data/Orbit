@@ -1042,6 +1042,7 @@ def learning_curve(
     .. ipython:: python
 
         import random
+        import numpy as np
 
         N = 200 # Number of Records
         k = 10 # step
@@ -1085,7 +1086,7 @@ def learning_curve(
             y = "c",
             method = "efficiency",
             cv = 3,
-            metric = "auc",
+            metric = "acc",
             return_chart = True,
         )
 
@@ -1101,7 +1102,7 @@ def learning_curve(
             y = "c",
             method = "efficiency",
             cv = 3,
-            metric = "auc",
+            metric = "acc",
             return_chart = True,
         )
         fig.write_html("figures/plotting_machine_learning_validation_learning_efficiency.html")

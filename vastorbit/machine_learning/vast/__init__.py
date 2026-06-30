@@ -48,8 +48,4 @@ from vastorbit.machine_learning.vast.preprocessing import (
     StandardScaler,
 )
 from vastorbit.machine_learning.vast.svm import LinearSVC, LinearSVR
-from vastorbit.machine_learning.vast.tree import (
-    DecisionTreeClassifier,
-    DecisionTreeRegressor,
-)
-from vastorbit.machine_learning.vast.tsa import ARIMA, ARMA, AR, VAR
+from vastorbit.machine_learning.vast.tsa import ARIMA, AR, VAR

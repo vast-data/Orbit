@@ -91,7 +91,7 @@ Let's extract the title using regular expressions.
     titanic.regexp(
         column = "name",
         name = "title",
-        pattern = " ([A-Za-z])+\.",
+        pattern = " ([A-Za-z])+\\.",
         method = "substr",
     )
     titanic.select(["name", "title"])
@@ -103,7 +103,7 @@ Let's extract the title using regular expressions.
     titanic.regexp(
         column = "name",
         name = "title",
-        pattern = " ([A-Za-z])+\.",
+        pattern = " ([A-Za-z])+\\.",
         method = "substr",
     )
     res = titanic.select(["name", "title"])

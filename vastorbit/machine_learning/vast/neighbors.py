@@ -40,7 +40,6 @@ from vastorbit.machine_learning.vast.base import (
     Tree,
     VASTModel,
 )
-from vastorbit.machine_learning.vast.tree import DecisionTreeRegressor
 
 from vastorbit.sql.drop import drop
 
@@ -986,6 +985,7 @@ class KNeighborsClassifier(MulticlassClassifier):
 
     .. ipython:: python
         :suppress:
+        :okwarning:
 
         result = model.report(cutoff = 0.2)
         html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_neighbors_knc_report_cutoff.html", "w")

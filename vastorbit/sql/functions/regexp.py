@@ -69,7 +69,7 @@ def regexp_count(
 
         titanic["has_title"] = vof.regexp_count(
             titanic["name"],
-            '([A-Za-z])+\\.',
+            r'([A-Za-z])+\\.',
         )
         display(titanic[["name", "has_title"]])
 
@@ -80,7 +80,7 @@ def regexp_count(
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["has_title"] = vof.regexp_count(titanic["name"], '([A-Za-z])+\\.')
+        titanic["has_title"] = vof.regexp_count(titanic["name"], r'([A-Za-z])+\\.')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_count.html", "w")
         html_file.write(titanic[["name", "has_title"]]._repr_html_())
         html_file.close()
@@ -159,7 +159,7 @@ def regexp_ilike(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
 
         titanic["has_title"] = vof.regexp_ilike(
             titanic["name"],
-            '([A-Za-z])+\\.',
+            r'([A-Za-z])+\\.',
         )
         display(titanic[["name", "has_title"]])
 
@@ -170,7 +170,7 @@ def regexp_ilike(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["has_title"] = vof.regexp_ilike(titanic["name"], '([A-Za-z])+\\.')
+        titanic["has_title"] = vof.regexp_ilike(titanic["name"], r'([A-Za-z])+\\.')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_ilike.html", "w")
         html_file.write(titanic[["name", "has_title"]]._repr_html_())
         html_file.close()
@@ -264,7 +264,7 @@ def regexp_instr(
 
         titanic["title_start"] = vof.regexp_instr(
             titanic["name"],
-            '([A-Za-z])+\\.',
+            r'([A-Za-z])+\\.',
             return_position = 0,
         )
         display(titanic[["name", "title_start"]])
@@ -276,7 +276,7 @@ def regexp_instr(
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["title_start"] = vof.regexp_instr(titanic["name"], '([A-Za-z])+\\.', return_position = 0)
+        titanic["title_start"] = vof.regexp_instr(titanic["name"], r'([A-Za-z])+\\.', return_position = 0)
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_instr.html", "w")
         html_file.write(titanic[["name", "title_start"]]._repr_html_())
         html_file.close()
@@ -361,7 +361,7 @@ def regexp_like(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
 
         titanic["has_title"] = vof.regexp_like(
             titanic["name"],
-            '([A-Za-z])+\\.',
+            r'([A-Za-z])+\\.',
         )
         display(titanic[["name", "has_title"]])
 
@@ -372,7 +372,7 @@ def regexp_like(expr: SQLExpression, pattern: SQLExpression) -> StringSQL:
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["has_title"] = vof.regexp_like(titanic["name"], '([A-Za-z])+\\.')
+        titanic["has_title"] = vof.regexp_like(titanic["name"], r'([A-Za-z])+\\.')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_like.html", "w")
         html_file.write(titanic[["name", "has_title"]]._repr_html_())
         html_file.close()
@@ -465,7 +465,7 @@ def regexp_replace(
 
         titanic["new_title"] = vof.regexp_replace(
             titanic["name"],
-            '([A-Za-z])+\\.',
+            r'([A-Za-z])+\\.',
             '[title here] ',
         )
         display(titanic[["name", "new_title"]])
@@ -477,7 +477,7 @@ def regexp_replace(
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["new_title"] = vof.regexp_replace(titanic["name"], '([A-Za-z])+\\.', '[title here] ')
+        titanic["new_title"] = vof.regexp_replace(titanic["name"], r'([A-Za-z])+\\.', '[title here] ')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_replace.html", "w")
         html_file.write(titanic[["name", "new_title"]]._repr_html_())
         html_file.close()
@@ -576,7 +576,7 @@ def regexp_extract(
 
         titanic["title"] = vof.regexp_extract(
             titanic["name"],
-            '([A-Za-z])+\\.',
+            r'([A-Za-z])+\\.',
         )
         display(titanic[["name", "title"]])
 
@@ -587,7 +587,7 @@ def regexp_extract(
         from vastorbit.datasets import load_titanic
         import vastorbit.sql.functions as vof
         titanic = load_titanic()
-        titanic["title"] = vof.regexp_extract(titanic["name"], '([A-Za-z])+\\.')
+        titanic["title"] = vof.regexp_extract(titanic["name"], r'([A-Za-z])+\\.')
         html_file = open("SPHINX_DIRECTORY/figures/sql_functions_regexp_regexp_extract.html", "w")
         html_file.write(titanic[["name", "title"]]._repr_html_())
         html_file.close()

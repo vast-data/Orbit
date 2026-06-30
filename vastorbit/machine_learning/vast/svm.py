@@ -177,11 +177,10 @@ class LinearSVR(LinearModel, Regressor):
     .. code-block::
 
         model = LinearSVR(
-            tol = 1e-4,
             C = 1.0,
             intercept_scaling = 1.0,
             acceptable_error_margin = 0.1,
-            max_iter = 100,
+            max_iter = 1000,
         )
 
     .. important::
@@ -196,11 +195,10 @@ class LinearSVR(LinearModel, Regressor):
 
         from vastorbit.machine_learning.vast import LinearSVR
         model = LinearSVR(
-            tol = 1e-4,
             C = 1.0,
             intercept_scaling = 1.0,
             acceptable_error_margin = 0.1,
-            max_iter = 100,
+            max_iter = 1000,
         )
 
     Model Training
@@ -209,6 +207,7 @@ class LinearSVR(LinearModel, Regressor):
     We can now fit the model:
 
     .. ipython:: python
+        :okwarning:
 
         model.fit(
             train,
@@ -655,11 +654,10 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
     .. ipython:: python
 
         model = LinearSVC(
-            tol = 1e-4,
             C = 1.0,
             intercept_scaling = 1.0,
             class_weight = [1, 1],
-            max_iter = 100,
+            max_iter = 1000,
         )
 
     .. important::
