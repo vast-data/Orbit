@@ -46,7 +46,7 @@ class LinePlot(PlotlyBase):
             return "tonexty"
 
     def _line_shape(self, step) -> [str]:
-        if self.layout["kind"] == "step" or step == True:
+        if self.layout["kind"] == "step" or step:
             return "hv"
         elif self.layout["kind"] == "spline":
             return "spline"

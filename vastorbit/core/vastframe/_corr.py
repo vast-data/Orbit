@@ -645,7 +645,12 @@ class vDFCorr(vDFEncode):
             for column in cols:
                 if column.replace('"', "").lower() == focus.replace(
                     '"', ""
-                ).lower() and method in ("spearman", "spearmand", "pearson", "kendall"):
+                ).lower() and method in (
+                    "spearman",
+                    "spearmand",
+                    "pearson",
+                    "kendall",
+                ):
                     matrix += [1.0]
                 else:
                     matrix += [

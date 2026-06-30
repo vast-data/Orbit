@@ -366,7 +366,7 @@ def read_pandas(
 
         # Use read_csv to load the data
         if insert:
-            _vdf = read_csv(
+            vdf = read_csv(
                 path,
                 table_name=tmp_name,
                 schema=schema,
@@ -377,7 +377,7 @@ def read_pandas(
                 temporary_table=temporary_table,
             )
         else:
-            _vdf = read_csv(
+            vdf = read_csv(
                 path,
                 table_name=tmp_name,
                 schema=schema,
@@ -395,3 +395,5 @@ def read_pandas(
                 os.remove(path)
         except Exception as e:
             logging.warning("Could not remove temporary file %s: %s", path, e)
+
+    return vdf

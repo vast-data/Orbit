@@ -13,7 +13,10 @@ from vastorbit.machine_learning.model_selection import (
     parameter_grid,
 )
 from tests.helpers import (
-    WINE_X, WINE_REG_Y, TITANIC_NUM_X, TITANIC_BINARY_Y,
+    WINE_X,
+    WINE_REG_Y,
+    TITANIC_NUM_X,
+    TITANIC_BINARY_Y,
 )
 
 
@@ -25,8 +28,13 @@ def test_parameter_grid():
 def test_grid_search_cv(winequality, name_factory):
     model = LinearRegression(name=name_factory("gs"))
     res = grid_search_cv(
-        model, {"solver": ["newton", "bfgs"]}, winequality, WINE_X, WINE_REG_Y,
-        cv=3, print_info=False,
+        model,
+        {"solver": ["newton", "bfgs"]},
+        winequality,
+        WINE_X,
+        WINE_REG_Y,
+        cv=3,
+        print_info=False,
     )
     assert res is not None
 
@@ -34,15 +42,28 @@ def test_grid_search_cv(winequality, name_factory):
 def test_validation_curve(winequality, name_factory):
     model = LinearRegression(name=name_factory("vc"))
     res = validation_curve(
-        model, "solver", ["newton", "bfgs"], winequality, WINE_X, WINE_REG_Y, cv=3,
+        model,
+        "solver",
+        ["newton", "bfgs"],
+        winequality,
+        WINE_X,
+        WINE_REG_Y,
+        cv=3,
     )
     assert res is not None
 
 
 def test_randomized_features_search(titanic, name_factory):
     data = titanic.copy()[TITANIC_NUM_X + [TITANIC_BINARY_Y]].dropna()
-    model = RandomForestClassifier(name=name_factory("rfs"), n_estimators=5, max_depth=3)
+    model = RandomForestClassifier(
+        name=name_factory("rfs"), n_estimators=5, max_depth=3
+    )
     res = randomized_features_search_cv(
-        model, data, TITANIC_NUM_X, TITANIC_BINARY_Y, cv=3, print_info=False,
+        model,
+        data,
+        TITANIC_NUM_X,
+        TITANIC_BINARY_Y,
+        cv=3,
+        print_info=False,
     )
     assert res is not None

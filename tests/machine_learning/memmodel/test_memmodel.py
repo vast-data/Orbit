@@ -6,7 +6,10 @@ In-database -> in-memory model export and pure-python prediction.
 
 from vastorbit.machine_learning.vast import LinearRegression, LogisticRegression
 from tests.helpers import (
-    WINE_X, WINE_REG_Y, TITANIC_NUM_X, TITANIC_BINARY_Y,
+    WINE_X,
+    WINE_REG_Y,
+    TITANIC_NUM_X,
+    TITANIC_BINARY_Y,
 )
 
 

@@ -10,13 +10,23 @@ import pytest
 import vastorbit as vo
 from vastorbit.machine_learning.vast import LinearRegression
 from vastorbit.machine_learning.model_selection.statistical_tests.norm import (
-    normaltest, jarque_bera, kurtosistest, skewtest,
+    normaltest,
+    jarque_bera,
+    kurtosistest,
+    skewtest,
 )
 from vastorbit.machine_learning.model_selection.statistical_tests.tsa import (
-    adfuller, durbin_watson, ljungbox, mkt, seasonal_decompose, cochrane_orcutt,
+    adfuller,
+    durbin_watson,
+    ljungbox,
+    mkt,
+    seasonal_decompose,
+    cochrane_orcutt,
 )
 from vastorbit.machine_learning.model_selection.statistical_tests.ols import (
-    het_white, het_breuschpagan, variance_inflation_factor,
+    het_white,
+    het_breuschpagan,
+    variance_inflation_factor,
 )
 from vastorbit.machine_learning.model_selection import plot_acf_pacf
 from tests.helpers import WINE_X, trend_series

@@ -7,18 +7,17 @@ Shared constants and small helpers, importable from any test module as
 
 import uuid
 
-
 # --------------------------------------------------------------------------- #
 # Column / target shortcuts for the built-in datasets
 # --------------------------------------------------------------------------- #
 TITANIC_NUM_X = ["age", "fare"]
-TITANIC_BINARY_Y = "survived"          # 0 / 1
+TITANIC_BINARY_Y = "survived"  # 0 / 1
 
 IRIS_X = ["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]
-IRIS_MULTI_Y = "Species"               # 3 classes
+IRIS_MULTI_Y = "Species"  # 3 classes
 
 WINE_X = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar"]
-WINE_REG_Y = "quality"                 # numeric
+WINE_REG_Y = "quality"  # numeric
 
 
 # --------------------------------------------------------------------------- #

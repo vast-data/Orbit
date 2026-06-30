@@ -19,11 +19,13 @@ from vastorbit.machine_learning.metrics import (
 
 @pytest.fixture(scope="module")
 def preds():
-    return vo.VastFrame({
-        "y_true": [0, 0, 1, 1, 0, 1, 1, 0, 1, 0],
-        "y_pred": [0, 1, 1, 1, 0, 0, 1, 0, 1, 0],
-        "y_prob": [0.1, 0.6, 0.8, 0.7, 0.2, 0.4, 0.9, 0.3, 0.85, 0.15],
-    })
+    return vo.VastFrame(
+        {
+            "y_true": [0, 0, 1, 1, 0, 1, 1, 0, 1, 0],
+            "y_pred": [0, 1, 1, 1, 0, 0, 1, 0, 1, 0],
+            "y_prob": [0.1, 0.6, 0.8, 0.7, 0.2, 0.4, 0.9, 0.3, 0.85, 0.15],
+        }
+    )
 
 
 def test_accuracy(preds):

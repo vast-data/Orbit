@@ -41,8 +41,10 @@ def test_to_list_numpy(iris):
 
 
 def test_frame_score():
-    vd = vo.VastFrame({
-        "y_true": [1.0, 2.0, 3.0, 4.0, 5.0],
-        "y_score": [1.1, 2.0, 2.9, 4.2, 4.8],
-    })
+    vd = vo.VastFrame(
+        {
+            "y_true": [1.0, 2.0, 3.0, 4.0, 5.0],
+            "y_score": [1.1, 2.0, 2.9, 4.2, 4.8],
+        }
+    )
     assert vd.score("y_true", "y_score", "r2") is not None
