@@ -34,5 +34,5 @@ jobs:
         run: |
           pylint --fail-under=9.0 \
             --init-hook='import sys; sys.setrecursionlimit(10000)' \
-            --disable=typecheck,E0606,W,C,R \
+            --disable=typecheck,C,R,W0212 \
             vastorbit/
