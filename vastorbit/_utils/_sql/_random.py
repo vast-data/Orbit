@@ -5,7 +5,6 @@ SPDX-License-Identifier: Apache-2.0
 from typing import Optional
 
 import vastorbit._config.config as conf
-from vastorbit._utils._sql._vast_version import vast_version
 
 
 def _seeded_random_function(random_seed: int) -> str:

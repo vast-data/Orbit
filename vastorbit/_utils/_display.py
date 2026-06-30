@@ -4,7 +4,7 @@ SPDX-License-Identifier: Apache-2.0
 
 import html
 import shutil
-from typing import Literal, Optional
+from typing import Optional
 
 import vastorbit._config.config as conf
 from vastorbit._typing import NoneType
@@ -134,7 +134,6 @@ _THEME_TOKENS = {
     "light": {
         "bg": "#FFFFFF",
         "head-bg": "#F8F9FB",  # VAST Navy header
-        "index-bg": "#F8F9FB",
         "head-fg": "#10172D",
         "head-accent": "#1FD9FE",  # VAST Cyan edge
         "row": "#FFFFFF",

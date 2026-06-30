@@ -10,7 +10,12 @@ from vastorbit.machine_learning.vast import (
     LocalOutlierFactor,
 )
 from tests.helpers import (
-    WINE_X, WINE_REG_Y, TITANIC_NUM_X, TITANIC_BINARY_Y, IRIS_X, cols_lower,
+    WINE_X,
+    WINE_REG_Y,
+    TITANIC_NUM_X,
+    TITANIC_BINARY_Y,
+    IRIS_X,
+    cols_lower,
 )
 
 

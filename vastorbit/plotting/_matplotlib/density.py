@@ -48,7 +48,7 @@ class DensityPlot(MatplotlibBase):
         Draws a density plot using the Matplotlib API.
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(7, 5), set_axis_below=True, grid=True, style_kwargs=style_kwargs
         )
         ax.plot(
@@ -89,10 +89,10 @@ class MultiDensityPlot(DensityPlot):
         Draws a multi-density plot using the Matplotlib API.
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(7, 5), set_axis_below=True, grid=True, style_kwargs=style_kwargs
         )
-        n, m = self.data["X"].shape
+        _n, m = self.data["X"].shape
         custom_lines = []
         for i in range(m):
             color = self._get_final_color(style_kwargs=style_kwargs, idx=i)

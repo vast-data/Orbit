@@ -62,6 +62,6 @@ class Histogram(PlotlyBase):
         if len(self.layout["columns"]) == 1:
             fig.update_layout(xaxis_title=self.layout["columns"][0])
         else:
-            title = self.layout["by"]
+            _title = self.layout["by"]
         fig.update_layout(**self._update_dict(self.init_style, style_kwargs))
         return fig

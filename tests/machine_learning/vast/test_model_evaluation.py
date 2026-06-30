@@ -10,7 +10,11 @@ import pytest
 import vastorbit as vo
 from vastorbit.machine_learning.vast import LogisticRegression, LinearRegression
 from tests.helpers import (
-    WINE_X, WINE_REG_Y, TITANIC_NUM_X, TITANIC_BINARY_Y, unique_name,
+    WINE_X,
+    WINE_REG_Y,
+    TITANIC_NUM_X,
+    TITANIC_BINARY_Y,
+    unique_name,
 )
 
 
@@ -47,7 +51,9 @@ def test_confusion_matrix(fitted_classifier):
     assert fitted_classifier.confusion_matrix() is not None
 
 
-@pytest.mark.parametrize("curve", ["roc_curve", "prc_curve", "lift_chart", "cutoff_curve"])
+@pytest.mark.parametrize(
+    "curve", ["roc_curve", "prc_curve", "lift_chart", "cutoff_curve"]
+)
 def test_curves(fitted_classifier, curve):
     assert getattr(fitted_classifier, curve)(show=False) is not None
 

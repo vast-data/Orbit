@@ -5,10 +5,9 @@ SPDX-License-Identifier: Apache-2.0
 import copy
 import inspect
 from abc import abstractmethod
-from typing import Any, Callable, Literal, Optional, Union, get_type_hints
+from typing import Any, Callable, Literal, Optional, Union
 import numpy as np
 
-from vastorbit.connection.errors import QueryError
 
 import vastorbit._config.config as conf
 from vastorbit._typing import (
@@ -22,21 +21,12 @@ from vastorbit._typing import (
     SQLExpression,
 )
 from vastorbit._utils._gen import gen_name, gen_tmp_name
-from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._format import (
     clean_query,
     format_type,
     quote_ident,
-    schema_relation,
 )
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import (
-    vast_version,
-)
-from vastorbit.errors import (
-    ConversionError,
-    VersionError,
-)
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
@@ -1619,7 +1609,7 @@ class Supervised(VASTModel):
             self.input_relation = input_relation.current_relation()
         else:
             self.input_relation = input_relation
-            relation = input_relation
+            _relation = input_relation
         if isinstance(test_relation, VastFrame):
             self.test_relation = test_relation.current_relation()
         elif test_relation:
@@ -2305,7 +2295,7 @@ class Tree:
         round_pred: int = 2,
         percent: bool = False,
         vertical: bool = True,
-        node_style: dict = {"shape": "box", "style": "filled"},
+        node_style: dict | None = None,
         edge_style: Optional[dict] = None,
         leaf_style: Optional[dict] = None,
     ) -> str:
@@ -2448,6 +2438,8 @@ class Tree:
             specific to your class of interest,
             please refer to that particular class.
         """
+        if node_style is None:
+            node_style = {"shape": "box", "style": "filled"}
         return self.trees_[tree_id].to_graphviz(
             feature_names=self.X,
             classes_color=classes_color,

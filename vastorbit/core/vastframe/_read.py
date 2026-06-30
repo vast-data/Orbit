@@ -91,7 +91,7 @@ class vDFRead(vDFUtils):
             try:
                 new_index = self.format_colnames(index)
                 return getattr(self, new_index)
-            except:
+            except Exception:
                 if is_sql:
                     return self.search(conditions=index)
                 else:
@@ -100,7 +100,7 @@ class vDFRead(vDFUtils):
         elif isinstance(index, Iterable):
             try:
                 return self.select(columns=[str(col) for col in index])
-            except:
+            except Exception:
                 return self.search(conditions=[str(col) for col in index])
 
         else:

@@ -29,14 +29,12 @@ from vastorbit._utils._sql._format import (
 )
 from vastorbit._utils._sql._sys import _executeSQL
 from vastorbit.connection import current_cursor
-from vastorbit.connection.global_connection import get_global_connection
 from vastorbit.errors import QueryError
 
 from vastorbit.jupyter.extensions._utils import get_magic_options
 
 if conf.get_import_success("graphviz"):
-    import graphviz
-    from graphviz import Source
+    pass
 
 if TYPE_CHECKING:
     from vastorbit.core.vastframe.base import VastFrame
@@ -860,9 +858,9 @@ def sql_magic(
             idx = 0 if query_words[0] else 1
             query_type = query_words[idx].upper().replace("(", "")
             if len(query_words) > 1:
-                query_subtype = query_words[idx + 1].upper()
+                _query_subtype = query_words[idx + 1].upper()
             else:
-                query_subtype = "UNDEFINED"
+                _query_subtype = "UNDEFINED"
 
             if len(query_type) > 1 and query_type.startswith(("/*", "--")):
                 query_type = "undefined"
@@ -949,7 +947,7 @@ def sql_magic(
                     if "-ncols" in options:
                         result._vars["max_columns"] = options["-ncols"]
                     is_vdf = True
-                except:
+                except Exception:
                     pass  # we could not create a VastFrame out of the query.
 
                 if not (is_vdf):

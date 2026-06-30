@@ -10,7 +10,6 @@ from vastorbit._utils._sql._cast import to_sql_dtype, to_category
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import clean_query
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import vast_version
 
 from vastorbit.errors import ConversionError
 
@@ -809,7 +808,7 @@ class vDCTyping(vDCRead):
         except Exception as e:
             raise ConversionError(
                 f"{e}\nThe VastColumn {self} can not be converted to {dtype}"
-            )
+            ) from e
 
     def category(self) -> str:
         """

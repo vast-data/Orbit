@@ -15,20 +15,33 @@ from vastorbit.machine_learning.vast import (
     IsolationForest,
 )
 from tests.helpers import (
-    WINE_X, WINE_REG_Y, TITANIC_NUM_X, TITANIC_BINARY_Y, IRIS_X, cols_lower,
+    WINE_X,
+    WINE_REG_Y,
+    TITANIC_NUM_X,
+    TITANIC_BINARY_Y,
+    IRIS_X,
+    cols_lower,
 )
 
 REGRESSORS = [
-    ("RandomForestRegressor",
-     lambda n: RandomForestRegressor(name=n, n_estimators=5, max_depth=3)),
-    ("GradientBoostingRegressor",
-     lambda n: GradientBoostingRegressor(name=n, n_estimators=5, max_depth=3)),
+    (
+        "RandomForestRegressor",
+        lambda n: RandomForestRegressor(name=n, n_estimators=5, max_depth=3),
+    ),
+    (
+        "GradientBoostingRegressor",
+        lambda n: GradientBoostingRegressor(name=n, n_estimators=5, max_depth=3),
+    ),
 ]
 CLASSIFIERS = [
-    ("RandomForestClassifier",
-     lambda n: RandomForestClassifier(name=n, n_estimators=5, max_depth=3)),
-    ("GradientBoostingClassifier",
-     lambda n: GradientBoostingClassifier(name=n, n_estimators=5, max_depth=3)),
+    (
+        "RandomForestClassifier",
+        lambda n: RandomForestClassifier(name=n, n_estimators=5, max_depth=3),
+    ),
+    (
+        "GradientBoostingClassifier",
+        lambda n: GradientBoostingClassifier(name=n, n_estimators=5, max_depth=3),
+    ),
 ]
 
 

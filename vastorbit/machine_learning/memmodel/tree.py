@@ -19,6 +19,9 @@ from vastorbit.plotting.base import get_default_graphviz_options
 if conf.get_import_success("graphviz"):
     import graphviz
     from graphviz import Source
+else:
+    graphviz = None
+    Source = None
 
 
 class Tree(InMemoryModel):
@@ -725,9 +728,9 @@ class Tree(InMemoryModel):
                     label = f'"{self.value_[i]}"'
                 elif hasattr(self, "psy"):
                     if not empty_color:
-                        color = classes_color[0]
+                        _color = classes_color[0]
                     else:
-                        color = "#eeeeee"
+                        _color = "#eeeeee"
                     anomaly_score = self.value_[i][0] + self._heuristic_length(
                         self.value_[i][1]
                     )

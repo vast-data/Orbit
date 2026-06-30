@@ -613,7 +613,7 @@ class vDFAnimatedPlot(vDFPlot):
             and self[columns[1]].isnum()
         ):
             raise ValueError(
-                f"Parameter 'columns' must include at least 2 numerical "
+                "Parameter 'columns' must include at least 2 numerical "
                 "VastColumns and maximum 4 VastColumns."
             )
         columns, ts, by = self.format_colnames(columns, ts, by)

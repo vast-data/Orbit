@@ -346,6 +346,7 @@ class vDCScaler(vDCText):
             print_message(warning_message, "warning")
 
         elif self.isnum():
+            final_transformation = []
             if method == "zscore":
                 if n == 0:
                     nullifzero = 0

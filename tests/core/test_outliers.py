@@ -14,4 +14,6 @@ def test_outliers(winequality):
 
 
 def test_outliers_plot(winequality):
-    assert winequality.outliers_plot(columns=["fixed_acidity", "citric_acid"]) is not None
+    assert (
+        winequality.outliers_plot(columns=["fixed_acidity", "citric_acid"]) is not None
+    )

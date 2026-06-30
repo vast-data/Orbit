@@ -3,20 +3,14 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 import copy
-from abc import abstractmethod
 from typing import Literal, Optional
 
 import numpy as np
 import sklearn
 
-from vastorbit._typing import PlottingObject, PythonNumber
+from vastorbit._typing import PlottingObject
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import quote_ident
-from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import (
-    vast_version,
-)
-from vastorbit.errors import VersionError
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame

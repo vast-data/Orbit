@@ -200,7 +200,7 @@ def has_privileges(
         | :py:meth:`~vastorbit.current_session` : current DB session.
         | :py:meth:`~vastorbit.username` : current DB username.
     """
-    query_superuser = f"""
+    query_superuser = """
         SELECT 
             is_super_user 
         FROM v_catalog.users 

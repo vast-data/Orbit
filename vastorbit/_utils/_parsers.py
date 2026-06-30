@@ -11,8 +11,9 @@ from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._format import list_strip
 
 if conf.get_import_success("graphviz"):
-    import graphviz
     from graphviz import Source
+else:
+    Source = None
 
 # CSV
 

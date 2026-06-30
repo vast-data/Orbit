@@ -1286,7 +1286,7 @@ class BisectingKMeans(Clustering, Tree):
         """
         for c in self.clusters_:
             if len(X) != len(c):
-                ValueError(
+                raise ValueError(
                     "The length of parameter 'X' must be the same as "
                     "the length of each cluster."
                 )
@@ -1408,6 +1408,7 @@ class BisectingKMeans(Clustering, Tree):
         edge_style = format_type(edge_style, dtype=dict)
         n = len(self.children_left_)
         vertical = ""
+        position = ""
         if not vertical:
             position = '\ngraph [rankdir = "LR"];'
         res = "digraph Tree {" + position

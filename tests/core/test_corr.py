@@ -23,7 +23,5 @@ def test_corr_methods(winequality, method):
 
 
 def test_cov(winequality):
-    cov = winequality.cov(
-        columns=["fixed_acidity", "citric_acid"], show=False
-    )
+    cov = winequality.cov(columns=["fixed_acidity", "citric_acid"], show=False)
     assert cov is not None

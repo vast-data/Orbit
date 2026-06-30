@@ -385,7 +385,6 @@ SQL_FUN = {
     "NOW": {"l": (" ", ","), "r": (" ", "(")},
     "OVERLAPS": {"l": (" ", ","), "r": (" ", "(")},
     "QUARTER": {"l": (" ", ","), "r": (" ", "(")},
-    "ROUND": {"l": (" ", ","), "r": (" ", "(")},
     "SECOND": {"l": (" ", ","), "r": (" ", "(")},
     "STATEMENT_TIMESTAMP": {"l": (" ", ","), "r": (" ", "(")},
     "SYSDATE": {"l": (" ", ","), "r": (" ", "(")},
@@ -1623,7 +1622,7 @@ def schema_relation(relation: Any, do_quote: bool = True) -> tuple[str, str]:
         if (quote_nb == 0 and dot_nb == 0) or (
             quote_nb == 2 and rel_transf.startswith('"') and rel_transf.endswith('"')
         ):
-            schema, relation = conf.get_option("temp_schema"), relation
+            schema = conf.get_option("temp_schema")
         elif quote_nb == 0 and dot_nb == 1:
             schema, relation = relation.split(".")
         elif quote_nb == 2 and rel_transf.startswith('"'):

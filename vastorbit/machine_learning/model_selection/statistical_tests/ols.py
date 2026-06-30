@@ -12,7 +12,6 @@ from vastorbit.connection.errors import QueryError
 from vastorbit._typing import NoneType, SQLColumns, SQLRelation
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type
-from vastorbit._utils._gen import gen_tmp_name
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
@@ -570,6 +569,8 @@ def het_goldfeldquandt(
         fpval_sm = f.cdf(F, m - k, n - k)
         fpval_la = f.sf(F, m - k, n - k)
         f_pvalue = 2 * min(fpval_sm, fpval_la)
+    else:
+        raise ValueError(f"'{alternative}' is not a valid alternative.")
     return F, f_pvalue
 
 

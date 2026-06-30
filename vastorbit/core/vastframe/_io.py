@@ -18,16 +18,17 @@ from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import format_type, quote_ident
 from vastorbit._utils._sql._random import _current_random
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit.connection import current_cursor
 from vastorbit.errors import ParsingError
 
-from vastorbit.core.tablesample.base import TableSample
 
 from vastorbit.core.vastframe._sys import vDFSystem
 
 if conf.get_import_success("geopandas"):
     from geopandas import GeoDataFrame
     from shapely import wkt
+else:
+    GeoDataFrame = None
+    wkt = None
 
 if TYPE_CHECKING:
     from vastorbit.core.vastframe.base import VastFrame
@@ -928,7 +929,7 @@ class vDFInOut(vDFSystem):
         else:
             select = []
             for column in usecols:
-                ctype, col = self[column].ctype(), quote_ident(column)
+                ctype, _col = self[column].ctype(), quote_ident(column)
                 select += [f"CAST({column} AS {ctype})"]
             select = ", ".join(select)
         insert_usecols = ", ".join(quote_ident(usecols))

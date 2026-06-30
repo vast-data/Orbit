@@ -112,13 +112,13 @@ class vDFUtils(PlottingUtils):
             # For sub-day units, compute epoch and truncate
             if unit == "SECOND":
                 divisor = length
-                interval_unit = "SECOND"
+                _interval_unit = "SECOND"
             elif unit == "MINUTE":
                 divisor = length * 60
-                interval_unit = "SECOND"
-            elif unit == "HOUR":
+                _interval_unit = "SECOND"
+            else:
                 divisor = length * 3600
-                interval_unit = "SECOND"
+                _interval_unit = "SECOND"
 
             if start:
                 return f"""

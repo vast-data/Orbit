@@ -39,7 +39,7 @@ def print_message(
                     display(Markdown(message))
                 else:
                     display(HTML(message))
-            except:
+            except Exception:
                 display(message)
         else:
             print(message)

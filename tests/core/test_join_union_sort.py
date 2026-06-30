@@ -21,6 +21,5 @@ def test_append(titanic):
 def test_join():
     left = vo.VastFrame({"k": [1, 2, 3], "lv": ["a", "b", "c"]})
     right = vo.VastFrame({"k": [1, 2, 3], "rv": ["x", "y", "z"]})
-    joined = left.join(right, on={"k": "k"}, how="inner",
-                       expr1=["lv"], expr2=["rv"])
+    joined = left.join(right, on={"k": "k"}, how="inner", expr1=["lv"], expr2=["rv"])
     assert joined.shape()[0] == 3

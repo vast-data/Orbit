@@ -23,7 +23,7 @@ def test_build_from_pandas():
 
 
 def test_head(titanic):
-    assert titanic.head(5).shape()[1] == 5   # TableSample.shape() is (cols, rows)
+    assert titanic.head(5).shape()[1] == 5  # TableSample.shape() is (cols, rows)
 
 
 def test_copy_is_independent(titanic):

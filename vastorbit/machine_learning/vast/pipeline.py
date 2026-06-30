@@ -96,7 +96,7 @@ class Pipeline:
                 )
             elif not hasattr(s[1], "fit"):
                 raise ValueError(
-                    "The last estimator of the Pipeline must have a " "'fit' method."
+                    "The last estimator of the Pipeline must have a 'fit' method."
                 )
             self.steps += [s]
 
@@ -293,7 +293,7 @@ class Pipeline:
                     current_vdf = step[1].predict(
                         current_vdf, X_new, name=name, inplace=False
                     )
-                except:
+                except Exception:
                     current_vdf = step[1].predict(current_vdf, X_new, name=name)
             else:
                 current_vdf = step[1].transform(current_vdf, X_new)

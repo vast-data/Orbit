@@ -31,7 +31,7 @@ def draw_subplots(
     if kind == "pie":
         param = {"specs": [[{"type": "pie"} for i in range(rows)] for j in range(cols)]}
     n, k = len(figs), len(subplot_titles)
-    titles = [t for t in subplot_titles] + ["" for i in range(n - k)]
+    _titles = [t for t in subplot_titles] + ["" for i in range(n - k)]
     fig = make_subplots(rows=rows, cols=cols, subplot_titles=subplot_titles, **param)
     for i in range(1, cols + 1):
         for j in range(1, rows + 1):

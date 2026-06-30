@@ -7,14 +7,10 @@ import uuid
 from typing import Optional, Union, List, Tuple
 
 import vastorbit._config.config as conf
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._print import print_message
-from vastorbit._utils._sql._format import format_type, format_schema_table, quote_ident
-from vastorbit._utils._sql._sys import _executeSQL
+from vastorbit._utils._sql._format import format_type, quote_ident
 
 from vastorbit.connection import current_cursor
-
-from vastorbit.sql.drop import drop
 
 
 def trino_dtype(
@@ -91,7 +87,7 @@ def trino_dtype(
         "json",
     )
 
-    has_precision_scale = not any(res.startswith(t) for t in no_precision_types)
+    _has_precision_scale = not any(res.startswith(t) for t in no_precision_types)
 
     return res
 
@@ -281,7 +277,7 @@ def _get_table_types(
             raise ValueError(
                 f"Failed to get table types for '{table_ref}': {str(e)}. "
                 f"Also failed with information_schema: {str(e2)}"
-            )
+            ) from e2
 
 
 def _get_table_types_from_information_schema(
@@ -428,4 +424,4 @@ def _get_expression_types(
         return ctype
 
     except Exception as e:
-        raise ValueError(f"Failed to determine types for expression: {str(e)}")
+        raise ValueError(f"Failed to determine types for expression: {str(e)}") from e

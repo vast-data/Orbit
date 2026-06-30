@@ -10,11 +10,9 @@ from typing import Optional
 import pandas as pd
 
 import vastorbit._config.config as conf
-from vastorbit._typing import NoneType
 from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import format_schema_table, format_type, quote_ident
-from vastorbit._utils._sql._sys import _executeSQL
+from vastorbit._utils._sql._format import format_type, quote_ident
 
 
 from vastorbit.core.parsers.csv import read_csv
@@ -396,6 +394,6 @@ def read_pandas(
             if os.path.exists(path):
                 os.remove(path)
         except Exception as e:
-            logging.warning(f"Could not remove temporary file {path}: {e}")
+            logging.warning("Could not remove temporary file %s: %s", path, e)
 
     return vdf

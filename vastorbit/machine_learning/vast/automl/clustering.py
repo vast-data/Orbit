@@ -108,14 +108,16 @@ class AutoClustering(VASTModel):
         max_iter: int = 300,
         tol: float = 1e-4,
         preprocess_data: bool = True,
-        preprocess_dict: dict = {
-            "identify_ts": False,
-            "standardize_min_cat": 0,
-            "outliers_threshold": 3.0,
-            "na_method": "drop",
-        },
+        preprocess_dict: dict | None = None,
         print_info: bool = True,
     ) -> None:
+        if preprocess_dict is None:
+            preprocess_dict = {
+                "identify_ts": False,
+                "standardize_min_cat": 0,
+                "outliers_threshold": 3.0,
+                "na_method": "drop",
+            }
         super().__init__(name, overwrite_model)
         self.parameters = {
             "n_clusters": n_clusters,
@@ -150,7 +152,7 @@ class AutoClustering(VASTModel):
         else:
             self._is_already_stored(raise_error=True)
         if self.parameters["print_info"]:
-            print_message(f"\033[1m\033[4mStarting AutoClustering\033[0m\033[0m\n")
+            print_message("\033[1m\033[4mStarting AutoClustering\033[0m\033[0m\n")
         if self.parameters["preprocess_data"]:
             model_preprocess = AutoDataPrep(**self.parameters["preprocess_dict"])
             model_preprocess.fit(input_relation, X=X)
@@ -162,7 +164,7 @@ class AutoClustering(VASTModel):
         if not self.parameters["n_clusters"]:
             if self.parameters["print_info"]:
                 print_message(
-                    f"\033[1m\033[4mFinding a suitable number of clusters\033[0m\033[0m\n"
+                    "\033[1m\033[4mFinding a suitable number of clusters\033[0m\033[0m\n"
                 )
             self.parameters["n_clusters"] = best_k(
                 input_relation=input_relation,
@@ -175,12 +177,12 @@ class AutoClustering(VASTModel):
                 tqdm=self.parameters["print_info"],
             )
         if self.parameters["print_info"]:
-            print_message(f"\033[1m\033[4mBuilding the Final Model\033[0m\033[0m\n")
+            print_message("\033[1m\033[4mBuilding the Final Model\033[0m\033[0m\n")
         if conf.get_option("tqdm") and self.parameters["print_info"]:
             loop = tqdm(range(1))
         else:
             loop = range(1)
-        for i in loop:
+        for _i in loop:
             self.model_ = KMeans(
                 self.model_name,
                 n_clusters=self.parameters["n_clusters"],

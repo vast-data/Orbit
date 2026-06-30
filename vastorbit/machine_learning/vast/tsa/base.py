@@ -5,10 +5,7 @@ Complete base.py for TimeSeriesModelBase with SQL-based AR/VAR training.
 This replaces the fit() method and adds helper methods for pure SQL inference.
 """
 
-from abc import abstractmethod
 import copy
-import datetime
-from dateutil.relativedelta import relativedelta
 from typing import Literal, Optional, Union
 
 import numpy as np
@@ -19,13 +16,11 @@ from vastorbit._typing import (
     SQLColumns,
     SQLRelation,
 )
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._format import (
     clean_query,
     format_type,
     quote_ident,
-    schema_relation,
 )
 from vastorbit._utils._sql._sys import _executeSQL
 
@@ -33,8 +28,6 @@ from vastorbit.core.vastframe.base import TableSample, VastFrame
 
 import vastorbit.machine_learning.metrics as mt
 from vastorbit.machine_learning.vast.base import VASTModel
-
-from vastorbit.sql.drop import drop
 
 """
 General Classes.
@@ -416,7 +409,7 @@ class TimeSeriesModelBase(VASTModel):
         We compute the covariance matrices in SQL, then solve in Python.
         """
         n_vars = len(self.y)
-        total_predictors = n_vars * p
+        _total_predictors = n_vars * p
 
         # Build lag columns for all variables
         lags = []
@@ -571,7 +564,7 @@ class TimeSeriesModelBase(VASTModel):
         try:
             data = np.array(result, dtype=float)
         except (ValueError, TypeError) as e:
-            raise ValueError(f"Data contains non-numeric values: {e}")
+            raise ValueError(f"Data contains non-numeric values: {e}") from e
 
         # Final check for NaN or Inf (shouldn't happen with proper WHERE clause)
         if np.any(np.isnan(data)):
@@ -619,12 +612,12 @@ class TimeSeriesModelBase(VASTModel):
 
             try:
                 # Solve using least squares: beta = (X'X)^-1 X'y
-                beta, residuals, rank, s = lstsq(X, y_i, rcond=None)
+                beta, _residuals, rank, _s = lstsq(X, y_i, rcond=None)
 
                 intercepts.append(beta[0])
                 phi_matrices.append(beta[1:])  # All coefficients except intercept
 
-            except np.linalg.LinAlgError as e:
+            except np.linalg.LinAlgError as _e:
                 print_message(
                     f"Warning: SVD failed for variable {i}. Using Ridge regression fallback."
                 )
@@ -1129,7 +1122,7 @@ class TimeSeriesModelBase(VASTModel):
             terms = []
             coef_idx = 0
             for lag in range(1, p + 1):
-                for col_idx, col in enumerate(y):
+                for _col_idx, col in enumerate(y):
                     col_name = col[1:-1]
                     if coef_idx < len(phi_coefs):
                         coef = float(phi_coefs[coef_idx])
@@ -1256,7 +1249,7 @@ class TimeSeriesModelBase(VASTModel):
         method="auto": One-step ahead (uses actual values as lags)
         method="forecast": Multi-step ahead (uses predicted values as lags)
         """
-        p = self.parameters.get("p", 1)
+        _p = self.parameters.get("p", 1)
         is_multivar = self._ismultivar()
 
         if ts is None:
@@ -1407,7 +1400,7 @@ class TimeSeriesModelBase(VASTModel):
         phi = self.phi_
         intercept = float(self.intercept_)
 
-        for step in range(npredictions):
+        for _step in range(npredictions):
             # Compute prediction: y_t = intercept + phi_1*y_{t-1} + phi_2*y_{t-2} + ...
             pred = intercept
             for i in range(p):
@@ -1464,7 +1457,7 @@ class TimeSeriesModelBase(VASTModel):
         # Build prediction formulas for each variable
         prediction_formulas = []
         for var_idx in range(n_vars):
-            y_col_name = y[var_idx].strip('"')
+            _y_col_name = y[var_idx].strip('"')
 
             # Get coefficients for this equation
             phi_coefs = self._phi_values[var_idx]
@@ -1479,7 +1472,7 @@ class TimeSeriesModelBase(VASTModel):
             terms = []
             coef_idx = 0
             for lag in range(1, p + 1):
-                for col_idx, col in enumerate(y):
+                for _col_idx, col in enumerate(y):
                     col_name = col.strip('"')
                     if coef_idx < len(phi_coefs):
                         coef = float(phi_coefs[coef_idx])
@@ -1910,6 +1903,7 @@ class TimeSeriesModelBase(VASTModel):
             :py:class:`~vastorbit.machine_learning.vast.tsa.AR`;
         """
         if self._ismultivar():
+            res = {}
             for i in range(len(self.y)):
                 tmp_res = mt.regression_report(
                     f"y_true{i}",

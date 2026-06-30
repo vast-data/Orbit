@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="vastorbit",
-    version="0.1.0",
+    version="0.1.0b1",
     author="Badr Ouali",
     author_email="badr.ouali@outlook.fr",
     url="https://github.com/vastdata-dev/vastorbit",

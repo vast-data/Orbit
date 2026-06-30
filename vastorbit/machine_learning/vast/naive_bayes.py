@@ -7,10 +7,7 @@ import numpy as np
 
 from vastorbit._typing import PythonNumber
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import quote_ident
-from vastorbit.errors import MissingRelation
 
-from vastorbit.core.vastframe.base import VastFrame
 
 import vastorbit.machine_learning.memmodel as mm
 

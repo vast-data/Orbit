@@ -23,7 +23,6 @@ from vastorbit._utils._sql._format import (
     clean_query,
     format_type,
     quote_ident,
-    schema_relation,
 )
 from vastorbit._utils._sql._sys import _executeSQL
 from vastorbit._utils._sql._vast_version import vast_version
@@ -35,8 +34,6 @@ from vastorbit.machine_learning.vast.linear_model import (
     LinearModel,
     LinearRegression,
 )
-
-from vastorbit.sql.drop import drop
 
 """
 Time Series Tests: stationarity / trend.
@@ -373,7 +370,6 @@ def adfuller(
         predictors.append("ts_numeric")
 
     # Fit linear regression
-    from vastorbit.machine_learning.vast import LinearRegression
     from scipy import stats
 
     model = LinearRegression(tol=1e-6)
@@ -1776,7 +1772,7 @@ def seasonal_decompose(
     if use_row:
         vast_version(condition=[12, 0, 0])
     assert period > 0 or polynomial_order > 0, ValueError(
-        "Parameters 'polynomial_order' and " "'period' can not be both null."
+        "Parameters 'polynomial_order' and 'period' can not be both null."
     )
     columns = format_type(columns, dtype=list)
     by = format_type(by, dtype=list)

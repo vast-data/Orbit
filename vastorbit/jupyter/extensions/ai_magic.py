@@ -29,7 +29,6 @@ import time
 import textwrap
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
 
 from IPython.core.magic import (
     Magics,
@@ -627,19 +626,19 @@ class VastOrbitAIMagics(Magics):
                     _ast.fix_missing_locations(last_expr)
                     body = _ast.Module(body=tree.body[:-1], type_ignores=[])
                     _ast.fix_missing_locations(body)
-                    exec(compile(body, "<ai>", "exec"), ns)
-                    result = eval(compile(last_expr, "<ai>", "eval"), ns)
+                    exec(compile(body, "<ai>", "exec"), ns)  # pylint: disable=exec-used
+                    result = eval(
+                        compile(last_expr, "<ai>", "eval"), ns
+                    )  # pylint: disable=eval-used
                     # Store in _ and Out[n] like IPython does
                     ns["_"] = result
                     ns["_ai_result"] = result
                     # Display the result
                     if result is not None:
-                        from IPython.display import display
-
                         display(result)
                 else:
                     # All statements (assignments, etc.) — just exec
-                    exec(code, ns)
+                    exec(code, ns)  # pylint: disable=exec-used
             except Exception as e:
                 print(f"✗ Execution error: {e}")
                 print("  Use %ai_code to inspect and fix manually.")
@@ -730,9 +729,8 @@ def load_ipython_extension(ipython):
         else "⚠ no key — run %ai_config --key YOUR_KEY"
     )
     print(f"🛰️  VAST Orbit AI Magic loaded ({key_status})")
-    print(f"   Use:  %%ai  |  %ai_config  |  %ai_schema  |  %ai_code  |  %ai_stats")
+    print("   Use:  %%ai  |  %ai_config  |  %ai_schema  |  %ai_code  |  %ai_stats")
 
 
 def unload_ipython_extension(ipython):
     """Called by ``%unload_ext vastorbit.ai``"""
-    pass

@@ -208,7 +208,7 @@ def clean_data(data: ArrayLike) -> ArrayLike:
                     try:
                         float(val)
                         val = "{:,}".format(val)
-                    except:
+                    except Exception:
                         pass
                 if isinstance(val, bool) is False and not isinstance(val, NoneType):
                     data[i][j] = val

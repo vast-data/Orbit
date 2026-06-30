@@ -35,7 +35,7 @@ class Histogram(MatplotlibBase):
         Draws a histogram using the Matplotlib API.
         """
         style_kwargs = self._fix_color_style_kwargs(style_kwargs)
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax, size=(8, 6), set_axis_below=True, grid="y", style_kwargs=style_kwargs
         )
         alpha, colors = 1.0, self.get_colors()

@@ -9,21 +9,17 @@ import numpy as np
 
 import pandas as pd
 
-from vastorbit.connection.global_connection import get_global_connection
 from vastorbit._typing import SQLColumns
 from vastorbit._utils._object import read_pd
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._cast import to_category
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._check import is_longvar, is_dql
+from vastorbit._utils._sql._check import is_dql
 from vastorbit._utils._sql._format import (
     clean_query,
-    extract_precision_scale,
     extract_subquery,
-    format_schema_table,
     format_type,
     quote_ident,
-    schema_relation,
 )
 from vastorbit.errors import MissingRelation
 

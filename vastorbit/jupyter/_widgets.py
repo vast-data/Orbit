@@ -9,6 +9,8 @@ from vastorbit._utils._print import print_message
 
 if conf.get_import_success("IPython"):
     import ipywidgets as widgets
+else:
+    widgets = None
 
 
 class Visualizer:
@@ -40,15 +42,23 @@ class Visualizer:
 
     def __init__(
         self,
-        settings_wids: list = [],
-        graph_wids: list = [],
-        settings_layout_override: dict[str, str] = {},
-        graph_layout_override: dict[str, str] = {},
+        settings_wids: list | None = None,
+        graph_wids: list | None = None,
+        settings_layout_override: dict[str, str] | None = None,
+        graph_layout_override: dict[str, str] | None = None,
         orientation: Literal[
             "h",
             "v",
         ] = "h",
     ) -> None:
+        if settings_wids is None:
+            settings_wids = []
+        if graph_wids is None:
+            graph_wids = []
+        if settings_layout_override is None:
+            settings_layout_override = {}
+        if graph_layout_override is None:
+            graph_layout_override = {}
         settings_layout = self.get_settings_box_h_default_layout()
         graph_layout = self.get_graph_box_h_default_layout()
         if orientation == "v":

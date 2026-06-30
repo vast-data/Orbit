@@ -37,8 +37,6 @@ class ConversionError(Exception):
         choose the most appropriate one.
     """
 
-    ...
-
 
 class EmptyParameter(Exception):
     """
@@ -74,8 +72,6 @@ class EmptyParameter(Exception):
         It is essential to review all available errors to
         choose the most appropriate one.
     """
-
-    ...
 
 
 class ExtensionError(Exception):
@@ -113,8 +109,6 @@ class ExtensionError(Exception):
         It is essential to review all available errors to
         choose the most appropriate one.
     """
-
-    ...
 
 
 class FunctionError(Exception):
@@ -157,8 +151,6 @@ class FunctionError(Exception):
         choose the most appropriate one.
     """
 
-    ...
-
 
 class MissingColumn(Exception):
     """
@@ -196,8 +188,6 @@ class MissingColumn(Exception):
         It is essential to review all available errors to
         choose the most appropriate one.
     """
-
-    ...
 
 
 class MissingRelation(Exception):
@@ -237,8 +227,6 @@ class MissingRelation(Exception):
         choose the most appropriate one.
     """
 
-    ...
-
 
 class MissingSchema(Exception):
     """
@@ -277,8 +265,6 @@ class MissingSchema(Exception):
         choose the most appropriate one.
     """
 
-    ...
-
 
 class ModelError(Exception):
     """
@@ -315,8 +301,6 @@ class ModelError(Exception):
         It is essential to review all available errors to
         choose the most appropriate one.
     """
-
-    ...
 
 
 class OptionError(Exception):
@@ -357,8 +341,6 @@ class OptionError(Exception):
         choose the most appropriate one.
     """
 
-    ...
-
 
 class ParsingError(Exception):
     """
@@ -395,8 +377,6 @@ class ParsingError(Exception):
         choose the most appropriate one.
     """
 
-    ...
-
 
 class QueryError(Exception):
     """
@@ -432,8 +412,6 @@ class QueryError(Exception):
         It is essential to review all available errors to
         choose the most appropriate one.
     """
-
-    ...
 
 
 class VersionError(Exception):
@@ -472,5 +450,3 @@ class VersionError(Exception):
         It is essential to review all available errors to
         choose the most appropriate one.
     """
-
-    ...

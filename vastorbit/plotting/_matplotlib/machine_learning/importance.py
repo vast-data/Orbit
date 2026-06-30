@@ -41,7 +41,7 @@ class ImportanceBarChart(MatplotlibBase):
             self.layout["x_label"] if "x_label" in self.layout else "Importance (%)"
         )
         y_label = self.layout["y_label"] if "y_label" in self.layout else "Features"
-        ax, fig, style_kwargs = self._get_ax_fig(
+        ax, _fig, style_kwargs = self._get_ax_fig(
             ax,
             size=(12, int(n / 2) + 1),
             set_axis_below=True,

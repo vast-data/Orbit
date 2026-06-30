@@ -3,7 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 """
 
 import time
-from typing import Optional, Literal, Union
+from typing import Optional, Literal
 
 from IPython.core.magic import needs_local_scope
 
@@ -739,7 +739,7 @@ def chart_magic(line: str, cell: Optional[str] = None, local_ns: Optional[dict] 
     if "-o" in options:
         try:
             chart.write_html(options["-o"])
-        except:
+        except Exception:
             chart.save_file(options["-o"])
 
     # Displaying the time

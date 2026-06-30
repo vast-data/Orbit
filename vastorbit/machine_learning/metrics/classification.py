@@ -13,7 +13,6 @@ from vastorbit._typing import (
 )
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._map import param_docstring
 
 from vastorbit.core.tablesample.base import TableSample
 
@@ -160,9 +159,9 @@ def _compute_final_score_from_cm(
     Computes the final score by using the different results
     of the multi-confusion matrix.
     """
-    if metric == _accuracy_score and isinstance(average, NoneType):
+    if metric is _accuracy_score and isinstance(average, NoneType):
         return np.trace(cm) / np.sum(cm)
-    elif metric == _balanced_accuracy_score and isinstance(average, NoneType):
+    elif metric is _balanced_accuracy_score and isinstance(average, NoneType):
         return _compute_final_score_from_cm(
             metric=_recall_score, cm=cm, average="macro", multi=multi
         )
@@ -327,9 +326,9 @@ def confusion_matrix(
 
     # Binary classification
     if not isinstance(pos_label, NoneType):
-        q = ""
+        _q = ""
         if isinstance(pos_label, str):
-            q = "'"
+            _q = "'"
         query = f"""
             SELECT 
                 actual,
@@ -381,9 +380,9 @@ def confusion_matrix(
         predicted_case = "CASE "
 
         for idx, label in enumerate(labels):
-            q = ""
+            _q = ""
             if isinstance(label, str):
-                q = "'"
+                _q = "'"
             actual_case += f"WHEN CAST({y_true} AS VARCHAR) = '{label}' THEN {idx} "
             predicted_case += f"WHEN CAST({y_score} AS VARCHAR) = '{label}' THEN {idx} "
 
@@ -3429,9 +3428,9 @@ def _compute_roc_curve(
     - Y-axis: True Positive Rate (TPR) = TP / (TP + FN)
     - Vary threshold from max to min score
     """
-    q = ""
+    _q = ""
     if isinstance(pos_label, str):
-        q = "'"
+        _q = "'"
 
     query = f"""
     WITH 
@@ -3533,9 +3532,9 @@ def _compute_prc_curve(
     - Y-axis: Precision = TP / (TP + FP)
     - Vary threshold from max to min score
     """
-    q = ""
+    _q = ""
     if isinstance(pos_label, str):
-        q = "'"
+        _q = "'"
 
     query = f"""
     WITH 
@@ -3635,9 +3634,9 @@ def _compute_lift_curve(
     - positive_prediction_ratio: Percentage of population predicted as positive
     - lift: How much better than random (TP rate / overall positive rate)
     """
-    q = ""
+    _q = ""
     if isinstance(pos_label, str):
-        q = "'"
+        _q = "'"
 
     query = f"""
     WITH 
@@ -3791,9 +3790,9 @@ def _compute_micro_multiclass_metric(
     fun_sql_name: Optional[str],
 ):
     if fun_sql_name == "roc":
-        X = ["decision_boundary", "false_positive_rate", "true_positive_rate"]
+        _X = ["decision_boundary", "false_positive_rate", "true_positive_rate"]
     elif fun_sql_name == "prc":
-        X = ["decision_boundary", "recall", "precision"]
+        _X = ["decision_boundary", "recall", "precision"]
     labels_query = ""
     for i in range(len(labels)):
         labels_query += f"""
@@ -4006,7 +4005,7 @@ def _compute_final_auc_score(
                         COUNT(*)
                     FROM {input_relation}
                     GROUP BY 1""",
-                title=f"Computing the cardinality of all categories.",
+                title="Computing the cardinality of all categories.",
                 method="fetchall",
             )
             score = 0.0
@@ -4892,9 +4891,9 @@ def log_loss(
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.score` : Computes the input ML metric.
     """
     if not isinstance(pos_label, NoneType) or isinstance(labels, NoneType):
-        q = ""
+        _q = ""
         if isinstance(pos_label, str):
-            q = "'"
+            _q = "'"
         y_s = _get_yscore(y_score, labels, pos_label)
         return _executeSQL(
             query=f"""
@@ -5415,9 +5414,9 @@ def classification_report(
     for idx, pos_label in enumerate(labels):
         y_s = "undefined"
         y_t = "undefined"
-        q = ""
+        _q = ""
         if isinstance(pos_label, str):
-            q = "'"
+            _q = "'"
         if is_multi:
             tn, fn, fp, tp = all_cm_metrics[idx]
             if prob_list:

@@ -433,7 +433,7 @@ def randomized_features_search_cv(
             all_configuration = random.sample(all_configuration, comb_limit)
     else:
         all_configuration = []
-        for k in range(max(comb_limit, 1)):
+        for _k in range(max(comb_limit, 1)):
             config = sorted(random.sample(X, random.randint(1, len(X))))
             if config not in all_configuration:
                 all_configuration += [config]
@@ -888,7 +888,7 @@ def stepwise(
             res += [(X_test, test_score, sign, X[idx], idx + 1, score_diff)]
             current_step += 1
     if print_info:
-        print_message(f"\033[1m\033[4mSelected Model\033[0m\033[0m\n")
+        print_message("\033[1m\033[4mSelected Model\033[0m\033[0m\n")
         print_message(
             f"\033[1m[Model {model_id}]\033[0m \033[92m{criterion}:"
             f" {current_score}\033[0m; Variables: {X_current}"

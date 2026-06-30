@@ -2,14 +2,10 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-from typing import Optional
-
 from vastorbit._typing import PythonNumber
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._sys import _executeSQL
 from vastorbit._typing import SQLRelation
 
-from vastorbit.datasets.generators import gen_meshgrid
 
 from vastorbit.core.vastframe.base import VastFrame
 

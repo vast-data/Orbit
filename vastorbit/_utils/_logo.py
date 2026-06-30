@@ -4,8 +4,6 @@ SPDX-License-Identifier: Apache-2.0
 
 import vastorbit._config.config as conf
 
-import base64
-
 
 def vast_logo_png():
     """

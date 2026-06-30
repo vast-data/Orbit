@@ -6,12 +6,10 @@ import time
 from typing import Any, Literal, Optional
 
 import vastorbit._config.config as conf
-from vastorbit.connection.global_connection import get_global_connection
 from vastorbit._typing import NoneType
 from vastorbit._utils._sql._display import print_query, print_time
 from vastorbit._utils._sql._format import (
     clean_query,
-    erase_label,
     format_type,
     replace_label,
 )

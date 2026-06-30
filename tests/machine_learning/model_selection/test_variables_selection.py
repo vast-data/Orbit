@@ -13,7 +13,12 @@ def test_stepwise(titanic, name_factory):
     data = titanic.copy()[TITANIC_NUM_X + ["pclass", TITANIC_BINARY_Y]].dropna()
     model = LogisticRegression(name=name_factory("stepwise"))
     res = stepwise(
-        model, data, TITANIC_NUM_X + ["pclass"], TITANIC_BINARY_Y,
-        direction="backward", print_info=False, show=False,
+        model,
+        data,
+        TITANIC_NUM_X + ["pclass"],
+        TITANIC_BINARY_Y,
+        direction="backward",
+        print_info=False,
+        show=False,
     )
     assert res is not None

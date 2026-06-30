@@ -7,7 +7,7 @@ from __future__ import annotations
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
-from typing import Optional, Dict, Any, Union
+from typing import Dict, Any, Union
 
 try:
     from vastorbit._utils._print import print_message
@@ -117,7 +117,7 @@ class OAuthManager:
             return json_response["access_token"]
         except requests.exceptions.HTTPError as err:
             msg = f"{err_msg}\n{err}\n{response.json()}"
-            raise OAuthTokenRefreshError(msg)
+            raise OAuthTokenRefreshError(msg) from err
         except Exception as e:
             raise OAuthTokenRefreshError(err_msg) from e
 

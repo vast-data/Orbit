@@ -11,12 +11,15 @@ import importlib
 import pytest
 
 
-@pytest.mark.parametrize("module", [
-    "vastorbit.ai",
-    "vastorbit.chart",
-    "vastorbit.jupyter",
-    "vastorbit.jupyter.extensions",
-])
+@pytest.mark.parametrize(
+    "module",
+    [
+        "vastorbit.ai",
+        "vastorbit.chart",
+        "vastorbit.jupyter",
+        "vastorbit.jupyter.extensions",
+    ],
+)
 def test_module_imports(module):
     assert importlib.import_module(module) is not None
 
@@ -24,5 +27,6 @@ def test_module_imports(module):
 def test_ipython_extension_entrypoints():
     import vastorbit.ai as ai
     import vastorbit.chart as chart
+
     assert hasattr(ai, "load_ipython_extension")
     assert hasattr(chart, "load_ipython_extension")

@@ -14,7 +14,6 @@ from vastorbit._utils._sql._format import (
     format_type,
     quote_ident,
 )
-from vastorbit._utils._sql._vast_version import vast_version
 
 from vastorbit.core.vastframe._math import vDFMath
 

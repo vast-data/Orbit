@@ -70,7 +70,7 @@ class SVMClassifierPlot(MatplotlibBase):
         x, w = self.data["X"][:, 0], self.data["X"][:, -1]
         x0, x1 = x[w == 0], x[w == 1]
         if len(self.layout["columns"]) == 2:
-            ax, fig, style_kwargs = self._get_ax_fig(
+            ax, _fig, style_kwargs = self._get_ax_fig(
                 ax,
                 size=(8, 6),
                 set_axis_below=True,
@@ -98,7 +98,7 @@ class SVMClassifierPlot(MatplotlibBase):
             y0, y1 = y[w == 0], y[w == 1]
             min_svm_x, max_svm_x = np.nanmin(x), np.nanmax(x)
             if len(self.layout["columns"]) == 3:
-                ax, fig, style_kwargs = self._get_ax_fig(
+                ax, _fig, style_kwargs = self._get_ax_fig(
                     ax,
                     size=(8, 6),
                     set_axis_below=True,
@@ -145,7 +145,7 @@ class SVMClassifierPlot(MatplotlibBase):
                     )
                     / self.data["coef"][3]
                 )
-                ax, fig, style_kwargs = self._get_ax_fig(
+                ax, _fig, style_kwargs = self._get_ax_fig(
                     ax, size=(8, 6), dim=3, style_kwargs=style_kwargs
                 )
                 ax.plot_surface(

@@ -70,7 +70,7 @@ def count_functions_classes_methods(
         if inspect.isclass(member) and (
             isinstance(class_, NoneType) or class_ in str(member)
         ):
-            class_members = inspect.getmembers(member)
+            _class_members = inspect.getmembers(member)
             attribute_count += sum(
                 [
                     int(not (str(l[0]).startswith("_")))
@@ -237,6 +237,7 @@ def gen_rst_summary_table() -> str:
 
     # Data rows
     current_category = None
+    subcategory = None
     total_functions = 0
     data = summarise_vastorbit_functions()
 

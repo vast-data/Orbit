@@ -12,8 +12,7 @@ from tests.helpers import cols_lower
 def test_create_insert_read_drop(name_factory):
     tbl = name_factory("ddl_tbl")
     vo.create_table(tbl, dtype={"id": "int", "label": "varchar"})
-    insert_into(tbl, data=[[1, "a"], [2, "b"], [3, "c"]],
-                column_names=["id", "label"])
+    insert_into(tbl, data=[[1, "a"], [2, "b"], [3, "c"]], column_names=["id", "label"])
     vd = vo.VastFrame(tbl)
     assert vd.shape()[0] == 3
     assert "label" in cols_lower(vd)

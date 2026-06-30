@@ -2,7 +2,6 @@
 SPDX-License-Identifier: Apache-2.0
 """
 
-import copy
 import re
 import secrets
 from typing import Literal, Optional, Union, TYPE_CHECKING
@@ -373,11 +372,11 @@ class vDFMath(vDFFilter):
                 # Percentile
                 try:
                     x = float(func[0:-1]) / 100
-                except:
+                except Exception as exc:
                     raise ValueError(
                         f"The aggregate function '{func}' doesn't exist. "
                         "Use 'x%' with x > 0. Example: 50% for median."
-                    )
+                    ) from exc
                 self.eval(
                     name, f"APPROX_PERCENTILE({columns[0]}, {x}) OVER ({by_clause})"
                 )
@@ -487,11 +486,11 @@ class vDFMath(vDFFilter):
                     name,
                     f"{func.upper()}({columns[0] if columns else ''}) OVER ({by_clause}{order_by_clause})",
                 )
-            except:
+            except Exception as exc:
                 raise ValueError(
                     f"The aggregate function '{func}' doesn't exist or is not "
                     "managed by the 'analytic' method. Use the 'eval' method for more flexibility."
-                )
+                ) from exc
 
         return self
 
@@ -1080,7 +1079,7 @@ class vDCMath(vDCFilter):
                         )
                     ):
                         max_floor = max(len(self._parent[column]._transf), max_floor)
-                except:
+                except Exception:
                     pass
             max_floor -= len(self._transf)
             if copy_name:
@@ -1092,7 +1091,7 @@ class vDCMath(vDCFilter):
                 self._parent[copy_name_str]._transf += [(func, ctype, category)]
                 self._parent[copy_name_str]._catalog = self._catalog
             else:
-                for k in range(max_floor):
+                for _k in range(max_floor):
                     self._transf += [("{}", self.ctype(), self.category())]
                 self._transf += [(func, ctype, category)]
                 self._parent._update_catalog(erase=True, columns=[self._alias])
@@ -1105,7 +1104,7 @@ class vDCMath(vDCFilter):
             raise QueryError(
                 f"{e}\nError when applying the func 'x -> {func_apply}' "
                 f"to '{alias_sql_repr}'"
-            )
+            ) from e
 
     @save_vastorbit_logs
     def apply_fun(
@@ -1319,6 +1318,7 @@ class vDCMath(vDCFilter):
 
         cat = self.category().lower()
         ctype = self.ctype().lower()
+        expr = None
 
         if ctype.startswith("array"):
             if func == "len":
@@ -1387,7 +1387,7 @@ class vDCMath(vDCFilter):
             elif func in ("mod", "pow", "round"):
                 expr = f"{func.upper()}({{}}, {x})"
             elif func == "cot":
-                expr = f"COS({{}}) / SIN({{}})"
+                expr = "COS({{}}) / SIN({{}})"
             elif func == "contains":
                 # Not applicable for scalars
                 raise ValueError(
@@ -1397,6 +1397,10 @@ class vDCMath(vDCFilter):
                 # Not applicable for scalars
                 raise ValueError(f"Function '{func}' is only applicable to arrays")
 
+        if expr is None:
+            raise ValueError(
+                f"Function '{func}' is not supported for this column type."
+            )
         return self.apply(func=expr)
 
     @save_vastorbit_logs

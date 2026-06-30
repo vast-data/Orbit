@@ -4,7 +4,6 @@ SPDX-License-Identifier: Apache-2.0
 
 from typing import Literal, Optional
 
-import numpy as np
 import pandas as pd
 import plotly.express as px
 from plotly.graph_objs._figure import Figure
@@ -67,7 +66,7 @@ class ChampionChallengerPlot(PlotlyBase):
         Draws a Machine Learning Bubble Plot using the Plotly API.
         """
         fig = self._get_fig(fig)
-        n = len(self.data["x"])
+        _n = len(self.data["x"])
         df = pd.DataFrame(self.data)
         df.loc[df["s"] == 0, "s"] = 1e-8
         fig_scatter = px.scatter(df, x="x", y="y", size="s", color="c", custom_data="c")

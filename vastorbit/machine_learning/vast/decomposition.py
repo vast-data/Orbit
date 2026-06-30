@@ -14,7 +14,7 @@ from vastorbit._typing import (
     SQLRelation,
 )
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import clean_query, format_type, quote_ident
+from vastorbit._utils._sql._format import format_type, quote_ident
 
 from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame

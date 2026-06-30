@@ -1030,7 +1030,7 @@ class vDCFill(vDCMath):
             total = abs(self.count() - total)
         except Exception as e:
             self._transf = copy.deepcopy(copy_trans)
-            raise vQueryError(f"{e}\nAn Error happened during the filling.")
+            raise vQueryError(f"{e}\nAn Error happened during the filling.") from e
         if total > 0:
             if "count" in sauv:
                 parent_cnt = self._parent.shape()[0]

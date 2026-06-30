@@ -8,27 +8,21 @@ from typing import Literal, Optional
 import numpy as np
 import sklearn
 
-from vastorbit.connection.errors import QueryError
 
 from vastorbit._typing import NoneType, SQLColumns, SQLRelation
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import (
     clean_query,
     format_type,
     quote_ident,
-    schema_relation,
 )
 from vastorbit._utils._sql._sys import _executeSQL
 
 
-from vastorbit.core.tablesample.base import TableSample
 from vastorbit.core.vastframe.base import VastFrame
 
 import vastorbit.machine_learning.memmodel as mm
-from vastorbit.machine_learning.vast.base import Unsupervised, VASTModel
-
-from vastorbit.sql.drop import drop
+from vastorbit.machine_learning.vast.base import Unsupervised
 
 """
 General Functions.
@@ -1608,7 +1602,7 @@ class OneHotEncoder(Preprocessing):
         self,
         name: str = None,
         overwrite_model: bool = False,
-        extra_levels: dict = {},
+        extra_levels: dict | None = None,
         drop_first: bool = True,
         ignore_null: bool = True,
         separator: str = "_",
@@ -1616,6 +1610,8 @@ class OneHotEncoder(Preprocessing):
         null_column_name: str = "null",
         **kwargs,
     ) -> None:
+        if extra_levels is None:
+            extra_levels = {}
         super().__init__(name, overwrite_model)
         self.parameters = {
             "extra_levels": extra_levels,

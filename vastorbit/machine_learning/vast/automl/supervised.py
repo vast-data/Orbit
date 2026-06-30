@@ -15,10 +15,9 @@ from vastorbit._typing import (
     SQLRelation,
     SQLColumns,
 )
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import format_type, schema_relation
+from vastorbit._utils._sql._format import format_type
 from vastorbit.errors import ModelError
 
 from vastorbit.core.tablesample.base import TableSample
@@ -269,15 +268,17 @@ class AutoML(VASTModel):
         nbins: int = 100,
         lmax: int = 5,
         optimized_grid: int = 2,
-        stepwise: bool = True,
+        stepwise: bool = True,  # pylint: disable=redefined-outer-name
         stepwise_criterion: Literal["aic", "bic"] = "aic",
         stepwise_direction: Literal["forward", "backward"] = "backward",
         stepwise_max_steps: int = 100,
         stepwise_x_order: Literal["pearson", "spearman", "random", "none"] = "pearson",
         preprocess_data: bool = True,
-        preprocess_dict: dict = {"identify_ts": False},
+        preprocess_dict: dict | None = None,
         print_info: bool = True,
     ) -> None:
+        if preprocess_dict is None:
+            preprocess_dict = {"identify_ts": False}
         if optimized_grid not in [0, 1, 2]:
             raise ValueError("Optimized Grid must be an integer between 0 and 2.")
         super().__init__(name, overwrite_model)
@@ -520,7 +521,7 @@ class AutoML(VASTModel):
         else:
             self.preprocess_ = None
         if self.parameters["print_info"]:
-            print_message(f"\033[1m\033[4mStarting AutoML\033[0m\033[0m\n")
+            print_message("\033[1m\033[4mStarting AutoML\033[0m\033[0m\n")
         if conf.get_option("tqdm") and self.parameters["print_info"]:
             loop = tqdm(self.parameters["estimator"])
         else:
@@ -615,7 +616,7 @@ class AutoML(VASTModel):
                 "Error: 'AutoML' failed to converge. Please retry fitting the estimator."
             )
         if self.parameters["print_info"]:
-            print_message(f"\033[1m\033[4mFinal Model\033[0m\033[0m\n")
+            print_message("\033[1m\033[4mFinal Model\033[0m\033[0m\n")
             print_message(
                 f"{result['model_type'][0]}; Best_Parameters: {result['parameters'][0]}; \033[91mBest_Test_score: {result['avg_score'][0]}\033[0m; \033[92mTrain_score: {result['avg_train_score'][0]}\033[0m; \033[94mTime: {result['avg_time'][0]}\033[0m;\n\n"
             )

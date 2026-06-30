@@ -6,9 +6,7 @@ import copy
 import math
 from typing import Literal, Optional, TYPE_CHECKING
 
-import vastorbit._config.config as conf
 from vastorbit._typing import PythonNumber, SQLColumns
-from vastorbit._utils._gen import gen_tmp_name
 from vastorbit._utils._object import get_VAST_mllib, create_new_vdc
 from vastorbit._utils._print import print_message
 from vastorbit._utils._sql._cast import to_varchar
@@ -20,7 +18,6 @@ from vastorbit.core.string_sql.base import StringSQL
 
 from vastorbit.core.vastframe._fill import vDFFill, vDCFill
 
-from vastorbit.sql.drop import drop
 from vastorbit.sql.functions import case_when, decode
 
 if TYPE_CHECKING:
@@ -947,7 +944,7 @@ class vDCEncode(vDCFill):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.mean_encode` : Mean Encoding.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.one_hot_encode` : One Hot Encoding.
         """
-        vml = get_VAST_mllib()
+        _vml = get_VAST_mllib()
         if method == "topk":
             assert k >= 2, ValueError(
                 "Parameter 'k' must be greater or equals to 2 in "

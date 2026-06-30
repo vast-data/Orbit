@@ -7,7 +7,6 @@ from typing import Literal, Optional, Union
 import numpy as np
 import sklearn
 
-from vastorbit.connection.errors import MissingRelation, QueryError
 
 from vastorbit._typing import (
     NoneType,
@@ -16,9 +15,7 @@ from vastorbit._typing import (
     SQLColumns,
     SQLRelation,
 )
-from vastorbit.errors import ModelError
 from vastorbit._utils._gen import gen_name
-from vastorbit._utils._sql._collect import save_vastorbit_logs
 from vastorbit._utils._sql._format import clean_query, format_type, quote_ident
 from vastorbit._utils._sql._sys import _executeSQL
 

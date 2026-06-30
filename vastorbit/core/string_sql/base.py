@@ -361,7 +361,7 @@ class StringSQL:
         if (len(args) == 1) and (isinstance(args[0], list)):
             x = args[0]
         elif len(args) == 0:
-            ValueError("Method 'in_' doesn't work with no parameters.")
+            raise ValueError("Method 'in_' doesn't work with no parameters.")
         else:
             x = copy.deepcopy(args)
         assert isinstance(x, Iterable) and not (
@@ -375,7 +375,7 @@ class StringSQL:
         if (len(args) == 1) and (isinstance(args[0], list)):
             x = args[0]
         elif len(args) == 0:
-            ValueError("Method '_not_in' doesn't work with no parameters.")
+            raise ValueError("Method '_not_in' doesn't work with no parameters.")
         else:
             x = copy.deepcopy(args)
         if not isinstance(x, Iterable) or (isinstance(x, str)):

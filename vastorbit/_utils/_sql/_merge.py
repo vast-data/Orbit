@@ -164,7 +164,6 @@ def erase_word_in_name(name: str, word: Optional[list] = None) -> str:
     for w in word:
         if w in name:
             return name.replace(w, "")
-            break
     return name
 
 
