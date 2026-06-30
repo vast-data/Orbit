@@ -243,7 +243,7 @@ class vDFPivot(vDFJoinUnionSort):
             if not self[column].isdate():
                 all_are_date = False
         for column in columns:
-            conv = ""
+            conv_b = conv_e = ""
             if not all_are_num and not all_are_date:
                 conv_b = "CAST("
                 conv_e = " AS VARCHAR)"

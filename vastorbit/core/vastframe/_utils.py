@@ -116,7 +116,7 @@ class vDFUtils(PlottingUtils):
             elif unit == "MINUTE":
                 divisor = length * 60
                 interval_unit = "SECOND"
-            elif unit == "HOUR":
+            else:
                 divisor = length * 3600
                 interval_unit = "SECOND"
 

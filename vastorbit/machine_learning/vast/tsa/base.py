@@ -1910,6 +1910,7 @@ class TimeSeriesModelBase(VASTModel):
             :py:class:`~vastorbit.machine_learning.vast.tsa.AR`;
         """
         if self._ismultivar():
+            res = {}
             for i in range(len(self.y)):
                 tmp_res = mt.regression_report(
                     f"y_true{i}",

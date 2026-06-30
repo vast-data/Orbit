@@ -1319,6 +1319,7 @@ class vDCMath(vDCFilter):
 
         cat = self.category().lower()
         ctype = self.ctype().lower()
+        expr = None
 
         if ctype.startswith("array"):
             if func == "len":
@@ -1397,6 +1398,10 @@ class vDCMath(vDCFilter):
                 # Not applicable for scalars
                 raise ValueError(f"Function '{func}' is only applicable to arrays")
 
+        if expr is None:
+            raise ValueError(
+                f"Function '{func}' is not supported for this column type."
+            )
         return self.apply(func=expr)
 
     @save_vastorbit_logs

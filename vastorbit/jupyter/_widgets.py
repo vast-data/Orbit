@@ -9,6 +9,8 @@ from vastorbit._utils._print import print_message
 
 if conf.get_import_success("IPython"):
     import ipywidgets as widgets
+else:
+    widgets = None
 
 
 class Visualizer:

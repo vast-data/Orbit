@@ -28,6 +28,9 @@ from vastorbit.core.vastframe._sys import vDFSystem
 if conf.get_import_success("geopandas"):
     from geopandas import GeoDataFrame
     from shapely import wkt
+else:
+    GeoDataFrame = None
+    wkt = None
 
 if TYPE_CHECKING:
     from vastorbit.core.vastframe.base import VastFrame

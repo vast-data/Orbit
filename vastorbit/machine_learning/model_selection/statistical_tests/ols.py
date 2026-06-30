@@ -570,6 +570,8 @@ def het_goldfeldquandt(
         fpval_sm = f.cdf(F, m - k, n - k)
         fpval_la = f.sf(F, m - k, n - k)
         f_pvalue = 2 * min(fpval_sm, fpval_la)
+    else:
+        raise ValueError(f"'{alternative}' is not a valid alternative.")
     return F, f_pvalue
 
 

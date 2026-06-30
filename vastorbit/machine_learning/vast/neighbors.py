@@ -1321,7 +1321,7 @@ class KNeighborsClassifier(MulticlassClassifier):
         if isinstance(cutoff, NoneType):
             return 1.0 / len(self.classes_)
         elif not 0 <= cutoff <= 1:
-            ValueError(
+            raise ValueError(
                 "Incorrect parameter 'cutoff'.\nThe cutoff "
                 "must be between 0 and 1, inclusive."
             )

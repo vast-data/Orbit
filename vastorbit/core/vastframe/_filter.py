@@ -1662,6 +1662,7 @@ class vDFFilter(vDFAgg):
                 "Parameter 'by' must include at least one "
                 "column when using 'stratified' sampling."
             )
+            order_by = ""
             if method == "stratified":
                 order_by = "ORDER BY " + ", ".join(by)
             vdf.eval(name, f"ROW_NUMBER() OVER({order_by})")

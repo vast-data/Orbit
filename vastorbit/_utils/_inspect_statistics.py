@@ -237,6 +237,7 @@ def gen_rst_summary_table() -> str:
 
     # Data rows
     current_category = None
+    subcategory = None
     total_functions = 0
     data = summarise_vastorbit_functions()
 

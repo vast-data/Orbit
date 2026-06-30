@@ -19,6 +19,9 @@ from vastorbit.plotting.base import get_default_graphviz_options
 if conf.get_import_success("graphviz"):
     import graphviz
     from graphviz import Source
+else:
+    graphviz = None
+    Source = None
 
 
 class Tree(InMemoryModel):

@@ -2731,7 +2731,7 @@ class vDCPlot(vDCScaler):
                 result[6],
                 result[7],
             )
-        elif self.isdate():
+        else:
             result = _executeSQL(
                 f"""
                 SELECT 

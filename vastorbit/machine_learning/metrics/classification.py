@@ -160,9 +160,9 @@ def _compute_final_score_from_cm(
     Computes the final score by using the different results
     of the multi-confusion matrix.
     """
-    if metric == _accuracy_score and isinstance(average, NoneType):
+    if metric is _accuracy_score and isinstance(average, NoneType):
         return np.trace(cm) / np.sum(cm)
-    elif metric == _balanced_accuracy_score and isinstance(average, NoneType):
+    elif metric is _balanced_accuracy_score and isinstance(average, NoneType):
         return _compute_final_score_from_cm(
             metric=_recall_score, cm=cm, average="macro", multi=multi
         )

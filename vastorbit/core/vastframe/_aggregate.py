@@ -3634,6 +3634,7 @@ class vDCAgg(vDCEval):
             self.isnum(),
             self.isdate(),
         )
+        values = {}
         if (is_date) and method != "categorical":
             result = self.aggregate(["count", "min", "max"])
             index = result.values["index"]

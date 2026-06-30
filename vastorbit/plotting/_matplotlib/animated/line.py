@@ -31,7 +31,6 @@ class AnimatedLinePlot(AnimatedBase):
 
     def _init_style(self) -> None:
         self.init_style = {
-            "linewidth": 1,
             "linewidth": 2,
         }
 

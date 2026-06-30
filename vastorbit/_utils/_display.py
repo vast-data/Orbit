@@ -134,7 +134,6 @@ _THEME_TOKENS = {
     "light": {
         "bg": "#FFFFFF",
         "head-bg": "#F8F9FB",  # VAST Navy header
-        "index-bg": "#F8F9FB",
         "head-fg": "#10172D",
         "head-accent": "#1FD9FE",  # VAST Cyan edge
         "row": "#FFFFFF",

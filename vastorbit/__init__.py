@@ -10,8 +10,8 @@ __description__: str = (
 )
 __url__: str = "https://github.com/vastdata-dev/vastorbit/"
 __license__: str = "Apache License, Version 2.0"
-__version__: str = "0.1.0"
-__codecov__: float = 0.84
+__version__: str = "0.1.0b1"
+__codecov__: float = 0.5
 
 from vastorbit._config.config import get_option, set_option
 from vastorbit._utils._sql._vast_version import vast_version
