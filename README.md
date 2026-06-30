@@ -191,7 +191,7 @@ SELECT version();
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql_version.png" width="30%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql_version.png" width="15%">
 </p>
 
 ### SQL Plots
@@ -209,7 +209,7 @@ To create plots, simply provide the type of plot along with the SQL command.
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql-plot-screenshot.png" width="30%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql-plot-screenshot.png" width="90%">
 </p>
 
 ### Python and SQL Combo
@@ -229,7 +229,7 @@ selected_titanic.groupby(columns=["pclass"], expr=["AVG(survived) AS avg_survive
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/select_gb.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/select_gb.png" width="40%">
 </p>
 
 ### Charts
