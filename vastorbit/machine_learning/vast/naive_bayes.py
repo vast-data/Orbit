@@ -742,15 +742,18 @@ class NaiveBayes(MulticlassClassifier):
             # shape (n_classes, n_categories_feature). categories_ holds the
             # category labels when available, otherwise integer indices.
             categories = getattr(model, "categories_", None)
+            ord_enc = getattr(self, "_ordinal_encoder", None)
             for j in range(n_features):
                 var_info = {"type": "categorical"}
                 log_prob_j = model.feature_log_prob_[j]
                 n_categories = log_prob_j.shape[1]
-                cats_j = (
-                    list(categories[j])
-                    if categories is not None
-                    else list(range(n_categories))
-                )
+                if ord_enc is not None and len(ord_enc.categories_[j]) == n_categories:
+                    # map the integer codes back to the original (string) labels
+                    cats_j = list(ord_enc.categories_[j])
+                elif categories is not None:
+                    cats_j = list(categories[j])
+                else:
+                    cats_j = list(range(n_categories))
                 for ci, c in enumerate(self.classes_):
                     var_info[c] = {
                         cats_j[k]: float(np.exp(log_prob_j[ci, k]))

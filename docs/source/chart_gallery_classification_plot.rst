@@ -33,9 +33,9 @@ Machine Learning - Classification Plots
 
     # Defining the Models
     model_logit_1d = vml.LogisticRegression()
-    model_svc_1d = vml.LinearSVC()
-    model_svc_2d = vml.LinearSVC()
-    model_svc_3d = vml.LinearSVC()
+    model_svc_1d = vml.LinearSVC(max_iter = 1000)
+    model_svc_2d = vml.LinearSVC(max_iter = 1000)
+    model_svc_3d = vml.LinearSVC(max_iter = 1000)
 
     # Fitting the models
     model_logit_1d.fit(data, "x", "c")
@@ -93,9 +93,9 @@ Let's proceed by creating both a logistic regression model and a linear SVC mode
 
     # Defining the Models
     model_logit_1d = vml.LogisticRegression()
-    model_svc_1d = vml.LinearSVC()
-    model_svc_2d = vml.LinearSVC()
-    model_svc_3d = vml.LinearSVC()
+    model_svc_1d = vml.LinearSVC(max_iter = 1000)
+    model_svc_2d = vml.LinearSVC(max_iter = 1000)
+    model_svc_3d = vml.LinearSVC(max_iter = 1000)
 
     # Fitting the models
     model_logit_1d.fit(data, "x", "c")

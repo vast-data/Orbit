@@ -139,17 +139,13 @@ def gen_params_grid(
             input parameters.
     """
     params_grid = {}
-    if isinstance(
-        estimator, (vml.OneHotEncoder,)
-    ):
+    if isinstance(estimator, (vml.OneHotEncoder,)):
         return params_grid
     elif isinstance(
         estimator,
         (
             vml.RandomForestRegressor,
             vml.RandomForestClassifier,
-            vml.DecisionTreeRegressor,
-            vml.DecisionTreeClassifier,
         ),
     ):
         if optimized_grid == 0:
@@ -266,7 +262,9 @@ def gen_params_grid(
                 "tol": {"type": float, "range": [1e-8, 1e-2], "nbins": nbins},
                 "max_iter": {"type": int, "range": [10, 1000], "nbins": nbins},
             }
-    elif isinstance(estimator, (vml.GradientBoostingClassifier, vml.GradientBoostingRegressor)):
+    elif isinstance(
+        estimator, (vml.GradientBoostingClassifier, vml.GradientBoostingRegressor)
+    ):
         if optimized_grid == 0:
             params_grid = {
                 "nbins": list(range(2, 100, math.ceil(100 / nbins))),
@@ -453,9 +451,7 @@ def gen_params_grid(
             params_grid = {"tol": [1e-4, 1e-6, 1e-8], "max_iter": [100, 500, 1000]}
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(
-                estimator, (vml.LogisticRegression,)
-            ):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 params_grid["solver"] = ["lbfgs", "newton-cg"]
             if isinstance(
                 estimator,
@@ -472,9 +468,7 @@ def gen_params_grid(
             params_grid = {"tol": [1e-6], "max_iter": [100]}
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(
-                estimator, (vml.LogisticRegression,)
-            ):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 params_grid["solver"] = ["lbfgs", "newton-cg"]
             if isinstance(
                 estimator,
@@ -499,9 +493,7 @@ def gen_params_grid(
             params_grid = {"tol": [1e-6], "max_iter": [100]}
             if isinstance(estimator, vml.LogisticRegression):
                 params_grid["penalty"] = ["none", "l1", "l2", "enet"]
-            if isinstance(
-                estimator, (vml.LogisticRegression,)
-            ):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 params_grid["solver"] = ["lbfgs", "newton-cg"]
             if isinstance(
                 estimator,
@@ -522,9 +514,7 @@ def gen_params_grid(
                     "type": str,
                     "values": ["none", "l1", "l2", "enet"],
                 }
-            if isinstance(
-                estimator, (vml.LogisticRegression,)
-            ):
+            if isinstance(estimator, (vml.LogisticRegression,)):
                 result["solver"] = {"type": str, "values": ["lbfgs", "newton-cg"]}
             if isinstance(
                 estimator,

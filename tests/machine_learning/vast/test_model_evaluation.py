@@ -15,8 +15,8 @@ from tests.helpers import (
 
 
 @pytest.fixture(scope="module")
-def fitted_classifier(titanic):
-    data = titanic.copy()[TITANIC_NUM_X + [TITANIC_BINARY_Y]].dropna()
+def fitted_classifier(_titanic_raw):
+    data = _titanic_raw.copy()[TITANIC_NUM_X + [TITANIC_BINARY_Y]].dropna()
     name = unique_name("eval_clf")
     model = LogisticRegression(name=name, overwrite_model=True)
     model.fit(data, TITANIC_NUM_X, TITANIC_BINARY_Y)
@@ -28,10 +28,10 @@ def fitted_classifier(titanic):
 
 
 @pytest.fixture(scope="module")
-def fitted_regressor(winequality):
+def fitted_regressor(_winequality_raw):
     name = unique_name("eval_reg")
     model = LinearRegression(name=name, overwrite_model=True)
-    model.fit(winequality, WINE_X, WINE_REG_Y)
+    model.fit(_winequality_raw.copy(), WINE_X, WINE_REG_Y)
     yield model
     try:
         model.drop()

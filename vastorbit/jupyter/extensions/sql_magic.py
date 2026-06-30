@@ -330,7 +330,7 @@ def sql_magic(
         html_file.close()
 
     .. raw:: html
-        :file: figures/jupyter_extensions_sql_magic_sql_magic_5.html
+        :file: SPHINX_DIRECTORY/figures/jupyter_extensions_sql_magic_sql_magic_5.html
 
     Assign the results to a new variable:
 
@@ -686,7 +686,7 @@ def sql_magic(
     .. ipython:: python
 
         file = open("query.sql", "w+")
-        file.write("SELECT version();")
+        file.write("SELECT version() AS version")
         file.close()
 
     Using the ``-f`` option, we

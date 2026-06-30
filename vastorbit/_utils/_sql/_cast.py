@@ -204,7 +204,7 @@ def to_sql_dtype(dtype: Union[type, str]) -> Union[type, str]:
         dtype = "set"
     elif isinstance(dtype, str):
         dtype = dtype.lower().strip()
-    if dtype == "real":
+    if dtype in ("real", "float", "float4", "float8", "double precision"):
         dtype = "double"
     elif dtype == "bool":
         dtype = "boolean"

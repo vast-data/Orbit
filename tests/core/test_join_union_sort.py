@@ -13,8 +13,8 @@ def test_sort(titanic):
 
 
 def test_append(titanic):
-    head = titanic.copy().head(10)
-    combined = head.append(titanic.copy().head(5))
+    head = titanic.copy().head(10).to_vdf()
+    combined = head.append(titanic.copy().head(5).to_vdf())
     assert combined.shape()[0] == 15
 
 

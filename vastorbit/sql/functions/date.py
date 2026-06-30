@@ -1257,18 +1257,31 @@ def round_date(expr: SQLExpression, precision: str = "DD") -> StringSQL:
     expr = format_magic(expr)
     unit_map = {
         # Year
-        "SYYY": "year", "YYYY": "year", "YEAR": "year",
-        "YYY": "year", "YY": "year", "Y": "year",
+        "SYYY": "year",
+        "YYYY": "year",
+        "YEAR": "year",
+        "YYY": "year",
+        "YY": "year",
+        "Y": "year",
         # Quarter
         "Q": "quarter",
         # Month
-        "MONTH": "month", "MON": "month", "MM": "month", "RM": "month",
+        "MONTH": "month",
+        "MON": "month",
+        "MM": "month",
+        "RM": "month",
         # Week (nearest week start; Trino weeks start on Monday)
-        "DAY": "week", "DY": "week", "D": "week",
+        "DAY": "week",
+        "DY": "week",
+        "D": "week",
         # Day
-        "DDD": "day", "DD": "day", "J": "day",
+        "DDD": "day",
+        "DD": "day",
+        "J": "day",
         # Hour
-        "HH": "hour", "HH12": "hour", "HH24": "hour",
+        "HH": "hour",
+        "HH12": "hour",
+        "HH24": "hour",
         # Minute
         "MI": "minute",
         # Second

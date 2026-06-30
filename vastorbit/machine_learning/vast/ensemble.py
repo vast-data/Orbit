@@ -162,9 +162,7 @@ class GradientBoosting(Tree):
             "right_children": [-1 if x is None else x for x in attributes[1]],
             "split_conditions": split_conditions,
             "split_indices": [0 if x is None else x for x in attributes[2]],
-            "split_type": [
-                int(x) if isinstance(x, bool) else 0 for x in attributes[5]
-            ],
+            "split_type": [int(x) if isinstance(x, bool) else 0 for x in attributes[5]],
             "sum_hessian": [0.0 for i in range(n_nodes)],
             "tree_param": {
                 "num_deleted": "0",
@@ -314,109 +312,109 @@ class GradientBoosting(Tree):
 
     def to_json(self, path: Optional[str] = None) -> Optional[str]:
         """
-         Creates a Python ``GradientBoosting`` JSON file
-         that can be imported into the Python
-         ``GradientBoosting`` API.
+        Creates a Python ``GradientBoosting`` JSON file
+        that can be imported into the Python
+        ``GradientBoosting`` API.
 
-         .. warning::
+        .. warning::
 
-             For multiclass classifiers, the
-             probabilities returned by the
-             vastorbit and exported models
-             might differ slightly because
-             of normalization; while VAST
-             uses multinomial ``LogisticRegression``,
-             ``GradientBoosting`` Python uses Softmax.
-             This difference does not affect
-             the model's final predictions.
-             Categorical predictors must be
-             encoded.
+            For multiclass classifiers, the
+            probabilities returned by the
+            vastorbit and exported models
+            might differ slightly because
+            of normalization; while VAST
+            uses multinomial ``LogisticRegression``,
+            ``GradientBoosting`` Python uses Softmax.
+            This difference does not affect
+            the model's final predictions.
+            Categorical predictors must be
+            encoded.
 
-         Parameters
-         ----------
-         path: str, optional
-             The path and name of the
-             output file. If a file with
-             the same name already exists,
-             the function returns an error.
+        Parameters
+        ----------
+        path: str, optional
+            The path and name of the
+            output file. If a file with
+            the same name already exists,
+            the function returns an error.
 
-         Returns
-         -------
-         None | str
-             The content of the JSON file if
-             variable ``path`` is empty.
-             Otherwise, nothing is returned.
+        Returns
+        -------
+        None | str
+            The content of the JSON file if
+            variable ``path`` is empty.
+            Otherwise, nothing is returned.
 
-         Examples
-         --------
-         Let's use the wine quality dataset:
+        Examples
+        --------
+        Let's use the wine quality dataset:
 
-         .. ipython:: python
+        .. ipython:: python
 
-             import vastorbit.datasets as vod
+            import vastorbit.datasets as vod
 
-             data = vod.load_winequality()
+            data = vod.load_winequality()
 
-         .. raw:: html
-             :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
+        .. raw:: html
+            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
 
-         Let's import the model:
+        Let's import the model:
 
-         .. ipython:: python
+        .. ipython:: python
 
-             from vastorbit.machine_learning.vast import GradientBoostingRegressor
+            from vastorbit.machine_learning.vast import GradientBoostingRegressor
 
-         Then we can create the model:
+        Then we can create the model:
 
-         .. ipython:: python
-             :okwarning:
+        .. ipython:: python
+            :okwarning:
 
-             model = GradientBoostingRegressor(
-                 n_estimators = 3,
-                 max_depth = 3,
-                 nbins = 6,
-                 split_proposal_method = 'global',
-                 tol = 0.001,
-                 learning_rate = 0.1,
-                 min_split_loss = 0,
-                 weight_reg = 0,
-                 sample = 0.7,
-                 col_sample_by_tree = 1,
-                 col_sample_by_node = 1,
-             )
+            model = GradientBoostingRegressor(
+                n_estimators = 3,
+                max_depth = 3,
+                nbins = 6,
+                split_proposal_method = 'global',
+                tol = 0.001,
+                learning_rate = 0.1,
+                min_split_loss = 0,
+                weight_reg = 0,
+                sample = 0.7,
+                col_sample_by_tree = 1,
+                col_sample_by_node = 1,
+            )
 
-         We can now fit the model:
+        We can now fit the model:
 
-         .. ipython:: python
-             :okwarning:
+        .. ipython:: python
+            :okwarning:
 
-             model.fit(
-                 train,
-                 [
-                     "fixed_acidity",
-                     "volatile_acidity",
-                     "citric_acid",
-                     "residual_sugar",
-                     "chlorides",
-                     "density",
-                 ],
-                 "quality",
-                 test,
-             )
+            model.fit(
+                train,
+                [
+                    "fixed_acidity",
+                    "volatile_acidity",
+                    "citric_acid",
+                    "residual_sugar",
+                    "chlorides",
+                    "density",
+                ],
+                "quality",
+                test,
+            )
 
-         And export it to the JSON format.
+        And export it to the JSON format.
 
-         .. ipython:: python
+        .. ipython:: python
 
-             model.to_json()
+            model.to_json()
 
-         .. note::
+        .. note::
 
-             Refer to
-             :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingRegressor`
-             or :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingClassifier`
-             for more information about the
-             different methods and usages.
+            Refer to
+            :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingRegressor`
+            or :py:class:`~vastorbit.machine_learning.vast.ensemble.GradientBoostingClassifier`
+            for more information about the
+            different methods and usages.
         """
         res = {"learner": self._to_json_learner(), "version": [1, 6, 2]}
         res = (
@@ -930,7 +928,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         # Extract individual trees
         trees = []
         for estimator in self._model.estimators_:
-            # Each estimator is a DecisionTreeRegressor
+            # Each estimator is a Decision Tree Regressor
             tree = estimator.tree_
 
             tree_d = {
@@ -1497,31 +1495,6 @@ class GradientBoostingRegressor(Regressor, GradientBoosting):
             "feature_importances_trees_",
         ]
 
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        params = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "nbins": nbins,
-            "split_proposal_method": str(split_proposal_method).lower(),
-            "tol": tol,
-            "learning_rate": learning_rate,
-            "min_split_loss": min_split_loss,
-            "weight_reg": weight_reg,
-            "sample": sample,
-            "col_sample_by_tree": col_sample_by_tree,
-            "col_sample_by_node": col_sample_by_node,
-        }
-        self.parameters = params
-
     # Attributes Methods.
 
     @property
@@ -1619,8 +1592,8 @@ Algorithms used for classification.
 
 class RandomForestClassifier(MulticlassClassifier, RandomForest):
     """
-    Creates an ``RandomForestClassifier`` 
-    object using SKLEARN for training 
+    Creates an ``RandomForestClassifier``
+    object using SKLEARN for training
     and the scalability of VASTDB for
     the inferences.
 
@@ -3117,7 +3090,7 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
 
     **To SQL**
 
-    You can get the SQL query equivalent of the 
+    You can get the SQL query equivalent of the
     ``GradientBoosting`` model by:
 
     .. ipython:: python
@@ -3181,31 +3154,6 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
             "feature_importances_",
             "feature_importances_trees_",
         ]
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        params = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "nbins": nbins,
-            "split_proposal_method": str(split_proposal_method).lower(),
-            "tol": tol,
-            "learning_rate": learning_rate,
-            "min_split_loss": min_split_loss,
-            "weight_reg": weight_reg,
-            "sample": sample,
-            "col_sample_by_tree": col_sample_by_tree,
-            "col_sample_by_node": col_sample_by_node,
-        }
-        self.parameters = params
 
     # Attributes Methods.
 
@@ -3334,7 +3282,9 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
             :py:class:`~vastorbit.machine_learning.memmodel.ensemble.GradientBoostingClassifier`
             for more information.
         """
-        return mm.GradientBoostingClassifier(self.trees_, self.logodds_, self.classes_, self.eta_)
+        return mm.GradientBoostingClassifier(
+            self.trees_, self.logodds_, self.classes_, self.eta_
+        )
 
 
 """
@@ -3716,24 +3666,6 @@ class IsolationForest(Clustering, Tree):
     @property
     def _attributes(self) -> list[str]:
         return ["n_estimators_", "psy_", "trees_"]
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self,
-        name: str = None,
-        overwrite_model: bool = False,
-        **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = {
-            "n_estimators": n_estimators,
-            "max_depth": max_depth,
-            "nbins": nbins,
-            "sample": sample,
-            "col_sample_by_tree": col_sample_by_tree,
-        }
 
     # Attributes Methods.
 

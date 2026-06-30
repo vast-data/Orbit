@@ -19,10 +19,9 @@ from vastorbit._typing import NoneType, PlottingObject, SQLColumns
 from vastorbit._utils._gen import gen_name, gen_tmp_name
 from vastorbit._utils._object import get_VAST_mllib, create_new_vdf
 from vastorbit._utils._sql._collect import save_vastorbit_logs
-from vastorbit._utils._sql._format import format_type, quote_ident
+from vastorbit._utils._sql._format import format_type
 from vastorbit._utils._sql._sys import _executeSQL
-from vastorbit._utils._sql._vast_version import vast_version
-from vastorbit.errors import EmptyParameter, VersionError
+from vastorbit.errors import EmptyParameter
 
 from vastorbit.core.tablesample.base import TableSample
 
@@ -268,6 +267,8 @@ class vDFCorr(vDFEncode):
                 title = (
                     f"Computing the covariance between {columns[0]} and {columns[1]}."
                 )
+            else:
+                raise ValueError(f"'{method}' is not a valid method.")
             try:
                 result = _executeSQL(
                     query=query,
@@ -311,6 +312,8 @@ class vDFCorr(vDFEncode):
             elif method == "cov":
                 title = "Computing all covariances in a single query"
                 i0, step = 0, 1
+            else:
+                raise ValueError(f"'{method}' is not a valid method.")
             n = len(columns)
             loop = tqdm(range(i0, n)) if conf.get_option("tqdm") else range(i0, n)
             try:
@@ -1090,6 +1093,8 @@ class vDFCorr(vDFEncode):
                     )
                     m = min(k, r)
                     val = 2 * (nc - nd) / (n * n * (m - 1) / m)
+            else:
+                raise ValueError(f"'{kendall_type}' is not a valid Kendall type.")
             pvalue = 2 * scipy_st.norm.sf(abs(Z))
         elif method == "cramer":
             k, r = _executeSQL(
@@ -1730,7 +1735,9 @@ class vDFCorr(vDFEncode):
                         math.sqrt(2)
                         * scipy_special.erfinv(alpha)
                         / math.sqrt(self[column].count() - k + 1)
-                        * math.sqrt((1 + 2 * sum(acf[i] ** 2 for i in range(1, k))))
+                        * math.sqrt(
+                            (1 + 2 * sum((acf[i] or 0) ** 2 for i in range(1, k)))
+                        )
                     ]
             if columns[0] == column:
                 columns[0] = 0
@@ -2006,7 +2013,9 @@ class vDFCorr(vDFEncode):
                         math.sqrt(2)
                         * scipy_special.erfinv(alpha)
                         / math.sqrt(self[column].count() - k + 1)
-                        * math.sqrt((1 + 2 * sum(pacf[i] ** 2 for i in range(1, k))))
+                        * math.sqrt(
+                            (1 + 2 * sum((pacf[i] or 0) ** 2 for i in range(1, k)))
+                        )
                     ]
             result = TableSample({"index": columns, "value": pacf})
             if pacf_band:

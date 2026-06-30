@@ -579,7 +579,7 @@ class NaiveBayes(MulticlassClassifier):
                 if prob["type"] == "multinomial":
                     prob = f"POWER({prob[c]}, {x})"
                 elif prob["type"] == "bernoulli":
-                    prob = f"(CASE WHEN {x} THEN {prob[c]} ELSE {1 - prob[c]} END)"
+                    prob = f"(CASE WHEN {x} != 0 THEN {prob[c]} ELSE {1 - prob[c]} END)"
                 elif prob["type"] == "categorical":
                     prob_res = f"CASE "
                     for cat in prob[str(c)]:

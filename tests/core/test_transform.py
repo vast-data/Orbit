@@ -30,5 +30,5 @@ def test_drop_duplicates(titanic):
 
 def test_case_when(titanic):
     vd = titanic.copy()
-    vd.case_when("age_group", "age < 18", "child", "adult")
+    vd.case_when("age_group", vd["age"] < 18, "child", "adult")
     assert "age_group" in cols_lower(vd)

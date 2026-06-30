@@ -23,7 +23,6 @@ Welcome to the first release of **VAST Orbit** - Python data science for VAST Da
 
    **Beta Status**: VAST Orbit 0.1.0 is in beta. Production-ready version 1.0.0 coming soon. API may change based on feedback. Report issues at **`vastsupport.slack.com <https://vastsupport.slack.com>`__**.
 
-____
 
 Release Highlights
 ------------------
@@ -41,7 +40,6 @@ VAST Orbit 0.1.0 brings complete data science workflows to VAST Database - prepa
 - **Multi-Source Access** - Query VAST tables, files, and external databases
 - **Zero Data Movement** - All processing in VAST Database
 
-____
 
 What's Included
 ---------------
@@ -122,7 +120,6 @@ What's Included
     # In-database inference
     predictions = model.predict(vdf)
 
-____
 
 Key Capabilities
 ----------------
@@ -155,7 +152,6 @@ Key Capabilities
  - |check| In-database inference in VAST  
  - |check| Production-scale scoring  
 
-____
 
 Beta Limitations
 ----------------
@@ -167,7 +163,6 @@ As a beta release:
 - Some advanced features in development
 - Feedback welcome for improvements
 
-____
 
 Getting Started
 ---------------
@@ -192,7 +187,6 @@ Getting Started
 - Slack: `vastsupport.slack.com <https://vastsupport.slack.com>`__
 - GitHub: https://github.com/vastdata-dev/vastorbit
 
-____
 
 Roadmap to 1.0.0
 ----------------
@@ -209,7 +203,6 @@ Roadmap to 1.0.0
 
 We're excited to hear your feedback as we work toward 1.0.0!
 
-____
 
 Thank You
 ---------

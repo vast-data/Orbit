@@ -11,12 +11,12 @@ import vastorbit as vo
 
 
 def test_to_csv_string(iris):
-    out = iris.head(5).to_csv()
+    out = iris.head(5).to_vdf().to_csv()
     assert isinstance(out, str) and len(out) > 0
 
 
 def test_to_json_string(iris):
-    out = iris.head(5).to_json()
+    out = iris.head(5).to_vdf().to_json()
     assert isinstance(out, str) and len(out) > 0
 
 

@@ -70,17 +70,3 @@ Classification
    recall_score
    roc_auc_score
    specificity_score
-
-
-
-
-
-   .. average_precision_score
-   
-
-
-
-
-______
-
-

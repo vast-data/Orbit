@@ -4,6 +4,56 @@
 Time Series
 ===============
 
+
+AR
+~~~
+
+.. currentmodule:: vastorbit.machine_learning.vast
+   
+.. autosummary::
+   :toctree: api/
+
+   tsa.AR
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+**Methods:**
+
+.. autosummary::
+   :toctree: api/
+
+   AR.contour
+   AR.deploySQL
+   AR.drop
+   AR.export_models
+   AR.features_importance
+   AR.fit
+   AR.get_attributes
+   AR.get_match_index
+   AR.get_params
+   AR.get_plotting_lib
+   AR.import_models
+   AR.plot
+   AR.predict
+   AR.regression_report
+   AR.report
+   AR.score
+   AR.set_params
+   AR.summarize
+   AR.to_binary
+   AR.to_python
+   AR.to_sql
+
+**Attributes:**
+
+.. autosummary::
+   :toctree: api/
+
+   AR.object_type
+
+______
+
+
 ARIMA
 ~~~~~
 
@@ -50,55 +100,6 @@ ARIMA
    :toctree: api/
 
    ARIMA.object_type
-
-______
-
-ARMA
-~~~~
-
-.. currentmodule:: vastorbit.machine_learning.vast
-   
-.. autosummary::
-   :toctree: api/
-
-   tsa.ARMA
-
-.. currentmodule:: vastorbit.machine_learning.vast.tsa
-
-**Methods:**
-
-.. autosummary::
-   :toctree: api/
-
-   ARMA.contour
-   ARMA.deploySQL
-   ARMA.drop
-   ARMA.export_models
-   ARMA.features_importance
-   ARMA.fit
-   ARMA.get_attributes
-   ARMA.get_match_index
-   ARMA.get_params
-   ARMA.get_plotting_lib
-   ARMA.import_models
-   ARMA.plot
-   ARMA.predict
-   ARMA.regression_report
-   ARMA.report
-   ARMA.score
-   ARMA.set_params
-   ARMA.summarize
-   ARMA.to_binary
-   ARMA.to_python
-   ARMA.to_sql
-
-**Attributes:**
-
-.. autosummary::
-   :toctree: api/
-
-   ARMA.object_type
-
 
 ______
 
@@ -150,52 +151,3 @@ VAR
    :toctree: api/
 
    VAR.object_type 
-
-
-______
-
-AR
-~~~
-
-.. currentmodule:: vastorbit.machine_learning.vast
-   
-.. autosummary::
-   :toctree: api/
-
-   tsa.AR
-
-.. currentmodule:: vastorbit.machine_learning.vast.tsa
-
-**Methods:**
-
-.. autosummary::
-   :toctree: api/
-
-   AR.contour
-   AR.deploySQL
-   AR.drop
-   AR.export_models
-   AR.features_importance
-   AR.fit
-   AR.get_attributes
-   AR.get_match_index
-   AR.get_params
-   AR.get_plotting_lib
-   AR.import_models
-   AR.plot
-   AR.predict
-   AR.regression_report
-   AR.report
-   AR.score
-   AR.set_params
-   AR.summarize
-   AR.to_binary
-   AR.to_python
-   AR.to_sql
-
-**Attributes:**
-
-.. autosummary::
-   :toctree: api/
-
-   AR.object_type

@@ -348,58 +348,6 @@ _____
 Tree-based Models
 ------------------
 
-Decision Tree Regressor
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-.. currentmodule:: vastorbit.machine_learning.vast
-   
-.. autosummary::
-   :toctree: api/
-
-   tree.DecisionTreeRegressor
-
-.. currentmodule:: vastorbit.machine_learning.vast.tree
-
-**Methods:**
-
-.. autosummary::
-   :toctree: api/
-
-
-   DecisionTreeRegressor.contour
-   DecisionTreeRegressor.deploySQL
-   DecisionTreeRegressor.drop
-   DecisionTreeRegressor.export_models
-   DecisionTreeRegressor.features_importance
-   DecisionTreeRegressor.fit
-   DecisionTreeRegressor.get_attributes
-   DecisionTreeRegressor.get_match_index
-   DecisionTreeRegressor.get_params
-   DecisionTreeRegressor.get_plotting_lib
-   DecisionTreeRegressor.get_tree
-   DecisionTreeRegressor.import_models
-   DecisionTreeRegressor.plot
-   DecisionTreeRegressor.plot_tree
-   DecisionTreeRegressor.predict
-   DecisionTreeRegressor.regression_report
-   DecisionTreeRegressor.report
-   DecisionTreeRegressor.score
-   DecisionTreeRegressor.set_params
-   DecisionTreeRegressor.summarize
-   DecisionTreeRegressor.to_binary
-   DecisionTreeRegressor.to_graphviz
-   DecisionTreeRegressor.to_memmodel
-   DecisionTreeRegressor.to_python
-   DecisionTreeRegressor.to_sql
-
-**Attributes:**
-
-.. autosummary::
-   :toctree: api/
-
-   DecisionTreeRegressor.object_type
-
 
 Random Forest Regressor
 ~~~~~~~~~~~~~~~~~~~~~~~~

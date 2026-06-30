@@ -1665,7 +1665,7 @@ def format_interval(s: str, *, as_seconds: bool = False) -> str:
     """
     Rewrite a human-readable interval string as a Trino-safe expression.
 
-    Trino does not accept Vertica / PostgreSQL free-form interval literals
+    Trino does not accept PostgreSQL free-form interval literals
     such as ``INTERVAL '30 minutes'``: it requires the value and the unit to
     be separate, with the unit given as a trailing keyword drawn from the six
     supported units (``YEAR``, ``MONTH``, ``DAY``, ``HOUR``, ``MINUTE``,
@@ -1727,7 +1727,7 @@ def format_interval(s: str, *, as_seconds: bool = False) -> str:
     if not m:
         raise ValueError(f"Not a single value+unit interval: {s!r}")
     n, unit = int(m.group(1)), m.group(2).lower().rstrip("s")
-    if unit == "week":            # Trino has no WEEK
+    if unit == "week":  # Trino has no WEEK
         n, unit = n * 7, "day"
     if unit not in _UNITS:
         raise ValueError(f"Unsupported Trino interval unit: {unit!r}")

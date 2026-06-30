@@ -40,7 +40,6 @@ from vastorbit.machine_learning.vast.base import (
     Tree,
     VASTModel,
 )
-from vastorbit.machine_learning.vast.tree import DecisionTreeRegressor
 
 from vastorbit.sql.drop import drop
 
@@ -986,6 +985,7 @@ class KNeighborsClassifier(MulticlassClassifier):
 
     .. ipython:: python
         :suppress:
+        :okwarning:
 
         result = model.report(cutoff = 0.2)
         html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_neighbors_knc_report_cutoff.html", "w")
@@ -1634,7 +1634,9 @@ class KNeighborsClassifier(MulticlassClassifier):
                 f"WHERE CAST(predict_neighbors AS VARCHAR) = '{pos_label}') AS confusion_input"
             )
             y_score = f"(CASE WHEN proba_predict > {cutoff} THEN 1 ELSE 0 END)"
-            y_true = f"CASE WHEN CAST({self.y} AS VARCHAR) = '{pos_label}' THEN 1 ELSE 0 END"
+            y_true = (
+                f"CASE WHEN CAST({self.y} AS VARCHAR) = '{pos_label}' THEN 1 ELSE 0 END"
+            )
             return mt.confusion_matrix(y_true, y_score, input_relation)
 
     # Model Evaluation Methods.
@@ -1741,7 +1743,9 @@ class KNeighborsClassifier(MulticlassClassifier):
                 for c in self.classes_
             ]
         else:
-            predict = [f"""COALESCE(AVG(CASE WHEN CAST(predict_neighbors AS VARCHAR) = '{pos_label}' THEN proba_predict END), 0) AS {name}"""]
+            predict = [
+                f"""COALESCE(AVG(CASE WHEN CAST(predict_neighbors AS VARCHAR) = '{pos_label}' THEN proba_predict END), 0) AS {name}"""
+            ]
         if key_columns:
             key_columns_str = ", " + ", ".join(key_columns)
         else:

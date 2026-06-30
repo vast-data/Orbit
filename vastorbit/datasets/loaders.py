@@ -31,7 +31,7 @@ def _load_csv_via_memory(
     """
     Load CSV file into Trino memory catalog.
 
-    This replaces Vertica's COPY command for CSV files.
+    This is equivalent to the COPY command for CSV files.
     Data is loaded to memory catalog first, then can be copied to VAST.
 
     Parameters
@@ -43,7 +43,7 @@ def _load_csv_via_memory(
     dtype : dict
         Column definitions {column_name: trino_type}
     skip_columns : list, optional
-        Columns to skip (e.g., FILLER columns from Vertica)
+        Columns to skip
 
     Returns
     -------
@@ -152,6 +152,14 @@ def _load_csv_via_memory(
                         values.append(f"TIME '{time_str}'")
                     else:
                         values.append("NULL")
+                elif "INT" in col_type:
+                    # Integer columns are often loaded as float64 by pandas
+                    # (so NaN can be represented); emit a clean integer literal
+                    # rather than e.g. "5.0", which Trino parses as a decimal.
+                    if pd.notna(val):
+                        values.append(str(int(float(val))))
+                    else:
+                        values.append("NULL")
                 elif isinstance(val, str):
                     # Escape single quotes for VARCHAR
                     escaped = val.replace("'", "''")
@@ -172,7 +180,7 @@ def _load_json_via_memory(json_pattern: str, memory_table: str, dtype: dict) -> 
     """
     Load JSON file(s) into Trino memory catalog.
 
-    This replaces Vertica's COPY with FJsonParser.
+    This is equivalent to the COPY command for JSON files.
 
     Parameters
     ----------
@@ -225,17 +233,42 @@ def _load_json_via_memory(json_pattern: str, memory_table: str, dtype: dict) -> 
         values = []
         for col in df.columns:
             val = row[col]
+            col_type = dtype.get(col, "VARCHAR").upper()
 
-            if pd.isna(val):
+            # Complex types (dict, list) → JSON string (checked first because
+            # pd.isna on a list returns an element-wise array, not a scalar).
+            if isinstance(val, (dict, list)):
+                escaped = json.dumps(val).replace("'", "''")
+                values.append(f"'{escaped}'")
+            elif pd.isna(val):
                 values.append("NULL")
+            elif "INT" in col_type:
+                try:
+                    values.append(str(int(float(val))))
+                except (TypeError, ValueError):
+                    values.append("NULL")
+            elif "DATE" in col_type and "TIME" not in col_type:
+                try:
+                    values.append(f"DATE '{pd.Timestamp(val).strftime('%Y-%m-%d')}'")
+                except (TypeError, ValueError):
+                    values.append("NULL")
+            elif "TIMESTAMP" in col_type:
+                try:
+                    values.append(
+                        f"TIMESTAMP '{pd.Timestamp(val).strftime('%Y-%m-%d %H:%M:%S')}'"
+                    )
+                except (TypeError, ValueError):
+                    values.append("NULL")
+            elif "TIME" in col_type:
+                time_str = str(val).replace("'", "''")
+                values.append(f"TIME '{time_str}'")
+            elif any(t in col_type for t in ("DOUBLE", "REAL", "DECIMAL", "FLOAT")):
+                try:
+                    values.append(str(float(val)))
+                except (TypeError, ValueError):
+                    values.append("NULL")
             else:
-                # Complex types (dict, list) → JSON string
-                if isinstance(val, (dict, list)):
-                    val_str = json.dumps(val)
-                else:
-                    val_str = str(val)
-
-                escaped = val_str.replace("'", "''")
+                escaped = str(val).replace("'", "''")
                 values.append(f"'{escaped}'")
 
         insert_sql = (
@@ -265,8 +298,6 @@ def load_dataset(
        c. Copy data from memory to target
        d. Cleanup memory table
 
-    This replaces Vertica's COPY command with Trino-compatible approach.
-
     Parameters
     ----------
     schema : str, optional
@@ -279,7 +310,7 @@ def load_dataset(
     dtype : dict
         Column definitions {column_name: trino_type}
     copy_cols : list, optional
-        Columns to copy (Vertica FILLER columns are filtered out)
+        Columns to copy
     dataset_name : str, optional
         Dataset filename (without extension)
     catalog : str, optional
@@ -347,7 +378,7 @@ def load_dataset(
         else:
             file_path = os.path.join(base_path, "data", f"{dataset_name}.csv")
 
-        # Extract skip columns (Vertica FILLER columns)
+        # Extract skip columns
         skip_columns = []
         if copy_cols:
             for col in copy_cols:
@@ -372,10 +403,14 @@ def load_dataset(
         # Create target table
         create_table(table_name=name_quoted, dtype=dtype, schema=schema)
 
-        # Copy from memory to target
+        # Copy from memory to target. Select the declared columns explicitly
+        # (in dtype order) rather than SELECT *, because the memory table may
+        # contain extra columns or a different ordering than the target table
+        # (e.g. JSON sources expose every key, not just the typed ones).
+        select_cols = ", ".join(quote_ident(col) for col in dtype)
         insert_sql = f"""
             INSERT INTO {full_table_name}
-            SELECT * FROM memory.default.{memory_table}
+            SELECT {select_cols} FROM memory.default.{memory_table}
         """
         _executeSQL(
             insert_sql, title=f"Loading {row_count} rows into {full_table_name}"
@@ -529,7 +564,7 @@ def load_iris(schema: Optional[str] = None, name: str = "iris") -> VastFrame:
             "Species": "VARCHAR(30)",
         },
         copy_cols=[
-            "Id FILLER Integer",  # Will be skipped - Vertica-specific
+            "Id FILLER Integer",
             "SepalLengthCm",
             "SepalWidthCm",
             "PetalLengthCm",

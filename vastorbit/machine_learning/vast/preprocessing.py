@@ -713,7 +713,9 @@ class Preprocessing(Unsupervised):
         X = vdf.format_colnames(X)
         exclude_columns = vdf.get_columns(exclude_columns=X)
         all_columns = vdf.get_columns()
-        columns = self.deploySQL(all_columns, exclude_columns, exclude_columns)
+        # Pass non-transformed columns (e.g. the response in a pipeline) through
+        # unchanged; excluding them here would silently drop them from the output.
+        columns = self.deploySQL(all_columns, exclude_columns, [])
         main_relation = f"(SELECT {columns} FROM {vdf}) VASTORBIT_SUBTABLE"
         return VastFrame(main_relation)
 
@@ -854,42 +856,6 @@ class Scaler(Preprocessing):
     """
     Creates a VAST Scaler object.
 
-    Parameters
-    ----------
-    name: str, optional
-        Name of the model.
-    overwrite_model: bool, optional
-        If set to ``True``, training a
-        model with the same name as an
-        existing model overwrites the
-        existing model.
-    method: str, optional
-        Method used to scale the data.
-
-        - zscore:
-
-        Scaling   using   the   Z-Score
-
-        .. math::
-
-            Z_score = (x - avg) / std
-
-        - robust_zscore:
-
-        Scaling using the Robust Z-Score.
-
-        .. math::
-
-            Z_rscore = (x - median) / (1.4826 * mad)
-
-        - minmax:
-
-        Normalization  using  the  Min  &  Max.
-
-        .. math::
-
-            Z_minmax = (x - min) / (max - min)
-
     .. rubric:: Attributes
 
     Many attributes are created
@@ -927,6 +893,43 @@ class Scaler(Preprocessing):
         Several other attributes can be accessed by using the
         :py:meth:`~vastorbit.machine_learning.vast.preprocessing.Preprocessing.get_attributes`
         method.
+
+
+    Parameters
+    ----------
+    name: str, optional
+        Name of the model.
+    overwrite_model: bool, optional
+        If set to ``True``, training a
+        model with the same name as an
+        existing model overwrites the
+        existing model.
+    method: str, optional
+        Method used to scale the data.
+
+        - zscore:
+
+        Scaling   using   the   Z-Score
+
+        .. math::
+
+            Z_score = (x - avg) / std
+
+        - robust_zscore:
+
+        Scaling using the Robust Z-Score.
+
+        .. math::
+
+            Z_rscore = (x - median) / (1.4826 * mad)
+
+        - minmax:
+
+        Normalization  using  the  Min  &  Max.
+
+        .. math::
+
+            Z_minmax = (x - min) / (max - min)
 
     Examples
     --------
@@ -1611,7 +1614,7 @@ class OneHotEncoder(Preprocessing):
         separator: str = "_",
         column_naming: str = "indices",
         null_column_name: str = "null",
-        **kwargs
+        **kwargs,
     ) -> None:
         super().__init__(name, overwrite_model)
         self.parameters = {

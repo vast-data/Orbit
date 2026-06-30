@@ -79,7 +79,7 @@ In the following example, we use a ``Linear Support Vector Classification`` (SVC
 
     from vastorbit.machine_learning.vast import LinearSVC
 
-    model = LinearSVC()
+    model = LinearSVC(max_iter = 1000)
     model.fit(iris, ["PetalLengthCm", "SepalLengthCm"], "Species_Iris-setosa")
     model.plot()
 
@@ -89,7 +89,7 @@ In the following example, we use a ``Linear Support Vector Classification`` (SVC
 
     from vastorbit.machine_learning.vast import LinearSVC
 
-    model = LinearSVC()
+    model = LinearSVC(max_iter = 1000)
     model.fit(iris, ["PetalLengthCm", "SepalLengthCm"], "Species_Iris-setosa")
     fig = model.plot()
     fig.write_html("SPHINX_DIRECTORY/figures/ug_ml_plot_introduction_2.html")

@@ -10,6 +10,19 @@ from matplotlib.axes import Axes
 
 from vastorbit.plotting._matplotlib.base import MatplotlibBase
 
+import matplotlib
+
+# matplotlib renamed ``boxplot``'s ``labels`` argument to ``tick_labels`` in
+# 3.9 and removed ``labels`` in 3.11. Pick the spelling the installed version
+# accepts so the call works across supported matplotlib releases.
+try:
+    _MPL_MAJOR_MINOR = tuple(
+        int(part) for part in matplotlib.__version__.split(".")[:2]
+    )
+except ValueError:
+    _MPL_MAJOR_MINOR = (3, 9)
+_BOXPLOT_LABELS_KW = "tick_labels" if _MPL_MAJOR_MINOR >= (3, 9) else "labels"
+
 
 class BoxPlot(MatplotlibBase):
     # Properties.
@@ -63,8 +76,8 @@ class BoxPlot(MatplotlibBase):
         box = ax.boxplot(
             self.data["X"],
             notch=False,
-            labels=self.layout["labels"],
             patch_artist=True,
+            **{_BOXPLOT_LABELS_KW: self.layout["labels"]},
             **self.init_style,
             **{key: value for key, value in style_kwargs.items() if key != "color"},
         )

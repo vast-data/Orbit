@@ -324,6 +324,7 @@ Use ``@savefig`` pseudo-directive to save and display matplotlib figures:
 
 .. ipython:: python
     :suppress:
+    :okwarning:
 
     import matplotlib.pyplot as plt
     import numpy as np

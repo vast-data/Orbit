@@ -33,5 +33,5 @@ def test_sessionize(ts_vd):
 
 
 def test_interpolate(ts_vd):
-    vd = ts_vd.copy().interpolate("ts", rule="1 hour", by=["uid"])
+    vd = ts_vd.copy().interpolate("ts", rule="1 hour", method={"value": "linear"}, by=["uid"])
     assert vd is not None

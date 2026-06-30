@@ -91,7 +91,7 @@ The team
           :text-align: center
           :class-card: member-pics-card
 
-          Creator · DB Solutions Engineer
+          DB Solutions Engineer
 
     .. grid-item::
 

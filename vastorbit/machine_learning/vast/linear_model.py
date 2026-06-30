@@ -1473,15 +1473,6 @@ class Lasso(LinearModel, Regressor):
     def _sklearn_model(self) -> Literal[sklearn.linear_model.Lasso]:
         return sklearn.linear_model.Lasso
 
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self, name: str = None, overwrite_model: bool = False, **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = kwargs
-
 
 class LinearRegression(LinearModel, Regressor):
     """
@@ -1945,15 +1936,6 @@ class LinearRegression(LinearModel, Regressor):
     def _sklearn_model(self) -> Literal[sklearn.linear_model.LinearRegression]:
         return sklearn.linear_model.LinearRegression
 
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self, name: str = None, overwrite_model: bool = False, **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = kwargs
-
 
 class PLSRegression(LinearModel, Regressor):
     """
@@ -2369,15 +2351,6 @@ class PLSRegression(LinearModel, Regressor):
     @property
     def _sklearn_model(self) -> Literal[sklearn.cross_decomposition.PLSRegression]:
         return sklearn.cross_decomposition.PLSRegression
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self, name: str = None, overwrite_model: bool = False, **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = kwargs
 
 
 class PoissonRegressor(LinearModel, Regressor):
@@ -2804,15 +2777,6 @@ class PoissonRegressor(LinearModel, Regressor):
     @property
     def _sklearn_model(self) -> Literal[sklearn.linear_model.PoissonRegressor]:
         return sklearn.linear_model.PoissonRegressor
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self, name: str = None, overwrite_model: bool = False, **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = kwargs
 
 
 class Ridge(LinearModel, Regressor):
@@ -3284,15 +3248,6 @@ class Ridge(LinearModel, Regressor):
     @property
     def _sklearn_model(self) -> Literal[sklearn.linear_model.Ridge]:
         return sklearn.linear_model.Ridge
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self, name: str = None, overwrite_model: bool = False, **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = kwargs
 
 
 """
@@ -3970,12 +3925,3 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
     @property
     def _sklearn_model(self) -> Literal[sklearn.linear_model.LogisticRegression]:
         return sklearn.linear_model.LogisticRegression
-
-    # System & Special Methods.
-
-    @save_vastorbit_logs
-    def __init__(
-        self, name: str = None, overwrite_model: bool = False, **kwargs
-    ) -> None:
-        super().__init__(name, overwrite_model)
-        self.parameters = kwargs

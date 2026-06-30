@@ -43,10 +43,10 @@ from IPython.core.magic_arguments import (
     parse_argstring,
 )
 
-
 # ═══════════════════════════════════════════════════════════════
 # Schema Cache
 # ═══════════════════════════════════════════════════════════════
+
 
 @dataclass
 class SchemaCache:
@@ -331,6 +331,7 @@ SYSTEM_PROMPT = textwrap.dedent("""\
 # Claude API (zero-dependency — uses urllib)
 # ═══════════════════════════════════════════════════════════════
 
+
 def call_claude(
     api_key: str,
     system: str,
@@ -358,10 +359,12 @@ def call_claude(
     if ssl_ctx.cert_store_stats()["x509_ca"] == 0:
         try:
             import certifi
+
             ssl_ctx.load_verify_locations(certifi.where())
         except ImportError:
             # Last resort: warn and disable verification
             import warnings
+
             warnings.warn(
                 "SSL certificate verification failed. "
                 "Install certifi (`pip install certifi`) to fix this. "
@@ -372,13 +375,15 @@ def call_claude(
             ssl_ctx.check_hostname = False
             ssl_ctx.verify_mode = ssl.CERT_NONE
 
-    body = json.dumps({
-        "model": model,
-        "max_tokens": max_tokens,
-        "temperature": 0.0,
-        "system": system,
-        "messages": [{"role": "user", "content": user_message}],
-    })
+    body = json.dumps(
+        {
+            "model": model,
+            "max_tokens": max_tokens,
+            "temperature": 0.0,
+            "system": system,
+            "messages": [{"role": "user", "content": user_message}],
+        }
+    )
 
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages",
@@ -412,6 +417,7 @@ def call_claude(
 # API Key Resolution
 # ═══════════════════════════════════════════════════════════════
 
+
 def _resolve_api_key(explicit: str | None = None) -> str | None:
     """
     Resolve API key with fallback chain:
@@ -441,6 +447,7 @@ def _resolve_api_key(explicit: str | None = None) -> str | None:
 # Jupyter Magics Class
 # ═══════════════════════════════════════════════════════════════
 
+
 @magics_class
 class VastOrbitAIMagics(Magics):
     """
@@ -468,18 +475,36 @@ class VastOrbitAIMagics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument("--key", "-k", type=str, default=None,
-              help="Anthropic API key (sk-ant-...)")
-    @argument("--model", "-m", type=str, default=None,
-              help="Claude model (default: claude-sonnet-4-20250514)")
-    @argument("--cache-ttl", type=int, default=None,
-              help="Schema cache TTL in seconds (default: 300)")
-    @argument("--show-code", type=str, default=None,
-              choices=["true", "false"],
-              help="Show generated code (default: true)")
-    @argument("--auto-execute", type=str, default=None,
-              choices=["true", "false"],
-              help="Auto-execute generated code (default: true)")
+    @argument(
+        "--key", "-k", type=str, default=None, help="Anthropic API key (sk-ant-...)"
+    )
+    @argument(
+        "--model",
+        "-m",
+        type=str,
+        default=None,
+        help="Claude model (default: claude-sonnet-4-20250514)",
+    )
+    @argument(
+        "--cache-ttl",
+        type=int,
+        default=None,
+        help="Schema cache TTL in seconds (default: 300)",
+    )
+    @argument(
+        "--show-code",
+        type=str,
+        default=None,
+        choices=["true", "false"],
+        help="Show generated code (default: true)",
+    )
+    @argument(
+        "--auto-execute",
+        type=str,
+        default=None,
+        choices=["true", "false"],
+        help="Auto-execute generated code (default: true)",
+    )
     def ai_config(self, line):
         """
         Configure AI Magic settings.
@@ -508,7 +533,8 @@ class VastOrbitAIMagics(Magics):
         # Print current config
         key_display = (
             f"{self.api_key[:12]}...{self.api_key[-4:]}"
-            if self.api_key else "NOT SET ⚠"
+            if self.api_key
+            else "NOT SET ⚠"
         )
         print(f"  api_key:      {key_display}")
         print(f"  model:        {self.model}")
@@ -554,9 +580,7 @@ class VastOrbitAIMagics(Magics):
         schema_ctx = self._get_schema_context()
 
         # Build system prompt
-        system = SYSTEM_PROMPT + (
-            f"\n\n## Available Tables\n```\n{schema_ctx}\n```"
-        )
+        system = SYSTEM_PROMPT + (f"\n\n## Available Tables\n```\n{schema_ctx}\n```")
 
         # Call Claude
         try:
@@ -590,6 +614,7 @@ class VastOrbitAIMagics(Magics):
                 ns = self.shell.user_ns
                 # Split code into "body" (statements) and "last" (expression)
                 import ast as _ast
+
                 try:
                     tree = _ast.parse(code)
                 except SyntaxError as e:
@@ -610,6 +635,7 @@ class VastOrbitAIMagics(Magics):
                     # Display the result
                     if result is not None:
                         from IPython.display import display
+
                         display(result)
                 else:
                     # All statements (assignments, etc.) — just exec
@@ -642,6 +668,7 @@ class VastOrbitAIMagics(Magics):
         """Show the last AI-generated code."""
         if self.last_code:
             from IPython.display import display, Code
+
             display(Code(self.last_code, language="python"))
         else:
             print("No code generated yet.")
@@ -661,6 +688,7 @@ class VastOrbitAIMagics(Magics):
         """Get schema from cache or introspect."""
         try:
             import vastorbit as vo
+
             conn = vo.current_connection()
             catalog = getattr(conn, "catalog", "default")
             schema = getattr(conn, "schema", "default")
@@ -669,10 +697,12 @@ class VastOrbitAIMagics(Magics):
             if cached is not None:
                 return cached
 
-            desc = introspect_schema({
-                "catalog": catalog,
-                "schema": schema,
-            })
+            desc = introspect_schema(
+                {
+                    "catalog": catalog,
+                    "schema": schema,
+                }
+            )
             self.cache.put(catalog, schema, desc)
             return desc
         except Exception as e:
@@ -682,6 +712,7 @@ class VastOrbitAIMagics(Magics):
 # ═══════════════════════════════════════════════════════════════
 # Extension Entry Point — this is what %load_ext calls
 # ═══════════════════════════════════════════════════════════════
+
 
 def load_ipython_extension(ipython):
     """
@@ -693,7 +724,11 @@ def load_ipython_extension(ipython):
     magics = VastOrbitAIMagics(ipython)
     ipython.register_magics(magics)
 
-    key_status = "✓ key detected" if magics.api_key else "⚠ no key — run %ai_config --key YOUR_KEY"
+    key_status = (
+        "✓ key detected"
+        if magics.api_key
+        else "⚠ no key — run %ai_config --key YOUR_KEY"
+    )
     print(f"🛰️  VAST Orbit AI Magic loaded ({key_status})")
     print(f"   Use:  %%ai  |  %ai_config  |  %ai_schema  |  %ai_code  |  %ai_stats")
 

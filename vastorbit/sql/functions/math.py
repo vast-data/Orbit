@@ -1059,7 +1059,10 @@ def degrees(expr: SQLExpression) -> StringSQL:
 
 
 def distance(
-    lat0: float, lon0: float, lat1: float, lon1: float,
+    lat0: float,
+    lon0: float,
+    lat1: float,
+    lon1: float,
 ) -> StringSQL:
     """
     Returns the distance (in kilometers) between two
@@ -1151,9 +1154,7 @@ def distance(
 
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
-    return StringSQL(
-        f"GREAT_CIRCLE_DISTANCE({lat0}, {lon0}, {lat1}, {lon1})", "real"
-    )
+    return StringSQL(f"GREAT_CIRCLE_DISTANCE({lat0}, {lon0}, {lat1}, {lon1})", "real")
 
 
 def exp(expr: SQLExpression) -> StringSQL:
@@ -1591,7 +1592,9 @@ def isfinite(expr: SQLExpression) -> StringSQL:
         | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.eval` : Evaluates the expression.
     """
     expr, cat = format_magic(expr, True)
-    return StringSQL(f"(({expr}) = ({expr})) AND (ABS(CAST({expr} AS DOUBLE)) < infinity())", cat)
+    return StringSQL(
+        f"(({expr}) = ({expr})) AND (ABS(CAST({expr} AS DOUBLE)) < infinity())", cat
+    )
 
 
 def isinf(expr: SQLExpression) -> StringSQL:
