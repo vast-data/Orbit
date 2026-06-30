@@ -320,7 +320,9 @@ class vDFFilter(vDFAgg):
             for i in range(n - 1):
                 cnt = int(max(topk["count"][i] * (1.0 - x), min_cnt))
                 vdf = vdf.append(
-                    self.search(f"{column} = CAST('{topk['index'][i]}' AS {dtype})").sample(n=cnt)
+                    self.search(
+                        f"{column} = CAST('{topk['index'][i]}' AS {dtype})"
+                    ).sample(n=cnt)
                 )
         elif method == "over":
             vdf = self.copy()
@@ -328,7 +330,9 @@ class vDFFilter(vDFAgg):
                 cnt_i, cnt = topk["count"][i], 0
                 limit = int(max_cnt * x) - cnt_i
                 while cnt <= limit:
-                    vdf_i = self.search(f"{column} = CAST('{topk['index'][i]}' AS {dtype})")
+                    vdf_i = self.search(
+                        f"{column} = CAST('{topk['index'][i]}' AS {dtype})"
+                    )
                     if cnt + cnt_i > limit:
                         vdf = vdf.append(vdf_i.sample(n=limit - cnt))
                         break

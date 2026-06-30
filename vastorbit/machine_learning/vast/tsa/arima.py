@@ -674,7 +674,7 @@ class AR(TimeSeriesModelBase):
     .. note::
 
         The AR model is much faster than ARIMA(p, 0, 0)
-        because the underlying algorithm of AR is quite 
+        because the underlying algorithm of AR is quite
         different.
 
     Parameters
@@ -1313,6 +1313,7 @@ class AR(TimeSeriesModelBase):
     @property
     def _model_type(self) -> Literal["AR"]:
         return "AR"
+
 
 # Multivariate models
 

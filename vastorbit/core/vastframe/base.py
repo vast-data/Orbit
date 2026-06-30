@@ -268,7 +268,7 @@ class VastFrame(vDFAnimatedPlot):
 
     .. ipython:: python
         :suppress:
-        
+
         from vastorbit.datasets import load_titanic
 
         load_titanic()

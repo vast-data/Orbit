@@ -161,6 +161,7 @@ def _executeSQL(
         return cursor.fetchall()
     return cursor
 
+
 def purge_memory(
     schema: str = "default",
     catalog: str = "memory",

@@ -1434,9 +1434,7 @@ class BisectingKMeans(KMeans, Tree):
                 if label is not None:
                     mask = labels == label
                     size[node_id] = int(np.sum(mask))
-                    within_ss[node_id] = np.sum(
-                        (self._X[mask] - centers[node_id]) ** 2
-                    )
+                    within_ss[node_id] = np.sum((self._X[mask] - centers[node_id]) ** 2)
             for node_id in range(n_nodes - 1, -1, -1):
                 if children_left[node_id] is not None:
                     left_id = children_left[node_id]
@@ -2385,7 +2383,9 @@ class DBSCAN(VASTModel):
             ]
             cols = ", ".join(self.X + self.key_columns)
             if assigned:
-                values = ", ".join(f"({node_id}, {cluster})" for node_id, cluster in assigned)
+                values = ", ".join(
+                    f"({node_id}, {cluster})" for node_id, cluster in assigned
+                )
                 cluster_join = (
                     f" LEFT JOIN (VALUES {values}) AS y(node_id, cluster) "
                     f"ON x.{index} = y.node_id"

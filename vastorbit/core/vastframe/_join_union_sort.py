@@ -772,15 +772,12 @@ class vDFJoinUnionSort(vDFMath):
         # The src tiebreak (right = 0 sorts before left = 1) makes an
         # equal-timestamp right row visible to the left row, matching the
         # "<=" (previous-value) semantics of the original INTERPOLATE join.
-        partition = (
-            "PARTITION BY " + ", ".join(part_names) + " " if part_names else ""
-        )
+        partition = "PARTITION BY " + ", ".join(part_names) + " " if part_names else ""
         over = f"OVER ({partition}ORDER BY _vo_t, _vo_src)"
 
         filled_select = list(left_names)
         filled_select += [
-            f"LAST_VALUE({name}) IGNORE NULLS {over} AS {name}"
-            for name in right_names
+            f"LAST_VALUE({name}) IGNORE NULLS {over} AS {name}" for name in right_names
         ]
         filled_select += [
             f"LAST_VALUE(_vo_rt) IGNORE NULLS {over} AS _vo_rt",

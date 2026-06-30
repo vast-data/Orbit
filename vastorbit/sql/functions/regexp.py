@@ -612,6 +612,4 @@ def regexp_extract(
     src = f"SUBSTR({expr}, {position})" if position != 1 else expr
     if occurrence == 1:
         return StringSQL(f"REGEXP_EXTRACT({src}, {pattern})")
-    return StringSQL(
-        f"ELEMENT_AT(REGEXP_EXTRACT_ALL({src}, {pattern}), {occurrence})"
-    )
+    return StringSQL(f"ELEMENT_AT(REGEXP_EXTRACT_ALL({src}, {pattern}), {occurrence})")

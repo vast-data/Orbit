@@ -1727,7 +1727,7 @@ def format_interval(s: str, *, as_seconds: bool = False) -> str:
     if not m:
         raise ValueError(f"Not a single value+unit interval: {s!r}")
     n, unit = int(m.group(1)), m.group(2).lower().rstrip("s")
-    if unit == "week":            # Trino has no WEEK
+    if unit == "week":  # Trino has no WEEK
         n, unit = n * 7, "day"
     if unit not in _UNITS:
         raise ValueError(f"Unsupported Trino interval unit: {unit!r}")

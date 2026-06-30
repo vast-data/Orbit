@@ -211,7 +211,7 @@ class vDFText(vDFRolling):
             expr = f"REGEXP_COUNT({target}, '{pattern_str}')"
 
         elif method in ("like", "ilike"):
-            
+
             if method == "ilike":
                 pattern_str = f"(?i){pattern_str}"
             expr = f"REGEXP_LIKE({column}, '{pattern_str}')"
@@ -267,10 +267,7 @@ class vDFText(vDFRolling):
                     f"COALESCE(LENGTH(REGEXP_EXTRACT({target}, "
                     f"'{pattern_str}')), 0)"
                 )
-                expr = (
-                    f"CASE WHEN {raw} = -1 THEN 0 "
-                    f"ELSE {raw} + {match_len} END"
-                )
+                expr = f"CASE WHEN {raw} = -1 THEN 0 " f"ELSE {raw} + {match_len} END"
             else:
                 expr = f"CASE WHEN {raw} = -1 THEN 0 ELSE {raw} END"
 

@@ -85,6 +85,7 @@ def vastorbit_logo_html(size: str = "50%") -> str:
         code.
     """
 
+
 def vastorbit_logo_html(size: str = "50%") -> str:
     """
     Generates the HTML code
@@ -138,13 +139,16 @@ def vastorbit_logo_html(size: str = "50%") -> str:
     bg = "E8EFF7"
     if theme == "light":
         bg = "000000"
-    
-    svg_content = """<?xml version="1.0" encoding="UTF-8"?>
+
+    svg_content = (
+        """<?xml version="1.0" encoding="UTF-8"?>
         <svg class="vob-logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
           <defs>
             <style>
               .vob-logo-mark .cls-1 {
-                fill: var(--color-foreground-primary, #""" + bg + """);
+                fill: var(--color-foreground-primary, #"""
+        + bg
+        + """);
               }
 
               .vob-logo-mark .cls-2 {
@@ -162,6 +166,7 @@ def vastorbit_logo_html(size: str = "50%") -> str:
           <path class="cls-2" d="M65.9,24.16c.59-3.07,4.02-4.48,6.86-4.38,21.14-.03,42.28-.04,63.42-.04,5.72-.14,9.69,7.14,6.83,11.97-5.36,8.87-10.73,17.72-16.03,26.62-.81,1.53-1.99,3.01-3.78,3.36-1.7,.63-3.4-.36-4.84-1.19-1.58-.95-3.22-1.79-4.78-2.77-2.01-1.29-2.97-4.13-1.85-6.3,2.79-5.14,6.18-9.94,8.9-15.11-16.7-.05-33.41,0-50.11-.04-2.64,.05-4.89-2.49-4.74-5.09,.04-2.35-.15-4.71,.11-7.05"/>
         </svg>
     """
+    )
 
     # Inline the SVG directly (NOT a base64 <img>): an <img>-embedded SVG is an
     # isolated document that cannot read the page's CSS variables, so the Furo
@@ -206,7 +211,7 @@ def vastorbit_logo_str() -> str:
         construct others, simplifying the overall
         code.
     """
-    img =  "    __________  _____________   \n"
+    img = "    __________  _____________   \n"
     img += "    \\        | |            /   \n"
     img += "     \\   ____| |________   /    \n"
     img += "      \\   \\           /   /    \n"

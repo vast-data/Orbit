@@ -271,7 +271,9 @@ class vDFRolling(vDFCorr):
 
             if isinstance(w, str):
                 if w.strip().lower() == "unbounded":
-                    bound[idx] = "UNBOUNDED " + ("PRECEDING" if idx == 0 else "FOLLOWING")
+                    bound[idx] = "UNBOUNDED " + (
+                        "PRECEDING" if idx == 0 else "FOLLOWING"
+                    )
                 else:
                     # Leading minus signs (optionally space-separated) -> PRECEDING.
                     i = nb_min = 0

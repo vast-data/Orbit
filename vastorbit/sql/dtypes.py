@@ -375,9 +375,7 @@ def _get_expression_types(
             # Trino emits a single empty sentinel row for no-output statements.
             if not col_name and not type_str:
                 continue
-            ctype.append(
-                (col_name, trino_dtype(type_name=str(type_str or "unknown")))
-            )
+            ctype.append((col_name, trino_dtype(type_name=str(type_str or "unknown"))))
 
         if ctype:
             if column:

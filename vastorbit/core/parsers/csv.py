@@ -228,7 +228,7 @@ def read_csv(
     genSQL : bool, optional
         If True, return SQL statements without executing
     batch_size: int, optional
-        Batch size specifies the number of rows inserted into the 
+        Batch size specifies the number of rows inserted into the
         VAST DB concurrently during a bulk operation.
 
     Returns

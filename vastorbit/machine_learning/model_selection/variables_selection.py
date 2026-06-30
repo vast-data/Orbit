@@ -677,7 +677,7 @@ def stepwise(
     .. ipython:: python
 
         import vastorbit.datasets as vod
-        
+
         data = vod.load_titanic().fillna()
 
     .. raw:: html

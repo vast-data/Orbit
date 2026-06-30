@@ -1510,9 +1510,7 @@ class vDCMath(vDCFilter):
             | ``VastColumn.``:py:meth:`~vastorbit.VastColumn.slice` :
                 Slice the :py:class:`~VastColumn` by custom time-steps.
         """
-        return self.apply(
-            func=f"EXTRACT({field.upper()} FROM CAST({{}} AS TIMESTAMP))"
-        )
+        return self.apply(func=f"EXTRACT({field.upper()} FROM CAST({{}} AS TIMESTAMP))")
 
     @save_vastorbit_logs
     def div(self, x: PythonNumber) -> "VastFrame":

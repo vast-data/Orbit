@@ -535,8 +535,10 @@ def cross_validate(
         # Falling back to the un-flattened relation means train_test_split runs
         # its APPROX_PERCENTILE over a deeply nested query and may exceed Trino's
         # stage limit. Surface why the flatten failed instead of swallowing it.
-        warnings.warn(f"cross_validate: could not materialize cv_base ({e!r}); "
-                      "falling back to the nested relation.")
+        warnings.warn(
+            f"cross_validate: could not materialize cv_base ({e!r}); "
+            "falling back to the nested relation."
+        )
         _drop_relation(_cv_base_name)
         _cv_base_name = None
     if cv < 2:
@@ -1149,8 +1151,10 @@ def learning_curve(
         _lc_base_name = _materialize(input_relation, "lc_base")
         input_relation = VastFrame(_lc_base_name)
     except Exception as e:
-        warnings.warn(f"learning_curve: could not materialize lc_base ({e!r}); "
-                      "falling back to the nested relation.")
+        warnings.warn(
+            f"learning_curve: could not materialize lc_base ({e!r}); "
+            "falling back to the nested relation."
+        )
         _drop_relation(_lc_base_name)
         _lc_base_name = None
     lc_result_final = []

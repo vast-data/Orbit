@@ -1614,7 +1614,7 @@ class OneHotEncoder(Preprocessing):
         separator: str = "_",
         column_naming: str = "indices",
         null_column_name: str = "null",
-        **kwargs
+        **kwargs,
     ) -> None:
         super().__init__(name, overwrite_model)
         self.parameters = {

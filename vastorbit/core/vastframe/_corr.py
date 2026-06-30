@@ -2006,7 +2006,9 @@ class vDFCorr(vDFEncode):
                         math.sqrt(2)
                         * scipy_special.erfinv(alpha)
                         / math.sqrt(self[column].count() - k + 1)
-                        * math.sqrt((1 + 2 * sum(pacf[i] ** 2 for i in range(1, k))))
+                        * math.sqrt(
+                            (1 + 2 * sum((pacf[i] or 0) ** 2 for i in range(1, k)))
+                        )
                     ]
             result = TableSample({"index": columns, "value": pacf})
             if pacf_band:

@@ -380,7 +380,11 @@ class AutoML(VASTModel):
                     NaiveBayes(self.model_name),
                 ]
                 if estimator_method in ("native", "all"):
-                    self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name), RandomForestClassifier(self.model_name, n_estimators = 5), LinearSVC(self.model_name, max_iter = 1000)]
+                    self.parameters["estimator"] += [
+                        GradientBoostingClassifier(self.model_name),
+                        RandomForestClassifier(self.model_name, n_estimators=5),
+                        LinearSVC(self.model_name, max_iter=1000),
+                    ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
                         KNeighborsClassifier(self.model_name),
@@ -399,8 +403,8 @@ class AutoML(VASTModel):
                 if estimator_method in ("native", "all"):
                     self.parameters["estimator"] += [
                         GradientBoostingRegressor(self.model_name),
-                        LinearSVR(self.model_name, max_iter = 1000),
-                        RandomForestRegressor(self.model_name, n_estimators = 5),
+                        LinearSVR(self.model_name, max_iter=1000),
+                        RandomForestRegressor(self.model_name, n_estimators=5),
                     ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
@@ -410,7 +414,10 @@ class AutoML(VASTModel):
                 self.parameters["estimator_type"] = "multi"
                 self.parameters["estimator"] = [NaiveBayes(self.model_name)]
                 if estimator_method in ("native", "all"):
-                    self.parameters["estimator"] += [GradientBoostingClassifier(self.model_name), RandomForestClassifier(self.model_name, n_estimators = 5)]
+                    self.parameters["estimator"] += [
+                        GradientBoostingClassifier(self.model_name),
+                        RandomForestClassifier(self.model_name, n_estimators=5),
+                    ]
                 if estimator_method == "all":
                     self.parameters["estimator"] += [
                         KNeighborsClassifier(self.model_name),

@@ -1,0 +1,27 @@
+# VastOrbit core runtime dependencies.
+#
+# These are the packages the library needs to import and run. Test and
+# development tooling live in requirements-dev.txt and requirements-testing.txt,
+# both of which pull this file in via `-r requirements.txt`. Optional / extended
+# features (statsmodels, xgboost, geospatial, notebook widgets, etc.) are
+# declared in those files, not here.
+
+# Database driver
+trino>=0.328.0
+
+# Numerics & data handling
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Machine learning
+scikit-learn>=1.3.0
+
+# Visualization
+matplotlib>=3.7.0
+plotly>=5.18.0
+graphviz>=0.20.0
+
+# Utilities
+tqdm>=4.66.0
+pyyaml>=6.0.1

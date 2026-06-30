@@ -775,8 +775,11 @@ class TimeSeriesModelBase(VASTModel):
     # Features Importance
 
     def features_importance(
-        self, idx: int = 0, show: bool = True,
-        chart: Optional[PlottingObject] = None, **style_kwargs
+        self,
+        idx: int = 0,
+        show: bool = True,
+        chart: Optional[PlottingObject] = None,
+        **style_kwargs,
     ) -> Union[PlottingObject, TableSample]:
         """
         Computes the model's features importance.

@@ -2073,80 +2073,80 @@ class Tree:
         """
         Returns a table with all
         the input tree information.
- 
+
         Parameters
         ----------
         tree_id: int, optional
             Unique tree  identifier,
             an ``integer`` in the range
             ``[0, n_estimators - 1]``.
- 
+
         Returns
         -------
         TableSample
             tree.
- 
+
         Examples
         --------
         We import :py:mod:`vastorbit`:
- 
+
         .. code-block:: python
- 
+
             import vastorbit as vo
- 
+
         For this example, we will
         use the winequality dataset.
- 
+
         .. code-block:: python
- 
+
             import vastorbit.datasets as vod
- 
+
             data = vod.load_winequality()
- 
+
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
- 
+
         Let's divide the dataset into
         training and testing subsets.
- 
+
         .. code-block:: python
- 
+
             data = vod.load_winequality()
             train, test = data.train_test_split(test_size = 0.2)
- 
+
         .. ipython:: python
             :suppress:
- 
+
             import vastorbit as vo
             import vastorbit.datasets as vod
             data = vod.load_winequality()
             train, test = data.train_test_split(test_size = 0.2)
- 
+
         We import the model:
- 
+
         .. code-block::
- 
+
             from vastorbit.machine_learning.vast import RandomForestClassifier
- 
+
         .. ipython:: python
             :suppress:
- 
+
             from vastorbit.machine_learning.vast import RandomForestClassifier
- 
+
         Then we can create the model:
- 
+
         .. ipython:: python
             :okwarning:
- 
+
             model = RandomForestClassifier(
                 n_estimators = 5
             )
- 
+
         We can now fit the model:
- 
+
         .. ipython:: python
             :okwarning:
- 
+
             model.fit(
                 train,
                 [
@@ -2160,26 +2160,26 @@ class Tree:
                 "good",
                 test,
             )
- 
+
         To get the input tree:
- 
+
         .. ipython:: python
             :suppress:
- 
+
             result = model.get_tree(tree_id = 0)
             html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_rf_classifier_tree_score_1.html", "w")
             html_file.write(result._repr_html_())
             html_file.close()
- 
+
         .. code-block:: python
- 
+
             model.get_tree(tree_id = 0)
- 
+
         .. raw:: html
             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_rf_classifier_tree_score_1.html
- 
+
         .. important::
- 
+
             For this example, a specific model is
             utilized, and it may not correspond
             exactly to the model you are working
@@ -2193,7 +2193,7 @@ class Tree:
                 "Parameter 'tree_id' must be an integer in the range "
                 f"[0, {n_est - 1}]."
             )
- 
+
         if hasattr(self._model, "estimators_"):
             # RandomForest -> 1-D estimators_; GradientBoosting (GradientBoosting*) -> 2-D,
             # so ravel handles both. IsolationForest also exposes estimators_.
@@ -2201,7 +2201,7 @@ class Tree:
         else:
             # Single decision tree model.
             skl_tree = self._model.tree_
- 
+
         children_left = skl_tree.children_left
         children_right = skl_tree.children_right
         feature = skl_tree.feature
@@ -2210,7 +2210,7 @@ class Tree:
         n_node_samples = skl_tree.n_node_samples
         impurity = skl_tree.impurity
         n_nodes = skl_tree.node_count
- 
+
         # Node depth via iterative traversal (sklearn TREE_LEAF == -1).
         node_depth = [0] * n_nodes
         stack = [(0, 0)]
@@ -2220,10 +2220,10 @@ class Tree:
             if children_left[nid] != -1:
                 stack.append((int(children_left[nid]), depth + 1))
                 stack.append((int(children_right[nid]), depth + 1))
- 
+
         is_classifier = "Classifier" in self._model_type
         is_isolation = self._model_type == "IsolationForest"
- 
+
         cols = {
             "tree_id": [],
             "node_id": [],
@@ -2242,7 +2242,7 @@ class Tree:
             cols["leaf_path_length"] = []
         if self._model_type == "GradientBoostingClassifier":
             cols["log_odds"] = []
- 
+
         for i in range(n_nodes):
             is_leaf = children_left[i] == -1
             cols["tree_id"].append(tree_id)
@@ -2255,7 +2255,7 @@ class Tree:
             # of trying to float() a non-existent numeric threshold.
             cols["is_categorical_split"].append(None if is_leaf else False)
             cols["training_row_count"].append(int(n_node_samples[i]))
- 
+
             if not is_leaf:
                 cols["left_child_id"].append(int(children_left[i]))
                 cols["right_child_id"].append(int(children_right[i]))
@@ -2268,7 +2268,7 @@ class Tree:
                 if self._model_type == "GradientBoostingClassifier":
                     cols["log_odds"].append(None)
                 continue
- 
+
             # Leaf node.
             cols["left_child_id"].append(None)
             cols["right_child_id"].append(None)
@@ -2295,7 +2295,7 @@ class Tree:
             else:  # regressor
                 cols["prediction"].append(float(value[i][0][0]))
                 cols["probability/variance"].append(float(impurity[i]))
- 
+
         return TableSample(values=cols)
 
     def to_graphviz(
@@ -6141,236 +6141,236 @@ class Regressor(Supervised):
         ] = None,
     ) -> Union[float, TableSample]:
         """
-         Computes a regression report
-         using multiple metrics to
-         evaluate the model (``r2``,
-         ``mse``, ``max error``...).
+        Computes a regression report
+        using multiple metrics to
+        evaluate the model (``r2``,
+        ``mse``, ``max error``...).
 
-         Parameters
-         ----------
-         metrics: str | list, optional
-            The metrics used to compute
-            the regression report.
+        Parameters
+        ----------
+        metrics: str | list, optional
+           The metrics used to compute
+           the regression report.
 
-            - None:
-                Computes the model different metrics.
-            - anova:
-                Computes the model ANOVA table.
-            - details:
-                Computes the model details.
+           - None:
+               Computes the model different metrics.
+           - anova:
+               Computes the model ANOVA table.
+           - details:
+               Computes the model details.
 
-             It can also be a ``list`` of the
-             metrics used to compute the final
-             report.
+            It can also be a ``list`` of the
+            metrics used to compute the final
+            report.
 
-             - aic:
-                 Akaike's Information Criterion
+            - aic:
+                Akaike's Information Criterion
 
-                 .. math::
+                .. math::
 
-                     AIC = 2k - 2\\ln(\\hat{L})
+                    AIC = 2k - 2\\ln(\\hat{L})
 
-             - bic:
-                 Bayesian Information Criterion
+            - bic:
+                Bayesian Information Criterion
 
-                 .. math::
+                .. math::
 
-                     BIC = -2\\ln(\\hat{L}) + k \\ln(n)
+                    BIC = -2\\ln(\\hat{L}) + k \\ln(n)
 
-             - max:
-                 Max Error.
+            - max:
+                Max Error.
 
-                 .. math::
+                .. math::
 
-                     ME = \\max_{i=1}^{n} \\left| y_i - \\hat{y}_i \\right|
+                    ME = \\max_{i=1}^{n} \\left| y_i - \\hat{y}_i \\right|
 
-             - mae:
-                 Mean Absolute Error.
+            - mae:
+                Mean Absolute Error.
 
-                 .. math::
+                .. math::
 
-                     MAE = \\frac{1}{n} \\sum_{i=1}^{n} \\left| y_i - \\hat{y}_i \\right|
+                    MAE = \\frac{1}{n} \\sum_{i=1}^{n} \\left| y_i - \\hat{y}_i \\right|
 
-             - median:
-                 Median Absolute Error.
+            - median:
+                Median Absolute Error.
 
-                 .. math::
+                .. math::
 
-                     MedAE = \\text{median}_{i=1}^{n} \\left| y_i - \\hat{y}_i \\right|
+                    MedAE = \\text{median}_{i=1}^{n} \\left| y_i - \\hat{y}_i \\right|
 
-             - mse:
-                 Mean Squared Error.
+            - mse:
+                Mean Squared Error.
 
-                 .. math::
+                .. math::
 
-                     MsE = \\frac{1}{n} \\sum_{i=1}^{n} \\left( y_i - \\hat{y}_i \\right)^2
+                    MsE = \\frac{1}{n} \\sum_{i=1}^{n} \\left( y_i - \\hat{y}_i \\right)^2
 
-             - msle:
-                 Mean Squared Log Error.
+            - msle:
+                Mean Squared Log Error.
 
-                 .. math::
+                .. math::
 
-                     MSLE = \\frac{1}{n} \\sum_{i=1}^{n} (\\log(1 + y_i) - \\log(1 + \\hat{y}_i))^2
+                    MSLE = \\frac{1}{n} \\sum_{i=1}^{n} (\\log(1 + y_i) - \\log(1 + \\hat{y}_i))^2
 
-             - r2:
-                 R squared coefficient.
+            - r2:
+                R squared coefficient.
 
-                 .. math::
+                .. math::
 
-                     R^2 = 1 - \\frac{\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2}{\\sum_{i=1}^{n} (y_i - \\bar{y})^2}
+                    R^2 = 1 - \\frac{\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2}{\\sum_{i=1}^{n} (y_i - \\bar{y})^2}
 
-             - r2a:
-                 R2 adjusted
+            - r2a:
+                R2 adjusted
 
-                 .. math::
+                .. math::
 
-                     \\text{Adjusted } R^2 = 1 - \\frac{(1 - R^2)(n - 1)}{n - k - 1}
+                    \\text{Adjusted } R^2 = 1 - \\frac{(1 - R^2)(n - 1)}{n - k - 1}
 
-             - qe:
-                 quantile error, the quantile must be
-                 included in the name. Example:
-                 qe50.1% will  return the quantile
-                 error using q=0.501.
+            - qe:
+                quantile error, the quantile must be
+                included in the name. Example:
+                qe50.1% will  return the quantile
+                error using q=0.501.
 
-             - rmse:
-                 Root-mean-squared error
+            - rmse:
+                Root-mean-squared error
 
-                 .. math::
+                .. math::
 
-                     RMSE = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2}
+                    RMSE = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2}
 
-             - var:
-                 Explained Variance
+            - var:
+                Explained Variance
 
-                 .. math::
+                .. math::
 
-                     \\text{Explained Variance}   = 1 - \\frac{Var(y - \\hat{y})}{Var(y)}
+                    \\text{Explained Variance}   = 1 - \\frac{Var(y - \\hat{y})}{Var(y)}
 
-         Returns
-         -------
-         TableSample
-             report.
+        Returns
+        -------
+        TableSample
+            report.
 
-         Examples
-         --------
-         We import :py:mod:`vastorbit`:
+        Examples
+        --------
+        We import :py:mod:`vastorbit`:
 
-         .. code-block:: python
+        .. code-block:: python
 
-             import vastorbit as vo
+            import vastorbit as vo
 
-         For this example, we will
-         use the winequality dataset.
+        For this example, we will
+        use the winequality dataset.
 
-         .. code-block:: python
+        .. code-block:: python
 
-             import vastorbit.datasets as vod
+            import vastorbit.datasets as vod
 
-             data = vod.load_winequality()
+            data = vod.load_winequality()
 
-         .. raw:: html
-             :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
+        .. raw:: html
+            :file: SPHINX_DIRECTORY/figures/datasets_loaders_load_winequality.html
 
-         Divide your dataset into training
-         and testing subsets.
+        Divide your dataset into training
+        and testing subsets.
 
-         .. code-block:: python
+        .. code-block:: python
 
-             data = vod.load_winequality()
-             train, test = data.train_test_split(test_size = 0.2)
+            data = vod.load_winequality()
+            train, test = data.train_test_split(test_size = 0.2)
 
-         .. ipython:: python
-             :suppress:
+        .. ipython:: python
+            :suppress:
 
-             import vastorbit as vo
-             import vastorbit.datasets as vod
-             data = vod.load_winequality()
-             train, test = data.train_test_split(test_size = 0.2)
+            import vastorbit as vo
+            import vastorbit.datasets as vod
+            data = vod.load_winequality()
+            train, test = data.train_test_split(test_size = 0.2)
 
-         Let's import the model:
+        Let's import the model:
 
-         .. code-block::
+        .. code-block::
 
-             from vastorbit.machine_learning.vast import LinearRegression
+            from vastorbit.machine_learning.vast import LinearRegression
 
-         Then we can create the model:
+        Then we can create the model:
 
-         .. code-block::
+        .. code-block::
 
-             model = LinearRegression(
-                 tol = 1e-6,
-                 fit_intercept = True,
-             )
+            model = LinearRegression(
+                tol = 1e-6,
+                fit_intercept = True,
+            )
 
-         .. ipython:: python
-             :suppress:
+        .. ipython:: python
+            :suppress:
 
-             from vastorbit.machine_learning.vast import LinearRegression
-             model = LinearRegression(
-                 tol = 1e-6,
-                 fit_intercept = True,
-             )
+            from vastorbit.machine_learning.vast import LinearRegression
+            model = LinearRegression(
+                tol = 1e-6,
+                fit_intercept = True,
+            )
 
-         We can now fit the model:
+        We can now fit the model:
 
-         .. ipython:: python
+        .. ipython:: python
 
-             model.fit(
-                 train,
-                 [
-                     "fixed_acidity",
-                     "volatile_acidity",
-                     "citric_acid",
-                     "residual_sugar",
-                     "chlorides",
-                     "density",
-                 ],
-                 "quality",
-                 test,
-             )
+            model.fit(
+                train,
+                [
+                    "fixed_acidity",
+                    "volatile_acidity",
+                    "citric_acid",
+                    "residual_sugar",
+                    "chlorides",
+                    "density",
+                ],
+                "quality",
+                test,
+            )
 
-         We can get the entire report using:
+        We can get the entire report using:
 
-         .. ipython:: python
-             :suppress:
+        .. ipython:: python
+            :suppress:
 
-             result = model.report()
-             html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report.html", "w")
-             html_file.write(result._repr_html_())
-             html_file.close()
+            result = model.report()
+            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report.html", "w")
+            html_file.write(result._repr_html_())
+            html_file.close()
 
-         .. code-block:: python
+        .. code-block:: python
 
-             result = model.report()
+            result = model.report()
 
-         .. raw:: html
-             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report.html
+        .. raw:: html
+            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report.html
 
-         We can easily get the ANOVA table using:
+        We can easily get the ANOVA table using:
 
-         .. ipython:: python
-             :suppress:
+        .. ipython:: python
+            :suppress:
 
-             result = model.report(metrics = "anova")
-             html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report_anova.html", "w")
-             html_file.write(result._repr_html_())
-             html_file.close()
+            result = model.report(metrics = "anova")
+            html_file = open("SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report_anova.html", "w")
+            html_file.write(result._repr_html_())
+            html_file.close()
 
-         .. code-block:: python
+        .. code-block:: python
 
-             result = model.report(metrics = "anova")
+            result = model.report(metrics = "anova")
 
-         .. raw:: html
-             :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report_anova.html
+        .. raw:: html
+            :file: SPHINX_DIRECTORY/figures/machine_learning_VAST_linear_model_lr_report_anova.html
 
-         .. important::
+        .. important::
 
-             For this example, a specific model is
-             utilized, and it may not correspond
-             exactly to the model you are working
-             with. To see a comprehensive example
-             specific to your class of interest,
-             please refer to that particular class.
+            For this example, a specific model is
+            utilized, and it may not correspond
+            exactly to the model you are working
+            with. To see a comprehensive example
+            specific to your class of interest,
+            please refer to that particular class.
         """
         prediction = self.deploySQL()
         if self._model_type == "KNeighborsRegressor":
