@@ -554,4 +554,4 @@ Enjoy!
 
 For contribution guidelines and additional support documentation, please refer to the project documentation.
 
-For questions and community support, join our Slack channel: **vastsupport.slack.com**
+For questions and community support, join our Slack channel: [![Slack](https://img.shields.io/badge/Slack-VAST%20Support-4A154B?logo=slack&logoColor=white)](https://vastsupport.slack.com)
