@@ -13,6 +13,7 @@
 [![codecov](https://codecov.io/gh/vastdata-dev/vastorbit/branch/main/graph/badge.svg?token=a6GiFYI9at)](https://codecov.io/gh/vastdata-dev/vastorbit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+[![Slack](https://img.shields.io/badge/Slack-VAST%20Support-4A154B?logo=slack&logoColor=white)](https://vastsupport.slack.com)
 
 ## Trailer Video
 
@@ -554,4 +555,4 @@ Enjoy!
 
 For contribution guidelines and additional support documentation, please refer to the project documentation.
 
-For questions and community support, join our Slack channel: [![Slack](https://img.shields.io/badge/Slack-VAST%20Support-4A154B?logo=slack&logoColor=white)](https://vastsupport.slack.com)
+For questions and community support, join our Slack channel: https://vastsupport.slack.com
