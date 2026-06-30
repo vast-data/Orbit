@@ -14,22 +14,13 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
-## Introduction Video
+## Trailer Video
 
 <p align="center">
   <a href="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4">
     <img src="docs/source/_static/website/video/vastorbit_intro_poster.png"
          width="100%" alt="VAST Orbit — Trailer (click to watch)">
   </a>
-</p>
-
-<p align="center">
-  <video src="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4" controls width="100%"></video>
-</p>
-
-<p align="center">
-<!-- TODO: Add benefits image -->
-<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/benefits.png' width="92%">
 </p>
 
 VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST Database. Train models using familiar scikit-learn syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
@@ -327,7 +318,7 @@ titanic.corr(method="spearman", focus="survived")
 
 <p align="center">
 <!-- TODO: Add focused correlation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/focused-correlation.png" width="70%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/focused-correlation.png" width="50%">
 </p>
 
 #### Data Preparation
