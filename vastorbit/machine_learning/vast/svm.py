@@ -1085,7 +1085,7 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
         self,
         max_nb_points: int = 100,
         chart: Optional[PlottingObject] = None,
-        **style_kwargs
+        **style_kwargs,
     ) -> PlottingObject:
         """
         Draws the model.
