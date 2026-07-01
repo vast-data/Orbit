@@ -13,11 +13,11 @@ setuptools.setup(
     version="0.1.0b1",
     author="Badr Ouali",
     author_email="badr.ouali@outlook.fr",
-    url="https://github.com/vastdata-dev/vastorbit",
+    url="https://github.com/vast-data/VAST-Orbit",
     project_urls={
-        "Bug Tracker": "https://github.com/vastdata-dev/vastorbit/issues",
+        "Bug Tracker": "https://github.com/vast-data/VAST-Orbit/issues",
         "Documentation": "",
-        "Source Code": "https://github.com/vastdata-dev/vastorbit",
+        "Source Code": "https://github.com/vast-data/VAST-Orbit",
     },
     license="Apache-2.0",
     keywords=[

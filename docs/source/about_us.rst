@@ -163,7 +163,7 @@ Report an issue
 
 Found a bug or hit a query that should work but doesn't? Open an issue on GitHub with
 a small reproduction and it helps us fix it quickly. File issues at
-`github.com/vastdata-dev/vastorbit/issues <https://github.com/vastdata-dev/vastorbit/issues>`__.
+`github.com/vast-data/vastorbit/issues <https://github.com/vast-data/VAST-Orbit/issues>`__.
 
 Improve the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

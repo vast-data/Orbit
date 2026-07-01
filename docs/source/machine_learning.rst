@@ -12,14 +12,17 @@ ____
 
 .. grid:: 1 2 2 3
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
-        .. card:: |i-ml| VAST Models
+        .. card:: |i-ml|
           :link: api.machine_learning.vast
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
+          
+          **VAST Models**
           
           Train with sklearn/Spark, deploy for in-database inference at scale.
           
@@ -28,11 +31,13 @@ ____
 
     .. grid-item::
     
-        .. card:: |i-stats| Metrics
+        .. card:: |i-stats|
           :link: api.machine_learning.metrics
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
+          
+          **Metrics**
           
           Evaluate models with accuracy, precision, recall, F1, AUC-ROC, and more.
           
@@ -41,11 +46,13 @@ ____
 
     .. grid-item::
     
-        .. card:: |i-select| Model Selection
+        .. card:: |i-select|
           :link: api.machine_learning.model_selection
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
+          
+          **Model Selection**
           
           Cross-validation, hyperparameter tuning, and model comparison.
           
@@ -54,11 +61,13 @@ ____
 
     .. grid-item::
     
-        .. card:: |i-memory| Memory Models
+        .. card:: |i-memory|
           :link: api.machine_learning.memmodels
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
+          
+          **Memory Models**
           
           Platform-independent models for easy export and deployment.
           
@@ -67,11 +76,13 @@ ____
 
     .. grid-item::
     
-        .. card:: |i-automl| AutoML
+        .. card:: |i-automl|
           :link: api.machine_learning.auto_ml
           :link-type: ref
           :text-align: center
           :class-card: custom-card-3
+          
+          **AutoML**
           
           Automated model building and hyperparameter optimization.
           

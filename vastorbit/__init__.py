@@ -8,7 +8,7 @@ __description__: str = (
     "vastorbit simplifies data exploration, data cleaning"
     " AI and machine learning in VAST."
 )
-__url__: str = "https://github.com/vastdata-dev/vastorbit/"
+__url__: str = "https://github.com/vast-data/VAST-Orbit/"
 __license__: str = "Apache License, Version 2.0"
 __version__: str = "0.1.0b1"
 __codecov__: float = 0.5
