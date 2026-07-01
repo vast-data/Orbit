@@ -44,7 +44,7 @@ Let's utilize the World dataset to demonstrate geospatial capabilities.
     africa = world[world["continent"] == "Africa"]
 
 Let's use Africa Education dataset from the vastorbit datasets. 
-Data is also available `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/understand/africa_education/students.csv>`__.
+Data is also available `here <https://github.com/vast-data/VAST-Orbit/blob/main/assets/data/understand/africa_education/students.csv>`__.
 
 .. code-block:: python
     

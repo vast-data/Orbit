@@ -5,19 +5,19 @@ Smart Meters
 
 This example uses the following datasets to predict peoples' electricity consumption. We'll use the following datasets:
 
-`sm_consumption <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_consumption.csv>`__
+`sm_consumption <https://github.com/vast-data/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_consumption.csv>`__
 
 - **dateUTC:** Date and time of the record.
 - **meterID:** Smart meter ID.
 - **value:** Electricity consumed during 30 minute interval (in kWh).
 
-`sm_weather <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_weather.csv>`__
+`sm_weather <https://github.com/vast-data/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_weather.csv>`__
 
 - **dateUTC:** Date and time of the record.
 - **temperature:** Temperature.
 - **humidity:** Humidity.
 
-`sm_meters <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_meters.csv>`__
+`sm_meters <https://github.com/vast-data/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_meters.csv>`__
 
 - **longitude:** Longitude.
 - **latitude:** Latitude.

@@ -28,7 +28,7 @@ Bug Reports
 
 **Found a bug?** Submit an issue with complete reproduction steps.
 
-.. button-link:: https://github.com/vastdata-dev/vastorbit/issues
+.. button-link:: https://github.com/vast-data/VAST-Orbit/issues
    :color: primary
    :outline:
    
@@ -60,7 +60,7 @@ Feature Requests
 
 **Have an idea?** We're always open to suggestions for improving VAST Orbit.
 
-.. button-link:: https://github.com/vastdata-dev/vastorbit/issues
+.. button-link:: https://github.com/vast-data/VAST-Orbit/issues
    :color: primary
    :outline:
    
@@ -100,7 +100,7 @@ Community
 **Get Help:**
 
 - |i-chat| **Slack**: `vastsupport.slack.com <https://vastsupport.slack.com>`__
-- |i-error| **Issues**: https://github.com/vastdata-dev/vastorbit/issues
+- |i-error| **Issues**: https://github.com/vast-data/VAST-Orbit/issues
 
 **Stay Updated:**
 

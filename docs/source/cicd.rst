@@ -213,15 +213,15 @@ For Contributors
 
 .. tip::
 
-   Set up pre-commit hooks to run checks automatically before each commit. See our `contributing guide <https://github.com/vastdata-dev/vastorbit/blob/main/CONTRIBUTING.md>`__ for setup instructions.
+   Set up pre-commit hooks to run checks automatically before each commit. See our `contributing guide <https://github.com/vast-data/VAST-Orbit/blob/main/CONTRIBUTING.md>`__ for setup instructions.
 
 ____
 
 Pipeline Status
 ---------------
 
-.. image:: https://github.com/vastdata-dev/vastorbit/workflows/CI/badge.svg
-   :target: https://github.com/vastdata-dev/vastorbit/actions
+.. image:: https://github.com/vast-data/VAST-Orbit/workflows/CI/badge.svg
+   :target: https://github.com/vast-data/VAST-Orbit/actions
    :alt: CI Status
 
 .. image:: https://codecov.io/gh/vast-data/vastorbit/branch/main/graph/badge.svg
