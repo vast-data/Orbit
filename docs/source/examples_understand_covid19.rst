@@ -33,7 +33,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/understand/covid19/deaths.csv>`__.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vast-data/VAST-Orbit/blob/main/assets/data/understand/covid19/deaths.csv>`__.
 
 .. code-block:: python
 

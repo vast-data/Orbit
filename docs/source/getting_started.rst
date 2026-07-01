@@ -269,7 +269,7 @@ Getting help
 For questions and discussion, the VAST Slack at
 `vastsupport.slack.com <https://vastsupport.slack.com>`__ is the best place to start.
 To report a bug or request a feature, open an issue at
-`github.com/vastdata-dev/vastorbit/issues <https://github.com/vastdata-dev/vastorbit/issues>`__.
+`github.com/vast-data/vastorbit/issues <https://github.com/vast-data/VAST-Orbit/issues>`__.
 And to go deeper, the :ref:`examples` and the :ref:`api` reference cover the full
 library.
 

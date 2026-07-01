@@ -3,7 +3,7 @@
 Football
 =========
 
-In this example, we use the ``football`` dataset to predict the outcomes of games between various teams. You can download the dataset `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/football/games.csv>`__.
+In this example, we use the ``football`` dataset to predict the outcomes of games between various teams. You can download the dataset `here <https://github.com/vast-data/VAST-Orbit/blob/main/assets/data/business/football/games.csv>`__.
 
 - **date:** Date of the game.
 - **home_team:** Home Team.

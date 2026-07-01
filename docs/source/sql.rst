@@ -10,14 +10,17 @@ ____
 
 .. grid:: 1 2 2 2
     :gutter: 3
+    :class-container: feature-tiles
 
     .. grid-item::
     
-        .. card:: |i-funcs| Functions
+        .. card:: |i-funcs|
             :link: api.sql.functions
             :link-type: ref
             :text-align: center
             :class-card: custom-card-3
+            
+            **Functions**
             
             SQL functions for building and transforming features.
             
@@ -26,11 +29,13 @@ ____
 
     .. grid-item::
     
-        .. card:: |i-utils| Utilities
+        .. card:: |i-utils|
             :link: api.sql.utils
             :link-type: ref
             :text-align: center
             :class-card: custom-card-3
+            
+            **Utilities**
             
             Functions for dropping, creating, and inserting data into tables.
             
@@ -39,11 +44,13 @@ ____
 
     .. grid-item::
     
-        .. card:: |i-geo| Geospatial
+        .. card:: |i-geo|
             :link: api.sql.geospatial
             :link-type: ref
             :text-align: center
             :class-card: custom-card-3
+            
+            **Geospatial**
             
             Functions for performing spatial joins and building geo indexes.
             
