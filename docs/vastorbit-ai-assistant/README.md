@@ -136,7 +136,7 @@ cd YOUR_DOCS && make html
 - "How do I get started with VAST Orbit?"
 - "What's the syntax for creating a vDataFrame?"
 - "Show me examples of machine learning with VAST Orbit"
-- "How do I connect to VAST Database?"
+- "How do I connect to VAST DataBase?"
 
 ## ⚙️ Configuration
 

@@ -3,7 +3,7 @@
 Football
 =========
 
-In this example, we use the ``football`` dataset to predict the outcomes of games between various teams. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/football/football.ipynb>`__ and the dataset `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/football/games.csv>`__.
+In this example, we use the ``football`` dataset to predict the outcomes of games between various teams. You can download the dataset `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/football/games.csv>`__.
 
 - **date:** Date of the game.
 - **home_team:** Home Team.
@@ -409,7 +409,7 @@ We can compute all the number of cup-wins by team. As expected, Brazil and Germa
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_football_groupby_3.html
 
-Let's export the result to our VAST database.
+Let's export the result to our VAST DataBase.
 
 .. code-block:: python
 
@@ -538,7 +538,7 @@ We can decode the previous label encoding.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_football_confederation_8.html
 
-Let's export the result to our VAST database.
+Let's export the result to our VAST DataBase.
 
 .. code-block:: python
 
@@ -726,7 +726,7 @@ Now we can compute each team's KPI.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_football_clean_12.html
 
-We can join the different information about the cup winners to enrich our dataset. We'll be using this later, so let's export it to our VAST database.
+We can join the different information about the cup winners to enrich our dataset. We'll be using this later, so let's export it to our VAST DataBase.
 
 .. code-block:: python
 
@@ -883,7 +883,7 @@ Let's impute the missing values by 0.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_football_clean_kpi_final_4.html
 
-Let's export the result to our VAST database.
+Let's export the result to our VAST DataBase.
 
 .. code-block:: python
 
@@ -1141,7 +1141,7 @@ Note that the best team in a weaker confederation might not be particularly stro
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_football_boxplot_2.html
 
-Let's export the KPIs to our VAST database.
+Let's export the KPIs to our VAST DataBase.
 
 .. code-block:: python
 
@@ -1872,7 +1872,7 @@ We need to impute these missing values.
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_football_clean_kpi_all_matchs_final_1.html
 
-Let's export the result to our VAST database using the variable ``match_sample`` to avoid counting the same game twice.
+Let's export the result to our VAST DataBase using the variable ``match_sample`` to avoid counting the same game twice.
 
 .. code-block:: python
 
@@ -2139,7 +2139,7 @@ Fantastic: we built a very efficient model which predicted that France will win 
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

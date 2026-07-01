@@ -1,4 +1,4 @@
-/* theme_dark_default.js — VastOrbit docs theme policy:
+/* theme_dark_default.js — VAST Orbit docs theme policy:
  *   1. Default theme is DARK (first visit, or any stale "auto" state).
  *   2. The sun/moon toggle switches strictly dark <-> light. No "auto".
  *

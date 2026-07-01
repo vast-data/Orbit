@@ -54,7 +54,7 @@ class VastFrame(vDFAnimatedPlot):
     mutating the underlying data in
     VAST. When changes are made,
     the :py:class:`~VastFrame` queries
-    the VAST database, which aggregates
+    the VAST DataBase, which aggregates
     and returns the final result. The
     :py:class:`~VastFrame` creates, for
     each column of the relation, a Virtual
@@ -133,7 +133,7 @@ class VastFrame(vDFAnimatedPlot):
     the mathematical operators that
     are available:
 
-    - Pandas-Like
+    - pandas-Like
     - SQL-Like
 
     Lastly, we will look at some
@@ -223,14 +223,14 @@ class VastFrame(vDFAnimatedPlot):
     .. raw:: html
         :file: SPHINX_DIRECTORY/figures/core_VastFrame_base_2.html
 
-    Pandas DataFrame
+    pandas DataFrame
     ^^^^^^^^^^^^^^^^^
 
     We can also use a ``pandas.DataFrame`` object:
 
     .. ipython:: python
 
-        # Import Pandas library
+        # Import pandas library
         import pandas as pd
 
         # Create the data dictionary
@@ -240,7 +240,7 @@ class VastFrame(vDFAnimatedPlot):
             'City': ['New York', 'Gaza', 'Los Angeles'],
         }
 
-        # Create the Pandas DataFrame object
+        # Create the pandas DataFrame object
         df = pd.DataFrame(data)
 
         # Create a VastFrame
@@ -315,7 +315,7 @@ class VastFrame(vDFAnimatedPlot):
     We can use all the common mathematical
     operators on the :py:class:`~VastFrame`.
 
-    Pandas-Like
+    pandas-Like
     ^^^^^^^^^^^^
 
     First let us re-create a simple

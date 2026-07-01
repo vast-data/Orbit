@@ -589,8 +589,8 @@ Algorithms used for regression.
 class ElasticNet(LinearModel, Regressor):
     """
     Creates an ``ElasticNet`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -603,7 +603,7 @@ class ElasticNet(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -1026,8 +1026,8 @@ class ElasticNet(LinearModel, Regressor):
 class Lasso(LinearModel, Regressor):
     """
     Creates a ``Lasso``  object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -1040,7 +1040,7 @@ class Lasso(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -1471,8 +1471,8 @@ class Lasso(LinearModel, Regressor):
 class LinearRegression(LinearModel, Regressor):
     """
     Creates a ``LinearRegression``
-    object using SKLEARN for training
-    and the scalability of VASTDB for
+    object using ``scikit-learn`` for training
+    and the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -1485,7 +1485,7 @@ class LinearRegression(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -1934,8 +1934,8 @@ class LinearRegression(LinearModel, Regressor):
 class PLSRegression(LinearModel, Regressor):
     """
     Creates an ``PLSRegression``
-    object using SKLEARN for training
-    and the scalability of VASTDB for
+    object using ``scikit-learn`` for training
+    and the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -1948,7 +1948,7 @@ class PLSRegression(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -2350,8 +2350,8 @@ class PLSRegression(LinearModel, Regressor):
 class PoissonRegressor(LinearModel, Regressor):
     """
     Creates an ``PoissonRegressor``
-    object using SKLEARN for training
-    and the scalability of VASTDB for
+    object using ``scikit-learn`` for training
+    and the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -2364,7 +2364,7 @@ class PoissonRegressor(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -2776,8 +2776,8 @@ class PoissonRegressor(LinearModel, Regressor):
 class Ridge(LinearModel, Regressor):
     """
     Creates a ``Ridge``  object
-    using SKLEARN for training
-    and the scalability of VASTDB
+    using ``scikit-learn`` for training
+    and the scalability of VAST DataBase
     for the inferences.
 
     Parameters
@@ -2790,7 +2790,7 @@ class Ridge(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -3252,8 +3252,8 @@ Algorithms used for classification.
 class LogisticRegression(LinearModelClassifier, BinaryClassifier):
     """
     Creates a ``LogisticRegression``
-    object using SKLEARN for training and
-    the scalability of VASTDB for the inferences.
+    object using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for the inferences.
 
     Parameters
     ----------
@@ -3265,7 +3265,7 @@ class LogisticRegression(LinearModelClassifier, BinaryClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------

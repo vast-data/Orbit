@@ -21,16 +21,16 @@ the work executes where the data lives, the same code runs unchanged whether you
 holding a few megabytes or many petabytes, and nothing leaves the platform except the
 results you ask for.
 
-What is VAST Database?
+What is VAST DataBase?
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-VAST Database is a unified transactional and analytical database built for AI. It
+VAST DataBase is a unified transactional and analytical database built for AI. It
 combines ACID transactions with analytics in a single system, stores data in a
 columnar format tuned for data-science workloads, and delivers flash-native,
 sub-millisecond latency that scales linearly from gigabytes to exabytes. Crucially,
 it lets you query tables and files through the same interface — which is exactly what
 lets VAST Orbit treat your whole estate as one surface. Learn more in the
-`VAST Database documentation <https://www.vastdata.com/platform/database>`__.
+`VAST DataBase documentation <https://www.vastdata.com/platform/database>`__.
 
 Installation
 ------------
@@ -81,7 +81,7 @@ Quick start
 The fastest way to understand VAST Orbit is to run a short workflow end to end. Each
 step below executes inside VAST.
 
-**1. Connect to VAST Database**
+**1. Connect to VAST DataBase**
 
 .. code-block:: python
 
@@ -225,7 +225,7 @@ inference all happen in the database, and only the results come back.
             |
             v
    +--------------------------------+
-   |          VAST Database         |
+   |          VAST DataBase         |
    |  - Data preparation            |
    |  - Analytics                   |
    |  - ML inference                |

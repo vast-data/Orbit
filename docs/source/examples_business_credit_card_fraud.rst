@@ -3,7 +3,7 @@
 Credit Card Fraud
 ==================
 
-In this example, we use vastorbit to detect fraudulent credit card transactions. You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/credit_card_fraud/credit-card-fraud.ipynb>`__ and the dataset `here <https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud>`__.
+In this example, we use vastorbit to detect fraudulent credit card transactions. You can download the dataset `here <https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud>`__.
 
 The Credit Card Fraud Detection dataset contains credit card transactions from September 2013 by European cardholders. It contains numerical input variables from a principal component analysis (:py:mod:`~vastorbit.machine_learning.vast.decomposition.PCA`) transformation.
 
@@ -641,7 +641,7 @@ Other scalable techniques that can solve this problem are robust :py:mod:`~vasto
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

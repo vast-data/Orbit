@@ -4,8 +4,6 @@ Health Insurance Costs
 =======================
 
 In this example, we use a `dataset of personal medical costs <https://www.kaggle.com/mirichoi0218/insurance>`__ to create a model to estimate treatment costs.
-
-You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/insurance/insurance.ipynb>`__.
     
 The columns provided include:
 

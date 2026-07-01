@@ -1,13 +1,13 @@
 """
 SPDX-License-Identifier: Apache-2.0
 
-Root fixtures for the VastOrbit test-suite.
+Root fixtures for the VAST Orbit test-suite.
 
 Connection
 ----------
 Tests connect to a **local Trino** by default (``localhost:8080``) using the
 ``memory`` connector, which needs no external database and supports
-``CREATE TABLE`` / ``INSERT`` (what the loaders and VastOrbit's temp tables
+``CREATE TABLE`` / ``INSERT`` (what the loaders and VAST Orbit's temp tables
 require). Every detail is overridable with environment variables so the same
 suite runs unchanged in CI:
 

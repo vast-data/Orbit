@@ -21,8 +21,8 @@ Algorithms used for classification.
 class NaiveBayes(MulticlassClassifier):
     """
     Creates an ``NaiveBayes`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -35,7 +35,7 @@ class NaiveBayes(MulticlassClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -645,7 +645,7 @@ class NaiveBayes(MulticlassClassifier):
     @property
     def _sklearn_model(self):
         """
-        Selects the backing scikit-learn estimator from ``nbtype``. scikit-learn
+        Selects the backing ``scikit-learn`` estimator from ``nbtype``. scikit-learn
         has no mixed-distribution Naive Bayes, so ``"auto"`` maps to ``GaussianNB``.
         ``alpha``/``nbtype`` that the chosen estimator does not accept are dropped
         by :py:meth:`_get_sklearn_params`.
@@ -682,7 +682,7 @@ class NaiveBayes(MulticlassClassifier):
     def _compute_attributes(self) -> None:
         """
         Computes the model's attributes from the
-        fitted scikit-learn naive bayes model.
+        fitted ``scikit-learn`` naive bayes model.
         """
         self.classes_ = self._array_to_int(np.asarray(self._model.classes_))
         # Bernoulli/Multinomial/Categorical/Complement expose log priors;
@@ -698,9 +698,9 @@ class NaiveBayes(MulticlassClassifier):
         Builds, for each input feature, a dictionary describing its
         per-class naive bayes parameters in the format expected by the
         memmodel. Parameters are read directly from the fitted
-        scikit-learn estimator (``self._model``).
+        ``scikit-learn`` estimator (``self._model``).
 
-        Unlike the database engine, scikit-learn uses a single
+        Unlike the database engine, ``scikit-learn`` uses a single
         distribution for every feature, determined by the estimator
         class, so the distribution type is taken from the model rather
         than detected column by column.
@@ -711,7 +711,7 @@ class NaiveBayes(MulticlassClassifier):
         attributes = []
 
         if model_name == "GaussianNB":
-            # var_ replaced sigma_ in scikit-learn 1.0.
+            # var_ replaced sigma_ in ``scikit-learn`` 1.0.
             variances = getattr(model, "var_", None)
             if variances is None:
                 variances = model.sigma_

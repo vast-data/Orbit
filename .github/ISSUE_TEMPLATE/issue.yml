@@ -1,5 +1,5 @@
 name: Feature Request or Bug Report
-description: Report a bug or request a new feature for VastOrbit
+description: Report a bug or request a new feature for VAST Orbit
 labels: ["needs-triage"]
 body:
   - type: markdown
@@ -62,7 +62,7 @@ body:
       description: |
         Please provide information about your environment:
       placeholder: |
-        - VastOrbit version:
+        - VAST Orbit version:
         - Python version:
         - Operating System:
         - Trino version (if applicable):

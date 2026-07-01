@@ -3,7 +3,7 @@
 Titanic
 ========
 
-This example uses the ``titanic`` dataset to predict the survival of passengers on the Titanic. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/titanic/titanic.ipynb>`__.
+This example uses the ``titanic`` dataset to predict the survival of passengers on the Titanic.
 
 We will follow the data science cycle (Data Exploration - Data Preparation - Data Modeling - Model Evaluation - Model Deployment) to solve this problem.
 
@@ -302,7 +302,7 @@ Survival correlates strongly with whether or not a passenger has a lifeboat (the
 - Passengers with a lifeboat
 - Passengers without a lifeboat
 
-Before we move on: we did a lot of work to clean up this data, but we haven't saved anything to our VAST database! Let's look at the modifications we've made to the :py:mod:`~vastorbit.VastFrame`.
+Before we move on: we did a lot of work to clean up this data, but we haven't saved anything to our VAST DataBase! Let's look at the modifications we've made to the :py:mod:`~vastorbit.VastFrame`.
 
 .. ipython:: python
 
@@ -322,7 +322,7 @@ vastorbit dynamically generates SQL code whenever you make modifications to your
     vo.set_option("sql_on", False)
     print(titanic.info())
 
-Let's move on to modeling our data. Save the :py:mod:`~vastorbit.VastFrame` to your VAST database.
+Let's move on to modeling our data. Save the :py:mod:`~vastorbit.VastFrame` to your VAST DataBase.
 
 .. ipython:: python
     :okwarning:
@@ -487,7 +487,7 @@ As expected, the passenger's age and title are the most important predictors of 
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

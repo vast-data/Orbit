@@ -262,7 +262,7 @@ class RandomForestRegressor(Ensemble):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -612,7 +612,7 @@ class RandomForestClassifier(Ensemble, MulticlassClassifier):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -1000,7 +1000,7 @@ class GradientBoostingRegressor(Ensemble):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -1399,7 +1399,7 @@ class GradientBoostingClassifier(Ensemble, MulticlassClassifier):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**
@@ -1798,7 +1798,7 @@ class IsolationForest(Ensemble):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Trees**

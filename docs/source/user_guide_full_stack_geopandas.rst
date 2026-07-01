@@ -1,12 +1,12 @@
 .. _user_guide.full_stack.geopandas:
 
 ===========================
-Integrating with GeoPandas
+Integrating with Geopandas
 ===========================
 
-GeoPandas integration allows you to easily export a :py:mod:`~vastorbit.VastFrame` as a GeoPandas DataFrame, giving you more control over geospatial data.
+Geopandas integration allows you to easily export a :py:mod:`~vastorbit.VastFrame` as a Geopandas DataFrame, giving you more control over geospatial data.
 
-This example demonstrates the advantages of GeoPandas integration with the ``world`` dataset.
+This example demonstrates the advantages of Geopandas integration with the ``world`` dataset.
 
 .. code-block:: python
 
@@ -58,7 +58,7 @@ The :py:func:`~vastorbit.VastFrame.apply` function of the vastorbit stats module
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/ug_fs_table_gpd_2.html
 
-We can now export our VastFrame as a GeoPandas DataFrame.
+We can now export our VastFrame as a Geopandas DataFrame.
 
 .. ipython:: python
 

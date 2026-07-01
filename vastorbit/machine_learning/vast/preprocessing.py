@@ -1339,7 +1339,7 @@ class OneHotEncoder(Preprocessing):
         existing model overwrites the
         existing model.
 
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     .. rubric:: Attributes
 
@@ -1648,7 +1648,7 @@ class OneHotEncoder(Preprocessing):
         """
         Computes the model's attributes from the fitted ``scikit-learn`` model.
         """
-        # scikit-learn stores one array of category levels per input column,
+        # ``scikit-learn`` stores one array of category levels per input column,
         # aligned with the order of self.X.
         categories = [list(levels) for levels in self._model.categories_]
 

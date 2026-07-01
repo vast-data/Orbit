@@ -437,8 +437,8 @@ Algorithms used for regression.
 class RandomForestRegressor(Regressor, RandomForest):
     """
     Creates an ``RandomForestRegressor``
-    object using SKLEARN for training
-    and the scalability of VASTDB for
+    object using ``scikit-learn`` for training
+    and the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -452,7 +452,7 @@ class RandomForestRegressor(Regressor, RandomForest):
         existing model overwrites the
         existing model.
 
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -1002,8 +1002,8 @@ class RandomForestRegressor(Regressor, RandomForest):
 class GradientBoostingRegressor(Regressor, GradientBoosting):
     """
     Creates an ``GradientBoostingRegressor`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -1017,7 +1017,7 @@ class GradientBoostingRegressor(Regressor, GradientBoosting):
         existing model overwrites the
         existing model.
 
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -1501,7 +1501,7 @@ class GradientBoostingRegressor(Regressor, GradientBoosting):
     def _compute_attributes(self) -> None:
         """
         Computes the model's attributes from the
-        fitted scikit-learn gradient boosting model.
+        fitted ``scikit-learn`` gradient boosting model.
         """
         self.eta_ = self._model.learning_rate
         self.n_estimators_ = self._model.n_estimators_
@@ -1590,8 +1590,8 @@ Algorithms used for classification.
 class RandomForestClassifier(MulticlassClassifier, RandomForest):
     """
     Creates an ``RandomForestClassifier``
-    object using SKLEARN for training
-    and the scalability of VASTDB for
+    object using ``scikit-learn`` for training
+    and the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -1605,7 +1605,7 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
         existing model overwrites the
         existing model.
 
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -2407,8 +2407,8 @@ class RandomForestClassifier(MulticlassClassifier, RandomForest):
 class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
     """
     Creates an ``GradientBoostingClassifier`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -2422,7 +2422,7 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
         existing model overwrites the
         existing model.
 
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -3161,7 +3161,7 @@ class GradientBoostingClassifier(MulticlassClassifier, GradientBoosting):
     def _compute_attributes(self) -> None:
         """
         Computes the model's attributes from the
-        fitted scikit-learn gradient boosting model.
+        fitted ``scikit-learn`` gradient boosting model.
         """
         self.eta_ = self._model.learning_rate
         self.n_estimators_ = self._model.n_estimators_
@@ -3292,8 +3292,8 @@ Algorithms used for anomaly detection.
 class IsolationForest(Clustering, Tree):
     """
     Creates an ``IsolationForest`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -3307,7 +3307,7 @@ class IsolationForest(Clustering, Tree):
         existing model overwrites the
         existing model.
 
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------

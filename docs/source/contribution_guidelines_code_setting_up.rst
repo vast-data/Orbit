@@ -66,12 +66,12 @@ Step 4: Get the test suite running (Under development)
 
 We appreciate any and all contributions to the test suite! These tests use a Python module: `pytest <https://docs.pytest.org/en/latest/>`__. You might want to check out the pytest documentation for more details.
 
-You must have access to a VAST database to run the tests. We recommend using a non-production database, because some tests may need the superuser permission to manipulate global settings and potentially break that database. Here's one way to go about it:
+You must have access to a VAST DataBase to run the tests. We recommend using a non-production database, because some tests may need the superuser permission to manipulate global settings and potentially break that database. Here's one way to go about it:
 
 - Download docker kitematic: https://kitematic.com/
 - Spin up a VAST container (e.g. sumitchawla/VAST)
 
-Spin up your VAST database for tests and then config test settings:
+Spin up your VAST DataBase for tests and then config test settings:
 
 **Default settings:**
 

@@ -13,7 +13,7 @@ In vastorbit, the :py:func:`~vastorbit.VastFrame.train_test_split` method uses a
     from vastorbit.datasets import load_titanic
 
     titanic = load_titanic()
-    # LinearRegression is scikit-learn backed and rejects NaN, so we drop rows
+    # LinearRegression is ``scikit-learn`` backed and rejects NaN, so we drop rows
     # with missing values in the columns we model on before splitting.
     titanic = titanic.dropna(columns = ["age", "fare", "survived"])
     train, test = titanic.train_test_split()

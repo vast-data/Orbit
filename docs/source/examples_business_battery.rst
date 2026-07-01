@@ -22,9 +22,6 @@ This dataset includes information on Li-ion batteries over several charge and di
 
 Discharge was at a constant current (CC) level of 2A until the battery voltage fell to 2.7V.
 
-You can download the Jupyter Notebook of the study 
-`here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/battery/battery.ipynb>`__.
-
 The dataset includes the following:
 
 - **Voltage_measured:** Battery's terminal voltage (Volts) for charging and discharging cycles.

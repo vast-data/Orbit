@@ -3,21 +3,21 @@
 Smart Meters
 =============
 
-This example uses the following datasets to predict peoples' electricity consumption. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/smart_meters.ipynb>`__. We'll use the following datasets:
+This example uses the following datasets to predict peoples' electricity consumption. We'll use the following datasets:
 
-`sm_consumption <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_consumption.csv>`__
+`sm_consumption <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_consumption.csv>`__
 
 - **dateUTC:** Date and time of the record.
 - **meterID:** Smart meter ID.
 - **value:** Electricity consumed during 30 minute interval (in kWh).
 
-`sm_weather <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_weather.csv>`__
+`sm_weather <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_weather.csv>`__
 
 - **dateUTC:** Date and time of the record.
 - **temperature:** Temperature.
 - **humidity:** Humidity.
 
-`sm_meters <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/smart_meters/sm_meters.csv>`__
+`sm_meters <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/smart_meters/sm_meters.csv>`__
 
 - **longitude:** Longitude.
 - **latitude:** Latitude.
@@ -388,7 +388,7 @@ Interpolation & Aggregations
 
 Since power outages seem relatively common in each area, and the ``value`` represents the electricity consumed during 30 minute intervals (in ``kWh``), it'd be a good idea to interpolate and aggregate the data to get a monthly average in electricity consumption per region.
 
-Let's save our new dataset in the VAST database.
+Let's save our new dataset in the VAST DataBase.
 
 .. ipython:: python
 
@@ -440,7 +440,7 @@ To get an equally-sliced dataset, we can then interpolate to fill any gaps. This
 .. raw:: html
     :file: SPHINX_DIRECTORY/figures/examples_sm_consumption_weather_region_clean_1.html
 
-Let's aggregate the data to figure out the monthly energy consumption for each smart meter. We can then save the result in the VAST database.
+Let's aggregate the data to figure out the monthly energy consumption for each smart meter. We can then save the result in the VAST DataBase.
 
 .. code-block:: python
 
@@ -873,7 +873,7 @@ With this model, we can make predictions about the energy consumption of househo
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

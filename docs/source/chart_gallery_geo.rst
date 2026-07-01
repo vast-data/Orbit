@@ -44,7 +44,7 @@ Let's utilize the World dataset to demonstrate geospatial capabilities.
     africa = world[world["continent"] == "Africa"]
 
 Let's use Africa Education dataset from the vastorbit datasets. 
-Data is also available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/africa_education/students.csv>`__.
+Data is also available `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/understand/africa_education/students.csv>`__.
 
 .. code-block:: python
     
@@ -57,7 +57,7 @@ vastorbit provides the option to create various types of geospatial plots, inclu
 
 .. note::
     
-    Currently, vastorbit provides geospatial capabilities using Matplotlib and GeoPandas. We plan to expand these functionalities in the future by incorporating Plotly.
+    Currently, vastorbit provides geospatial capabilities using Matplotlib and Geopandas. We plan to expand these functionalities in the future by incorporating Plotly.
 
 .. ipython:: python
     :suppress:

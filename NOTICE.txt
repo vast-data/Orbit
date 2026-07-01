@@ -10,5 +10,5 @@ This project is a derivative work based on VerticaPy:
   Original project: https://github.com/vertica/VerticaPy
 
 VAST Orbit represents a substantial fork and redesign of VerticaPy, adapted for use 
-with VAST Database and incorporating significant new features, modifications, and 
+with VAST DataBase and incorporating significant new features, modifications, and 
 enhancements.

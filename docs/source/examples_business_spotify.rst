@@ -5,8 +5,6 @@ Predicting Popularity on Spotify
 
 This example uses the publicly-available Spotify from Kaggle to predict the popularity of Polish songs and artists on Spotify. We'll also use a model to group artists together based on how similar their songs are.
 
-You can download the Jupyter notebook of this study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/understand/spotify/spotify.ipynb>`__.
-
 .. note:: We are only using polish artists and a subset of the tracks dataset filtered by a handful of artists.
 
 The ``tracks`` dataset (``tracks.csv``) have the following features:
@@ -62,7 +60,7 @@ This example uses the following version of vastorbit:
 
     vo.__version__
 
-Start by importing vastorbit and loading the SQL extension, which allows you to query the VAST database with SQL.
+Start by importing vastorbit and loading the SQL extension, which allows you to query the VAST DataBase with SQL.
 
 .. ipython:: python
 

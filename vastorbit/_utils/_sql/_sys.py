@@ -169,7 +169,7 @@ def purge_memory(
     """
     Drops staging tables left behind in Trino's ``memory`` connector.
 
-    VastOrbit ingestion helpers (for example :py:func:`~vastorbit.read_csv`)
+    VAST Orbit ingestion helpers (for example :py:func:`~vastorbit.read_csv`)
     stage data in the ``memory`` connector before copying it into VAST. When a
     load raises before its cleanup step, the staging table survives and either
     fills the connector's memory budget (``MEMORY_LIMIT_EXCEEDED``) or collides
@@ -203,7 +203,7 @@ def purge_memory(
         from vastorbit._utils._sql._sys import purge_memory
 
         purge_memory()                      # full reset before an example
-        purge_memory(like="_vastorbit_tmp_%")   # only VastOrbit's own staging
+        purge_memory(like="_vastorbit_tmp_%")   # only VAST Orbit's own staging
     """
     # 1. Enumerate the staging tables currently in the memory connector.
     list_sql = (

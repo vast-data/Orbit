@@ -288,7 +288,7 @@ def load_dataset(
     catalog: Optional[str] = None,
 ) -> VastFrame:
     """
-    Ingest a dataset into VASTDB via Trino.
+    Ingest a dataset into VAST DataBase via Trino.
 
     Trino Implementation Strategy:
     1. Check if table already exists → return VastFrame
@@ -513,7 +513,7 @@ Datasets for Classification.
 @save_vastorbit_logs
 def load_iris(schema: Optional[str] = None, name: str = "iris") -> VastFrame:
     """
-    Ingests the iris dataset into the VAST database.
+    Ingests the iris dataset into the VAST DataBase.
 
     This dataset is ideal for classification and clustering models.
     If a table with the same name and schema already exists,
@@ -578,7 +578,7 @@ def load_iris(schema: Optional[str] = None, name: str = "iris") -> VastFrame:
 @save_vastorbit_logs
 def load_titanic(schema: Optional[str] = None, name: str = "titanic") -> VastFrame:
     """
-    Ingests the titanic dataset into the VAST database.
+    Ingests the titanic dataset into the VAST DataBase.
 
     This dataset is ideal for classification models.
     If a table with the same name and schema already exists,
@@ -646,7 +646,7 @@ def load_africa_education(
     schema: Optional[str] = None, name: str = "africa_education"
 ) -> VastFrame:
     """
-    Ingests the Africa Education dataset into the VAST database.
+    Ingests the Africa Education dataset into the VAST DataBase.
     This dataset is ideal for testing geospatial functions.
     If a table with the same name and schema already exists,
     this function creates a VastFrame from the input relation.
@@ -762,7 +762,7 @@ def load_winequality(
     schema: Optional[str] = None, name: str = "winequality"
 ) -> VastFrame:
     """
-    Ingests the winequality dataset into the VAST database.
+    Ingests the winequality dataset into the VAST DataBase.
 
     This dataset is ideal for regression and classification models.
     If a table with the same name and schema already exists,
@@ -835,7 +835,7 @@ def load_airline_passengers(
     schema: Optional[str] = None, name: str = "airline_passengers"
 ) -> VastFrame:
     """
-    Ingests the airline passengers dataset into the VAST database.
+    Ingests the airline passengers dataset into the VAST DataBase.
 
     This dataset is ideal for time series and regression models.
     If a table with the same name and schema already exists,
@@ -886,7 +886,7 @@ def load_airline_passengers(
 @save_vastorbit_logs
 def load_amazon(schema: Optional[str] = None, name: str = "amazon") -> VastFrame:
     """
-    Ingests the amazon dataset into the VAST database.
+    Ingests the amazon dataset into the VAST DataBase.
 
     This dataset is ideal for time series and regression models.
     If a table with the same name and schema already exists,
@@ -939,7 +939,7 @@ def load_commodities(
     schema: Optional[str] = None, name: str = "commodities"
 ) -> VastFrame:
     """
-    Ingests the commodities dataset into the VAST database.
+    Ingests the commodities dataset into the VAST DataBase.
 
     This dataset is ideal for time series and regression models.
     If a table with the same name and schema already exists,
@@ -998,7 +998,7 @@ def load_commodities(
 @save_vastorbit_logs
 def load_gapminder(schema: Optional[str] = None, name: str = "gapminder") -> VastFrame:
     """
-    Ingests the gapminder dataset into the VAST database.
+    Ingests the gapminder dataset into the VAST DataBase.
 
     This dataset is ideal for time series and regression models.
     If a table with the same name and schema already exists,
@@ -1058,7 +1058,7 @@ def load_pop_growth(
     schema: Optional[str] = None, name: str = "pop_growth"
 ) -> VastFrame:
     """
-    Ingests the population growth dataset into the VAST database.
+    Ingests the population growth dataset into the VAST DataBase.
 
     This dataset is ideal for time series and geospatial models.
     If a table with the same name and schema already exists,
@@ -1119,7 +1119,7 @@ def load_smart_meters(
     schema: Optional[str] = None, name: str = "smart_meters"
 ) -> VastFrame:
     """
-    Ingests the smart meters dataset into the VAST database.
+    Ingests the smart meters dataset into the VAST DataBase.
 
     This dataset is ideal for time series and regression models.
     If a table with the same name and schema already exists,
@@ -1175,7 +1175,7 @@ Datasets for Geospatial.
 @save_vastorbit_logs
 def load_cities(schema: Optional[str] = None, name: str = "cities") -> VastFrame:
     """
-    Ingests the Cities dataset into the VAST database.
+    Ingests the Cities dataset into the VAST DataBase.
 
     This dataset is ideal for geospatial models.
     If a table with the same name and schema already exists,
@@ -1230,7 +1230,7 @@ def load_cities(schema: Optional[str] = None, name: str = "cities") -> VastFrame
 @save_vastorbit_logs
 def load_world(schema: Optional[str] = None, name: str = "world") -> VastFrame:
     """
-    Ingests the World dataset into the VAST database.
+    Ingests the World dataset into the VAST DataBase.
 
     This dataset is ideal for geospatial models.
     If a table with the same name and schema already exists,
@@ -1295,7 +1295,7 @@ Datasets for Complex Data Analysis.
 @save_vastorbit_logs
 def load_laliga(schema: Optional[str] = None, name: str = "laliga") -> VastFrame:
     """
-    Ingests the LaLiga dataset into the VAST database.
+    Ingests the LaLiga dataset into the VAST DataBase.
 
     This dataset is ideal for testing complex data types.
     If a table with the same name and schema already exists,

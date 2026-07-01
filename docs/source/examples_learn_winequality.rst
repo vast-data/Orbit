@@ -3,8 +3,7 @@
 Wine Quality
 =============
 
-This example uses the Wine Quality dataset to predict the quality of white wine. 
-You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/winequality/winequality.ipynb>`__.
+This example uses the Wine Quality dataset to predict the quality of white wine.
 
 - fixed acidity
 - volatile acidity
@@ -226,7 +225,7 @@ If we want to improve this model, we'll probably need more relevant features.
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

@@ -572,7 +572,7 @@ class vDFInOut(vDFSystem):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_db` :
                 Saves the current structure of
                 :py:class:`~VastFrame` to the
-                VAST Database.
+                VAST DataBase.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_json` :
                 Creates a JSON file of the current
                 :py:class:`~VastFrame` structure.
@@ -1095,7 +1095,7 @@ class vDFInOut(vDFSystem):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_db` :
                 Saves the current structure of
                 :py:class:`~VastFrame` to the
-                VAST Database.
+                VAST DataBase.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_json` :
                 Creates a JSON file of the current
                 :py:class:`~VastFrame` structure.
@@ -1286,7 +1286,7 @@ class vDFInOut(vDFSystem):
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_db` :
                 Saves the current structure of
                 :py:class:`~VastFrame` to the
-                VAST Database.
+                VAST DataBase.
             | ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_csv` :
                 Creates a CSV file of the current
                 :py:class:`~VastFrame` structure.

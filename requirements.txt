@@ -1,4 +1,4 @@
-# VastOrbit core runtime dependencies.
+# VAST Orbit core runtime dependencies.
 #
 # These are the packages the library needs to import and run. Test and
 # development tooling live in requirements-dev.txt and requirements-testing.txt,

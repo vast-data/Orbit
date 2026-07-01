@@ -1,5 +1,5 @@
 <p align="center">
-<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/vo_logo.png' width="480px">
+<img src='https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/vo_logo.png' width="480px">
 </p>
 
 > **Beta:** VAST Orbit `0.1.x` is the first beta release series. The API and features will change as we work toward a stable `1.0.0`. See [Project Status & Roadmap](#project-status--roadmap).
@@ -18,13 +18,13 @@
 ## Trailer Video
 
 <p align="center">
-  <a href="https://github.com/vastdata-dev/VastOrbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4">
+  <a href="https://github.com/vastdata-dev/VAST-Orbit/blob/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4">
     <img src="docs/source/_static/website/video/vastorbit_intro_poster.png"
          width="100%" alt="VAST Orbit — Trailer (click to watch)">
   </a>
 </p>
 
-VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST Database. Train models using familiar scikit-learn syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
+VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST DataBase. Train models using familiar ``scikit-learn`` syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -44,24 +44,24 @@ VAST Orbit is a Python library with scikit-learn-like functionality for conducti
 
 ## Introduction
 
-VAST Database combines enterprise-grade storage with powerful analytics capabilities. Today, VAST Orbit leverages Trino as the SQL engine to deliver exceptional performance for data science workloads at scale. Soon, we will support the VAST SQL Engine (currently in development), which will provide even greater speed through VAST's columnar-optimized format. However, SQL alone isn't flexible enough to meet the evolving needs of modern data scientists.
+VAST DataBase combines enterprise-grade storage with powerful analytics capabilities. Today, VAST Orbit leverages Trino as the SQL engine to deliver exceptional performance for data science workloads at scale. Soon, we will support the VAST SQL Engine (currently in development), which will provide even greater speed through VAST's columnar-optimized format. However, SQL alone isn't flexible enough to meet the evolving needs of modern data scientists.
 
 Python has become the lingua franca of data science, offering unparalleled flexibility through its high-level abstraction and an extensive ecosystem of libraries. The accessibility of Python has led to the development of powerful APIs like pandas and scikit-learn, supported by a vibrant community of data scientists worldwide. Unfortunately, traditional Python tools operate in-memory as single-node processes, creating fundamental limitations when working with large-scale data. While distributed computing frameworks attempt to address these constraints, they still require moving data for processing—an approach that is prohibitively expensive and increasingly impractical in the modern data landscape. On top of these challenges, data scientists face additional complexity in deploying and operationalizing their models. The entire workflow is time-consuming and inefficient.
 
-**VAST Orbit solves these problems**. The concept is elegant: instead of moving data to compute, VAST Orbit brings the compute logic to where the data lives—in VAST Database. Train your models using familiar scikit-learn syntax in Python, then deploy them directly in the database for high-performance predictions at scale.
+**VAST Orbit solves these problems**. The concept is elegant: instead of moving data to compute, VAST Orbit brings the compute logic to where the data lives—in VAST DataBase. Train your models using familiar ``scikit-learn`` syntax in Python, then deploy them directly in the database for high-performance predictions at scale.
 
 ### Main Advantages
 
 - **Easy Data Exploration**: Interactive exploration of massive datasets without memory constraints
 - **Fast Data Preparation**: Leverage Trino's distributed processing for rapid data transformation
-- **Familiar Scikit-learn API**: Train models using the scikit-learn interface you already know
-- **In-Database Deployment**: Deploy trained models directly in VAST Database for production workloads _(with some current limitations — see [Project Status & Roadmap](#project-status--roadmap))_
+- **Familiar Scikit-learn API**: Train models using the ``scikit-learn`` interface you already know
+- **In-Database Deployment**: Deploy trained models directly in VAST DataBase for production workloads _(with some current limitations — see [Project Status & Roadmap](#project-status--roadmap))_
 - **Easy Model Evaluation**: Comprehensive model evaluation tools with visual insights
 - **Seamless SQL Integration**: Use Python or SQL interchangeably based on your preference and use case
 
 <p align="center">
 <!-- TODO: Add architecture diagram -->
-<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/architecture.png' width="100%">
+<img src='https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/architecture.png' width="100%">
 </p>
 
 ## Project Status & Roadmap
@@ -97,7 +97,7 @@ python3 setup.py install
 
 ## Connecting to the Database
 
-VAST Orbit currently connects to VAST Database through Trino. Ensure you have Trino set up and configured to access your VAST Database instance.
+VAST Orbit currently connects to VAST DataBase through Trino. Ensure you have Trino set up and configured to access your VAST DataBase instance.
 
 Connection example:
 
@@ -144,14 +144,14 @@ Dark mode, ideal for extended coding sessions, features a sleek and stylish dark
 
 <p align="center">
 <!-- TODO: Add dark theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/dark-theme-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/dark-theme-screenshot.png" width="100%">
 </p>
 
 On the other hand, Light mode serves as the default theme, offering a clean and bright interface for users who prefer a traditional coding ambiance.
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/light-theme-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
 Theme can be easily switched by:
@@ -185,7 +185,7 @@ SELECT version();
 
 <p align="center">
 <!-- TODO: Add light theme screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql_version.png" width="15%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/sql_version.png" width="15%">
 </p>
 
 ### SQL Plots
@@ -203,7 +203,7 @@ To create plots, simply provide the type of plot along with the SQL command.
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/sql-plot-screenshot.png" width="90%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/sql-plot-screenshot.png" width="90%">
 </p>
 
 ### Python and SQL Combo
@@ -223,7 +223,7 @@ selected_titanic.groupby(columns=["pclass"], expr=["AVG(survived) AS avg_survive
 
 <p align="center">
 <!-- TODO: Add SQL plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/select_gb.png" width="30%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/select_gb.png" width="30%">
 </p>
 
 ### Charts
@@ -234,7 +234,7 @@ A gallery of VAST Orbit-generated charts will be available in the documentation.
 
 <p align="center">
 <!-- TODO: Add charts gallery screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/charts-gallery.gif" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/charts-gallery.gif" width="100%">
 </p>
 
 ### Complete Machine Learning Pipeline
@@ -286,7 +286,7 @@ iris_data.scatter(
 
 <p align="center">
 <!-- TODO: Add scatter plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/scatter-plot.png" width="70%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/scatter-plot.png" width="70%">
 </p>
 
 The **Correlation Matrix** is fast and convenient to compute. Users can choose from a wide variety of correlations, including Cramer, Spearman, Pearson, etc.
@@ -300,7 +300,7 @@ titanic.corr(method="spearman")
 
 <p align="center">
 <!-- TODO: Add correlation matrix screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/correlation-matrix.png" width="70%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/correlation-matrix.png" width="70%">
 </p>
 
 By turning on the SQL print option, users can see and copy SQL queries:
@@ -319,7 +319,7 @@ titanic.corr(method="spearman", focus="survived")
 
 <p align="center">
 <!-- TODO: Add focused correlation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/focused-correlation.png" width="50%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/focused-correlation.png" width="50%">
 </p>
 
 #### Data Preparation
@@ -338,14 +338,14 @@ data.outliers_plot(columns="Heights")
 
 <p align="center">
 <!-- TODO: Add outliers plot screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/outliers-plot.png" width="70%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/outliers-plot.png" width="70%">
 </p>
 
 #### Machine Learning
 
-VAST Orbit's machine learning capabilities let you build models using the familiar scikit-learn API and evaluate them with rich, visual tooling. VAST Orbit supports a wide array of algorithms including time series forecasting, clustering, regression, and classification.
+VAST Orbit's machine learning capabilities let you build models using the familiar ``scikit-learn`` API and evaluate them with rich, visual tooling. VAST Orbit supports a wide array of algorithms including time series forecasting, clustering, regression, and classification.
 
-**Key idea: build with scikit-learn syntax, then deploy in-database for predictions.**
+**Key idea: build with ``scikit-learn`` syntax, then deploy in-database for predictions.**
 
 > **Note (beta):** As of now, **most models are trained using scikit-learn** (in-memory) and can then be **deployed in-database** for prediction. In-database deployment is available for many algorithms but carries **some limitations depending on the model**, and a number of **in-database ML features are still beta**. Native in-database training is planned. See [Project Status & Roadmap](#project-status--roadmap).
 
@@ -372,7 +372,7 @@ cross_validate(
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/model-evaluation.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/model-evaluation.png" width="100%">
 </p>
 
 ### Loading Predefined Datasets
@@ -391,7 +391,7 @@ iris_data = load_iris()
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="70%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/iris-dataset.png" width="70%">
 </p>
 
 (2) Use the standard name of the dataset from the schema:
@@ -404,7 +404,7 @@ iris_data = vo.VastFrame(input_relation="public.iris")
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/iris-dataset.png" width="70%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/iris-dataset.png" width="70%">
 </p>
 
 ## Quickstart
@@ -452,7 +452,7 @@ vdf = load_titanic()
 
 <p align="center">
 <!-- TODO: Add model evaluation screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/light-theme-screenshot.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
 Examine your data:
@@ -463,7 +463,7 @@ vdf.describe()
 
 <p align="center">
 <!-- TODO: Add describe output screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/describe-output.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/describe-output.png" width="100%">
 </p>
 
 Print the SQL query with `set_option`:
@@ -513,7 +513,7 @@ cross_validate(
 
 <p align="center">
 <!-- TODO: Add cross-validation results screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/cross-validation.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/cross-validation.png" width="100%">
 </p>
 
 Train and deploy the model:
@@ -532,7 +532,7 @@ model.features_importance()
 
 <p align="center">
 <!-- TODO: Add feature importance screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/feature-importance.png" width="100%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/feature-importance.png" width="100%">
 </p>
 
 ROC Curve:
@@ -544,7 +544,7 @@ model.roc_curve()
 
 <p align="center">
 <!-- TODO: Add ROC curve screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/roc-curve.png" width="70%">
+<img src="https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/img/roc-curve.png" width="70%">
 </p>
 
 Once trained, the model can be deployed in the database for high-performance predictions _(in-database deployment availability and limitations vary by algorithm — see [Project Status & Roadmap](#project-status--roadmap))_.

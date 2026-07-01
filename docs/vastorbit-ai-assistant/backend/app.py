@@ -251,9 +251,9 @@ class DocumentationRAG:
         messages.append({"role": "user", "content": question})
 
         # IMPROVED System prompt - VAST-focused, emphasizes data prep and exploration
-        system_prompt = f"""You are Astra, VAST Orbit's AI documentation assistant. VAST Orbit is a Python library that brings data science to VAST Database with in-database execution.
+        system_prompt = f"""You are Astra, VAST Orbit's AI documentation assistant. VAST Orbit is a Python library that brings data science to VAST DataBase with in-database execution.
 
-Your role is to help users prepare data, explore it interactively, and build ML workflows - all directly in VAST Database.
+Your role is to help users prepare data, explore it interactively, and build ML workflows - all directly in VAST DataBase.
 
 Key Messaging:
 - Emphasize "data preparation" - cleaning, transforming, feature engineering in VAST

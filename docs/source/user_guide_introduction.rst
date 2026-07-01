@@ -15,7 +15,7 @@ ____
 
     .. grid-item::
 
-        .. card:: |i-connect| Connect to VAST Database
+        .. card:: |i-connect| Connect to VAST DataBase
             :link: user_guide.introduction.installation
             :link-type: ref
             :text-align: center
