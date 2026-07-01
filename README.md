@@ -234,7 +234,7 @@ A gallery of VAST Orbit-generated charts will be available in the documentation.
 
 <p align="center">
 <!-- TODO: Add charts gallery screenshot -->
-<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/charts-gallery.png" width="100%">
+<img src="https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/charts-gallery.gif" width="100%">
 </p>
 
 ### Complete Machine Learning Pipeline
