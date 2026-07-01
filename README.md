@@ -1,5 +1,5 @@
 <p align="center">
-<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/vo_logo.png' width="480px" style="border-radius: 20px">
+<img src='https://github.com/vastdata-dev/VastOrbit/blob/main/assets/img/vo_logo.png' width="480px">
 </p>
 
 > **Beta:** VAST Orbit `0.1.x` is the first beta release series. The API and features will change as we work toward a stable `1.0.0`. See [Project Status & Roadmap](#project-status--roadmap).
