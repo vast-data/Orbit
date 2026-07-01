@@ -6,13 +6,13 @@ Chart Gallery
 
 .. include:: logo_include.rst
 
-VastOrbit offers an extensive selection of interactive visualizations that play a pivotal role in extracting valuable business insights. These versatile visualization tools empower you to effectively analyze and communicate data trends, enabling informed decision-making and enhancing data-driven strategies.
+VAST Orbit offers an extensive selection of interactive visualizations that play a pivotal role in extracting valuable business insights. These versatile visualization tools empower you to effectively analyze and communicate data trends, enabling informed decision-making and enhancing data-driven strategies.
 
 **Visualization Backends:**
 
-- **Plotly**: Interactive web-based visualizations with hover effects and zoom capabilities
-- **Matplotlib**: Publication-quality static plots with extensive customization
-- **Graphviz**: Specialized tree and graph visualizations for ML models
+ - **Plotly**: Interactive web-based visualizations with hover effects and zoom capabilities
+ - **Matplotlib**: Publication-quality static plots with extensive customization
+ - **Graphviz**: Specialized tree and graph visualizations for ML models
 
 .. tip::
 
@@ -21,10 +21,10 @@ VastOrbit offers an extensive selection of interactive visualizations that play 
 
 **Key Features:**
 
-✓ **In-Database Execution**: Charts render from VAST DataBase without moving data to Python  
-✓ **Smart Sampling**: Automatically samples large datasets for responsive visualizations  
-✓ **Federated Queries**: Visualize data from multiple sources (VAST, S3, PostgreSQL) in one chart  
-✓ **Export Options**: Save as PNG, SVG, HTML, or interactive web dashboards  
+ - ✓ **In-Database Execution**: Charts render from VAST DataBase without moving data to Python  
+ - ✓ **Smart Sampling**: Automatically samples large datasets for responsive visualizations  
+ - ✓ **Federated Queries**: Visualize data from multiple sources (VAST, S3, PostgreSQL) in one chart  
+ - ✓ **Export Options**: Save as PNG, SVG, HTML, or interactive web dashboards  
 
 .. note:: 
 
@@ -504,7 +504,7 @@ Quick Start Examples
     model.roc_curve()
     
     # Plot classification boundaries
-    model.plot_classification()
+    model.plot()
 
 **Federated Query Visualization:**
 

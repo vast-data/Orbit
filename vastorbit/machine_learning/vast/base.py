@@ -78,14 +78,14 @@ class VASTModel(PlottingUtils):
     def _get_sklearn_params(self) -> dict:
         """
         Returns the model parameters restricted (and translated) to those
-        accepted by the backing scikit-learn estimator.
+        accepted by the backing ``scikit-learn`` estimator.
 
-        VastOrbit wrappers expose a native parameter API (e.g. ``method`` on
+        VAST Orbit wrappers expose a native parameter API (e.g. ``method`` on
         ``Scaler``, ``init='k-means++'`` on ``KMeans``, ``drop_first`` on
         ``OneHotEncoder``). Some of those parameters are consumed by the
         wrapper's own SQL / transform logic and have no scikit-learn
         equivalent, and a few use different value names. This forwards only
-        the parameters scikit-learn actually accepts, translating known value
+        the parameters ``scikit-learn`` actually accepts, translating known value
         mismatches, so building ``self._sklearn_model(**...)`` never fails on
         an unexpected keyword.
         """
@@ -97,14 +97,14 @@ class VASTModel(PlottingUtils):
         out = {}
         for key, value in params.items():
             if key not in accepted:
-                continue  # native-only parameter; not a scikit-learn argument
+                continue  # native-only parameter; not a ``scikit-learn`` argument
             if key == "init" and value == "k-means++":
-                value = "k-means++"  # VastOrbit -> scikit-learn naming
+                value = "k-means++"  # VAST Orbit -> ``scikit-learn`` naming
             if key == "max_features" and value == "max":
-                # VastOrbit "max" (use all features) -> scikit-learn None.
+                # VAST Orbit "max" (use all features) -> ``scikit-learn`` None.
                 value = None
             if key == "class_weight" and isinstance(value, (list, tuple)):
-                # VastOrbit accepts a per-class weight list; scikit-learn wants
+                # VAST Orbit accepts a per-class weight list; ``scikit-learn`` wants
                 # a {class_index: weight} mapping.
                 value = {i: w for i, w in enumerate(value)}
             out[key] = value
@@ -244,7 +244,7 @@ class VASTModel(PlottingUtils):
     def drop(self) -> bool:
         """
         Drops the model from
-        the VAST database.
+        the VAST DataBase.
 
         Examples
         --------
@@ -1627,7 +1627,7 @@ class Supervised(VASTModel):
             # Split into X and y. Fetching X and y in one query preserves row
             # order, but if the response is categorical the combined array is
             # promoted to a string dtype; cast the predictors back to float so
-            # the scikit-learn estimator receives numeric X.
+            # the ``scikit-learn`` estimator receives numeric X.
             # CategoricalNB operates on (possibly string) categories rather than
             # floats. Ordinal-encode the predictors to integer codes and remember
             # the encoder so the in-database SQL can reference the original labels.
@@ -1640,7 +1640,7 @@ class Supervised(VASTModel):
                 X = data[:, :-1].astype(float)  # All columns except last
             y = data[:, -1]  # Last column
 
-            # scikit-learn estimators reject NaN/Inf. Drop rows with missing
+            # ``scikit-learn`` estimators reject NaN/Inf. Drop rows with missing
             # values in the predictors (and in the response when it is numeric)
             # so models fit on data containing nulls — e.g. lagged/differenced
             # series or columns with blanks — instead of raising. A categorical
@@ -2239,7 +2239,7 @@ class Tree:
             cols["node_id"].append(i)
             cols["node_depth"].append(node_depth[i])
             cols["is_leaf"].append(bool(is_leaf))
-            # scikit-learn splits are always numeric (no native categorical
+            # ``scikit-learn`` splits are always numeric (no native categorical
             # split); leaf nodes have no split at all and are marked None so the
             # JSON/tree export routes them through the leaf-value branch instead
             # of trying to float() a non-existent numeric threshold.
@@ -6918,7 +6918,7 @@ class Unsupervised(VASTModel):
             self.input_relation = input_relation
 
         # Per the docstring, an empty X means "use all numerical columns".
-        # Without this, self.X stays empty while scikit-learn is still fit on
+        # Without this, self.X stays empty while ``scikit-learn`` is still fit on
         # the numerical columns, so the fitted parameter vectors and self.X end
         # up with different lengths and transform()/deploySQL() later raise
         # "length of parameter 'X' must be equal to the length of the vector".

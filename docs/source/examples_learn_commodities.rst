@@ -3,7 +3,7 @@
 Commodities
 ============
 
-This example uses the ``commodities`` dataset to predict the price of different commodities. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/winequality/winequality.ipynb>`__.
+This example uses the ``commodities`` dataset to predict the price of different commodities.
 
 - **date:** Date of the record.
 - **Gold:** Price per ounce of Gold.
@@ -459,7 +459,7 @@ The models may be somewhat unstable. To improve them, we could apply data prepar
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

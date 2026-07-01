@@ -56,7 +56,7 @@ class VAST OrbitAI {
               <strong style="color: #29b8ff;">💡 Try asking:</strong><br>
               • "How do I get started?"<br>
               • "Show me vDataFrame examples"<br>
-              • "How do I connect to VAST Database?"
+              • "How do I connect to VAST DataBase?"
             </div>
           </div>
           

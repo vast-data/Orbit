@@ -3,7 +3,7 @@
 Amazon
 =======
 
-This example uses the ``amazon`` dataset to predict the number of forest fires in Brazil. You can download a copy of the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/amazon/amazon.ipynb>`__.
+This example uses the ``amazon`` dataset to predict the number of forest fires in Brazil.
 
 - **date:** Date of the record
 - **number:** Number of forest fires
@@ -297,7 +297,7 @@ The plot shows that our model has successfully captured the seasonality present 
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

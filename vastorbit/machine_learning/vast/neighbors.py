@@ -406,7 +406,7 @@ class KNeighborsRegressor(Regressor):
     def drop(self) -> bool:
         """
         ``KNeighborsRegressor`` models
-        are not stored in the VAST DB.
+        are not stored in the VAST DataBase.
 
         The method will always return
         ``False``.
@@ -1299,7 +1299,7 @@ class KNeighborsClassifier(MulticlassClassifier):
     def drop(self) -> bool:
         """
         ``KNeighborsClassifier`` models
-        are not stored in the VAST DB.
+        are not stored in the VAST DataBase.
 
         The method will always return
         ``False``.

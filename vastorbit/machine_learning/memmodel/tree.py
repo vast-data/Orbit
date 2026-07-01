@@ -1018,7 +1018,7 @@ class BinaryTreeRegressor(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1249,7 +1249,7 @@ class BinaryTreeAnomaly(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1501,7 +1501,7 @@ class BinaryTreeClassifier(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**
@@ -1754,7 +1754,7 @@ class NonBinaryTree(Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
 
     **Drawing Tree**

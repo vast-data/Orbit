@@ -34,7 +34,7 @@ setuptools.setup(
     ],
     description=(
         "vastorbit simplifies data exploration, data cleaning, and machine "
-        "learning in VAST databases using in-database analytics."
+        "learning in VAST DataBases using in-database analytics."
     ),
     long_description=long_description,
     long_description_content_type="text/markdown",

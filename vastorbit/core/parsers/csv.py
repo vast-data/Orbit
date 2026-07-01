@@ -29,7 +29,7 @@ def infer_trino_type(series: pd.Series, column_name: str) -> str:
     Parameters
     ----------
     series : pd.Series
-        Pandas series to analyze
+        pandas series to analyze
     column_name : str
         Name of the column (for error messages)
 
@@ -229,7 +229,7 @@ def read_csv(
         If True, return SQL statements without executing
     batch_size: int, optional
         Batch size specifies the number of rows inserted into the
-        VAST DB concurrently during a bulk operation.
+        VAST DataBase concurrently during a bulk operation.
 
     Returns
     -------

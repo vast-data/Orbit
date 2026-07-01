@@ -3,7 +3,7 @@
 Iris
 =====
 
-This example uses the ``iris`` dataset to predict the species of various flowers based on their physical features. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/learn/iris/iris.ipynb>`__.
+This example uses the ``iris`` dataset to predict the species of various flowers based on their physical features.
 
 - **PetalLengthCm:** Petal Length in cm
 - **PetalWidthCm:** Petal Width in cm
@@ -326,7 +326,7 @@ We have a great model with an accuracy of ``96%`` on an entirely balanced datase
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

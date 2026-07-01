@@ -1,6 +1,6 @@
-# VastOrbit tests
+# VAST Orbit tests
 
-Fast, broad **smoke coverage** of the VastOrbit public API. Each test runs an
+Fast, broad **smoke coverage** of the VAST Orbit public API. Each test runs an
 operation on a small built-in dataset and checks that it *executes and returns a
 sane shape/type* — not exact numbers. Heavy work is deliberately avoided: tiny
 tree ensembles, short synthetic series, `cv=3` on flat relations.

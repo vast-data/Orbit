@@ -3,8 +3,7 @@
 Movies Scoring and Clustering 
 ==============================
 
-This example uses the ``filmtv_movies`` dataset to evaluate the quality of the movies and create clusters of similar movies. 
-You can download the Jupyter notebook `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/movies/movies.ipynb>`__.
+This example uses the ``filmtv_movies`` dataset to evaluate the quality of the movies and create clusters of similar movies.
 
 The columns provided include:
 
@@ -351,7 +350,7 @@ Let's join our notoriety metrics for actors and directors with the main dataset.
         ],
     )
 
-As we did many operation, it can be nice to save the :py:mod:`~vastorbit.VastFrame` as a table in the VAST database.
+As we did many operation, it can be nice to save the :py:mod:`~vastorbit.VastFrame` as a table in the VAST DataBase.
 
 .. code-block:: python
 
@@ -683,7 +682,7 @@ Before we export the data, we should normalize the numerical columns to get the 
     for elem in ["category", "period", "language_area"]:
         filmtv_movies_complete[elem].one_hot_encode(drop_first = True)
 
-We can export the results to our VAST database.
+We can export the results to our VAST DataBase.
 
 .. code-block:: python
 
@@ -1119,7 +1118,7 @@ Each cluster consists of similar movies. These clusters can be used to give movi
 Conclusion
 ----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

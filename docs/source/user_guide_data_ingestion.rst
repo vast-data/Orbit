@@ -4,7 +4,7 @@
 Data Ingestion
 ===============
 
-Load data into VAST database from multiple sources.
+Load data into VAST DataBase from multiple sources.
 
 ____
 

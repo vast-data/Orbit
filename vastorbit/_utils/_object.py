@@ -63,7 +63,7 @@ def get_VAST_mllib() -> Literal["vml"]:
 
 def read_pd(*args, **kwargs) -> "VastFrame":
     """
-    Reads a Pandas DataFrame into a vastorbit
+    Reads a pandas DataFrame into a vastorbit
     VastFrame. It uses the
     :py:func:`~vastorbit.pandas.read_pandas`
     function.

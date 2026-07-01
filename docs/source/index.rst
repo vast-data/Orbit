@@ -77,8 +77,8 @@ off differently for everyone who touches the data.
 
             <span class="tab-lead">Your tools and your syntax, at any scale.</span>
 
-        Keep the pandas and scikit-learn habits you already have. ``VastFrame`` behaves
-        like a DataFrame and the models follow the scikit-learn API, so the notebook you
+        Keep the pandas and ``scikit-learn`` habits you already have. ``VastFrame`` behaves
+        like a DataFrame and the models follow the ``scikit-learn`` API, so the notebook you
         write against a sample becomes production code against the full table — no
         rewrite, no new language, and no waiting on an export before you can think.
 
@@ -138,7 +138,7 @@ Key features
         :text-align: center
 
         ``VastFrame`` behaves like a pandas DataFrame and the models follow the
-        scikit-learn API, so notebook code becomes production code unchanged.
+        ``scikit-learn`` API, so notebook code becomes production code unchanged.
 
     .. grid-item-card:: |i-multisource| One query, every source
         :text-align: center
@@ -220,7 +220,7 @@ What you can do with it
             <span class="tab-lead">Train flexibly, then score billions of rows in place.</span>
 
         VAST Orbit supports a hybrid workflow that matches how teams really work:
-        train quickly with the embedded algorithms or bring a scikit-learn model you
+        train quickly with the embedded algorithms or bring a ``scikit-learn`` model you
         trained locally, then deploy it for inference that runs as SQL inside VAST.
 
         Scoring happens where the data is, so you can refresh predictions on live data

@@ -448,7 +448,7 @@ def _resolve_api_key(explicit: str | None = None) -> str | None:
 
 
 @magics_class
-class VastOrbitAIMagics(Magics):
+class VASTOrbitAIMagics(Magics):
     """
     Jupyter magics for VAST Orbit AI code generation.
 
@@ -720,7 +720,7 @@ def load_ipython_extension(ipython):
     Registers all magics and auto-detects the API key from
     env vars or config file.
     """
-    magics = VastOrbitAIMagics(ipython)
+    magics = VASTOrbitAIMagics(ipython)
     ipython.register_magics(magics)
 
     key_status = (

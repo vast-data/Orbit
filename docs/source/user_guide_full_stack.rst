@@ -13,7 +13,7 @@ ____
 
     .. grid-item::
 
-        .. card:: |i-geo| GeoPandas Integration
+        .. card:: |i-geo| Geopandas Integration
             :link: user_guide.full_stack.geopandas
             :link-type: ref
             :text-align: center

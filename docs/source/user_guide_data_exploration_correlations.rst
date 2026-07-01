@@ -8,7 +8,7 @@ Finding links between variables is a very important task. The main purpose of da
 
 Machine learning models are also sensitive to the number of variables and how they relate and affect each other, so finding correlations and dependencies can help us make better use of our machine learning algorithms.
 
-Let's use the `Telco Churn dataset <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`__ to understand how we can find links between different variables in vastorbit.
+Let's use the `Telco Churn dataset <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/churn/customers.csv>`__ to understand how we can find links between different variables in vastorbit.
 
 .. code-block:: ipython
     

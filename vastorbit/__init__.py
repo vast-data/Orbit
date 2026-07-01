@@ -6,7 +6,7 @@ __author__: str = "Badr Ouali"
 __author_email__: str = "badr.ouali@outlook.fr"
 __description__: str = (
     "vastorbit simplifies data exploration, data cleaning"
-    " and machine learning in VAST."
+    " AI and machine learning in VAST."
 )
 __url__: str = "https://github.com/vastdata-dev/vastorbit/"
 __license__: str = "Apache License, Version 2.0"

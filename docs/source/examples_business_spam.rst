@@ -3,7 +3,7 @@
 Spam
 =====
 
-This example uses the ``spam`` dataset to detect SMS spam. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/spam/spam.ipynb>`__.
+This example uses the ``spam`` dataset to detect SMS spam.
 
 - **v1:** the SMS type (spam or ham).
 - **v2:** SMS content.
@@ -29,7 +29,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/spam/spam.csv>`__.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/spam/spam.csv>`__.
 
 .. code-block:: ipython
 
@@ -322,7 +322,7 @@ Our model can reliably identify spam.
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

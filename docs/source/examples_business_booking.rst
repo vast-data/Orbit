@@ -3,7 +3,7 @@
 Booking
 ========
 
-This example uses the ``expedia`` dataset to predict, based on site activity, whether a user is likely to make a booking. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/business/booking/booking.ipynb>`__ and the dataset `here <https://www.kaggle.com/c/expedia-hotel-recommendations/data>`__.
+This example uses the ``expedia`` dataset to predict, based on site activity, whether a user is likely to make a booking. You can download the dataset `here <https://www.kaggle.com/c/expedia-hotel-recommendations/data>`__.
 
 - **cnt:** Number of similar events in the context of the same user session.
 - **user_location_city:** The ID of the city in which the customer is located.
@@ -395,7 +395,7 @@ We're left with an excellent model. With this, we can predict whether a user wil
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

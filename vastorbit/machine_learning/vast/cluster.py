@@ -311,8 +311,8 @@ KMeans Algorithms & Extensions.
 class KMeans(Clustering):
     """
     Creates an ``KMeans`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -325,7 +325,7 @@ class KMeans(Clustering):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -950,7 +950,7 @@ class BisectingKMeans(KMeans, Tree):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -1381,7 +1381,7 @@ class BisectingKMeans(KMeans, Tree):
         self.p_ = 2
 
         # 3. Tree structure.
-        # scikit-learn does not expose the bisecting hierarchy as flat arrays,
+        # ``scikit-learn`` does not expose the bisecting hierarchy as flat arrays,
         # but it keeps it in the private ``_bisecting_tree``. The memmodel
         # (predict_sql / get_tree / to_graphviz) needs ``children_left_`` /
         # ``children_right_`` arrays indexed by node id (root = node 0, ``None``
@@ -2091,7 +2091,7 @@ class DBSCAN(VASTModel):
     def drop(self) -> bool:
         """
         Drops the model from
-        the VAST database.
+        the VAST DataBase.
 
         Examples
         --------
@@ -3275,7 +3275,7 @@ class NearestCentroid(MulticlassClassifier):
     def drop(self) -> bool:
         """
         ``NearestCentroid`` models are
-        not stored in the VAST DB.
+        not stored in the VAST DataBase.
 
         The method will always return
         ``False``.

@@ -121,7 +121,7 @@ def save_to_query_profile(
     """
     Saves information about the specified
     vastorbit method to the QUERY_PROFILES
-    table in the VAST database. It is
+    table in the VAST DataBase. It is
     used to collect usage statistics on
     methods and their parameters. This
     function generates a JSON string.

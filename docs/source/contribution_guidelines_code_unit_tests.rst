@@ -93,6 +93,6 @@ Testing Guidelines
 
 Add appropriate tests for the bugs or features behavior, run the test suite again, and ensure that all tests pass. Here are additional guidelines for writing tests:
 
-- Tests should be easy for any contributor to run. Contributors may not get complete access to their VAST database. For example, they may only have a non-admin user with write privileges to a single schema, and the database may not be the latest version. We encourage tests to use only what they need and nothing more.
+- Tests should be easy for any contributor to run. Contributors may not get complete access to their VAST DataBase. For example, they may only have a non-admin user with write privileges to a single schema, and the database may not be the latest version. We encourage tests to use only what they need and nothing more.
 
 - If there are requirements to the database for running a test, the test should adapt to different situations and never report a failure. For example, if a test depends on a multi-node database, it should check the number of DB nodes first, and skip itself when it connects to a single-node database (see helper function ``require_DB_nodes_at_least()`` in ``vastorbit/tests/integration_tests/base.py``).

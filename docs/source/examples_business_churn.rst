@@ -3,7 +3,7 @@
 Telco Churn
 ============
 
-This example uses the Telco Churn dataset to predict which Telco user is likely to churn; that is, customers that will likely stop using Telco. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/churn.ipynb>`__.
+This example uses the Telco Churn dataset to predict which Telco user is likely to churn; that is, customers that will likely stop using Telco.
 
 - **Churn:** customers that left within the last month.
 - **Services:** services of each customer (phone, multiple lines, internet, online security, online backup, device protection, tech support, and streaming TV and movies).
@@ -31,7 +31,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/business/churn/customers.csv>`__.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/business/churn/customers.csv>`__.
 
 .. code-block:: ipython
 
@@ -358,7 +358,7 @@ By targeting less than ``10%`` of the entire distribution, our predictions will 
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

@@ -150,7 +150,7 @@ class vDFEval(vDFInOut):
 
         .. note::
 
-            You can also create a feature in a Pandas-like way by assigning
+            You can also create a feature in a pandas-like way by assigning
             a result to a VastColumn. For example, similar to the above,
             the ``eval`` operation can be expressed as:
 
@@ -190,7 +190,7 @@ class vDFEval(vDFInOut):
 
         .. note::
 
-            You can also create a feature in a Pandas-like way by assigning
+            You can also create a feature in a pandas-like way by assigning
             a result to a VastColumn. For example, similar to the above,
             the ``eval`` operation can be expressed as:
 

@@ -24,8 +24,8 @@ Algorithms used for regression.
 class LinearSVR(LinearModel, Regressor):
     """
     Creates an ``LinearSVR`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -38,7 +38,7 @@ class LinearSVR(LinearModel, Regressor):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -493,8 +493,8 @@ Algorithms used for classification.
 class LinearSVC(LinearModelClassifier, BinaryClassifier):
     """
     Creates an ``LinearSVC`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -507,7 +507,7 @@ class LinearSVC(LinearModelClassifier, BinaryClassifier):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------

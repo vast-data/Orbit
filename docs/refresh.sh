@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# VastOrbit docs refresh — four gears:
+# VAST Orbit docs refresh — four gears:
 #
 #   ./refresh.sh                 FULL : reinstall package, clean, execute all
 #                                       code, post-process. Release-quality.

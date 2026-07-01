@@ -882,8 +882,8 @@ Algorithms used for decomposition.
 class PCA(Decomposition):
     """
     Creates an ``PCA`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -896,7 +896,7 @@ class PCA(Decomposition):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------
@@ -2107,8 +2107,8 @@ class MCA(PCA):
 class SVD(Decomposition):
     """
     Creates an ``SVD`` object
-    using SKLEARN for training and
-    the scalability of VASTDB for
+    using ``scikit-learn`` for training and
+    the scalability of VAST DataBase for
     the inferences.
 
     Parameters
@@ -2121,7 +2121,7 @@ class SVD(Decomposition):
         model with the same name as an
         existing model overwrites the
         existing model.
-    ``**kwargs``: SKLEARN model parameters.
+    ``**kwargs``: ``scikit-learn`` model parameters.
 
     Attributes
     ----------

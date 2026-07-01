@@ -11,7 +11,7 @@ ____
 Overview
 --------
 
-The :py:mod:`~vastorbit.VastFrame` is the core object of VAST Orbit. It enables Python-based data manipulation without moving data from the VAST database to local memory.
+The :py:mod:`~vastorbit.VastFrame` is the core object of VAST Orbit. It enables Python-based data manipulation without moving data from the VAST DataBase to local memory.
 
 **Key benefits:**
 

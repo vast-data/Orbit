@@ -3,7 +3,7 @@
 COVID-19
 =========
 
-This example uses the ``covid19`` dataset to predict the number of deaths and cases one day in advance. You can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/covid19/covid19.ipynb>`__.
+This example uses the ``covid19`` dataset to predict the number of deaths and cases one day in advance.
 
 - **date:** Date of the record.
 - **cases:** Number of people infected.
@@ -33,7 +33,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/covid19/deaths.csv>`__.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vastdata-dev/VAST-Orbit/blob/main/assets/data/understand/covid19/deaths.csv>`__.
 
 .. code-block:: python
 
@@ -440,7 +440,7 @@ The model performs well but may be somewhat unstable. To improve it, we could ap
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

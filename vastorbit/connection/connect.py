@@ -442,7 +442,7 @@ def vast_connection(
 ) -> Any:
     """
     Reads the input DSN and
-    creates a VAST Database
+    creates a VAST DataBase
     connection using Trino.
 
     Parameters
@@ -583,7 +583,7 @@ def vastorbitlab_connection() -> Any:
             Sets the vastorbit connection.
         | :py:func:`~vastorbit.connection.vast_connection` :
             Reads the input DSN and creates a
-            VAST Database connection.
+            VAST DataBase connection.
     """
     if trino is None:
         raise ImportError(
@@ -591,7 +591,7 @@ def vastorbitlab_connection() -> Any:
         )
 
     conn_info = {
-        "host": "VASTdb",
+        "host": "VAST DataBase",
         "port": 8080,
         "user": "admin",
         "catalog": "vast",

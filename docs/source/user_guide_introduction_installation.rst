@@ -1,10 +1,10 @@
 .. _user_guide.introduction.installation:
 
 ==============================
-Connect to a VAST Database
+Connect to a VAST DataBase
 ==============================
 
-Quick guide to connecting VAST Orbit to your VAST database.
+Quick guide to connecting VAST Orbit to your VAST DataBase.
 
 ____
 
@@ -13,7 +13,7 @@ Requirements
 
 Before connecting, ensure you have:
 
-- **VAST Database** – Any version with Trino interface enabled
+- **VAST DataBase** – Any version with Trino interface enabled
 - **Python 3.12+** – Latest Python installation
 - **VAST Orbit** – Installed via ``pip install vastorbit``
 

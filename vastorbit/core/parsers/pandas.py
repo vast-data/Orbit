@@ -33,7 +33,7 @@ def read_pandas(
 ) -> VastFrame:
     """
     Ingests a ``pandas.DataFrame`` into
-    the VAST database via Trino by creating
+    the VAST DataBase via Trino by creating
     a temporary CSV file and using the CSV
     parser to load the data.
 
@@ -114,7 +114,7 @@ def read_pandas(
     In this example, we will first create
     a ``pandas.DataFrame`` using
     ``VastFrame.``:py:meth:`~vastorbit.VastFrame.to_pandas`
-    and ingest it into VAST database.
+    and ingest it into VAST DataBase.
 
     We import :py:mod:`vastorbit`:
 
@@ -188,7 +188,7 @@ def read_pandas(
 
     Now, we will ingest the
     ``pandas.DataFrame``
-    into the VAST database.
+    into the VAST DataBase.
 
     .. code-block:: python
 
@@ -297,9 +297,9 @@ def read_pandas(
     .. seealso::
 
         | :py:func:`~vastorbit.read_csv` :
-            Ingests a CSV file into the VAST DB.
+            Ingests a CSV file into the VAST DataBase.
         | :py:func:`~vastorbit.read_json` :
-            Ingests a JSON file into the VAST DB.
+            Ingests a JSON file into the VAST DataBase.
     """
     dtype = format_type(dtype, dtype=dict)
     if not schema:

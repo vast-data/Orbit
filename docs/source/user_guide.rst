@@ -78,7 +78,7 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           
           ⏱️ **20 minutes**
           
-          Load data from multiple sources into VAST DataBase. Query files directly (Parquet, CSV, JSON) without loading. Access external databases via VASTDB's federated queries.
+          Load data from multiple sources into VAST DataBase. Query files directly (Parquet, CSV, JSON) without loading. Access external databases via VAST DataBase's federated queries.
           
           **Key Topics:**
           
@@ -182,11 +182,11 @@ Follow this structured path to master VAST Orbit. Total time: ~4.5 hours.
           
           **Key Topics:**
           
-          - Geospatial analytics with GeoPandas
+          - Geospatial analytics with Geopandas
           - Real-time streaming with Kafka
           - Production deployment patterns
           
-          :bdg-primary:`GeoPandas` :bdg-primary:`Production` :bdg-primary:`Advanced`
+          :bdg-primary:`Geopandas` :bdg-primary:`Production` :bdg-primary:`Advanced`
           
           +++
           Start Learning →

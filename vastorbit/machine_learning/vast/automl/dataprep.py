@@ -31,7 +31,7 @@ class AutoDataPrep(VASTModel):
     ----------
     name: str, optional
         Name of the model in which to store the output
-        relation in the VAST database.
+        relation in the VAST DataBase.
     overwrite_model: bool, optional
         If set to ``True``, training a
         model with the same name as an
@@ -183,7 +183,7 @@ class AutoDataPrep(VASTModel):
 
     def drop(self) -> bool:
         """
-        Drops the model from the VAST database.
+        Drops the model from the VAST DataBase.
         """
         # it could be stored as a model or a table
         dropped_model = super().drop()

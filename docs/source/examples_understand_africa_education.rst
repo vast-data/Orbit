@@ -3,8 +3,7 @@
 Africa Education
 =================
 
-This example uses the 'Africa Education' dataset to predict student performance. 
-You can can download the Jupyter Notebook of the study `here <https://github.com/vastdata-dev/vastorbit/blob/master/examples/understand/understand/africa_education/africa_education.ipynb>`__.
+This example uses the 'Africa Education' dataset to predict student performance.
 
 - **COUNTRY:** COUNTRY ID.
 - **REGION:** REGION ID.
@@ -327,7 +326,7 @@ information to predict the students' scores.
     from vastorbit.machine_learning.vast import RandomForestRegressor
     from vastorbit.machine_learning.model_selection import cross_validate
 
-    # RandomForest is backed by scikit-learn and needs numeric inputs, so we
+    # RandomForest is backed by ``scikit-learn`` and needs numeric inputs, so we
     # train on the numeric predictors only (the categorical text columns are
     # left out). Shallow trees keep the generated prediction SQL compact.
     
@@ -920,7 +919,7 @@ We can see that the best students tend to be young, speak English at home, come 
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

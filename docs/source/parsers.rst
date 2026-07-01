@@ -34,7 +34,7 @@ JSON
 
 ____
 
-Pandas
+pandas
 ------
 
 .. currentmodule:: vastorbit

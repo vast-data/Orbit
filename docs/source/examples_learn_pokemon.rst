@@ -3,7 +3,7 @@
 Pokemon
 ========
 
-This example uses the ``pokemons`` and ``combats`` datasets to predict the winner of a 1-on-1 Pokemon battle. You can download the Jupyter Notebook of the study here and two datasets:
+This example uses the ``pokemons`` and ``combats`` datasets to predict the winner of a 1-on-1 Pokemon battle. You can download the two datasets:
 
 `pokemons <https://github.com/vastdata-dev/vastorbit/tree/master/examples/learn/pokemon/pokemons.csv>`__
 
@@ -366,7 +366,7 @@ Based on our model, it seems that a Pokemon's speed and attack stats are the str
 Conclusion
 -----------
 
-We've solved our problem in a Pandas-like way, all without ever loading data into memory!
+We've solved our problem in a pandas-like way, all without ever loading data into memory!
 
 .. ipython:: python
    :suppress:

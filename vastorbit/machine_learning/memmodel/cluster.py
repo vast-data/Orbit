@@ -661,7 +661,7 @@ class KMeans(Clustering):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 
@@ -811,7 +811,7 @@ class NearestCentroid(Clustering):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 
@@ -1033,7 +1033,7 @@ class BisectingKMeans(Clustering, Tree):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 
@@ -1630,7 +1630,7 @@ class KPrototypes(Clustering):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 

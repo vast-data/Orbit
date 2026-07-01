@@ -5,7 +5,7 @@ pytest-cov>=4.0
 # Database driver
 trino>=0.327
 
-# VastOrbit runtime dependencies (listed explicitly so the suite installs even
+# VAST Orbit runtime dependencies (listed explicitly so the suite installs even
 # if the repo is checked out without a populated setup.py / pyproject.toml).
 # If your repo root is pip-installable, `pip install -e .` already covers these.
 numpy

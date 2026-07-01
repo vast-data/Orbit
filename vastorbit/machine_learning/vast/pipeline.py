@@ -110,7 +110,7 @@ class Pipeline:
 
     def drop(self) -> None:
         """
-        Drops the model from the VAST database.
+        Drops the model from the VAST DataBase.
         """
         for step in self.steps:
             step[1].drop()

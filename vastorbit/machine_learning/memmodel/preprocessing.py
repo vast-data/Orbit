@@ -289,7 +289,7 @@ class StandardScaler(Scaler):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 
@@ -403,7 +403,7 @@ class MinMaxScaler(Scaler):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 
@@ -541,7 +541,7 @@ class OneHotEncoder(InMemoryModel):
         This object can be pickled
         and used in any in-memory
         environment, just like
-        `SKLEARN <https://scikit-learn.org/>`__
+        `scikit-learn <https://scikit-learn.org/>`__
         models.
     """
 

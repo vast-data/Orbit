@@ -17,7 +17,7 @@ Version 0.1.0 (Beta)
         </div>
     </div>
 
-Welcome to the first release of **VAST Orbit** - Python data science for VAST Database!
+Welcome to the first release of **VAST Orbit** - Python data science for VAST DataBase!
 
 .. important::
 
@@ -29,7 +29,7 @@ Release Highlights
 
 |i-start| **Python Data Science for VAST**
 
-VAST Orbit 0.1.0 brings complete data science workflows to VAST Database - prepare, explore, analyze, and build ML models with in-database execution.
+VAST Orbit 0.1.0 brings complete data science workflows to VAST DataBase - prepare, explore, analyze, and build ML models with in-database execution.
 
 **Core Features:**
 
@@ -38,7 +38,7 @@ VAST Orbit 0.1.0 brings complete data science workflows to VAST Database - prepa
 - **400+ Functions** - Complete analytics toolkit executing in VAST
 - **10 ML Algorithms** - Embedded models for training and inference
 - **Multi-Source Access** - Query VAST tables, files, and external databases
-- **Zero Data Movement** - All processing in VAST Database
+- **Zero Data Movement** - All processing in VAST DataBase
 
 
 What's Included
@@ -84,7 +84,7 @@ What's Included
 
 - Python 3.12+
 - Linux and macOS
-- VAST Database 5.0.0-sp10 or later
+- VAST DataBase 5.0.0-sp10 or later
 
 **Example Usage:**
 
@@ -92,7 +92,7 @@ What's Included
 
     import vastorbit as vo
     
-    # Connect to VAST Database
+    # Connect to VAST DataBase
     vo.new_connection({
         'host': 'vast-cluster.com',
         'catalog': 'vast_catalog'
@@ -207,7 +207,7 @@ We're excited to hear your feedback as we work toward 1.0.0!
 Thank You
 ---------
 
-Thank you for being an early adopter of VAST Orbit. Your feedback shapes the future of data science on VAST Database.
+Thank you for being an early adopter of VAST Orbit. Your feedback shapes the future of data science on VAST DataBase.
 
 **Get Involved:**
 

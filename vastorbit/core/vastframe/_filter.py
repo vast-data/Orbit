@@ -1103,7 +1103,7 @@ class vDFFilter(vDFAgg):
 
         .. note::
 
-            Similarly, the same can be done in a Pandas-like way:
+            Similarly, the same can be done in a pandas-like way:
 
             .. code-block:: python
 
@@ -1792,7 +1792,7 @@ class vDFFilter(vDFAgg):
 
         .. note::
 
-            Similarly, the same can be done in a Pandas-like way:
+            Similarly, the same can be done in a pandas-like way:
 
             .. code-block:: python
 
