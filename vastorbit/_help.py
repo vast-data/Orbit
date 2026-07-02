@@ -58,7 +58,7 @@ def help_start() -> None:
     elif response == 2:
         link = "https://www.VAST.com/python/documentation/0.1.x/html/examples.html"
     elif response == 3:
-        link = "https://github.com/vast-data/VAST-Orbit/"
+        link = "https://github.com/vast-data/Orbit/"
     elif response == 4:
         link = "https://www.VAST.com/python/documentation/0.1.x/html/api/vastorbit.set_option.html"
     elif response == 5:

@@ -155,7 +155,7 @@ class NaiveBayes(MulticlassClassifier):
 
     Here we will be using attributes
     of model trained on well known
-    `titanic dataset <https://github.com/vast-data/VAST-Orbit/blob/master/vastorbit/datasets/data/titanic.csv>`__.
+    `titanic dataset <https://github.com/vast-data/Orbit/blob/master/vastorbit/datasets/data/titanic.csv>`__.
 
     It tries to predict the port
     of embarkation (C = Cherbourg,

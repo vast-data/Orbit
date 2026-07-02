@@ -185,7 +185,7 @@ Getting Started
 **Support:**
 
 - Slack: `vastsupport.slack.com <https://vastsupport.slack.com>`__
-- GitHub: https://github.com/vast-data/VAST-Orbit
+- GitHub: https://github.com/vast-data/Orbit
 
 
 Roadmap to 1.0.0

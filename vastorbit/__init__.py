@@ -8,9 +8,9 @@ __description__: str = (
     "vastorbit simplifies data exploration, data cleaning"
     " AI and machine learning in VAST."
 )
-__url__: str = "https://github.com/vast-data/VAST-Orbit/"
+__url__: str = "https://github.com/vast-data/Orbit/"
 __license__: str = "Apache License, Version 2.0"
-__version__: str = "0.1.0b1"
+__version__: str = "0.1.0b2"
 __codecov__: float = 0.5
 
 from vastorbit._config.config import get_option, set_option
