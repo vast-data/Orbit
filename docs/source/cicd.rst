@@ -213,7 +213,7 @@ For Contributors
 
 .. tip::
 
-   Set up pre-commit hooks to run checks automatically before each commit. See our `contributing guide <https://github.com/vast-data/Orbit/blob/main/CONTRIBUTING.md>`__ for setup instructions.
+   Set up pre-commit hooks to run checks automatically before each commit. See our `contributing guide <https://raw.githubusercontent.com/vast-data/Orbit/main/CONTRIBUTING.md>`__ for setup instructions.
 
 ____
 

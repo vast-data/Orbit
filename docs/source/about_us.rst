@@ -132,6 +132,16 @@ The team
 
     .. grid-item::
 
+        .. card:: Maciej Paliwoda
+          :img-top: _static/website/about_us/team/member7.jpg
+          :link: https://www.linkedin.com/in/maciejpaliwoda/
+          :text-align: center
+          :class-card: member-pics-card
+
+          Senior Systems Engineer
+
+    .. grid-item::
+
         .. card:: Kuldeep Venati
           :img-top: _static/website/about_us/team/member6.jpg
           :link: https://www.linkedin.com/in/venati/

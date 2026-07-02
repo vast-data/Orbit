@@ -29,7 +29,7 @@ You can skip the below cell if you already have an established connection.
     
     vo.connect("VASTDSN")
 
-Let's create a VastFrame of the dataset. The dataset is available `here <https://github.com/vast-data/Orbit/blob/main/assets/data/business/spam/spam.csv>`__.
+Let's create a VastFrame of the dataset. The dataset is available `here <https://raw.githubusercontent.com/vast-data/Orbit/main/assets/data/business/spam/spam.csv>`__.
 
 .. code-block:: ipython
 
