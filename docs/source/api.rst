@@ -17,7 +17,7 @@ API Reference
         </div>
     </div>
 
-Welcome to the VAST Orbit API Reference. This comprehensive guide covers all public objects, functions, and methods available in VAST Orbit for data science at scale on the VAST Data Platform.
+Welcome to the VAST Orbit API Reference. This comprehensive guide covers all public objects, functions, and methods available in VAST Orbit for data science at scale on the VAST AI OS.
 
 .. tip::
    

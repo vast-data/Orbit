@@ -31,7 +31,7 @@ The story behind VAST Orbit
         thinks. Meanwhile the data spread across databases, lakes, and files, and
         reaching all of it meant building yet another pipeline.
 
-        The VAST Data Platform removed the usual reason for all that movement by
+        The VAST AI OS removed the usual reason for all that movement by
         unifying transactional and analytical processing, all-flash performance at
         data-lake economics, and linear scale from gigabytes to exabytes. What was
         still missing was a way for data scientists to use that power with the Python
@@ -187,5 +187,5 @@ tracker above.
 
 .. note::
 
-    VAST Orbit brings Python data science to the VAST Data Platform: prepare,
+    VAST Orbit brings Python data science to the VAST AI OS: prepare,
     explore, analyze, and build AI — all with in-database execution at any scale.
