@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier.cutoff\_curve
+==============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: RandomForestClassifier.cutoff_curve

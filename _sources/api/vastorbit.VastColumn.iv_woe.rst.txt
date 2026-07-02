@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.iv\_woe
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.iv_woe

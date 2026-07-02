@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.fowlkes\_mallows\_index
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: fowlkes_mallows_index

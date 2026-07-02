@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingClassifier.set\_params
+================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: GradientBoostingClassifier.set_params

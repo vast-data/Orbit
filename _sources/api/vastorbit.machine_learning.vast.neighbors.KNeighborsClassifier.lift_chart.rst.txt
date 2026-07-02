@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.KNeighborsClassifier.lift\_chart
+===========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: KNeighborsClassifier.lift_chart

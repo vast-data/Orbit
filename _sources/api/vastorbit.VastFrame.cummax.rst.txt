@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.cummax
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.cummax

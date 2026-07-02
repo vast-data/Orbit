@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.Ensemble.object\_type
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. autoproperty:: Ensemble.object_type

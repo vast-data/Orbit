@@ -1,0 +1,54 @@
+﻿vastorbit.machine\_learning.vast.cluster.NearestCentroid
+========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. autoclass:: NearestCentroid
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NearestCentroid.__init__
+      ~NearestCentroid.classification_report
+      ~NearestCentroid.confusion_matrix
+      ~NearestCentroid.contour
+      ~NearestCentroid.cutoff_curve
+      ~NearestCentroid.deploySQL
+      ~NearestCentroid.drop
+      ~NearestCentroid.export_models
+      ~NearestCentroid.fit
+      ~NearestCentroid.get_attributes
+      ~NearestCentroid.get_match_index
+      ~NearestCentroid.get_params
+      ~NearestCentroid.get_plotting_lib
+      ~NearestCentroid.import_models
+      ~NearestCentroid.lift_chart
+      ~NearestCentroid.prc_curve
+      ~NearestCentroid.predict
+      ~NearestCentroid.predict_proba
+      ~NearestCentroid.report
+      ~NearestCentroid.roc_curve
+      ~NearestCentroid.score
+      ~NearestCentroid.set_params
+      ~NearestCentroid.summarize
+      ~NearestCentroid.to_binary
+      ~NearestCentroid.to_memmodel
+      ~NearestCentroid.to_python
+      ~NearestCentroid.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~NearestCentroid.object_type
+   
+   

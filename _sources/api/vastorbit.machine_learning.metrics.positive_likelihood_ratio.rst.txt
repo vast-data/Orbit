@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.positive\_likelihood\_ratio
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: positive_likelihood_ratio

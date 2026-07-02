@@ -1,0 +1,6 @@
+﻿vastorbit.connection.read\_dsn
+==============================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: read_dsn

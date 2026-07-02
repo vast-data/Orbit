@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.matthews\_corrcoef
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: matthews_corrcoef

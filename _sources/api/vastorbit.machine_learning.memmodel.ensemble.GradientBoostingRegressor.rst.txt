@@ -1,0 +1,33 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.GradientBoostingRegressor
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. autoclass:: GradientBoostingRegressor
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GradientBoostingRegressor.__init__
+      ~GradientBoostingRegressor.get_attributes
+      ~GradientBoostingRegressor.plot_tree
+      ~GradientBoostingRegressor.predict
+      ~GradientBoostingRegressor.predict_sql
+      ~GradientBoostingRegressor.set_attributes
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GradientBoostingRegressor.object_type
+   
+   

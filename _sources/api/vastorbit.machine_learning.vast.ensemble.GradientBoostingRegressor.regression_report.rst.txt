@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingRegressor.regression\_report
+======================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: GradientBoostingRegressor.regression_report

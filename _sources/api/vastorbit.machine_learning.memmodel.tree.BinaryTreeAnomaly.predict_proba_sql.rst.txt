@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeAnomaly.predict\_proba\_sql
+===============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: BinaryTreeAnomaly.predict_proba_sql

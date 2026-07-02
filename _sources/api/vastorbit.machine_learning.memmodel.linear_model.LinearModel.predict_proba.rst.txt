@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.linear\_model.LinearModel.predict\_proba
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.linear_model
+
+.. automethod:: LinearModel.predict_proba

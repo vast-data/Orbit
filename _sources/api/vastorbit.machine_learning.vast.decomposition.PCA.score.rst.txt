@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.PCA.score
+========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: PCA.score

@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.transpose
+=====================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.transpose

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.AR.object\_type
+====================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. autoproperty:: AR.object_type

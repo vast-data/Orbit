@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.GradientBoostingRegressor.set\_attributes
+=======================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: GradientBoostingRegressor.set_attributes

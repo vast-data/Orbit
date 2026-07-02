@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeRegressor.set\_attributes
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: BinaryTreeRegressor.set_attributes

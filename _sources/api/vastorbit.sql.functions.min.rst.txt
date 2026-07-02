@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.min
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: min

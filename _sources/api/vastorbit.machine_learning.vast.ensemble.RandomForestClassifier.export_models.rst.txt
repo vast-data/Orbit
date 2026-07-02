@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier.export\_models
+===============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: RandomForestClassifier.export_models

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.scatter\_matrix
+===================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.scatter_matrix

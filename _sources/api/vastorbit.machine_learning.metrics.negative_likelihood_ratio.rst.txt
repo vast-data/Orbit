@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.negative\_likelihood\_ratio
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: negative_likelihood_ratio

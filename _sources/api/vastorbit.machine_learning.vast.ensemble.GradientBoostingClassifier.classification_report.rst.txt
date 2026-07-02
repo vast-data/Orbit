@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingClassifier.classification\_report
+===========================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: GradientBoostingClassifier.classification_report

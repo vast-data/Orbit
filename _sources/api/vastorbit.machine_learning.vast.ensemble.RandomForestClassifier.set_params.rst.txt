@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier.set\_params
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: RandomForestClassifier.set_params

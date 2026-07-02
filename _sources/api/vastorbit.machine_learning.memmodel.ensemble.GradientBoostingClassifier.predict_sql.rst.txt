@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.GradientBoostingClassifier.predict\_sql
+=====================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: GradientBoostingClassifier.predict_sql

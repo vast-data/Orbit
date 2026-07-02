@@ -1,0 +1,6 @@
+﻿vastorbit.jupyter.extensions.sql\_magic.sql\_magic
+==================================================
+
+.. currentmodule:: vastorbit.jupyter.extensions.sql_magic
+
+.. autofunction:: sql_magic

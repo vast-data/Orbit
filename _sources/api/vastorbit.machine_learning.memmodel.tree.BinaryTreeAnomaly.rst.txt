@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeAnomaly
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoclass:: BinaryTreeAnomaly
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BinaryTreeAnomaly.__init__
+      ~BinaryTreeAnomaly.get_attributes
+      ~BinaryTreeAnomaly.plot_tree
+      ~BinaryTreeAnomaly.predict
+      ~BinaryTreeAnomaly.predict_proba
+      ~BinaryTreeAnomaly.predict_proba_sql
+      ~BinaryTreeAnomaly.predict_sql
+      ~BinaryTreeAnomaly.set_attributes
+      ~BinaryTreeAnomaly.to_graphviz
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~BinaryTreeAnomaly.object_type
+   
+   

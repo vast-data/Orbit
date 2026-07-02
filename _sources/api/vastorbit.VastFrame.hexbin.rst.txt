@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.hexbin
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.hexbin

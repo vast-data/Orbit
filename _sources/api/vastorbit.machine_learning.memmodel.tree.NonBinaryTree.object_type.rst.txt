@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.NonBinaryTree.object\_type
+====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoproperty:: NonBinaryTree.object_type

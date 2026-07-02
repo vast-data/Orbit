@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.automl.AutoML.get\_plotting\_lib
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.automl
+
+.. automethod:: AutoML.get_plotting_lib

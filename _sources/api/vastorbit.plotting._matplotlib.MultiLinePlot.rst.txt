@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.MultiLinePlot
+=============================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: MultiLinePlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MultiLinePlot.__init__
+      ~MultiLinePlot.check_metric
+      ~MultiLinePlot.draw
+      ~MultiLinePlot.get_category_desc
+      ~MultiLinePlot.get_cmap
+      ~MultiLinePlot.get_colors
+      ~MultiLinePlot.sort_chart_1d
+      ~MultiLinePlot.sort_chart_2d
+      ~MultiLinePlot.supported_metrics
+   
+   
+
+   
+   
+   

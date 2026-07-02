@@ -1,0 +1,6 @@
+﻿vastorbit.current\_session
+==========================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: current_session

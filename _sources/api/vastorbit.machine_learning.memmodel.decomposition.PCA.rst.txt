@@ -1,0 +1,35 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.PCA
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. autoclass:: PCA
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PCA.__init__
+      ~PCA.get_attributes
+      ~PCA.inverse_transform_sql
+      ~PCA.matrix_rotation
+      ~PCA.rotate
+      ~PCA.set_attributes
+      ~PCA.transform
+      ~PCA.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~PCA.object_type
+   
+   

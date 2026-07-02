@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.range\_plot
+================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.range_plot

@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.decimal\_to\_float
+==============================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.decimal_to_float

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.balanced\_accuracy\_score
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: balanced_accuracy_score

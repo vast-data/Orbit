@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.pie
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.pie

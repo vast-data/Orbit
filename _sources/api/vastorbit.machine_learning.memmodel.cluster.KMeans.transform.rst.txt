@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KMeans.transform
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: KMeans.transform

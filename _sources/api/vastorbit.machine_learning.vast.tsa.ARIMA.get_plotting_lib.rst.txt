@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.ARIMA.get\_plotting\_lib
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: ARIMA.get_plotting_lib

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.groupby
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.groupby

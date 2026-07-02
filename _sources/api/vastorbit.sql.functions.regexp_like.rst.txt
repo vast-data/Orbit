@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.regexp\_like
+====================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: regexp_like

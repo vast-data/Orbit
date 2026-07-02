@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.SVD.export\_models
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: SVD.export_models

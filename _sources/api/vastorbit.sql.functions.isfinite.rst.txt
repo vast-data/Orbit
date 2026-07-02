@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.isfinite
+================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: isfinite

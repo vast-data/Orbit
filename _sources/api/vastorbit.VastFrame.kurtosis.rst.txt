@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.kurtosis
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.kurtosis

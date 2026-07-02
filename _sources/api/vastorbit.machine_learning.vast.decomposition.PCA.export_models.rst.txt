@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.PCA.export\_models
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: PCA.export_models

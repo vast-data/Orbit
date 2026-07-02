@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.cumsum
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.cumsum

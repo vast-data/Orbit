@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.tan
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: tan

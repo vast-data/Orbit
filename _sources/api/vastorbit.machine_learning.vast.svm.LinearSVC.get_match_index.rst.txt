@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVC.get\_match\_index
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. automethod:: LinearSVC.get_match_index

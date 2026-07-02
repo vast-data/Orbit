@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.feature\_extraction.text.TfidfVectorizer.to\_sql
+=================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.feature_extraction.text
+
+.. automethod:: TfidfVectorizer.to_sql

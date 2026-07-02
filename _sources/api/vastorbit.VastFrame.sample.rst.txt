@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.sample
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.sample

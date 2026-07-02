@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.PoissonRegressor.get\_attributes
+===============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: PoissonRegressor.get_attributes

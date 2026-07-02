@@ -1,0 +1,29 @@
+﻿vastorbit.plotting.\_plotly.PlotlyBase
+======================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: PlotlyBase
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PlotlyBase.__init__
+      ~PlotlyBase.check_metric
+      ~PlotlyBase.get_category_desc
+      ~PlotlyBase.get_cmap
+      ~PlotlyBase.get_colors
+      ~PlotlyBase.sort_chart_1d
+      ~PlotlyBase.sort_chart_2d
+      ~PlotlyBase.supported_metrics
+   
+   
+
+   
+   
+   

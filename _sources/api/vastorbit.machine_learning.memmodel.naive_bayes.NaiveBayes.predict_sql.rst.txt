@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.naive\_bayes.NaiveBayes.predict\_sql
+=========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.naive_bayes
+
+.. automethod:: NaiveBayes.predict_sql

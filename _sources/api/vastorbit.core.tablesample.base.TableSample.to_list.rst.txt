@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.to\_list
+====================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.to_list

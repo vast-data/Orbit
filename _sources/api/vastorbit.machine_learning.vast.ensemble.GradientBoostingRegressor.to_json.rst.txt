@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingRegressor.to\_json
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: GradientBoostingRegressor.to_json

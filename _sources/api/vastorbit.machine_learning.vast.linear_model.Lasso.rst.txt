@@ -1,0 +1,50 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.Lasso
+====================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoclass:: Lasso
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Lasso.__init__
+      ~Lasso.contour
+      ~Lasso.deploySQL
+      ~Lasso.drop
+      ~Lasso.export_models
+      ~Lasso.features_importance
+      ~Lasso.fit
+      ~Lasso.get_attributes
+      ~Lasso.get_match_index
+      ~Lasso.get_params
+      ~Lasso.get_plotting_lib
+      ~Lasso.import_models
+      ~Lasso.plot
+      ~Lasso.predict
+      ~Lasso.regression_report
+      ~Lasso.report
+      ~Lasso.score
+      ~Lasso.set_params
+      ~Lasso.summarize
+      ~Lasso.to_binary
+      ~Lasso.to_memmodel
+      ~Lasso.to_python
+      ~Lasso.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Lasso.object_type
+   
+   

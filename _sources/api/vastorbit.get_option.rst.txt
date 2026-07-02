@@ -1,0 +1,6 @@
+﻿vastorbit.get\_option
+=====================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: get_option

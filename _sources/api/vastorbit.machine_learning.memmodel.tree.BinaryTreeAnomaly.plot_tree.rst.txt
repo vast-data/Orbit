@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeAnomaly.plot\_tree
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: BinaryTreeAnomaly.plot_tree

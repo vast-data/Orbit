@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.apply
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.apply

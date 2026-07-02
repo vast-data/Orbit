@@ -1,0 +1,32 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.MinMaxScaler
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. autoclass:: MinMaxScaler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MinMaxScaler.__init__
+      ~MinMaxScaler.get_attributes
+      ~MinMaxScaler.set_attributes
+      ~MinMaxScaler.transform
+      ~MinMaxScaler.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MinMaxScaler.object_type
+   
+   

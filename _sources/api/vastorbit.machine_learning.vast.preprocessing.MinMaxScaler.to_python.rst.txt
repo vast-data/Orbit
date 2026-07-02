@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.MinMaxScaler.to\_python
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: MinMaxScaler.to_python

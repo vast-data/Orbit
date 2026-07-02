@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.BisectingKMeans.plot\_tree
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: BisectingKMeans.plot_tree

@@ -1,0 +1,6 @@
+﻿vastorbit.connection.change\_auto\_connection
+=============================================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: change_auto_connection

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.RobustScaler.to\_sql
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: RobustScaler.to_sql

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ContourPlot
+===========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ContourPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ContourPlot.__init__
+      ~ContourPlot.check_metric
+      ~ContourPlot.draw
+      ~ContourPlot.get_category_desc
+      ~ContourPlot.get_cmap
+      ~ContourPlot.get_colors
+      ~ContourPlot.sort_chart_1d
+      ~ContourPlot.sort_chart_2d
+      ~ContourPlot.supported_metrics
+   
+   
+
+   
+   
+   

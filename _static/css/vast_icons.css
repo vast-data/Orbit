@@ -1,0 +1,409 @@
+/* ==========================================================================
+   VAST ICONS FONT — official brand iconography (122 glyphs)
+   Built with fantasticon from brand.vastdata.com icon SVGs.
+   Files: _static/fonts/vast-icons.woff2 / .woff · this css: _static/css/
+   Usage:   <i class="vast vast-lock"></i>
+   In RST:  .. raw:: html / substitutions — see cheatsheet.
+   Icons inherit text color; add style="color: var(--vast-cyan)" to tint.
+   ========================================================================== */
+
+@font-face {
+    font-family: "vast-icons";
+    src: url("../fonts/vast-icons.woff2?862b5d4847787d7e338e1f5b9e01a80c") format("woff2"),
+url("../fonts/vast-icons.woff?862b5d4847787d7e338e1f5b9e01a80c") format("woff");
+}
+
+i[class^="vast-"]:before, i[class*=" vast-"]:before {
+    font-family: vast-icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.vast-wrench:before {
+    content: "\f101";
+}
+.vast-wrench-full:before {
+    content: "\f102";
+}
+.vast-white-paper:before {
+    content: "\f103";
+}
+.vast-webinar:before {
+    content: "\f104";
+}
+.vast-virus:before {
+    content: "\f105";
+}
+.vast-video:before {
+    content: "\f106";
+}
+.vast-vastronaut:before {
+    content: "\f107";
+}
+.vast-vast-universal-storage:before {
+    content: "\f108";
+}
+.vast-vast-gemini:before {
+    content: "\f109";
+}
+.vast-vast-gemini-alt:before {
+    content: "\f10a";
+}
+.vast-vast-enclosure:before {
+    content: "\f10b";
+}
+.vast-vast-container:before {
+    content: "\f10c";
+}
+.vast-user:before {
+    content: "\f10d";
+}
+.vast-twitter:before {
+    content: "\f10e";
+}
+.vast-triangle:before {
+    content: "\f10f";
+}
+.vast-trash:before {
+    content: "\f110";
+}
+.vast-table-database:before {
+    content: "\f111";
+}
+.vast-success-story:before {
+    content: "\f112";
+}
+.vast-storage-tiering:before {
+    content: "\f113";
+}
+.vast-storage-class-memory:before {
+    content: "\f114";
+}
+.vast-square:before {
+    content: "\f115";
+}
+.vast-speedometer:before {
+    content: "\f116";
+}
+.vast-sound-on:before {
+    content: "\f117";
+}
+.vast-solution-brief:before {
+    content: "\f118";
+}
+.vast-snapshots:before {
+    content: "\f119";
+}
+.vast-single-rack:before {
+    content: "\f11a";
+}
+.vast-shipping:before {
+    content: "\f11b";
+}
+.vast-shield:before {
+    content: "\f11c";
+}
+.vast-shared-silos:before {
+    content: "\f11d";
+}
+.vast-service:before {
+    content: "\f11e";
+}
+.vast-scaling:before {
+    content: "\f11f";
+}
+.vast-restore:before {
+    content: "\f120";
+}
+.vast-reddit:before {
+    content: "\f121";
+}
+.vast-ram:before {
+    content: "\f122";
+}
+.vast-question-mark:before {
+    content: "\f123";
+}
+.vast-quantitative-trading:before {
+    content: "\f124";
+}
+.vast-qlc-flash-drive:before {
+    content: "\f125";
+}
+.vast-podcast:before {
+    content: "\f126";
+}
+.vast-play:before {
+    content: "\f127";
+}
+.vast-phone:before {
+    content: "\f128";
+}
+.vast-pause:before {
+    content: "\f129";
+}
+.vast-packaging:before {
+    content: "\f12a";
+}
+.vast-objects:before {
+    content: "\f12b";
+}
+.vast-no-silos:before {
+    content: "\f12c";
+}
+.vast-networking:before {
+    content: "\f12d";
+}
+.vast-networking-switch:before {
+    content: "\f12e";
+}
+.vast-mute:before {
+    content: "\f12f";
+}
+.vast-multiple-racks:before {
+    content: "\f130";
+}
+.vast-monitor:before {
+    content: "\f131";
+}
+.vast-minimize:before {
+    content: "\f132";
+}
+.vast-merging-arrows:before {
+    content: "\f133";
+}
+.vast-media-and-broadcast:before {
+    content: "\f134";
+}
+.vast-malware:before {
+    content: "\f135";
+}
+.vast-machine-learning:before {
+    content: "\f136";
+}
+.vast-logical-storage:before {
+    content: "\f137";
+}
+.vast-lock:before {
+    content: "\f138";
+}
+.vast-linkedin:before {
+    content: "\f139";
+}
+.vast-lightning-bolt:before {
+    content: "\f13a";
+}
+.vast-life-sciences:before {
+    content: "\f13b";
+}
+.vast-laptop:before {
+    content: "\f13c";
+}
+.vast-instagram:before {
+    content: "\f13d";
+}
+.vast-hdd:before {
+    content: "\f13e";
+}
+.vast-hard:before {
+    content: "\f13f";
+}
+.vast-hacker:before {
+    content: "\f140";
+}
+.vast-graph:before {
+    content: "\f141";
+}
+.vast-gpu:before {
+    content: "\f142";
+}
+.vast-globe:before {
+    content: "\f143";
+}
+.vast-generic-server:before {
+    content: "\f144";
+}
+.vast-generic-flash-drive:before {
+    content: "\f145";
+}
+.vast-generic-enclosure:before {
+    content: "\f146";
+}
+.vast-generic-container:before {
+    content: "\f147";
+}
+.vast-gear:before {
+    content: "\f148";
+}
+.vast-fullscreen:before {
+    content: "\f149";
+}
+.vast-folder:before {
+    content: "\f14a";
+}
+.vast-external-link:before {
+    content: "\f14b";
+}
+.vast-euro-sign:before {
+    content: "\f14c";
+}
+.vast-euro-sign-2:before {
+    content: "\f14d";
+}
+.vast-email:before {
+    content: "\f14e";
+}
+.vast-ebook:before {
+    content: "\f14f";
+}
+.vast-easy:before {
+    content: "\f150";
+}
+.vast-download:before {
+    content: "\f151";
+}
+.vast-dollar-sign:before {
+    content: "\f152";
+}
+.vast-dollar-sign-2:before {
+    content: "\f153";
+}
+.vast-dna-sequencer:before {
+    content: "\f154";
+}
+.vast-deep-learning:before {
+    content: "\f155";
+}
+.vast-data-vault:before {
+    content: "\f156";
+}
+.vast-data-sheet:before {
+    content: "\f157";
+}
+.vast-data-reduction:before {
+    content: "\f158";
+}
+.vast-data-recovery:before {
+    content: "\f159";
+}
+.vast-data-protection:before {
+    content: "\f15a";
+}
+.vast-data-backup:before {
+    content: "\f15b";
+}
+.vast-data-analytics:before {
+    content: "\f15c";
+}
+.vast-cross:before {
+    content: "\f15d";
+}
+.vast-cpu:before {
+    content: "\f15e";
+}
+.vast-cpu-pool:before {
+    content: "\f15f";
+}
+.vast-cpu-pool-2:before {
+    content: "\f160";
+}
+.vast-copy-to-clipboard:before {
+    content: "\f161";
+}
+.vast-constellation:before {
+    content: "\f162";
+}
+.vast-configuration-guide:before {
+    content: "\f163";
+}
+.vast-clouds:before {
+    content: "\f164";
+}
+.vast-cloud:before {
+    content: "\f165";
+}
+.vast-cloud-upload:before {
+    content: "\f166";
+}
+.vast-cloud-restore:before {
+    content: "\f167";
+}
+.vast-cloud-backup:before {
+    content: "\f168";
+}
+.vast-circle:before {
+    content: "\f169";
+}
+.vast-checkmark:before {
+    content: "\f16a";
+}
+.vast-chat-bubble:before {
+    content: "\f16b";
+}
+.vast-chart-up:before {
+    content: "\f16c";
+}
+.vast-chart-down:before {
+    content: "\f16d";
+}
+.vast-brain:before {
+    content: "\f16e";
+}
+.vast-blog:before {
+    content: "\f16f";
+}
+.vast-autonomous-vehicles:before {
+    content: "\f170";
+}
+.vast-arrow:before {
+    content: "\f171";
+}
+.vast-arrow-alt:before {
+    content: "\f172";
+}
+.vast-animation-and-vfx:before {
+    content: "\f173";
+}
+.vast-analyst-paper:before {
+    content: "\f174";
+}
+.vast-analog-phone:before {
+    content: "\f175";
+}
+.vast-ai:before {
+    content: "\f176";
+}
+.vast-3-users:before {
+    content: "\f177";
+}
+.vast-3-diverging-arrows:before {
+    content: "\f178";
+}
+.vast-2-users:before {
+    content: "\f179";
+}
+.vast-2-logical-storage:before {
+    content: "\f17a";
+}
+
+
+/* Sizing/alignment so icons sit in running text like glyphs */
+i[class^="vast-"], i[class*=" vast-"] {
+  font-size: 1.5em;
+  vertical-align: -0.22em;
+  line-height: 1;
+}
+
+/* Color helpers (match the .vi system) */
+.vast-cyan  { color: var(--vast-cyan); }
+.vast-navy  { color: var(--vast-navy); }
+body[data-theme="dark"] .vast-navy { color: var(--vast-text-dark-hi); }
+
+/* Size helpers */
+.vast-lg { font-size: 1.6em; }
+.vast-xl { font-size: 2.4em; }

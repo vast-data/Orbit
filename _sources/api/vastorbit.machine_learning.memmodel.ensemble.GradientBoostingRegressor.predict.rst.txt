@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.GradientBoostingRegressor.predict
+===============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: GradientBoostingRegressor.predict

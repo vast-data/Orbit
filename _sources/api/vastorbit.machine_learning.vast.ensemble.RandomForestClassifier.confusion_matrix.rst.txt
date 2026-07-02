@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier.confusion\_matrix
+==================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: RandomForestClassifier.confusion_matrix

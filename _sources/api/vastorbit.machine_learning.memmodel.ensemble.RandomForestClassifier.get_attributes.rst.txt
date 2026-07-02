@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.RandomForestClassifier.get\_attributes
+====================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: RandomForestClassifier.get_attributes

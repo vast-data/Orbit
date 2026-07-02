@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.PoissonRegressor.import\_models
+==============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: PoissonRegressor.import_models

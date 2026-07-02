@@ -1,0 +1,47 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.StandardScaler
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autoclass:: StandardScaler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~StandardScaler.__init__
+      ~StandardScaler.contour
+      ~StandardScaler.deployInverseSQL
+      ~StandardScaler.deploySQL
+      ~StandardScaler.drop
+      ~StandardScaler.export_models
+      ~StandardScaler.fit
+      ~StandardScaler.get_attributes
+      ~StandardScaler.get_match_index
+      ~StandardScaler.get_params
+      ~StandardScaler.get_plotting_lib
+      ~StandardScaler.import_models
+      ~StandardScaler.inverse_transform
+      ~StandardScaler.set_params
+      ~StandardScaler.summarize
+      ~StandardScaler.to_binary
+      ~StandardScaler.to_memmodel
+      ~StandardScaler.to_python
+      ~StandardScaler.to_sql
+      ~StandardScaler.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~StandardScaler.object_type
+   
+   

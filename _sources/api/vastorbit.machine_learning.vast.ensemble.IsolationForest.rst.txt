@@ -1,0 +1,51 @@
+﻿vastorbit.machine\_learning.vast.ensemble.IsolationForest
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoclass:: IsolationForest
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~IsolationForest.__init__
+      ~IsolationForest.contour
+      ~IsolationForest.decision_function
+      ~IsolationForest.deploySQL
+      ~IsolationForest.drop
+      ~IsolationForest.export_models
+      ~IsolationForest.features_importance
+      ~IsolationForest.fit
+      ~IsolationForest.get_attributes
+      ~IsolationForest.get_match_index
+      ~IsolationForest.get_params
+      ~IsolationForest.get_plotting_lib
+      ~IsolationForest.get_tree
+      ~IsolationForest.import_models
+      ~IsolationForest.plot
+      ~IsolationForest.plot_tree
+      ~IsolationForest.predict
+      ~IsolationForest.set_params
+      ~IsolationForest.summarize
+      ~IsolationForest.to_binary
+      ~IsolationForest.to_graphviz
+      ~IsolationForest.to_memmodel
+      ~IsolationForest.to_python
+      ~IsolationForest.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~IsolationForest.object_type
+   
+   

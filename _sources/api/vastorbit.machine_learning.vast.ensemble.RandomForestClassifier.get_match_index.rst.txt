@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier.get\_match\_index
+==================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. automethod:: RandomForestClassifier.get_match_index

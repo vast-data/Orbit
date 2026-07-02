@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.max
+=======================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.max

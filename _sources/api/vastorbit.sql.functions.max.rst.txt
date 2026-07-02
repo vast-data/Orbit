@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.max
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: max

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.sum
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: sum

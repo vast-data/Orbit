@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.discretize
+===============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.discretize

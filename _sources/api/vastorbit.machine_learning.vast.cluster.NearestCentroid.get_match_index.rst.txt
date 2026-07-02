@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.NearestCentroid.get\_match\_index
+==========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: NearestCentroid.get_match_index

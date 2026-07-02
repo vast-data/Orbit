@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.to\_geopandas
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.to_geopandas

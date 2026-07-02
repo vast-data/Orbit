@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.round
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: round

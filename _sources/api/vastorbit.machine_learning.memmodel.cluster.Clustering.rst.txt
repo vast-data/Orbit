@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.Clustering
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoclass:: Clustering
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Clustering.__init__
+      ~Clustering.get_attributes
+      ~Clustering.predict
+      ~Clustering.predict_proba
+      ~Clustering.predict_proba_sql
+      ~Clustering.predict_sql
+      ~Clustering.set_attributes
+      ~Clustering.transform
+      ~Clustering.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Clustering.object_type
+   
+   

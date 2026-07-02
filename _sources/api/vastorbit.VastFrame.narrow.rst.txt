@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.narrow
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.narrow

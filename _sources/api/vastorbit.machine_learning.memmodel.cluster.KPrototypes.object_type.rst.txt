@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KPrototypes.object\_type
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoproperty:: KPrototypes.object_type

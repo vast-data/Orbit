@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.IsolationForest.plot\_tree
+========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: IsolationForest.plot_tree

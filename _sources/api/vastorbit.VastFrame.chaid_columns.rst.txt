@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.chaid\_columns
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.chaid_columns

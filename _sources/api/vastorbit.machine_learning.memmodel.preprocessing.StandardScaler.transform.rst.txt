@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.StandardScaler.transform
+===========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. automethod:: StandardScaler.transform

@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.gen\_dataset
+===============================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: gen_dataset

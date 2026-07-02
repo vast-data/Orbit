@@ -1,0 +1,49 @@
+﻿vastorbit.machine\_learning.vast.tsa.AR
+=======================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. autoclass:: AR
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AR.__init__
+      ~AR.contour
+      ~AR.deploySQL
+      ~AR.drop
+      ~AR.export_models
+      ~AR.features_importance
+      ~AR.fit
+      ~AR.get_attributes
+      ~AR.get_match_index
+      ~AR.get_params
+      ~AR.get_plotting_lib
+      ~AR.import_models
+      ~AR.plot
+      ~AR.predict
+      ~AR.regression_report
+      ~AR.report
+      ~AR.score
+      ~AR.set_params
+      ~AR.summarize
+      ~AR.to_binary
+      ~AR.to_python
+      ~AR.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AR.object_type
+   
+   

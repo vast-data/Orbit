@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.merge\_similar\_names
+=========================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.merge_similar_names

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.second
+==============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: second

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.TSPlot
+======================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: TSPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TSPlot.__init__
+      ~TSPlot.check_metric
+      ~TSPlot.draw
+      ~TSPlot.get_category_desc
+      ~TSPlot.get_cmap
+      ~TSPlot.get_colors
+      ~TSPlot.sort_chart_1d
+      ~TSPlot.sort_chart_2d
+      ~TSPlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,29 @@
+﻿vastorbit.plotting.\_matplotlib.AnimatedBase
+============================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: AnimatedBase
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AnimatedBase.__init__
+      ~AnimatedBase.check_metric
+      ~AnimatedBase.get_category_desc
+      ~AnimatedBase.get_cmap
+      ~AnimatedBase.get_colors
+      ~AnimatedBase.sort_chart_1d
+      ~AnimatedBase.sort_chart_2d
+      ~AnimatedBase.supported_metrics
+   
+   
+
+   
+   
+   

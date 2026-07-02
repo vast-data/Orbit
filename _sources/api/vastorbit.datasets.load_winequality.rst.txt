@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_winequality
+====================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_winequality

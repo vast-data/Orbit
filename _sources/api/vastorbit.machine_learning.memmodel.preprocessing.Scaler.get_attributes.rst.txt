@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.Scaler.get\_attributes
+=========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. automethod:: Scaler.get_attributes

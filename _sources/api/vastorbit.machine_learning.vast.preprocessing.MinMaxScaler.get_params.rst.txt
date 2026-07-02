@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.MinMaxScaler.get\_params
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: MinMaxScaler.get_params

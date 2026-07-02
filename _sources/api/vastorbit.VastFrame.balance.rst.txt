@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.balance
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.balance

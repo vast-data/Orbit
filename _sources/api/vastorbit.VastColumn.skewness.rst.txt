@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.skewness
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.skewness

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.LiftChart
+=====================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: LiftChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LiftChart.__init__
+      ~LiftChart.check_metric
+      ~LiftChart.draw
+      ~LiftChart.get_category_desc
+      ~LiftChart.get_cmap
+      ~LiftChart.get_colors
+      ~LiftChart.sort_chart_1d
+      ~LiftChart.sort_chart_2d
+      ~LiftChart.supported_metrics
+   
+   
+
+   
+   
+   

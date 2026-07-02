@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.hp\_tuning.parameter\_grid
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection.hp_tuning
+
+.. autofunction:: parameter_grid

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.hp\_tuning.validation\_curve
+=========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection.hp_tuning
+
+.. autofunction:: validation_curve

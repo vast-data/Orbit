@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.fillna
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.fillna

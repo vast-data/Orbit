@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.quantile\_error
+===================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: quantile_error

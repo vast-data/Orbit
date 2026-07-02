@@ -1,0 +1,32 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.OneHotEncoder
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. autoclass:: OneHotEncoder
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OneHotEncoder.__init__
+      ~OneHotEncoder.get_attributes
+      ~OneHotEncoder.set_attributes
+      ~OneHotEncoder.transform
+      ~OneHotEncoder.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~OneHotEncoder.object_type
+   
+   

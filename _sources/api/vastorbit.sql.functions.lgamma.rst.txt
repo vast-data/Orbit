@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.lgamma
+==============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: lgamma

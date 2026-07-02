@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.random
+==============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: random

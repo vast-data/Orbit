@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.bool\_xor
+=================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: bool_xor

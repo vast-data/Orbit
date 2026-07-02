@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.KNeighborsRegressor.contour
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: KNeighborsRegressor.contour

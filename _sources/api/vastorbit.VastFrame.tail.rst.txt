@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.tail
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.tail

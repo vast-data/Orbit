@@ -1,0 +1,6 @@
+﻿vastorbit.username
+==================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: username

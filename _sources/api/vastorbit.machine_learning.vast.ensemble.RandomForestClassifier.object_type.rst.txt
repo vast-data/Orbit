@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier.object\_type
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoproperty:: RandomForestClassifier.object_type

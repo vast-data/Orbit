@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.getutcdate
+==================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: getutcdate

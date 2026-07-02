@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.BisectingKMeans.fit
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: BisectingKMeans.fit

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.MinMaxScaler.fit
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: MinMaxScaler.fit

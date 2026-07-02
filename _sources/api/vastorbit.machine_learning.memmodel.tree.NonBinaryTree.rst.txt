@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.tree.NonBinaryTree
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoclass:: NonBinaryTree
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NonBinaryTree.__init__
+      ~NonBinaryTree.get_attributes
+      ~NonBinaryTree.plot_tree
+      ~NonBinaryTree.predict
+      ~NonBinaryTree.predict_proba
+      ~NonBinaryTree.predict_proba_sql
+      ~NonBinaryTree.predict_sql
+      ~NonBinaryTree.set_attributes
+      ~NonBinaryTree.to_graphviz
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~NonBinaryTree.object_type
+   
+   

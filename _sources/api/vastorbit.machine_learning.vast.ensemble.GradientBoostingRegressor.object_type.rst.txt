@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingRegressor.object\_type
+================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoproperty:: GradientBoostingRegressor.object_type

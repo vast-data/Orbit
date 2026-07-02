@@ -1,0 +1,6 @@
+﻿vastorbit.jupyter.extensions.chart\_magic.chart\_magic
+======================================================
+
+.. currentmodule:: vastorbit.jupyter.extensions.chart_magic
+
+.. autofunction:: chart_magic

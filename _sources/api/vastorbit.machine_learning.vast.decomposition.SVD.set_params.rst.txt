@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.SVD.set\_params
+==============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: SVD.set_params

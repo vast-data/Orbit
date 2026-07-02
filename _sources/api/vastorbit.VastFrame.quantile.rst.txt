@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.quantile
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.quantile

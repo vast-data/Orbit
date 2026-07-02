@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.filter
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.filter

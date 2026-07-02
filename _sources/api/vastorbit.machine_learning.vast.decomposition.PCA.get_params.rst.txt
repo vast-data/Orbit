@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.PCA.get\_params
+==============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: PCA.get_params

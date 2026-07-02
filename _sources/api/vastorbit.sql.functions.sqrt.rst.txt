@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.sqrt
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: sqrt

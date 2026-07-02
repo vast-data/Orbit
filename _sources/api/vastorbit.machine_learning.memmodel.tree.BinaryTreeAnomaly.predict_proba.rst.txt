@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeAnomaly.predict\_proba
+==========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: BinaryTreeAnomaly.predict_proba

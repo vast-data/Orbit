@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVC.import\_models
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. automethod:: LinearSVC.import_models

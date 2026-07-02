@@ -1,0 +1,49 @@
+﻿vastorbit.machine\_learning.vast.tsa.VAR
+========================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. autoclass:: VAR
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~VAR.__init__
+      ~VAR.contour
+      ~VAR.deploySQL
+      ~VAR.drop
+      ~VAR.export_models
+      ~VAR.features_importance
+      ~VAR.fit
+      ~VAR.get_attributes
+      ~VAR.get_match_index
+      ~VAR.get_params
+      ~VAR.get_plotting_lib
+      ~VAR.import_models
+      ~VAR.plot
+      ~VAR.predict
+      ~VAR.regression_report
+      ~VAR.report
+      ~VAR.score
+      ~VAR.set_params
+      ~VAR.summarize
+      ~VAR.to_binary
+      ~VAR.to_python
+      ~VAR.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~VAR.object_type
+   
+   

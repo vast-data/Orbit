@@ -1,0 +1,6 @@
+﻿vastorbit.errors.EmptyParameter
+===============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: EmptyParameter

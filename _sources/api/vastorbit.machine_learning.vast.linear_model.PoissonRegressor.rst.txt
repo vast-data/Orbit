@@ -1,0 +1,50 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.PoissonRegressor
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoclass:: PoissonRegressor
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PoissonRegressor.__init__
+      ~PoissonRegressor.contour
+      ~PoissonRegressor.deploySQL
+      ~PoissonRegressor.drop
+      ~PoissonRegressor.export_models
+      ~PoissonRegressor.features_importance
+      ~PoissonRegressor.fit
+      ~PoissonRegressor.get_attributes
+      ~PoissonRegressor.get_match_index
+      ~PoissonRegressor.get_params
+      ~PoissonRegressor.get_plotting_lib
+      ~PoissonRegressor.import_models
+      ~PoissonRegressor.plot
+      ~PoissonRegressor.predict
+      ~PoissonRegressor.regression_report
+      ~PoissonRegressor.report
+      ~PoissonRegressor.score
+      ~PoissonRegressor.set_params
+      ~PoissonRegressor.summarize
+      ~PoissonRegressor.to_binary
+      ~PoissonRegressor.to_memmodel
+      ~PoissonRegressor.to_python
+      ~PoissonRegressor.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~PoissonRegressor.object_type
+   
+   

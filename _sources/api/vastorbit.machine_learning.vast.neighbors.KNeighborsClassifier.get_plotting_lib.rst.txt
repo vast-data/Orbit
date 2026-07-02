@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.KNeighborsClassifier.get\_plotting\_lib
+==================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: KNeighborsClassifier.get_plotting_lib

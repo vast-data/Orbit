@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.read\_sql
+=====================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.read_sql

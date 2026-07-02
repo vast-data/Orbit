@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KMeans.object\_type
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoproperty:: KMeans.object_type

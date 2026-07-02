@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeRegressor.plot\_tree
+========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: BinaryTreeRegressor.plot_tree

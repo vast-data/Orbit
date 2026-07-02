@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.describe
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.describe

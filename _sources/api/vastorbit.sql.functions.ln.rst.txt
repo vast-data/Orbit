@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.ln
+==========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: ln

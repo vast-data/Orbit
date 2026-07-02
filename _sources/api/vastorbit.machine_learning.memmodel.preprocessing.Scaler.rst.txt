@@ -1,0 +1,32 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.Scaler
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. autoclass:: Scaler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Scaler.__init__
+      ~Scaler.get_attributes
+      ~Scaler.set_attributes
+      ~Scaler.transform
+      ~Scaler.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Scaler.object_type
+   
+   

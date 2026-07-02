@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.cov
+=======================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.cov

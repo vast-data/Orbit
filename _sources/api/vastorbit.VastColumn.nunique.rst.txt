@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.nunique
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.nunique

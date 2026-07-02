@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_commodities
+====================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_commodities

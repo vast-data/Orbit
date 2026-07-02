@@ -1,0 +1,1903 @@
+/* This file contains modifications to the Furo theme to customize the look of the web pages */
+
+/* Text Formatting */
+h1{
+  font-family: var(--vast-font-display);
+  letter-spacing: -.022em;
+  font-weight: 800 ;
+  font-size: 2.8em ;
+}
+
+h2{
+  font-family: var(--vast-font-display);
+  font-size: 2.0em ;
+  letter-spacing: -.021em;
+  font-weight: 700;
+}
+
+h3{
+  font-size: 1.7em ;
+  font-weight: 600 ;
+}
+
+/* Size of center content */
+p {
+  font-size: 130%; 
+}
+
+/* Size of Tiles - title */
+.sd-card-title {
+  font-size: 1.5em;
+}
+
+/* Text on Next and Previous buttons at the bottom */
+.next-page{
+  font-size: medium;
+}
+.prev-page{
+  font-size: medium;
+}
+
+/* Class Parameters Text */
+dt.sig.sig-object.py {
+  font-size: medium !important;
+}
+
+/* Code boxes */
+div[class*=" highlight-"], div[class^=highlight-]{
+  font-size: medium;
+}
+
+/* Size of Parameters */
+.field-list dt, .option-list dt, dl.footnote dt, dl.glossary dt, dl.simple dt, dl:not([class]) dt{
+  font-size: medium;
+}
+
+/* vastorbit Documentation Text */
+.brand{
+  font-size: medium;
+}
+
+/* Tabs Text */
+.tab-set > input:checked + label {
+  font-size: medium;
+}
+.tab-set > label {
+  font-size: medium;
+}
+
+/* HEADER + PAGE */
+.content {
+  width:65em;
+}
+
+.sidebar-drawer {
+  width: calc(50% - 24em)
+}
+
+/* Side nav bar */
+.current {
+  font-size: 1rem; 
+  font-weight: 400;
+  letter-spacing: -.017em;
+  font-family: var(--vast-font-body);
+}
+
+/* Left sidebar menu - black text, blue on hover */
+.sidebar-tree .icon, 
+.sidebar-tree .reference {
+  color: var(--vast-navy);
+  font-size: Medium;
+}
+
+.sidebar-tree .reference:hover {
+  color: var(--vast-cyan);
+}
+
+body[data-theme="dark"] .sidebar-tree .icon,
+body[data-theme="dark"] .sidebar-tree .reference {
+  color: var(--vast-text-dark-hi);
+}
+
+body .sidebar-tree .reference:hover, .sidebar-tree .toctree-l1>.reference:hover, .sidebar-tree .toctree-l2>.reference:hover {
+  color: var(--vast-cyan);
+}
+
+.sidebar-brand-text {
+  display: none;
+}
+
+.sidebar-scroll{
+  margin-top: -30px;
+}
+
+/* Main Tabs */
+.sidebar-tree .toctree-l1>.reference, .sidebar-tree .toctree-l1>label .icon {
+  font-size: 0.85rem;
+  font-family: var(--vast-font-body);
+  line-height: 1.1;
+}
+
+.sidebar-tree .toctree-l2>.reference {
+  font-size: 0.8rem;
+}
+
+.sidebar-tree .toctree-l3>.reference {
+  font-size: 0.73rem;
+}
+
+.sidebar-tree .toctree-l4>.reference {
+  font-size: 0.7rem;
+}
+
+.sidebar-tree .toctree-l5>.reference {
+  font-size: 0.65rem;
+}
+
+body[data-theme="light"] .sidebar-tree .toctree-l1>.reference, body[data-theme="light"] .sidebar-tree .toctree-l1>label .icon {
+  color: var(--vast-navy);
+}
+
+body[data-theme="light"] .sidebar-tree .toctree-l2>.reference {
+  color: var(--vast-ink);
+}
+
+.sidebar-tree li.has-children>.reference {
+  line-height: 1.1;
+}
+
+.sidebar-tree .toctree-l1 {
+  line-height: 1.5;
+}
+
+/* Right Side - On This Page */
+.toc-tree .reference {
+  font-size: 0.85rem;
+}
+
+.toc-title {
+  font-size: 1rem;
+}
+
+/* Top search bar - Fixed alignment and rounded background */
+.top_search{
+  margin-left: 40px;
+  padding-right: 10px;
+  font-size: medium;
+}
+
+.sidebar-search-container_top input {
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-top: -8px;
+  background-color: var(--vast-navy-2) !important;
+  border: 1px solid var(--vast-line);
+  color: var(--vast-text-dark-hi);
+}
+
+.sidebar-search-container_top input::placeholder {
+  color: var(--vast-text-dark-lo);
+}
+
+/* Top Banner Buttons - Black text, blue on hover */
+.top-button-container {
+  font-size: 1.2em;
+  display: flex;
+}
+
+.top-button {
+  padding: 10px 40px 0px 20px;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.5s ease-in-out;
+  font-family: var(--vast-font-body);
+  font-weight: 400;
+  color: var(--vast-text-dark-hi);
+}
+
+.top-button:hover {
+  color: var(--vast-cyan);
+}
+
+.top-button:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.top-button {
+  color: var(--vast-text-dark-hi) !important;
+}
+
+body .top-button:hover {
+  color: var(--vast-cyan) !important;
+}
+
+/* Top Buttons Dropdown Menu*/
+.top-button-dropdown {
+  display: none;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+  background: none;
+}
+
+.top-button-dropdown:focus {
+  outline: none;
+}
+
+/* Disabling Search below */
+.sidebar-search-container{
+  display: None;
+  width: 200px;
+}
+
+.sidebar-search-container_top{
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  border: none;
+  background: transparent;
+}
+
+.sidebar-search{
+  color: var(--vast-text-dark-hi);
+  border-radius: 5px;
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
+}
+
+.element.style {
+  width: 200px;
+}
+
+/* Hiding the logo on right side */
+.sidebar-logo{
+  display: None
+}
+
+/* The top navigation bar - Reduced empty space */
+.announcement {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* min-height instead of height: a fixed height smaller than the content
+     made children overflow invisibly over the page below, blocking clicks
+     on the view-this-page / edit icons. Let the header size itself. */
+  min-height: calc(var(--header-height) * 1.6);
+  height: auto;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(3, 20, 44, 0.08);
+}
+
+.announcement-content {
+  box-sizing: border-box;
+  min-width: 100%;
+  padding: 0.5rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  color: var(--vast-navy);
+  letter-spacing: -.011em;
+  font-weight: 300;
+  justify-content: center;
+}
+
+/* Container at the top for all buttons and search etc */
+.main-header-container{
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  padding-bottom: 0;
+}
+
+/* Container for search and github button - Reduced padding */
+.very-top-container{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin-top: 8px;
+}
+
+/* cotnainer for color theme toggle at the top*/
+.color-theme-container{
+  justify-content: center;
+  padding: 10px 15px 0px 20px;
+}
+
+/* Hiding the toggle in page */
+.theme-toggle-container{
+  visibility: hidden;
+}
+
+/* Theme toggle in the (permanently navy) header: light icon, both modes */
+.announcement .theme-toggle-container,
+.very-top-container .theme-toggle-container {
+  visibility: visible;
+}
+
+.announcement .theme-toggle svg,
+.very-top-container .theme-toggle svg {
+  color: var(--vast-text-dark-hi);
+}
+
+.announcement .theme-toggle:hover svg,
+.very-top-container .theme-toggle:hover svg {
+  color: var(--vast-cyan);
+}
+
+/* Container with search and version */
+.right-top-container{
+  display: flex
+}
+
+/* Container with main nav buttons + home button */
+.top-bottom-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 650px) {
+  .top-bottom-container {
+    display: none;
+  }
+}
+
+/* Z-INDEX LADDER
+   1100  chat + feedback panels (user opened them: top of everything)
+   1060  Furo drawers: "On this page" TOC + mobile navigation
+   1000  header, fixed edge tabs, header dropdowns
+      1  in-flow decorations                                            */
+.toc-drawer {
+  z-index: 1060;
+  margin-top: 20px;
+}
+
+.sidebar-drawer {
+  z-index: 1060;
+}
+
+/* For the top navigation bar. For the logo */
+.centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Home button */
+.home_button_container{
+  padding-top: 5px;
+  border-radius: 35px;
+  transition: background-color 0.5s;
+  margin-right: 20px;
+}
+
+.home_button_container:hover svg path {
+  fill: var(--vast-cyan);
+  transition: fill 0.5s;
+}
+
+.home_button_container:hover {
+  transition: box-shadow 0.5s;
+}
+
+/* Content on right side on navigation bar i.e. GitHub */
+.right-content {
+  padding-top: 10px;
+}
+
+/* Github button */
+.button-text {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 1em; 
+}
+
+/* Chart Gallery Badges */
+:root {
+  --sd-color-warning: pink;
+}
+
+.sd-card-footer {
+  background-color: var(--vast-cyan);
+  color: white;
+  border-radius: 10px;
+}
+
+.nono {
+  background-color: pink;
+  color: white;
+  border-radius: 10px;
+}
+
+/* Logo: permanent white wordmark on the fixed navy header */
+.logo-text {
+  fill: #ffffff;
+}
+
+.logo-accent {
+  fill: var(--vast-cyan);
+}
+
+/* Version selector */
+.select.form-control-sm:not([multiple]) {
+  background-position: right 1rem top .5rem
+}
+
+.form-group {
+  text-align: center;
+}
+
+.form-control {
+  display: block;
+  height: calc(1em + 1.375rem + 2px);
+  padding: 0rem 0.9375rem;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--vast-text-dark-hi);
+  background-color: var(--vast-navy-2);
+  background-clip: padding-box;
+  border: 1px solid var(--vast-line);
+  border-radius: 5px;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  appearance: none;
+  background-size: 15px;
+  padding-right: 25px;
+}
+
+.form-control:focus {
+  color: var(--vast-text-dark-hi);
+  background-color: var(--vast-navy-2);
+  border-color: var(--vast-cyan);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(31, 217, 254, 0.25);
+}
+
+/* Native dropdown options readable on every OS */
+#filter-select option {
+  background-color: var(--vast-navy-2);
+  color: var(--vast-text-dark-hi);
+}
+
+#filter-select option {
+  font-weight: normal ;
+  min-height: 1.2em ;
+  padding: 0px 2px 1px ;
+  font-family: var(--vast-font-body);
+}
+
+/* Bottom Privacy/Cookies */
+.bottom_buttons{
+  padding-right: 10px;
+  font-size: 0.8em;
+}
+
+/* Changing color of class/functions */
+.sig-prename {
+  color: var(--color-link);
+  font-weight: 400;
+}
+
+.sig-name {
+  color: var(--color-link);
+}
+
+/* Reduce font size */
+body {
+  font-size: 80%;
+}
+
+.sd-card:hover {
+  --sd-color-shadow: #CFCFCF;
+  border-color: #CFCFCF;
+}
+
+/* TOC on right */
+.toc-title-container{
+  margin-top: -5px;
+  font-weight: 700;
+}
+
+.toc-title-container .toc-title{
+  text-transform: none;
+  font-size: 1.4em;
+}
+
+/* Cards */
+.custom-card,
+.custom-card-2,
+.custom-card-3,
+.custom-card-4,
+.custom-card-5,
+.custom-card-6, 
+.custom-card-7, 
+.custom-card-8,
+.custom-card-9,
+.custom-card-10,
+.custom-card-11,
+.custom-card-12,
+.custom-card-13,
+.custom-card-14 {
+}
+
+.custom-card:hover,
+.custom-card-2:hover,
+.custom-card-3:hover,
+.custom-card-4:hover,
+.custom-card-5:hover,
+.custom-card-6:hover, 
+.custom-card-7:hover, 
+.custom-card-8:hover,
+.custom-card-9:hover,
+.custom-card-10:hover,
+.custom-card-11:hover,
+.custom-card-12:hover,
+.custom-card-13:hover {
+  box-shadow: 0 12px 30px rgba(3, 20, 44, 0.10);
+}
+
+.custom-card {
+  height: 280px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-2 {
+  height: 370px;
+}
+
+.custom-card-customer-test {
+  height: 520px;
+}
+
+.custom-class-img-top-examples {
+  height: 280px;
+}
+
+.custom-card-examples{
+  height: 450px;
+}
+
+.custom-card-examples-business{
+  height: 450px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-examples-learn{
+  height: 450px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-examples-understand{
+  height: 450px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-3 {
+  height: 350px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-4 {
+  height: 415px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-5 {
+  height: 320px;
+}
+
+.custom-card-6 {
+  height: 340px;
+}
+
+.custom-card-7 {
+  height: 130px;
+}
+
+.custom-card-8 {
+  height: 575px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.custom-card-9 {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 210px;
+}
+
+.custom-card-10 {
+  height: 190px;
+}
+
+.custom-card-11 {
+  height: 190px;
+}
+
+.custom-card-12 {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 200px;
+}
+
+.custom-card-13 {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 200px;
+}
+
+.custom-card-14 {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 225px;
+}
+
+.custom-card-15 {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 220px;
+}
+
+.custom-class-img-top{
+  height: 90px;
+}
+
+.custom-class-img-top-2{
+  height: 105px;
+}
+
+.custom-class-img-top-3{
+  padding: 5px;
+}
+
+.custom-class-img-top-4{
+  padding-top: 60px;
+  padding-inline: 5px;
+}
+
+.custom-class-img-top-5{
+  padding: 30px;
+  padding-bottom: 15px;
+}
+
+.custom-class-img-top-6 {
+  padding-top: 55px;
+  padding-inline: 22px;
+}
+
+.custom-class-img-top-7 {
+  height: 200px;
+  padding: 8px;
+}
+
+/* Dropdown menu */
+.top-dropdown {
+  position: fixed;
+  display: none;
+  right: 10px;
+  top: 15px;
+}
+
+.dropdown-btn {
+  padding: 0px 20px;
+  background-color: transparent;
+  color: var(--vast-text-dark-hi);
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 3.2em;
+  height: 50px;
+  font-weight: bold;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+.dropdown-item {
+  padding: 15px 20px;
+  text-decoration: none;
+  display: block;
+  color: var(--vast-text-dark-hi);
+  font-size: x-large;
+}
+
+.dropdown-item:hover {
+  background-color: var(--vast-navy-3);
+}
+
+.top-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+article, article .align-default {
+  margin-left: 0;
+}
+
+.page-icons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.search-top-dropdown {
+  position: fixed;
+  display: none;
+  right: 65px;
+}
+
+.search-top-dropdown:hover .search-dropdown-content {
+  display: block;
+}
+
+.search-dropdown-btn {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: var(--vast-text-dark-hi);
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 2em;
+  height: 50px;
+  font-weight: bold;
+}
+
+.search-dropdown-content {
+  padding: 5px 5px;
+  display: none;
+  position: fixed;
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000;
+  right:50px;
+  top:70px;
+}
+
+.sidebar-search-container_top-2{
+  display: flex;
+  justify-content: center;
+  size: fixed;
+  height: 40px;
+  width: 400px;
+}
+
+/* Feedback button */
+.openbtn {
+  position: fixed;
+  right: -25px;
+  top: 400px;
+  transform: rotate(-90deg);
+  cursor: pointer;
+  background-color: var(--vast-cyan);
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: 0;
+  z-index: 1000;
+}
+
+.feedback_sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1100;
+  top: 0;
+  left: 0;
+  background-color: var(--color-announcement-background);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: 0 8px 24px rgba(3, 20, 44, 0.08);
+}
+
+.feedback_sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.feedback_sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.feedback_sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn:hover {
+  background-color: var(--vast-navy);
+}
+
+/* Feedback form */
+#feedback-form {
+  margin: 20px 25px 0 -25px;
+}
+
+#feedback-form > form {
+  border: 1px solid var(--border-gray);
+  font-size: 14px;
+  padding: 32px;
+  color:var(--color-content-foreground);
+}
+
+#feedback-form > form .gform_fields {
+  list-style: none;
+}
+
+#feedback-form > form .gfield {
+  margin-bottom: 10px;
+}
+
+#feedback-form > form .gfield:before,
+#feedback-form > form .gfield:after {
+  content: '';
+  display: table;
+}
+
+#feedback-form > form .gfield:after {
+  clear: both;
+}
+
+#feedback-form > form .gfield_label {
+  font-weight: 600;
+}
+
+#feedback-form > form .gfield_radio {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#feedback-form > form .gfield_radio [class*="gchoice"] {
+  float: left;
+  width: 30%;
+}
+
+#feedback-form > form .gfield_radio [class*="gchoice"] input {
+  float: left;
+  margin: 1px 0 0;
+}
+
+#feedback-form > form .gfield_radio [class*="gchoice"] input:checked ~ label {
+  color: var(--primary);
+}
+
+#feedback-form > form .gfield_radio [class*="gchoice"] label {
+  margin: 10px 0 0 5px;
+}
+
+#feedback-form > form textarea {
+  border-color: var(--border-gray);
+  max-width: 100%;
+  padding: 8px;
+}
+
+#feedback-form > form textarea::placeholder {
+  color: var(--dark-gray);
+  font-style: italic;
+}
+
+#feedback-form .gform_button {
+  background: var(--vast-cyan);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-weight: 600;
+  letter-spacing: .25px;
+  line-break: 1;
+  padding: 6px 18px 6px;
+  -webkit-font-smoothing: antialiased;
+  margin-left: 15px;
+}
+
+#feedback-form .gform_button[disabled] {
+  opacity: .7;
+}
+
+.feedback_title{
+  padding-bottom: 15px;
+  font-weight: 600;
+  font-size: large;
+}
+
+.deprecated{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: var(--color-announcement-background);
+  border-right: 1px solid #DEDEDE;
+  border-top: 1px solid #DEDEDE;
+  border-bottom: 1px solid #DEDEDE;
+  border-left: 0.2rem solid red;
+  padding: 5px;
+}
+
+.versionadded{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: var(--color-announcement-background);
+  border-left: 0.2rem solid green;
+  border-right: 1px solid #DEDEDE;
+  border-top: 1px solid #DEDEDE;
+  border-bottom: 1px solid #DEDEDE;
+  padding: 5px;
+}
+
+.versionmodified{
+  font-weight: bold;
+  font-style: normal;
+  display: inline-block;
+  border: none;
+}
+
+.member-pics-card {
+  height: 430px;
+  overflow: hidden;
+}
+
+.custom-class-img-top-index-page{
+  max-height: 150px;
+  width: auto;
+  padding: 20px;
+  object-fit: contain;
+}
+
+/* Responsive design */
+@media (max-width: 75em) {
+  .top-button-container {
+    display: none;
+  }
+}
+
+@media (max-width: 50em) {
+  .sidebar-search-container_top{
+    width: 150px;
+  }
+
+  .custom-card-4 {
+    height: 230px;
+  }
+  
+  .custom-card-5 {
+    height: 400px;
+  }
+  
+  .top-bottom-container {
+    display: none;
+  }
+  
+  .announcement {
+    height: 120px;
+    margin-bottom: -32px;
+  }
+  
+  .top_search {
+    display: none;
+  }
+}
+
+@media (max-width: 40em) {
+  .custom-card-customer-test {
+    height: 450px;
+  }
+}
+
+@media (max-width: 36em) {
+  .custom-card-2 {
+    height: 265px;
+  }
+  
+  .custom-card-3 {
+    height: 150px; 
+  }
+  
+  .custom-card-4 {
+    height: 140px;
+  }
+  
+  .custom-card-8 {
+    height: 260px;
+  }
+  
+  .custom-card-9 {
+    height: 240px;
+  }
+  
+  .custom-card-10 {
+    height: 100px;
+  }
+  
+  .custom-card-12 {
+    height: 255px;
+  }
+  
+  .custom-card-13 {
+    height: 205px;
+  }
+  
+  .custom-card-14 {
+    height: 190px;
+  }
+}
+
+@media (max-width: 62em) {
+  .custom-card-3 {
+    height: 230px; 
+  }
+  
+  .custom-card-4 {
+    height: 210px;
+  }
+  
+  .custom-card-10 {
+    height: 150px;
+  }
+  
+  .custom-card-9 {
+    height: 200px;
+  }
+  
+  .custom-card-14 {
+    height: 230px;
+  }
+  
+  .custom-card-15 {
+    height: 255px;
+  }
+}
+
+/* Loader GIF */
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+}
+
+.gif-loader {
+  max-width: 15%;
+  max-height: 15%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.vastorbit_table {
+  overflow-x: scroll;
+}
+
+/* Hide IPython prompts */
+.gp, .gh {
+  font-size:0;
+}
+
+.gh::after {
+  font-size: 12px;
+  content: "Out: ";
+}
+
+#Logo_Layer_2 {
+  margin-left: 20px;
+}
+
+.sd-card-header {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.sd-card-footer {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   VAST BRAND REFINEMENTS (brand.vastdata.com/document/4)
+   ========================================================================== */
+
+/* Headings — Moderat Black, navy on light / white on dark */
+h1, h2, h3 {
+  color: var(--vast-navy);
+}
+
+body[data-theme="dark"] h1,
+body[data-theme="dark"] h2,
+body[data-theme="dark"] h3 {
+  color: var(--vast-white);
+}
+
+/* VAST Light — signature brand element: cyan light-beam under the H1 */
+h1 {
+  position: relative;
+  padding-bottom: 0.35em;
+  margin-top: 2.75rem;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 120px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--vast-light);
+}
+
+/* Links inherit the readable brand-content color from tokens */
+a:hover {
+  color: var(--vast-cyan-dim);
+}
+
+body[data-theme="dark"] a:hover {
+  color: var(--vast-cyan);
+}
+
+/* Cards — navy-tinted depth, cyan rim light on hover (VAST Light effect) */
+.sd-card {
+  border: 1px solid var(--vast-gray-mid);
+  transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.sd-card:hover {
+  --sd-color-shadow: rgba(31, 217, 254, 0.25);
+  border-color: var(--vast-cyan);
+  box-shadow: 0 12px 30px rgba(3, 20, 44, 0.10), var(--vast-glow);
+  transform: translateY(-2px);
+}
+
+/* Card footers — cyan surface takes NAVY text per brand contrast rules
+   (white on cyan fails contrast; VAST sets dark ink on cyan) */
+.sd-card-footer {
+  background-color: var(--vast-cyan);
+  color: var(--vast-navy);
+  font-weight: 600;
+}
+
+/* Buttons & version selector — pill shape, brand colors */
+/* Code blocks — LIGHT surface in light mode. Pygments paints syntax tokens
+   in dark light-theme colors, so the canvas must stay light or tokens vanish.
+   Cool gray surface + navy text + cyan accent edge = VAST look, full contrast. */
+body[data-theme="light"] div[class*=" highlight-"] pre,
+body[data-theme="light"] div[class^="highlight-"] pre,
+body[data-theme="light"] .highlight pre {
+  background-color: #F4F7FB;            /* cool Athens-gray surface */
+  color: var(--vast-navy);
+  border: 1px solid #E1E8F0;
+  border-left: 3px solid var(--vast-cyan);
+  border-radius: 8px;
+}
+
+/* Inline code chips */
+body[data-theme="light"] code.literal,
+body[data-theme="light"] code.docutils {
+  background-color: var(--vast-cyan-tint);
+  color: var(--vast-navy);
+  border: 1px solid rgba(31, 217, 254, 0.35);
+  border-radius: 4px;
+}
+
+/* Dark mode code blocks — raised navy panel, cyan edge, never black */
+body[data-theme="dark"] div[class*=" highlight-"] pre,
+body[data-theme="dark"] div[class^="highlight-"] pre,
+body[data-theme="dark"] .highlight pre {
+  background-color: var(--vast-navy-2);
+  border: 1px solid var(--vast-line);
+  border-left: 3px solid var(--vast-cyan);
+  border-radius: 8px;
+}
+
+body[data-theme="dark"] code.literal,
+body[data-theme="dark"] code.docutils {
+  background-color: rgba(31, 217, 254, 0.10);
+  color: var(--vast-cyan);
+  border: 1px solid rgba(31, 217, 254, 0.25);
+  border-radius: 4px;
+}
+
+/* Admonitions / version directives in brand hues */
+.versionadded {
+  border-left: 0.2rem solid var(--vast-cyan);
+}
+
+/* Top header bar — permanent navy, identical in light and dark mode.
+   Colors are set here directly (NOT via --color-announcement-* variables,
+   which the AI chat sidebar also consumes and must stay theme-aware). */
+.announcement {
+  background-color: var(--vast-navy-1);
+  color: var(--vast-text-dark-hi);
+  border-bottom: 1px solid var(--vast-line-soft);
+  box-shadow: 0 8px 24px rgba(3, 20, 44, 0.20);
+}
+
+/* Dark mode: cards & version selector sit on navy, not black/white */
+body[data-theme="dark"] .sd-card {
+  background-color: var(--vast-navy-1);
+  border: 1px solid var(--vast-line);
+}
+
+body[data-theme="dark"] .sd-card:hover {
+  border-color: var(--vast-cyan);
+  background-color: var(--vast-navy-2);
+}
+
+body[data-theme="dark"] .sd-card-header,
+body[data-theme="dark"] .sd-card-footer {
+  border-color: var(--vast-line);
+}
+
+/* Dark mode headings get a faint cyan glow like the website hero */
+body[data-theme="dark"] h1 {
+  text-shadow: 0 0 40px rgba(31, 217, 254, 0.18);
+}
+
+/* Selection color — VAST Light moment when selecting text */
+::selection {
+  background: var(--vast-cyan);
+  color: var(--vast-navy);
+}
+
+/* ==========================================================================
+   VAST Orbit HERO LOGO (logo_include.rst) — theme-aware coloring
+   The SVG asset is the monochrome "light" variant; fills are controlled here.
+   ========================================================================== */
+
+.vorbit-hero {
+  text-align: center;
+  margin: 10px 0 24px 0;
+}
+
+.vorbit-logo {
+  max-width: 420px;
+  filter: drop-shadow(0 0 0 transparent);
+  transition: filter .3s ease;
+}
+
+/* Light mode — navy artwork, the VAST wordmark slightly softer ink */
+body[data-theme="light"] .vorbit-art {
+  fill: var(--vast-navy);
+}
+
+body[data-theme="light"] .vorbit-mark {
+  fill: var(--vast-ink);
+}
+
+/* Dark mode — original white "light" variant, with the website's cyan glow */
+body[data-theme="dark"] .vorbit-art {
+  fill: var(--vast-white);
+}
+
+body[data-theme="dark"] .vorbit-mark {
+  fill: #FAF7F7;
+}
+
+body[data-theme="dark"] .vorbit-logo {
+  filter: drop-shadow(0 0 28px rgba(31, 217, 254, 0.22));
+}
+
+/* Hover — entire mark + wordmark turn VAST Cyan in every theme.
+   The link wrapper carries no underline; the glow lifts on hover. */
+.vorbit-logo-link { display: inline-block; text-decoration: none; }
+
+.vorbit-logo-link:hover .vorbit-art,
+.vorbit-logo-link:hover .vorbit-mark,
+.vorbit-logo-link:focus-visible .vorbit-art,
+.vorbit-logo-link:focus-visible .vorbit-mark {
+  fill: var(--vast-cyan, #1FD9FE);
+}
+
+.vorbit-logo-link:hover .vorbit-logo,
+.vorbit-logo-link:focus-visible .vorbit-logo {
+  filter: drop-shadow(0 0 22px rgba(31, 217, 254, 0.45));
+}
+
+.vorbit-art, .vorbit-mark { transition: fill .25s ease; }
+
+/* "auto" theme: follow the OS preference */
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] .vorbit-art { fill: var(--vast-white); }
+  body[data-theme="auto"] .vorbit-mark { fill: #FAF7F7; }
+  body[data-theme="auto"] .vorbit-logo {
+    filter: drop-shadow(0 0 28px rgba(31, 217, 254, 0.22));
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body[data-theme="auto"] .vorbit-art { fill: var(--vast-navy); }
+  body[data-theme="auto"] .vorbit-mark { fill: var(--vast-ink); }
+}
+
+/* Title + tagline under the logo — Moderat, brand colors */
+.vorbit-hero-title {
+  font-family: var(--vast-font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  margin-top: -4px;
+  color: var(--vast-navy);
+}
+
+.vorbit-hero-tagline {
+  font-family: var(--vast-font-body);
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 2px;
+  color: var(--vast-cyan-dim);
+}
+
+body[data-theme="dark"] .vorbit-hero-title { color: var(--vast-white); }
+body[data-theme="dark"] .vorbit-hero-tagline { color: var(--vast-cyan); }
+
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] .vorbit-hero-title { color: var(--vast-white); }
+  body[data-theme="auto"] .vorbit-hero-tagline { color: var(--vast-cyan); }
+}
+
+/* ==========================================================================
+   KB PARITY — components matching kb.vastdata.com (Document360) docs
+   Tables, admonitions, prev/next navigation, copy button
+   ========================================================================== */
+
+/* --- Tables (the KB's predicate/feature matrices) ------------------------- */
+
+article .table-wrapper {
+  border: 1px solid var(--vast-gray-mid);
+  border-radius: 10px;
+  overflow: auto;
+  margin: 1.2em 0;
+  box-shadow: 0 4px 16px rgba(3, 20, 44, 0.05);
+}
+
+article table.docutils {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-size: 0.92em;
+}
+
+article table.docutils th {
+  background-color: var(--vast-navy);
+  color: var(--vast-white);
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: left;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 2px solid var(--vast-cyan);   /* VAST Light edge under header */
+}
+
+article table.docutils td {
+  padding: 10px 16px;
+  border: 0;
+  border-bottom: 1px solid #E7EBF1;
+  vertical-align: top;
+}
+
+article table.docutils tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Zebra + hover, like the KB matrices */
+article table.docutils tbody tr:nth-child(even) {
+  background-color: #F7FAFD;
+}
+
+article table.docutils tbody tr:hover {
+  background-color: var(--vast-cyan-tint);
+}
+
+/* Dark mode tables — navy ramp */
+body[data-theme="dark"] article .table-wrapper {
+  border-color: var(--vast-line);
+  box-shadow: none;
+}
+
+body[data-theme="dark"] article table.docutils th {
+  background-color: var(--vast-navy-1);
+  color: var(--vast-text-dark-hi);
+}
+
+body[data-theme="dark"] article table.docutils td {
+  border-bottom: 1px solid var(--vast-line);
+}
+
+body[data-theme="dark"] article table.docutils tbody tr:nth-child(even) {
+  background-color: rgba(10, 34, 64, 0.5);
+}
+
+body[data-theme="dark"] article table.docutils tbody tr:hover {
+  background-color: var(--vast-navy-3);
+}
+
+/* --- Admonitions (KB-style notes/warnings) -------------------------------- */
+
+.admonition {
+  border-radius: 10px;
+  border: 1px solid var(--vast-gray-mid);
+  border-left: 4px solid var(--vast-cyan);
+  box-shadow: 0 4px 16px rgba(3, 20, 44, 0.05);
+}
+
+.admonition > .admonition-title {
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+}
+
+/* Note / tip / hint / important — cyan family (brand) */
+.admonition.note,
+.admonition.tip,
+.admonition.hint,
+.admonition.important {
+  border-left-color: var(--vast-cyan);
+  --color-admonition-title: #0E86B8;
+  --color-admonition-title-background: rgba(31, 217, 254, 0.12);
+}
+
+/* Warning / caution / attention — amber */
+.admonition.warning,
+.admonition.caution,
+.admonition.attention {
+  border-left-color: #F5A623;
+  --color-admonition-title: #9A6200;
+  --color-admonition-title-background: rgba(245, 166, 35, 0.12);
+}
+
+/* Danger / error — red */
+.admonition.danger,
+.admonition.error {
+  border-left-color: #E5484D;
+  --color-admonition-title: #B3261E;
+  --color-admonition-title-background: rgba(229, 72, 77, 0.12);
+}
+
+body[data-theme="dark"] .admonition {
+  border-color: var(--vast-line);
+  box-shadow: none;
+}
+
+body[data-theme="dark"] .admonition.note,
+body[data-theme="dark"] .admonition.tip,
+body[data-theme="dark"] .admonition.hint,
+body[data-theme="dark"] .admonition.important {
+  --color-admonition-title: var(--vast-cyan);
+}
+
+body[data-theme="dark"] .admonition.warning,
+body[data-theme="dark"] .admonition.caution,
+body[data-theme="dark"] .admonition.attention {
+  --color-admonition-title: #FFC465;
+}
+
+body[data-theme="dark"] .admonition.danger,
+body[data-theme="dark"] .admonition.error {
+  --color-admonition-title: #FF8A8A;
+}
+
+/* --- Prev / Next navigation (KB article footer) ---------------------------- */
+
+.prev-next-area {
+  margin-top: 2.5em;
+  padding-top: 1.5em;
+  border-top: 1px solid #E7EBF1;
+}
+
+body[data-theme="dark"] .prev-next-area {
+  border-top: 1px solid var(--vast-line);
+}
+
+.prev-next-area a {
+  border: 1px solid var(--vast-gray-mid);
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.prev-next-area a:hover {
+  border-color: var(--vast-cyan);
+  box-shadow: 0 8px 20px rgba(3, 20, 44, 0.08), var(--vast-glow);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+body[data-theme="dark"] .prev-next-area a {
+  border-color: var(--vast-line);
+  background-color: var(--vast-navy-1);
+}
+
+body[data-theme="dark"] .prev-next-area a:hover {
+  border-color: var(--vast-cyan);
+  background-color: var(--vast-navy-2);
+}
+
+.prev-next-area .title {
+  color: var(--vast-navy);
+  font-weight: 600;
+}
+
+body[data-theme="dark"] .prev-next-area .title {
+  color: var(--vast-text-dark-hi);
+}
+
+/* --- Copy button (sphinx-copybutton, if enabled) --------------------------- */
+
+button.copybtn {
+  background-color: transparent;
+  border: 1px solid var(--vast-line-soft);
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity .2s ease, border-color .2s ease;
+}
+
+.highlight:hover button.copybtn {
+  opacity: 1;
+}
+
+button.copybtn:hover {
+  border-color: var(--vast-cyan);
+}
+
+button.copybtn svg {
+  stroke: var(--vast-cyan);
+}
+
+/* --- Field lists in API docs (Parameters / Returns blocks) ----------------- */
+
+dl.field-list > dt {
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+  color: var(--vast-navy);
+}
+
+body[data-theme="dark"] dl.field-list > dt {
+  color: var(--vast-cyan);
+}
+
+/* ==========================================================================
+   CHART GALLERY — pro treatment (static posters, quiet chips, uniform cards)
+   ========================================================================== */
+
+/* Uniform thumbnails: fixed ratio, no jumping card heights */
+.gallery-card .sd-card-img-top {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid #E7EBF1;
+  background-color: #FBFCFE;
+}
+
+body[data-theme="dark"] .gallery-card .sd-card-img-top {
+  border-bottom: 1px solid var(--vast-line);
+  background-color: var(--vast-navy-2);
+}
+
+/* Posters rest slightly quiet; hover brings full life + the cyan rim
+   (works together with gallery_hover.js swapping poster -> gif) */
+.gallery-card .sd-card-img-top {
+  filter: saturate(0.85);
+  transition: filter .25s ease;
+}
+
+.gallery-card:hover .sd-card-img-top {
+  filter: saturate(1);
+}
+
+/* Card titles in Moderat */
+.gallery-card .sd-card-title {
+  font-family: var(--vast-font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--vast-navy);
+}
+
+body[data-theme="dark"] .gallery-card .sd-card-title {
+  color: var(--vast-text-dark-hi);
+}
+
+/* ONE chip style for variants — quiet navy outline, cyan on hover */
+.gallery-card .sd-badge {
+  background-color: transparent !important;
+  color: var(--vast-navy) !important;
+  border: 1px solid var(--vast-gray-mid) !important;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.72em;
+  padding: 3px 10px;
+  margin: 2px;
+}
+
+.gallery-card:hover .sd-badge {
+  border-color: var(--vast-cyan) !important;
+}
+
+body[data-theme="dark"] .gallery-card .sd-badge {
+  color: var(--vast-text-dark-lo) !important;
+  border-color: var(--vast-line) !important;
+}
+
+body[data-theme="dark"] .gallery-card:hover .sd-badge {
+  color: var(--vast-cyan) !important;
+  border-color: var(--vast-cyan) !important;
+}
+
+/* The rare backend-deviation chip (bdg-light) gets a filled muted look */
+.gallery-card .sd-badge.sd-bg-light {
+  background-color: var(--vast-gray) !important;
+  border-color: transparent !important;
+  color: var(--vast-ink) !important;
+}
+
+body[data-theme="dark"] .gallery-card .sd-badge.sd-bg-light {
+  background-color: var(--vast-navy-3) !important;
+  color: var(--vast-text-dark-hi) !important;
+}
+
+/* Respect users who disable animation: never auto-play motion for them */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-card,
+  .gallery-card .sd-card-img-top {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   VAST FOOTER — KB-style navy footer band (_templates/page.html)
+   Like kb.vastdata.com and vastdata.com, the footer is navy in BOTH themes.
+   ========================================================================== */
+
+.vast-footer {
+  /* Transparent: inherits the page background in both themes.
+     All colors below use Furo's adaptive variables. */
+  background-color: transparent;
+  color: var(--color-foreground-secondary);
+  margin: 3.5em 0 0 0;
+  position: relative;
+  font-size: 0.9em;
+}
+
+/* Link-color safety on the navy band (beats Furo's light-mode link/visited) */
+.vast-footer a,
+.vast-footer a:visited {
+  color: var(--color-foreground-secondary);
+}
+
+.vast-footer a:hover {
+  color: var(--color-brand-content);
+}
+
+/* VAST Light beam across the top edge */
+.vast-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--vast-light);
+}
+
+.vast-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 44px 40px 32px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Brand block */
+.vast-footer-brand {
+  flex: 1 1 260px;
+  min-width: 240px;
+}
+
+.vast-footer-wordmark {
+  font-family: var(--vast-font-display);
+  font-size: 1.5em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground-primary);
+  text-decoration: none;
+}
+
+.vast-footer-wordmark span {
+  color: var(--vast-cyan);
+}
+
+.vast-footer-wordmark:hover {
+  color: var(--color-foreground-primary);
+  text-decoration: none;
+}
+
+.vast-footer-tagline {
+  margin: 10px 0 16px 0;
+  line-height: 1.6;
+  max-width: 34ch;
+}
+
+.vast-footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.vast-footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-background-border);
+  border-radius: 8px;
+  color: var(--color-foreground-secondary);
+  transition: all .2s ease;
+}
+
+.vast-footer-social a:hover {
+  color: var(--color-brand-content);
+  border-color: var(--color-brand-content);
+  box-shadow: var(--vast-glow);
+}
+
+.vast-footer-social svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Link columns */
+.vast-footer-cols {
+  flex: 2 1 480px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+}
+
+.vast-footer-col h4 {
+  font-family: var(--vast-font-display);
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-foreground-primary);
+}
+
+.vast-footer-col a {
+  display: block;
+  color: var(--color-foreground-secondary);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color .15s ease;
+}
+
+.vast-footer-col a:hover {
+  color: var(--color-brand-content);
+  text-decoration: none;
+}
+
+/* Legal bar */
+.vast-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 40px 22px 40px;
+  border-top: 1px solid var(--color-background-border);
+  font-size: 0.92em;
+}
+
+.vast-footer-copy {
+  color: var(--color-foreground-secondary);
+}
+
+.vast-footer-made,
+.vast-footer-made a {
+  color: var(--color-foreground-secondary);
+  opacity: 0.8;
+}
+
+.vast-footer-made a:hover {
+  color: var(--color-brand-content);
+}
+
+.vast-footer-legal-links {
+  display: flex;
+  gap: 18px;
+}
+
+.vast-footer-legal-links a {
+  color: var(--color-foreground-secondary);
+  text-decoration: none;
+}
+
+.vast-footer-legal-links a:hover {
+  color: var(--color-brand-content);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .vast-footer-inner,
+  .vast-footer-legal {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+/* ==========================================================================
+   ABOUT US — tab cover images
+   Any image with :class: about-cover renders as a uniform branded cover:
+   full tab width, consistent height, center-cropped, rounded, hairline.
+   ========================================================================== */
+
+img.about-cover {
+  display: block;
+  width: 100%;
+  min-height: 330px;
+  max-height: 380px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  border: 1px solid var(--color-background-border, #E4E4E7);
+  margin: 0 0 1.25rem 0;
+}
+
+/* HEADER UPDATES */
+
+/* 1) Whole header, including the logo/corner cell, stays the dark blue */
+html body[data-theme="dark"] .vob-table thead th,
+html body[data-theme="dark"] .vob-table thead th.vob-idx {
+  background: var(--color-background-secondary) !important;
+}
+
+/* 2) Light-blue separation line between the header and the data */
+html body[data-theme="dark"] .vob-table thead th {
+  border-bottom: 2px solid #29b8ff !important;
+}
+
+/* 3) Light-blue scroller */
+html body[data-theme="dark"] .vob-table .vob-scroll::-webkit-scrollbar-thumb {
+  background: #29b8ff !important;
+}
+html body .vob-table .vob-scroll {
+  scrollbar-color: #29b8ff transparent;   /* Firefox */
+}
+
+/* Keep the index column opaque so data cells can't show through on scroll
+   (out-specifies the tr:nth-child(even) td zebra rule). */
+html body .vob-table tbody tr td.vob-idx {
+  background: var(--color-background-secondary) !important;
+}

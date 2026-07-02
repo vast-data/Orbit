@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.outliers\_plot
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.outliers_plot

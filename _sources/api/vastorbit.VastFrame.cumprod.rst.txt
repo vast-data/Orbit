@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.cumprod
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.cumprod

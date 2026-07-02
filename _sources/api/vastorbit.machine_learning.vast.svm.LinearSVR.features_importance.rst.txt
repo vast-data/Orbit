@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVR.features\_importance
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. automethod:: LinearSVR.features_importance

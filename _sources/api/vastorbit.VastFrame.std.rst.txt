@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.std
+=======================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.std

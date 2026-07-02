@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.KNeighborsClassifier.contour
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: KNeighborsClassifier.contour

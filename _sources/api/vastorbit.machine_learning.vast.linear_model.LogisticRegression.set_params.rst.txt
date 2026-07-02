@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.LogisticRegression.set\_params
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: LogisticRegression.set_params

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.AnimatedLinePlot
+================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: AnimatedLinePlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AnimatedLinePlot.__init__
+      ~AnimatedLinePlot.check_metric
+      ~AnimatedLinePlot.draw
+      ~AnimatedLinePlot.get_category_desc
+      ~AnimatedLinePlot.get_cmap
+      ~AnimatedLinePlot.get_colors
+      ~AnimatedLinePlot.sort_chart_1d
+      ~AnimatedLinePlot.sort_chart_2d
+      ~AnimatedLinePlot.supported_metrics
+   
+   
+
+   
+   
+   

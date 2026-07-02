@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.INF
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autodata:: INF

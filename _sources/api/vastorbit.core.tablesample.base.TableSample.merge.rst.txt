@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.merge
+=================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.merge

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.get\_columns
+================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.get_columns

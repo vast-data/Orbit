@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.critical\_success\_index
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: critical_success_index

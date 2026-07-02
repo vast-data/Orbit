@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.NearestCentroid.object\_type
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. autoproperty:: NearestCentroid.object_type

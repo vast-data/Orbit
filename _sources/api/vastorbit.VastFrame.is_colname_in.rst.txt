@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.is\_colname\_in
+===================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.is_colname_in

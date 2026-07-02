@@ -1,0 +1,29 @@
+﻿vastorbit.plotting.base.PlottingBase
+====================================
+
+.. currentmodule:: vastorbit.plotting.base
+
+.. autoclass:: PlottingBase
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PlottingBase.__init__
+      ~PlottingBase.check_metric
+      ~PlottingBase.get_category_desc
+      ~PlottingBase.get_cmap
+      ~PlottingBase.get_colors
+      ~PlottingBase.sort_chart_1d
+      ~PlottingBase.sort_chart_2d
+      ~PlottingBase.supported_metrics
+   
+   
+
+   
+   
+   

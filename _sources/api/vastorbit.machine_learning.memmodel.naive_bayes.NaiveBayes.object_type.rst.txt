@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.naive\_bayes.NaiveBayes.object\_type
+=========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.naive_bayes
+
+.. autoproperty:: NaiveBayes.object_type

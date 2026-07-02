@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.tree.Tree
+==============================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoclass:: Tree
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Tree.__init__
+      ~Tree.get_attributes
+      ~Tree.plot_tree
+      ~Tree.predict
+      ~Tree.predict_proba
+      ~Tree.predict_proba_sql
+      ~Tree.predict_sql
+      ~Tree.set_attributes
+      ~Tree.to_graphviz
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Tree.object_type
+   
+   

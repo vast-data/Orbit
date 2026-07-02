@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.del\_catalog
+================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.del_catalog

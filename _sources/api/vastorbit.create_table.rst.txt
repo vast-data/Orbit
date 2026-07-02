@@ -1,0 +1,6 @@
+﻿vastorbit.create\_table
+=======================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: create_table

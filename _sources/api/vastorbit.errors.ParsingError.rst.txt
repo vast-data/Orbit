@@ -1,0 +1,6 @@
+﻿vastorbit.errors.ParsingError
+=============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: ParsingError

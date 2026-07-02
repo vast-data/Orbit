@@ -1,0 +1,6 @@
+﻿vastorbit.connection.global\_connection.GlobalConnection.get\_dsn
+=================================================================
+
+.. currentmodule:: vastorbit.connection.global_connection
+
+.. automethod:: GlobalConnection.get_dsn

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.to\_json
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.to_json

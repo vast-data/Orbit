@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.factorial
+=================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: factorial

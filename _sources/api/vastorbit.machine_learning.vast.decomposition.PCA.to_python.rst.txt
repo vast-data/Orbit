@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.PCA.to\_python
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: PCA.to_python

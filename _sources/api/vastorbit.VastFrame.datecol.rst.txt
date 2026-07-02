@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.datecol
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.datecol

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.memory\_usage
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.memory_usage

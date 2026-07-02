@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ImportanceBarChart
+==================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ImportanceBarChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ImportanceBarChart.__init__
+      ~ImportanceBarChart.check_metric
+      ~ImportanceBarChart.draw
+      ~ImportanceBarChart.get_category_desc
+      ~ImportanceBarChart.get_cmap
+      ~ImportanceBarChart.get_colors
+      ~ImportanceBarChart.sort_chart_1d
+      ~ImportanceBarChart.sort_chart_2d
+      ~ImportanceBarChart.supported_metrics
+   
+   
+
+   
+   
+   

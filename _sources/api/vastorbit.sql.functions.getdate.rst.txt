@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.getdate
+===============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: getdate

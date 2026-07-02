@@ -1,0 +1,57 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.LogisticRegression
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoclass:: LogisticRegression
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LogisticRegression.__init__
+      ~LogisticRegression.classification_report
+      ~LogisticRegression.confusion_matrix
+      ~LogisticRegression.contour
+      ~LogisticRegression.cutoff_curve
+      ~LogisticRegression.deploySQL
+      ~LogisticRegression.drop
+      ~LogisticRegression.export_models
+      ~LogisticRegression.features_importance
+      ~LogisticRegression.fit
+      ~LogisticRegression.get_attributes
+      ~LogisticRegression.get_match_index
+      ~LogisticRegression.get_params
+      ~LogisticRegression.get_plotting_lib
+      ~LogisticRegression.import_models
+      ~LogisticRegression.lift_chart
+      ~LogisticRegression.plot
+      ~LogisticRegression.prc_curve
+      ~LogisticRegression.predict
+      ~LogisticRegression.predict_proba
+      ~LogisticRegression.report
+      ~LogisticRegression.roc_curve
+      ~LogisticRegression.score
+      ~LogisticRegression.set_params
+      ~LogisticRegression.summarize
+      ~LogisticRegression.to_binary
+      ~LogisticRegression.to_memmodel
+      ~LogisticRegression.to_python
+      ~LogisticRegression.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~LogisticRegression.classes_
+      ~LogisticRegression.object_type
+   
+   

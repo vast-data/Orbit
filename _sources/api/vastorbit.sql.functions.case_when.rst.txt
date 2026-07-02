@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.case\_when
+==================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: case_when

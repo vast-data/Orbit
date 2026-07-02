@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.HorizontalBarChart
+==================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: HorizontalBarChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~HorizontalBarChart.__init__
+      ~HorizontalBarChart.check_metric
+      ~HorizontalBarChart.draw
+      ~HorizontalBarChart.get_category_desc
+      ~HorizontalBarChart.get_cmap
+      ~HorizontalBarChart.get_colors
+      ~HorizontalBarChart.sort_chart_1d
+      ~HorizontalBarChart.sort_chart_2d
+      ~HorizontalBarChart.supported_metrics
+   
+   
+
+   
+   
+   

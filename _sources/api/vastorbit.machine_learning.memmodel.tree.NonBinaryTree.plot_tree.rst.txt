@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.NonBinaryTree.plot\_tree
+==================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: NonBinaryTree.plot_tree

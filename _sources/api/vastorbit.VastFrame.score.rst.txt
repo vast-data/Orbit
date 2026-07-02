@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.score
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.score

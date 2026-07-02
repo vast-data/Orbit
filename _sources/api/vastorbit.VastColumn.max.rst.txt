@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.max
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.max

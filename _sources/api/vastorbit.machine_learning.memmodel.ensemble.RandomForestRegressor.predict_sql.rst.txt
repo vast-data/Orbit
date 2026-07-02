@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.RandomForestRegressor.predict\_sql
+================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: RandomForestRegressor.predict_sql

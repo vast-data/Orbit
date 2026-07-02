@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KMeans.set\_attributes
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: KMeans.set_attributes

@@ -1,0 +1,6 @@
+﻿vastorbit.errors.MissingRelation
+================================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: MissingRelation

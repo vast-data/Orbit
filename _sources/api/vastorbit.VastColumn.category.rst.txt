@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.category
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.category

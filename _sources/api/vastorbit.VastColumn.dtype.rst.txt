@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.dtype
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.dtype

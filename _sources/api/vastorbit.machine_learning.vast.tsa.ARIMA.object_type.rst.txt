@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.ARIMA.object\_type
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. autoproperty:: ARIMA.object_type

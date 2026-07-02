@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.distinct
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.distinct

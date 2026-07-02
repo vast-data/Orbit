@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.NAN
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autodata:: NAN

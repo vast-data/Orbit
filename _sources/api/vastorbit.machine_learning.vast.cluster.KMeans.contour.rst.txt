@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.KMeans.contour
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: KMeans.contour

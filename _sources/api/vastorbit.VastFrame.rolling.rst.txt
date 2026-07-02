@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.rolling
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.rolling

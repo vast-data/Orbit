@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.at\_time
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.at_time

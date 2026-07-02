@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.ACFPlot
+===================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: ACFPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ACFPlot.__init__
+      ~ACFPlot.check_metric
+      ~ACFPlot.draw
+      ~ACFPlot.get_category_desc
+      ~ACFPlot.get_cmap
+      ~ACFPlot.get_colors
+      ~ACFPlot.sort_chart_1d
+      ~ACFPlot.sort_chart_2d
+      ~ACFPlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.automl.AutoClustering.fit
+==========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.automl
+
+.. automethod:: AutoClustering.fit

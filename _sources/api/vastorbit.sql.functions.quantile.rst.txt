@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.quantile
+================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: quantile

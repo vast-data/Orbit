@@ -1,0 +1,6 @@
+﻿vastorbit.create\_schema
+========================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: create_schema

@@ -1,0 +1,59 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestClassifier
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoclass:: RandomForestClassifier
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~RandomForestClassifier.__init__
+      ~RandomForestClassifier.classification_report
+      ~RandomForestClassifier.confusion_matrix
+      ~RandomForestClassifier.contour
+      ~RandomForestClassifier.cutoff_curve
+      ~RandomForestClassifier.deploySQL
+      ~RandomForestClassifier.drop
+      ~RandomForestClassifier.export_models
+      ~RandomForestClassifier.features_importance
+      ~RandomForestClassifier.fit
+      ~RandomForestClassifier.get_attributes
+      ~RandomForestClassifier.get_match_index
+      ~RandomForestClassifier.get_params
+      ~RandomForestClassifier.get_plotting_lib
+      ~RandomForestClassifier.get_tree
+      ~RandomForestClassifier.import_models
+      ~RandomForestClassifier.lift_chart
+      ~RandomForestClassifier.plot
+      ~RandomForestClassifier.plot_tree
+      ~RandomForestClassifier.prc_curve
+      ~RandomForestClassifier.predict
+      ~RandomForestClassifier.predict_proba
+      ~RandomForestClassifier.report
+      ~RandomForestClassifier.roc_curve
+      ~RandomForestClassifier.score
+      ~RandomForestClassifier.set_params
+      ~RandomForestClassifier.summarize
+      ~RandomForestClassifier.to_binary
+      ~RandomForestClassifier.to_graphviz
+      ~RandomForestClassifier.to_memmodel
+      ~RandomForestClassifier.to_python
+      ~RandomForestClassifier.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~RandomForestClassifier.object_type
+   
+   

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.LinePlot
+========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: LinePlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LinePlot.__init__
+      ~LinePlot.check_metric
+      ~LinePlot.draw
+      ~LinePlot.get_category_desc
+      ~LinePlot.get_cmap
+      ~LinePlot.get_colors
+      ~LinePlot.sort_chart_1d
+      ~LinePlot.sort_chart_2d
+      ~LinePlot.supported_metrics
+   
+   
+
+   
+   
+   

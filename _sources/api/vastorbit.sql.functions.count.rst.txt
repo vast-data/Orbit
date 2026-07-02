@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.count
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: count

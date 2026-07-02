@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.density
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.density

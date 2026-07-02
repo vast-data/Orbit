@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.Tree.get\_attributes
+==============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: Tree.get_attributes

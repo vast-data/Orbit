@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.MinMaxScaler.object\_type
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. autoproperty:: MinMaxScaler.object_type

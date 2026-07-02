@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.elbow
+==================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection
+
+.. autofunction:: elbow

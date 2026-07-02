@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.one\_hot\_encode
+====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.one_hot_encode

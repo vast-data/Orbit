@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.hist
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.hist

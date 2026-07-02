@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.fill\_outliers
+===================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.fill_outliers

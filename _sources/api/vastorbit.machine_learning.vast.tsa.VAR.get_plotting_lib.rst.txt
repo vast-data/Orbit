@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.VAR.get\_plotting\_lib
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: VAR.get_plotting_lib

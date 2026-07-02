@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.store\_usage
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.store_usage

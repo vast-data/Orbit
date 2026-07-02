@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeClassifier.object\_type
+===========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoproperty:: BinaryTreeClassifier.object_type

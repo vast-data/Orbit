@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.boxplot
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.boxplot

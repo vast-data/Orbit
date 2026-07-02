@@ -1,0 +1,6 @@
+﻿vastorbit.read\_json
+====================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: read_json

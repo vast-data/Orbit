@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.SVD.set\_attributes
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. automethod:: SVD.set_attributes

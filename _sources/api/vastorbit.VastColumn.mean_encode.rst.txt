@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.mean\_encode
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.mean_encode

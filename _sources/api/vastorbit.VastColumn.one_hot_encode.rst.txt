@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.one\_hot\_encode
+=====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.one_hot_encode

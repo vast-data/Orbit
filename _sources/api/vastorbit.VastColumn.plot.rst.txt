@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.plot
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.plot

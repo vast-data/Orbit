@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.hamming\_distance
+=========================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: hamming_distance

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.NearestCentroid.roc\_curve
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: NearestCentroid.roc_curve

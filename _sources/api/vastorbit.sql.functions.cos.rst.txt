@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.cos
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: cos

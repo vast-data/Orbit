@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.isarray
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.isarray

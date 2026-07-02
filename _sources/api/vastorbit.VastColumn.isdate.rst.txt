@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.isdate
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.isdate

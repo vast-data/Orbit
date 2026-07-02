@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_world
+==============================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_world

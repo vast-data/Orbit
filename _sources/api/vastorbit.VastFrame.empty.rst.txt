@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.empty
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.empty

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.str\_contains
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.str_contains

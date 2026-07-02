@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.round
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.round

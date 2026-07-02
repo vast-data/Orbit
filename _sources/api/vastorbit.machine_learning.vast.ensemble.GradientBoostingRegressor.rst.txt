@@ -1,0 +1,54 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingRegressor
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoclass:: GradientBoostingRegressor
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GradientBoostingRegressor.__init__
+      ~GradientBoostingRegressor.contour
+      ~GradientBoostingRegressor.deploySQL
+      ~GradientBoostingRegressor.drop
+      ~GradientBoostingRegressor.export_models
+      ~GradientBoostingRegressor.features_importance
+      ~GradientBoostingRegressor.fit
+      ~GradientBoostingRegressor.get_attributes
+      ~GradientBoostingRegressor.get_match_index
+      ~GradientBoostingRegressor.get_params
+      ~GradientBoostingRegressor.get_plotting_lib
+      ~GradientBoostingRegressor.get_tree
+      ~GradientBoostingRegressor.import_models
+      ~GradientBoostingRegressor.plot
+      ~GradientBoostingRegressor.plot_tree
+      ~GradientBoostingRegressor.predict
+      ~GradientBoostingRegressor.regression_report
+      ~GradientBoostingRegressor.report
+      ~GradientBoostingRegressor.score
+      ~GradientBoostingRegressor.set_params
+      ~GradientBoostingRegressor.summarize
+      ~GradientBoostingRegressor.to_binary
+      ~GradientBoostingRegressor.to_graphviz
+      ~GradientBoostingRegressor.to_json
+      ~GradientBoostingRegressor.to_memmodel
+      ~GradientBoostingRegressor.to_python
+      ~GradientBoostingRegressor.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GradientBoostingRegressor.object_type
+   
+   

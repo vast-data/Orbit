@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.linear\_model.LinearModelClassifier.predict
+================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.linear_model
+
+.. automethod:: LinearModelClassifier.predict

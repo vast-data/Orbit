@@ -1,0 +1,50 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVR
+==============================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. autoclass:: LinearSVR
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LinearSVR.__init__
+      ~LinearSVR.contour
+      ~LinearSVR.deploySQL
+      ~LinearSVR.drop
+      ~LinearSVR.export_models
+      ~LinearSVR.features_importance
+      ~LinearSVR.fit
+      ~LinearSVR.get_attributes
+      ~LinearSVR.get_match_index
+      ~LinearSVR.get_params
+      ~LinearSVR.get_plotting_lib
+      ~LinearSVR.import_models
+      ~LinearSVR.plot
+      ~LinearSVR.predict
+      ~LinearSVR.regression_report
+      ~LinearSVR.report
+      ~LinearSVR.score
+      ~LinearSVR.set_params
+      ~LinearSVR.summarize
+      ~LinearSVR.to_binary
+      ~LinearSVR.to_memmodel
+      ~LinearSVR.to_python
+      ~LinearSVR.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~LinearSVR.object_type
+   
+   

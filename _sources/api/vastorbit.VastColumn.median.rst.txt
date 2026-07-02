@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.median
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.median

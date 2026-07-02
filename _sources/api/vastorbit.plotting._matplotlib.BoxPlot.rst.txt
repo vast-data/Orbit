@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.BoxPlot
+=======================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: BoxPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BoxPlot.__init__
+      ~BoxPlot.check_metric
+      ~BoxPlot.draw
+      ~BoxPlot.get_category_desc
+      ~BoxPlot.get_cmap
+      ~BoxPlot.get_colors
+      ~BoxPlot.sort_chart_1d
+      ~BoxPlot.sort_chart_2d
+      ~BoxPlot.supported_metrics
+   
+   
+
+   
+   
+   

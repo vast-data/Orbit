@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.TAU
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autodata:: TAU

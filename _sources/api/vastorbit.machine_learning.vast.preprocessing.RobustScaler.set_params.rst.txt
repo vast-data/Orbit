@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.RobustScaler.set\_params
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: RobustScaler.set_params

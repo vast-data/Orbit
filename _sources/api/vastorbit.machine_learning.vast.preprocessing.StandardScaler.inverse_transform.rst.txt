@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.StandardScaler.inverse\_transform
+================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: StandardScaler.inverse_transform

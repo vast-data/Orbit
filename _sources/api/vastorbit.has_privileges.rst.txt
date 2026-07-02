@@ -1,0 +1,6 @@
+﻿vastorbit.has\_privileges
+=========================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: has_privileges

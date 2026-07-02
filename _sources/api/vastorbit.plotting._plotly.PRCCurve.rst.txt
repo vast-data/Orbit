@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.PRCCurve
+====================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: PRCCurve
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PRCCurve.__init__
+      ~PRCCurve.check_metric
+      ~PRCCurve.draw
+      ~PRCCurve.get_category_desc
+      ~PRCCurve.get_cmap
+      ~PRCCurve.get_colors
+      ~PRCCurve.sort_chart_1d
+      ~PRCCurve.sort_chart_2d
+      ~PRCCurve.supported_metrics
+   
+   
+
+   
+   
+   

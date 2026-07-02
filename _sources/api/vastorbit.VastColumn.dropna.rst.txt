@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.dropna
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.dropna

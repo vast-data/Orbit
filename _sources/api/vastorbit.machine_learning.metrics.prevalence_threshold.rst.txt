@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.prevalence\_threshold
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: prevalence_threshold

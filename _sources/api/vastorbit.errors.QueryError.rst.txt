@@ -1,0 +1,6 @@
+﻿vastorbit.errors.QueryError
+===========================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: QueryError

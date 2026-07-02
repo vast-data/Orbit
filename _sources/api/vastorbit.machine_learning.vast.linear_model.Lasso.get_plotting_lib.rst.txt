@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.Lasso.get\_plotting\_lib
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: Lasso.get_plotting_lib

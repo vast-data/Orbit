@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.Scaler.to\_python
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: Scaler.to_python

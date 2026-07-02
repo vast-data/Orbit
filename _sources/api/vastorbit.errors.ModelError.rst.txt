@@ -1,0 +1,6 @@
+﻿vastorbit.errors.ModelError
+===========================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: ModelError

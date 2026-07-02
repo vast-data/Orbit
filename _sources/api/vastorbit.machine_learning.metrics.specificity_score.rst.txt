@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.specificity\_score
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: specificity_score

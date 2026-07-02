@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.PLSRegression.set\_params
+========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: PLSRegression.set_params

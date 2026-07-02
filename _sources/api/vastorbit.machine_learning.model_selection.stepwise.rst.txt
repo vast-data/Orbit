@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.stepwise
+=====================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection
+
+.. autofunction:: stepwise

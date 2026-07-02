@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.LogisticRegression.roc\_curve
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: LogisticRegression.roc_curve

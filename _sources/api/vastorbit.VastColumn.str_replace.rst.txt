@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.str\_replace
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.str_replace

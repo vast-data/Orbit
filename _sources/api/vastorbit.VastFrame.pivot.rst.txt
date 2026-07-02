@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.pivot
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.pivot

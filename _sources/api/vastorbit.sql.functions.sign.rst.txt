@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.sign
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: sign

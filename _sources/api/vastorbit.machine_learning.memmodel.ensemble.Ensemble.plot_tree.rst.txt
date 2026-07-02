@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.Ensemble.plot\_tree
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: Ensemble.plot_tree

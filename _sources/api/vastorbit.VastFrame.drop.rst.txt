@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.drop
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.drop

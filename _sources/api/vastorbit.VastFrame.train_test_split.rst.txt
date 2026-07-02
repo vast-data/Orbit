@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.train\_test\_split
+======================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.train_test_split

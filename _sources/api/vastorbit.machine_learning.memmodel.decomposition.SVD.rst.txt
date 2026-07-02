@@ -1,0 +1,33 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.SVD
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. autoclass:: SVD
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SVD.__init__
+      ~SVD.get_attributes
+      ~SVD.inverse_transform_sql
+      ~SVD.set_attributes
+      ~SVD.transform
+      ~SVD.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SVD.object_type
+   
+   

@@ -1,0 +1,38 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.BisectingKMeans
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoclass:: BisectingKMeans
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BisectingKMeans.__init__
+      ~BisectingKMeans.get_attributes
+      ~BisectingKMeans.plot_tree
+      ~BisectingKMeans.predict
+      ~BisectingKMeans.predict_proba
+      ~BisectingKMeans.predict_proba_sql
+      ~BisectingKMeans.predict_sql
+      ~BisectingKMeans.set_attributes
+      ~BisectingKMeans.to_graphviz
+      ~BisectingKMeans.transform
+      ~BisectingKMeans.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~BisectingKMeans.object_type
+   
+   

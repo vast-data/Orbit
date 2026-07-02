@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.VoronoiPlot
+=======================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: VoronoiPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~VoronoiPlot.__init__
+      ~VoronoiPlot.check_metric
+      ~VoronoiPlot.draw
+      ~VoronoiPlot.get_category_desc
+      ~VoronoiPlot.get_cmap
+      ~VoronoiPlot.get_colors
+      ~VoronoiPlot.sort_chart_1d
+      ~VoronoiPlot.sort_chart_2d
+      ~VoronoiPlot.supported_metrics
+   
+   
+
+   
+   
+   

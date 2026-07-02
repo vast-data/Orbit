@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.PLSRegression.get\_plotting\_lib
+===============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: PLSRegression.get_plotting_lib

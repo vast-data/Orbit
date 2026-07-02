@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.ARIMA.set\_params
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: ARIMA.set_params

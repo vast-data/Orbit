@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVR.deploySQL
+========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. automethod:: LinearSVR.deploySQL

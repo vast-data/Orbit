@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.BisectingKMeans.get\_plotting\_lib
+===========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: BisectingKMeans.get_plotting_lib

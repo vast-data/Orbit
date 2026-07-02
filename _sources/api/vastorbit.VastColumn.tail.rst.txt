@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.tail
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.tail

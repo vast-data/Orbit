@@ -1,0 +1,22 @@
+﻿vastorbit.plotting.sql.PlottingBaseSQL
+======================================
+
+.. currentmodule:: vastorbit.plotting.sql
+
+.. autoclass:: PlottingBaseSQL
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PlottingBaseSQL.__init__
+   
+   
+
+   
+   
+   

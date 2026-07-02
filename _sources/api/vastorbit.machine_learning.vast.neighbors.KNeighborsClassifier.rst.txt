@@ -1,0 +1,53 @@
+﻿vastorbit.machine\_learning.vast.neighbors.KNeighborsClassifier
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. autoclass:: KNeighborsClassifier
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~KNeighborsClassifier.__init__
+      ~KNeighborsClassifier.classification_report
+      ~KNeighborsClassifier.confusion_matrix
+      ~KNeighborsClassifier.contour
+      ~KNeighborsClassifier.cutoff_curve
+      ~KNeighborsClassifier.deploySQL
+      ~KNeighborsClassifier.drop
+      ~KNeighborsClassifier.export_models
+      ~KNeighborsClassifier.fit
+      ~KNeighborsClassifier.get_attributes
+      ~KNeighborsClassifier.get_match_index
+      ~KNeighborsClassifier.get_params
+      ~KNeighborsClassifier.get_plotting_lib
+      ~KNeighborsClassifier.import_models
+      ~KNeighborsClassifier.lift_chart
+      ~KNeighborsClassifier.prc_curve
+      ~KNeighborsClassifier.predict
+      ~KNeighborsClassifier.predict_proba
+      ~KNeighborsClassifier.report
+      ~KNeighborsClassifier.roc_curve
+      ~KNeighborsClassifier.score
+      ~KNeighborsClassifier.set_params
+      ~KNeighborsClassifier.summarize
+      ~KNeighborsClassifier.to_binary
+      ~KNeighborsClassifier.to_python
+      ~KNeighborsClassifier.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~KNeighborsClassifier.object_type
+   
+   

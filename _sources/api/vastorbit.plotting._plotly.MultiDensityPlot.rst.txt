@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.MultiDensityPlot
+============================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: MultiDensityPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MultiDensityPlot.__init__
+      ~MultiDensityPlot.check_metric
+      ~MultiDensityPlot.draw
+      ~MultiDensityPlot.get_category_desc
+      ~MultiDensityPlot.get_cmap
+      ~MultiDensityPlot.get_colors
+      ~MultiDensityPlot.sort_chart_1d
+      ~MultiDensityPlot.sort_chart_2d
+      ~MultiDensityPlot.supported_metrics
+   
+   
+
+   
+   
+   

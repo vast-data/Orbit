@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.candlestick
+================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.candlestick

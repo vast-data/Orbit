@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.shape
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.shape

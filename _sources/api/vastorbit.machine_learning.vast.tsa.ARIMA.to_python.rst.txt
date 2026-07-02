@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.ARIMA.to\_python
+=====================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: ARIMA.to_python

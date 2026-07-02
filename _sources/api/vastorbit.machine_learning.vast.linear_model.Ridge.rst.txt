@@ -1,0 +1,50 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.Ridge
+====================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoclass:: Ridge
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Ridge.__init__
+      ~Ridge.contour
+      ~Ridge.deploySQL
+      ~Ridge.drop
+      ~Ridge.export_models
+      ~Ridge.features_importance
+      ~Ridge.fit
+      ~Ridge.get_attributes
+      ~Ridge.get_match_index
+      ~Ridge.get_params
+      ~Ridge.get_plotting_lib
+      ~Ridge.import_models
+      ~Ridge.plot
+      ~Ridge.predict
+      ~Ridge.regression_report
+      ~Ridge.report
+      ~Ridge.score
+      ~Ridge.set_params
+      ~Ridge.summarize
+      ~Ridge.to_binary
+      ~Ridge.to_memmodel
+      ~Ridge.to_python
+      ~Ridge.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Ridge.object_type
+   
+   

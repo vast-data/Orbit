@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ChampionChallengerPlot
+======================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ChampionChallengerPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ChampionChallengerPlot.__init__
+      ~ChampionChallengerPlot.check_metric
+      ~ChampionChallengerPlot.draw
+      ~ChampionChallengerPlot.get_category_desc
+      ~ChampionChallengerPlot.get_cmap
+      ~ChampionChallengerPlot.get_colors
+      ~ChampionChallengerPlot.sort_chart_1d
+      ~ChampionChallengerPlot.sort_chart_2d
+      ~ChampionChallengerPlot.supported_metrics
+   
+   
+
+   
+   
+   

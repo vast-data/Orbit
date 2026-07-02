@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.LocalOutlierFactor.drop
+==================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: LocalOutlierFactor.drop

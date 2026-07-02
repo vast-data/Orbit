@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.naive\_bayes.NaiveBayes.get\_attributes
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.naive_bayes
+
+.. automethod:: NaiveBayes.get_attributes

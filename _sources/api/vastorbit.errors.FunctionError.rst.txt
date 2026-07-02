@@ -1,0 +1,6 @@
+﻿vastorbit.errors.FunctionError
+==============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: FunctionError

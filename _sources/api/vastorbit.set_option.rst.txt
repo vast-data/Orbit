@@ -1,0 +1,6 @@
+﻿vastorbit.set\_option
+=====================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: set_option

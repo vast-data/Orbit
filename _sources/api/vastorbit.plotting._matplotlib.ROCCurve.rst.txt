@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ROCCurve
+========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ROCCurve
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ROCCurve.__init__
+      ~ROCCurve.check_metric
+      ~ROCCurve.draw
+      ~ROCCurve.get_category_desc
+      ~ROCCurve.get_cmap
+      ~ROCCurve.get_colors
+      ~ROCCurve.sort_chart_1d
+      ~ROCCurve.sort_chart_2d
+      ~ROCCurve.supported_metrics
+   
+   
+
+   
+   
+   

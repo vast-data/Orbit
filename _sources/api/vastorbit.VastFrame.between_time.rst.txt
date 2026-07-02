@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.between\_time
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.between_time

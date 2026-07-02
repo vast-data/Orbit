@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.Clustering.set\_attributes
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: Clustering.set_attributes

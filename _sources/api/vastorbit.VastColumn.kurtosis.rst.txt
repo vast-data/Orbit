@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.kurtosis
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.kurtosis

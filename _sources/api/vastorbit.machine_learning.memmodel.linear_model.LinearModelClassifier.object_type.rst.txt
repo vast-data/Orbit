@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.linear\_model.LinearModelClassifier.object\_type
+=====================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.linear_model
+
+.. autoproperty:: LinearModelClassifier.object_type

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.ScatterPlot
+=======================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: ScatterPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ScatterPlot.__init__
+      ~ScatterPlot.check_metric
+      ~ScatterPlot.draw
+      ~ScatterPlot.get_category_desc
+      ~ScatterPlot.get_cmap
+      ~ScatterPlot.get_colors
+      ~ScatterPlot.sort_chart_1d
+      ~ScatterPlot.sort_chart_2d
+      ~ScatterPlot.supported_metrics
+   
+   
+
+   
+   
+   

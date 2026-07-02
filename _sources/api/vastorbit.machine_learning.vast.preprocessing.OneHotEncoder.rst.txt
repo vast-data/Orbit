@@ -1,0 +1,47 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.OneHotEncoder
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autoclass:: OneHotEncoder
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OneHotEncoder.__init__
+      ~OneHotEncoder.contour
+      ~OneHotEncoder.deployInverseSQL
+      ~OneHotEncoder.deploySQL
+      ~OneHotEncoder.drop
+      ~OneHotEncoder.export_models
+      ~OneHotEncoder.fit
+      ~OneHotEncoder.get_attributes
+      ~OneHotEncoder.get_match_index
+      ~OneHotEncoder.get_params
+      ~OneHotEncoder.get_plotting_lib
+      ~OneHotEncoder.import_models
+      ~OneHotEncoder.inverse_transform
+      ~OneHotEncoder.set_params
+      ~OneHotEncoder.summarize
+      ~OneHotEncoder.to_binary
+      ~OneHotEncoder.to_memmodel
+      ~OneHotEncoder.to_python
+      ~OneHotEncoder.to_sql
+      ~OneHotEncoder.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~OneHotEncoder.object_type
+   
+   

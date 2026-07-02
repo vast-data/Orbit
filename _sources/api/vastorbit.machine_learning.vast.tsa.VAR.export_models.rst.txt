@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.VAR.export\_models
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: VAR.export_models

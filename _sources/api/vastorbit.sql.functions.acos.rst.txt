@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.acos
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: acos

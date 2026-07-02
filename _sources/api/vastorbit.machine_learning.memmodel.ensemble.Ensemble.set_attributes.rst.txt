@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.Ensemble.set\_attributes
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: Ensemble.set_attributes

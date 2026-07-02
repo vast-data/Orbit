@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.nunique
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.nunique

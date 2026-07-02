@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.log\_loss
+=============================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: log_loss

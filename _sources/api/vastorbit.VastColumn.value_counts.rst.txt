@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.value\_counts
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.value_counts

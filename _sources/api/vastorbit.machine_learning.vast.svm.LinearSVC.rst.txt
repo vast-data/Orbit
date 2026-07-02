@@ -1,0 +1,57 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVC
+==============================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. autoclass:: LinearSVC
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LinearSVC.__init__
+      ~LinearSVC.classification_report
+      ~LinearSVC.confusion_matrix
+      ~LinearSVC.contour
+      ~LinearSVC.cutoff_curve
+      ~LinearSVC.deploySQL
+      ~LinearSVC.drop
+      ~LinearSVC.export_models
+      ~LinearSVC.features_importance
+      ~LinearSVC.fit
+      ~LinearSVC.get_attributes
+      ~LinearSVC.get_match_index
+      ~LinearSVC.get_params
+      ~LinearSVC.get_plotting_lib
+      ~LinearSVC.import_models
+      ~LinearSVC.lift_chart
+      ~LinearSVC.plot
+      ~LinearSVC.prc_curve
+      ~LinearSVC.predict
+      ~LinearSVC.predict_proba
+      ~LinearSVC.report
+      ~LinearSVC.roc_curve
+      ~LinearSVC.score
+      ~LinearSVC.set_params
+      ~LinearSVC.summarize
+      ~LinearSVC.to_binary
+      ~LinearSVC.to_memmodel
+      ~LinearSVC.to_python
+      ~LinearSVC.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~LinearSVC.classes_
+      ~LinearSVC.object_type
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.Scaler.deploySQL
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: Scaler.deploySQL

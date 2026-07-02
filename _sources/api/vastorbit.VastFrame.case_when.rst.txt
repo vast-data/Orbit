@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.case\_when
+==============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.case_when

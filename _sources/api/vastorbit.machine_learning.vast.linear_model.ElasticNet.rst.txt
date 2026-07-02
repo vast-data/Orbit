@@ -1,0 +1,50 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.ElasticNet
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoclass:: ElasticNet
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ElasticNet.__init__
+      ~ElasticNet.contour
+      ~ElasticNet.deploySQL
+      ~ElasticNet.drop
+      ~ElasticNet.export_models
+      ~ElasticNet.features_importance
+      ~ElasticNet.fit
+      ~ElasticNet.get_attributes
+      ~ElasticNet.get_match_index
+      ~ElasticNet.get_params
+      ~ElasticNet.get_plotting_lib
+      ~ElasticNet.import_models
+      ~ElasticNet.plot
+      ~ElasticNet.predict
+      ~ElasticNet.regression_report
+      ~ElasticNet.report
+      ~ElasticNet.score
+      ~ElasticNet.set_params
+      ~ElasticNet.summarize
+      ~ElasticNet.to_binary
+      ~ElasticNet.to_memmodel
+      ~ElasticNet.to_python
+      ~ElasticNet.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ElasticNet.object_type
+   
+   

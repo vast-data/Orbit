@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.scatter
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.scatter

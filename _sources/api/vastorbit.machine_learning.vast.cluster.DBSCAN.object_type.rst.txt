@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.DBSCAN.object\_type
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. autoproperty:: DBSCAN.object_type

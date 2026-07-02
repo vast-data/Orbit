@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.select
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.select

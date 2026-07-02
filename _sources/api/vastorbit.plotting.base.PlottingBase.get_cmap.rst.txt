@@ -1,0 +1,6 @@
+﻿vastorbit.plotting.base.PlottingBase.get\_cmap
+==============================================
+
+.. currentmodule:: vastorbit.plotting.base
+
+.. automethod:: PlottingBase.get_cmap

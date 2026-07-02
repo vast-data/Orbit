@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.avg
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: avg

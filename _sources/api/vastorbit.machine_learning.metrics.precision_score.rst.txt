@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.precision\_score
+====================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: precision_score

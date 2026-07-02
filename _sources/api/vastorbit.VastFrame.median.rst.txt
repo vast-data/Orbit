@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.median
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.median

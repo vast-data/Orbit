@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.svm.LinearSVC.cutoff\_curve
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.svm
+
+.. automethod:: LinearSVC.cutoff_curve

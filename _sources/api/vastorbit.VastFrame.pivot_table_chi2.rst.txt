@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.pivot\_table\_chi2
+======================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.pivot_table_chi2

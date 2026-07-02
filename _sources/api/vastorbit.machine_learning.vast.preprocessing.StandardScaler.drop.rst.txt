@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.StandardScaler.drop
+==================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: StandardScaler.drop

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.SpiderChart
+=======================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: SpiderChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SpiderChart.__init__
+      ~SpiderChart.check_metric
+      ~SpiderChart.draw
+      ~SpiderChart.get_category_desc
+      ~SpiderChart.get_cmap
+      ~SpiderChart.get_colors
+      ~SpiderChart.sort_chart_1d
+      ~SpiderChart.sort_chart_2d
+      ~SpiderChart.supported_metrics
+   
+   
+
+   
+   
+   

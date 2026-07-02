@@ -1,0 +1,6 @@
+﻿vastorbit.connection.delete\_connection
+=======================================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: delete_connection

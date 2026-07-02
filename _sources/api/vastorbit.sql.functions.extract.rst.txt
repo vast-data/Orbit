@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.extract
+===============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: extract

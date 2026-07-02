@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.info
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.info

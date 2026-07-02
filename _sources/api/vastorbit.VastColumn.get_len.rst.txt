@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.get\_len
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.get_len

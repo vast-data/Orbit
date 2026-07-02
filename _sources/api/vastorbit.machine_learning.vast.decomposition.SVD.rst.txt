@@ -1,0 +1,51 @@
+﻿vastorbit.machine\_learning.vast.decomposition.SVD
+==================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. autoclass:: SVD
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SVD.__init__
+      ~SVD.contour
+      ~SVD.deployInverseSQL
+      ~SVD.deploySQL
+      ~SVD.drop
+      ~SVD.export_models
+      ~SVD.fit
+      ~SVD.get_attributes
+      ~SVD.get_match_index
+      ~SVD.get_params
+      ~SVD.get_plotting_lib
+      ~SVD.import_models
+      ~SVD.inverse_transform
+      ~SVD.plot
+      ~SVD.plot_circle
+      ~SVD.plot_scree
+      ~SVD.score
+      ~SVD.set_params
+      ~SVD.summarize
+      ~SVD.to_binary
+      ~SVD.to_memmodel
+      ~SVD.to_python
+      ~SVD.to_sql
+      ~SVD.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SVD.object_type
+   
+   

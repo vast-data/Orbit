@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.informedness
+================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: informedness

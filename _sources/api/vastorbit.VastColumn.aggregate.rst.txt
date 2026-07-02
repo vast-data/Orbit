@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.aggregate
+==============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.aggregate

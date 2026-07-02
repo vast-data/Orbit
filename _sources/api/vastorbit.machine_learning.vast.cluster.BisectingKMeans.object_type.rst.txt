@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.BisectingKMeans.object\_type
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. autoproperty:: BisectingKMeans.object_type

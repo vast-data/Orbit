@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.bool\_to\_int
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.bool_to_int

@@ -1,0 +1,47 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.MinMaxScaler
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autoclass:: MinMaxScaler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MinMaxScaler.__init__
+      ~MinMaxScaler.contour
+      ~MinMaxScaler.deployInverseSQL
+      ~MinMaxScaler.deploySQL
+      ~MinMaxScaler.drop
+      ~MinMaxScaler.export_models
+      ~MinMaxScaler.fit
+      ~MinMaxScaler.get_attributes
+      ~MinMaxScaler.get_match_index
+      ~MinMaxScaler.get_params
+      ~MinMaxScaler.get_plotting_lib
+      ~MinMaxScaler.import_models
+      ~MinMaxScaler.inverse_transform
+      ~MinMaxScaler.set_params
+      ~MinMaxScaler.summarize
+      ~MinMaxScaler.to_binary
+      ~MinMaxScaler.to_memmodel
+      ~MinMaxScaler.to_python
+      ~MinMaxScaler.to_sql
+      ~MinMaxScaler.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MinMaxScaler.object_type
+   
+   

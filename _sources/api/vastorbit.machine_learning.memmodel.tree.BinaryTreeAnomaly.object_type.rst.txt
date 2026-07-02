@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeAnomaly.object\_type
+========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoproperty:: BinaryTreeAnomaly.object_type

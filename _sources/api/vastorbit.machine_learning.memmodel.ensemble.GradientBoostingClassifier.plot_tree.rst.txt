@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.GradientBoostingClassifier.plot\_tree
+===================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: GradientBoostingClassifier.plot_tree

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.AnimatedBubblePlot
+==================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: AnimatedBubblePlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AnimatedBubblePlot.__init__
+      ~AnimatedBubblePlot.check_metric
+      ~AnimatedBubblePlot.draw
+      ~AnimatedBubblePlot.get_category_desc
+      ~AnimatedBubblePlot.get_cmap
+      ~AnimatedBubblePlot.get_colors
+      ~AnimatedBubblePlot.sort_chart_1d
+      ~AnimatedBubblePlot.sort_chart_2d
+      ~AnimatedBubblePlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.AR.to\_binary
+==================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: AR.to_binary

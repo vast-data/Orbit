@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeRegressor
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoclass:: BinaryTreeRegressor
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BinaryTreeRegressor.__init__
+      ~BinaryTreeRegressor.get_attributes
+      ~BinaryTreeRegressor.plot_tree
+      ~BinaryTreeRegressor.predict
+      ~BinaryTreeRegressor.predict_proba
+      ~BinaryTreeRegressor.predict_proba_sql
+      ~BinaryTreeRegressor.predict_sql
+      ~BinaryTreeRegressor.set_attributes
+      ~BinaryTreeRegressor.to_graphviz
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~BinaryTreeRegressor.object_type
+   
+   

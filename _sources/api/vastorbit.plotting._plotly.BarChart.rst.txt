@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.BarChart
+====================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: BarChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BarChart.__init__
+      ~BarChart.check_metric
+      ~BarChart.draw
+      ~BarChart.get_category_desc
+      ~BarChart.get_cmap
+      ~BarChart.get_colors
+      ~BarChart.sort_chart_1d
+      ~BarChart.sort_chart_2d
+      ~BarChart.supported_metrics
+   
+   
+
+   
+   
+   

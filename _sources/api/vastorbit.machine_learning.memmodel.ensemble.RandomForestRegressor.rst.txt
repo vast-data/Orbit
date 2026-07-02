@@ -1,0 +1,33 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.RandomForestRegressor
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. autoclass:: RandomForestRegressor
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~RandomForestRegressor.__init__
+      ~RandomForestRegressor.get_attributes
+      ~RandomForestRegressor.plot_tree
+      ~RandomForestRegressor.predict
+      ~RandomForestRegressor.predict_sql
+      ~RandomForestRegressor.set_attributes
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~RandomForestRegressor.object_type
+   
+   

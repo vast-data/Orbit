@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.PCA.rotate
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. automethod:: PCA.rotate

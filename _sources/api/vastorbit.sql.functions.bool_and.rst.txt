@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.bool\_and
+=================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: bool_and

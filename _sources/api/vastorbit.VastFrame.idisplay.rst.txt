@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.idisplay
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.idisplay

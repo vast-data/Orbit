@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.median\_absolute\_error
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: median_absolute_error

@@ -1,0 +1,60 @@
+﻿vastorbit.machine\_learning.vast.ensemble.GradientBoostingClassifier
+====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoclass:: GradientBoostingClassifier
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GradientBoostingClassifier.__init__
+      ~GradientBoostingClassifier.classification_report
+      ~GradientBoostingClassifier.confusion_matrix
+      ~GradientBoostingClassifier.contour
+      ~GradientBoostingClassifier.cutoff_curve
+      ~GradientBoostingClassifier.deploySQL
+      ~GradientBoostingClassifier.drop
+      ~GradientBoostingClassifier.export_models
+      ~GradientBoostingClassifier.features_importance
+      ~GradientBoostingClassifier.fit
+      ~GradientBoostingClassifier.get_attributes
+      ~GradientBoostingClassifier.get_match_index
+      ~GradientBoostingClassifier.get_params
+      ~GradientBoostingClassifier.get_plotting_lib
+      ~GradientBoostingClassifier.get_tree
+      ~GradientBoostingClassifier.import_models
+      ~GradientBoostingClassifier.lift_chart
+      ~GradientBoostingClassifier.plot
+      ~GradientBoostingClassifier.plot_tree
+      ~GradientBoostingClassifier.prc_curve
+      ~GradientBoostingClassifier.predict
+      ~GradientBoostingClassifier.predict_proba
+      ~GradientBoostingClassifier.report
+      ~GradientBoostingClassifier.roc_curve
+      ~GradientBoostingClassifier.score
+      ~GradientBoostingClassifier.set_params
+      ~GradientBoostingClassifier.summarize
+      ~GradientBoostingClassifier.to_binary
+      ~GradientBoostingClassifier.to_graphviz
+      ~GradientBoostingClassifier.to_json
+      ~GradientBoostingClassifier.to_memmodel
+      ~GradientBoostingClassifier.to_python
+      ~GradientBoostingClassifier.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GradientBoostingClassifier.object_type
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.expected\_store\_usage
+==========================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.expected_store_usage

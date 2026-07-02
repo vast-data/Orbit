@@ -1,0 +1,29 @@
+﻿vastorbit.plotting.\_matplotlib.MatplotlibBase
+==============================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: MatplotlibBase
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MatplotlibBase.__init__
+      ~MatplotlibBase.check_metric
+      ~MatplotlibBase.get_category_desc
+      ~MatplotlibBase.get_cmap
+      ~MatplotlibBase.get_colors
+      ~MatplotlibBase.sort_chart_1d
+      ~MatplotlibBase.sort_chart_2d
+      ~MatplotlibBase.supported_metrics
+   
+   
+
+   
+   
+   

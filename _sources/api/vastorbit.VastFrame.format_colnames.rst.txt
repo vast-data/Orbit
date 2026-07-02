@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.format\_colnames
+====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.format_colnames

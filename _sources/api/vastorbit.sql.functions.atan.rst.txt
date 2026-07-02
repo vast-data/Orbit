@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.atan
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: atan

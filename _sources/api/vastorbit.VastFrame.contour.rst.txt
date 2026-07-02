@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.contour
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.contour

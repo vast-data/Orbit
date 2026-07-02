@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.cot
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: cot

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.Ridge.get\_plotting\_lib
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: Ridge.get_plotting_lib

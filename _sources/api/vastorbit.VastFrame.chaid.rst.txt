@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.chaid
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.chaid

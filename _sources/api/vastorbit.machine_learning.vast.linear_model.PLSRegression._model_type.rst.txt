@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.PLSRegression.\_model\_type
+==========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoproperty:: PLSRegression._model_type

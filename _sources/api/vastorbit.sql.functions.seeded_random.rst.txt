@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.seeded\_random
+======================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: seeded_random

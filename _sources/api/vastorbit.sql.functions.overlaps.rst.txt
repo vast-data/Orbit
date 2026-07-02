@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.overlaps
+================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: overlaps

@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_dataset\_num
+=====================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_dataset_num

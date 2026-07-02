@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.nsmallest
+==============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.nsmallest

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ScatterMatrix
+=============================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ScatterMatrix
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ScatterMatrix.__init__
+      ~ScatterMatrix.check_metric
+      ~ScatterMatrix.draw
+      ~ScatterMatrix.get_category_desc
+      ~ScatterMatrix.get_cmap
+      ~ScatterMatrix.get_colors
+      ~ScatterMatrix.sort_chart_1d
+      ~ScatterMatrix.sort_chart_2d
+      ~ScatterMatrix.supported_metrics
+   
+   
+
+   
+   
+   

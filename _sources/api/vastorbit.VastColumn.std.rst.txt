@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.std
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.std

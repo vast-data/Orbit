@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.cummin
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.cummin

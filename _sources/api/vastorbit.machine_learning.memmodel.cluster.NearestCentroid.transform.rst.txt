@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.NearestCentroid.transform
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: NearestCentroid.transform

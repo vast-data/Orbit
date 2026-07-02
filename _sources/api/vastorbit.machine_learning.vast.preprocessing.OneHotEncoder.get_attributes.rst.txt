@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.OneHotEncoder.get\_attributes
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: OneHotEncoder.get_attributes

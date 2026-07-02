@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.topk
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.topk

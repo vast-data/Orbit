@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.naive\_bayes.NaiveBayes.predict\_proba
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.naive_bayes
+
+.. automethod:: NaiveBayes.predict_proba

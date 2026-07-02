@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.LocalOutlierFactor.export\_models
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: LocalOutlierFactor.export_models

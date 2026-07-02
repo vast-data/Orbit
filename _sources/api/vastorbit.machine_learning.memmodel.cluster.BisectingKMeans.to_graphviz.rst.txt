@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.BisectingKMeans.to\_graphviz
+=========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: BisectingKMeans.to_graphviz

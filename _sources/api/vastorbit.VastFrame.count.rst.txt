@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.count
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.count

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.NestedPieChart
+==========================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: NestedPieChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NestedPieChart.__init__
+      ~NestedPieChart.check_metric
+      ~NestedPieChart.draw
+      ~NestedPieChart.get_category_desc
+      ~NestedPieChart.get_cmap
+      ~NestedPieChart.get_colors
+      ~NestedPieChart.sort_chart_1d
+      ~NestedPieChart.sort_chart_2d
+      ~NestedPieChart.supported_metrics
+   
+   
+
+   
+   
+   

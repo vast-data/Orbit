@@ -1,0 +1,6 @@
+﻿vastorbit.connection.set\_connection
+====================================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: set_connection

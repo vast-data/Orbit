@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.explained\_variance
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: explained_variance

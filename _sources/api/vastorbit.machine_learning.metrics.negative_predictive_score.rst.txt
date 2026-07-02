@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.negative\_predictive\_score
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: negative_predictive_score

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.decode
+==============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: decode

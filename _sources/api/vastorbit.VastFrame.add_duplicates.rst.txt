@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.add\_duplicates
+===================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.add_duplicates

@@ -1,0 +1,43 @@
+﻿vastorbit.core.tablesample.base.TableSample
+===========================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. autoclass:: TableSample
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TableSample.__init__
+      ~TableSample.append
+      ~TableSample.category
+      ~TableSample.decimal_to_float
+      ~TableSample.get_columns
+      ~TableSample.merge
+      ~TableSample.narrow
+      ~TableSample.read_sql
+      ~TableSample.shape
+      ~TableSample.sort
+      ~TableSample.to_list
+      ~TableSample.to_numpy
+      ~TableSample.to_pandas
+      ~TableSample.to_sql
+      ~TableSample.to_vdf
+      ~TableSample.transpose
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~TableSample.object_type
+   
+   

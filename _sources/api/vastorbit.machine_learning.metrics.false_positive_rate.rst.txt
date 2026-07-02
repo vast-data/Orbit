@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.false\_positive\_rate
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: false_positive_rate

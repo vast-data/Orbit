@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.RobustScaler.transform
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: RobustScaler.transform

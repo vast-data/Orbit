@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.RangeCurve
+==========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: RangeCurve
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~RangeCurve.__init__
+      ~RangeCurve.check_metric
+      ~RangeCurve.draw
+      ~RangeCurve.get_category_desc
+      ~RangeCurve.get_cmap
+      ~RangeCurve.get_colors
+      ~RangeCurve.sort_chart_1d
+      ~RangeCurve.sort_chart_2d
+      ~RangeCurve.supported_metrics
+   
+   
+
+   
+   
+   

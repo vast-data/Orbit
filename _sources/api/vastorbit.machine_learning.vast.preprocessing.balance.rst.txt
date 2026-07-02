@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.balance
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autofunction:: balance

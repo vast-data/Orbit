@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.PI
+==========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autodata:: PI

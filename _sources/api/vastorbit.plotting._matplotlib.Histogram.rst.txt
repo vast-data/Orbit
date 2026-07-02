@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.Histogram
+=========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: Histogram
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Histogram.__init__
+      ~Histogram.check_metric
+      ~Histogram.draw
+      ~Histogram.get_category_desc
+      ~Histogram.get_cmap
+      ~Histogram.get_colors
+      ~Histogram.sort_chart_1d
+      ~Histogram.sort_chart_2d
+      ~Histogram.supported_metrics
+   
+   
+
+   
+   
+   

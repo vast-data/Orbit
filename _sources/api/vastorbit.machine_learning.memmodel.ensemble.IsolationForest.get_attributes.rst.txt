@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.IsolationForest.get\_attributes
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: IsolationForest.get_attributes

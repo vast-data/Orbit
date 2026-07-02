@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.KNeighborsClassifier.to\_binary
+==========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: KNeighborsClassifier.to_binary

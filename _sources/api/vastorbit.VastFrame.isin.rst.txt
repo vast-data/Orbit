@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.isin
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.isin

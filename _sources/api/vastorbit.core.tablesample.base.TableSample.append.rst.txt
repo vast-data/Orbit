@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.append
+==================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.append

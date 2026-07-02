@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.regexp
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.regexp

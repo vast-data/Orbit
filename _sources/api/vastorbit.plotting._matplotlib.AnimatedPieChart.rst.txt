@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.AnimatedPieChart
+================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: AnimatedPieChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AnimatedPieChart.__init__
+      ~AnimatedPieChart.check_metric
+      ~AnimatedPieChart.draw
+      ~AnimatedPieChart.get_category_desc
+      ~AnimatedPieChart.get_cmap
+      ~AnimatedPieChart.get_colors
+      ~AnimatedPieChart.sort_chart_1d
+      ~AnimatedPieChart.sort_chart_2d
+      ~AnimatedPieChart.supported_metrics
+   
+   
+
+   
+   
+   

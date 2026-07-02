@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.LogisticRegressionPlot
+======================================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: LogisticRegressionPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LogisticRegressionPlot.__init__
+      ~LogisticRegressionPlot.check_metric
+      ~LogisticRegressionPlot.draw
+      ~LogisticRegressionPlot.get_category_desc
+      ~LogisticRegressionPlot.get_cmap
+      ~LogisticRegressionPlot.get_colors
+      ~LogisticRegressionPlot.sort_chart_1d
+      ~LogisticRegressionPlot.sort_chart_2d
+      ~LogisticRegressionPlot.supported_metrics
+   
+   
+
+   
+   
+   

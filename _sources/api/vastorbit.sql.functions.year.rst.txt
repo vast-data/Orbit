@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.year
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: year

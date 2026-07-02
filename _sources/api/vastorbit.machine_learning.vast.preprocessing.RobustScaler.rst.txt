@@ -1,0 +1,47 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.RobustScaler
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autoclass:: RobustScaler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~RobustScaler.__init__
+      ~RobustScaler.contour
+      ~RobustScaler.deployInverseSQL
+      ~RobustScaler.deploySQL
+      ~RobustScaler.drop
+      ~RobustScaler.export_models
+      ~RobustScaler.fit
+      ~RobustScaler.get_attributes
+      ~RobustScaler.get_match_index
+      ~RobustScaler.get_params
+      ~RobustScaler.get_plotting_lib
+      ~RobustScaler.import_models
+      ~RobustScaler.inverse_transform
+      ~RobustScaler.set_params
+      ~RobustScaler.summarize
+      ~RobustScaler.to_binary
+      ~RobustScaler.to_memmodel
+      ~RobustScaler.to_python
+      ~RobustScaler.to_sql
+      ~RobustScaler.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~RobustScaler.object_type
+   
+   

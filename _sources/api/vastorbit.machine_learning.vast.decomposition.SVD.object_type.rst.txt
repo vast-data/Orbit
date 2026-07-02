@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.SVD.object\_type
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. autoproperty:: SVD.object_type

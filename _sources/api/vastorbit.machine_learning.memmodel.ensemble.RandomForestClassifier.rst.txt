@@ -1,0 +1,35 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.RandomForestClassifier
+====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. autoclass:: RandomForestClassifier
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~RandomForestClassifier.__init__
+      ~RandomForestClassifier.get_attributes
+      ~RandomForestClassifier.plot_tree
+      ~RandomForestClassifier.predict
+      ~RandomForestClassifier.predict_proba
+      ~RandomForestClassifier.predict_proba_sql
+      ~RandomForestClassifier.predict_sql
+      ~RandomForestClassifier.set_attributes
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~RandomForestClassifier.object_type
+   
+   

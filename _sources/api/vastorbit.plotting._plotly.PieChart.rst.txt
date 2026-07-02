@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.PieChart
+====================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: PieChart
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PieChart.__init__
+      ~PieChart.check_metric
+      ~PieChart.draw
+      ~PieChart.get_category_desc
+      ~PieChart.get_cmap
+      ~PieChart.get_colors
+      ~PieChart.sort_chart_1d
+      ~PieChart.sort_chart_2d
+      ~PieChart.supported_metrics
+   
+   
+
+   
+   
+   

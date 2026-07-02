@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.hour
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: hour

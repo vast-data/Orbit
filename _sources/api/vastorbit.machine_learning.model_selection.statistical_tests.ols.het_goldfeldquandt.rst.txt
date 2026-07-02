@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.statistical\_tests.ols.het\_goldfeldquandt
+=======================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection.statistical_tests.ols
+
+.. autofunction:: het_goldfeldquandt

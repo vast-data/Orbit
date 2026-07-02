@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.BisectingKMeans.features\_importance
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: BisectingKMeans.features_importance

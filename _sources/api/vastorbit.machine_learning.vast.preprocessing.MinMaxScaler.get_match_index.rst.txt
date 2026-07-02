@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.MinMaxScaler.get\_match\_index
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: MinMaxScaler.get_match_index

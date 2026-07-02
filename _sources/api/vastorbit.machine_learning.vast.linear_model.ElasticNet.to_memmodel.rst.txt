@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.ElasticNet.to\_memmodel
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: ElasticNet.to_memmodel

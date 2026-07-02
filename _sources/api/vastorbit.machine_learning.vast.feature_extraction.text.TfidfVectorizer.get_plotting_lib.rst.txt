@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.feature\_extraction.text.TfidfVectorizer.get\_plotting\_lib
+============================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.feature_extraction.text
+
+.. automethod:: TfidfVectorizer.get_plotting_lib

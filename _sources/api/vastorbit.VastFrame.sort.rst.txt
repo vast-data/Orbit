@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.sort
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.sort

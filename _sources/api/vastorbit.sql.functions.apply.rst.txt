@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.apply
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: apply

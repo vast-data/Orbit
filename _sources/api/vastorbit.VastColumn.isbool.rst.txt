@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.isbool
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.isbool

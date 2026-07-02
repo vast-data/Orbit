@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.IsolationForest.predict\_sql
+==========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: IsolationForest.predict_sql

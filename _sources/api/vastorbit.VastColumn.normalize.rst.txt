@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.normalize
+==============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.normalize

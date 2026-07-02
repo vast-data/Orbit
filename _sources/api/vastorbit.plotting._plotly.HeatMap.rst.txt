@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.HeatMap
+===================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: HeatMap
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~HeatMap.__init__
+      ~HeatMap.check_metric
+      ~HeatMap.draw
+      ~HeatMap.get_category_desc
+      ~HeatMap.get_cmap
+      ~HeatMap.get_colors
+      ~HeatMap.sort_chart_1d
+      ~HeatMap.sort_chart_2d
+      ~HeatMap.supported_metrics
+   
+   
+
+   
+   
+   

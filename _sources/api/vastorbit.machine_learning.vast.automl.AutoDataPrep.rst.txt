@@ -1,0 +1,43 @@
+﻿vastorbit.machine\_learning.vast.automl.AutoDataPrep
+====================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.automl
+
+.. autoclass:: AutoDataPrep
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AutoDataPrep.__init__
+      ~AutoDataPrep.contour
+      ~AutoDataPrep.deploySQL
+      ~AutoDataPrep.drop
+      ~AutoDataPrep.export_models
+      ~AutoDataPrep.fit
+      ~AutoDataPrep.get_attributes
+      ~AutoDataPrep.get_match_index
+      ~AutoDataPrep.get_params
+      ~AutoDataPrep.get_plotting_lib
+      ~AutoDataPrep.import_models
+      ~AutoDataPrep.set_params
+      ~AutoDataPrep.summarize
+      ~AutoDataPrep.to_binary
+      ~AutoDataPrep.to_python
+      ~AutoDataPrep.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AutoDataPrep.object_type
+   
+   

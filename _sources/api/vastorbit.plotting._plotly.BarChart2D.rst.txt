@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.BarChart2D
+======================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: BarChart2D
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BarChart2D.__init__
+      ~BarChart2D.check_metric
+      ~BarChart2D.draw
+      ~BarChart2D.get_category_desc
+      ~BarChart2D.get_cmap
+      ~BarChart2D.get_colors
+      ~BarChart2D.sort_chart_1d
+      ~BarChart2D.sort_chart_2d
+      ~BarChart2D.supported_metrics
+   
+   
+
+   
+   
+   

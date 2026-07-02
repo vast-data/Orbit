@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.DensityPlot
+===========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: DensityPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DensityPlot.__init__
+      ~DensityPlot.check_metric
+      ~DensityPlot.draw
+      ~DensityPlot.get_category_desc
+      ~DensityPlot.get_cmap
+      ~DensityPlot.get_colors
+      ~DensityPlot.sort_chart_1d
+      ~DensityPlot.sort_chart_2d
+      ~DensityPlot.supported_metrics
+   
+   
+
+   
+   
+   

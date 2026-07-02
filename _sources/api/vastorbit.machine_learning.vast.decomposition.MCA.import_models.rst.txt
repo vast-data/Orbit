@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.MCA.import\_models
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: MCA.import_models

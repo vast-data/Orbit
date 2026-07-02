@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.div
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.div

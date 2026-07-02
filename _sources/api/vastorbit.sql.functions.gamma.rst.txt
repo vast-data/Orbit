@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.gamma
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: gamma

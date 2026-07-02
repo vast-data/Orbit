@@ -1,0 +1,33 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.IsolationForest
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. autoclass:: IsolationForest
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~IsolationForest.__init__
+      ~IsolationForest.get_attributes
+      ~IsolationForest.plot_tree
+      ~IsolationForest.predict
+      ~IsolationForest.predict_sql
+      ~IsolationForest.set_attributes
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~IsolationForest.object_type
+   
+   

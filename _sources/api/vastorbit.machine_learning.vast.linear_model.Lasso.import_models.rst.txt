@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.Lasso.import\_models
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: Lasso.import_models

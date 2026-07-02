@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.cosh
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: cosh

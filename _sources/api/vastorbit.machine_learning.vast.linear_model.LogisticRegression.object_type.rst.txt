@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.LogisticRegression.object\_type
+==============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoproperty:: LogisticRegression.object_type

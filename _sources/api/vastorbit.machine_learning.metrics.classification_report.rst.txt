@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.classification\_report
+==========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: classification_report

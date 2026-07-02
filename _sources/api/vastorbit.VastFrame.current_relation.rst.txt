@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.current\_relation
+=====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.current_relation

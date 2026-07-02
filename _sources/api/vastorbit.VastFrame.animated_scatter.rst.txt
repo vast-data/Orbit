@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.animated\_scatter
+=====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.animated_scatter

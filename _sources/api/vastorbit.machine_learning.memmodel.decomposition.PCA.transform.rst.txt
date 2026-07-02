@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.PCA.transform
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. automethod:: PCA.transform

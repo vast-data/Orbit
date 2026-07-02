@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.regr
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.regr

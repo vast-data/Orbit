@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.LogisticRegression.score
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: LogisticRegression.score

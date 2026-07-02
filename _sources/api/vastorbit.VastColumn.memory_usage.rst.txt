@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.memory\_usage
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.memory_usage

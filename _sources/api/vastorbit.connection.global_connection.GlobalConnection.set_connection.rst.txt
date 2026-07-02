@@ -1,0 +1,6 @@
+﻿vastorbit.connection.global\_connection.GlobalConnection.set\_connection
+========================================================================
+
+.. currentmodule:: vastorbit.connection.global_connection
+
+.. automethod:: GlobalConnection.set_connection

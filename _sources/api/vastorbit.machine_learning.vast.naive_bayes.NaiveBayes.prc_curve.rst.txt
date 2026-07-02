@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.naive\_bayes.NaiveBayes.prc\_curve
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.naive_bayes
+
+.. automethod:: NaiveBayes.prc_curve

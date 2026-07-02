@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.swap
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.swap

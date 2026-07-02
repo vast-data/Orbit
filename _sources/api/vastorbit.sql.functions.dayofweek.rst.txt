@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.dayofweek
+=================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: dayofweek

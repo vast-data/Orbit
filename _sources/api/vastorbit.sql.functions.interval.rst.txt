@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.interval
+================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: interval

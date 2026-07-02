@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.numcol
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.numcol

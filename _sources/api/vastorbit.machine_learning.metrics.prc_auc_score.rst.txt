@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.prc\_auc\_score
+===================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: prc_auc_score

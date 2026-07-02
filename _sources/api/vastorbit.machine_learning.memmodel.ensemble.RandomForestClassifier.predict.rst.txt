@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.RandomForestClassifier.predict
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: RandomForestClassifier.predict

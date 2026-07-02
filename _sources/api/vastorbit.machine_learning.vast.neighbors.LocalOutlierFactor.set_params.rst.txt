@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.LocalOutlierFactor.set\_params
+=========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: LocalOutlierFactor.set_params

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.trunc
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: trunc

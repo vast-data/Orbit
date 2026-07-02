@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.tanh
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: tanh

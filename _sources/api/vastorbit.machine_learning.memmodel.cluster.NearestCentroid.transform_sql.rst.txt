@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.NearestCentroid.transform\_sql
+===========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: NearestCentroid.transform_sql

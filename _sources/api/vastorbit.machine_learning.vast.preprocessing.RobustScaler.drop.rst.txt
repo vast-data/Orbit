@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.RobustScaler.drop
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: RobustScaler.drop

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.scale
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.scale

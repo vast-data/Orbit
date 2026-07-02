@@ -1,0 +1,6 @@
+﻿vastorbit.drop
+==============
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: drop

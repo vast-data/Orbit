@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.BisectingKMeans.plot\_voronoi
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: BisectingKMeans.plot_voronoi

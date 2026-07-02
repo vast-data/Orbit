@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.month
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: month

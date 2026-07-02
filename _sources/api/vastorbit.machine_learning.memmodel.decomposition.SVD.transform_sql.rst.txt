@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.SVD.transform\_sql
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. automethod:: SVD.transform_sql

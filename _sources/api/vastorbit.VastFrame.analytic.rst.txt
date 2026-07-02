@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.analytic
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.analytic

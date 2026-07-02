@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.search
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.search

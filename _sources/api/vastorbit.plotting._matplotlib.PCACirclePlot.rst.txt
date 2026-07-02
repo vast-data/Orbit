@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.PCACirclePlot
+=============================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: PCACirclePlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~PCACirclePlot.__init__
+      ~PCACirclePlot.check_metric
+      ~PCACirclePlot.draw
+      ~PCACirclePlot.get_category_desc
+      ~PCACirclePlot.get_cmap
+      ~PCACirclePlot.get_colors
+      ~PCACirclePlot.sort_chart_1d
+      ~PCACirclePlot.sort_chart_2d
+      ~PCACirclePlot.supported_metrics
+   
+   
+
+   
+   
+   

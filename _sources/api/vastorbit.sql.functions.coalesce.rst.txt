@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.coalesce
+================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: coalesce

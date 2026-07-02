@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_airline\_passengers
+============================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_airline_passengers

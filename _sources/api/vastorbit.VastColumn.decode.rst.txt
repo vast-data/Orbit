@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.decode
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.decode

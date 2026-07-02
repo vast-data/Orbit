@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KPrototypes
+========================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoclass:: KPrototypes
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~KPrototypes.__init__
+      ~KPrototypes.get_attributes
+      ~KPrototypes.predict
+      ~KPrototypes.predict_proba
+      ~KPrototypes.predict_proba_sql
+      ~KPrototypes.predict_sql
+      ~KPrototypes.set_attributes
+      ~KPrototypes.transform
+      ~KPrototypes.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~KPrototypes.object_type
+   
+   

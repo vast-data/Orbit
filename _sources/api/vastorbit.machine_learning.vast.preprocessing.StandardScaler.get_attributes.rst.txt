@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.StandardScaler.get\_attributes
+=============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: StandardScaler.get_attributes

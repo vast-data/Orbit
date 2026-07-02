@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.recommend
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.recommend

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.f1\_score
+=============================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: f1_score

@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_pop\_growth
+====================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_pop_growth

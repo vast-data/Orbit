@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.roc\_auc\_score
+===================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: roc_auc_score

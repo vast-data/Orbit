@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.row\_number
+===================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: row_number

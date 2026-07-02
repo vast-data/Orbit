@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.RegressionTreePlot
+==============================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: RegressionTreePlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~RegressionTreePlot.__init__
+      ~RegressionTreePlot.check_metric
+      ~RegressionTreePlot.draw
+      ~RegressionTreePlot.get_category_desc
+      ~RegressionTreePlot.get_cmap
+      ~RegressionTreePlot.get_colors
+      ~RegressionTreePlot.sort_chart_1d
+      ~RegressionTreePlot.sort_chart_2d
+      ~RegressionTreePlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.rename
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.rename

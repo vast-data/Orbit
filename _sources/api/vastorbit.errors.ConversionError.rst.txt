@@ -1,0 +1,6 @@
+﻿vastorbit.errors.ConversionError
+================================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: ConversionError

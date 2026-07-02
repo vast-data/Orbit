@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.floor
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: floor

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.ensemble.RandomForestRegressor.object\_type
+============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.ensemble
+
+.. autoproperty:: RandomForestRegressor.object_type

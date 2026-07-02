@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.preprocessing.MinMaxScaler.set\_attributes
+===============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.preprocessing
+
+.. automethod:: MinMaxScaler.set_attributes

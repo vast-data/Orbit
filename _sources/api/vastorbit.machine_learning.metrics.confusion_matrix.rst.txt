@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.confusion\_matrix
+=====================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: confusion_matrix

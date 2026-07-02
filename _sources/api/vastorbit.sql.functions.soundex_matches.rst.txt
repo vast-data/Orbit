@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.soundex\_matches
+========================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: soundex_matches

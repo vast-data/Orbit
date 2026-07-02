@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.NonBinaryTree.get\_attributes
+=======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: NonBinaryTree.get_attributes

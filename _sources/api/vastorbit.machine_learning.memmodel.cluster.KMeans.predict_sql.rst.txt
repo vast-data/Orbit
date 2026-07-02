@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KMeans.predict\_sql
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: KMeans.predict_sql

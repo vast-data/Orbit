@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.feature\_extraction.text.TfidfVectorizer.set\_params
+=====================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.feature_extraction.text
+
+.. automethod:: TfidfVectorizer.set_params

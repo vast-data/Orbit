@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.hp\_tuning.randomized\_search\_cv
+==============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection.hp_tuning
+
+.. autofunction:: randomized_search_cv

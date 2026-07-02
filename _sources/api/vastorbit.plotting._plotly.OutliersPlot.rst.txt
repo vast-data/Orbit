@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.OutliersPlot
+========================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: OutliersPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OutliersPlot.__init__
+      ~OutliersPlot.check_metric
+      ~OutliersPlot.draw
+      ~OutliersPlot.get_category_desc
+      ~OutliersPlot.get_cmap
+      ~OutliersPlot.get_colors
+      ~OutliersPlot.sort_chart_1d
+      ~OutliersPlot.sort_chart_2d
+      ~OutliersPlot.supported_metrics
+   
+   
+
+   
+   
+   

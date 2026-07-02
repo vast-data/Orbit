@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.label\_encode
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.label_encode

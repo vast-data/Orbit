@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.Tree.predict\_proba
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. automethod:: Tree.predict_proba

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.ElasticNet.features\_importance
+==============================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: ElasticNet.features_importance

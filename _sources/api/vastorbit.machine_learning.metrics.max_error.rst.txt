@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.max\_error
+==============================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: max_error

@@ -1,0 +1,54 @@
+﻿vastorbit.machine\_learning.vast.naive\_bayes.NaiveBayes
+========================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.naive_bayes
+
+.. autoclass:: NaiveBayes
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NaiveBayes.__init__
+      ~NaiveBayes.classification_report
+      ~NaiveBayes.confusion_matrix
+      ~NaiveBayes.contour
+      ~NaiveBayes.cutoff_curve
+      ~NaiveBayes.deploySQL
+      ~NaiveBayes.drop
+      ~NaiveBayes.export_models
+      ~NaiveBayes.fit
+      ~NaiveBayes.get_attributes
+      ~NaiveBayes.get_match_index
+      ~NaiveBayes.get_params
+      ~NaiveBayes.get_plotting_lib
+      ~NaiveBayes.import_models
+      ~NaiveBayes.lift_chart
+      ~NaiveBayes.prc_curve
+      ~NaiveBayes.predict
+      ~NaiveBayes.predict_proba
+      ~NaiveBayes.report
+      ~NaiveBayes.roc_curve
+      ~NaiveBayes.score
+      ~NaiveBayes.set_params
+      ~NaiveBayes.summarize
+      ~NaiveBayes.to_binary
+      ~NaiveBayes.to_memmodel
+      ~NaiveBayes.to_python
+      ~NaiveBayes.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~NaiveBayes.object_type
+   
+   

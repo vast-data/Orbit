@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.isin
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.isin

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.date\_part
+===============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.date_part

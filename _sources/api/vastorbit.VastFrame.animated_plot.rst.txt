@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.animated\_plot
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.animated_plot

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.CandleStick
+===========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: CandleStick
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~CandleStick.__init__
+      ~CandleStick.check_metric
+      ~CandleStick.draw
+      ~CandleStick.get_category_desc
+      ~CandleStick.get_cmap
+      ~CandleStick.get_colors
+      ~CandleStick.sort_chart_1d
+      ~CandleStick.sort_chart_2d
+      ~CandleStick.supported_metrics
+   
+   
+
+   
+   
+   

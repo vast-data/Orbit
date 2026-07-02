@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.MCA.deploySQL
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: MCA.deploySQL

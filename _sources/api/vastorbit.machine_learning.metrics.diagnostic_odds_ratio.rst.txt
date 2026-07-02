@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.diagnostic\_odds\_ratio
+===========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: diagnostic_odds_ratio

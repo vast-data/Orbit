@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.pipeline.Pipeline.fit
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.pipeline
+
+.. automethod:: Pipeline.fit

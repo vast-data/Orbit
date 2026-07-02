@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.PCA.set\_attributes
+======================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. automethod:: PCA.set_attributes

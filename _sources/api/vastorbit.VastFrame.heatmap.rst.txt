@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.heatmap
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.heatmap

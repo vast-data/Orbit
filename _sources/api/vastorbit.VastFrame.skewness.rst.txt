@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.skewness
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.skewness

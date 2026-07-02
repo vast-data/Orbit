@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.density
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.density

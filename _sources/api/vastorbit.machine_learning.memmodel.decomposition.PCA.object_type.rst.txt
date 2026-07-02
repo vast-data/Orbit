@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.PCA.object\_type
+===================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. autoproperty:: PCA.object_type

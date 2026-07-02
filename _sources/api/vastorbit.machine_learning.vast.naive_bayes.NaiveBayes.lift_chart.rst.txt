@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.naive\_bayes.NaiveBayes.lift\_chart
+====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.naive_bayes
+
+.. automethod:: NaiveBayes.lift_chart

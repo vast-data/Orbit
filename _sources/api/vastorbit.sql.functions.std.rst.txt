@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.std
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: std

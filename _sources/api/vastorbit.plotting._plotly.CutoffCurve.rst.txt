@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.CutoffCurve
+=======================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: CutoffCurve
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~CutoffCurve.__init__
+      ~CutoffCurve.check_metric
+      ~CutoffCurve.draw
+      ~CutoffCurve.get_category_desc
+      ~CutoffCurve.get_cmap
+      ~CutoffCurve.get_colors
+      ~CutoffCurve.sort_chart_1d
+      ~CutoffCurve.sort_chart_2d
+      ~CutoffCurve.supported_metrics
+   
+   
+
+   
+   
+   

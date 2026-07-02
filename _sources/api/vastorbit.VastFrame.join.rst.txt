@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.join
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.join

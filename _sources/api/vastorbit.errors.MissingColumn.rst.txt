@@ -1,0 +1,6 @@
+﻿vastorbit.errors.MissingColumn
+==============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: MissingColumn

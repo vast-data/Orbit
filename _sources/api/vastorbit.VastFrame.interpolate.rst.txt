@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.interpolate
+===============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.interpolate

@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_dataset\_reg
+=====================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_dataset_reg

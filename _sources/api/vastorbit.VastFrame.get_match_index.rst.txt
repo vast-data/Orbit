@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.get\_match\_index
+=====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.get_match_index

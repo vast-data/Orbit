@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeClassifier
+==============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoclass:: BinaryTreeClassifier
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BinaryTreeClassifier.__init__
+      ~BinaryTreeClassifier.get_attributes
+      ~BinaryTreeClassifier.plot_tree
+      ~BinaryTreeClassifier.predict
+      ~BinaryTreeClassifier.predict_proba
+      ~BinaryTreeClassifier.predict_proba_sql
+      ~BinaryTreeClassifier.predict_sql
+      ~BinaryTreeClassifier.set_attributes
+      ~BinaryTreeClassifier.to_graphviz
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~BinaryTreeClassifier.object_type
+   
+   

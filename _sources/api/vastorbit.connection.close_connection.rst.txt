@@ -1,0 +1,6 @@
+﻿vastorbit.connection.close\_connection
+======================================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: close_connection

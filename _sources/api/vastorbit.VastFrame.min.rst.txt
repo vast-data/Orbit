@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.min
+=======================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.min

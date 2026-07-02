@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.get\_columns
+========================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.get_columns

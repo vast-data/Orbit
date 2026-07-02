@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.aggregate
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.aggregate

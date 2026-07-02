@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.catcol
+==========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.catcol

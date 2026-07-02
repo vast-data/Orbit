@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.drop\_duplicates
+====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.drop_duplicates

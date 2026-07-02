@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.exp
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: exp

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.spider
+===========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.spider

@@ -1,0 +1,6 @@
+﻿vastorbit.connection.get\_confparser
+====================================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: get_confparser

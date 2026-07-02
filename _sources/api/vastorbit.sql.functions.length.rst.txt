@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.length
+==============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: length

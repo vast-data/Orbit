@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.anova\_table
+================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: anova_table

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.str\_extract
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.str_extract

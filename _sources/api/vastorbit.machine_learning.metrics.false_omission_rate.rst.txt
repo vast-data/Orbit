@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.false\_omission\_rate
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: false_omission_rate

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.cdt
+=======================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.cdt

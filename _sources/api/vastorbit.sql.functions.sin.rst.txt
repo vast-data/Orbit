@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.sin
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: sin

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.BisectingKMeans.predict
+====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. automethod:: BisectingKMeans.predict

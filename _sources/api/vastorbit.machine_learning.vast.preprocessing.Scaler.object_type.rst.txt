@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.Scaler.object\_type
+==================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autoproperty:: Scaler.object_type

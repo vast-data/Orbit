@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.narrow
+==================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.narrow

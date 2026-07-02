@@ -1,0 +1,6 @@
+﻿vastorbit.insert\_into
+======================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: insert_into

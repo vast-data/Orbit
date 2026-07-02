@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.applymap
+============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.applymap

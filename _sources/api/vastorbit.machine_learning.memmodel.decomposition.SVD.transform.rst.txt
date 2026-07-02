@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.decomposition.SVD.transform
+================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.decomposition
+
+.. automethod:: SVD.transform

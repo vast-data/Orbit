@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.model\_selection.learning\_curve
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.model_selection
+
+.. autofunction:: learning_curve

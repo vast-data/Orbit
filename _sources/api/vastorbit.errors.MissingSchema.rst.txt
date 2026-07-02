@@ -1,0 +1,6 @@
+﻿vastorbit.errors.MissingSchema
+==============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: MissingSchema

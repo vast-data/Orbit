@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.load
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.load

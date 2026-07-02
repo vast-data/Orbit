@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.corr
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.corr

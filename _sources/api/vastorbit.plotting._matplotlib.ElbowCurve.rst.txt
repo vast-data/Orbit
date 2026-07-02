@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ElbowCurve
+==========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ElbowCurve
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ElbowCurve.__init__
+      ~ElbowCurve.check_metric
+      ~ElbowCurve.draw
+      ~ElbowCurve.get_category_desc
+      ~ElbowCurve.get_cmap
+      ~ElbowCurve.get_colors
+      ~ElbowCurve.sort_chart_1d
+      ~ElbowCurve.sort_chart_2d
+      ~ElbowCurve.supported_metrics
+   
+   
+
+   
+   
+   

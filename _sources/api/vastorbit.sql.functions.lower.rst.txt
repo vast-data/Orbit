@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.lower
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: lower

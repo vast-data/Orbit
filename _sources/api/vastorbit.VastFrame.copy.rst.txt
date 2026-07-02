@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.copy
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.copy

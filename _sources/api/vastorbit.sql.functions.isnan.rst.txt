@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.isnan
+=============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: isnan

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.count\_percent
+==================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.count_percent

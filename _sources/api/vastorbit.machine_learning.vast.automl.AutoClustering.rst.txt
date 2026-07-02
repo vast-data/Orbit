@@ -1,0 +1,43 @@
+﻿vastorbit.machine\_learning.vast.automl.AutoClustering
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.automl
+
+.. autoclass:: AutoClustering
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~AutoClustering.__init__
+      ~AutoClustering.contour
+      ~AutoClustering.deploySQL
+      ~AutoClustering.drop
+      ~AutoClustering.export_models
+      ~AutoClustering.fit
+      ~AutoClustering.get_attributes
+      ~AutoClustering.get_match_index
+      ~AutoClustering.get_params
+      ~AutoClustering.get_plotting_lib
+      ~AutoClustering.import_models
+      ~AutoClustering.set_params
+      ~AutoClustering.summarize
+      ~AutoClustering.to_binary
+      ~AutoClustering.to_python
+      ~AutoClustering.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~AutoClustering.object_type
+   
+   

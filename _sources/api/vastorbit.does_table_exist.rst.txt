@@ -1,0 +1,6 @@
+﻿vastorbit.does\_table\_exist
+============================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: does_table_exist

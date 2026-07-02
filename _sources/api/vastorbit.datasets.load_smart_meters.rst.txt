@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_smart\_meters
+======================================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_smart_meters

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.VAR.to\_sql
+================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: VAR.to_sql

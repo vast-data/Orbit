@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.regression\_report
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: regression_report

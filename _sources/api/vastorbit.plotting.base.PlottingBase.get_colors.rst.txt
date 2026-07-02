@@ -1,0 +1,6 @@
+﻿vastorbit.plotting.base.PlottingBase.get\_colors
+================================================
+
+.. currentmodule:: vastorbit.plotting.base
+
+.. automethod:: PlottingBase.get_colors

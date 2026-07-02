@@ -1,0 +1,45 @@
+﻿vastorbit.machine\_learning.vast.cluster.DBSCAN
+===============================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. autoclass:: DBSCAN
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~DBSCAN.__init__
+      ~DBSCAN.contour
+      ~DBSCAN.deploySQL
+      ~DBSCAN.drop
+      ~DBSCAN.export_models
+      ~DBSCAN.fit
+      ~DBSCAN.get_attributes
+      ~DBSCAN.get_match_index
+      ~DBSCAN.get_params
+      ~DBSCAN.get_plotting_lib
+      ~DBSCAN.import_models
+      ~DBSCAN.plot
+      ~DBSCAN.predict
+      ~DBSCAN.set_params
+      ~DBSCAN.summarize
+      ~DBSCAN.to_binary
+      ~DBSCAN.to_python
+      ~DBSCAN.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~DBSCAN.object_type
+   
+   

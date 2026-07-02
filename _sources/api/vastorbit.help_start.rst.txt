@@ -1,0 +1,6 @@
+﻿vastorbit.help\_start
+=====================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: help_start

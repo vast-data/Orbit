@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.clip
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.clip

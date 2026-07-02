@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.dayofyear
+=================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: dayofyear

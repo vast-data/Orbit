@@ -1,0 +1,50 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.LinearRegression
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. autoclass:: LinearRegression
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LinearRegression.__init__
+      ~LinearRegression.contour
+      ~LinearRegression.deploySQL
+      ~LinearRegression.drop
+      ~LinearRegression.export_models
+      ~LinearRegression.features_importance
+      ~LinearRegression.fit
+      ~LinearRegression.get_attributes
+      ~LinearRegression.get_match_index
+      ~LinearRegression.get_params
+      ~LinearRegression.get_plotting_lib
+      ~LinearRegression.import_models
+      ~LinearRegression.plot
+      ~LinearRegression.predict
+      ~LinearRegression.regression_report
+      ~LinearRegression.report
+      ~LinearRegression.score
+      ~LinearRegression.set_params
+      ~LinearRegression.summarize
+      ~LinearRegression.to_binary
+      ~LinearRegression.to_memmodel
+      ~LinearRegression.to_python
+      ~LinearRegression.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~LinearRegression.object_type
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.recall\_score
+=================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: recall_score

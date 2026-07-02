@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.avg
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.avg

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.nlargest
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.nlargest

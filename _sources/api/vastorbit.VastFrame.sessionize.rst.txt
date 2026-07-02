@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.sessionize
+==============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.sessionize

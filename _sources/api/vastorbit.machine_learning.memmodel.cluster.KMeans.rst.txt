@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.KMeans
+===================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoclass:: KMeans
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~KMeans.__init__
+      ~KMeans.get_attributes
+      ~KMeans.predict
+      ~KMeans.predict_proba
+      ~KMeans.predict_proba_sql
+      ~KMeans.predict_sql
+      ~KMeans.set_attributes
+      ~KMeans.transform
+      ~KMeans.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~KMeans.object_type
+   
+   

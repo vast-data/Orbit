@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.tsa.VAR.import\_models
+=======================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. automethod:: VAR.import_models

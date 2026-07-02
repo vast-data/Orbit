@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.week
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: week

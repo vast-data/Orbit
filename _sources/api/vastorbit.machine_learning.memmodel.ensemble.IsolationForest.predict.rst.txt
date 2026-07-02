@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.IsolationForest.predict
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. automethod:: IsolationForest.predict

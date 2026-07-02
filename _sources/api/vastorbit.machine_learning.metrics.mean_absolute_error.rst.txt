@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.mean\_absolute\_error
+=========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: mean_absolute_error

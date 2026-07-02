@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.edit\_distance
+======================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: edit_distance

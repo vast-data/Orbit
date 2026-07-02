@@ -1,0 +1,49 @@
+﻿vastorbit.machine\_learning.vast.tsa.ARIMA
+==========================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.tsa
+
+.. autoclass:: ARIMA
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ARIMA.__init__
+      ~ARIMA.contour
+      ~ARIMA.deploySQL
+      ~ARIMA.drop
+      ~ARIMA.export_models
+      ~ARIMA.features_importance
+      ~ARIMA.fit
+      ~ARIMA.get_attributes
+      ~ARIMA.get_match_index
+      ~ARIMA.get_params
+      ~ARIMA.get_plotting_lib
+      ~ARIMA.import_models
+      ~ARIMA.plot
+      ~ARIMA.predict
+      ~ARIMA.regression_report
+      ~ARIMA.report
+      ~ARIMA.score
+      ~ARIMA.set_params
+      ~ARIMA.summarize
+      ~ARIMA.to_binary
+      ~ARIMA.to_python
+      ~ARIMA.to_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ARIMA.object_type
+   
+   

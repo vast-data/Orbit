@@ -1,0 +1,6 @@
+﻿vastorbit.errors.ExtensionError
+===============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: ExtensionError

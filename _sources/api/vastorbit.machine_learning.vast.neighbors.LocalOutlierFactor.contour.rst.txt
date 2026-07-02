@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.neighbors.LocalOutlierFactor.contour
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.neighbors
+
+.. automethod:: LocalOutlierFactor.contour

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.apply\_fun
+===============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.apply_fun

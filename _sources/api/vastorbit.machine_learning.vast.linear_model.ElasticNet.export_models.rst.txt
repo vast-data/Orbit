@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.ElasticNet.export\_models
+========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: ElasticNet.export_models

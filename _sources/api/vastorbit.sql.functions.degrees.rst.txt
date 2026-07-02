@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.degrees
+===============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: degrees

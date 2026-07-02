@@ -1,0 +1,47 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.Scaler
+=====================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. autoclass:: Scaler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Scaler.__init__
+      ~Scaler.contour
+      ~Scaler.deployInverseSQL
+      ~Scaler.deploySQL
+      ~Scaler.drop
+      ~Scaler.export_models
+      ~Scaler.fit
+      ~Scaler.get_attributes
+      ~Scaler.get_match_index
+      ~Scaler.get_params
+      ~Scaler.get_plotting_lib
+      ~Scaler.import_models
+      ~Scaler.inverse_transform
+      ~Scaler.set_params
+      ~Scaler.summarize
+      ~Scaler.to_binary
+      ~Scaler.to_memmodel
+      ~Scaler.to_python
+      ~Scaler.to_sql
+      ~Scaler.transform
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Scaler.object_type
+   
+   

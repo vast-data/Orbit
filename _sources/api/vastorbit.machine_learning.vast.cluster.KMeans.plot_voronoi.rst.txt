@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.cluster.KMeans.plot\_voronoi
+=============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.cluster
+
+.. automethod:: KMeans.plot_voronoi

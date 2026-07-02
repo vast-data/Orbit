@@ -1,0 +1,36 @@
+﻿vastorbit.machine\_learning.memmodel.cluster.NearestCentroid
+============================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.cluster
+
+.. autoclass:: NearestCentroid
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NearestCentroid.__init__
+      ~NearestCentroid.get_attributes
+      ~NearestCentroid.predict
+      ~NearestCentroid.predict_proba
+      ~NearestCentroid.predict_proba_sql
+      ~NearestCentroid.predict_sql
+      ~NearestCentroid.set_attributes
+      ~NearestCentroid.transform
+      ~NearestCentroid.transform_sql
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~NearestCentroid.object_type
+   
+   

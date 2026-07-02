@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.log
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: log

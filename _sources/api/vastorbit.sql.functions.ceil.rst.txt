@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.ceil
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: ceil

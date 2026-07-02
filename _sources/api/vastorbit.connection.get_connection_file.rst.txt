@@ -1,0 +1,6 @@
+﻿vastorbit.connection.get\_connection\_file
+==========================================
+
+.. currentmodule:: vastorbit.connection
+
+.. autofunction:: get_connection_file

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.E
+=========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autodata:: E

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.lead
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: lead

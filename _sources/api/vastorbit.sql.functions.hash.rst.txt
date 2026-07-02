@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.hash
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: hash

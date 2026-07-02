@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.bic\_score
+==============================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: bic_score

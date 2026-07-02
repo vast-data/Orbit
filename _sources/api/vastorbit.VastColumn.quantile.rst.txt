@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.quantile
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.quantile

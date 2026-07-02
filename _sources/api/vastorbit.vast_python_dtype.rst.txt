@@ -1,0 +1,6 @@
+﻿vastorbit.vast\_python\_dtype
+=============================
+
+.. currentmodule:: vastorbit
+
+.. autofunction:: vast_python_dtype

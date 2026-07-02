@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.metrics.mean\_squared\_error
+========================================================
+
+.. currentmodule:: vastorbit.machine_learning.metrics
+
+.. autofunction:: mean_squared_error

@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.LOFPlot
+=======================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: LOFPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LOFPlot.__init__
+      ~LOFPlot.check_metric
+      ~LOFPlot.draw
+      ~LOFPlot.get_category_desc
+      ~LOFPlot.get_cmap
+      ~LOFPlot.get_colors
+      ~LOFPlot.sort_chart_1d
+      ~LOFPlot.sort_chart_2d
+      ~LOFPlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.drop\_outliers
+===================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.drop_outliers

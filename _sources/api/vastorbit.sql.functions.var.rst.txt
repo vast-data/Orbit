@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.var
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: var

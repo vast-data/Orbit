@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_matplotlib.ACFPACFPlot
+===========================================
+
+.. currentmodule:: vastorbit.plotting._matplotlib
+
+.. autoclass:: ACFPACFPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~ACFPACFPlot.__init__
+      ~ACFPACFPlot.check_metric
+      ~ACFPACFPlot.draw
+      ~ACFPACFPlot.get_category_desc
+      ~ACFPACFPlot.get_cmap
+      ~ACFPACFPlot.get_colors
+      ~ACFPACFPlot.sort_chart_1d
+      ~ACFPACFPlot.sort_chart_2d
+      ~ACFPACFPlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,31 @@
+﻿vastorbit.machine\_learning.memmodel.ensemble.Ensemble
+======================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.ensemble
+
+.. autoclass:: Ensemble
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Ensemble.__init__
+      ~Ensemble.get_attributes
+      ~Ensemble.plot_tree
+      ~Ensemble.set_attributes
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Ensemble.object_type
+   
+   

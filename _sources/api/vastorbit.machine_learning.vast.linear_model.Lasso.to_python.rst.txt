@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.linear\_model.Lasso.to\_python
+===============================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.linear_model
+
+.. automethod:: Lasso.to_python

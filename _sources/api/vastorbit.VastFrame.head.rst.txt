@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.head
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.head

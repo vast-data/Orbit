@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.polynomial\_comb
+====================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.polynomial_comb

@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.day
+===========================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: day

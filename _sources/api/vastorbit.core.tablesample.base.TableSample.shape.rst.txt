@@ -1,0 +1,6 @@
+﻿vastorbit.core.tablesample.base.TableSample.shape
+=================================================
+
+.. currentmodule:: vastorbit.core.tablesample.base
+
+.. automethod:: TableSample.shape

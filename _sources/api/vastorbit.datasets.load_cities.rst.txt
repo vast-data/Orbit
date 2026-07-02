@@ -1,0 +1,6 @@
+﻿vastorbit.datasets.load\_cities
+===============================
+
+.. currentmodule:: vastorbit.datasets
+
+.. autofunction:: load_cities

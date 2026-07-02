@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.sum
+========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.sum

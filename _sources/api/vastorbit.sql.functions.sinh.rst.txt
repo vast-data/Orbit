@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.sinh
+============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: sinh

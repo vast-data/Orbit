@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.preprocessing.Scaler.get\_params
+=================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.preprocessing
+
+.. automethod:: Scaler.get_params

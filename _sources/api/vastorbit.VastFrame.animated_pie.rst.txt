@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.animated\_pie
+=================================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.animated_pie

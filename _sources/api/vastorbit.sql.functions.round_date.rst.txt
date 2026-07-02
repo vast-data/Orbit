@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.round\_date
+===================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: round_date

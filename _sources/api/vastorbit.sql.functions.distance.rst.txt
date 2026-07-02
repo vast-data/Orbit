@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.distance
+================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: distance

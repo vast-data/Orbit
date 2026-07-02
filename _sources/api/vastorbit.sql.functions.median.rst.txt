@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.median
+==============================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: median

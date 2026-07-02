@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.tree.BinaryTreeRegressor.object\_type
+==========================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.tree
+
+.. autoproperty:: BinaryTreeRegressor.object_type

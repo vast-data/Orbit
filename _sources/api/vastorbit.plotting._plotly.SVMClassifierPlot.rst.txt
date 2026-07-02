@@ -1,0 +1,30 @@
+﻿vastorbit.plotting.\_plotly.SVMClassifierPlot
+=============================================
+
+.. currentmodule:: vastorbit.plotting._plotly
+
+.. autoclass:: SVMClassifierPlot
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SVMClassifierPlot.__init__
+      ~SVMClassifierPlot.check_metric
+      ~SVMClassifierPlot.draw
+      ~SVMClassifierPlot.get_category_desc
+      ~SVMClassifierPlot.get_cmap
+      ~SVMClassifierPlot.get_colors
+      ~SVMClassifierPlot.sort_chart_1d
+      ~SVMClassifierPlot.sort_chart_2d
+      ~SVMClassifierPlot.supported_metrics
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+﻿vastorbit.errors.VersionError
+=============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: VersionError

@@ -1,0 +1,6 @@
+﻿vastorbit.VastFrame.to\_numpy
+=============================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastFrame.to_numpy

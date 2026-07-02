@@ -1,0 +1,6 @@
+﻿vastorbit.sql.functions.regexp\_extract
+=======================================
+
+.. currentmodule:: vastorbit.sql.functions
+
+.. autofunction:: regexp_extract

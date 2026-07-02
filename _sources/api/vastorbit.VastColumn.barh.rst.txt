@@ -1,0 +1,6 @@
+﻿vastorbit.VastColumn.barh
+=========================
+
+.. currentmodule:: vastorbit
+
+.. automethod:: VastColumn.barh

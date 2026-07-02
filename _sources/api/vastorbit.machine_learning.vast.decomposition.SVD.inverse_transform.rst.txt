@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.vast.decomposition.SVD.inverse\_transform
+=====================================================================
+
+.. currentmodule:: vastorbit.machine_learning.vast.decomposition
+
+.. automethod:: SVD.inverse_transform

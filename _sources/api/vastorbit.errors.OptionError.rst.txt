@@ -1,0 +1,6 @@
+﻿vastorbit.errors.OptionError
+============================
+
+.. currentmodule:: vastorbit.errors
+
+.. autoexception:: OptionError

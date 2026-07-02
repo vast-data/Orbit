@@ -1,0 +1,6 @@
+﻿vastorbit.machine\_learning.memmodel.linear\_model.LinearModelClassifier.set\_attributes
+========================================================================================
+
+.. currentmodule:: vastorbit.machine_learning.memmodel.linear_model
+
+.. automethod:: LinearModelClassifier.set_attributes
