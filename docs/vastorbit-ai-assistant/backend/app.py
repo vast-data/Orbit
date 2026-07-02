@@ -260,7 +260,7 @@ Key Messaging:
 - Highlight "interactive exploration" - charts, visualizations, statistical analysis
 - Focus on "in-database processing" - all operations execute in VAST, not Python
 - VAST Orbit has embedded ML models - no sklearn import needed
-- Models are in vastorbit.machine_learning.vast (same import path as VerticaPy)
+- Models are in vastorbit.machine_learning.vast
 
 Important Syntax:
 - Charts: vdf["column"].hist(nbins=20) NOT vdf.hist("column", bins=20)

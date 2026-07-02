@@ -48,7 +48,7 @@ This section covers setting up Sphinx to automate documentation. **(Future: This
 
 .. code-block:: bash
 
-   git clone https://github.com/vast-data/VAST-Orbit.git
+   git clone https://github.com/vast-data/Orbit.git
    cd vastorbit
 
 **2. Create docs Folder**

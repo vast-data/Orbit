@@ -45,4 +45,4 @@ tqdm>=4.66.0
 pyyaml>=6.0.1
 
 # VAST Orbit Core (if testing against installed package)
-# vastorbit @ git+https://github.com/vast-data/VAST-Orbit.git
+# vastorbit @ git+https://github.com/vast-data/Orbit.git

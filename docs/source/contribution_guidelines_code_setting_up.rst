@@ -11,7 +11,7 @@ ____
 Step 1: Git
 ===========
 
-Fork the project on `Github <https://github.com/vast-data/VAST-Orbit>`__ and check out your copy locally.
+Fork the project on `Github <https://github.com/vast-data/Orbit>`__ and check out your copy locally.
 
 .. code-block:: bash
 

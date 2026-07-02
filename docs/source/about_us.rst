@@ -73,10 +73,7 @@ The story behind VAST Orbit
         and SQL functions, multi-source joins across every catalog, and machine-learning
         inference — all executed in VAST rather than in Python.
 
-        Rather than reinvent that analytics surface, VAST Orbit builds on the proven,
-        open-source VerticaPy project and re-engineers it for the VAST
-        DataBase. That heritage is why the library arrived broad and battle-tested,
-        and why so much of it works the moment you connect.
+        Rather than reinvent that analytics surface from scratch, VAST Orbit builds on years of proven, open-source engineering, re-engineered for the VAST DataBase. That heritage is why the library arrived broad and battle-tested, and why so much of it works the moment you connect.
 
 The team
 --------
@@ -163,7 +160,7 @@ Report an issue
 
 Found a bug or hit a query that should work but doesn't? Open an issue on GitHub with
 a small reproduction and it helps us fix it quickly. File issues at
-`github.com/vast-data/vastorbit/issues <https://github.com/vast-data/VAST-Orbit/issues>`__.
+`github.com/vast-data/vastorbit/issues <https://github.com/vast-data/Orbit/issues>`__.
 
 Improve the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

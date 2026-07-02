@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "vastorbit"
 # Keep this in sync with vastorbit/__init__.py (__version__).
-version = "0.1.0b1"
+version = "0.1.0b2"
 description = "VAST Orbit simplifies data exploration, data cleaning, and machine learning in the VAST DataBase using in-database analytics."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -59,10 +59,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/vast-data/VAST-Orbit"
-Repository = "https://github.com/vast-data/VAST-Orbit"
-Documentation = "https://vast-data.github.io/VAST-Orbit/"
-Issues = "https://github.com/vast-data/VAST-Orbit/issues"
+Homepage = "https://github.com/vast-data/Orbit"
+Repository = "https://github.com/vast-data/Orbit"
+Documentation = "https://vast-data.github.io/Orbit/"
+Issues = "https://github.com/vast-data/Orbit/issues"
 
 [project.optional-dependencies]
 geo = [

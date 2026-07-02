@@ -112,7 +112,7 @@ Quick Start
 .. code-block:: bash
 
   # 1. Fork and clone
-  git clone https://github.com/vast-data/VAST-Orbit.git
+  git clone https://github.com/vast-data/Orbit.git
   cd vastorbit
 
   # 2. Create branch

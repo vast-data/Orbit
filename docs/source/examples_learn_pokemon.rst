@@ -5,7 +5,7 @@ Pokemon
 
 This example uses the ``pokemons`` and ``combats`` datasets to predict the winner of a 1-on-1 Pokemon battle. You can download the two datasets:
 
-`pokemons <https://github.com/vast-data/VAST-Orbit/tree/master/examples/learn/pokemon/pokemons.csv>`__
+`pokemons <https://github.com/vast-data/Orbit/tree/master/examples/learn/pokemon/pokemons.csv>`__
 
 - **Name:** The name of the Pokemon.
 - **Generation:** Pokemon's generation.
@@ -19,7 +19,7 @@ This example uses the ``pokemons`` and ``combats`` datasets to predict the winne
 - **Type_1:** Pokemon's first type.
 - **Type_2:** Pokemon's second type.
 
-`fights <https://github.com/vast-data/VAST-Orbit/tree/master/examples/learn/pokemon/fights.csv>`__
+`fights <https://github.com/vast-data/Orbit/tree/master/examples/learn/pokemon/fights.csv>`__
 
 - **First_pokemon:** Pokemon of trainer 1.
 - **Second_pokemon:** Pokemon of trainer 2.
