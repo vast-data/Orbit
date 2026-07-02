@@ -13,6 +13,7 @@
 [![codecov](https://codecov.io/gh/vast-data/vastorbit/branch/main/graph/badge.svg?token=a6GiFYI9at)](https://codecov.io/gh/vast-data/vastorbit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+[![Docs](https://img.shields.io/badge/docs-vast--data.github.io-1FD9FE)](https://vast-data.github.io/Orbit/)
 [![Slack](https://img.shields.io/badge/Slack-VAST%20Support-4A154B?logo=slack&logoColor=white)](https://vastsupport.slack.com)
 
 ## Trailer Video
@@ -127,7 +128,7 @@ help(vo.VastFrame)
 
 Documentation can be generated locally. Refer to the documentation generation guide in the `docs/` directory.
 
-Official documentation will be available soon at a dedicated documentation site.
+Full documentation, API reference, and examples are available at [vast-data.github.io/Orbit](https://vast-data.github.io/Orbit/).
 
 ## Highlighted Features
 
