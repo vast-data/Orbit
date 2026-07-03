@@ -7,10 +7,9 @@
 # VAST Orbit
 
 [![PyPI version](https://badge.fury.io/py/vastorbit.svg)](https://badge.fury.io/py/vastorbit)
-[![Conda Version](https://img.shields.io/conda/vn/conda-forge/vastorbit?color=yellowgreen)](https://anaconda.org/conda-forge/vastorbit)
 [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python Version](https://img.shields.io/badge/python-3.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/downloads/)
-[![codecov](https://codecov.io/gh/vast-data/vastorbit/branch/main/graph/badge.svg?token=a6GiFYI9at)](https://codecov.io/gh/vast-data/vastorbit)
+[![codecov](https://codecov.io/gh/vast-data/Orbit/branch/main/graph/badge.svg?token=a6GiFYI9at)](https://codecov.io/gh/vast-data/Orbit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 [![Docs](https://img.shields.io/badge/docs-vast--data.github.io-1FD9FE)](https://vast-data.github.io/Orbit/)
@@ -18,9 +17,14 @@
 
 ## Trailer Video
 
-<p align="center"><a href="https://raw.githubusercontent.com/vast-data/Orbit/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4">▶ Watch the trailer</a></p>
+<p align="center">
+  <a href="https://vast-data.github.io/Orbit/index.html">
+    <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/docs/source/_static/website/video/vastorbit_intro_poster.png"
+         width="100%" alt="VAST Orbit — Watch the trailer">
+  </a>
+</p>
 
-VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST DataBase. Train models using familiar ``scikit-learn`` syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
+VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in the VAST DataBase. Train models using familiar ``scikit-learn`` syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -44,19 +48,18 @@ VAST DataBase combines enterprise-grade storage with powerful analytics capabili
 
 Python has become the lingua franca of data science, offering unparalleled flexibility through its high-level abstraction and an extensive ecosystem of libraries. The accessibility of Python has led to the development of powerful APIs like pandas and scikit-learn, supported by a vibrant community of data scientists worldwide. Unfortunately, traditional Python tools operate in-memory as single-node processes, creating fundamental limitations when working with large-scale data. While distributed computing frameworks attempt to address these constraints, they still require moving data for processing—an approach that is prohibitively expensive and increasingly impractical in the modern data landscape. On top of these challenges, data scientists face additional complexity in deploying and operationalizing their models. The entire workflow is time-consuming and inefficient.
 
-**VAST Orbit solves these problems**. The concept is elegant: instead of moving data to compute, VAST Orbit brings the compute logic to where the data lives—in VAST DataBase. Train your models using familiar ``scikit-learn`` syntax in Python, then deploy them directly in the database for high-performance predictions at scale.
+**VAST Orbit solves these problems**. The concept is elegant: instead of moving data to compute, VAST Orbit brings the compute logic to where the data lives—in the VAST DataBase. Train your models using familiar ``scikit-learn`` syntax in Python, then deploy them directly in the database for high-performance predictions at scale.
 
 ### Main Advantages
 
 - **Easy Data Exploration**: Interactive exploration of massive datasets without memory constraints
 - **Fast Data Preparation**: Leverage Trino's distributed processing for rapid data transformation
 - **Familiar Scikit-learn API**: Train models using the ``scikit-learn`` interface you already know
-- **In-Database Deployment**: Deploy trained models directly in VAST DataBase for production workloads _(with some current limitations — see [Project Status & Roadmap](#project-status--roadmap))_
+- **In-Database Deployment**: Deploy trained models directly in the VAST DataBase for production workloads _(with some current limitations — see [Project Status & Roadmap](#project-status--roadmap))_
 - **Easy Model Evaluation**: Comprehensive model evaluation tools with visual insights
 - **Seamless SQL Integration**: Use Python or SQL interchangeably based on your preference and use case
 
 <p align="center">
-<!-- TODO: Add architecture diagram -->
 <img src='https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/architecture.png' width="100%">
 </p>
 
@@ -78,8 +81,8 @@ Your feedback directly shapes what we build next — see [Help and Support](#hel
 To install VAST Orbit with pip:
 
 ```shell
-# Latest release version
-pip3 install vastorbit[all]
+# Latest release (beta): --pre is required until 1.0.0 is published
+pip3 install --pre vastorbit[all]
 
 # Latest commit on main branch
 pip3 install git+https://github.com/vast-data/Orbit.git@main
@@ -88,12 +91,12 @@ pip3 install git+https://github.com/vast-data/Orbit.git@main
 To install VAST Orbit from source, run the following command from the root directory:
 
 ```shell
-python3 setup.py install
+pip install .
 ```
 
 ## Connecting to the Database
 
-VAST Orbit currently connects to VAST DataBase through Trino. Ensure you have Trino set up and configured to access your VAST DataBase instance.
+VAST Orbit currently connects to the VAST DataBase through Trino. Ensure you have Trino set up and configured to access your VAST DataBase instance.
 
 Connection example:
 
@@ -114,7 +117,7 @@ Use the connection:
 vo.connect("VAST_Connection")
 ```
 
-For more details on connection configuration, refer to the documentation.
+For more details on connection configuration, refer to the [documentation](https://vast-data.github.io/Orbit/).
 
 ## Documentation
 
@@ -139,14 +142,12 @@ VAST Orbit offers users the flexibility to customize their coding experience wit
 Dark mode, ideal for extended coding sessions, features a sleek and stylish dark color scheme, providing a comfortable and eye-friendly environment.
 
 <p align="center">
-<!-- TODO: Add dark theme screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/dark-theme-screenshot.png" width="100%">
 </p>
 
 On the other hand, Light mode serves as the default theme, offering a clean and bright interface for users who prefer a traditional coding ambiance.
 
 <p align="center">
-<!-- TODO: Add light theme screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
@@ -180,7 +181,6 @@ SELECT version();
 ```
 
 <p align="center">
-<!-- TODO: Add light theme screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/sql_version.png" width="15%">
 </p>
 
@@ -198,7 +198,6 @@ To create plots, simply provide the type of plot along with the SQL command.
 ```
 
 <p align="center">
-<!-- TODO: Add SQL plot screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/sql-plot-screenshot.png" width="90%">
 </p>
 
@@ -218,19 +217,19 @@ selected_titanic.groupby(columns=["pclass"], expr=["AVG(survived) AS avg_survive
 ```
 
 <p align="center">
-<!-- TODO: Add SQL plot screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/select_gb.png" width="30%">
 </p>
 
 ### Charts
 
-VAST Orbit comes integrated with two popular plotting libraries: matplotlib and plotly.
-
-A gallery of VAST Orbit-generated charts will be available in the documentation.
+VAST Orbit comes integrated with two popular plotting libraries: matplotlib and Plotly.
+A gallery of VAST Orbit-generated charts is available in the [documentation](https://vast-data.github.io/Orbit/chart_gallery.html).
 
 <p align="center">
-<!-- TODO: Add charts gallery screenshot -->
-<img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/charts-gallery.gif" width="100%">
+  <a href="https://vast-data.github.io/Orbit/chart_gallery.html">
+    <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/charts-gallery.gif"
+         width="100%" alt="VAST Orbit charts gallery">
+  </a>
 </p>
 
 ### Complete Machine Learning Pipeline
@@ -281,7 +280,6 @@ iris_data.scatter(
 ```
 
 <p align="center">
-<!-- TODO: Add scatter plot screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/scatter-plot.png" width="70%">
 </p>
 
@@ -295,7 +293,6 @@ titanic.corr(method="spearman")
 ```
 
 <p align="center">
-<!-- TODO: Add correlation matrix screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/correlation-matrix.png" width="70%">
 </p>
 
@@ -314,13 +311,14 @@ titanic.corr(method="spearman", focus="survived")
 ```
 
 <p align="center">
-<!-- TODO: Add focused correlation screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/focused-correlation.png" width="50%">
 </p>
 
 #### Data Preparation
 
-VAST Orbit provides comprehensive data preparation capabilities including joining tables, encoding categorical variables, and filling missing values. Refer to the documentation for detailed examples.
+VAST Orbit provides comprehensive data preparation capabilities including joining
+tables, encoding categorical variables, and filling missing values. Refer to the
+[documentation](https://vast-data.github.io/Orbit/examples.html) for detailed examples.
 
 Outlier Detection Example:
 
@@ -333,7 +331,6 @@ data.outliers_plot(columns="Heights")
 ```
 
 <p align="center">
-<!-- TODO: Add outliers plot screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/outliers-plot.png" width="70%">
 </p>
 
@@ -367,7 +364,6 @@ cross_validate(
 ```
 
 <p align="center">
-<!-- TODO: Add model evaluation screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/model-evaluation.png" width="100%">
 </p>
 
@@ -386,7 +382,6 @@ iris_data = load_iris()
 ```
 
 <p align="center">
-<!-- TODO: Add model evaluation screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/iris-dataset.png" width="70%">
 </p>
 
@@ -399,7 +394,6 @@ iris_data = vo.VastFrame(input_relation="public.iris")
 ```
 
 <p align="center">
-<!-- TODO: Add model evaluation screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/iris-dataset.png" width="70%">
 </p>
 
@@ -408,7 +402,8 @@ iris_data = vo.VastFrame(input_relation="public.iris")
 Install the library with pip:
 
 ```shell
-pip3 install vastorbit[all]
+# beta: --pre required until 1.0.0
+pip3 install --pre vastorbit[all]
 ```
 
 Create a new VAST connection through Trino:
@@ -447,7 +442,6 @@ vdf = load_titanic()
 ```
 
 <p align="center">
-<!-- TODO: Add model evaluation screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/light-theme-screenshot.png" width="100%">
 </p>
 
@@ -458,7 +452,6 @@ vdf.describe()
 ```
 
 <p align="center">
-<!-- TODO: Add describe output screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/describe-output.png" width="100%">
 </p>
 
@@ -508,7 +501,6 @@ cross_validate(
 ```
 
 <p align="center">
-<!-- TODO: Add cross-validation results screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/cross-validation.png" width="100%">
 </p>
 
@@ -527,7 +519,6 @@ model.features_importance()
 ```
 
 <p align="center">
-<!-- TODO: Add feature importance screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/feature-importance.png" width="100%">
 </p>
 
@@ -539,7 +530,6 @@ model.roc_curve()
 ```
 
 <p align="center">
-<!-- TODO: Add ROC curve screenshot -->
 <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/roc-curve.png" width="70%">
 </p>
 
@@ -549,6 +539,6 @@ Enjoy!
 
 ## Help and Support
 
-For contribution guidelines and additional support documentation, please refer to the project documentation.
-
-For questions and community support, join our Slack channel: https://vastsupport.slack.com
+ - **Contributing:** see the [contribution guidelines](https://vast-data.github.io/Orbit/contribution_guidelines.html).
+ - **Documentation:** [vast-data.github.io/Orbit](https://vast-data.github.io/Orbit/).
+ - **Community:** join our Slack channel at [vastsupport.slack.com](https://vastsupport.slack.com).
