@@ -7,8 +7,11 @@ tables, and outputs in the rendered docs are real. That is why the build is
 heavier than a typical Sphinx site — and why this folder ships a helper script,
 `refresh.sh`, that wraps the whole pipeline.
 
+The published result of this build is served at
+**[vast-data.github.io/Orbit](https://vast-data.github.io/Orbit/)**.
+
 This guide covers the one-time setup, the everyday build commands, where output
-and logs land, and how to diagnose a failed build.
+and logs land, how to publish to the website, and how to diagnose a failed build.
 
 ---
 
@@ -19,6 +22,7 @@ and logs land, and how to diagnose a failed build.
 - [Build modes (the four gears)](#build-modes-the-four-gears)
 - [Environment knobs](#environment-knobs)
 - [Output](#output)
+- [Publishing to the website](#publishing-to-the-website)
 - [Logs and diagnosing failures](#logs-and-diagnosing-failures)
 - [What the post-processing scripts do](#what-the-post-processing-scripts-do)
 - [Running the steps manually](#running-the-steps-manually)
@@ -63,13 +67,21 @@ pip install -r requirements.txt
 reStructuredText; without it, every `.ipynb` page fails.
 
 ```shell
-apt install pandoc
+# Debian/Ubuntu
+sudo apt install pandoc
+
+# macOS (Homebrew)
+brew install pandoc
 ```
 
 **5. Install `make`** (if you don't already have it):
 
 ```shell
-apt install make
+# Debian/Ubuntu
+sudo apt install make
+
+# macOS — ships with the Xcode Command Line Tools
+xcode-select --install
 ```
 
 **6. Point the build at your docs directory.** Open `replace_sphinx_dir.py` and
@@ -98,7 +110,9 @@ Once set up, a full release-quality build is a single command from `docs/`:
 
 That reinstalls the package, cleans previous output, executes every example, and
 runs all the post-processing. It takes a while (everything is executed live). For
-day-to-day iteration you'll usually want one of the faster gears below.
+day-to-day iteration you'll usually want one of the faster gears below. When the
+build finishes and you want it live, see
+[Publishing to the website](#publishing-to-the-website).
 
 ---
 
@@ -161,7 +175,84 @@ build/html/
 ```
 
 Open `build/html/index.html` in a browser. (`build` is the Makefile's `BUILDDIR`;
-`source` is the `SOURCEDIR`.)
+`source` is the `SOURCEDIR`.) To put this output online, see
+[Publishing to the website](#publishing-to-the-website).
+
+---
+
+## Publishing to the website
+
+The documentation is served by **GitHub Pages** from the `gh-pages` branch of
+`vast-data/Orbit`, at **[vast-data.github.io/Orbit](https://vast-data.github.io/Orbit/)**.
+
+We publish the **locally built** `build/html/` — we deliberately do *not* rebuild
+in CI, because the live-execution build (running every example against a database)
+is too heavy for a hosted runner. The tool is
+[`ghp-import`](https://github.com/c-w/ghp-import), which force-replaces the
+`gh-pages` branch with the contents of a folder.
+
+### One-time setup
+
+```shell
+pip install ghp-import
+```
+
+Then, in the repository once: **Settings → Pages → Source → Deploy from a branch
+→ `gh-pages` / `/ (root)`**. (The first `ghp-import` push creates the branch;
+set the Pages source after that.)
+
+### Publish
+
+From `docs/`, after a build:
+
+```shell
+./refresh.sh                       # produce build/html
+ghp-import -n -p -f build/html
+```
+
+- `-n` adds a `.nojekyll` file. **Required** — without it, Pages' Jekyll step
+  strips Sphinx's `_static/`, `_sources/`, and `_images/` folders and all the
+  CSS/JS/icons disappear.
+- `-p` pushes to `origin`.
+- `-f` force-overwrites the generated `gh-pages` branch (it is throwaway output,
+  regenerated on every publish; your source and history stay on `main`).
+
+The site updates after the Pages build completes — check **Actions → "pages build
+and deployment"** (~1–5 min). If the change doesn't show, it's almost always
+browser/CDN cache: hard-refresh (Ctrl/Cmd+Shift+R) or open in a private window.
+
+### Authentication
+
+`ghp-import -p` pushes over your `origin` remote, and GitHub no longer accepts
+account passwords over HTTPS. Use one of:
+
+- a **Personal Access Token** (paste it at the password prompt; on macOS cache it
+  with `git config --global credential.helper osxkeychain`), or
+- **SSH**: `git remote set-url origin git@github.com:vast-data/Orbit.git`.
+
+### Size limit (important)
+
+GitHub Pages hard-caps a published site at **1 GB**, and it cannot be raised on
+any plan. Because these docs bake in live-executed figures, the build can bloat
+fast. Keep heavy media **out** of `build/html`:
+
+- Don't ship the trailer video or large GIFs inside the site — host them on
+  **GitHub Releases** or a CDN and reference them by URL.
+- Check before publishing:
+
+  ```shell
+  du -sh build/html                        # must be < 1 GB
+  du -ah build/html | sort -rh | head -20  # find the biggest files
+  ```
+
+### Use one publish path
+
+Publish **either** via `ghp-import` (branch method, used here) **or** via a Pages
+Actions workflow (`actions/deploy-pages`) — never both. The Actions path enforces
+the 1 GB *artifact* cap and will time out on a heavy build; the branch method does
+not. Since we publish locally with `ghp-import`, keep **Settings → Pages → Source
+= Deploy from a branch**, and don't add a `deploy-pages` workflow (or disable it
+if one exists) so the two don't fight.
 
 ---
 
@@ -244,21 +335,25 @@ python3 reverse_replace_sphinx_dir.py
 black ../.
 ```
 
-The finished site is in `build/html/`.
+The finished site is in `build/html/`. To publish it, see
+[Publishing to the website](#publishing-to-the-website).
 
 ---
 
 ## Troubleshooting
 
-**`vastorbit.__version__` is missing / metadata looks wrong.** Don't use an
-editable install (`pip install -e`) for the docs. Editable installs skip the real
-build step that generates the dynamic version (`setuptools_scm` / `_version.py`).
-`refresh.sh` deliberately does a regular `pip install ../.`.
+**Autodoc figures don't appear (or a `pip install -e` install misbehaves).** Don't
+use an editable install (`pip install -e`) for the docs. The build patches
+`SPHINX_DIRECTORY` inside the **installed** copy of `vastorbit` in `site-packages`
+so docstring figures resolve; an editable install points that "installed" copy
+back at your working tree, which changes the patch/reverse semantics and can leave
+your source tree in a patched state. `refresh.sh` deliberately does a regular,
+non-editable `pip install ../.`.
 
-**Autodoc figures don't appear.** The docstrings Sphinx reads come from the
-installed package, whose `SPHINX_DIRECTORY` placeholders must be patched. Run a
-`full` build (it patches the installed copy); `fast`/`file` rely on a previous
-`full` build having done so.
+**Autodoc figures still don't appear after a partial build.** The docstrings
+Sphinx reads come from the installed package, whose `SPHINX_DIRECTORY`
+placeholders must be patched. Run a `full` build (it patches the installed copy);
+`fast`/`file` rely on a previous `full` build having done so.
 
 **`file` mode warns about a missing doctree cache.** Run a `full` (or `fast`)
 build once first so `build/doctrees` exists; otherwise the single-file build
@@ -272,3 +367,8 @@ headless environment variables; if you call `make html` directly, export
 `MPLBACKEND=Agg`, `PLOTLY_RENDERER=json`, and `BROWSER=true` yourself.
 
 **Interleaved or hard-to-read logs.** Build with `JOBS=1`.
+
+**Published site is missing styling / shows a 404 / won't update.** See
+[Publishing to the website](#publishing-to-the-website): confirm `.nojekyll` is
+present (`ghp-import -n`), that the Pages build in **Actions** is green, that the
+build is under **1 GB**, and hard-refresh to clear CDN cache.
