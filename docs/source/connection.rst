@@ -6,9 +6,9 @@ Connection
 
 .. include:: logo_include.rst
 
-**Connecting to VAST Data Platform with VAST Orbit**
+**Connecting to VAST AI OS with VAST Orbit**
 
-VAST Orbit connects to the VAST Data Platform through Trino today, a powerful distributed SQL query engine (VAST's own engine is coming). This connection unlocks access to VAST DataBase tables, data lake files, and any other Trino-supported data source - all through one unified Python API.
+VAST Orbit connects to the VAST AI OS through Trino today, a powerful distributed SQL query engine (VAST's own engine is coming). This connection unlocks access to VAST DataBase tables, data lake files, and any other Trino-supported data source - all through one unified Python API.
 
 .. important::
 
@@ -625,4 +625,4 @@ power of VAST Orbit for federated analytics and AI development.
    - :ref:`getting_started` - Quick start guide
    - :ref:`user_guide` - VastFrame operations and federated queries
    - `Trino Documentation <https://trino.io/docs/current/>`__ - Trino reference
-   - `VAST Data Platform <https://www.vastdata.com/platform/database>`__ - VAST overview
+   - `VAST AI OS <https://www.vastdata.com/platform/database>`__ - VAST overview

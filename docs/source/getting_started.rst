@@ -7,7 +7,7 @@ Getting Started
 .. include:: logo_include.rst
 
 VAST Orbit is the open-source Python library for in-database data science on the
-VAST Data Platform. This guide takes you from an empty environment to your first
+VAST AI OS. This guide takes you from an empty environment to your first
 in-database query: install the library, connect to VAST, and prepare,
 explore, and model your data without ever moving it.
 
@@ -275,5 +275,5 @@ library.
 
 .. note::
 
-   VAST Orbit brings Python data science to the VAST Data Platform: prepare, explore,
+   VAST Orbit brings Python data science to the VAST AI OS: prepare, explore,
    analyze, and build AI - all with in-database execution at any scale.

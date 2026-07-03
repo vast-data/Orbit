@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "vastorbit"
 # Keep this in sync with vastorbit/__init__.py (__version__).
-version = "0.1.0b2"
+version = "0.1.0"
 description = "VAST Orbit simplifies data exploration, data cleaning, and machine learning in the VAST DataBase using in-database analytics."
 readme = "README.md"
 requires-python = ">=3.12"

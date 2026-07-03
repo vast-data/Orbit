@@ -6,7 +6,7 @@ Machine Learning
 
 .. include:: logo_include.rst
 
-Build, train, and deploy ML models at scale on VAST Data Platform.
+Build, train, and deploy ML models at scale on VAST AI OS.
 
 ____
 

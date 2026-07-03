@@ -35,7 +35,7 @@ Latest Release
           :class-card: custom-card
           
           The first public release of **VAST Orbit** — the open-source Python
-          library that brings data science directly to the **VAST Data Platform**.
+          library that brings data science directly to the **VAST AI OS**.
           Everything runs through the **VastFrame**, a familiar pandas-like interface
           that pushes each transformation, aggregation, and model down to the
           database.

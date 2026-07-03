@@ -60,7 +60,7 @@ ____
 
 .. tip::
 
-   All notebooks run on the VAST Data Platform. Download and execute them with
+   All notebooks run on the VAST AI OS. Download and execute them with
    your own data!
 
 .. toctree::

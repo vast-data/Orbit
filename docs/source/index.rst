@@ -43,7 +43,7 @@ In-database data science & AI
 
 VAST Orbit lets data scientists, analysts, and ML engineers run a complete
 workflow — preparing, exploring, analyzing, and modeling data — directly inside
-the VAST Data Platform, using the pandas- and scikit-learn-style API they already
+the VAST AI OS, using the pandas- and scikit-learn-style API they already
 know. Instead of copying data out to a notebook, VAST Orbit pushes the work down to
 where the data sits and brings only the answers back, so the same code runs on a
 kilobyte or a petabyte, against a table or a Parquet file, without a rewrite.
@@ -331,10 +331,10 @@ VAST:
     model.fit(enriched, ["age", "tenure"], "churn")
     predictions = model.predict(enriched)   # runs inside VAST
 
-Built on the VAST Data Platform
+Built on the VAST AI OS
 -------------------------------
 
-VAST Orbit is only as capable as the foundation beneath it. The VAST Data Platform
+VAST Orbit is only as capable as the foundation beneath it. The VAST AI OS
 unifies storage, database, and compute into one consistent system, so every asset —
 transactional tables, data-lake files, streaming events, and vector embeddings —
 lives in one place and speaks one language. When the infrastructure is that
@@ -344,7 +344,7 @@ second system to reconcile, and no scale ceiling to design around.
 VAST Orbit turns that consistency into a single queryable surface for Python, where
 one ``VastFrame`` reaches a table or a file, a gigabyte or an exabyte, all the same
 way. It works with **VAST 4.5 and later**. Learn more about the foundation it builds
-on at the `VAST Data Platform <https://www.vastdata.com/platform/database>`__.
+on at the `VAST AI OS <https://www.vastdata.com/platform/database>`__.
 
 Today that single query runs on Trino; VAST's own query engine is on the way and will
 become the default. Because you work through one ``VastFrame`` API, your code stays
@@ -434,7 +434,7 @@ Explore the documentation
 
 .. note::
 
-    VAST Orbit brings Python data science to the VAST Data Platform — query
+    VAST Orbit brings Python data science to the VAST AI OS — query
     anywhere, analyze everything, and build AI at any scale, all with in-database
     execution and zero data movement.
 

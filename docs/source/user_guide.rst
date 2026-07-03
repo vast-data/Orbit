@@ -17,7 +17,7 @@ User Guide
         </div>
     </div>
 
-Welcome to the VAST Orbit User Guide! This comprehensive tutorial series takes you from basics to advanced topics, teaching you how to leverage VAST Data Platform for data science at scale.
+Welcome to the VAST Orbit User Guide! This comprehensive tutorial series takes you from basics to advanced topics, teaching you how to leverage VAST AI OS for data science at scale.
 
 **What You'll Learn:**
 

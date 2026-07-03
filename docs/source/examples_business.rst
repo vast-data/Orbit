@@ -6,7 +6,7 @@ Business Examples
 
 .. include:: logo_include.rst
 
-Real-world ML applications on VAST Data Platform - from fraud detection to predictive maintenance.
+Real-world ML applications on VAST AI OS - from fraud detection to predictive maintenance.
 
 ____
 
