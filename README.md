@@ -1,3 +1,5 @@
+
+
 <p align="center">
 <img src='https://raw.githubusercontent.com/vast-data/Orbit/main/assets/img/vo_logo.png' width="480px">
 </p>
@@ -18,7 +20,12 @@
 
 ## Trailer Video
 
-<p align="center"><a href="https://raw.githubusercontent.com/vast-data/Orbit/main/docs/source/_static/website/video/vastorbit_trailer_med.mp4">▶ Watch the trailer</a></p>
+<p align="center">
+  <a href="https://vast-data.github.io/Orbit/index.html">
+    <img src="https://raw.githubusercontent.com/vast-data/Orbit/main/docs/source/_static/website/video/vastorbit_intro_poster.png"
+         width="100%" alt="VAST Orbit — Watch the trailer">
+  </a>
+</p>
 
 VAST Orbit is a Python library with scikit-learn-like functionality for conducting data science projects on data stored in VAST DataBase. Train models using familiar ``scikit-learn`` syntax and deploy them directly in the database, leveraging VAST's high-performance analytics capabilities. VAST Orbit offers robust support for the entire data science life cycle, uses a 'pipeline' mechanism to sequentialize data transformation operations, and provides beautiful graphical options.
 
